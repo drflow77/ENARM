@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enfermedad Diverticular — ENARM · MediCode Solutions</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --bg:#0a0e1a;--surface:#111827;--surface2:#1a2235;--surface3:#212d45;
+    --border:#2a3a5c;--text:#e8ecf4;--text-dim:#8896b3;
+    --accent:#38bdf8;--accent-glow:rgba(56,189,248,0.15);
+    --correct:#34d399;--correct-bg:rgba(52,211,153,0.1);--correct-border:rgba(52,211,153,0.4);
+    --wrong:#f87171;--wrong-bg:rgba(248,113,113,0.1);--wrong-border:rgba(248,113,113,0.4);
+    --gold:#fbbf24;--purple:#a78bfa;--pink:#f472b6;--teal:#2dd4bf;--orange:#fb923c;
+    --sidebar-w:280px;--radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;}
+  .sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;overflow-y:auto;z-index:100;transition:transform 0.3s;}
+  .sidebar-logo{padding:24px 20px 16px;border-bottom:1px solid var(--border);}
+  .logo-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--purple));padding:6px 14px;border-radius:100px;font-size:0.75rem;font-weight:800;color:var(--bg);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px;}
+  .sidebar-logo h2{font-size:1.1rem;font-weight:800;background:linear-gradient(135deg,var(--text),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .sidebar-logo p{font-size:0.72rem;color:var(--text-dim);margin-top:2px;}
+  .back-btn{display:flex;align-items:center;gap:8px;padding:14px 20px;color:var(--text-dim);font-size:0.8rem;text-decoration:none;border-bottom:1px solid var(--border);transition:color 0.2s;}
+  .back-btn:hover{color:var(--accent);}
+  .sidebar-nav{flex:1;padding:12px 0 24px;}
+  .specialty-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px 10px 20px;cursor:pointer;transition:background 0.2s;user-select:none;}
+  .specialty-header:hover{background:var(--surface2);}
+  .specialty-name{display:flex;align-items:center;gap:10px;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;}
+  .specialty-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;}
+  .chevron{font-size:0.65rem;color:var(--text-dim);transition:transform 0.3s;}
+  .specialty-header.open .chevron{transform:rotate(90deg);}
+  .topics-list{display:none;padding:4px 0 8px;}
+  .topics-list.open{display:block;}
+  .topic-link{display:flex;align-items:center;gap:10px;padding:8px 16px 8px 56px;font-size:0.78rem;color:var(--text-dim);text-decoration:none;transition:all 0.2s;border-left:2px solid transparent;line-height:1.4;}
+  .topic-link:hover{color:var(--text);background:var(--surface3);}
+  .topic-link.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-glow);font-weight:600;}
+  .topic-link.coming-soon{opacity:0.4;cursor:not-allowed;pointer-events:none;}
+  .topic-num{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--text-dim);min-width:20px;}
+  .badge-soon{margin-left:auto;background:rgba(136,150,179,0.1);color:var(--text-dim);font-size:0.62rem;font-weight:600;padding:2px 7px;border-radius:100px;}
+  .star-tag{margin-left:auto;font-size:0.7rem;}
+  .main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;}
+  .container{max-width:760px;margin:0 auto;padding:20px 16px 40px;width:100%;}
+  .mode-bar{display:flex;align-items:center;gap:10px;margin:24px 0 20px;background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:6px;width:fit-content;}
+  .mode-btn{padding:8px 20px;border-radius:100px;border:none;cursor:pointer;font-family:inherit;font-size:0.82rem;font-weight:600;transition:all 0.2s;color:var(--text-dim);background:transparent;}
+  .mode-btn.active{background:linear-gradient(135deg,var(--accent),var(--purple));color:var(--bg);}
+  .header{text-align:center;padding:40px 20px 24px;position:relative;overflow:hidden;}
+  .header::before{content:'';position:absolute;top:-60%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(56,189,248,0.08) 0%,transparent 70%);pointer-events:none;}
+  .header-badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);padding:6px 16px;border-radius:100px;font-size:0.78rem;color:var(--accent);font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:16px;}
+  .header h1{font-size:clamp(1.6rem,5vw,2.2rem);font-weight:800;background:linear-gradient(135deg,var(--text) 0%,var(--orange) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;}
+  .header p{color:var(--text-dim);font-size:0.95rem;max-width:500px;margin:0 auto;}
+  .progress-wrap{background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:12px 20px;margin:20px 0 28px;display:flex;align-items:center;gap:14px;}
+  .progress-bar-bg{flex:1;height:8px;background:var(--surface3);border-radius:100px;overflow:hidden;}
+  .progress-bar-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--orange),var(--pink));border-radius:100px;transition:width 0.5s ease;}
+  .progress-text{font-size:0.82rem;font-weight:600;color:var(--text-dim);white-space:nowrap;font-family:'JetBrains Mono',monospace;}
+  .question-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px;margin-bottom:20px;animation:slideIn 0.4s ease;position:relative;overflow:hidden;}
+  .question-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--orange),var(--pink),var(--purple));}
+  @keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .q-category{display:inline-flex;align-items:center;gap:6px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;padding:4px 12px;border-radius:100px;margin-bottom:14px;}
+  .cat-div{background:rgba(251,146,60,0.12);color:var(--orange);}
+  .cat-div2{background:rgba(244,114,182,0.12);color:var(--pink);}
+  .cat-tx{background:rgba(167,139,250,0.12);color:var(--purple);}
+  .cat-cx{background:rgba(248,113,113,0.12);color:var(--wrong);}
+  .cat-dx{background:rgba(56,189,248,0.12);color:var(--accent);}
+  .q-number{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--text-dim);margin-bottom:10px;}
+  .q-text{font-size:1.05rem;font-weight:600;line-height:1.55;margin-bottom:20px;color:var(--text);}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .option-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:all 0.2s;text-align:left;font-size:0.92rem;color:var(--text);font-family:inherit;line-height:1.5;width:100%;}
+  .option-btn:hover:not(.disabled){border-color:var(--accent);background:var(--accent-glow);transform:translateX(4px);}
+  .option-letter{display:flex;align-items:center;justify-content:center;min-width:30px;height:30px;border-radius:8px;background:var(--surface3);font-weight:700;font-size:0.82rem;color:var(--accent);flex-shrink:0;}
+  .option-btn.correct-answer{border-color:var(--correct-border);background:var(--correct-bg);}
+  .option-btn.correct-answer .option-letter{background:var(--correct);color:var(--bg);}
+  .option-btn.wrong-answer{border-color:var(--wrong-border);background:var(--wrong-bg);}
+  .option-btn.wrong-answer .option-letter{background:var(--wrong);color:var(--bg);}
+  .option-btn.disabled{cursor:default;}
+  .option-btn.disabled:hover{transform:none;}
+  .feedback{margin-top:18px;padding:18px;border-radius:12px;font-size:0.88rem;line-height:1.65;animation:fadeIn 0.3s ease;display:none;}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .feedback.show{display:block;}
+  .feedback.correct-fb{background:var(--correct-bg);border:1px solid var(--correct-border);color:var(--correct);}
+  .feedback.wrong-fb{background:var(--wrong-bg);border:1px solid var(--wrong-border);color:#fca5a5;}
+  .feedback-title{font-weight:700;font-size:0.95rem;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+  .feedback .tip{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.08);color:var(--text-dim);font-size:0.82rem;}
+  .feedback .tip strong{color:var(--gold);}
+  .feedback .ref{margin-top:8px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;}
+  .next-btn{display:none;margin:20px auto 0;padding:12px 32px;background:linear-gradient(135deg,var(--orange),var(--pink));color:var(--bg);border:none;border-radius:100px;font-family:inherit;font-size:0.92rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+  .next-btn:hover{transform:scale(1.05);}
+  .next-btn.show{display:block;}
+  .results{display:none;animation:slideIn 0.5s ease;}
+  .results.show{display:block;}
+  .results-header{text-align:center;padding:30px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;position:relative;overflow:hidden;}
+  .results-header::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--orange),var(--pink),var(--purple),var(--accent));}
+  .score-big{font-size:3.5rem;font-weight:800;background:linear-gradient(135deg,var(--orange),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .score-label{font-size:1.1rem;color:var(--text-dim);margin-top:4px;}
+  .score-msg{margin-top:12px;font-size:0.95rem;color:var(--text);font-weight:500;}
+  .chart-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px 20px;margin-bottom:20px;}
+  .chart-title{font-size:0.95rem;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+  .bar-chart{display:flex;flex-direction:column;gap:14px;}
+  .bar-row{display:flex;align-items:center;gap:12px;}
+  .bar-label{width:130px;font-size:0.78rem;font-weight:600;text-align:right;color:var(--text-dim);flex-shrink:0;}
+  .bar-track{flex:1;height:28px;background:var(--surface3);border-radius:8px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:8px;transition:width 1s ease;display:flex;align-items:center;padding-left:10px;font-size:0.75rem;font-weight:700;color:var(--bg);min-width:fit-content;}
+  .donut-wrap{display:flex;align-items:center;justify-content:center;gap:30px;flex-wrap:wrap;}
+  .donut-svg{width:160px;height:160px;}
+  .donut-legend{display:flex;flex-direction:column;gap:10px;}
+  .legend-item{display:flex;align-items:center;gap:10px;font-size:0.84rem;}
+  .legend-dot{width:12px;height:12px;border-radius:4px;flex-shrink:0;}
+  .review-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:12px;}
+  .review-card.review-correct{border-left:4px solid var(--correct);}
+  .review-card.review-wrong{border-left:4px solid var(--wrong);}
+  .review-q{font-size:0.88rem;font-weight:600;margin-bottom:8px;}
+  .review-answer{font-size:0.82rem;color:var(--text-dim);line-height:1.5;}
+  .review-answer strong{color:var(--correct);}
+  .review-answer em{color:var(--wrong);font-style:normal;}
+  .retry-btn{display:block;margin:28px auto;padding:14px 40px;background:linear-gradient(135deg,var(--orange),var(--pink));color:var(--bg);border:none;border-radius:100px;font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+  .retry-btn:hover{transform:scale(1.05);}
+  .hamburger{display:none;position:fixed;top:16px;left:16px;z-index:200;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px;cursor:pointer;font-size:1.2rem;}
+  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:90;}
+  .footer{text-align:center;padding:20px;color:var(--text-dim);font-size:0.72rem;opacity:0.5;}
+  @media(max-width:768px){
+    .sidebar{transform:translateX(-100%);}
+    .sidebar.open{transform:translateX(0);}
+    .main{margin-left:0;}
+    .hamburger{display:flex;align-items:center;justify-content:center;}
+    .overlay.show{display:block;}
+    .container{padding:12px 10px 30px;}
+    .question-card{padding:20px 16px;}
+    .bar-label{width:90px;font-size:0.72rem;}
+    .mode-bar{margin:16px auto;}
+  }
+</style>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-badge">🩺 MCS</div>
+    <h2>ENARM · Banco de Preguntas</h2>
+    <p>2025–2026</p>
+  </div>
+  <a href="../index.html" class="back-btn">← Volver al inicio</a>
+  <nav class="sidebar-nav">
+    <div class="specialty-group">
+      <div class="specialty-header open" onclick="toggleSpec(this)">
+        <div class="specialty-name">
+          <div class="specialty-icon" style="background:rgba(56,189,248,0.12);color:#38bdf8;">🔪</div>
+          Cirugía General
+        </div>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="topics-list open">
+        <a href="01-apendicitis.html" class="topic-link"><span class="topic-num">01</span>Abdomen agudo / Apendicitis<span class="star-tag">⭐</span></a>
+        <a href="02-patologia-biliar.html" class="topic-link"><span class="topic-num">02</span>Patología biliar<span class="star-tag">⭐</span></a>
+        <a href="03-enfermedad-diverticular.html" class="topic-link active"><span class="topic-num">03</span>Enfermedad diverticular<span class="star-tag">⭐</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">04</span>ERGE / Esofagitis<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">05</span>Cáncer esófago / gástrico<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">06</span>Gastritis / Úlcera péptica<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">07</span>Obesidad / Bariátrica<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">08</span>Patología perianal<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">09</span>Hernias / Esplenectomía<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">10</span>Insuf. venosa y arterial<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">11</span>Oclusión / Vólvulos<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">12</span>Cáncer de colon<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">13</span>Cáncer hepático<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">14</span>Cáncer páncreas<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">15</span>Pancreatitis<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">16</span>Mordeduras / Picaduras<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">17</span>Quemaduras<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">18</span>ATLS 1<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">19</span>ATLS 2<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">20</span>Patología quirúrgica<span class="badge-soon">Pronto</span></a>
+      </div>
+    </div>
+  </nav>
+</aside>
+
+<main class="main">
+<div class="container">
+
+  <div class="header">
+    <div class="header-badge"><span>🫁</span> ENARM · Cirugía General · Tema 03</div>
+    <h1>Enfermedad Diverticular</h1>
+    <p>Diverticulosis · Diverticulitis aguda · Complicaciones · Tratamiento</p>
+  </div>
+
+  <div style="display:flex;justify-content:center;">
+    <div class="mode-bar">
+      <button class="mode-btn active" id="btnRepaso" onclick="setMode('repaso')">📖 Modo Repaso</button>
+      <button class="mode-btn" id="btnExamen" onclick="setMode('examen')">⏱️ Modo Examen</button>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 15</div>
+  </div>
+
+  <div id="quizArea"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+  <div class="results" id="resultsArea"></div>
+
+</div>
+<div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+</main>
+
+<script>
+let examMode = false;
+function setMode(mode){
+  examMode=(mode==='examen');
+  document.getElementById('btnRepaso').classList.toggle('active',!examMode);
+  document.getElementById('btnExamen').classList.toggle('active',examMode);
+  init();
+}
+
+const questions = [
+  {
+    cat:"div", catName:"Diverticulosis",
+    q:"¿Cuál es la localización más frecuente de los divertículos del colon en la población occidental?",
+    opts:["Colon derecho (ciego y ascendente)","Colon sigmoides","Colon transverso","Recto"],
+    ans:1,
+    exp:"En la población occidental, el 90-95% de los divertículos colónicos se localizan en el colon sigmoides. Esto se debe a la alta presión intraluminal generada en este segmento por la dieta baja en fibra. En contraste, en Asia los divertículos del colon derecho son más frecuentes. La GPC de Enfermedad Diverticular del Colon 2014 establece esta distribución como base para el manejo.",
+    tip:"<strong>Occidente vs Oriente:</strong> En México y países occidentales → sigmoides. En Japón y países asiáticos → colon derecho. Esta diferencia tiene implicación clínica: diverticulitis de colon derecho puede confundirse con apendicitis. Si el paciente asiático tiene 'apendicitis' y el apéndice está normal → busca divertículo de colon derecho.",
+    ref:"GPC: Enfermedad diverticular del colon. CENETEC. 2014."
+  },
+  {
+    cat:"div", catName:"Diverticulosis",
+    q:"¿Cuál es el principal factor de riesgo modificable para el desarrollo de diverticulosis del colon?",
+    opts:["Consumo elevado de carne roja","Dieta baja en fibra","Sedentarismo","Infección por H. pylori"],
+    ans:1,
+    exp:"La dieta baja en fibra es el principal factor de riesgo modificable para diverticulosis. La fibra dietética aumenta el bolo fecal, reduce la presión intraluminal y acelera el tránsito intestinal, previniendo la herniación de la mucosa. La GPC recomienda una ingesta de fibra de 25-30g/día como medida preventiva y de control de síntomas en diverticulosis.",
+    tip:"<strong>Fisiopatología en 3 pasos:</strong> Poca fibra → heces duras y escasas → alta presión en sigmoides → herniación de mucosa por puntos débiles (donde vasos penetrantes atraviesan la pared muscular). Los divertículos son en realidad pseudodivertículos: solo hernia mucosa y submucosa, no pared muscular completa.",
+    ref:"GPC: Enfermedad diverticular del colon. CENETEC. 2014."
+  },
+  {
+    cat:"div2", catName:"Diverticulitis Aguda",
+    q:"Paciente masculino de 58 años con dolor en fosa ilíaca izquierda de 3 días de evolución, fiebre de 38.1°C, cambio en el hábito intestinal y leucocitosis. ¿Cuál es el diagnóstico más probable?",
+    opts:["Síndrome de intestino irritable","Diverticulitis aguda","Cáncer de colon sigmoides","Colitis ulcerativa"],
+    ans:1,
+    exp:"La diverticulitis aguda se presenta clásicamente con dolor en fosa ilíaca izquierda (el 'lado derecho' de la patología abdominal izquierda), fiebre y leucocitosis. Se considera la 'apendicitis izquierda'. La GPC establece que la combinación de dolor en FII + fiebre + cambios en el hábito intestinal en un paciente mayor de 50 años orienta fuertemente a diverticulitis aguda.",
+    tip:"<strong>Regla de los lados:</strong> Apendicitis = FID, Diverticulitis = FII. Edad típica: apendicitis en jóvenes, diverticulitis en mayores de 40-50 años. El cambio en el hábito intestinal (estreñimiento o diarrea) distingue diverticulitis del cólico renal que tiene irradiación a genitales sin cambios en hábito.",
+    ref:"GPC: Enfermedad diverticular del colon. CENETEC. 2014."
+  },
+  {
+    cat:"dx", catName:"Diagnóstico",
+    q:"¿Cuál es el estudio de imagen de elección para confirmar el diagnóstico y clasificar la severidad de la diverticulitis aguda?",
+    opts:["Radiografía simple de abdomen","Ultrasonido abdominal","Tomografía computarizada de abdomen y pelvis con contraste","Colonoscopia urgente"],
+    ans:2,
+    exp:"La TC de abdomen y pelvis con contraste IV es el estudio de elección para diverticulitis aguda. Tiene sensibilidad del 94% y especificidad del 99%. Permite confirmar el diagnóstico, identificar complicaciones (absceso, perforación libre, fístula, obstrucción) y clasificar la severidad (Hinchey). La colonoscopia está contraindicada en fase aguda por riesgo de perforación.",
+    tip:"<strong>Colonoscopia = Contraindicada en agudo:</strong> La colonoscopia se realiza 6-8 semanas DESPUÉS de la resolución del episodio agudo para descartar neoplasia (el cáncer de colon puede presentarse igual que la diverticulitis). La TC es el estándar de oro en agudo. El USG puede usarse en embarazadas o cuando no hay TC disponible.",
+    ref:"GPC: Enfermedad diverticular del colon. CENETEC. 2014."
+  },
+  {
+    cat:"dx", catName:"Diagnóstico",
+    q:"La clasificación de Hinchey se utiliza para estadificar las complicaciones de la diverticulitis aguda. ¿Qué describe el estadio IV de Hinchey?",
+    opts:["Flemón pericólico sin absceso","Absceso pericólico o mesocólico","Absceso pélvico lejano","Peritonitis fecaloidea generalizada"],
+    ans:3,
+    exp:"La clasificación de Hinchey: I = flemón/absceso pericólico, II = absceso pélvico o distante, III = peritonitis purulenta generalizada, IV = peritonitis fecaloidea generalizada. El estadio IV representa la complicación más grave con perforación libre y contaminación fecal de la cavidad peritoneal, con la mayor mortalidad.",
+    tip:"<strong>Hinchey resumido:</strong> I-II = Absceso (manejable con drenaje ± antibióticos). III = Peritonitis purulenta (cirugía, posible lavado laparoscópico). IV = Peritonitis fecal (cirugía de Hartmann urgente, mortalidad alta). A mayor Hinchey, mayor agresividad del tratamiento.",
+    ref:"GPC: Enfermedad diverticular del colon. CENETEC. 2014."
+  },
+  {
+    cat:"tx", catName:"Tratamiento",
+    q:"Paciente con diverticulitis aguda no complicada (Hinchey I leve), sin datos de sepsis, tolerando vía oral. ¿Cuál es el manejo recomendado por la GPC?",
+    opts:["Hospitalización obligatoria con antibióticos IV","Tratamiento ambulatorio con antibióticos orales, dieta líquida y seguimiento en 48-72h","Cirugía electiva programada inmediata","Colonoscopia diagnóstica urgente"],
+    ans:1,
+    exp:"La diverticulitis aguda no complicada leve puede manejarse de forma ambulatoria con antibióticos orales (ciprofloxacino + metronidazol o amoxicilina/clavulanato), dieta líquida y seguimiento estrecho. La GPC establece que pacientes seleccionados sin comorbilidades, con buen apoyo familiar y tolerancia oral pueden evitar la hospitalización, con reevaluación en 48-72 horas.",
+    tip:"<strong>Criterios para manejo ambulatorio:</strong> Sin fiebre alta, sin datos de sepsis, tolera líquidos, sin inmunosupresión, sin comorbilidades graves, buen apoyo social y posibilidad de reevaluación rápida. Si no cumple TODOS estos criterios → hospitalización. La diverticulitis 'moderada' siempre se hospitaliza.",
+    ref:"GPC: Enfermedad diverticular del colon. CENETEC. 2014."
+  },
+  {
+    cat:"tx", catName:"Tratamiento",
+    q:"¿Cuál es el esquema antibiótico oral de elección para diverticulitis aguda no complicada en manejo ambulatorio?",
+    opts:["Amoxicilina oral monoterapia 500mg c/8h","Ciprofloxacino 500mg c/12h + Metronidazol 500mg c/8h por 7-10 días","Doxiciclina 100mg c/12h","Azitromicina 500mg/día por 5 días"],
+    ans:1,
+    exp:"La combinación de ciprofloxacino + metronidazol proporciona cobertura para la flora colónica mixta: gramnegativos aerobios (ciprofloxacino) y anaerobios (metronidazol). La GPC recomienda este esquema por 7-10 días en diverticulitis no complicada ambulatoria. Como alternativa: amoxicilina/clavulanato que cubre ambos espectros en un solo fármaco.",
+    tip:"<strong>Cobertura dual obligatoria:</strong> La flora del colon incluye E. coli, Klebsiella, Bacteroides fragilis. Siempre necesitas cobertura Gram negativa + anaeróbica. Ciprofloxacino cubre Gram negativos; metronidazol cubre anaerobios. Alternativa práctica: Augmentin (amoxicilina/clavulanato) = cubre ambos en un solo medicamento.",
+    ref:"GPC: Enfermedad diverticular del colon. CENETEC. 2014."
+  },
+  {
+    cat:"cx", catName:"Complicaciones",
+    q:"Paciente con diverticulitis aguda complicada con absceso pericólico de 5cm en TC (Hinchey II). ¿Cuál es el manejo de primera línea?",
+    opts:["Cirugía de Hartmann urgente","Antibióticos IV + drenaje percutáneo guiado por imagen","Antibióticos IV solos sin drenaje","Colostomía de derivación inmediata"],
+    ans:1,
+    exp:"Para abscesos pericólicos >3-4cm (Hinchey II), el manejo de elección es antibióticos IV de amplio espectro combinados con drenaje percutáneo guiado por TC o ultrasonido. Este abordaje permite tratar el absceso, estabilizar al paciente y diferir la cirugía electiva (si se necesita) en mejores condiciones. Abscesos <3cm pueden responder solo a antibióticos IV.",
+    tip:"<strong>Regla del tamaño:</strong> Absceso &lt;3cm → antibióticos IV solos. Absceso ≥3-4cm → drenaje percutáneo + antibióticos. Absceso no accesible o peritonitis → cirugía. El drenaje percutáneo exitoso permite cirugía electiva posterior (Hartmann o resección primaria con anastomosis) en 6-8 semanas con menor morbimortalidad.",
+    ref:"GPC: Enfermedad diverticular del colon. CENETEC. 2014."
+  },
+  {
+    cat:"cx", catName:"Complicaciones",
+    q:"¿Cuál es la complicación de la diverticulitis aguda que más frecuentemente requiere cirugía de urgencia?",
+    opts:["Absceso pericólico","Perforación libre con peritonitis fecaloidea (Hinchey IV)","Fístula colovesical","Obstrucción intestinal parcial"],
+    ans:1,
+    exp:"La perforación libre con peritonitis fecaloidea (Hinchey IV) es la complicación más grave y requiere cirugía de urgencia inmediata. La mortalidad es elevada (10-30%). El procedimiento de elección es la operación de Hartmann (resección del segmento afectado + colostomía terminal + cierre del muñón rectal), aunque en centros especializados puede considerarse resección con anastomosis primaria protegida.",
+    tip:"<strong>Operación de Hartmann:</strong> Resección sigmoides + colostomía terminal + cierre de muñón rectal. Es la cirugía más segura en peritonitis fecal. La reconstitución del tránsito (reversa de Hartmann) se realiza 3-6 meses después cuando el paciente está recuperado. El 30-40% de los pacientes nunca se revierte.",
+    ref:"GPC: Enfermedad diverticular del colon. CENETEC. 2014."
+  },
+  {
+    cat:"cx", catName:"Complicaciones",
+    q:"Paciente masculino de 62 años con historia de diverticulitis a repetición que ahora presenta neumaturia (gas en orina) y fecaluria. ¿Cuál es la complicación más probable?",
+    opts:["Infección urinaria complicada","Fístula colovesical","Absceso perivesical","Cáncer de vejiga"],
+    ans:1,
+    exp:"La fístula colovesical (enterovesical) es la fístula más común de la diverticulitis complicada (65% de las fístulas diverticulares). Se presenta con neumaturia (gas en orina), fecaluria y cistitis recurrente. Es más frecuente en hombres porque en mujeres el útero interpone entre colon y vejiga. La GPC señala que el diagnóstico se confirma con TC, colonoscopia y cistoscopia.",
+    tip:"<strong>Fístulas diverticulares por frecuencia:</strong> 1° Colovesical (65%), 2° Colovaginal (25% — solo en mujeres, especialmente histerectomizadas), 3° Coloentérica, 4° Colocutánea. Neumaturia = gas en orina = fístula colovesical hasta demostrar lo contrario. Tríada: neumaturia + fecaluria + cistitis recurrente.",
+    ref:"GPC: Enfermedad diverticular del colon. CENETEC. 2014."
+  },
+  {
+    cat:"tx", catName:"Tratamiento Quirúrgico",
+    q:"¿Cuántos episodios de diverticulitis aguda no complicada son indicación para considerar cirugía electiva según la GPC?",
+    opts:["Después del primer episodio siempre","Después de 2 episodios en cualquier paciente","La indicación es individualizada; no hay número fijo de episodios","Después de 5 episodios documentados"],
+    ans:2,
+    exp:"La GPC y las guías internacionales actuales han abandonado la regla rígida de 'cirugía electiva después de 2 episodios'. Actualmente la indicación quirúrgica electiva es individualizada, considerando: frecuencia e intensidad de episodios, calidad de vida, comorbilidades, edad, complicaciones asociadas y preferencias del paciente. Pacientes con episodios frecuentes o complicados se benefician de cirugía electiva.",
+    tip:"<strong>Cambio de paradigma 2014:</strong> Antes: 2 episodios → cirugía. Ahora: decisión individualizada. Factores que favorecen cirugía electiva: episodios frecuentes que afectan calidad de vida, incapacidad de descartar neoplasia, fístula, estenosis, inmunosupresión, episodio complicado previo. La cirugía electiva laparoscópica tiene baja morbimortalidad.",
+    ref:"GPC: Enfermedad diverticular del colon. CENETEC. 2014."
+  },
+  {
+    cat:"div", catName:"Diverticulosis",
+    q:"¿Cuál es la complicación más frecuente de la diverticulosis del colon (sin infección)?",
+    opts:["Perforación espontánea","Hemorragia diverticular","Vólvulo sigmoideo","Obstrucción intestinal crónica"],
+    ans:1,
+    exp:"La hemorragia diverticular es la complicación más frecuente de la diverticulosis, representando el 30-40% de las hemorragias digestivas bajas graves. Ocurre por erosión de los vasa recta (arterias penetrantes) en el cuello del divertículo. Es típicamente indolora, masiva y autolimitada en el 70-80% de los casos. La GPC señala que el colon derecho es el sitio más frecuente de sangrado aunque los divertículos predominen en sigmoides.",
+    tip:"<strong>Hemorragia diverticular:</strong> Indolora + masiva + autolimitada (70-80%). Si no cede → colonoscopia terapéutica (primera línea), angiografía con embolización (segunda línea), cirugía (última opción). Diagnóstico: angiografía-TC o colonoscopia. No confundir con diverticulitis (que tiene dolor e infección).",
+    ref:"GPC: Enfermedad diverticular del colon. CENETEC. 2014."
+  },
+  {
+    cat:"dx", catName:"Diagnóstico",
+    q:"¿Por qué está contraindicada la colonoscopia en la fase aguda de la diverticulitis?",
+    opts:["Porque no modifica el manejo en ningún caso","Por riesgo de perforación del segmento inflamado","Porque el preparado intestinal es tóxico en infección","Por riesgo de bacteriemia fatal"],
+    ans:1,
+    exp:"La colonoscopia está contraindicada en diverticulitis aguda porque la insuflación de aire y la manipulación del endoscopio sobre el segmento inflamado aumentan significativamente el riesgo de perforación. La GPC establece que la colonoscopia se realiza 6-8 semanas después de la resolución del episodio agudo, principalmente para descartar neoplasia de colon que puede simular diverticulitis.",
+    tip:"<strong>Colonoscopia diferida obligatoria:</strong> Todo paciente con diverticulitis aguda debe tener colonoscopia 6-8 semanas después para descartar cáncer de colon. El cáncer puede presentarse exactamente igual que la diverticulitis (dolor en FII, cambios en hábito, leucocitosis) y puede confundirse en la TC. Esta colonoscopia diferida es estándar de atención.",
+    ref:"GPC: Enfermedad diverticular del colon. CENETEC. 2014."
+  },
+  {
+    cat:"div2", catName:"Diverticulitis Aguda",
+    q:"Paciente de 45 años inmunosuprimido por trasplante renal presenta diverticulitis aguda en TC. ¿Cómo modifica la inmunosupresión el manejo?",
+    opts:["No cambia el manejo, se trata igual que paciente sano","Requiere hospitalización, antibióticos IV y umbral quirúrgico más bajo","Solo requiere doblar la dosis de antibióticos orales","Contraindicación absoluta para cirugía"],
+    ans:1,
+    exp:"Los pacientes inmunosuprimidos (trasplantados, con corticosteroides crónicos, quimioterapia, VIH) con diverticulitis aguda tienen presentación clínica atenuada (menos fiebre, dolor leve) pero mayor riesgo de complicaciones y perforación. La GPC establece que en inmunosuprimidos se requiere hospitalización siempre, antibióticos IV y umbral quirúrgico más bajo debido al mayor riesgo de progresión rápida.",
+    tip:"<strong>Inmunosupresión = Mayor vigilancia:</strong> Los corticosteroides enmascaran la peritonitis (reducen la respuesta inflamatoria). Un paciente en esteroides puede tener peritonitis franca sin signos peritoneales claros. La diverticulitis en inmunosuprimidos tiene 3 veces más mortalidad. Umbral más bajo para TC y para cirugía.",
+    ref:"GPC: Enfermedad diverticular del colon. CENETEC. 2014."
+  },
+  {
+    cat:"tx", catName:"Tratamiento",
+    q:"¿Cuál es la recomendación dietética a largo plazo para pacientes con diverticulosis para prevenir episodios de diverticulitis?",
+    opts:["Dieta alta en carne roja y baja en vegetales","Dieta alta en fibra (25-30g/día) con adecuada hidratación","Dieta líquida permanente","Ayuno intermitente 16/8"],
+    ans:1,
+    exp:"La dieta alta en fibra (25-30g/día) con adecuada hidratación es la recomendación preventiva principal para pacientes con diverticulosis. La fibra aumenta el bolo fecal, reduce la presión intraluminal y facilita el tránsito intestinal, reduciendo el riesgo de inflamación diverticular. La GPC también recomienda actividad física regular y evitar el estreñimiento.",
+    tip:"<strong>Desmitificando la dieta:</strong> Antes se decía 'evitar semillas, nueces y palomitas' para prevenir diverticulitis. Estudios actuales muestran que NO hay evidencia de que estos alimentos precipiten diverticulitis. La GPC 2014 ya no restringe semillas ni nueces. Lo que sí funciona: fibra + hidratación + ejercicio.",
+    ref:"GPC: Enfermedad diverticular del colon. CENETEC. 2014."
+  }
+];
+
+let currentQ=0, score=0, answers=[];
+let catStats={div:{c:0,t:0},div2:{c:0,t:0},dx:{c:0,t:0},tx:{c:0,t:0},cx:{c:0,t:0}};
+
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+
+function init(){
+  shuffle(questions);
+  currentQ=0;score=0;answers=[];
+  catStats={div:{c:0,t:0},div2:{c:0,t:0},dx:{c:0,t:0},tx:{c:0,t:0},cx:{c:0,t:0}};
+  const r=document.getElementById('resultsArea');
+  r.classList.remove('show');r.innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const qa=questions[currentQ],total=questions.length;
+  document.getElementById('progressBar').style.width=(currentQ/total*100)+'%';
+  document.getElementById('progressText').textContent=`${currentQ+1} / ${total}`;
+  document.getElementById('nextBtn').classList.remove('show');
+  const letters=['A','B','C','D'];
+  let html=`<div class="question-card">
+    <div class="q-category cat-${qa.cat}">${qa.catName}</div>
+    <div class="q-number">Pregunta ${currentQ+1} de ${total}</div>
+    <div class="q-text">${qa.q}</div>
+    <div class="options">`;
+  qa.opts.forEach((opt,i)=>{
+    html+=`<button class="option-btn" onclick="selectAnswer(${i})"><span class="option-letter">${letters[i]}</span><span>${opt}</span></button>`;
+  });
+  html+=`</div><div class="feedback" id="feedback"></div></div>`;
+  document.getElementById('quizArea').innerHTML=html;
+}
+
+function selectAnswer(idx){
+  const qa=questions[currentQ];
+  const btns=document.querySelectorAll('.option-btn');
+  const fb=document.getElementById('feedback');
+  const isCorrect=idx===qa.ans;
+  btns.forEach((btn,i)=>{btn.classList.add('disabled');btn.onclick=null;if(i===qa.ans)btn.classList.add('correct-answer');if(i===idx&&!isCorrect)btn.classList.add('wrong-answer');});
+  if(!catStats[qa.cat])catStats[qa.cat]={c:0,t:0};
+  catStats[qa.cat].t++;
+  if(isCorrect){score++;catStats[qa.cat].c++;}
+  if(!examMode){
+    fb.className=isCorrect?'feedback correct-fb show':'feedback wrong-fb show';
+    fb.innerHTML=isCorrect
+      ?`<div class="feedback-title">✅ ¡Correcto!</div><div>${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`
+      :`<div class="feedback-title">❌ Incorrecto</div><div><strong>Respuesta correcta:</strong> ${qa.opts[qa.ans]}</div><div style="margin-top:8px;">${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;
+  }
+  answers.push({q:qa.q,correct:isCorrect,userAns:qa.opts[idx],correctAns:qa.opts[qa.ans],cat:qa.catName,exp:qa.exp,ref:qa.ref});
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion(){currentQ++;if(currentQ>=questions.length)showResults();else renderQuestion();}
+
+function showResults(){
+  document.getElementById('quizArea').innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  document.getElementById('progressBar').style.width='100%';
+  document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;
+  const pct=Math.round((score/questions.length)*100);
+  const msg=pct>=90?'🏆 ¡Excelente! Dominas la enfermedad diverticular.':pct>=70?'👏 ¡Muy bien! Refuerza las áreas con menor puntaje.':pct>=50?'📚 Aceptable, repasa la GPC de enfermedad diverticular.':'⚠️ Necesitas repasar clasificación de Hinchey y manejo quirúrgico.';
+  const cats=[
+    {name:'Diverticulosis',key:'div',color:'#fb923c'},
+    {name:'Diverticulitis Aguda',key:'div2',color:'#f472b6'},
+    {name:'Diagnóstico',key:'dx',color:'#38bdf8'},
+    {name:'Tratamiento',key:'tx',color:'#a78bfa'},
+    {name:'Complicaciones',key:'cx',color:'#f87171'},
+  ];
+  let html=`<div class="results-header">
+    <div class="score-big">${pct}%</div>
+    <div class="score-label">${score} de ${questions.length} correctas</div>
+    <div class="score-msg">${msg}</div>
+  </div>
+  <div class="chart-section">
+    <div class="chart-title"><span>📊</span> Rendimiento por Categoría</div>
+    <div class="bar-chart">`;
+  cats.forEach(cat=>{
+    const s=catStats[cat.key]||{c:0,t:0};
+    const p=s.t>0?Math.round((s.c/s.t)*100):0;
+    html+=`<div class="bar-row"><div class="bar-label">${cat.name}</div><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${cat.color};">${p}% (${s.c}/${s.t})</div></div></div>`;
+  });
+  html+=`</div></div>
+  <div class="chart-section">
+    <div class="chart-title"><span>🎯</span> Resumen General</div>
+    <div class="donut-wrap">
+      <svg class="donut-svg" viewBox="0 0 42 42">
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a2235" stroke-width="4"/>
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#34d399" stroke-width="4" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="25" stroke-linecap="round"/>
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#f87171" stroke-width="4" stroke-dasharray="${100-pct} ${pct}" stroke-dashoffset="${25-pct}" stroke-linecap="round"/>
+        <text x="21" y="22.5" text-anchor="middle" font-size="6" font-weight="700" fill="#e8ecf4" font-family="Plus Jakarta Sans">${pct}%</text>
+      </svg>
+      <div class="donut-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#34d399;"></div>Correctas: ${score}</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Incorrectas: ${questions.length-score}</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#38bdf8;"></div>Total: ${questions.length}</div>
+      </div>
+    </div>
+  </div>
+  <div class="chart-section">
+    <div class="chart-title"><span>📋</span> Revisión de Respuestas</div>`;
+  answers.forEach((a,i)=>{
+    html+=`<div class="review-card ${a.correct?'review-correct':'review-wrong'}">
+      <div class="review-q">${i+1}. ${a.q} <span style="font-size:0.72rem;color:var(--text-dim);">[${a.cat}]</span></div>
+      <div class="review-answer">${a.correct?`<strong>✅ ${a.correctAns}</strong>`:`<em>❌ Tu respuesta: ${a.userAns}</em><br><strong>✅ Correcta: ${a.correctAns}</strong>`}</div>
+      <div style="margin-top:8px;font-size:0.8rem;color:var(--text-dim);line-height:1.5;">${a.exp}</div>
+      <div style="margin-top:6px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;">📖 ${a.ref}</div>
+    </div>`;
+  });
+  html+=`</div><button class="retry-btn" onclick="init()">🔄 Reintentar</button>`;
+  const res=document.getElementById('resultsArea');
+  res.innerHTML=html;res.classList.add('show');
+  res.scrollIntoView({behavior:'smooth'});
+}
+
+function toggleSpec(h){h.classList.toggle('open');h.nextElementSibling.classList.toggle('open');}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+init();
+</script>
+</body>
+</html>
