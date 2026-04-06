@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cáncer de Esófago / Cáncer Gástrico — ENARM · MediCode Solutions</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --bg:#0a0e1a;--surface:#111827;--surface2:#1a2235;--surface3:#212d45;
+    --border:#2a3a5c;--text:#e8ecf4;--text-dim:#8896b3;
+    --accent:#38bdf8;--accent-glow:rgba(56,189,248,0.15);
+    --correct:#34d399;--correct-bg:rgba(52,211,153,0.1);--correct-border:rgba(52,211,153,0.4);
+    --wrong:#f87171;--wrong-bg:rgba(248,113,113,0.1);--wrong-border:rgba(248,113,113,0.4);
+    --gold:#fbbf24;--purple:#a78bfa;--pink:#f472b6;--teal:#2dd4bf;--orange:#fb923c;
+    --red:#ef4444;--rose:#fb7185;
+    --sidebar-w:280px;--radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;}
+  .sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;overflow-y:auto;z-index:100;transition:transform 0.3s;}
+  .sidebar-logo{padding:24px 20px 16px;border-bottom:1px solid var(--border);}
+  .logo-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--purple));padding:6px 14px;border-radius:100px;font-size:0.75rem;font-weight:800;color:var(--bg);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px;}
+  .sidebar-logo h2{font-size:1.1rem;font-weight:800;background:linear-gradient(135deg,var(--text),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .sidebar-logo p{font-size:0.72rem;color:var(--text-dim);margin-top:2px;}
+  .back-btn{display:flex;align-items:center;gap:8px;padding:14px 20px;color:var(--text-dim);font-size:0.8rem;text-decoration:none;border-bottom:1px solid var(--border);transition:color 0.2s;}
+  .back-btn:hover{color:var(--accent);}
+  .sidebar-nav{flex:1;padding:12px 0 24px;}
+  .specialty-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px 10px 20px;cursor:pointer;transition:background 0.2s;user-select:none;}
+  .specialty-header:hover{background:var(--surface2);}
+  .specialty-name{display:flex;align-items:center;gap:10px;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;}
+  .specialty-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;}
+  .chevron{font-size:0.65rem;color:var(--text-dim);transition:transform 0.3s;}
+  .specialty-header.open .chevron{transform:rotate(90deg);}
+  .topics-list{display:none;padding:4px 0 8px;}
+  .topics-list.open{display:block;}
+  .topic-link{display:flex;align-items:center;gap:10px;padding:8px 16px 8px 56px;font-size:0.78rem;color:var(--text-dim);text-decoration:none;transition:all 0.2s;border-left:2px solid transparent;line-height:1.4;}
+  .topic-link:hover{color:var(--text);background:var(--surface3);}
+  .topic-link.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-glow);font-weight:600;}
+  .topic-link.coming-soon{opacity:0.4;cursor:not-allowed;pointer-events:none;}
+  .topic-num{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--text-dim);min-width:20px;}
+  .badge-soon{margin-left:auto;background:rgba(136,150,179,0.1);color:var(--text-dim);font-size:0.62rem;font-weight:600;padding:2px 7px;border-radius:100px;}
+  .star-tag{margin-left:auto;font-size:0.7rem;}
+  .main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;}
+  .container{max-width:760px;margin:0 auto;padding:20px 16px 40px;width:100%;}
+  .mode-bar{display:flex;align-items:center;gap:10px;margin:24px 0 20px;background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:6px;width:fit-content;}
+  .mode-btn{padding:8px 20px;border-radius:100px;border:none;cursor:pointer;font-family:inherit;font-size:0.82rem;font-weight:600;transition:all 0.2s;color:var(--text-dim);background:transparent;}
+  .mode-btn.active{background:linear-gradient(135deg,var(--rose),var(--red));color:#fff;}
+  .header{text-align:center;padding:40px 20px 24px;position:relative;overflow:hidden;}
+  .header::before{content:'';position:absolute;top:-60%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(239,68,68,0.07) 0%,transparent 70%);pointer-events:none;}
+  .header-badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);padding:6px 16px;border-radius:100px;font-size:0.78rem;color:var(--rose);font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:16px;}
+  .header h1{font-size:clamp(1.6rem,5vw,2.2rem);font-weight:800;background:linear-gradient(135deg,var(--text) 0%,var(--rose) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;}
+  .header p{color:var(--text-dim);font-size:0.95rem;max-width:500px;margin:0 auto;}
+  .progress-wrap{background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:12px 20px;margin:20px 0 28px;display:flex;align-items:center;gap:14px;}
+  .progress-bar-bg{flex:1;height:8px;background:var(--surface3);border-radius:100px;overflow:hidden;}
+  .progress-bar-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--rose),var(--purple));border-radius:100px;transition:width 0.5s ease;}
+  .progress-text{font-size:0.82rem;font-weight:600;color:var(--text-dim);white-space:nowrap;font-family:'JetBrains Mono',monospace;}
+  .question-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px;margin-bottom:20px;animation:slideIn 0.4s ease;position:relative;overflow:hidden;}
+  .question-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--rose),var(--purple),var(--accent));}
+  @keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .q-category{display:inline-flex;align-items:center;gap:6px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;padding:4px 12px;border-radius:100px;margin-bottom:14px;}
+  .cat-eso{background:rgba(251,113,133,0.12);color:var(--rose);}
+  .cat-gas{background:rgba(167,139,250,0.12);color:var(--purple);}
+  .cat-tx{background:rgba(56,189,248,0.12);color:var(--accent);}
+  .cat-dx{background:rgba(52,211,153,0.12);color:var(--correct);}
+  .cat-fx{background:rgba(251,191,36,0.12);color:var(--gold);}
+  .q-number{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--text-dim);margin-bottom:10px;}
+  .q-text{font-size:1.05rem;font-weight:600;line-height:1.55;margin-bottom:20px;color:var(--text);}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .option-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:all 0.2s;text-align:left;font-size:0.92rem;color:var(--text);font-family:inherit;line-height:1.5;width:100%;}
+  .option-btn:hover:not(.disabled){border-color:var(--rose);background:rgba(251,113,133,0.08);transform:translateX(4px);}
+  .option-letter{display:flex;align-items:center;justify-content:center;min-width:30px;height:30px;border-radius:8px;background:var(--surface3);font-weight:700;font-size:0.82rem;color:var(--rose);flex-shrink:0;}
+  .option-btn.correct-answer{border-color:var(--correct-border);background:var(--correct-bg);}
+  .option-btn.correct-answer .option-letter{background:var(--correct);color:var(--bg);}
+  .option-btn.wrong-answer{border-color:var(--wrong-border);background:var(--wrong-bg);}
+  .option-btn.wrong-answer .option-letter{background:var(--wrong);color:var(--bg);}
+  .option-btn.disabled{cursor:default;}
+  .option-btn.disabled:hover{transform:none;}
+  .feedback{margin-top:18px;padding:18px;border-radius:12px;font-size:0.88rem;line-height:1.65;animation:fadeIn 0.3s ease;display:none;}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .feedback.show{display:block;}
+  .feedback.correct-fb{background:var(--correct-bg);border:1px solid var(--correct-border);color:var(--correct);}
+  .feedback.wrong-fb{background:var(--wrong-bg);border:1px solid var(--wrong-border);color:#fca5a5;}
+  .feedback-title{font-weight:700;font-size:0.95rem;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+  .feedback .tip{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.08);color:var(--text-dim);font-size:0.82rem;}
+  .feedback .tip strong{color:var(--gold);}
+  .feedback .ref{margin-top:8px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;}
+  .next-btn{display:none;margin:20px auto 0;padding:12px 32px;background:linear-gradient(135deg,var(--rose),var(--purple));color:#fff;border:none;border-radius:100px;font-family:inherit;font-size:0.92rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+  .next-btn:hover{transform:scale(1.05);}
+  .next-btn.show{display:block;}
+  .results{display:none;animation:slideIn 0.5s ease;}
+  .results.show{display:block;}
+  .results-header{text-align:center;padding:30px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;position:relative;overflow:hidden;}
+  .results-header::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--rose),var(--purple),var(--accent),var(--teal));}
+  .score-big{font-size:3.5rem;font-weight:800;background:linear-gradient(135deg,var(--rose),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .score-label{font-size:1.1rem;color:var(--text-dim);margin-top:4px;}
+  .score-msg{margin-top:12px;font-size:0.95rem;color:var(--text);font-weight:500;}
+  .chart-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px 20px;margin-bottom:20px;}
+  .chart-title{font-size:0.95rem;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+  .bar-chart{display:flex;flex-direction:column;gap:14px;}
+  .bar-row{display:flex;align-items:center;gap:12px;}
+  .bar-label{width:130px;font-size:0.78rem;font-weight:600;text-align:right;color:var(--text-dim);flex-shrink:0;}
+  .bar-track{flex:1;height:28px;background:var(--surface3);border-radius:8px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:8px;transition:width 1s ease;display:flex;align-items:center;padding-left:10px;font-size:0.75rem;font-weight:700;color:#fff;min-width:fit-content;}
+  .donut-wrap{display:flex;align-items:center;justify-content:center;gap:30px;flex-wrap:wrap;}
+  .donut-svg{width:160px;height:160px;}
+  .donut-legend{display:flex;flex-direction:column;gap:10px;}
+  .legend-item{display:flex;align-items:center;gap:10px;font-size:0.84rem;}
+  .legend-dot{width:12px;height:12px;border-radius:4px;flex-shrink:0;}
+  .review-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:12px;}
+  .review-card.review-correct{border-left:4px solid var(--correct);}
+  .review-card.review-wrong{border-left:4px solid var(--wrong);}
+  .review-q{font-size:0.88rem;font-weight:600;margin-bottom:8px;}
+  .review-answer{font-size:0.82rem;color:var(--text-dim);line-height:1.5;}
+  .review-answer strong{color:var(--correct);}
+  .review-answer em{color:var(--wrong);font-style:normal;}
+  .retry-btn{display:block;margin:28px auto;padding:14px 40px;background:linear-gradient(135deg,var(--rose),var(--purple));color:#fff;border:none;border-radius:100px;font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+  .retry-btn:hover{transform:scale(1.05);}
+  .hamburger{display:none;position:fixed;top:16px;left:16px;z-index:200;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px;cursor:pointer;font-size:1.2rem;}
+  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:90;}
+  .footer{text-align:center;padding:20px;color:var(--text-dim);font-size:0.72rem;opacity:0.5;}
+  @media(max-width:768px){
+    .sidebar{transform:translateX(-100%);}
+    .sidebar.open{transform:translateX(0);}
+    .main{margin-left:0;}
+    .hamburger{display:flex;align-items:center;justify-content:center;}
+    .overlay.show{display:block;}
+    .container{padding:12px 10px 30px;}
+    .question-card{padding:20px 16px;}
+    .bar-label{width:90px;font-size:0.72rem;}
+    .mode-bar{margin:16px auto;}
+  }
+</style>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-badge">🩺 MCS</div>
+    <h2>ENARM · Banco de Preguntas</h2>
+    <p>2025–2026</p>
+  </div>
+  <a href="../index.html" class="back-btn">← Volver al inicio</a>
+  <nav class="sidebar-nav">
+    <div class="specialty-group">
+      <div class="specialty-header open" onclick="toggleSpec(this)">
+        <div class="specialty-name">
+          <div class="specialty-icon" style="background:rgba(56,189,248,0.12);color:#38bdf8;">🔪</div>
+          Cirugía General
+        </div>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="topics-list open">
+        <a href="01-apendicitis.html" class="topic-link"><span class="topic-num">01</span>Abdomen agudo / Apendicitis<span class="star-tag">⭐</span></a>
+        <a href="02-patologia-biliar.html" class="topic-link"><span class="topic-num">02</span>Patología biliar<span class="star-tag">⭐</span></a>
+        <a href="03-enfermedad-diverticular.html" class="topic-link"><span class="topic-num">03</span>Enfermedad diverticular<span class="star-tag">⭐</span></a>
+        <a href="04-erge-esofagitis-dispepsia.html" class="topic-link"><span class="topic-num">04</span>ERGE / Esofagitis / Dispepsia</a>
+        <a href="05-cancer-esofago-gastrico.html" class="topic-link active"><span class="topic-num">05</span>Cáncer esófago / gástrico<span class="star-tag">⭐</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">06</span>Gastritis / Úlcera péptica<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">07</span>Obesidad / Bariátrica<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">08</span>Patología perianal<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">09</span>Hernias / Esplenectomía<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">10</span>Insuf. venosa y arterial<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">11</span>Oclusión / Vólvulos<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">12</span>Cáncer de colon<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">13</span>Cáncer hepático<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">14</span>Cáncer páncreas<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">15</span>Pancreatitis<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">16</span>Mordeduras / Picaduras<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">17</span>Quemaduras<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">18</span>ATLS 1<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">19</span>ATLS 2<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">20</span>Patología quirúrgica<span class="badge-soon">Pronto</span></a>
+      </div>
+    </div>
+  </nav>
+</aside>
+
+<main class="main">
+<div class="container">
+
+  <div class="header">
+    <div class="header-badge"><span>🎗️</span> ENARM · Cirugía General · Tema 05</div>
+    <h1>Cáncer de Esófago y Gástrico</h1>
+    <p>Epidemiología · Diagnóstico · Estadificación · Tratamiento oncológico</p>
+  </div>
+
+  <div style="display:flex;justify-content:center;">
+    <div class="mode-bar">
+      <button class="mode-btn active" id="btnRepaso" onclick="setMode('repaso')">📖 Modo Repaso</button>
+      <button class="mode-btn" id="btnExamen" onclick="setMode('examen')">⏱️ Modo Examen</button>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 15</div>
+  </div>
+
+  <div id="quizArea"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+  <div class="results" id="resultsArea"></div>
+
+</div>
+<div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+</main>
+
+<script>
+let examMode=false;
+function setMode(mode){
+  examMode=(mode==='examen');
+  document.getElementById('btnRepaso').classList.toggle('active',!examMode);
+  document.getElementById('btnExamen').classList.toggle('active',examMode);
+  init();
+}
+
+const questions=[
+  {
+    cat:"eso", catName:"Cáncer de Esófago",
+    q:"¿Cuál es el tipo histológico de cáncer de esófago más frecuente en México y América Latina?",
+    opts:["Adenocarcinoma de esófago distal","Carcinoma epidermoide (escamoso) de esófago","Leiomiosarcoma esofágico","Linfoma esofágico primario"],
+    ans:1,
+    exp:"El carcinoma epidermoide (escamoso) es el tipo histológico más frecuente de cáncer de esófago en México y países en desarrollo, predominando en esófago medio y proximal. El adenocarcinoma predomina en países desarrollados (EE.UU., Europa) y se origina en el esófago distal sobre Barrett. La GPC establece esta distinción como base para comprender los factores de riesgo y la presentación clínica.",
+    tip:"<strong>Epidemiología clave:</strong> Carcinoma epidermoide: esófago medio/proximal, asociado a tabaco + alcohol, más frecuente en México. Adenocarcinoma: esófago distal, asociado a ERGE + Barrett + obesidad, más frecuente en EE.UU. La distinción importa porque los factores de riesgo y el pronóstico difieren.",
+    ref:"GPC: Oncología de carcinoma esofágico y unión esofagogástrica. CENETEC. 2023."
+  },
+  {
+    cat:"eso", catName:"Cáncer de Esófago",
+    q:"Paciente masculino de 60 años, fumador, con disfagia progresiva inicialmente para sólidos y luego para líquidos, pérdida de peso de 10kg en 2 meses y disfonía reciente. ¿Cuál es la conducta diagnóstica prioritaria?",
+    opts:["Prueba terapéutica con IBP por 4 semanas","Esofagograma con bario como único estudio","Endoscopia digestiva alta con biopsia urgente","TC de tórax sin endoscopia previa"],
+    ans:2,
+    exp:"La disfagia progresiva (sólidos → líquidos) con pérdida de peso y disfonía son síntomas de alarma que obligan a endoscopia con biopsia urgente para descartar cáncer de esófago. La GPC establece que ante síntomas de alarma la endoscopia es el paso diagnóstico prioritario — permite visualización directa, toma de biopsia para diagnóstico histológico y evaluación de extensión luminal. La disfonía sugiere compromiso del nervio laríngeo recurrente.",
+    tip:"<strong>Disfonía en cáncer de esófago = mal pronóstico:</strong> Indica invasión o compresión del nervio laríngeo recurrente izquierdo que corre junto al arco aórtico — sugiere tumor mediotorácico con extensión mediastinal. Otros signos de irresecabilidad: síndrome de vena cava superior, fístula traqueoesofágica, metástasis a distancia.",
+    ref:"GPC: Oncología de carcinoma esofágico y unión esofagogástrica. CENETEC. 2023."
+  },
+  {
+    cat:"fx", catName:"Factores de Riesgo",
+    q:"¿Cuál es el principal factor de riesgo para adenocarcinoma de esófago?",
+    opts:["Consumo de alcohol crónico","Esófago de Barrett (metaplasia intestinal por ERGE crónica)","Infección por H. pylori","Acalasia de larga evolución"],
+    ans:1,
+    exp:"El esófago de Barrett es el principal factor de riesgo para adenocarcinoma de esófago, con un riesgo de progresión de 0.1-0.5% por año en Barrett sin displasia y hasta 6-10% por año en displasia de alto grado. La GPC establece la secuencia: ERGE crónica → Barrett → displasia → adenocarcinoma. La vigilancia endoscópica periódica en Barrett busca detectar displasia en etapas tratables.",
+    tip:"<strong>Secuencia de Barrett:</strong> ERGE (años) → Metaplasia intestinal (Barrett) → Displasia baja → Displasia alta → Adenocarcinoma. En Barrett con displasia alta: ablación con radiofrecuencia o mucosectomía endoscópica. El riesgo absoluto es bajo (0.5%/año) pero la vigilancia está justificada. La acalasia es FDR para carcinoma EPIDERMOIDE, no adenocarcinoma.",
+    ref:"GPC: Oncología de carcinoma esofágico y unión esofagogástrica. CENETEC. 2023."
+  },
+  {
+    cat:"eso", catName:"Cáncer de Esófago",
+    q:"¿Cuál es el tratamiento estándar para cáncer de esófago resecable localmente avanzado (T2-T4a, N+) según las guías oncológicas actuales?",
+    opts:["Cirugía (esofagectomía) inmediata sin terapia neoadyuvante","Quimiorradioterapia neoadyuvante seguida de esofagectomía","Quimioterapia paliativa exclusiva","Radioterapia exclusiva definitiva"],
+    ans:1,
+    exp:"Para cáncer de esófago localmente avanzado resecable, el estándar actual es la quimiorradioterapia neoadyuvante (protocolo CROSS: carboplatino + paclitaxel + radioterapia) seguida de esofagectomía. Este esquema demostró aumento significativo en sobrevida comparado con cirugía sola. La GPC adopta este abordaje multimodal como tratamiento estándar en candidatos quirúrgicos.",
+    tip:"<strong>Protocolo CROSS (referencia clave ENARM):</strong> Carboplatino + Paclitaxel semanal + RT 41.4 Gy → Esofagectomía. Aumentó sobrevida media de 24 a 49 meses vs cirugía sola. Para carcinoma escamoso: la quimiorradioterapia definitiva (sin cirugía) puede ser igualmente efectiva en algunos centros. Conoce el nombre CROSS — aparece en el ENARM.",
+    ref:"GPC: Oncología de carcinoma esofágico y unión esofagogástrica. CENETEC. 2023."
+  },
+  {
+    cat:"gas", catName:"Cáncer Gástrico",
+    q:"¿Cuál es el factor de riesgo modificable más importante para cáncer gástrico tipo intestinal (clasificación de Lauren)?",
+    opts:["Consumo de alcohol","Infección crónica por Helicobacter pylori","Dieta alta en fibra","Uso de IBP a largo plazo"],
+    ans:1,
+    exp:"H. pylori es el carcinógeno gástrico más importante y está clasificado como carcinógeno Grupo I por la IARC. La secuencia de Correa (H. pylori → gastritis crónica → atrofia → metaplasia intestinal → displasia → adenocarcinoma) describe la carcinogénesis del tipo intestinal. La GPC establece que la erradicación de H. pylori reduce el riesgo de cáncer gástrico, especialmente en estadios tempranos de la cascada.",
+    tip:"<strong>Cascada de Correa (memorizar para ENARM):</strong> H. pylori → Gastritis superficial → Gastritis atrófica → Metaplasia intestinal → Displasia → Adenocarcinoma. La erradicación de H. pylori interrumpe la cascada en sus etapas iniciales. Una vez establecida la metaplasia intestinal, el riesgo persiste aunque se erradique el H. pylori.",
+    ref:"GPC: Diagnóstico y tratamiento del adenocarcinoma gástrico en pacientes adultos. IMSS. 2009."
+  },
+  {
+    cat:"gas", catName:"Cáncer Gástrico",
+    q:"Paciente de 55 años con pérdida de peso de 12kg, saciedad temprana, masa epigástrica palpable y anemia. Endoscopia muestra úlcera gástrica irregular en curvatura mayor. Biopsia: adenocarcinoma. ¿Cuál es el estudio de estadificación inicial más importante?",
+    opts:["Gammagrafía ósea","TC de tórax, abdomen y pelvis con contraste IV","PET-CT de cuerpo completo","Laparoscopia diagnóstica inmediata"],
+    ans:1,
+    exp:"La TC de tórax, abdomen y pelvis con contraste IV es el estudio de estadificación inicial de elección para cáncer gástrico. Evalúa la extensión local del tumor (T), ganglios linfáticos regionales (N) y metástasis a distancia (M). La GPC establece que la TC es el primer paso de estadificación. El ultrasonido endoscópico (EUS) complementa la evaluación T y N local. La laparoscopia estadificadora se añade para descartar carcinomatosis peritoneal no visible en TC.",
+    tip:"<strong>Estadificación cáncer gástrico — secuencia:</strong> 1) TC TAP con contraste (estadificación sistémica). 2) Ultrasonido endoscópico (profundidad de invasión T y ganglios N locales). 3) Laparoscopia diagnóstica (descartar M1 peritoneal). La carcinomatosis peritoneal es la metástasis más frecuente del cáncer gástrico y cambia el manejo a paliativo.",
+    ref:"GPC: Diagnóstico y tratamiento del adenocarcinoma gástrico en pacientes adultos. IMSS. 2009."
+  },
+  {
+    cat:"gas", catName:"Cáncer Gástrico",
+    q:"¿Cuál es la cirugía estándar para adenocarcinoma gástrico resecable en tercio distal con intención curativa?",
+    opts:["Gastrectomía total con esofagoyeyunoanastomosis en Y de Roux","Gastrectomía subtotal distal con linfadenectomía D2","Gastrectomía en manga laparoscópica","Resección endoscópica de mucosa (REM) para cualquier estadio"],
+    ans:1,
+    exp:"La gastrectomía subtotal distal (resección del 75-80% del estómago) con linfadenectomía D2 (extirpación de ganglios perigástricos y de la segunda estación) es la cirugía estándar para adenocarcinoma gástrico resecable en tercio distal. La GPC establece que la linfadenectomía D2 mejora la estadificación y la sobrevida comparada con D1, y debe realizarse en centros con experiencia.",
+    tip:"<strong>D1 vs D2 (punto clave ENARM):</strong> D1 = ganglios perigástricos (1ª estación). D2 = D1 + ganglios del tronco celíaco, arteria hepática, esplénica (2ª estación). D2 es el estándar en Asia y en centros occidentales de alto volumen. D2 sin esplenopancreatectomía (D2 modificada) tiene menor morbilidad y es la técnica actual recomendada.",
+    ref:"GPC: Diagnóstico y tratamiento del adenocarcinoma gástrico en pacientes adultos. IMSS. 2009."
+  },
+  {
+    cat:"dx", catName:"Diagnóstico",
+    q:"¿Cuál es el hallazgo endoscópico que caracteriza al cáncer gástrico difuso tipo linitis plástica (clasificación de Lauren)?",
+    opts:["Úlcera gástrica bien delimitada con bordes regulares","Estómago rígido en 'bota de cuero' con pliegues engrosados y pérdida de distensibilidad","Pólipo gástrico pediculado único","Erosiones múltiples superficiales en antro"],
+    ans:1,
+    exp:"La linitis plástica es el patrón macroscópico del adenocarcinoma gástrico tipo difuso (células en anillo de sello), caracterizado por infiltración difusa de la pared gástrica que produce un estómago rígido, con paredes engrosadas y pérdida de la distensibilidad normal — imagen en 'bota de cuero' o 'estómago en cantimplora'. La GPC señala que tiene peor pronóstico que el tipo intestinal y frecuentemente se presenta en estadio avanzado.",
+    tip:"<strong>Clasificación de Lauren — 2 tipos principales:</strong> Intestinal: bien diferenciado, asociado a H. pylori, úlcera o masa exofítica, mejor pronóstico, más frecuente en mayores. Difuso: células en anillo de sello, no asociado a H. pylori (más a CDH1 mutación), linitis plástica, peor pronóstico, más frecuente en jóvenes y mujeres. El tipo difuso tiene mayor riesgo de carcinomatosis peritoneal.",
+    ref:"GPC: Diagnóstico y tratamiento del adenocarcinoma gástrico en pacientes adultos. IMSS. 2009."
+  },
+  {
+    cat:"gas", catName:"Cáncer Gástrico",
+    q:"¿Qué signo clínico se produce por metástasis ganglionar supraclavicular izquierda en cáncer gástrico avanzado?",
+    opts:["Signo de Blumer","Ganglio de Virchow (Troisier)","Signo de la hermana María José","Ganglio de Irish"],
+    ans:1,
+    exp:"El ganglio de Virchow (o signo de Troisier) es la adenopatía supraclavicular izquierda palpable por metástasis de tumores del tubo digestivo, especialmente cáncer gástrico. El drenaje linfático del estómago sigue el conducto torácico que desemboca en el ángulo venoso izquierdo, produciendo metástasis en este ganglio centinela. Su presencia indica enfermedad M1 no resecable.",
+    tip:"<strong>Signos de metástasis en cáncer gástrico avanzado:</strong> Ganglio de Virchow (supraclavicular izquierdo), Ganglio de Irish (axilar izquierdo), Nódulo de la Hermana María José (umbilical), Tumor de Krukenberg (ovario por metástasis transcelómica), Anaquel de Blumer (metástasis peritoneal en fondo de saco de Douglas, palpable en tacto rectal). Todos indican M1.",
+    ref:"GPC: Diagnóstico y tratamiento del adenocarcinoma gástrico en pacientes adultos. IMSS. 2009."
+  },
+  {
+    cat:"tx", catName:"Tratamiento",
+    q:"¿Cuál es el esquema de quimioterapia perioperatoria recomendado para cáncer gástrico resecable localmente avanzado según las guías actuales (protocolo FLOT)?",
+    opts:["FOLFOX exclusivo postoperatorio","5-FU + Leucovorin preoperatorio solamente","Docetaxel + Oxaliplatino + Leucovorin + 5-FU (FLOT) perioperatorio (pre y postoperatorio)","Cisplatino + Capecitabina postoperatorio exclusivo"],
+    ans:2,
+    exp:"El esquema FLOT (Docetaxel + Oxaliplatino + Leucovorin + 5-FU) administrado de forma perioperatoria (4 ciclos preoperatorios + cirugía + 4 ciclos postoperatorios) es el estándar actual para cáncer gástrico/unión esofagogástrica resecable localmente avanzado. Superó al esquema ECF en sobrevida global. La GPC adopta el esquema perioperatorio como primera línea en candidatos aptos.",
+    tip:"<strong>FLOT vs ECF (evolución del estándar):</strong> Antes: ECF (Epirubicina + Cisplatino + 5-FU). Ahora: FLOT (Docetaxel + Oxaliplatino + Leucovorin + 5-FU). El estudio FLOT4 demostró sobrevida media de 50 vs 35 meses. Perioperatorio = neoadyuvante + adyuvante. La quimioterapia preoperatoria reduce el tumor, trata micrometástasis tempranas y es mejor tolerada que la postoperatoria sola.",
+    ref:"GPC: Diagnóstico y tratamiento del adenocarcinoma gástrico en pacientes adultos. IMSS. 2009."
+  },
+  {
+    cat:"fx", catName:"Factores de Riesgo",
+    q:"¿Cuáles son los factores de riesgo dietéticos más importantes para cáncer gástrico tipo intestinal reconocidos por la GPC?",
+    opts:["Dieta alta en fibra y vitamina C","Dieta alta en sal, nitratos y alimentos ahumados, y baja en frutas y verduras","Consumo elevado de grasas saturadas","Dieta cetogénica"],
+    ans:1,
+    exp:"Los factores dietéticos de riesgo para cáncer gástrico incluyen: dieta alta en sal (daño directo a la mucosa), nitratos y nitritos (se convierten en nitrosaminas carcinogénicas), alimentos ahumados y encurtidos, y dieta baja en frutas y verduras (que son fuente de antioxidantes y vitamina C). La GPC reconoce estos factores como parte de la cadena multifactorial junto con H. pylori.",
+    tip:"<strong>Dieta protectora vs de riesgo:</strong> RIESGO: sal, nitratos, ahumados, encurtidos, tabaco, H. pylori. PROTECTORA: frutas frescas (vitamina C inhibe formación de nitrosaminas), verduras, dieta mediterránea. México tiene alta incidencia de cáncer gástrico parcialmente por patrones dietéticos y alta prevalencia de H. pylori (>70% de la población adulta infectada).",
+    ref:"GPC: Diagnóstico y tratamiento del adenocarcinoma gástrico en pacientes adultos. IMSS. 2009."
+  },
+  {
+    cat:"dx", catName:"Diagnóstico / Estadificación",
+    q:"¿Para qué sirve la laparoscopia diagnóstica estadificadora en cáncer gástrico antes de decidir cirugía con intención curativa?",
+    opts:["Para realizar biopsia del tumor primario","Para descartar carcinomatosis peritoneal y metástasis hepáticas superficiales no visibles en TC","Para medir el tamaño exacto del tumor","Para realizar la gastrectomía en el mismo acto"],
+    ans:1,
+    exp:"La laparoscopia estadificadora se realiza antes de la gastrectomía curativa para descartar carcinomatosis peritoneal y metástasis hepáticas superficiales que no son visibles en la TC (sensibilidad de TC para carcinomatosis ~50%). Hasta el 20-30% de los pacientes con cáncer gástrico aparentemente resecable por TC tienen carcinomatosis peritoneal demostrada en laparoscopia, lo que cambia el manejo a intención paliativa.",
+    tip:"<strong>Por qué la laparoscopia cambia todo:</strong> La TC tiene baja sensibilidad para implantes peritoneales pequeños. La laparoscopia + citología del lavado peritoneal detecta M1 oculta. Si hay carcinomatosis → no cirugía resectiva → quimioterapia paliativa. Evita una laparotomía innecesaria con alta morbilidad sin beneficio oncológico. En México se recomienda en tumores T3-T4 o N+.",
+    ref:"GPC: Diagnóstico y tratamiento del adenocarcinoma gástrico en pacientes adultos. IMSS. 2009."
+  },
+  {
+    cat:"eso", catName:"Cáncer de Esófago",
+    q:"¿Cuál es la vía de diseminación más frecuente del cáncer de esófago que justifica su mal pronóstico?",
+    opts:["Diseminación hematógena temprana al pulmón","Extensión submucosa longitudinal y metástasis linfáticas tempranas por la rica red linfática esofágica","Invasión directa al pericardio","Diseminación transcelómica al peritoneo"],
+    ans:1,
+    exp:"El esófago carece de serosa y tiene una extensa red linfática submucosa que permite diseminación linfática temprana y extensión submucosa longitudinal (tumor puede extenderse varios centímetros más allá del margen macroscópico visible). Esto explica el mal pronóstico (70-80% de pacientes tienen enfermedad localmente avanzada o metastásica al diagnóstico) y la necesidad de márgenes amplios en la resección quirúrgica.",
+    tip:"<strong>Particularidad anatómica del esófago:</strong> Sin serosa → invasión directa a estructuras adyacentes (tráquea, aorta, bronquios) más fácil. Red linfática submucosa longitudinal → skip metástasis (ganglios positivos a distancia del tumor). Por eso los márgenes quirúrgicos deben ser ≥5cm. La ausencia de serosa también explica por qué las anastomosis esofágicas tienen mayor tasa de dehiscencia.",
+    ref:"GPC: Oncología de carcinoma esofágico y unión esofagogástrica. CENETEC. 2023."
+  },
+  {
+    cat:"gas", catName:"Cáncer Gástrico",
+    q:"¿Qué porcentaje aproximado de los cánceres gástricos son de tipo adenocarcinoma?",
+    opts:["30-40%","50-60%","90-95%","100%"],
+    ans:2,
+    exp:"El adenocarcinoma representa el 90-95% de todos los cánceres gástricos malignos. El resto incluye linfomas MALT (3-5%, también asociados a H. pylori), tumores del estroma gastrointestinal (GIST, 1-2%) y tumores carcinoides/neuroendocrinos. La GPC se centra en el adenocarcinoma por ser ampliamente el más frecuente. Esta distinción es importante porque el tratamiento y pronóstico difieren significativamente.",
+    tip:"<strong>Tipos de tumores gástricos y su asociación:</strong> Adenocarcinoma (90-95%): H. pylori, dieta. Linfoma MALT (3-5%): H. pylori (erradicación puede ser curativa en estadios tempranos). GIST (1-2%): mutación c-KIT, tratamiento con imatinib. Carcinoide/NET: hipergastrinemia crónica (gastritis atrófica, IBP prolongado, síndrome de Zollinger-Ellison).",
+    ref:"GPC: Diagnóstico y tratamiento del adenocarcinoma gástrico en pacientes adultos. IMSS. 2009."
+  },
+  {
+    cat:"tx", catName:"Tratamiento Paliativo",
+    q:"Paciente con cáncer gástrico avanzado no resecable con disfagia severa y obstrucción gástrica. ¿Cuál es la medida paliativa más adecuada para restablecer el tránsito?",
+    opts:["Quimioterapia de urgencia para reducir el tumor","Colocación de prótesis metálica autoexpandible (stent) endoscópica o gastroyeyunoanastomosis paliativa","Gastrectomía total paliativa","Nutrición parenteral total como única medida"],
+    ans:1,
+    exp:"En cáncer gástrico con obstrucción de la salida gástrica o disfagia severa en paciente con enfermedad no resecable, las opciones paliativas son: stent metálico autoexpandible por vía endoscópica (menos invasivo, recuperación más rápida) o gastroyeyunoanastomosis paliativa laparoscópica/abierta (más duradera). La GPC recomienda la decisión individualizada según estado funcional del paciente y expectativa de vida.",
+    tip:"<strong>Stent vs Cirugía paliativa:</strong> Stent: rápido, menos morbilidad, ideal para pacientes frágiles con corta expectativa. Gastroyeyunoanastomosis: más duradera, mejor si expectativa >3-4 meses y buen estado funcional. En cáncer gástrico avanzado, el objetivo es calidad de vida. La quimioterapia paliativa (FOLFOX, XELOX) puede extender la sobrevida 4-6 meses en pacientes seleccionados.",
+    ref:"GPC: Diagnóstico y tratamiento del adenocarcinoma gástrico en pacientes adultos. IMSS. 2009."
+  }
+];
+
+let currentQ=0,score=0,answers=[];
+let catStats={eso:{c:0,t:0},gas:{c:0,t:0},tx:{c:0,t:0},dx:{c:0,t:0},fx:{c:0,t:0}};
+
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+
+function init(){
+  shuffle(questions);currentQ=0;score=0;answers=[];
+  catStats={eso:{c:0,t:0},gas:{c:0,t:0},tx:{c:0,t:0},dx:{c:0,t:0},fx:{c:0,t:0}};
+  const r=document.getElementById('resultsArea');r.classList.remove('show');r.innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');renderQuestion();
+}
+
+function renderQuestion(){
+  const qa=questions[currentQ],total=questions.length;
+  document.getElementById('progressBar').style.width=(currentQ/total*100)+'%';
+  document.getElementById('progressText').textContent=`${currentQ+1} / ${total}`;
+  document.getElementById('nextBtn').classList.remove('show');
+  const letters=['A','B','C','D'];
+  let html=`<div class="question-card">
+    <div class="q-category cat-${qa.cat}">${qa.catName}</div>
+    <div class="q-number">Pregunta ${currentQ+1} de ${total}</div>
+    <div class="q-text">${qa.q}</div>
+    <div class="options">`;
+  qa.opts.forEach((opt,i)=>{html+=`<button class="option-btn" onclick="selectAnswer(${i})"><span class="option-letter">${letters[i]}</span><span>${opt}</span></button>`;});
+  html+=`</div><div class="feedback" id="feedback"></div></div>`;
+  document.getElementById('quizArea').innerHTML=html;
+}
+
+function selectAnswer(idx){
+  const qa=questions[currentQ];
+  const btns=document.querySelectorAll('.option-btn');
+  const fb=document.getElementById('feedback');
+  const isCorrect=idx===qa.ans;
+  btns.forEach((btn,i)=>{btn.classList.add('disabled');btn.onclick=null;if(i===qa.ans)btn.classList.add('correct-answer');if(i===idx&&!isCorrect)btn.classList.add('wrong-answer');});
+  if(!catStats[qa.cat])catStats[qa.cat]={c:0,t:0};
+  catStats[qa.cat].t++;if(isCorrect){score++;catStats[qa.cat].c++;}
+  if(!examMode){
+    fb.className=isCorrect?'feedback correct-fb show':'feedback wrong-fb show';
+    fb.innerHTML=isCorrect
+      ?`<div class="feedback-title">✅ ¡Correcto!</div><div>${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`
+      :`<div class="feedback-title">❌ Incorrecto</div><div><strong>Respuesta correcta:</strong> ${qa.opts[qa.ans]}</div><div style="margin-top:8px;">${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;
+  }
+  answers.push({q:qa.q,correct:isCorrect,userAns:qa.opts[idx],correctAns:qa.opts[qa.ans],cat:qa.catName,exp:qa.exp,ref:qa.ref});
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion(){currentQ++;if(currentQ>=questions.length)showResults();else renderQuestion();}
+
+function showResults(){
+  document.getElementById('quizArea').innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  document.getElementById('progressBar').style.width='100%';
+  document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;
+  const pct=Math.round((score/questions.length)*100);
+  const msg=pct>=90?'🏆 ¡Dominio excelente de oncología GI!':pct>=70?'👏 ¡Muy bien! Repasa estadificación y tratamiento.':pct>=50?'📚 Aceptable. Refuerza cascada de Correa y esquemas QT.':'⚠️ Revisa las GPC de cáncer gástrico y esofágico.';
+  const cats=[
+    {name:'Cáncer esófago',key:'eso',color:'#fb7185'},
+    {name:'Cáncer gástrico',key:'gas',color:'#a78bfa'},
+    {name:'Factores de riesgo',key:'fx',color:'#fbbf24'},
+    {name:'Diagnóstico',key:'dx',color:'#34d399'},
+    {name:'Tratamiento',key:'tx',color:'#38bdf8'},
+  ];
+  let html=`<div class="results-header">
+    <div class="score-big">${pct}%</div>
+    <div class="score-label">${score} de ${questions.length} correctas</div>
+    <div class="score-msg">${msg}</div>
+  </div>
+  <div class="chart-section">
+    <div class="chart-title"><span>📊</span> Rendimiento por Categoría</div>
+    <div class="bar-chart">`;
+  cats.forEach(cat=>{
+    const s=catStats[cat.key]||{c:0,t:0};
+    const p=s.t>0?Math.round((s.c/s.t)*100):0;
+    html+=`<div class="bar-row"><div class="bar-label">${cat.name}</div><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${cat.color};">${p}% (${s.c}/${s.t})</div></div></div>`;
+  });
+  html+=`</div></div>
+  <div class="chart-section">
+    <div class="chart-title"><span>🎯</span> Resumen General</div>
+    <div class="donut-wrap">
+      <svg class="donut-svg" viewBox="0 0 42 42">
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a2235" stroke-width="4"/>
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#34d399" stroke-width="4" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="25" stroke-linecap="round"/>
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#f87171" stroke-width="4" stroke-dasharray="${100-pct} ${pct}" stroke-dashoffset="${25-pct}" stroke-linecap="round"/>
+        <text x="21" y="22.5" text-anchor="middle" font-size="6" font-weight="700" fill="#e8ecf4" font-family="Plus Jakarta Sans">${pct}%</text>
+      </svg>
+      <div class="donut-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#34d399;"></div>Correctas: ${score}</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Incorrectas: ${questions.length-score}</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#38bdf8;"></div>Total: ${questions.length}</div>
+      </div>
+    </div>
+  </div>
+  <div class="chart-section">
+    <div class="chart-title"><span>📋</span> Revisión de Respuestas</div>`;
+  answers.forEach((a,i)=>{
+    html+=`<div class="review-card ${a.correct?'review-correct':'review-wrong'}">
+      <div class="review-q">${i+1}. ${a.q} <span style="font-size:0.72rem;color:var(--text-dim);">[${a.cat}]</span></div>
+      <div class="review-answer">${a.correct?`<strong>✅ ${a.correctAns}</strong>`:`<em>❌ Tu respuesta: ${a.userAns}</em><br><strong>✅ Correcta: ${a.correctAns}</strong>`}</div>
+      <div style="margin-top:8px;font-size:0.8rem;color:var(--text-dim);line-height:1.5;">${a.exp}</div>
+      <div style="margin-top:6px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;">📖 ${a.ref}</div>
+    </div>`;
+  });
+  html+=`</div><button class="retry-btn" onclick="init()">🔄 Reintentar</button>`;
+  const res=document.getElementById('resultsArea');res.innerHTML=html;res.classList.add('show');
+  res.scrollIntoView({behavior:'smooth'});
+}
+
+function toggleSpec(h){h.classList.toggle('open');h.nextElementSibling.classList.toggle('open');}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+init();
+</script>
+</body>
+</html>

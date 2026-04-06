@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ENARM · MediCode Solutions</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --surface3: #212d45;
+    --border: #2a3a5c;
+    --text: #e8ecf4;
+    --text-dim: #8896b3;
+    --accent: #38bdf8;
+    --accent-glow: rgba(56,189,248,0.15);
+    --correct: #34d399;
+    --gold: #fbbf24;
+    --purple: #a78bfa;
+    --pink: #f472b6;
+    --orange: #fb923c;
+    --teal: #2dd4bf;
+    --sidebar-w: 280px;
+    --radius: 14px;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+  }
+
+  /* ── SIDEBAR ──────────────────────────────────────────────── */
+  .sidebar {
+    width: var(--sidebar-w);
+    min-height: 100vh;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0; top: 0; bottom: 0;
+    overflow-y: auto;
+    z-index: 100;
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar-logo {
+    padding: 24px 20px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .logo-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg, var(--accent), var(--purple));
+    padding: 6px 14px; border-radius: 100px;
+    font-size: 0.75rem; font-weight: 800;
+    color: var(--bg); letter-spacing: 0.5px;
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+  .sidebar-logo h2 {
+    font-size: 1.1rem; font-weight: 800;
+    background: linear-gradient(135deg, var(--text), var(--accent));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .sidebar-logo p {
+    font-size: 0.72rem; color: var(--text-dim); margin-top: 2px;
+  }
+
+  .sidebar-nav { flex: 1; padding: 12px 0 24px; }
+
+  .specialty-group { margin-bottom: 4px; }
+
+  .specialty-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 16px 10px 20px;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-radius: 0;
+    user-select: none;
+  }
+  .specialty-header:hover { background: var(--surface2); }
+  .specialty-header.active { background: var(--surface2); }
+
+  .specialty-name {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.78rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.6px;
+  }
+  .specialty-icon {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; flex-shrink: 0;
+  }
+  .chevron {
+    font-size: 0.65rem; color: var(--text-dim);
+    transition: transform 0.3s;
+  }
+  .specialty-header.open .chevron { transform: rotate(90deg); }
+
+  .topics-list {
+    display: none; padding: 4px 0 8px 0;
+  }
+  .topics-list.open { display: block; }
+
+  .topic-link {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 16px 8px 56px;
+    font-size: 0.78rem; color: var(--text-dim);
+    text-decoration: none;
+    transition: all 0.2s;
+    border-left: 2px solid transparent;
+    line-height: 1.4;
+  }
+  .topic-link:hover {
+    color: var(--text);
+    background: var(--surface3);
+  }
+  .topic-link.active {
+    color: var(--accent);
+    border-left-color: var(--accent);
+    background: var(--accent-glow);
+    font-weight: 600;
+  }
+  .topic-link.coming-soon {
+    opacity: 0.4; cursor: not-allowed; pointer-events: none;
+  }
+  .topic-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem; color: var(--text-dim);
+    min-width: 20px;
+  }
+  .star-tag {
+    margin-left: auto; font-size: 0.7rem;
+  }
+  .badge-ready {
+    margin-left: auto;
+    background: rgba(52,211,153,0.15);
+    color: var(--correct);
+    font-size: 0.62rem; font-weight: 700;
+    padding: 2px 7px; border-radius: 100px;
+    text-transform: uppercase; letter-spacing: 0.4px;
+  }
+  .badge-soon {
+    margin-left: auto;
+    background: rgba(136,150,179,0.1);
+    color: var(--text-dim);
+    font-size: 0.62rem; font-weight: 600;
+    padding: 2px 7px; border-radius: 100px;
+  }
+
+  /* ── MAIN ─────────────────────────────────────────────────── */
+  .main {
+    margin-left: var(--sidebar-w);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* ── HERO ─────────────────────────────────────────────────── */
+  .hero {
+    padding: 60px 48px 48px;
+    position: relative; overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -40%; left: 30%;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(56,189,248,0.06) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--surface2); border: 1px solid var(--border);
+    padding: 6px 16px; border-radius: 100px;
+    font-size: 0.75rem; color: var(--accent); font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 4vw, 3rem); font-weight: 800;
+    background: linear-gradient(135deg, var(--text) 0%, var(--accent) 60%, var(--purple) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    line-height: 1.15; margin-bottom: 14px; max-width: 600px;
+  }
+  .hero p {
+    color: var(--text-dim); font-size: 1rem; max-width: 520px; line-height: 1.65;
+    margin-bottom: 32px;
+  }
+  .hero-stats {
+    display: flex; gap: 24px; flex-wrap: wrap;
+  }
+  .stat-card {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px 20px;
+    min-width: 130px;
+  }
+  .stat-num {
+    font-size: 1.8rem; font-weight: 800;
+    background: linear-gradient(135deg, var(--accent), var(--purple));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .stat-label { font-size: 0.75rem; color: var(--text-dim); margin-top: 2px; font-weight: 600; }
+
+  /* ── SPECIALTY CARDS GRID ─────────────────────────────────── */
+  .content { padding: 40px 48px; }
+  .section-title {
+    font-size: 0.8rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.8px; color: var(--text-dim); margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-title::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  .cards-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px; margin-bottom: 40px;
+  }
+
+  .spec-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px;
+    text-decoration: none; color: var(--text);
+    transition: all 0.25s; position: relative; overflow: hidden;
+    cursor: pointer;
+  }
+  .spec-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .spec-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+  .spec-card:hover::before { opacity: 1; }
+
+  .spec-card.cirugia::before { background: linear-gradient(90deg, var(--accent), var(--teal)); }
+  .spec-card.otorrino::before { background: linear-gradient(90deg, var(--purple), var(--pink)); }
+  .spec-card.coming::before { background: linear-gradient(90deg, var(--text-dim), var(--border)); }
+
+  .card-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; margin-bottom: 14px;
+  }
+  .card-title { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+  .card-sub { font-size: 0.78rem; color: var(--text-dim); line-height: 1.5; }
+  .card-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border);
+  }
+  .card-topics { font-size: 0.72rem; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; }
+  .card-status {
+    font-size: 0.68rem; font-weight: 700; padding: 3px 10px;
+    border-radius: 100px; text-transform: uppercase; letter-spacing: 0.4px;
+  }
+  .status-active { background: rgba(52,211,153,0.12); color: var(--correct); }
+  .status-partial { background: rgba(251,191,36,0.12); color: var(--gold); }
+  .status-soon { background: rgba(136,150,179,0.1); color: var(--text-dim); }
+
+  /* ── MOBILE ───────────────────────────────────────────────── */
+  .hamburger {
+    display: none; position: fixed; top: 16px; left: 16px; z-index: 200;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 10px; cursor: pointer; font-size: 1.2rem;
+  }
+  .overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.6); z-index: 90;
+  }
+
+  @media (max-width: 768px) {
+    .sidebar { transform: translateX(-100%); }
+    .sidebar.open { transform: translateX(0); }
+    .main { margin-left: 0; }
+    .hamburger { display: flex; align-items: center; justify-content: center; }
+    .overlay.show { display: block; }
+    .hero { padding: 60px 20px 36px; }
+    .content { padding: 28px 20px; }
+    .hero-stats { gap: 12px; }
+  }
+
+  /* ── FOOTER ───────────────────────────────────────────────── */
+  .footer {
+    margin-top: auto; padding: 20px 48px;
+    border-top: 1px solid var(--border);
+    font-size: 0.72rem; color: var(--text-dim); opacity: 0.5;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-badge">🩺 MCS</div>
+    <h2>ENARM · Banco de Preguntas</h2>
+    <p>2025–2026</p>
+  </div>
+
+  <nav class="sidebar-nav">
+
+    <!-- CIRUGÍA GENERAL -->
+    <div class="specialty-group">
+      <div class="specialty-header open" onclick="toggleSpec(this)">
+        <div class="specialty-name">
+          <div class="specialty-icon" style="background:rgba(56,189,248,0.12); color:#38bdf8;">🔪</div>
+          Cirugía General
+        </div>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="topics-list open">
+        <a href="cirugia/01-apendicitis.html" class="topic-link active">
+          <span class="topic-num">01</span>Abdomen agudo / Apendicitis
+          <span class="star-tag">⭐</span>
+        </a>
+        <a href="#" class="topic-link coming-soon">
+          <span class="topic-num">02</span>Patología biliar
+          <span class="badge-soon">Pronto</span>
+        </a>
+        <a href="#" class="topic-link coming-soon">
+          <span class="topic-num">03</span>Enfermedad diverticular
+          <span class="badge-soon">Pronto</span>
+        </a>
+        <a href="#" class="topic-link coming-soon">
+          <span class="topic-num">04</span>ERGE / Esofagitis / Dispepsia
+          <span class="badge-soon">Pronto</span>
+        </a>
+        <a href="#" class="topic-link coming-soon">
+          <span class="topic-num">05</span>Cáncer esófago / gástrico
+          <span class="badge-soon">Pronto</span>
+        </a>
+        <a href="#" class="topic-link coming-soon">
+          <span class="topic-num">06</span>Gastritis / Úlcera péptica
+          <span class="badge-soon">Pronto</span>
+        </a>
+        <a href="#" class="topic-link coming-soon">
+          <span class="topic-num">07</span>Obesidad / Cirugía bariátrica
+          <span class="badge-soon">Pronto</span>
+        </a>
+        <a href="#" class="topic-link coming-soon">
+          <span class="topic-num">08</span>Patología perianal
+          <span class="badge-soon">Pronto</span>
+        </a>
+        <a href="#" class="topic-link coming-soon">
+          <span class="topic-num">09</span>Hernias / Esplenectomía
+          <span class="badge-soon">Pronto</span>
+        </a>
+        <a href="#" class="topic-link coming-soon">
+          <span class="topic-num">10</span>Insuf. venosa y arterial
+          <span class="badge-soon">Pronto</span>
+        </a>
+        <a href="#" class="topic-link coming-soon">
+          <span class="topic-num">11</span>Oclusión / Vólvulos / Isquemia
+          <span class="badge-soon">Pronto</span>
+        </a>
+        <a href="#" class="topic-link coming-soon">
+          <span class="topic-num">12</span>Cáncer de colon
+          <span class="badge-soon">Pronto</span>
+        </a>
+        <a href="#" class="topic-link coming-soon">
+          <span class="topic-num">13</span>Cáncer hepático
+          <span class="badge-soon">Pronto</span>
+        </a>
+        <a href="#" class="topic-link coming-soon">
+          <span class="topic-num">14</span>Cáncer páncreas / Trasplante
+          <span class="badge-soon">Pronto</span>
+        </a>
+        <a href="#" class="topic-link coming-soon">
+          <span class="topic-num">15</span>Pancreatitis
+          <span class="badge-soon">Pronto</span>
+        </a>
+        <a href="#" class="topic-link coming-soon">
+          <span class="topic-num">16</span>Mordeduras / Picaduras
+          <span class="badge-soon">Pronto</span>
+        </a>
+        <a href="#" class="topic-link coming-soon">
+          <span class="topic-num">17</span>Quemaduras
+          <span class="badge-soon">Pronto</span>
+        </a>
+        <a href="#" class="topic-link coming-soon">
+          <span class="topic-num">18</span>ATLS 1
+          <span class="badge-soon">Pronto</span>
+        </a>
+        <a href="#" class="topic-link coming-soon">
+          <span class="topic-num">19</span>ATLS 2
+          <span class="badge-soon">Pronto</span>
+        </a>
+        <a href="#" class="topic-link coming-soon">
+          <span class="topic-num">20</span>Patología quirúrgica
+          <span class="badge-soon">Pronto</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- OTORRINOLARINGOLOGÍA -->
+    <div class="specialty-group">
+      <div class="specialty-header" onclick="toggleSpec(this)">
+        <div class="specialty-name">
+          <div class="specialty-icon" style="background:rgba(167,139,250,0.12); color:#a78bfa;">👂</div>
+          Otorrinolaringología
+        </div>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="topics-list">
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">21</span>Vértigo<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">22</span>Hipoacusias / Parálisis facial<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">23</span>Rinología<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">24</span>Patología de faringe<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">25</span>Patología de laringe<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">26</span>Otología<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">27</span>Síndrome apnea obstructiva<span class="badge-soon">Pronto</span></a>
+      </div>
+    </div>
+
+    <!-- PRÓXIMAS -->
+    <div class="specialty-group">
+      <div class="specialty-header" onclick="toggleSpec(this)">
+        <div class="specialty-name">
+          <div class="specialty-icon" style="background:rgba(251,191,36,0.12); color:#fbbf24;">📚</div>
+          Más especialidades
+        </div>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="topics-list">
+        <span class="topic-link coming-soon"><span class="topic-num">—</span>Medicina Interna<span class="badge-soon">Pronto</span></span>
+        <span class="topic-link coming-soon"><span class="topic-num">—</span>Ginecología y Obstetricia<span class="badge-soon">Pronto</span></span>
+        <span class="topic-link coming-soon"><span class="topic-num">—</span>Pediatría<span class="badge-soon">Pronto</span></span>
+        <span class="topic-link coming-soon"><span class="topic-num">—</span>Anestesiología<span class="badge-soon">Pronto</span></span>
+      </div>
+    </div>
+
+  </nav>
+</aside>
+
+<!-- ── MAIN ── -->
+<main class="main">
+  <section class="hero">
+    <div class="hero-badge">🎯 MediCode Solutions · ENARM 2025–2026</div>
+    <h1>Banco de Preguntas ENARM</h1>
+    <p>Preguntas basadas en Guías de Práctica Clínica oficiales. Con retroalimentación, tip clínico y referencia bibliográfica. Modo repaso y modo examen.</p>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-num">15+</div>
+        <div class="stat-label">Preguntas / tema</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">27+</div>
+        <div class="stat-label">Temas activos</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">GPC</div>
+        <div class="stat-label">Base bibliográfica</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content">
+    <div class="section-title">Especialidades disponibles</div>
+    <div class="cards-grid">
+
+      <div class="spec-card cirugia" onclick="window.location='cirugia/01-apendicitis.html'">
+        <div class="card-icon" style="background:rgba(56,189,248,0.12);">🔪</div>
+        <div class="card-title">Cirugía General</div>
+        <div class="card-sub">Abdomen agudo, patología biliar, cáncer GI, trauma, ATLS y más.</div>
+        <div class="card-footer">
+          <span class="card-topics">20 temas</span>
+          <span class="card-status status-partial">En progreso</span>
+        </div>
+      </div>
+
+      <div class="spec-card otorrino" style="cursor:default;">
+        <div class="card-icon" style="background:rgba(167,139,250,0.12);">👂</div>
+        <div class="card-title">Otorrinolaringología</div>
+        <div class="card-sub">Vértigo, rinología, patología de faringe, otología y más.</div>
+        <div class="card-footer">
+          <span class="card-topics">7 temas</span>
+          <span class="card-status status-soon">Próximamente</span>
+        </div>
+      </div>
+
+      <div class="spec-card coming" style="cursor:default;">
+        <div class="card-icon" style="background:rgba(136,150,179,0.08);">🫀</div>
+        <div class="card-title">Medicina Interna</div>
+        <div class="card-sub">Cardiología, neumología, nefrología, endocrinología y más.</div>
+        <div class="card-footer">
+          <span class="card-topics">En desarrollo</span>
+          <span class="card-status status-soon">Próximamente</span>
+        </div>
+      </div>
+
+      <div class="spec-card coming" style="cursor:default;">
+        <div class="card-icon" style="background:rgba(136,150,179,0.08);">🤰</div>
+        <div class="card-title">Ginecología y Obstetricia</div>
+        <div class="card-sub">Embarazo, parto, patología ginecológica y urgencias obstétricas.</div>
+        <div class="card-footer">
+          <span class="card-topics">En desarrollo</span>
+          <span class="card-status status-soon">Próximamente</span>
+        </div>
+      </div>
+
+      <div class="spec-card coming" style="cursor:default;">
+        <div class="card-icon" style="background:rgba(136,150,179,0.08);">👶</div>
+        <div class="card-title">Pediatría</div>
+        <div class="card-sub">Neonatología, enfermedades infecciosas, urgencias pediátricas.</div>
+        <div class="card-footer">
+          <span class="card-topics">En desarrollo</span>
+          <span class="card-status status-soon">Próximamente</span>
+        </div>
+      </div>
+
+      <div class="spec-card coming" style="cursor:default;">
+        <div class="card-icon" style="background:rgba(136,150,179,0.08);">💉</div>
+        <div class="card-title">Anestesiología</div>
+        <div class="card-sub">Farmacología, bloqueos, manejo de vía aérea y cuidados perioperatorios.</div>
+        <div class="card-footer">
+          <span class="card-topics">En desarrollo</span>
+          <span class="card-status status-soon">Próximamente</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="section-title">Cómo usar el banco</div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px;">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;">
+        <div style="font-size:1.5rem;margin-bottom:10px;">📖</div>
+        <div style="font-weight:700;font-size:0.9rem;margin-bottom:6px;">Modo Repaso</div>
+        <div style="font-size:0.78rem;color:var(--text-dim);line-height:1.5;">Ve la retroalimentación inmediatamente después de cada respuesta con explicación y tip clínico.</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;">
+        <div style="font-size:1.5rem;margin-bottom:10px;">⏱️</div>
+        <div style="font-weight:700;font-size:0.9rem;margin-bottom:6px;">Modo Examen</div>
+        <div style="font-size:0.78rem;color:var(--text-dim);line-height:1.5;">Simula el ENARM real. Sin retroalimentación hasta terminar. Calificación al final.</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;">
+        <div style="font-size:1.5rem;margin-bottom:10px;">📊</div>
+        <div style="font-weight:700;font-size:0.9rem;margin-bottom:6px;">Resultados detallados</div>
+        <div style="font-size:0.78rem;color:var(--text-dim);line-height:1.5;">Gráfica por categoría, donut de aciertos y revisión completa de respuestas.</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;">
+        <div style="font-size:1.5rem;margin-bottom:10px;">📖</div>
+        <div style="font-weight:700;font-size:0.9rem;margin-bottom:6px;">Base en GPC</div>
+        <div style="font-size:0.78rem;color:var(--text-dim);line-height:1.5;">Cada pregunta referencia la Guía de Práctica Clínica oficial IMSS/SSA correspondiente.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+</main>
+
+<script>
+function toggleSpec(header) {
+  header.classList.toggle('open');
+  const list = header.nextElementSibling;
+  list.classList.toggle('open');
+}
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ERGE / Esofagitis / Dispepsia — ENARM · MediCode Solutions</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --bg:#0a0e1a;--surface:#111827;--surface2:#1a2235;--surface3:#212d45;
+    --border:#2a3a5c;--text:#e8ecf4;--text-dim:#8896b3;
+    --accent:#38bdf8;--accent-glow:rgba(56,189,248,0.15);
+    --correct:#34d399;--correct-bg:rgba(52,211,153,0.1);--correct-border:rgba(52,211,153,0.4);
+    --wrong:#f87171;--wrong-bg:rgba(248,113,113,0.1);--wrong-border:rgba(248,113,113,0.4);
+    --gold:#fbbf24;--purple:#a78bfa;--pink:#f472b6;--teal:#2dd4bf;--orange:#fb923c;--emerald:#10b981;
+    --sidebar-w:280px;--radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;}
+  .sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;overflow-y:auto;z-index:100;transition:transform 0.3s;}
+  .sidebar-logo{padding:24px 20px 16px;border-bottom:1px solid var(--border);}
+  .logo-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--purple));padding:6px 14px;border-radius:100px;font-size:0.75rem;font-weight:800;color:var(--bg);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px;}
+  .sidebar-logo h2{font-size:1.1rem;font-weight:800;background:linear-gradient(135deg,var(--text),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .sidebar-logo p{font-size:0.72rem;color:var(--text-dim);margin-top:2px;}
+  .back-btn{display:flex;align-items:center;gap:8px;padding:14px 20px;color:var(--text-dim);font-size:0.8rem;text-decoration:none;border-bottom:1px solid var(--border);transition:color 0.2s;}
+  .back-btn:hover{color:var(--accent);}
+  .sidebar-nav{flex:1;padding:12px 0 24px;}
+  .specialty-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px 10px 20px;cursor:pointer;transition:background 0.2s;user-select:none;}
+  .specialty-header:hover{background:var(--surface2);}
+  .specialty-name{display:flex;align-items:center;gap:10px;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;}
+  .specialty-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;}
+  .chevron{font-size:0.65rem;color:var(--text-dim);transition:transform 0.3s;}
+  .specialty-header.open .chevron{transform:rotate(90deg);}
+  .topics-list{display:none;padding:4px 0 8px;}
+  .topics-list.open{display:block;}
+  .topic-link{display:flex;align-items:center;gap:10px;padding:8px 16px 8px 56px;font-size:0.78rem;color:var(--text-dim);text-decoration:none;transition:all 0.2s;border-left:2px solid transparent;line-height:1.4;}
+  .topic-link:hover{color:var(--text);background:var(--surface3);}
+  .topic-link.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-glow);font-weight:600;}
+  .topic-link.coming-soon{opacity:0.4;cursor:not-allowed;pointer-events:none;}
+  .topic-num{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--text-dim);min-width:20px;}
+  .badge-soon{margin-left:auto;background:rgba(136,150,179,0.1);color:var(--text-dim);font-size:0.62rem;font-weight:600;padding:2px 7px;border-radius:100px;}
+  .star-tag{margin-left:auto;font-size:0.7rem;}
+  .main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;}
+  .container{max-width:760px;margin:0 auto;padding:20px 16px 40px;width:100%;}
+  .mode-bar{display:flex;align-items:center;gap:10px;margin:24px 0 20px;background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:6px;width:fit-content;}
+  .mode-btn{padding:8px 20px;border-radius:100px;border:none;cursor:pointer;font-family:inherit;font-size:0.82rem;font-weight:600;transition:all 0.2s;color:var(--text-dim);background:transparent;}
+  .mode-btn.active{background:linear-gradient(135deg,var(--teal),var(--accent));color:var(--bg);}
+  .header{text-align:center;padding:40px 20px 24px;position:relative;overflow:hidden;}
+  .header::before{content:'';position:absolute;top:-60%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(45,212,191,0.08) 0%,transparent 70%);pointer-events:none;}
+  .header-badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);padding:6px 16px;border-radius:100px;font-size:0.78rem;color:var(--teal);font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:16px;}
+  .header h1{font-size:clamp(1.6rem,5vw,2.2rem);font-weight:800;background:linear-gradient(135deg,var(--text) 0%,var(--teal) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;}
+  .header p{color:var(--text-dim);font-size:0.95rem;max-width:500px;margin:0 auto;}
+  .progress-wrap{background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:12px 20px;margin:20px 0 28px;display:flex;align-items:center;gap:14px;}
+  .progress-bar-bg{flex:1;height:8px;background:var(--surface3);border-radius:100px;overflow:hidden;}
+  .progress-bar-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--teal),var(--accent));border-radius:100px;transition:width 0.5s ease;}
+  .progress-text{font-size:0.82rem;font-weight:600;color:var(--text-dim);white-space:nowrap;font-family:'JetBrains Mono',monospace;}
+  .question-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px;margin-bottom:20px;animation:slideIn 0.4s ease;position:relative;overflow:hidden;}
+  .question-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--teal),var(--accent),var(--purple));}
+  @keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .q-category{display:inline-flex;align-items:center;gap:6px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;padding:4px 12px;border-radius:100px;margin-bottom:14px;}
+  .cat-erge{background:rgba(45,212,191,0.12);color:var(--teal);}
+  .cat-dis{background:rgba(56,189,248,0.12);color:var(--accent);}
+  .cat-tx{background:rgba(167,139,250,0.12);color:var(--purple);}
+  .cat-cx{background:rgba(244,114,182,0.12);color:var(--pink);}
+  .cat-bar{background:rgba(251,191,36,0.12);color:var(--gold);}
+  .q-number{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--text-dim);margin-bottom:10px;}
+  .q-text{font-size:1.05rem;font-weight:600;line-height:1.55;margin-bottom:20px;color:var(--text);}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .option-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:all 0.2s;text-align:left;font-size:0.92rem;color:var(--text);font-family:inherit;line-height:1.5;width:100%;}
+  .option-btn:hover:not(.disabled){border-color:var(--teal);background:rgba(45,212,191,0.08);transform:translateX(4px);}
+  .option-letter{display:flex;align-items:center;justify-content:center;min-width:30px;height:30px;border-radius:8px;background:var(--surface3);font-weight:700;font-size:0.82rem;color:var(--teal);flex-shrink:0;}
+  .option-btn.correct-answer{border-color:var(--correct-border);background:var(--correct-bg);}
+  .option-btn.correct-answer .option-letter{background:var(--correct);color:var(--bg);}
+  .option-btn.wrong-answer{border-color:var(--wrong-border);background:var(--wrong-bg);}
+  .option-btn.wrong-answer .option-letter{background:var(--wrong);color:var(--bg);}
+  .option-btn.disabled{cursor:default;}
+  .option-btn.disabled:hover{transform:none;}
+  .feedback{margin-top:18px;padding:18px;border-radius:12px;font-size:0.88rem;line-height:1.65;animation:fadeIn 0.3s ease;display:none;}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .feedback.show{display:block;}
+  .feedback.correct-fb{background:var(--correct-bg);border:1px solid var(--correct-border);color:var(--correct);}
+  .feedback.wrong-fb{background:var(--wrong-bg);border:1px solid var(--wrong-border);color:#fca5a5;}
+  .feedback-title{font-weight:700;font-size:0.95rem;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+  .feedback .tip{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.08);color:var(--text-dim);font-size:0.82rem;}
+  .feedback .tip strong{color:var(--gold);}
+  .feedback .ref{margin-top:8px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;}
+  .next-btn{display:none;margin:20px auto 0;padding:12px 32px;background:linear-gradient(135deg,var(--teal),var(--accent));color:var(--bg);border:none;border-radius:100px;font-family:inherit;font-size:0.92rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+  .next-btn:hover{transform:scale(1.05);}
+  .next-btn.show{display:block;}
+  .results{display:none;animation:slideIn 0.5s ease;}
+  .results.show{display:block;}
+  .results-header{text-align:center;padding:30px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;position:relative;overflow:hidden;}
+  .results-header::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--teal),var(--accent),var(--purple),var(--pink));}
+  .score-big{font-size:3.5rem;font-weight:800;background:linear-gradient(135deg,var(--teal),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .score-label{font-size:1.1rem;color:var(--text-dim);margin-top:4px;}
+  .score-msg{margin-top:12px;font-size:0.95rem;color:var(--text);font-weight:500;}
+  .chart-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px 20px;margin-bottom:20px;}
+  .chart-title{font-size:0.95rem;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+  .bar-chart{display:flex;flex-direction:column;gap:14px;}
+  .bar-row{display:flex;align-items:center;gap:12px;}
+  .bar-label{width:130px;font-size:0.78rem;font-weight:600;text-align:right;color:var(--text-dim);flex-shrink:0;}
+  .bar-track{flex:1;height:28px;background:var(--surface3);border-radius:8px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:8px;transition:width 1s ease;display:flex;align-items:center;padding-left:10px;font-size:0.75rem;font-weight:700;color:var(--bg);min-width:fit-content;}
+  .donut-wrap{display:flex;align-items:center;justify-content:center;gap:30px;flex-wrap:wrap;}
+  .donut-svg{width:160px;height:160px;}
+  .donut-legend{display:flex;flex-direction:column;gap:10px;}
+  .legend-item{display:flex;align-items:center;gap:10px;font-size:0.84rem;}
+  .legend-dot{width:12px;height:12px;border-radius:4px;flex-shrink:0;}
+  .review-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:12px;}
+  .review-card.review-correct{border-left:4px solid var(--correct);}
+  .review-card.review-wrong{border-left:4px solid var(--wrong);}
+  .review-q{font-size:0.88rem;font-weight:600;margin-bottom:8px;}
+  .review-answer{font-size:0.82rem;color:var(--text-dim);line-height:1.5;}
+  .review-answer strong{color:var(--correct);}
+  .review-answer em{color:var(--wrong);font-style:normal;}
+  .retry-btn{display:block;margin:28px auto;padding:14px 40px;background:linear-gradient(135deg,var(--teal),var(--accent));color:var(--bg);border:none;border-radius:100px;font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+  .retry-btn:hover{transform:scale(1.05);}
+  .hamburger{display:none;position:fixed;top:16px;left:16px;z-index:200;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px;cursor:pointer;font-size:1.2rem;}
+  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:90;}
+  .footer{text-align:center;padding:20px;color:var(--text-dim);font-size:0.72rem;opacity:0.5;}
+  @media(max-width:768px){
+    .sidebar{transform:translateX(-100%);}
+    .sidebar.open{transform:translateX(0);}
+    .main{margin-left:0;}
+    .hamburger{display:flex;align-items:center;justify-content:center;}
+    .overlay.show{display:block;}
+    .container{padding:12px 10px 30px;}
+    .question-card{padding:20px 16px;}
+    .bar-label{width:90px;font-size:0.72rem;}
+    .mode-bar{margin:16px auto;}
+  }
+</style>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-badge">🩺 MCS</div>
+    <h2>ENARM · Banco de Preguntas</h2>
+    <p>2025–2026</p>
+  </div>
+  <a href="../index.html" class="back-btn">← Volver al inicio</a>
+  <nav class="sidebar-nav">
+    <div class="specialty-group">
+      <div class="specialty-header open" onclick="toggleSpec(this)">
+        <div class="specialty-name">
+          <div class="specialty-icon" style="background:rgba(56,189,248,0.12);color:#38bdf8;">🔪</div>
+          Cirugía General
+        </div>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="topics-list open">
+        <a href="01-apendicitis.html" class="topic-link"><span class="topic-num">01</span>Abdomen agudo / Apendicitis<span class="star-tag">⭐</span></a>
+        <a href="02-patologia-biliar.html" class="topic-link"><span class="topic-num">02</span>Patología biliar<span class="star-tag">⭐</span></a>
+        <a href="03-enfermedad-diverticular.html" class="topic-link"><span class="topic-num">03</span>Enfermedad diverticular<span class="star-tag">⭐</span></a>
+        <a href="04-erge-esofagitis-dispepsia.html" class="topic-link active"><span class="topic-num">04</span>ERGE / Esofagitis / Dispepsia</a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">05</span>Cáncer esófago / gástrico<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">06</span>Gastritis / Úlcera péptica<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">07</span>Obesidad / Bariátrica<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">08</span>Patología perianal<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">09</span>Hernias / Esplenectomía<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">10</span>Insuf. venosa y arterial<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">11</span>Oclusión / Vólvulos<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">12</span>Cáncer de colon<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">13</span>Cáncer hepático<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">14</span>Cáncer páncreas<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">15</span>Pancreatitis<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">16</span>Mordeduras / Picaduras<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">17</span>Quemaduras<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">18</span>ATLS 1<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">19</span>ATLS 2<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">20</span>Patología quirúrgica<span class="badge-soon">Pronto</span></a>
+      </div>
+    </div>
+  </nav>
+</aside>
+
+<main class="main">
+<div class="container">
+
+  <div class="header">
+    <div class="header-badge"><span>🔥</span> ENARM · Cirugía General · Tema 04</div>
+    <h1>ERGE, Esofagitis y Dispepsia</h1>
+    <p>Acalasia · ERGE · Esofagitis · Dispepsia funcional</p>
+  </div>
+
+  <div style="display:flex;justify-content:center;">
+    <div class="mode-bar">
+      <button class="mode-btn active" id="btnRepaso" onclick="setMode('repaso')">📖 Modo Repaso</button>
+      <button class="mode-btn" id="btnExamen" onclick="setMode('examen')">⏱️ Modo Examen</button>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 15</div>
+  </div>
+
+  <div id="quizArea"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+  <div class="results" id="resultsArea"></div>
+
+</div>
+<div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+</main>
+
+<script>
+let examMode=false;
+function setMode(mode){
+  examMode=(mode==='examen');
+  document.getElementById('btnRepaso').classList.toggle('active',!examMode);
+  document.getElementById('btnExamen').classList.toggle('active',examMode);
+  init();
+}
+
+const questions=[
+  {
+    cat:"erge", catName:"ERGE",
+    q:"Paciente de 45 años con pirosis y regurgitación ácida de más de 2 veces por semana durante los últimos 3 meses, que mejora con antiácidos. Sin disfagia ni pérdida de peso. ¿Cuál es el diagnóstico más probable?",
+    opts:["Úlcera péptica","Enfermedad por reflujo gastroesofágico (ERGE)","Acalasia","Cáncer de esófago"],
+    ans:1,
+    exp:"La ERGE se define como síntomas o complicaciones derivadas del reflujo del contenido gástrico hacia el esófago. La GPC establece que pirosis y/o regurgitación ácida ≥2 veces por semana, con duración ≥4 semanas, es diagnóstico clínico de ERGE. La ausencia de síntomas de alarma (disfagia, pérdida de peso, sangrado) permite manejo empírico sin endoscopia inicial.",
+    tip:"<strong>Síntomas de alarma en ERGE (requieren endoscopia urgente):</strong> Disfagia, odinofagia, pérdida de peso involuntaria, sangrado GI, anemia, masa palpable, síntomas que no responden a IBP. Sin alarma + síntomas típicos → prueba terapéutica con IBP por 4-8 semanas es el primer paso.",
+    ref:"GPC: Diagnóstico y tratamiento de la enfermedad por reflujo gastroesofágico en el adulto. SSA. 2018."
+  },
+  {
+    cat:"erge", catName:"ERGE",
+    q:"¿Cuál es el tratamiento de primera línea para ERGE sin complicaciones según la GPC?",
+    opts:["Antihistamínicos H2 (ranitidina) por 2 semanas","Inhibidores de bomba de protones (IBP) por 4-8 semanas + cambios en estilo de vida","Cirugía de Nissen inmediata","Procinéticos solos (metoclopramida)"],
+    ans:1,
+    exp:"Los IBP (omeprazol, pantoprazol, lansoprazol) son el tratamiento de primera línea para ERGE por su superioridad sobre los antihistamínicos H2 en curación de esofagitis y alivio sintomático. La GPC recomienda IBP por 4-8 semanas + modificaciones al estilo de vida (elevar cabecera, evitar comidas 3h antes de dormir, reducir peso, evitar alcohol y tabaco).",
+    tip:"<strong>IBP: tomar 30 min antes del desayuno.</strong> El error más común es tomarlos con el estómago lleno — reducen su efectividad. En ERGE nocturna, agregar una dosis vespertina antes de cenar. Los antihistamínicos H2 (ranitidina, famotidina) son segunda línea o para síntomas ocasionales.",
+    ref:"GPC: Diagnóstico y tratamiento de la enfermedad por reflujo gastroesofágico en el adulto. SSA. 2018."
+  },
+  {
+    cat:"erge", catName:"ERGE / Esófago de Barrett",
+    q:"Paciente con ERGE de 10 años de evolución. Endoscopia muestra mucosa de color salmón en esófago distal. Biopsia reporta metaplasia intestinal con células caliciformes. ¿Cuál es el diagnóstico?",
+    opts:["Esofagitis erosiva grado C","Esófago de Barrett","Acalasia avanzada","Esofagitis eosinofílica"],
+    ans:1,
+    exp:"El esófago de Barrett se define por la presencia de metaplasia intestinal especializada (células caliciformes en biopsia) en el esófago distal, sustituyendo al epitelio escamoso normal. Es la principal complicación crónica de la ERGE y el principal factor de riesgo para adenocarcinoma de esófago. La GPC establece que su diagnóstico requiere endoscopia + biopsia confirmatoria.",
+    tip:"<strong>Barrett = Riesgo de cáncer:</strong> El adenocarcinoma de esófago surge en secuencia: ERGE → Barrett → displasia de bajo grado → displasia de alto grado → adenocarcinoma. La vigilancia endoscópica en Barrett sin displasia es cada 3-5 años. Con displasia de alto grado → resección endoscópica o ablación con radiofrecuencia.",
+    ref:"GPC: Diagnóstico y tratamiento de la enfermedad por reflujo gastroesofágico en el adulto. SSA. 2018."
+  },
+  {
+    cat:"tx", catName:"Tratamiento ERGE",
+    q:"¿Cuál es la indicación para tratamiento quirúrgico (funduplicatura de Nissen) en ERGE según la GPC?",
+    opts:["Todo paciente con ERGE que no mejora en 2 semanas de IBP","ERGE con dependencia a IBP a largo plazo, reflujo voluminoso o complicaciones, con anatom. favorable","ERGE en menores de 30 años","ERGE con esófago de Barrett sin displasia"],
+    ans:1,
+    exp:"La funduplicatura laparoscópica (Nissen o Toupet) está indicada en: ERGE con dependencia a IBP a largo plazo con deseo del paciente de discontinuarlos, reflujo voluminoso (regurgitación masiva), complicaciones de ERGE (esofagitis refractaria, estenosis péptica), ERGE con síntomas atípicos controlados con IBP pero con reflujo demostrado, y hernia hiatal grande sintomática.",
+    tip:"<strong>Nissen vs Toupet:</strong> Nissen = funduplicatura 360° (más efectiva pero más disfagia). Toupet = funduplicatura 270° posterior (menor disfagia, preferida en trastornos motores). Antes de operar siempre: pHmetría de 24h + manometría esofágica para confirmar ERGE y descartar acalasia (contraindicación relativa de Nissen).",
+    ref:"GPC: Diagnóstico y tratamiento de la enfermedad por reflujo gastroesofágico en el adulto. SSA. 2018."
+  },
+  {
+    cat:"erge", catName:"Acalasia",
+    q:"Paciente de 35 años con disfagia progresiva para sólidos Y líquidos de 18 meses de evolución, regurgitación de alimentos no digeridos y pérdida de peso de 8kg. Esofagograma muestra imagen en 'pico de pájaro'. ¿Cuál es el diagnóstico?",
+    opts:["Cáncer de esófago","Acalasia","ERGE con estenosis péptica","Espasmo esofágico difuso"],
+    ans:1,
+    exp:"La acalasia es un trastorno motor esofágico caracterizado por falla en la relajación del esfínter esofágico inferior (EEI) y pérdida del peristaltismo esofágico. La disfagia tanto para sólidos COMO líquidos desde el inicio (paradójica) es clave diagnóstica. El esofagograma en 'pico de pájaro' o 'cola de ratón' es el hallazgo radiológico clásico. La GPC recomienda manometría esofágica de alta resolución para confirmar.",
+    tip:"<strong>Disfagia: clave diagnóstica por progresión:</strong> Solo sólidos → mecánica (cáncer, estenosis). Sólidos Y líquidos desde el inicio → motora (acalasia, espasmo). La acalasia es paradójica: los líquidos a veces son más difíciles que los sólidos. Edad joven + disfagia mixta + regurgitación no ácida = acalasia hasta demostrar lo contrario.",
+    ref:"GPC: Diagnóstico y tratamiento de la acalasia en adultos. SSA. 2015."
+  },
+  {
+    cat:"erge", catName:"Acalasia",
+    q:"¿Cuál es el tratamiento definitivo de elección para acalasia según la GPC?",
+    opts:["IBP a dosis altas por 6 meses","Miotomía de Heller laparoscópica + funduplicatura parcial","Dilatación neumática con balón única","Toxina botulínica intraesfintérica como tratamiento permanente"],
+    ans:1,
+    exp:"La miotomía de Heller laparoscópica (corte de las fibras musculares del EEI) combinada con funduplicatura parcial (Dor o Toupet) para prevenir ERGE es el tratamiento definitivo de mayor efectividad y durabilidad para acalasia. La GPC la recomienda como primera línea en pacientes candidatos quirúrgicos. La dilatación neumática es alternativa efectiva. La toxina botulínica es temporal (6-12 meses) y se reserva para mayores o no candidatos.",
+    tip:"<strong>Opciones terapéuticas en acalasia:</strong> 1° Miotomía Heller laparoscópica (durabilidad 85-90% a 5 años). 2° POEM (Per-Oral Endoscopic Myotomy) — endoscópica, sin cicatriz, resultados similares. 3° Dilatación neumática (efectiva, requiere repetición). 4° Toxina botulínica (temporal, para malos candidatos). Nitratos y calcioantagonistas: solo paliativos.",
+    ref:"GPC: Diagnóstico y tratamiento de la acalasia en adultos. SSA. 2015."
+  },
+  {
+    cat:"dis", catName:"Dispepsia",
+    q:"¿Cómo se define la dispepsia funcional según los criterios de Roma IV adoptados por la GPC?",
+    opts:["Cualquier dolor abdominal superior con náusea","Síntomas de plenitud posprandial, saciedad temprana o dolor epigástrico, sin causa orgánica demostrable, presentes ≥3 meses en los últimos 6 meses","Pirosis y regurgitación ácida >2 veces/semana","Náusea y vómito sin causa identificada"],
+    ans:1,
+    exp:"La dispepsia funcional (Roma IV) se define como uno o más de: plenitud posprandial molesta, saciedad temprana, dolor o ardor epigástrico, sin evidencia de enfermedad orgánica que explique los síntomas, presentes al menos 3 de los últimos 6 meses. La GPC adopta estos criterios y distingue dos subtipos: síndrome de distrés posprandial (plenitud/saciedad) y síndrome de dolor epigástrico.",
+    tip:"<strong>Roma IV dispepsia funcional — 2 subtipos:</strong> 1) Síndrome de distrés posprandial: plenitud o saciedad temprana posprandial (motor). 2) Síndrome de dolor epigástrico: dolor o ardor epigástrico no relacionado con comidas (sensitivo). El tratamiento difiere: procinéticos para el primero, IBP/antidepresivos tricíclicos para el segundo.",
+    ref:"GPC: Diagnóstico y tratamiento de la dispepsia funcional. SSA. 2009."
+  },
+  {
+    cat:"dis", catName:"Dispepsia",
+    q:"Paciente de 38 años con dispepsia sin síntomas de alarma. ¿Cuál es la estrategia diagnóstica recomendada por la GPC para H. pylori en este contexto?",
+    opts:["Endoscopia con biopsia para todos los pacientes menores de 45 años","Prueba de aliento con urea C13 o prueba de antígeno en heces (estrategia 'test and treat')","Serología para H. pylori como primer paso","Iniciar IBP empírico sin investigar H. pylori"],
+    ans:1,
+    exp:"La estrategia 'test and treat' (detectar y tratar H. pylori sin endoscopia previa) está recomendada por la GPC para pacientes menores de 55-60 años con dispepsia sin síntomas de alarma en áreas de alta prevalencia de H. pylori (como México). Las pruebas no invasivas preferidas son la prueba de aliento con urea C13 o el antígeno en heces, por su alta sensibilidad y especificidad.",
+    tip:"<strong>Pruebas para H. pylori:</strong> No invasivas: aliento C13 (S 95%, E 95%), antígeno en heces (S 94%, E 97%), serología (menos específica, no confirma infección activa). Invasivas (endoscopia): ureasa rápida, histología, cultivo. Siempre suspender IBP 2 semanas y antibióticos 4 semanas antes de prueba de aliento o antígeno en heces para evitar falsos negativos.",
+    ref:"GPC: Diagnóstico y tratamiento de la dispepsia funcional. SSA. 2009."
+  },
+  {
+    cat:"dis", catName:"Dispepsia / H. pylori",
+    q:"¿Cuál es el esquema de primera línea para erradicación de H. pylori recomendado en México según las guías actuales?",
+    opts:["Claritromicina + Amoxicilina por 7 días","Triple terapia: IBP + Claritromicina + Amoxicilina por 14 días","Metronidazol monoterapia por 10 días","Bismuto + Tetraciclina por 7 días"],
+    ans:1,
+    exp:"La triple terapia estándar durante 14 días (IBP + claritromicina + amoxicilina) es el esquema de primera línea recomendado. La extensión a 14 días (vs 7 días) aumenta la tasa de erradicación en 5-10%. En zonas de alta resistencia a claritromicina (>15-20%), se recomienda terapia cuádruple con bismuto como primera línea. La GPC establece confirmar la erradicación 4-8 semanas después con prueba no invasiva.",
+    tip:"<strong>Mnemotecnia triple terapia:</strong> IBM = IBP + Bismuto (si cuádruple) + Metronidazol + Tetraciclina, o bien IBP + Claritromicina + Amoxicilina. Si falla primera línea → terapia cuádruple con bismuto o levofloxacino. Si falla segunda → cultivo y sensibilidad. Nunca repetir antibiótico ya usado.",
+    ref:"GPC: Diagnóstico y tratamiento de la dispepsia funcional. SSA. 2009."
+  },
+  {
+    cat:"cx", catName:"Complicaciones ERGE",
+    q:"Paciente con ERGE crónica presenta disfagia progresiva inicialmente para sólidos. Endoscopia muestra estenosis concéntrica en esófago distal de aspecto fibrótico. ¿Cuál es el diagnóstico?",
+    opts:["Acalasia secundaria","Estenosis péptica por ERGE","Cáncer de esófago","Anillo de Schatzki"],
+    ans:1,
+    exp:"La estenosis péptica es una complicación de la ERGE crónica secundaria a fibrosis por inflamación repetida. Se manifiesta con disfagia progresiva inicialmente solo para sólidos (a diferencia de la acalasia que es para sólidos Y líquidos desde el inicio). La endoscopia muestra estenosis concéntrica lisa en unión esofagogástrica o esófago distal. El tratamiento es dilatación endoscópica + IBP a largo plazo.",
+    tip:"<strong>Disfagia en contexto de ERGE:</strong> Siempre es síntoma de alarma → endoscopia. Estenosis péptica: disfagia solo sólidos, lisa, concéntrica, en esófago distal. Cáncer: disfagia progresiva rápida, irregular, asociada a pérdida de peso. Barrett + displasia alta: endoscopia de vigilancia. Las tres requieren endoscopia urgente.",
+    ref:"GPC: Diagnóstico y tratamiento de la enfermedad por reflujo gastroesofágico en el adulto. SSA. 2018."
+  },
+  {
+    cat:"erge", catName:"ERGE",
+    q:"¿Cuál de las siguientes medidas de higiene de vida NO está recomendada en la GPC para el manejo de ERGE?",
+    opts:["Elevación de la cabecera de la cama 15-20cm","Evitar comidas 2-3 horas antes de acostarse","Ayuno total durante el día y cena abundante","Reducción de peso en pacientes con sobrepeso u obesidad"],
+    ans:2,
+    exp:"El ayuno total diurno con cena abundante es contraproducente en ERGE ya que aumenta el volumen gástrico nocturno y favorece el reflujo. Las medidas recomendadas por la GPC incluyen: elevar la cabecera de la cama, evitar comidas 2-3h antes de dormir, reducir peso, evitar tabaco y alcohol, reducir grasas y cítricos, y evitar ropa ajustada. Las comidas deben ser frecuentes y en menor cantidad.",
+    tip:"<strong>Medidas antirreflujo clave:</strong> Elevar cabecera (gravedad ayuda), no acostarse postprandial (el estómago lleno facilita reflujo), bajar de peso (reduce presión intraabdominal). Alimentos que relajan el EEI y empeoran ERGE: alcohol, tabaco, café, chocolate, menta, grasas, cítricos. Evitarlos mejora síntomas.",
+    ref:"GPC: Diagnóstico y tratamiento de la enfermedad por reflujo gastroesofágico en el adulto. SSA. 2018."
+  },
+  {
+    cat:"dis", catName:"Dispepsia",
+    q:"¿Cuál es el medicamento de primera línea para el subtipo de dispepsia funcional con plenitud posprandial y saciedad temprana (síndrome de distrés posprandial)?",
+    opts:["IBP (omeprazol) a dosis doble","Procinéticos (metoclopramida o domperidona)","Antidepresivos tricíclicos (amitriptilina)","Antiespasmódicos (hioscina)"],
+    ans:1,
+    exp:"El síndrome de distrés posprandial (plenitud, saciedad temprana) refleja principalmente un trastorno motor gástrico (vaciamiento lento). La GPC recomienda procinéticos (metoclopramida, domperidona, itopride) como primera línea en este subtipo. Los IBP son más útiles en el subtipo de dolor epigástrico. Los antidepresivos tricíclicos a dosis bajas son segunda línea para ambos subtipos.",
+    tip:"<strong>Subtipo determina tratamiento:</strong> Distrés posprandial (plenitud/saciedad) → Procinéticos. Dolor epigástrico → IBP. Refractario a ambos → Antidepresivos tricíclicos a dosis bajas (amitriptilina 10-25mg/noche) — actúan como moduladores viscerales, no como antidepresivos. Metoclopramida: máximo 12 semanas por riesgo de discinesia tardía.",
+    ref:"GPC: Diagnóstico y tratamiento de la dispepsia funcional. SSA. 2009."
+  },
+  {
+    cat:"bar", catName:"Síntomas de Alarma",
+    q:"¿Cuál de los siguientes síntomas en un paciente con dispepsia requiere endoscopia diagnóstica urgente según la GPC?",
+    opts:["Pirosis ocasional después de comidas grasas","Eructos frecuentes posprandiales","Pérdida de peso involuntaria de 5kg en 2 meses","Distensión abdominal vespertina"],
+    ans:2,
+    exp:"La pérdida de peso involuntaria es un síntoma de alarma que obliga a realizar endoscopia diagnóstica para descartar neoplasia. La GPC establece que en presencia de cualquier síntoma de alarma (pérdida de peso, disfagia, sangrado GI, anemia, vómito persistente, masa palpable, historia familiar de cáncer gástrico) la endoscopia es mandatoria independientemente de la edad.",
+    tip:"<strong>Síntomas de alarma en dispepsia/ERGE — CUIDADO:</strong> Disfagia, Odinofagia, Pérdida de peso, Sangrado (hematemesis/melena), Anemia, Masa palpable, Vómito recurrente, Inicio &gt;55 años. Cualquiera de estos = Endoscopia urgente. No hacer prueba terapéutica con IBP si hay alarma — es retrasar el diagnóstico de cáncer.",
+    ref:"GPC: Diagnóstico y tratamiento de la dispepsia funcional. SSA. 2009."
+  },
+  {
+    cat:"erge", catName:"ERGE / Diagnóstico",
+    q:"¿Cuál es el estándar de oro para el diagnóstico definitivo de ERGE cuando la endoscopia es normal?",
+    opts:["Manometría esofágica de alta resolución","pHmetría esofágica ambulatoria de 24 horas","Gammagrafía de vaciamiento gástrico","Prueba de Bernstein (infusión de ácido)"],
+    ans:1,
+    exp:"La pHmetría esofágica ambulatoria de 24 horas es el estándar de oro para diagnosticar ERGE cuando la endoscopia no muestra esofagitis (ERGE no erosiva) o cuando se necesita confirmar reflujo antes de cirugía. Mide el tiempo de exposición ácida en esófago distal (normal &lt;4-6% del tiempo). La impedanciometría + pHmetría detecta además reflujo no ácido.",
+    tip:"<strong>Cuándo pedir pHmetría:</strong> 1) Endoscopia normal pero síntomas típicos persistentes. 2) Síntomas atípicos (tos crónica, laringitis, asma) para confirmar ERGE como causa. 3) Antes de cirugía antirreflujo para documentar reflujo. Siempre suspender IBP 7 días antes de la pHmetría (puede dar falso negativo).",
+    ref:"GPC: Diagnóstico y tratamiento de la enfermedad por reflujo gastroesofágico en el adulto. SSA. 2018."
+  },
+  {
+    cat:"tx", catName:"Tratamiento",
+    q:"Paciente con ERGE recibe omeprazol 20mg cada 24 horas por 8 semanas sin mejoría adecuada. ¿Cuál es el siguiente paso según la GPC?",
+    opts:["Suspender IBP y cambiar a antiácidos","Doblar la dosis de IBP (20mg c/12h) y reevaluar en 4-8 semanas","Cirugía de Nissen inmediata","Solicitar pHmetría y enviar a cirugía sin más tratamiento médico"],
+    ans:1,
+    exp:"En ERGE refractaria al IBP estándar, la GPC recomienda como primer paso optimizar la dosis: doblar el IBP (dos veces al día, 30 min antes de cada comida principal) por 4-8 semanas antes de escalar a otros estudios o cirugía. También se debe verificar adherencia al tratamiento y modificaciones de estilo de vida. Si no hay respuesta a dosis doble → pHmetría para reclasificar y considerar alternativas.",
+    tip:"<strong>ERGE refractaria — pasos:</strong> 1) Optimizar dosis IBP (doble dosis). 2) Verificar adherencia y estilo de vida. 3) Si falla → pHmetría para confirmar reflujo. 4) Considerar impedanciometría si pHmetría normal (reflujo no ácido). 5) Endoscopia si no se ha hecho. 6) Cirugía en candidatos seleccionados. No escalar a cirugía sin documentar el reflujo.",
+    ref:"GPC: Diagnóstico y tratamiento de la enfermedad por reflujo gastroesofágico en el adulto. SSA. 2018."
+  }
+];
+
+let currentQ=0,score=0,answers=[];
+let catStats={erge:{c:0,t:0},dis:{c:0,t:0},tx:{c:0,t:0},cx:{c:0,t:0},bar:{c:0,t:0}};
+
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+
+function init(){
+  shuffle(questions);currentQ=0;score=0;answers=[];
+  catStats={erge:{c:0,t:0},dis:{c:0,t:0},tx:{c:0,t:0},cx:{c:0,t:0},bar:{c:0,t:0}};
+  const r=document.getElementById('resultsArea');r.classList.remove('show');r.innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');renderQuestion();
+}
+
+function renderQuestion(){
+  const qa=questions[currentQ],total=questions.length;
+  document.getElementById('progressBar').style.width=(currentQ/total*100)+'%';
+  document.getElementById('progressText').textContent=`${currentQ+1} / ${total}`;
+  document.getElementById('nextBtn').classList.remove('show');
+  const letters=['A','B','C','D'];
+  let html=`<div class="question-card">
+    <div class="q-category cat-${qa.cat}">${qa.catName}</div>
+    <div class="q-number">Pregunta ${currentQ+1} de ${total}</div>
+    <div class="q-text">${qa.q}</div>
+    <div class="options">`;
+  qa.opts.forEach((opt,i)=>{html+=`<button class="option-btn" onclick="selectAnswer(${i})"><span class="option-letter">${letters[i]}</span><span>${opt}</span></button>`;});
+  html+=`</div><div class="feedback" id="feedback"></div></div>`;
+  document.getElementById('quizArea').innerHTML=html;
+}
+
+function selectAnswer(idx){
+  const qa=questions[currentQ];
+  const btns=document.querySelectorAll('.option-btn');
+  const fb=document.getElementById('feedback');
+  const isCorrect=idx===qa.ans;
+  btns.forEach((btn,i)=>{btn.classList.add('disabled');btn.onclick=null;if(i===qa.ans)btn.classList.add('correct-answer');if(i===idx&&!isCorrect)btn.classList.add('wrong-answer');});
+  if(!catStats[qa.cat])catStats[qa.cat]={c:0,t:0};
+  catStats[qa.cat].t++;if(isCorrect){score++;catStats[qa.cat].c++;}
+  if(!examMode){
+    fb.className=isCorrect?'feedback correct-fb show':'feedback wrong-fb show';
+    fb.innerHTML=isCorrect
+      ?`<div class="feedback-title">✅ ¡Correcto!</div><div>${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`
+      :`<div class="feedback-title">❌ Incorrecto</div><div><strong>Respuesta correcta:</strong> ${qa.opts[qa.ans]}</div><div style="margin-top:8px;">${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;
+  }
+  answers.push({q:qa.q,correct:isCorrect,userAns:qa.opts[idx],correctAns:qa.opts[qa.ans],cat:qa.catName,exp:qa.exp,ref:qa.ref});
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion(){currentQ++;if(currentQ>=questions.length)showResults();else renderQuestion();}
+
+function showResults(){
+  document.getElementById('quizArea').innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  document.getElementById('progressBar').style.width='100%';
+  document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;
+  const pct=Math.round((score/questions.length)*100);
+  const msg=pct>=90?'🏆 ¡Excelente! Dominas ERGE y dispepsia.':pct>=70?'👏 ¡Muy bien! Repasa los puntos débiles.':pct>=50?'📚 Aceptable, refuerza los criterios diagnósticos.':'⚠️ Revisa las GPC de ERGE y dispepsia funcional.';
+  const cats=[
+    {name:'ERGE/Acalasia',key:'erge',color:'#2dd4bf'},
+    {name:'Dispepsia',key:'dis',color:'#38bdf8'},
+    {name:'Tratamiento',key:'tx',color:'#a78bfa'},
+    {name:'Complicaciones',key:'cx',color:'#f472b6'},
+    {name:'Alarma',key:'bar',color:'#fbbf24'},
+  ];
+  let html=`<div class="results-header">
+    <div class="score-big">${pct}%</div>
+    <div class="score-label">${score} de ${questions.length} correctas</div>
+    <div class="score-msg">${msg}</div>
+  </div>
+  <div class="chart-section">
+    <div class="chart-title"><span>📊</span> Rendimiento por Categoría</div>
+    <div class="bar-chart">`;
+  cats.forEach(cat=>{
+    const s=catStats[cat.key]||{c:0,t:0};
+    const p=s.t>0?Math.round((s.c/s.t)*100):0;
+    html+=`<div class="bar-row"><div class="bar-label">${cat.name}</div><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${cat.color};">${p}% (${s.c}/${s.t})</div></div></div>`;
+  });
+  html+=`</div></div>
+  <div class="chart-section">
+    <div class="chart-title"><span>🎯</span> Resumen General</div>
+    <div class="donut-wrap">
+      <svg class="donut-svg" viewBox="0 0 42 42">
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a2235" stroke-width="4"/>
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#34d399" stroke-width="4" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="25" stroke-linecap="round"/>
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#f87171" stroke-width="4" stroke-dasharray="${100-pct} ${pct}" stroke-dashoffset="${25-pct}" stroke-linecap="round"/>
+        <text x="21" y="22.5" text-anchor="middle" font-size="6" font-weight="700" fill="#e8ecf4" font-family="Plus Jakarta Sans">${pct}%</text>
+      </svg>
+      <div class="donut-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#34d399;"></div>Correctas: ${score}</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Incorrectas: ${questions.length-score}</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#38bdf8;"></div>Total: ${questions.length}</div>
+      </div>
+    </div>
+  </div>
+  <div class="chart-section">
+    <div class="chart-title"><span>📋</span> Revisión de Respuestas</div>`;
+  answers.forEach((a,i)=>{
+    html+=`<div class="review-card ${a.correct?'review-correct':'review-wrong'}">
+      <div class="review-q">${i+1}. ${a.q} <span style="font-size:0.72rem;color:var(--text-dim);">[${a.cat}]</span></div>
+      <div class="review-answer">${a.correct?`<strong>✅ ${a.correctAns}</strong>`:`<em>❌ Tu respuesta: ${a.userAns}</em><br><strong>✅ Correcta: ${a.correctAns}</strong>`}</div>
+      <div style="margin-top:8px;font-size:0.8rem;color:var(--text-dim);line-height:1.5;">${a.exp}</div>
+      <div style="margin-top:6px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;">📖 ${a.ref}</div>
+    </div>`;
+  });
+  html+=`</div><button class="retry-btn" onclick="init()">🔄 Reintentar</button>`;
+  const res=document.getElementById('resultsArea');res.innerHTML=html;res.classList.add('show');
+  res.scrollIntoView({behavior:'smooth'});
+}
+
+function toggleSpec(h){h.classList.toggle('open');h.nextElementSibling.classList.toggle('open');}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+init();
+</script>
+</body>
+</html>
