@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insuficiencia Venosa y Arterial — ENARM · MediCode Solutions</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0a0e1a; --surface: #111827; --surface2: #1a2235; --surface3: #212d45;
+    --border: #2a3a5c; --text: #e8ecf4; --text-dim: #8896b3;
+    --accent: #38bdf8; --accent-glow: rgba(56,189,248,0.15);
+    --correct: #34d399; --correct-bg: rgba(52,211,153,0.1); --correct-border: rgba(52,211,153,0.4);
+    --wrong: #f87171; --wrong-bg: rgba(248,113,113,0.1); --wrong-border: rgba(248,113,113,0.4);
+    --gold: #fbbf24; --purple: #a78bfa; --pink: #f472b6; --teal: #2dd4bf;
+    --sidebar-w: 280px; --radius: 14px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; display:flex; }
+
+  .sidebar {
+    width:var(--sidebar-w); min-height:100vh; background:var(--surface);
+    border-right:1px solid var(--border); display:flex; flex-direction:column;
+    position:fixed; left:0; top:0; bottom:0; overflow-y:auto; z-index:100; transition:transform 0.3s;
+  }
+  .sidebar-logo { padding:24px 20px 16px; border-bottom:1px solid var(--border); }
+  .logo-badge { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,var(--accent),var(--purple)); padding:6px 14px; border-radius:100px; font-size:0.75rem; font-weight:800; color:var(--bg); letter-spacing:0.5px; text-transform:uppercase; margin-bottom:10px; }
+  .sidebar-logo h2 { font-size:1.1rem; font-weight:800; background:linear-gradient(135deg,var(--text),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .sidebar-logo p { font-size:0.72rem; color:var(--text-dim); margin-top:2px; }
+  .back-btn { display:flex; align-items:center; gap:8px; padding:14px 20px; color:var(--text-dim); font-size:0.8rem; text-decoration:none; border-bottom:1px solid var(--border); transition:color 0.2s; }
+  .back-btn:hover { color:var(--accent); }
+  .sidebar-nav { flex:1; padding:12px 0 24px; }
+  .specialty-header { display:flex; align-items:center; justify-content:space-between; padding:10px 16px 10px 20px; cursor:pointer; transition:background 0.2s; user-select:none; }
+  .specialty-header:hover { background:var(--surface2); }
+  .specialty-name { display:flex; align-items:center; gap:10px; font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; }
+  .specialty-icon { width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:0.9rem; flex-shrink:0; }
+  .chevron { font-size:0.65rem; color:var(--text-dim); transition:transform 0.3s; }
+  .specialty-header.open .chevron { transform:rotate(90deg); }
+  .topics-list { display:none; padding:4px 0 8px; }
+  .topics-list.open { display:block; }
+  .topic-link { display:flex; align-items:center; gap:10px; padding:8px 16px 8px 56px; font-size:0.78rem; color:var(--text-dim); text-decoration:none; transition:all 0.2s; border-left:2px solid transparent; line-height:1.4; }
+  .topic-link:hover { color:var(--text); background:var(--surface3); }
+  .topic-link.active { color:var(--accent); border-left-color:var(--accent); background:var(--accent-glow); font-weight:600; }
+  .topic-link.coming-soon { opacity:0.4; cursor:not-allowed; pointer-events:none; }
+  .topic-num { font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--text-dim); min-width:20px; }
+  .badge-soon { margin-left:auto; background:rgba(136,150,179,0.1); color:var(--text-dim); font-size:0.62rem; font-weight:600; padding:2px 7px; border-radius:100px; }
+  .star-tag { margin-left:auto; font-size:0.7rem; }
+
+  .main { margin-left:var(--sidebar-w); flex:1; display:flex; flex-direction:column; }
+  .container { max-width:760px; margin:0 auto; padding:20px 16px 40px; width:100%; }
+
+  .mode-bar { display:flex; align-items:center; gap:10px; margin:24px 0 20px; background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:6px; width:fit-content; }
+  .mode-btn { padding:8px 20px; border-radius:100px; border:none; cursor:pointer; font-family:inherit; font-size:0.82rem; font-weight:600; transition:all 0.2s; color:var(--text-dim); background:transparent; }
+  .mode-btn.active { background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); }
+
+  .header { text-align:center; padding:40px 20px 24px; position:relative; overflow:hidden; }
+  .header::before { content:''; position:absolute; top:-60%; left:50%; transform:translateX(-50%); width:600px; height:600px; background:radial-gradient(circle,rgba(56,189,248,0.08) 0%,transparent 70%); pointer-events:none; }
+  .header-badge { display:inline-flex; align-items:center; gap:8px; background:var(--surface2); border:1px solid var(--border); padding:6px 16px; border-radius:100px; font-size:0.78rem; color:var(--accent); font-weight:600; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:16px; }
+  .header h1 { font-size:clamp(1.6rem,5vw,2.2rem); font-weight:800; background:linear-gradient(135deg,var(--text) 0%,var(--accent) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:8px; }
+  .header p { color:var(--text-dim); font-size:0.95rem; max-width:500px; margin:0 auto; }
+
+  .progress-wrap { background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:12px 20px; margin:20px 0 28px; display:flex; align-items:center; gap:14px; }
+  .progress-bar-bg { flex:1; height:8px; background:var(--surface3); border-radius:100px; overflow:hidden; }
+  .progress-bar-fill { height:100%; width:0%; background:linear-gradient(90deg,var(--accent),var(--purple)); border-radius:100px; transition:width 0.5s ease; }
+  .progress-text { font-size:0.82rem; font-weight:600; color:var(--text-dim); white-space:nowrap; font-family:'JetBrains Mono',monospace; }
+
+  .question-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:28px 24px; margin-bottom:20px; animation:slideIn 0.4s ease; position:relative; overflow:hidden; }
+  .question-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--gold),var(--accent),var(--purple)); }
+  @keyframes slideIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+  .q-category { display:inline-flex; align-items:center; gap:6px; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; padding:4px 12px; border-radius:100px; margin-bottom:14px; }
+  .cat-ven  { background:rgba(251,191,36,0.12); color:var(--gold); }
+  .cat-art  { background:rgba(56,189,248,0.12); color:var(--accent); }
+  .cat-tve  { background:rgba(167,139,250,0.12); color:var(--purple); }
+  .cat-isq  { background:rgba(244,114,182,0.12); color:var(--pink); }
+  .cat-tx   { background:rgba(52,211,153,0.12);  color:var(--correct); }
+
+  .q-number { font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--text-dim); margin-bottom:10px; }
+  .q-text { font-size:1.05rem; font-weight:600; line-height:1.55; margin-bottom:20px; color:var(--text); }
+
+  .options { display:flex; flex-direction:column; gap:10px; }
+  .option-btn { display:flex; align-items:flex-start; gap:12px; padding:14px 16px; background:var(--surface2); border:1.5px solid var(--border); border-radius:12px; cursor:pointer; transition:all 0.2s; text-align:left; font-size:0.92rem; color:var(--text); font-family:inherit; line-height:1.5; width:100%; }
+  .option-btn:hover:not(.disabled) { border-color:var(--accent); background:var(--accent-glow); transform:translateX(4px); }
+  .option-letter { display:flex; align-items:center; justify-content:center; min-width:30px; height:30px; border-radius:8px; background:var(--surface3); font-weight:700; font-size:0.82rem; color:var(--accent); flex-shrink:0; }
+  .option-btn.correct-answer { border-color:var(--correct-border); background:var(--correct-bg); }
+  .option-btn.correct-answer .option-letter { background:var(--correct); color:var(--bg); }
+  .option-btn.wrong-answer { border-color:var(--wrong-border); background:var(--wrong-bg); }
+  .option-btn.wrong-answer .option-letter { background:var(--wrong); color:var(--bg); }
+  .option-btn.disabled { cursor:default; }
+  .option-btn.disabled:hover { transform:none; }
+
+  .feedback { margin-top:18px; padding:18px; border-radius:12px; font-size:0.88rem; line-height:1.65; animation:fadeIn 0.3s ease; display:none; }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  .feedback.show { display:block; }
+  .feedback.correct-fb { background:var(--correct-bg); border:1px solid var(--correct-border); color:var(--correct); }
+  .feedback.wrong-fb { background:var(--wrong-bg); border:1px solid var(--wrong-border); color:#fca5a5; }
+  .feedback-title { font-weight:700; font-size:0.95rem; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
+  .feedback .tip { margin-top:10px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.08); color:var(--text-dim); font-size:0.82rem; }
+  .feedback .tip strong { color:var(--gold); }
+  .feedback .ref { margin-top:8px; font-size:0.75rem; color:var(--text-dim); opacity:0.7; font-style:italic; }
+
+  .next-btn { display:none; margin:20px auto 0; padding:12px 32px; background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:0.92rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+  .next-btn:hover { transform:scale(1.05); box-shadow:0 4px 24px var(--accent-glow); }
+  .next-btn.show { display:block; }
+
+  .results { display:none; animation:slideIn 0.5s ease; }
+  .results.show { display:block; }
+  .results-header { text-align:center; padding:30px 20px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:20px; position:relative; overflow:hidden; }
+  .results-header::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--correct),var(--accent),var(--purple),var(--pink)); }
+  .score-big { font-size:3.5rem; font-weight:800; background:linear-gradient(135deg,var(--correct),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .score-label { font-size:1.1rem; color:var(--text-dim); margin-top:4px; }
+  .score-msg { margin-top:12px; font-size:0.95rem; color:var(--text); font-weight:500; }
+  .chart-section { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px 20px; margin-bottom:20px; }
+  .chart-title { font-size:0.95rem; font-weight:700; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
+  .bar-chart { display:flex; flex-direction:column; gap:14px; }
+  .bar-row { display:flex; align-items:center; gap:12px; }
+  .bar-label { width:130px; font-size:0.78rem; font-weight:600; text-align:right; color:var(--text-dim); flex-shrink:0; }
+  .bar-track { flex:1; height:28px; background:var(--surface3); border-radius:8px; overflow:hidden; }
+  .bar-fill { height:100%; border-radius:8px; transition:width 1s ease; display:flex; align-items:center; padding-left:10px; font-size:0.75rem; font-weight:700; color:var(--bg); min-width:fit-content; }
+  .donut-wrap { display:flex; align-items:center; justify-content:center; gap:30px; flex-wrap:wrap; }
+  .donut-svg { width:160px; height:160px; }
+  .donut-legend { display:flex; flex-direction:column; gap:10px; }
+  .legend-item { display:flex; align-items:center; gap:10px; font-size:0.84rem; }
+  .legend-dot { width:12px; height:12px; border-radius:4px; flex-shrink:0; }
+  .review-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; margin-bottom:12px; }
+  .review-card.review-correct { border-left:4px solid var(--correct); }
+  .review-card.review-wrong { border-left:4px solid var(--wrong); }
+  .review-q { font-size:0.88rem; font-weight:600; margin-bottom:8px; }
+  .review-answer { font-size:0.82rem; color:var(--text-dim); line-height:1.5; }
+  .review-answer strong { color:var(--correct); }
+  .review-answer em { color:var(--wrong); font-style:normal; }
+  .retry-btn { display:block; margin:28px auto; padding:14px 40px; background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:1rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+  .retry-btn:hover { transform:scale(1.05); }
+  .hamburger { display:none; position:fixed; top:16px; left:16px; z-index:200; background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:10px; cursor:pointer; font-size:1.2rem; }
+  .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:90; }
+  .footer { text-align:center; padding:20px; color:var(--text-dim); font-size:0.72rem; opacity:0.5; }
+
+  @media(max-width:768px) {
+    .sidebar { transform:translateX(-100%); }
+    .sidebar.open { transform:translateX(0); }
+    .main { margin-left:0; }
+    .hamburger { display:flex; align-items:center; justify-content:center; }
+    .overlay.show { display:block; }
+    .container { padding:12px 10px 30px; }
+    .question-card { padding:20px 16px; }
+    .bar-label { width:90px; font-size:0.72rem; }
+    .mode-bar { margin:16px auto; }
+  }
+</style>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-badge">🩺 MCS</div>
+    <h2>ENARM · Banco de Preguntas</h2>
+    <p>2025–2026</p>
+  </div>
+  <a href="index.html" class="back-btn">← Volver al inicio</a>
+  <nav class="sidebar-nav">
+    <div class="specialty-group">
+      <div class="specialty-header open" onclick="toggleSpec(this)">
+        <div class="specialty-name">
+          <div class="specialty-icon" style="background:rgba(56,189,248,0.12);color:#38bdf8;">🔪</div>
+          Cirugía General
+        </div>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="topics-list open">
+        <a href="01-apendicitis.html" class="topic-link"><span class="topic-num">01</span>Abdomen agudo / Apendicitis<span class="star-tag">⭐</span></a>
+        <a href="02-patologia-biliar.html" class="topic-link"><span class="topic-num">02</span>Patología biliar<span class="star-tag">⭐</span></a>
+        <a href="03-enfermedad-diverticular.html" class="topic-link"><span class="topic-num">03</span>Enfermedad diverticular</a>
+        <a href="04-erge-esofagitis-dispepsia.html" class="topic-link"><span class="topic-num">04</span>ERGE / Esofagitis</a>
+        <a href="05-cancer-esofago-gastrico.html" class="topic-link"><span class="topic-num">05</span>Cáncer esófago / gástrico</a>
+        <a href="06-gastritis-ulcera-peptica.html" class="topic-link"><span class="topic-num">06</span>Gastritis / Úlcera péptica</a>
+        <a href="07-obesidad-bariatrica.html" class="topic-link"><span class="topic-num">07</span>Obesidad / Bariátrica</a>
+        <a href="08-patologia-perianal.html" class="topic-link"><span class="topic-num">08</span>Patología perianal</a>
+        <a href="09-hernias-esplenectomia.html" class="topic-link"><span class="topic-num">09</span>Hernias / Esplenectomía</a>
+        <a href="10-insuficiencia-venosa-arterial.html" class="topic-link active"><span class="topic-num">10</span>Insuf. venosa y arterial</a>
+        <a href="11-oclusion-volvulos-isquemia.html" class="topic-link"><span class="topic-num">11</span>Oclusión / Vólvulos</a>
+        <a href="12-cancer-colon.html" class="topic-link"><span class="topic-num">12</span>Cáncer de colon</a>
+        <a href="13-cancer-hepatico.html" class="topic-link"><span class="topic-num">13</span>Cáncer hepático</a>
+        <a href="14-cancer-pancreas-trasplante.html" class="topic-link"><span class="topic-num">14</span>Cáncer páncreas / Trasplante</a>
+        <a href="15-pancreatitis.html" class="topic-link"><span class="topic-num">15</span>Pancreatitis</a>
+        <a href="16-mordeduras-picaduras.html" class="topic-link"><span class="topic-num">16</span>Mordeduras / Picaduras</a>
+        <a href="17-quemaduras.html" class="topic-link"><span class="topic-num">17</span>Quemaduras</a>
+        <a href="18-atls1.html" class="topic-link"><span class="topic-num">18</span>ATLS 1</a>
+        <a href="19-atls2.html" class="topic-link"><span class="topic-num">19</span>ATLS 2</a>
+        <a href="20-patologia-quirurgica.html" class="topic-link"><span class="topic-num">20</span>Patología quirúrgica</a>
+      </div>
+    </div>
+  </nav>
+</aside>
+
+<main class="main">
+<div class="container">
+
+  <div class="header">
+    <div class="header-badge"><span>🔪</span> ENARM · Cirugía General · Tema 10</div>
+    <h1>Insuficiencia Venosa y Arterial</h1>
+    <p>Insuficiencia venosa crónica · Várices · Insuficiencia arterial periférica · Isquemia</p>
+  </div>
+
+  <div style="display:flex;justify-content:center;">
+    <div class="mode-bar">
+      <button class="mode-btn active" id="btnRepaso" onclick="setMode('repaso')">📖 Modo Repaso</button>
+      <button class="mode-btn" id="btnExamen" onclick="setMode('examen')">⏱️ Modo Examen</button>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 15</div>
+  </div>
+
+  <div id="quizArea"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+  <div class="results" id="resultsArea"></div>
+
+</div>
+<div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+</main>
+
+<script>
+let examMode = false;
+
+function setMode(mode) {
+  examMode = (mode === 'examen');
+  document.getElementById('btnRepaso').classList.toggle('active', !examMode);
+  document.getElementById('btnExamen').classList.toggle('active', examMode);
+  init();
+}
+
+const questions = [
+  {
+    cat:"ven", catName:"Insuficiencia Venosa",
+    q:"Mujer de 52 años con pesadez y edema en miembros inferiores que mejora con elevación, telangiectasias y venas reticulares visibles, sin úlceras ni cambios tróficos. Según la clasificación CEAP, ¿en qué categoría clínica se encuentra?",
+    opts:["C0 — sin signos visibles ni palpables","C1 — telangiectasias o venas reticulares","C3 — edema sin cambios de piel","C4 — cambios cutáneos por enfermedad venosa"],
+    ans:1,
+    exp:"La clasificación CEAP (Clínica, Etiológica, Anatómica, Patofisiológica) es el sistema estándar para clasificar la insuficiencia venosa crónica. C0: sin signos. C1: telangiectasias (&lt;1mm) o venas reticulares (1–3mm). C2: várices (>3mm). C3: edema. C4a: pigmentación o eccema. C4b: lipodermatoesclerosis o atrofia blanche. C5: úlcera cicatrizada. C6: úlcera activa. La GPC establece que la clasificación CEAP guía el manejo.",
+    tip:"<strong>Mnemotecnia CEAP C0–C6:</strong> 0=Nada, 1=Telang, 2=Várices, 3=Edema, 4=Piel cambia, 5=Úlcera cerrada, 6=Úlcera abierta. El sufijo 'S' indica sintomático y 'A' asintomático (p.ej., C2S). La clasificación CEAP reemplazó la clasificación antigua; es la que ENARM evalúa.",
+    ref:"GPC: Prevención, diagnóstico y tratamiento de la insuficiencia venosa crónica. IMSS. 2009."
+  },
+  {
+    cat:"ven", catName:"Insuficiencia Venosa",
+    q:"Paciente con insuficiencia venosa crónica CEAP C6 presenta úlcera en el maléolo medial del tobillo, de bordes irregulares, base granulomatosa, eritema perilesional y exudado moderado. ¿Cuál es la característica diferencial más importante de la úlcera venosa respecto a la arterial?",
+    opts:["Localización en el talón y zonas de presión","Localización supramaleolar medial, bordes irregulares y dolor leve que mejora con elevación","Bordes necróticos, ausencia de pulsos y dolor intenso en reposo","Fondo pálido, atrófico y sin sangrado al desbridar"],
+    ans:1,
+    exp:"Las úlceras venosas se localizan clásicamente en el área supramaleolar medial (gaiter area), tienen bordes irregulares pero bien definidos, base granulomatosa rojiza, exudado moderado-abundante y dolor leve que mejora al elevar el miembro. Las úlceras arteriales, por el contrario, se localizan en zonas distales (dedos, talón), tienen bordes bien definidos, fondo pálido/necrótico, son extremadamente dolorosas y el dolor empeora con la elevación.",
+    tip:"<strong>Venosa vs Arterial — clave diferencial:</strong> Venosa: maléolo medial, bordes irregulares, base roja, dolor leve, mejora elevando. Arterial: dedos/talón, bordes nítidos, fondo pálido/necrótico, dolor severo en reposo, empeora elevando. El ITB diferencia ambas: venosa ITB normal (&gt;0.9), arterial ITB bajo (&lt;0.9).",
+    ref:"GPC: Prevención, diagnóstico y tratamiento de la insuficiencia venosa crónica. IMSS. 2009."
+  },
+  {
+    cat:"ven", catName:"Insuficiencia Venosa",
+    q:"¿Cuál es el tratamiento de primera línea recomendado por la GPC para la insuficiencia venosa crónica sintomática CEAP C2–C3 (várices con edema)?",
+    opts:["Safenectomía de urgencia","Terapia de compresión elástica con medias de 20–30 mmHg + medidas higienodiéteticas","Anticoagulación oral indefinida","AINES y reposo absoluto"],
+    ans:1,
+    exp:"La GPC establece que el tratamiento de primera línea para IVC sintomática es la terapia compresiva con medias de compresión graduada (20–30 mmHg para C2–C3; 30–40 mmHg para C4–C6), combinada con medidas higienodiéteticas: elevación del miembro, ejercicio físico (caminar), control de peso y evitar bipedestación prolongada. La cirugía se reserva para casos con fracaso de tratamiento conservador o complicaciones.",
+    tip:"<strong>Compresión graduada: principio clave:</strong> La presión es mayor en tobillo y disminuye hacia la rodilla/muslo, favoreciendo el retorno venoso. Contraindicada si ITB &lt;0.6 (isquemia). Clases: I=15–20mmHg (profilaxis), II=20–30mmHg (IVC leve-moderada), III=30–40mmHg (IVC severa/úlceras), IV=&gt;40mmHg (linfedema).",
+    ref:"GPC: Prevención, diagnóstico y tratamiento de la insuficiencia venosa crónica. IMSS. 2009."
+  },
+  {
+    cat:"ven", catName:"Insuficiencia Venosa",
+    q:"¿Cuál es el tratamiento indicado para várices tronculares de la safena mayor sintomáticas (CEAP C2S) con reflujo confirmado por eco Doppler, en paciente sin contraindicaciones quirúrgicas?",
+    opts:["Medias de compresión de por vida como único tratamiento","Escleroterapia con espuma en todas las várices tronculares","Safenectomía (stripping) de la vena safena mayor o ablación endovascular (láser/radiofrecuencia)","Anticoagulación profiláctica y observación"],
+    ans:2,
+    exp:"Para várices tronculares de la safena mayor (CEAP C2) con insuficiencia valvular confirmada, el tratamiento definitivo es la safenectomía (stripping) o la ablación endovascular (láser endovenoso o radiofrecuencia). La GPC recomienda la cirugía cuando el tratamiento conservador no controla los síntomas o existe reflujo safeno-femoral. La ablación endovascular tiene resultados comparables con menor morbilidad y recuperación más rápida. La escleroterapia con espuma se reserva para recidivas o várices no tronculares.",
+    tip:"<strong>Algoritmo de tratamiento de várices:</strong> Telangiectasias/reticulares → escleroterapia o láser cutáneo. Várices tronculares (safena incompetente) → ablación endovascular (primera línea) o safenectomía. Recidivas posquirúrgicas → escleroterapia con espuma. La ligadura de la unión safeno-femoral sin stripping tiene alta tasa de recidiva.",
+    ref:"GPC: Prevención, diagnóstico y tratamiento de la insuficiencia venosa crónica. IMSS. 2009."
+  },
+  {
+    cat:"art", catName:"Insuficiencia Arterial",
+    q:"Hombre de 65 años, diabético y fumador, refiere dolor en pantorrilla al caminar 200 metros que cede con el reposo. No hay dolor en reposo ni úlceras. El índice tobillo-brazo (ITB) es de 0.65. ¿Cuál es el diagnóstico y estadio según la clasificación de Fontaine?",
+    opts:["Fontaine I — enfermedad asintomática, ITB normal","Fontaine IIa — claudicación leve (>200m)","Fontaine IIb — claudicación moderada-grave (&lt;200m)","Fontaine III — dolor en reposo"],
+    ans:2,
+    exp:"La clasificación de Fontaine estadifica la insuficiencia arterial periférica: I=asintomático (ITB 0.7–0.9), IIa=claudicación &gt;200m, IIb=claudicación &lt;200m, III=dolor en reposo (ITB &lt;0.5), IV=úlceras o gangrena (isquemia crítica). El ITB de 0.65 confirma enfermedad arterial periférica moderada. La claudicación a 200m corresponde a Fontaine IIb (claudicación moderada-grave), ya que el límite entre IIa y IIb es exactamente 200 metros.",
+    tip:"<strong>Clasificación de Fontaine resumida:</strong> I: ITB 0.7–0.9, asintomático. IIa: claudicación &gt;200m. IIb: claudicación &lt;200m. III: dolor reposo, ITB &lt;0.5. IV: necrosis/gangrena. El ITB es la herramienta diagnóstica más importante: normal &gt;0.9, claudicación 0.5–0.9, isquemia crítica &lt;0.5, falsamente elevado &gt;1.3 en calcificación arterial (diabéticos).",
+    ref:"GPC: Diagnóstico y tratamiento de la enfermedad arterial periférica de miembros inferiores. IMSS. 2017."
+  },
+  {
+    cat:"art", catName:"Insuficiencia Arterial",
+    q:"¿Cuál es el valor del índice tobillo-brazo (ITB) que define isquemia crítica de miembro (estadio Fontaine III–IV)?",
+    opts:["ITB &lt; 0.9","ITB &lt; 0.7","ITB &lt; 0.5","ITB &lt; 0.3"],
+    ans:2,
+    exp:"El ITB &lt;0.5 se asocia con isquemia crítica de miembro (ICM), que incluye dolor en reposo (Fontaine III) y lesiones tróficas como úlceras y gangrena (Fontaine IV). La GPC establece los siguientes puntos de corte: &gt;0.9 normal; 0.7–0.9 enfermedad leve (puede ser asintomática); 0.5–0.69 claudicación moderada; 0.3–0.49 isquemia crítica; &lt;0.3 isquemia severa con riesgo de amputación. Un ITB &gt;1.3 indica calcificación arterial (diabetes, IRC) y requiere presión en el dedo del pie.",
+    tip:"<strong>Puntos de corte del ITB — memorizar:</strong> &gt;1.3 = calcificado (falso elevado). 0.9–1.3 = normal. 0.7–0.89 = leve. 0.5–0.69 = moderado (claudicación). &lt;0.5 = crítico (dolor reposo, úlceras). La técnica: TA sistólica en tobillo (tibial posterior o pedia) dividida entre TA sistólica braquial mayor. Se usa Doppler continuo.",
+    ref:"GPC: Diagnóstico y tratamiento de la enfermedad arterial periférica de miembros inferiores. IMSS. 2017."
+  },
+  {
+    cat:"art", catName:"Insuficiencia Arterial",
+    q:"Paciente con isquemia crítica de miembro inferior: dolor en reposo que mejora al colgar la pierna, pie pálido y frío con ITB de 0.35. ¿Cuál es el manejo indicado según la GPC?",
+    opts:["Medias de compresión elástica y ejercicio supervisado","Angiografía diagnóstica y revascularización urgente (endovascular o quirúrgica) + antiagregación","Amputación primaria sin intento de revascularización","Anticoagulación oral y observación ambulatoria"],
+    ans:1,
+    exp:"La isquemia crítica de miembro (Fontaine III–IV, ITB &lt;0.5) requiere revascularización urgente para preservar el miembro. La GPC recomienda: angiografía (angioTC o arteriografía) para planear la revascularización, seguida de revascularización endovascular (angioplastia/stent) o quirúrgica (bypass) según anatomía vascular. Se añade antiagregación (AAS), estatinas y control de factores de riesgo. La amputación es el último recurso cuando la revascularización falla o no es factible.",
+    tip:"<strong>Isquemia crítica = urgencia vascular:</strong> Tiempo de viabilidad del miembro sin flujo: 6 horas (similar al cerebro). Las 6 'P' de isquemia aguda: Pain, Pallor, Pulselessness, Paresthesias, Paralysis, Poikilothermia. Si hay parálisis/anestesia → emergencia, revascularizar en &lt;6h o amputar. El dolor que mejora al declinar (colgar) la pierna es característico de isquemia crítica.",
+    ref:"GPC: Diagnóstico y tratamiento de la enfermedad arterial periférica de miembros inferiores. IMSS. 2017."
+  },
+  {
+    cat:"art", catName:"Insuficiencia Arterial",
+    q:"¿Cuál es el tratamiento de primera línea para claudicación intermitente estable (Fontaine IIa–IIb) con ITB 0.6–0.8?",
+    opts:["Bypass femoro-poplíteo inmediato","Programa de ejercicio supervisado (caminata terapéutica) + modificación de factores de riesgo cardiovascular + antiagregación","Reposo absoluto y anticoagulación","Simpatectomía lumbar"],
+    ans:1,
+    exp:"Para claudicación intermitente estable, el tratamiento de primera línea es conservador: programa de ejercicio supervisado (caminata al umbral del dolor, 30–60 min, 3 veces/semana por al menos 3 meses), control de factores de riesgo (dejar de fumar, control de DM, HTA, dislipidemia), antiagregación (AAS 100mg/día o clopidogrel) y estatinas. La GPC establece que el ejercicio supervisado mejora la distancia de marcha en 150–200%. La revascularización se reserva para fracaso del tratamiento conservador o progresión a isquemia crítica.",
+    tip:"<strong>Ejercicio = primera línea en claudicación:</strong> El mecanismo: estimula neovascularización colateral, mejora función endotelial y metabolismo muscular. Cilostazol (inhibidor PDE3) puede añadirse si el ejercicio no es suficiente — contraindicado en ICC. Pentoxifilina tiene evidencia débil. Dejar de fumar es la medida más importante para detener la progresión.",
+    ref:"GPC: Diagnóstico y tratamiento de la enfermedad arterial periférica de miembros inferiores. IMSS. 2017."
+  },
+  {
+    cat:"tve", catName:"Trombosis Venosa",
+    q:"Paciente de 58 años, postoperado de cirugía de cadera hace 5 días, presenta edema unilateral, dolor y calor en miembro inferior izquierdo. El signo de Homans es positivo. ¿Cuál es el diagnóstico más probable y el estudio de elección para confirmarlo?",
+    opts:["Tromboflebitis superficial — diagnóstico clínico sin estudios adicionales","Trombosis venosa profunda (TVP) — eco Doppler venoso compresivo","Celulitis — cultivo y hemocultivo","Insuficiencia venosa crónica — flebografía de contraste"],
+    ans:1,
+    exp:"La TVP se presenta con la tríada de edema unilateral + dolor + calor en miembro inferior, en contexto de factores de riesgo (cirugía reciente, inmovilización). El signo de Homans (dolor a la dorsiflexión del pie) tiene baja sensibilidad (33%) y especificidad (baja), por lo que NO se usa para diagnóstico definitivo. El estudio de elección es el eco Doppler venoso compresivo (ultrasonografía de compresión), con sensibilidad >95% para TVP proximal. La flebografía de contraste es el estándar de oro pero se usa raramente por su invasividad.",
+    tip:"<strong>Signo de Homans: trampa frecuente en ENARM:</strong> Aunque es 'clásico', tiene sensibilidad de solo 33% — NO descarta TVP. El eco Doppler es el gold standard no invasivo. En TVP distal (pantorrilla), el Doppler tiene menor sensibilidad → repetir en 5–7 días si hay sospecha. El dímero-D tiene alto valor predictivo negativo pero baja especificidad.",
+    ref:"GPC: Prevención, diagnóstico y tratamiento de la insuficiencia venosa crónica. IMSS. 2009."
+  },
+  {
+    cat:"tve", catName:"Trombosis Venosa",
+    q:"¿Cuál de los siguientes elementos NO forma parte de la tríada de Virchow para la trombogénesis venosa?",
+    opts:["Estasis venosa","Hipercoagulabilidad","Lesión o disfunción endotelial","Hiperviscosidad sanguínea secundaria a poliglobulia"],
+    ans:3,
+    exp:"La tríada de Virchow describe los tres mecanismos principales de la trombogénesis: 1) Estasis venosa (inmovilización, insuficiencia venosa, compresión extrínseca), 2) Hipercoagulabilidad (trombofilias, ACO, embarazo, cáncer, estados inflamatorios), 3) Lesión endotelial (trauma, cirugía, catéteres, vasculitis). La hiperviscosidad por poliglobulia puede contribuir a la trombosis pero NO forma parte de la tríada clásica de Virchow descrita originalmente.",
+    tip:"<strong>Tríada de Virchow — esencial para TVP:</strong> Estasis + Hipercoagulabilidad + Lesión endotelial. Factores de riesgo quirúrgicos que la activan: inmovilización (estasis), trauma tisular (lesión endotelial), respuesta inflamatoria posquirúrgica (hipercoagulabilidad). La cirugía ortopédica mayor (cadera, rodilla) tiene el mayor riesgo de TVP.",
+    ref:"GPC: Prevención, diagnóstico y tratamiento de la insuficiencia venosa crónica. IMSS. 2009."
+  },
+  {
+    cat:"tve", catName:"Trombosis Venosa",
+    q:"¿Cuál es el tratamiento anticoagulante de elección para TVP proximal aguda confirmada en paciente sin contraindicaciones?",
+    opts:["Aspirina 300 mg/día por 3 meses","Heparina de bajo peso molecular (HBPM) subcutánea seguida de anticoagulación oral (ACO) por al menos 3 meses","Trombolisis sistémica con alteplase en todos los casos","Filtro de vena cava inferior como único tratamiento"],
+    ans:1,
+    exp:"El tratamiento estándar para TVP aguda proximal es: anticoagulación inicial con HBPM (enoxaparina 1 mg/kg c/12h) o heparina no fraccionada IV, seguida de anticoagulación oral con warfarina (INR 2–3) o anticoagulantes directos (rivaroxabán, apixabán) por al menos 3 meses. La GPC recomienda HBPM como anticoagulante inicial por su comodidad y menor riesgo de trombocitopenia inducida por heparina (TIH). La trombolisis se reserva para casos seleccionados (flegmasía cerúlea dolens, contraindicación de anticoagulación).",
+    tip:"<strong>Duración de anticoagulación en TVP:</strong> TVP proximal primer episodio con factor de riesgo transitorio (cirugía) → 3 meses. TVP idiopática → 3–6 meses, evaluar indefinido. TVP recurrente → indefinida. Cáncer + TVP → HBPM preferida sobre warfarina (evidencia CLOT). Embarazo + TVP → HBPM (warfarina teratogénica).",
+    ref:"GPC: Prevención, diagnóstico y tratamiento de la insuficiencia venosa crónica. IMSS. 2009."
+  },
+  {
+    cat:"tve", catName:"Trombosis Venosa",
+    q:"¿Cuál es la profilaxis antitrombótica recomendada en cirugía de reemplazo total de cadera (alto riesgo de TVP)?",
+    opts:["Sin profilaxis si el paciente es joven y sin comorbilidades","Solo medias de compresión neumática intermitente sin anticoagulación","HBPM (enoxaparina) iniciada 12 horas antes o después de la cirugía por 35 días + medidas mecánicas","Antiagregación con aspirina como único método farmacológico"],
+    ans:2,
+    exp:"La cirugía de reemplazo total de cadera es el procedimiento con mayor riesgo de TVP/TEP sin profilaxis (50–60% incidencia de TVP sin profilaxis). La GPC recomienda: HBPM (enoxaparina 40mg/día) iniciada 12h preoperatorio o 12–24h postoperatorio, extendida por 35 días (alta evidencia), combinada con métodos mecánicos (medias de compresión, dispositivos de compresión neumática intermitente). Alternativas: fondaparinux, rivaroxabán, apixabán. La aspirina sola es insuficiente para este nivel de riesgo.",
+    tip:"<strong>Estratificación de riesgo para profilaxis TVP:</strong> Bajo riesgo (cirugía menor en jóvenes): deambulación temprana. Moderado (cirugía abdominal mayor): HBPM 7–10 días. Alto riesgo (cadera/rodilla): HBPM 35 días + mecánico. Muy alto (cáncer + cirugía): HBPM extendida. Recordar: la profilaxis mecánica siempre se combina con la farmacológica en alto riesgo.",
+    ref:"GPC: Prevención, diagnóstico y tratamiento de la insuficiencia venosa crónica. IMSS. 2009."
+  },
+  {
+    cat:"isq", catName:"Isquemia Crítica",
+    q:"Paciente de 72 años, diabético, presenta dolor quemante en reposo en pie derecho que mejora al declinar la extremidad, pie cianótico con ulceración en primer dedo y gangrena seca en el talón. ITB = 0.28. ¿Cuál es el diagnóstico y la clasificación correcta?",
+    opts:["Insuficiencia venosa crónica CEAP C6","Isquemia crítica de miembro — Fontaine IV (necrosis/gangrena)","Neuropatía diabética sin componente isquémico","Trombosis venosa profunda complicada"],
+    ans:1,
+    exp:"La isquemia crítica de miembro (ICM) se define por: dolor en reposo persistente (&gt;2 semanas) que requiere analgesia, úlceras o gangrena, con ITB &lt;0.5 (en este caso 0.28) o presión en dedo &lt;30 mmHg. Corresponde a Fontaine IV (necrosis/gangrena). El dolor mejora al declinar la extremidad porque aumenta la presión de perfusión por gravedad — signo clásico de isquemia crítica. La gangrena seca indica isquemia sin infección sobreagregada.",
+    tip:"<strong>Isquemia crítica vs neuropatía diabética:</strong> Isquémica: dolor en reposo que mejora al declinar (gravitacional), ausencia de pulsos, ITB &lt;0.5, pie frío y pálido/cianótico, úlceras en zonas de presión o distales. Neuropática: úlcera en zonas de carga (talón, metatarsos), pie caliente, pulsos presentes, insensibilidad, piel seca con fisuras. Frecuentemente coexisten (pie diabético mixto).",
+    ref:"GPC: Diagnóstico y tratamiento de la enfermedad arterial periférica de miembros inferiores. IMSS. 2017."
+  },
+  {
+    cat:"tve", catName:"Trombosis Venosa",
+    q:"Paciente con antecedente de TVP hace 2 años, ahora presenta edema crónico, hiperpigmentación y lipodermatoesclerosis en tercio inferior de pierna izquierda, sin úlcera activa. ¿Cuál es el diagnóstico?",
+    opts:["Recurrencia aguda de TVP — indicación de trombolisis","Síndrome postrombótico (SPT) — CEAP C4b","Insuficiencia arterial periférica Fontaine II","Linfedema primario"],
+    ans:1,
+    exp:"El síndrome postrombótico (SPT) es la complicación crónica más frecuente de la TVP, presente en 20–50% de los casos. Se produce por daño valvular venoso e hipertensión venosa crónica secundaria. Se manifiesta como: edema crónico, hiperpigmentación (hemosiderina), lipodermatoesclerosis (induración y fibrosis subcutánea), eccema varicoso y úlceras (CEAP C4b–C6). La lipodermatoesclerosis sin úlcera activa corresponde a CEAP C4b. El tratamiento es la terapia compresiva mantenida.",
+    tip:"<strong>Prevención del SPT:</strong> La anticoagulación adecuada en la fase aguda de TVP es la mejor prevención del SPT. Las medias de compresión graduada (30–40 mmHg) iniciadas en las primeras 2 semanas y mantenidas 2 años reducen la incidencia de SPT en 50%. El SPT severo con úlceras recurrentes puede requerir cirugía venosa reconstructiva.",
+    ref:"GPC: Prevención, diagnóstico y tratamiento de la insuficiencia venosa crónica. IMSS. 2009."
+  },
+  {
+    cat:"tx", catName:"Tratamiento",
+    q:"En un paciente con insuficiencia venosa crónica CEAP C6 (úlcera venosa activa), ¿cuál es el componente fundamental del tratamiento local de la úlcera según la GPC?",
+    opts:["Antibióticos sistémicos en todos los casos independientemente de signos de infección","Vendaje compresivo multicapa (presión 40 mmHg en tobillo) + limpieza con solución salina y apósitos no adherentes","Cirugía inmediata de safenectomía como condición para que cicatrice la úlcera","Reposo absoluto con elevación del miembro sin compresión"],
+    ans:1,
+    exp:"El tratamiento de la úlcera venosa activa (CEAP C6) incluye como pilares: 1) Terapia compresiva (vendaje multicapa de 4 capas o vendaje de Unna que alcance 40 mmHg en tobillo) — es el componente más importante para favorecer la cicatrización. 2) Cuidado local de la herida: limpieza con solución salina, desbridamiento del tejido necrótico, apósitos no adherentes y húmedos. 3) Antibióticos solo si hay signos clínicos de infección (celulitis, exudado purulento, fiebre). La GPC señala que sin compresión adecuada, la úlcera venosa no cicatriza independientemente del cuidado local.",
+    tip:"<strong>Sin compresión, no hay cicatrización venosa:</strong> La compresión reduce la hipertensión venosa, el edema y la inflamación, permitiendo la cicatrización. Vendaje de Unna (bota de zinc) + vendaje elástico es el clásico. Los apósitos húmedos (hidrocoloides, alginatos) son superiores a la gasa seca. La cirugía sobre la safena incompetente puede realizarse con la úlcera activa y reduce las recidivas.",
+    ref:"GPC: Prevención, diagnóstico y tratamiento de la insuficiencia venosa crónica. IMSS. 2009."
+  }
+];
+
+let currentQ = 0, score = 0, answers = [];
+let catStats = { ven:{c:0,t:0}, art:{c:0,t:0}, tve:{c:0,t:0}, isq:{c:0,t:0}, tx:{c:0,t:0} };
+
+function shuffle(arr) {
+  for (let i=arr.length-1;i>0;i--) {
+    const j=Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+
+function init() {
+  shuffle(questions);
+  currentQ=0; score=0; answers=[];
+  catStats = { ven:{c:0,t:0}, art:{c:0,t:0}, tve:{c:0,t:0}, isq:{c:0,t:0}, tx:{c:0,t:0} };
+  const r=document.getElementById('resultsArea');
+  r.classList.remove('show'); r.innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const qa=questions[currentQ], total=questions.length;
+  document.getElementById('progressBar').style.width=(currentQ/total*100)+'%';
+  document.getElementById('progressText').textContent=`${currentQ+1} / ${total}`;
+  document.getElementById('nextBtn').classList.remove('show');
+  const letters=['A','B','C','D'];
+  let html=`<div class="question-card">
+    <div class="q-category cat-${qa.cat}">${qa.catName}</div>
+    <div class="q-number">Pregunta ${currentQ+1} de ${total}</div>
+    <div class="q-text">${qa.q}</div>
+    <div class="options">`;
+  qa.opts.forEach((opt,i)=>{
+    html+=`<button class="option-btn" onclick="selectAnswer(${i})" data-idx="${i}">
+      <span class="option-letter">${letters[i]}</span><span>${opt}</span></button>`;
+  });
+  html+=`</div><div class="feedback" id="feedback"></div></div>`;
+  document.getElementById('quizArea').innerHTML=html;
+}
+
+function selectAnswer(idx) {
+  const qa=questions[currentQ];
+  const btns=document.querySelectorAll('.option-btn');
+  const fb=document.getElementById('feedback');
+  const isCorrect=idx===qa.ans;
+  btns.forEach((btn,i)=>{
+    btn.classList.add('disabled'); btn.onclick=null;
+    if(i===qa.ans) btn.classList.add('correct-answer');
+    if(i===idx&&!isCorrect) btn.classList.add('wrong-answer');
+  });
+  if(!catStats[qa.cat]) catStats[qa.cat]={c:0,t:0};
+  catStats[qa.cat].t++;
+  if(isCorrect){score++;catStats[qa.cat].c++;}
+  if(!examMode){
+    fb.className=isCorrect?'feedback correct-fb show':'feedback wrong-fb show';
+    fb.innerHTML=isCorrect
+      ?`<div class="feedback-title">✅ ¡Correcto!</div><div>${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`
+      :`<div class="feedback-title">❌ Incorrecto</div><div><strong>Respuesta correcta:</strong> ${qa.opts[qa.ans]}</div><div style="margin-top:8px;">${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;
+  }
+  answers.push({q:qa.q,correct:isCorrect,userAns:qa.opts[idx],correctAns:qa.opts[qa.ans],cat:qa.catName,exp:qa.exp,ref:qa.ref});
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion() {
+  currentQ++;
+  if(currentQ>=questions.length) showResults();
+  else renderQuestion();
+}
+
+function showResults() {
+  document.getElementById('quizArea').innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  document.getElementById('progressBar').style.width='100%';
+  document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;
+  const pct=Math.round((score/questions.length)*100);
+  const msg=pct>=90?'🏆 ¡Dominio excelente de patología vascular!':pct>=70?'👏 ¡Muy bien! Repasa los temas con menor puntaje.':pct>=50?'📚 Aceptable, refuerza las áreas débiles.':'⚠️ Revisa las GPC de insuficiencia venosa y arterial periférica.';
+  const cats=[
+    {name:'Insuf. Venosa',key:'ven',color:'#fbbf24'},
+    {name:'Insuf. Arterial',key:'art',color:'#38bdf8'},
+    {name:'Trombosis Venosa',key:'tve',color:'#a78bfa'},
+    {name:'Isquemia Crítica',key:'isq',color:'#f472b6'},
+    {name:'Tratamiento',key:'tx',color:'#34d399'},
+  ];
+  let html=`<div class="results-header">
+    <div class="score-big">${pct}%</div>
+    <div class="score-label">${score} de ${questions.length} correctas</div>
+    <div class="score-msg">${msg}</div>
+  </div>
+  <div class="chart-section">
+    <div class="chart-title"><span>📊</span> Rendimiento por Categoría</div>
+    <div class="bar-chart">`;
+  cats.forEach(cat=>{
+    const s=catStats[cat.key]||{c:0,t:0};
+    const p=s.t>0?Math.round((s.c/s.t)*100):0;
+    html+=`<div class="bar-row"><div class="bar-label">${cat.name}</div><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${cat.color};">${p}% (${s.c}/${s.t})</div></div></div>`;
+  });
+  html+=`</div></div>
+  <div class="chart-section">
+    <div class="chart-title"><span>🎯</span> Resumen General</div>
+    <div class="donut-wrap">
+      <svg class="donut-svg" viewBox="0 0 42 42">
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a2235" stroke-width="4"/>
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#34d399" stroke-width="4" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="25" stroke-linecap="round"/>
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#f87171" stroke-width="4" stroke-dasharray="${100-pct} ${pct}" stroke-dashoffset="${25-pct}" stroke-linecap="round"/>
+        <text x="21" y="22.5" text-anchor="middle" font-size="6" font-weight="700" fill="#e8ecf4" font-family="Plus Jakarta Sans">${pct}%</text>
+      </svg>
+      <div class="donut-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#34d399;"></div>Correctas: ${score}</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Incorrectas: ${questions.length-score}</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#38bdf8;"></div>Total: ${questions.length}</div>
+      </div>
+    </div>
+  </div>
+  <div class="chart-section">
+    <div class="chart-title"><span>📋</span> Revisión de Respuestas</div>`;
+  answers.forEach((a,i)=>{
+    html+=`<div class="review-card ${a.correct?'review-correct':'review-wrong'}">
+      <div class="review-q">${i+1}. ${a.q} <span style="font-size:0.72rem;color:var(--text-dim);">[${a.cat}]</span></div>
+      <div class="review-answer">${a.correct?`<strong>✅ ${a.correctAns}</strong>`:`<em>❌ Tu respuesta: ${a.userAns}</em><br><strong>✅ Correcta: ${a.correctAns}</strong>`}</div>
+      <div style="margin-top:8px;font-size:0.8rem;color:var(--text-dim);line-height:1.5;">${a.exp}</div>
+      <div style="margin-top:6px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;">📖 ${a.ref}</div>
+    </div>`;
+  });
+  html+=`</div><button class="retry-btn" onclick="init()">🔄 Reintentar</button>`;
+  const res=document.getElementById('resultsArea');
+  res.innerHTML=html; res.classList.add('show');
+  res.scrollIntoView({behavior:'smooth'});
+}
+
+function toggleSpec(header){header.classList.toggle('open');header.nextElementSibling.classList.toggle('open');}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+
+init();
+</script>
+</body>
+</html>

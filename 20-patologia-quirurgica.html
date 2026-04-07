@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patología Quirúrgica — ENARM · MediCode Solutions</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0a0e1a; --surface: #111827; --surface2: #1a2235; --surface3: #212d45;
+    --border: #2a3a5c; --text: #e8ecf4; --text-dim: #8896b3;
+    --accent: #38bdf8; --accent-glow: rgba(56,189,248,0.15);
+    --correct: #34d399; --correct-bg: rgba(52,211,153,0.1); --correct-border: rgba(52,211,153,0.4);
+    --wrong: #f87171; --wrong-bg: rgba(248,113,113,0.1); --wrong-border: rgba(248,113,113,0.4);
+    --gold: #fbbf24; --purple: #a78bfa; --pink: #f472b6; --teal: #2dd4bf;
+    --sidebar-w: 280px; --radius: 14px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; display:flex; }
+
+  .sidebar {
+    width:var(--sidebar-w); min-height:100vh; background:var(--surface);
+    border-right:1px solid var(--border); display:flex; flex-direction:column;
+    position:fixed; left:0; top:0; bottom:0; overflow-y:auto; z-index:100; transition:transform 0.3s;
+  }
+  .sidebar-logo { padding:24px 20px 16px; border-bottom:1px solid var(--border); }
+  .logo-badge { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,var(--accent),var(--purple)); padding:6px 14px; border-radius:100px; font-size:0.75rem; font-weight:800; color:var(--bg); letter-spacing:0.5px; text-transform:uppercase; margin-bottom:10px; }
+  .sidebar-logo h2 { font-size:1.1rem; font-weight:800; background:linear-gradient(135deg,var(--text),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .sidebar-logo p { font-size:0.72rem; color:var(--text-dim); margin-top:2px; }
+  .back-btn { display:flex; align-items:center; gap:8px; padding:14px 20px; color:var(--text-dim); font-size:0.8rem; text-decoration:none; border-bottom:1px solid var(--border); transition:color 0.2s; }
+  .back-btn:hover { color:var(--accent); }
+  .sidebar-nav { flex:1; padding:12px 0 24px; }
+  .specialty-header { display:flex; align-items:center; justify-content:space-between; padding:10px 16px 10px 20px; cursor:pointer; transition:background 0.2s; user-select:none; }
+  .specialty-header:hover { background:var(--surface2); }
+  .specialty-name { display:flex; align-items:center; gap:10px; font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; }
+  .specialty-icon { width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:0.9rem; flex-shrink:0; }
+  .chevron { font-size:0.65rem; color:var(--text-dim); transition:transform 0.3s; }
+  .specialty-header.open .chevron { transform:rotate(90deg); }
+  .topics-list { display:none; padding:4px 0 8px; }
+  .topics-list.open { display:block; }
+  .topic-link { display:flex; align-items:center; gap:10px; padding:8px 16px 8px 56px; font-size:0.78rem; color:var(--text-dim); text-decoration:none; transition:all 0.2s; border-left:2px solid transparent; line-height:1.4; }
+  .topic-link:hover { color:var(--text); background:var(--surface3); }
+  .topic-link.active { color:var(--accent); border-left-color:var(--accent); background:var(--accent-glow); font-weight:600; }
+  .topic-link.coming-soon { opacity:0.4; cursor:not-allowed; pointer-events:none; }
+  .topic-num { font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--text-dim); min-width:20px; }
+  .badge-soon { margin-left:auto; background:rgba(136,150,179,0.1); color:var(--text-dim); font-size:0.62rem; font-weight:600; padding:2px 7px; border-radius:100px; }
+  .star-tag { margin-left:auto; font-size:0.7rem; }
+
+  .main { margin-left:var(--sidebar-w); flex:1; display:flex; flex-direction:column; }
+  .container { max-width:760px; margin:0 auto; padding:20px 16px 40px; width:100%; }
+
+  .mode-bar { display:flex; align-items:center; gap:10px; margin:24px 0 20px; background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:6px; width:fit-content; }
+  .mode-btn { padding:8px 20px; border-radius:100px; border:none; cursor:pointer; font-family:inherit; font-size:0.82rem; font-weight:600; transition:all 0.2s; color:var(--text-dim); background:transparent; }
+  .mode-btn.active { background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); }
+
+  .header { text-align:center; padding:40px 20px 24px; position:relative; overflow:hidden; }
+  .header::before { content:''; position:absolute; top:-60%; left:50%; transform:translateX(-50%); width:600px; height:600px; background:radial-gradient(circle,rgba(56,189,248,0.08) 0%,transparent 70%); pointer-events:none; }
+  .header-badge { display:inline-flex; align-items:center; gap:8px; background:var(--surface2); border:1px solid var(--border); padding:6px 16px; border-radius:100px; font-size:0.78rem; color:var(--accent); font-weight:600; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:16px; }
+  .header h1 { font-size:clamp(1.6rem,5vw,2.2rem); font-weight:800; background:linear-gradient(135deg,var(--text) 0%,var(--accent) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:8px; }
+  .header p { color:var(--text-dim); font-size:0.95rem; max-width:500px; margin:0 auto; }
+
+  .progress-wrap { background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:12px 20px; margin:20px 0 28px; display:flex; align-items:center; gap:14px; }
+  .progress-bar-bg { flex:1; height:8px; background:var(--surface3); border-radius:100px; overflow:hidden; }
+  .progress-bar-fill { height:100%; width:0%; background:linear-gradient(90deg,var(--accent),var(--purple)); border-radius:100px; transition:width 0.5s ease; }
+  .progress-text { font-size:0.82rem; font-weight:600; color:var(--text-dim); white-space:nowrap; font-family:'JetBrains Mono',monospace; }
+
+  .question-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:28px 24px; margin-bottom:20px; animation:slideIn 0.4s ease; position:relative; overflow:hidden; }
+  .question-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--gold),var(--accent),var(--purple)); }
+  @keyframes slideIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+  .q-category { display:inline-flex; align-items:center; gap:6px; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; padding:4px 12px; border-radius:100px; margin-bottom:14px; }
+  .cat-ulc  { background:rgba(251,191,36,0.12); color:var(--gold); }
+  .cat-isq  { background:rgba(56,189,248,0.12); color:var(--accent); }
+  .cat-der  { background:rgba(167,139,250,0.12); color:var(--purple); }
+  .cat-deh  { background:rgba(244,114,182,0.12); color:var(--pink); }
+  .cat-pro  { background:rgba(52,211,153,0.12);  color:var(--correct); }
+
+  .q-number { font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--text-dim); margin-bottom:10px; }
+  .q-text { font-size:1.05rem; font-weight:600; line-height:1.55; margin-bottom:20px; color:var(--text); }
+
+  .options { display:flex; flex-direction:column; gap:10px; }
+  .option-btn { display:flex; align-items:flex-start; gap:12px; padding:14px 16px; background:var(--surface2); border:1.5px solid var(--border); border-radius:12px; cursor:pointer; transition:all 0.2s; text-align:left; font-size:0.92rem; color:var(--text); font-family:inherit; line-height:1.5; width:100%; }
+  .option-btn:hover:not(.disabled) { border-color:var(--accent); background:var(--accent-glow); transform:translateX(4px); }
+  .option-letter { display:flex; align-items:center; justify-content:center; min-width:30px; height:30px; border-radius:8px; background:var(--surface3); font-weight:700; font-size:0.82rem; color:var(--accent); flex-shrink:0; }
+  .option-btn.correct-answer { border-color:var(--correct-border); background:var(--correct-bg); }
+  .option-btn.correct-answer .option-letter { background:var(--correct); color:var(--bg); }
+  .option-btn.wrong-answer { border-color:var(--wrong-border); background:var(--wrong-bg); }
+  .option-btn.wrong-answer .option-letter { background:var(--wrong); color:var(--bg); }
+  .option-btn.disabled { cursor:default; }
+  .option-btn.disabled:hover { transform:none; }
+
+  .feedback { margin-top:18px; padding:18px; border-radius:12px; font-size:0.88rem; line-height:1.65; animation:fadeIn 0.3s ease; display:none; }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  .feedback.show { display:block; }
+  .feedback.correct-fb { background:var(--correct-bg); border:1px solid var(--correct-border); color:var(--correct); }
+  .feedback.wrong-fb { background:var(--wrong-bg); border:1px solid var(--wrong-border); color:#fca5a5; }
+  .feedback-title { font-weight:700; font-size:0.95rem; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
+  .feedback .tip { margin-top:10px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.08); color:var(--text-dim); font-size:0.82rem; }
+  .feedback .tip strong { color:var(--gold); }
+  .feedback .ref { margin-top:8px; font-size:0.75rem; color:var(--text-dim); opacity:0.7; font-style:italic; }
+
+  .next-btn { display:none; margin:20px auto 0; padding:12px 32px; background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:0.92rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+  .next-btn:hover { transform:scale(1.05); box-shadow:0 4px 24px var(--accent-glow); }
+  .next-btn.show { display:block; }
+
+  .results { display:none; animation:slideIn 0.5s ease; }
+  .results.show { display:block; }
+  .results-header { text-align:center; padding:30px 20px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:20px; position:relative; overflow:hidden; }
+  .results-header::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--correct),var(--accent),var(--purple),var(--pink)); }
+  .score-big { font-size:3.5rem; font-weight:800; background:linear-gradient(135deg,var(--correct),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .score-label { font-size:1.1rem; color:var(--text-dim); margin-top:4px; }
+  .score-msg { margin-top:12px; font-size:0.95rem; color:var(--text); font-weight:500; }
+  .chart-section { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px 20px; margin-bottom:20px; }
+  .chart-title { font-size:0.95rem; font-weight:700; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
+  .bar-chart { display:flex; flex-direction:column; gap:14px; }
+  .bar-row { display:flex; align-items:center; gap:12px; }
+  .bar-label { width:130px; font-size:0.78rem; font-weight:600; text-align:right; color:var(--text-dim); flex-shrink:0; }
+  .bar-track { flex:1; height:28px; background:var(--surface3); border-radius:8px; overflow:hidden; }
+  .bar-fill { height:100%; border-radius:8px; transition:width 1s ease; display:flex; align-items:center; padding-left:10px; font-size:0.75rem; font-weight:700; color:var(--bg); min-width:fit-content; }
+  .donut-wrap { display:flex; align-items:center; justify-content:center; gap:30px; flex-wrap:wrap; }
+  .donut-svg { width:160px; height:160px; }
+  .donut-legend { display:flex; flex-direction:column; gap:10px; }
+  .legend-item { display:flex; align-items:center; gap:10px; font-size:0.84rem; }
+  .legend-dot { width:12px; height:12px; border-radius:4px; flex-shrink:0; }
+  .review-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; margin-bottom:12px; }
+  .review-card.review-correct { border-left:4px solid var(--correct); }
+  .review-card.review-wrong { border-left:4px solid var(--wrong); }
+  .review-q { font-size:0.88rem; font-weight:600; margin-bottom:8px; }
+  .review-answer { font-size:0.82rem; color:var(--text-dim); line-height:1.5; }
+  .review-answer strong { color:var(--correct); }
+  .review-answer em { color:var(--wrong); font-style:normal; }
+  .retry-btn { display:block; margin:28px auto; padding:14px 40px; background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:1rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+  .retry-btn:hover { transform:scale(1.05); }
+  .hamburger { display:none; position:fixed; top:16px; left:16px; z-index:200; background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:10px; cursor:pointer; font-size:1.2rem; }
+  .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:90; }
+  .footer { text-align:center; padding:20px; color:var(--text-dim); font-size:0.72rem; opacity:0.5; }
+
+  @media(max-width:768px) {
+    .sidebar { transform:translateX(-100%); }
+    .sidebar.open { transform:translateX(0); }
+    .main { margin-left:0; }
+    .hamburger { display:flex; align-items:center; justify-content:center; }
+    .overlay.show { display:block; }
+    .container { padding:12px 10px 30px; }
+    .question-card { padding:20px 16px; }
+    .bar-label { width:90px; font-size:0.72rem; }
+    .mode-bar { margin:16px auto; }
+  }
+</style>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-badge">🩺 MCS</div>
+    <h2>ENARM · Banco de Preguntas</h2>
+    <p>2025–2026</p>
+  </div>
+  <a href="index.html" class="back-btn">← Volver al inicio</a>
+  <nav class="sidebar-nav">
+    <div class="specialty-group">
+      <div class="specialty-header open" onclick="toggleSpec(this)">
+        <div class="specialty-name">
+          <div class="specialty-icon" style="background:rgba(56,189,248,0.12);color:#38bdf8;">🔪</div>
+          Cirugía General
+        </div>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="topics-list open">
+        <a href="01-apendicitis.html" class="topic-link"><span class="topic-num">01</span>Abdomen agudo / Apendicitis<span class="star-tag">⭐</span></a>
+        <a href="02-patologia-biliar.html" class="topic-link"><span class="topic-num">02</span>Patología biliar<span class="star-tag">⭐</span></a>
+        <a href="03-enfermedad-diverticular.html" class="topic-link"><span class="topic-num">03</span>Enfermedad diverticular</a>
+        <a href="04-erge-esofagitis-dispepsia.html" class="topic-link"><span class="topic-num">04</span>ERGE / Esofagitis</a>
+        <a href="05-cancer-esofago-gastrico.html" class="topic-link"><span class="topic-num">05</span>Cáncer esófago / gástrico</a>
+        <a href="06-gastritis-ulcera-peptica.html" class="topic-link"><span class="topic-num">06</span>Gastritis / Úlcera péptica</a>
+        <a href="07-obesidad-bariatrica.html" class="topic-link"><span class="topic-num">07</span>Obesidad / Bariátrica</a>
+        <a href="08-patologia-perianal.html" class="topic-link"><span class="topic-num">08</span>Patología perianal</a>
+        <a href="09-hernias-esplenectomia.html" class="topic-link"><span class="topic-num">09</span>Hernias / Esplenectomía</a>
+        <a href="10-insuficiencia-venosa-arterial.html" class="topic-link"><span class="topic-num">10</span>Insuf. venosa y arterial</a>
+        <a href="11-oclusion-volvulos-isquemia.html" class="topic-link"><span class="topic-num">11</span>Oclusión / Vólvulos</a>
+        <a href="12-cancer-colon.html" class="topic-link"><span class="topic-num">12</span>Cáncer de colon</a>
+        <a href="13-cancer-hepatico.html" class="topic-link"><span class="topic-num">13</span>Cáncer hepático</a>
+        <a href="14-cancer-pancreas-trasplante.html" class="topic-link"><span class="topic-num">14</span>Cáncer páncreas / Trasplante</a>
+        <a href="15-pancreatitis.html" class="topic-link"><span class="topic-num">15</span>Pancreatitis</a>
+        <a href="16-mordeduras-picaduras.html" class="topic-link"><span class="topic-num">16</span>Mordeduras / Picaduras</a>
+        <a href="17-quemaduras.html" class="topic-link"><span class="topic-num">17</span>Quemaduras</a>
+        <a href="18-atls1.html" class="topic-link"><span class="topic-num">18</span>ATLS 1</a>
+        <a href="19-atls2.html" class="topic-link"><span class="topic-num">19</span>ATLS 2</a>
+        <a href="20-patologia-quirurgica.html" class="topic-link active"><span class="topic-num">20</span>Patología quirúrgica</a>
+      </div>
+    </div>
+  </nav>
+</aside>
+
+<main class="main">
+<div class="container">
+
+  <div class="header">
+    <div class="header-badge"><span>🔪</span> ENARM · Cirugía General · Tema 20</div>
+    <h1>Patología Quirúrgica</h1>
+    <p>Úlceras por presión · Infección sitio quirúrgico · Derrame pleural · Dehiscencia</p>
+  </div>
+
+  <div style="display:flex;justify-content:center;">
+    <div class="mode-bar">
+      <button class="mode-btn active" id="btnRepaso" onclick="setMode('repaso')">📖 Modo Repaso</button>
+      <button class="mode-btn" id="btnExamen" onclick="setMode('examen')">⏱️ Modo Examen</button>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 15</div>
+  </div>
+
+  <div id="quizArea"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+  <div class="results" id="resultsArea"></div>
+
+</div>
+<div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+</main>
+
+<script>
+let examMode = false;
+
+function setMode(mode) {
+  examMode = (mode === 'examen');
+  document.getElementById('btnRepaso').classList.toggle('active', !examMode);
+  document.getElementById('btnExamen').classList.toggle('active', examMode);
+  init();
+}
+
+const questions = [
+  {
+    cat:"ulc", catName:"Úlceras por Presión",
+    q:"Paciente masculino de 78 años con hemiplejia, encamado desde hace 3 semanas. A la exploración se observa en región sacra una zona de eritema no blanqueable con piel intacta, sin pérdida de la continuidad cutánea. Temperatura local aumentada. ¿En qué estadio se clasifica esta úlcera por presión?",
+    opts:["Estadio II: pérdida parcial del grosor cutáneo","Estadio I: eritema no blanqueable con piel intacta","Estadio III: pérdida total del grosor cutáneo","No estadificable: base cubierta por esfacelo"],
+    ans:1,
+    exp:"El Estadio I de las úlceras por presión se define como eritema no blanqueable en piel intacta, generalmente sobre una prominencia ósea. La piel no está lesionada pero puede haber cambios en temperatura (calor o frío), consistencia (firme o blanda) y sensación (dolor, prurito). En personas con piel oscura puede ser difícil detectar el eritema. La GPC 2015 establece que el eritema que blanquea a la presión digital indica que la microcirculación está intacta y NO se clasifica como úlcera.",
+    tip:"<strong>Clave del Estadio I:</strong> Eritema NO blanqueable = microcirculación comprometida = tejido dañado, aunque la piel esté intacta. El eritema blanqueable indica piel sana respondiendo normalmente. Localización más frecuente: sacro > talones > trocánter mayor.",
+    ref:"GPC: Prevención, diagnóstico y manejo de las úlceras por presión en el adulto. IMSS-2015."
+  },
+  {
+    cat:"ulc", catName:"Úlceras por Presión",
+    q:"Una úlcera por presión en talón presenta pérdida total del grosor cutáneo con exposición de hueso calcáneo, tendón de Aquiles y músculo. No hay tejido necrótico que cubra la base. ¿Cuál es la clasificación correcta?",
+    opts:["Estadio II","Estadio III","Estadio IV","No estadificable"],
+    ans:2,
+    exp:"El Estadio IV se define por pérdida total del grosor cutáneo con exposición de hueso, tendón o músculo. Puede haber esfacelo o escara en partes de la herida. Frecuentemente incluye socavaciones y tunelizaciones. La GPC señala que en el Estadio IV el riesgo de osteomielitis es alto y debe descartarse. Es el estadio más grave con exposición de estructuras profundas.",
+    tip:"<strong>Diferencia III vs IV:</strong> Estadio III = subcutáneo visible, hueso/tendón/músculo NO expuesto. Estadio IV = hueso/tendón/músculo EXPUESTO. Regla mnemotécnica: IV = cuatro estructuras posibles expuestas (piel, fascia, músculo, hueso).",
+    ref:"GPC: Prevención, diagnóstico y manejo de las úlceras por presión en el adulto. IMSS-2015."
+  },
+  {
+    cat:"ulc", catName:"Úlceras por Presión",
+    q:"La escala de Braden se utiliza para evaluar el riesgo de úlceras por presión. ¿Cuántas subescalas la conforman y cuál es el puntaje que indica alto riesgo?",
+    opts:["4 subescalas; puntaje ≤12 indica alto riesgo","6 subescalas; puntaje ≤12 indica alto riesgo","6 subescalas; puntaje ≤16 indica riesgo y ≤12 alto riesgo","8 subescalas; puntaje ≤10 indica alto riesgo"],
+    ans:2,
+    exp:"La escala de Braden consta de 6 subescalas: percepción sensorial, humedad, actividad, movilidad, nutrición y fricción/cizallamiento. El puntaje va de 6 a 23. La GPC establece que un puntaje ≤16 indica riesgo de úlcera por presión y requiere medidas preventivas. Un puntaje ≤12 indica alto riesgo y requiere intervenciones intensivas. A menor puntaje, mayor riesgo.",
+    tip:"<strong>Las 6 subescalas de Braden:</strong> Percepción Sensorial, Humedad, Actividad, Movilidad, Nutrición, Fricción/Cizallamiento. Mnemotecnia: P-H-A-M-N-F. Riesgo: ≤16. Alto riesgo: ≤12. El rango normal es 18-23.",
+    ref:"GPC: Prevención, diagnóstico y manejo de las úlceras por presión en el adulto. IMSS-2015."
+  },
+  {
+    cat:"pro", catName:"Profilaxis/Prevención",
+    q:"¿Cuál es la medida preventiva más importante y con mayor nivel de evidencia para evitar el desarrollo de úlceras por presión en pacientes encamados?",
+    opts:["Aplicación de ácidos grasos hiperoxigenados cada 12 horas","Cambios posturales cada 2 horas con redistribución de la presión","Uso de colchón de aire de baja presión como única medida","Vendaje de talones con apósitos de hidrogel"],
+    ans:1,
+    exp:"Los cambios posturales cada 2 horas son la medida preventiva de mayor evidencia para redistribuir la presión y prevenir úlceras. La GPC 2015 recomienda que en pacientes de riesgo se realicen cambios de posición cada 2 horas en cama y cada hora en silla de ruedas. Se deben complementar con superficies de redistribución de presión (colchones especiales), mantener la piel hidratada y limpia, y asegurar una nutrición adecuada.",
+    tip:"<strong>Las 4 pilares de prevención de úlceras:</strong> 1) Cambios posturales cada 2h, 2) Superficies redistribuidoras de presión, 3) Cuidado de la piel (hidratación, evitar humedad), 4) Nutrición adecuada (proteínas, vitamina C, zinc). Los cambios posturales son el pilar fundamental — sin ellos, las otras medidas son insuficientes.",
+    ref:"GPC: Prevención, diagnóstico y manejo de las úlceras por presión en el adulto. IMSS-2015."
+  },
+  {
+    cat:"isq", catName:"Infección Sitio Quirúrgico",
+    q:"Paciente de 55 años sometido a colecistectomía laparoscópica hace 12 días. Acude por eritema, calor y secreción purulenta en uno de los puertos de entrada, sin compromiso de fascia ni cavidad abdominal. ¿Cómo se clasifica esta infección de sitio quirúrgico?",
+    opts:["ISQ profunda de incisión","ISQ superficial de incisión","ISQ de órgano/espacio","No es ISQ porque fue cirugía laparoscópica"],
+    ans:1,
+    exp:"La ISQ superficial de incisión se define por infección que ocurre dentro de los 30 días posteriores al procedimiento e involucra únicamente piel y tejido subcutáneo. Debe cumplir al menos uno de los siguientes criterios: drenaje purulento, cultivo positivo, signos de infección (dolor, eritema, calor, induración) con apertura deliberada por el cirujano. La GPC 2018 establece este límite temporal de 30 días para cirugías sin implante.",
+    tip:"<strong>Clasificación ISQ por planos:</strong> Superficial = piel + tejido subcutáneo (hasta 30 días). Profunda = fascia + músculo (hasta 30 días). Órgano/espacio = cualquier estructura abierta/manipulada (hasta 30 días, o hasta 1 año si hay implante). La profundidad es la clave clasificatoria.",
+    ref:"GPC: Prevención y diagnóstico de la infección de sitio quirúrgico. IMSS-2018."
+  },
+  {
+    cat:"isq", catName:"Infección Sitio Quirúrgico",
+    q:"¿Cuál es la clasificación de herida quirúrgica asociada con mayor riesgo de infección de sitio quirúrgico (ISQ > 40%)?",
+    opts:["Herida limpia: cirugía electiva sin apertura de víscera hueca","Herida limpia-contaminada: apertura controlada de víscera hueca","Herida contaminada: derrame gastrointestinal significativo","Herida sucia: infección establecida o perforación visceral previa"],
+    ans:3,
+    exp:"La herida sucia (clase IV) corresponde a cirugías donde existe infección bacteriana ya establecida o perforación de víscera hueca previamente. Incluye heridas traumáticas antiguas, perforación de colon, abscesos y tejido desvitalizado. La GPC 2018 establece una tasa de ISQ >40% para esta clase. En contraste: limpia <2%, limpia-contaminada <10%, contaminada >10-15%.",
+    tip:"<strong>Las 4 clases de heridas y riesgo de ISQ:</strong> Limpia: <2% (cirugía electiva, sin apertura visceral). Limpia-contaminada: <10% (apertura controlada). Contaminada: 10-40% (derrame GI/biliar/urinario). Sucia: >40% (infección establecida/perforación). A mayor contaminación, mayor riesgo.",
+    ref:"GPC: Prevención y diagnóstico de la infección de sitio quirúrgico. IMSS-2018."
+  },
+  {
+    cat:"pro", catName:"Profilaxis/Prevención",
+    q:"¿Cuál es el momento óptimo para administrar la profilaxis antibiótica quirúrgica y cuál es el grupo de antibióticos de elección según la GPC?",
+    opts:["Inmediatamente al cerrar la incisión; aminoglucósidos","30-60 minutos antes de la incisión quirúrgica; cefalosporinas de 1ª o 2ª generación","12 horas antes de la cirugía; metronidazol oral","Al inicio de la anestesia; vancomicina IV"],
+    ans:1,
+    exp:"La GPC 2018 establece que la profilaxis antibiótica quirúrgica debe administrarse 30-60 minutos antes de la incisión para garantizar concentraciones tisulares efectivas en el momento del corte. Las cefalosporinas de 1ª generación (cefazolina) o 2ª generación son los antibióticos de elección por su espectro adecuado, seguridad y bajo costo. Se debe administrar una dosis adicional si la cirugía dura >4 horas o hay pérdida de sangre >1500 mL, y suspender dentro de las primeras 24 horas postoperatorias.",
+    tip:"<strong>Reglas de oro de la profilaxis quirúrgica:</strong> 1) Timing: 30-60 min antes de incisión. 2) Elección: cefazolina (la más usada). 3) Redosis: si cirugía >4h o sangrado >1500mL. 4) Duración: suspender <24h postop. NO prolongar más de 24h — no reduce ISQ y aumenta resistencia bacteriana.",
+    ref:"GPC: Prevención y diagnóstico de la infección de sitio quirúrgico. IMSS-2018."
+  },
+  {
+    cat:"der", catName:"Derrame Pleural",
+    q:"Se realiza toracocentesis diagnóstica a paciente con derrame pleural de causa incierta. Los resultados del líquido pleural son: proteínas líquido/suero = 0.62, LDH líquido/suero = 0.7, LDH líquido = 280 U/L (límite superior normal en suero = 200 U/L). ¿Cómo se clasifica este líquido pleural?",
+    opts:["Trasudado: todos los valores están dentro de límites normales","Exudado: cumple criterios de Light","Trasudado: por la relación de proteínas solamente","Indeterminado: se requieren más estudios"],
+    ans:1,
+    exp:"Los criterios de Light para exudado requieren que se cumpla AL MENOS UNO de tres criterios: 1) Proteínas líquido/suero >0.5, 2) LDH líquido/suero >0.6, 3) LDH líquido >2/3 del límite superior normal en suero. En este caso se cumplen los tres criterios: proteínas 0.62 >0.5 (sí), LDH líquido/suero 0.7 >0.6 (sí), LDH 280 > 2/3 de 200 = 133 U/L (sí). Por lo tanto es exudado.",
+    tip:"<strong>Criterios de Light (basta uno para exudado):</strong> Proteínas L/S >0.5 — LDH L/S >0.6 — LDH líquido >2/3 LSN suero. Mnemotecnia: 0.5 — 0.6 — 2/3. Trasudado (ninguno cumplido): ICC, cirrosis, síndrome nefrótico. Exudado (≥1 cumplido): neumonía, TB, neoplasia, empiema.",
+    ref:"GPC: Diagnóstico y tratamiento del derrame pleural. IMSS-2016."
+  },
+  {
+    cat:"der", catName:"Derrame Pleural",
+    q:"Paciente masculino de 65 años, fumador, con derrame pleural unilateral izquierdo masivo. El líquido es exudado hemorrágico con glucosa baja y LDH muy elevada. El citológico reporta células malignas. ¿Cuál es la causa más probable?",
+    opts:["Insuficiencia cardiaca congestiva","Síndrome nefrótico","Neoplasia maligna (derrame pleural maligno)","Empiema paraneumónico"],
+    ans:2,
+    exp:"El derrame pleural maligno es la causa más frecuente de exudado en mayores de 60 años, especialmente con antecedente de tabaquismo. Se caracteriza por exudado, frecuentemente hemorrágico, con citología positiva para células malignas. Las neoplasias más frecuentes son cáncer de pulmón, mama y linfoma. La GPC indica que ante exudado hemorrágico unilateral masivo en fumador, la neoplasia es la principal sospecha diagnóstica.",
+    tip:"<strong>Causas de exudado más frecuentes:</strong> Paraneumónico (causa #1 de exudado en adultos jóvenes), neoplasia maligna (causa #1 en >60 años), tuberculosis. Claves del derrame maligno: hemorrágico, glucosa baja (<60 mg/dL), LDH muy alta, citología positiva. Empiema: pH <7.2, glucosa <40, aspecto purulento.",
+    ref:"GPC: Diagnóstico y tratamiento del derrame pleural. IMSS-2016."
+  },
+  {
+    cat:"der", catName:"Derrame Pleural",
+    q:"Paciente con diagnóstico de empiema pleural confirmado por líquido purulento en la toracocentesis. ¿Cuál es el tratamiento inicial de elección?",
+    opts:["Antibióticos IV exclusivamente sin drenaje pleural","Toracocentesis evacuadora repetida cada 48 horas","Tubo de tórax + antibióticos IV","Decorticación pulmonar quirúrgica inmediata"],
+    ans:2,
+    exp:"El empiema pleural (líquido purulento, pH <7.2, glucosa <40 mg/dL o bacterias visibles en tinción de Gram) requiere drenaje definitivo mediante tubo de tórax más antibióticos IV de amplio espectro. La GPC 2016 establece que la toracocentesis simple es insuficiente para el empiema por la tendencia a la loculación. El tubo de tórax (toracostomía) permite drenaje continuo. La decorticación se reserva para empiema organizado crónico que no responde al drenaje.",
+    tip:"<strong>Escalonamiento del tratamiento del derrame paraneumónico:</strong> Derrame libre simple → antibióticos solos. Derrame complicado (pH <7.2, glucosa <40, Gram+) → tubo de tórax + antibióticos. Empiema organizado → fibrinolíticos intrapleurales o VATS. Empiema crónico → decorticación. El tubo es el paso crítico en empiema.",
+    ref:"GPC: Diagnóstico y tratamiento del derrame pleural. IMSS-2016."
+  },
+  {
+    cat:"deh", catName:"Dehiscencia/Complicaciones herida",
+    q:"Paciente de 62 años, obeso (IMC 38), diabético mal controlado, que fue sometido a laparotomía exploradora por perforación intestinal. Al 8° día postoperatorio presenta salida de material seroso-sanguinolento por la herida abdominal ('signo del agua de arroz') y se palpa separación de fascia. ¿Cuál es el diagnóstico y la conducta inmediata?",
+    opts:["ISQ superficial: curación con antisépticos y espera","Seroma postquirúrgico: drenaje simple","Dehiscencia completa de herida quirúrgica con evisceración inminente: cirugía urgente","Fístula enterocutánea: manejo conservador"],
+    ans:2,
+    exp:"La dehiscencia completa de herida quirúrgica abdominal con evisceración se presenta clásicamente con salida de líquido seroso-sanguinolento ('signo del agua de arroz' o líquido asalmonado) entre el 5° y 10° día postoperatorio, y separación palpable de la fascia. La GPC 2016 establece que ante estos hallazgos se debe cubrir las vísceras con compresas húmedas tibias y llevar al paciente a cirugía urgente para cierre primario. Los factores de riesgo presentes son obesidad, diabetes y cirugía de urgencia por perforación.",
+    tip:"<strong>Factores de riesgo de dehiscencia:</strong> Obesidad, diabetes mellitus, desnutrición, infección de herida, tos crónica/EPOC, uso de esteroides, edad avanzada, cirugía de urgencia. El 'agua de arroz' es la señal de alarma — NO es normal, indica separación fascial. Cubrir con gasa húmeda y cirugía urgente.",
+    ref:"GPC: Prevención, diagnóstico y tratamiento de dehiscencia completa de herida quirúrgica de abdomen. IMSS-2016."
+  },
+  {
+    cat:"deh", catName:"Dehiscencia/Complicaciones herida",
+    q:"¿Cuál de los siguientes factores de riesgo preoperatorio tiene MENOR asociación con dehiscencia de herida quirúrgica abdominal?",
+    opts:["Desnutrición severa con hipoalbuminemia","Diabetes mellitus con hemoglobina glucosilada >9%","Uso crónico de corticosteroides","Grupo sanguíneo AB positivo"],
+    ans:3,
+    exp:"El grupo sanguíneo no es un factor de riesgo reconocido para dehiscencia de herida quirúrgica. Los factores de riesgo establecidos por la GPC 2016 incluyen: desnutrición/hipoalbuminemia (albúmina <3.5 g/dL), diabetes mellitus mal controlada, uso crónico de corticosteroides (inhiben la cicatrización), obesidad, infección de sitio quirúrgico, tos crónica/EPOC, edad avanzada, anemia, cirugía de urgencia y técnica quirúrgica deficiente.",
+    tip:"<strong>Factores de riesgo de dehiscencia — mnemotecnia DOSIS:</strong> Diabetes, Obesidad, Sepsis/infección, Inmunosupresión (esteroides), Sutura deficiente. Más: desnutrición, tos crónica, anemia, cirugía de urgencia. La albúmina preoperatoria <3.5 g/dL es predictor independiente de dehiscencia.",
+    ref:"GPC: Prevención, diagnóstico y tratamiento de dehiscencia completa de herida quirúrgica de abdomen. IMSS-2016."
+  },
+  {
+    cat:"ulc", catName:"Úlceras por Presión",
+    q:"Una úlcera sacra presenta su base completamente cubierta por tejido necrótico negro (escara dura) sin posibilidad de determinar la profundidad real de la lesión. ¿Cómo se clasifica?",
+    opts:["Estadio III por la localización sacra","Estadio IV por extensión probable","No estadificable: base cubierta por escara/esfacelo que impide valorar profundidad","Estadio II por pérdida cutánea visible"],
+    ans:2,
+    exp:"La úlcera no estadificable corresponde a pérdida total del grosor tisular en la que la base de la úlcera está cubierta por esfacelo (amarillo, tostado, gris o verde) y/o escara (café o negro) en el lecho de la herida. La GPC 2015 establece que hasta que no se retire el tejido necrótico suficiente para ver la base de la herida, no es posible determinar la profundidad real y clasificar correctamente. La escara en talón (firme, seca, adherida) puede ser protectora y no debe retirarse sin valoración especializada.",
+    tip:"<strong>Clave 'No estadificable':</strong> No puede verse el fondo = no puede clasificarse. El esfacelo (húmedo, blando) o la escara (dura, seca) ocultan la profundidad real. Puede ser Estadio III o IV, pero hasta desbridar no se sabe. Excepción: escara de talón firme y seca = NO desbridar de rutina.",
+    ref:"GPC: Prevención, diagnóstico y manejo de las úlceras por presión en el adulto. IMSS-2015."
+  },
+  {
+    cat:"isq", catName:"Infección Sitio Quirúrgico",
+    q:"Paciente sometido a colocación de prótesis de cadera hace 8 meses. Acude con fiebre, dolor e inflamación en región de la prótesis. El cultivo de aspirado articular es positivo para Staphylococcus aureus. ¿Cómo se clasifica esta infección y por qué el tiempo no la descarta como ISQ?",
+    opts:["No es ISQ porque excede los 30 días postoperatorios","ISQ superficial tardía","ISQ de órgano/espacio: el límite es hasta 1 año cuando hay implante","ISQ profunda: siempre el límite es 90 días"],
+    ans:2,
+    exp:"La ISQ de órgano/espacio cuando existe un implante tiene un límite temporal de hasta 1 año (365 días) posterior a la cirugía. La GPC 2018, siguiendo criterios del CDC, establece esta excepción específicamente para cirugías con colocación de implantes (prótesis articulares, mallas, válvulas, etc.) debido a que el biofilm bacteriano puede permanecer latente meses antes de manifestarse clínicamente. En cirugías sin implante el límite es 30 días.",
+    tip:"<strong>Límites temporales de ISQ:</strong> Sin implante: 30 días (superficial, profunda y órgano/espacio). CON implante: órgano/espacio hasta 1 año. La regla de 1 año aplica solo a ISQ de órgano/espacio con implante — la superficial y profunda siguen siendo 30 días incluso con implante.",
+    ref:"GPC: Prevención y diagnóstico de la infección de sitio quirúrgico. IMSS-2018."
+  },
+  {
+    cat:"pro", catName:"Profilaxis/Prevención",
+    q:"Durante una colecistectomía laparoscópica que inició a las 8:00 am y lleva 4.5 horas de evolución, el anestesiólogo nota que la pérdida sanguínea acumulada es de 800 mL. Se administró cefazolina 1g a las 7:30 am. ¿Qué conducta es correcta respecto a la profilaxis antibiótica?",
+    opts:["No se requiere dosis adicional; la dosis inicial es suficiente para cirugías <8 horas","Administrar dosis adicional de cefazolina ahora por duración >4 horas de la cirugía","Cambiar a antibiótico de amplio espectro por la duración prolongada","Suspender la profilaxis y iniciar tratamiento antibiótico completo"],
+    ans:1,
+    exp:"La GPC 2018 indica que se debe administrar una dosis adicional del antibiótico profiláctico cuando la cirugía excede las 4 horas de duración O cuando la pérdida sanguínea supera los 1500 mL (no ambas condiciones simultáneamente — basta una). En este caso, la cirugía lleva 4.5 horas (>4h), por lo que corresponde administrar una dosis adicional de cefazolina. La pérdida de 800 mL no alcanza el umbral de 1500 mL, pero la duración sí lo amerita. La profilaxis se suspende dentro de las primeras 24h postoperatorias.",
+    tip:"<strong>Indicaciones de redosis intraoperatoria:</strong> Duración >4 horas (para cefazolina con vida media corta) OR pérdida sanguínea >1500 mL. Basta UNA condición. La cefazolina se redosifica cada 3-4h durante la cirugía si aplica. Post-cirugía: suspender <24h — no hay beneficio en extender y aumenta resistencia.",
+    ref:"GPC: Prevención y diagnóstico de la infección de sitio quirúrgico. IMSS-2018."
+  }
+];
+
+let currentQ = 0, score = 0, answers = [];
+let catStats = { ulc:{c:0,t:0}, isq:{c:0,t:0}, der:{c:0,t:0}, deh:{c:0,t:0}, pro:{c:0,t:0} };
+
+function shuffle(arr) {
+  for (let i=arr.length-1;i>0;i--) {
+    const j=Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+
+function init() {
+  shuffle(questions);
+  currentQ=0; score=0; answers=[];
+  catStats = { ulc:{c:0,t:0}, isq:{c:0,t:0}, der:{c:0,t:0}, deh:{c:0,t:0}, pro:{c:0,t:0} };
+  const r=document.getElementById('resultsArea');
+  r.classList.remove('show'); r.innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const qa=questions[currentQ], total=questions.length;
+  document.getElementById('progressBar').style.width=(currentQ/total*100)+'%';
+  document.getElementById('progressText').textContent=`${currentQ+1} / ${total}`;
+  document.getElementById('nextBtn').classList.remove('show');
+  const letters=['A','B','C','D'];
+  let html=`<div class="question-card">
+    <div class="q-category cat-${qa.cat}">${qa.catName}</div>
+    <div class="q-number">Pregunta ${currentQ+1} de ${total}</div>
+    <div class="q-text">${qa.q}</div>
+    <div class="options">`;
+  qa.opts.forEach((opt,i)=>{
+    html+=`<button class="option-btn" onclick="selectAnswer(${i})" data-idx="${i}">
+      <span class="option-letter">${letters[i]}</span><span>${opt}</span></button>`;
+  });
+  html+=`</div><div class="feedback" id="feedback"></div></div>`;
+  document.getElementById('quizArea').innerHTML=html;
+}
+
+function selectAnswer(idx) {
+  const qa=questions[currentQ];
+  const btns=document.querySelectorAll('.option-btn');
+  const fb=document.getElementById('feedback');
+  const isCorrect=idx===qa.ans;
+  btns.forEach((btn,i)=>{
+    btn.classList.add('disabled'); btn.onclick=null;
+    if(i===qa.ans) btn.classList.add('correct-answer');
+    if(i===idx&&!isCorrect) btn.classList.add('wrong-answer');
+  });
+  if(!catStats[qa.cat]) catStats[qa.cat]={c:0,t:0};
+  catStats[qa.cat].t++;
+  if(isCorrect){score++;catStats[qa.cat].c++;}
+  if(!examMode){
+    fb.className=isCorrect?'feedback correct-fb show':'feedback wrong-fb show';
+    fb.innerHTML=isCorrect
+      ?`<div class="feedback-title">✅ ¡Correcto!</div><div>${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`
+      :`<div class="feedback-title">❌ Incorrecto</div><div><strong>Respuesta correcta:</strong> ${qa.opts[qa.ans]}</div><div style="margin-top:8px;">${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;
+  }
+  answers.push({q:qa.q,correct:isCorrect,userAns:qa.opts[idx],correctAns:qa.opts[qa.ans],cat:qa.catName,exp:qa.exp,ref:qa.ref});
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion() {
+  currentQ++;
+  if(currentQ>=questions.length) showResults();
+  else renderQuestion();
+}
+
+function showResults() {
+  document.getElementById('quizArea').innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  document.getElementById('progressBar').style.width='100%';
+  document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;
+  const pct=Math.round((score/questions.length)*100);
+  const msg=pct>=90?'🏆 ¡Dominio excelente de patología quirúrgica!':pct>=70?'👏 ¡Muy bien! Repasa los temas con menor puntaje.':pct>=50?'📚 Aceptable, refuerza las áreas débiles.':'⚠️ Revisa las GPC de úlceras, ISQ, derrame pleural y dehiscencia.';
+  const cats=[
+    {name:'Úlceras por Presión',key:'ulc',color:'#fbbf24'},
+    {name:'Infec. Sitio Quirúrg.',key:'isq',color:'#38bdf8'},
+    {name:'Derrame Pleural',key:'der',color:'#a78bfa'},
+    {name:'Dehiscencia',key:'deh',color:'#f472b6'},
+    {name:'Profilaxis',key:'pro',color:'#34d399'},
+  ];
+  let html=`<div class="results-header">
+    <div class="score-big">${pct}%</div>
+    <div class="score-label">${score} de ${questions.length} correctas</div>
+    <div class="score-msg">${msg}</div>
+  </div>
+  <div class="chart-section">
+    <div class="chart-title"><span>📊</span> Rendimiento por Categoría</div>
+    <div class="bar-chart">`;
+  cats.forEach(cat=>{
+    const s=catStats[cat.key]||{c:0,t:0};
+    const p=s.t>0?Math.round((s.c/s.t)*100):0;
+    html+=`<div class="bar-row"><div class="bar-label">${cat.name}</div><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${cat.color};">${p}% (${s.c}/${s.t})</div></div></div>`;
+  });
+  html+=`</div></div>
+  <div class="chart-section">
+    <div class="chart-title"><span>🎯</span> Resumen General</div>
+    <div class="donut-wrap">
+      <svg class="donut-svg" viewBox="0 0 42 42">
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a2235" stroke-width="4"/>
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#34d399" stroke-width="4" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="25" stroke-linecap="round"/>
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#f87171" stroke-width="4" stroke-dasharray="${100-pct} ${pct}" stroke-dashoffset="${25-pct}" stroke-linecap="round"/>
+        <text x="21" y="22.5" text-anchor="middle" font-size="6" font-weight="700" fill="#e8ecf4" font-family="Plus Jakarta Sans">${pct}%</text>
+      </svg>
+      <div class="donut-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#34d399;"></div>Correctas: ${score}</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Incorrectas: ${questions.length-score}</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#38bdf8;"></div>Total: ${questions.length}</div>
+      </div>
+    </div>
+  </div>
+  <div class="chart-section">
+    <div class="chart-title"><span>📋</span> Revisión de Respuestas</div>`;
+  answers.forEach((a,i)=>{
+    html+=`<div class="review-card ${a.correct?'review-correct':'review-wrong'}">
+      <div class="review-q">${i+1}. ${a.q} <span style="font-size:0.72rem;color:var(--text-dim);">[${a.cat}]</span></div>
+      <div class="review-answer">${a.correct?`<strong>✅ ${a.correctAns}</strong>`:`<em>❌ Tu respuesta: ${a.userAns}</em><br><strong>✅ Correcta: ${a.correctAns}</strong>`}</div>
+      <div style="margin-top:8px;font-size:0.8rem;color:var(--text-dim);line-height:1.5;">${a.exp}</div>
+      <div style="margin-top:6px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;">📖 ${a.ref}</div>
+    </div>`;
+  });
+  html+=`</div><button class="retry-btn" onclick="init()">🔄 Reintentar</button>`;
+  const res=document.getElementById('resultsArea');
+  res.innerHTML=html; res.classList.add('show');
+  res.scrollIntoView({behavior:'smooth'});
+}
+
+function toggleSpec(header){header.classList.toggle('open');header.nextElementSibling.classList.toggle('open');}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oclusión Intestinal — ENARM · MediCode Solutions</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0a0e1a; --surface: #111827; --surface2: #1a2235; --surface3: #212d45;
+    --border: #2a3a5c; --text: #e8ecf4; --text-dim: #8896b3;
+    --accent: #38bdf8; --accent-glow: rgba(56,189,248,0.15);
+    --correct: #34d399; --correct-bg: rgba(52,211,153,0.1); --correct-border: rgba(52,211,153,0.4);
+    --wrong: #f87171; --wrong-bg: rgba(248,113,113,0.1); --wrong-border: rgba(248,113,113,0.4);
+    --gold: #fbbf24; --purple: #a78bfa; --pink: #f472b6; --teal: #2dd4bf;
+    --sidebar-w: 280px; --radius: 14px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; display:flex; }
+
+  .sidebar {
+    width:var(--sidebar-w); min-height:100vh; background:var(--surface);
+    border-right:1px solid var(--border); display:flex; flex-direction:column;
+    position:fixed; left:0; top:0; bottom:0; overflow-y:auto; z-index:100; transition:transform 0.3s;
+  }
+  .sidebar-logo { padding:24px 20px 16px; border-bottom:1px solid var(--border); }
+  .logo-badge { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,var(--accent),var(--purple)); padding:6px 14px; border-radius:100px; font-size:0.75rem; font-weight:800; color:var(--bg); letter-spacing:0.5px; text-transform:uppercase; margin-bottom:10px; }
+  .sidebar-logo h2 { font-size:1.1rem; font-weight:800; background:linear-gradient(135deg,var(--text),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .sidebar-logo p { font-size:0.72rem; color:var(--text-dim); margin-top:2px; }
+  .back-btn { display:flex; align-items:center; gap:8px; padding:14px 20px; color:var(--text-dim); font-size:0.8rem; text-decoration:none; border-bottom:1px solid var(--border); transition:color 0.2s; }
+  .back-btn:hover { color:var(--accent); }
+  .sidebar-nav { flex:1; padding:12px 0 24px; }
+  .specialty-header { display:flex; align-items:center; justify-content:space-between; padding:10px 16px 10px 20px; cursor:pointer; transition:background 0.2s; user-select:none; }
+  .specialty-header:hover { background:var(--surface2); }
+  .specialty-name { display:flex; align-items:center; gap:10px; font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; }
+  .specialty-icon { width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:0.9rem; flex-shrink:0; }
+  .chevron { font-size:0.65rem; color:var(--text-dim); transition:transform 0.3s; }
+  .specialty-header.open .chevron { transform:rotate(90deg); }
+  .topics-list { display:none; padding:4px 0 8px; }
+  .topics-list.open { display:block; }
+  .topic-link { display:flex; align-items:center; gap:10px; padding:8px 16px 8px 56px; font-size:0.78rem; color:var(--text-dim); text-decoration:none; transition:all 0.2s; border-left:2px solid transparent; line-height:1.4; }
+  .topic-link:hover { color:var(--text); background:var(--surface3); }
+  .topic-link.active { color:var(--accent); border-left-color:var(--accent); background:var(--accent-glow); font-weight:600; }
+  .topic-link.coming-soon { opacity:0.4; cursor:not-allowed; pointer-events:none; }
+  .topic-num { font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--text-dim); min-width:20px; }
+  .badge-soon { margin-left:auto; background:rgba(136,150,179,0.1); color:var(--text-dim); font-size:0.62rem; font-weight:600; padding:2px 7px; border-radius:100px; }
+  .star-tag { margin-left:auto; font-size:0.7rem; }
+
+  .main { margin-left:var(--sidebar-w); flex:1; display:flex; flex-direction:column; }
+  .container { max-width:760px; margin:0 auto; padding:20px 16px 40px; width:100%; }
+
+  .mode-bar { display:flex; align-items:center; gap:10px; margin:24px 0 20px; background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:6px; width:fit-content; }
+  .mode-btn { padding:8px 20px; border-radius:100px; border:none; cursor:pointer; font-family:inherit; font-size:0.82rem; font-weight:600; transition:all 0.2s; color:var(--text-dim); background:transparent; }
+  .mode-btn.active { background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); }
+
+  .header { text-align:center; padding:40px 20px 24px; position:relative; overflow:hidden; }
+  .header::before { content:''; position:absolute; top:-60%; left:50%; transform:translateX(-50%); width:600px; height:600px; background:radial-gradient(circle,rgba(56,189,248,0.08) 0%,transparent 70%); pointer-events:none; }
+  .header-badge { display:inline-flex; align-items:center; gap:8px; background:var(--surface2); border:1px solid var(--border); padding:6px 16px; border-radius:100px; font-size:0.78rem; color:var(--accent); font-weight:600; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:16px; }
+  .header h1 { font-size:clamp(1.6rem,5vw,2.2rem); font-weight:800; background:linear-gradient(135deg,var(--text) 0%,var(--accent) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:8px; }
+  .header p { color:var(--text-dim); font-size:0.95rem; max-width:500px; margin:0 auto; }
+
+  .progress-wrap { background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:12px 20px; margin:20px 0 28px; display:flex; align-items:center; gap:14px; }
+  .progress-bar-bg { flex:1; height:8px; background:var(--surface3); border-radius:100px; overflow:hidden; }
+  .progress-bar-fill { height:100%; width:0%; background:linear-gradient(90deg,var(--accent),var(--purple)); border-radius:100px; transition:width 0.5s ease; }
+  .progress-text { font-size:0.82rem; font-weight:600; color:var(--text-dim); white-space:nowrap; font-family:'JetBrains Mono',monospace; }
+
+  .question-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:28px 24px; margin-bottom:20px; animation:slideIn 0.4s ease; position:relative; overflow:hidden; }
+  .question-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--gold),var(--accent),var(--purple)); }
+  @keyframes slideIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+  .q-category { display:inline-flex; align-items:center; gap:6px; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; padding:4px 12px; border-radius:100px; margin-bottom:14px; }
+  .cat-obs { background:rgba(251,191,36,0.12); color:var(--gold); }
+  .cat-vol { background:rgba(56,189,248,0.12); color:var(--accent); }
+  .cat-isq { background:rgba(167,139,250,0.12); color:var(--purple); }
+  .cat-par { background:rgba(244,114,182,0.12); color:var(--pink); }
+  .cat-tx  { background:rgba(52,211,153,0.12);  color:var(--correct); }
+
+  .q-number { font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--text-dim); margin-bottom:10px; }
+  .q-text { font-size:1.05rem; font-weight:600; line-height:1.55; margin-bottom:20px; color:var(--text); }
+
+  .options { display:flex; flex-direction:column; gap:10px; }
+  .option-btn { display:flex; align-items:flex-start; gap:12px; padding:14px 16px; background:var(--surface2); border:1.5px solid var(--border); border-radius:12px; cursor:pointer; transition:all 0.2s; text-align:left; font-size:0.92rem; color:var(--text); font-family:inherit; line-height:1.5; width:100%; }
+  .option-btn:hover:not(.disabled) { border-color:var(--accent); background:var(--accent-glow); transform:translateX(4px); }
+  .option-letter { display:flex; align-items:center; justify-content:center; min-width:30px; height:30px; border-radius:8px; background:var(--surface3); font-weight:700; font-size:0.82rem; color:var(--accent); flex-shrink:0; }
+  .option-btn.correct-answer { border-color:var(--correct-border); background:var(--correct-bg); }
+  .option-btn.correct-answer .option-letter { background:var(--correct); color:var(--bg); }
+  .option-btn.wrong-answer { border-color:var(--wrong-border); background:var(--wrong-bg); }
+  .option-btn.wrong-answer .option-letter { background:var(--wrong); color:var(--bg); }
+  .option-btn.disabled { cursor:default; }
+  .option-btn.disabled:hover { transform:none; }
+
+  .feedback { margin-top:18px; padding:18px; border-radius:12px; font-size:0.88rem; line-height:1.65; animation:fadeIn 0.3s ease; display:none; }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  .feedback.show { display:block; }
+  .feedback.correct-fb { background:var(--correct-bg); border:1px solid var(--correct-border); color:var(--correct); }
+  .feedback.wrong-fb { background:var(--wrong-bg); border:1px solid var(--wrong-border); color:#fca5a5; }
+  .feedback-title { font-weight:700; font-size:0.95rem; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
+  .feedback .tip { margin-top:10px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.08); color:var(--text-dim); font-size:0.82rem; }
+  .feedback .tip strong { color:var(--gold); }
+  .feedback .ref { margin-top:8px; font-size:0.75rem; color:var(--text-dim); opacity:0.7; font-style:italic; }
+
+  .next-btn { display:none; margin:20px auto 0; padding:12px 32px; background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:0.92rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+  .next-btn:hover { transform:scale(1.05); box-shadow:0 4px 24px var(--accent-glow); }
+  .next-btn.show { display:block; }
+
+  .results { display:none; animation:slideIn 0.5s ease; }
+  .results.show { display:block; }
+  .results-header { text-align:center; padding:30px 20px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:20px; position:relative; overflow:hidden; }
+  .results-header::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--correct),var(--accent),var(--purple),var(--pink)); }
+  .score-big { font-size:3.5rem; font-weight:800; background:linear-gradient(135deg,var(--correct),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .score-label { font-size:1.1rem; color:var(--text-dim); margin-top:4px; }
+  .score-msg { margin-top:12px; font-size:0.95rem; color:var(--text); font-weight:500; }
+  .chart-section { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px 20px; margin-bottom:20px; }
+  .chart-title { font-size:0.95rem; font-weight:700; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
+  .bar-chart { display:flex; flex-direction:column; gap:14px; }
+  .bar-row { display:flex; align-items:center; gap:12px; }
+  .bar-label { width:130px; font-size:0.78rem; font-weight:600; text-align:right; color:var(--text-dim); flex-shrink:0; }
+  .bar-track { flex:1; height:28px; background:var(--surface3); border-radius:8px; overflow:hidden; }
+  .bar-fill { height:100%; border-radius:8px; transition:width 1s ease; display:flex; align-items:center; padding-left:10px; font-size:0.75rem; font-weight:700; color:var(--bg); min-width:fit-content; }
+  .donut-wrap { display:flex; align-items:center; justify-content:center; gap:30px; flex-wrap:wrap; }
+  .donut-svg { width:160px; height:160px; }
+  .donut-legend { display:flex; flex-direction:column; gap:10px; }
+  .legend-item { display:flex; align-items:center; gap:10px; font-size:0.84rem; }
+  .legend-dot { width:12px; height:12px; border-radius:4px; flex-shrink:0; }
+  .review-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; margin-bottom:12px; }
+  .review-card.review-correct { border-left:4px solid var(--correct); }
+  .review-card.review-wrong { border-left:4px solid var(--wrong); }
+  .review-q { font-size:0.88rem; font-weight:600; margin-bottom:8px; }
+  .review-answer { font-size:0.82rem; color:var(--text-dim); line-height:1.5; }
+  .review-answer strong { color:var(--correct); }
+  .review-answer em { color:var(--wrong); font-style:normal; }
+  .retry-btn { display:block; margin:28px auto; padding:14px 40px; background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:1rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+  .retry-btn:hover { transform:scale(1.05); }
+  .hamburger { display:none; position:fixed; top:16px; left:16px; z-index:200; background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:10px; cursor:pointer; font-size:1.2rem; }
+  .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:90; }
+  .footer { text-align:center; padding:20px; color:var(--text-dim); font-size:0.72rem; opacity:0.5; }
+
+  @media(max-width:768px) {
+    .sidebar { transform:translateX(-100%); }
+    .sidebar.open { transform:translateX(0); }
+    .main { margin-left:0; }
+    .hamburger { display:flex; align-items:center; justify-content:center; }
+    .overlay.show { display:block; }
+    .container { padding:12px 10px 30px; }
+    .question-card { padding:20px 16px; }
+    .bar-label { width:90px; font-size:0.72rem; }
+    .mode-bar { margin:16px auto; }
+  }
+</style>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-badge">🩺 MCS</div>
+    <h2>ENARM · Banco de Preguntas</h2>
+    <p>2025–2026</p>
+  </div>
+  <a href="index.html" class="back-btn">← Volver al inicio</a>
+  <nav class="sidebar-nav">
+    <div class="specialty-group">
+      <div class="specialty-header open" onclick="toggleSpec(this)">
+        <div class="specialty-name">
+          <div class="specialty-icon" style="background:rgba(56,189,248,0.12);color:#38bdf8;">🔪</div>
+          Cirugía General
+        </div>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="topics-list open">
+        <a href="01-apendicitis.html" class="topic-link"><span class="topic-num">01</span>Abdomen agudo / Apendicitis<span class="star-tag">⭐</span></a>
+        <a href="02-patologia-biliar.html" class="topic-link"><span class="topic-num">02</span>Patología biliar<span class="star-tag">⭐</span></a>
+        <a href="03-enfermedad-diverticular.html" class="topic-link"><span class="topic-num">03</span>Enfermedad diverticular</a>
+        <a href="04-erge-esofagitis-dispepsia.html" class="topic-link"><span class="topic-num">04</span>ERGE / Esofagitis</a>
+        <a href="05-cancer-esofago-gastrico.html" class="topic-link"><span class="topic-num">05</span>Cáncer esófago / gástrico</a>
+        <a href="06-gastritis-ulcera-peptica.html" class="topic-link"><span class="topic-num">06</span>Gastritis / Úlcera péptica</a>
+        <a href="07-obesidad-bariatrica.html" class="topic-link"><span class="topic-num">07</span>Obesidad / Bariátrica</a>
+        <a href="08-patologia-perianal.html" class="topic-link"><span class="topic-num">08</span>Patología perianal</a>
+        <a href="09-hernias-esplenectomia.html" class="topic-link"><span class="topic-num">09</span>Hernias / Esplenectomía</a>
+        <a href="10-insuficiencia-venosa-arterial.html" class="topic-link"><span class="topic-num">10</span>Insuf. venosa y arterial</a>
+        <a href="11-oclusion-volvulos-isquemia.html" class="topic-link active"><span class="topic-num">11</span>Oclusión / Vólvulos / Isquemia</a>
+        <a href="12-cancer-colon.html" class="topic-link"><span class="topic-num">12</span>Cáncer de colon</a>
+        <a href="13-cancer-hepatico.html" class="topic-link"><span class="topic-num">13</span>Cáncer hepático</a>
+        <a href="14-cancer-pancreas-trasplante.html" class="topic-link"><span class="topic-num">14</span>Cáncer páncreas / Trasplante</a>
+        <a href="15-pancreatitis.html" class="topic-link"><span class="topic-num">15</span>Pancreatitis</a>
+        <a href="16-mordeduras-picaduras.html" class="topic-link"><span class="topic-num">16</span>Mordeduras / Picaduras</a>
+        <a href="17-quemaduras.html" class="topic-link"><span class="topic-num">17</span>Quemaduras</a>
+        <a href="18-atls1.html" class="topic-link"><span class="topic-num">18</span>ATLS 1</a>
+        <a href="19-atls2.html" class="topic-link"><span class="topic-num">19</span>ATLS 2</a>
+        <a href="20-patologia-quirurgica.html" class="topic-link"><span class="topic-num">20</span>Patología quirúrgica</a>
+      </div>
+    </div>
+  </nav>
+</aside>
+
+<main class="main">
+<div class="container">
+
+  <div class="header">
+    <div class="header-badge"><span>🔪</span> ENARM · Cirugía General · Tema 11</div>
+    <h1>Oclusión Intestinal / Vólvulos / Isquemia</h1>
+    <p>Obstrucción intestinal · Vólvulo de sigmoides · Isquemia mesentérica</p>
+  </div>
+
+  <div style="display:flex;justify-content:center;">
+    <div class="mode-bar">
+      <button class="mode-btn active" id="btnRepaso" onclick="setMode('repaso')">📖 Modo Repaso</button>
+      <button class="mode-btn" id="btnExamen" onclick="setMode('examen')">⏱️ Modo Examen</button>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 15</div>
+  </div>
+
+  <div id="quizArea"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+  <div class="results" id="resultsArea"></div>
+
+</div>
+<div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+</main>
+
+<script>
+let examMode = false;
+
+function setMode(mode) {
+  examMode = (mode === 'examen');
+  document.getElementById('btnRepaso').classList.toggle('active', !examMode);
+  document.getElementById('btnExamen').classList.toggle('active', examMode);
+  init();
+}
+
+const questions = [
+  {
+    cat:"obs", catName:"Obstrucción Intestinal",
+    q:"Hombre de 58 años con antecedente de apendicectomía hace 10 años, se presenta con dolor abdominal cólico difuso de 24 horas, náuseas, vómito, incapacidad para eliminar gases y distensión abdominal. Rx de abdomen muestra niveles hidroaéreos en escala de piano en fosa iliaca izquierda y fosa iliaca derecha. ¿Cuál es la causa más frecuente de oclusión intestinal mecánica en adultos?",
+    opts:["Neoplasia de colon","Hernia inguinal incarcerada","Adherencias y bridas postquirúrgicas","Vólvulo de sigmoides"],
+    ans:2,
+    exp:"Las adherencias y bridas postquirúrgicas son la causa número uno de oclusión intestinal mecánica en adultos, representando el 60-70% de los casos de obstrucción de intestino delgado. La GPC de oclusión intestinal por adherencias postquirúrgicas (2012) establece que todo paciente con cirugía abdominal previa que presenta cuadro obstructivo debe considerarse bridas como primera etiología. En contraste, en niños la causa más frecuente es la hernia inguinal incarcerada.",
+    tip:"<strong>Nemotecnia por frecuencia en adultos:</strong> 1° Bridas/adherencias (60-70%), 2° Hernias (15-20%), 3° Neoplasias (10-15%). En niños: 1° Hernias, 2° Intususcepción. El antecedente quirúrgico es la clave clínica más importante para sospechar bridas.",
+    ref:"GPC: Tratamiento quirúrgico de la oclusión intestinal por adherencias postquirúrgicas. IMSS-2012."
+  },
+  {
+    cat:"obs", catName:"Obstrucción Intestinal",
+    q:"Paciente con obstrucción de intestino delgado por bridas es manejado inicialmente de forma conservadora. ¿Cuál de los siguientes hallazgos radiológicos en Rx simple de abdomen es característico de la obstrucción mecánica de intestino delgado?",
+    opts:["Neumoperitoneo subdiafragmático","Niveles hidroaéreos en escala de piano con asas centrales dilatadas y válvulas conniventes visibles","Patrón en miga de pan en colon derecho","Imagen en grano de café en hemiabdomen izquierdo"],
+    ans:1,
+    exp:"La obstrucción mecánica de intestino delgado se caracteriza radiológicamente por niveles hidroaéreos dispuestos en escala de piano (múltiples niveles a diferentes alturas), asas de intestino delgado dilatadas (>3 cm) localizadas centralmente, con visualización de válvulas conniventes (pliegues que cruzan todo el diámetro del asa). La ausencia de gas en colon indica obstrucción completa. La GPC recomienda la Rx simple como primera línea diagnóstica.",
+    tip:"<strong>Diferencia Rx intestino delgado vs colon:</strong> Intestino delgado: central, válvulas conniventes (líneas completas), diámetro ≤3cm normal. Colon: periférico, haustras (líneas incompletas), diámetro ≤6cm normal (ciego ≤9cm). Imagen en grano de café = vólvulo sigmoides. Neumoperitoneo = perforación.",
+    ref:"GPC: Tratamiento quirúrgico de la oclusión intestinal por adherencias postquirúrgicas. IMSS-2012."
+  },
+  {
+    cat:"obs", catName:"Obstrucción Intestinal",
+    q:"Paciente con obstrucción de intestino delgado por bridas tiene 48 horas de manejo conservador (sonda nasogástrica, NPO, hidratación IV) sin mejoría. ¿Cuál es el signo clínico que indica necesidad urgente de intervención quirúrgica por sospecha de estrangulación?",
+    opts:["Distensión abdominal progresiva sin fiebre","Dolor abdominal que cambia de cólico a continuo, fiebre, taquicardia y leucocitosis","Náuseas y vómito persistentes","Ausencia de ruidos peristálticos en los cuatro cuadrantes"],
+    ans:1,
+    exp:"La estrangulación intestinal es la complicación más grave de la obstrucción mecánica e implica compromiso vascular del asa obstruida. Los signos de alarma son: cambio del dolor de cólico (obstrucción simple) a continuo e intenso (isquemia/necrosis), fiebre, taquicardia, leucocitosis, irritación peritoneal y acidosis metabólica. La GPC establece que estos hallazgos requieren cirugía de urgencia inmediata, pues la mortalidad aumenta exponencialmente con el retraso.",
+    tip:"<strong>Obstrucción simple vs estrangulada:</strong> Simple: dolor cólico, sin fiebre, sin peritonismo, sin acidosis → manejo conservador 24-48h. Estrangulada: dolor continuo + fiebre + taquicardia + leucocitosis + peritonismo → cirugía urgente. La estrangulación ocurre en 20-40% de las obstrucciones no tratadas a tiempo.",
+    ref:"GPC: Tratamiento quirúrgico de la oclusión intestinal por adherencias postquirúrgicas. IMSS-2012."
+  },
+  {
+    cat:"obs", catName:"Obstrucción Intestinal",
+    q:"En el contexto de obstrucción intestinal, el término 'asa cerrada' (closed loop) hace referencia a una situación de alto riesgo. ¿Qué característica define a este tipo de obstrucción?",
+    opts:["Obstrucción del colon con válvula ileocecal competente","Oclusión del intestino en dos puntos contiguos que atrapan un segmento sin salida proximal ni distal","Obstrucción por neoplasia sin posibilidad de derivación","Íleo adinámico posterior a cirugía abdominal mayor"],
+    ans:1,
+    exp:"El asa cerrada (closed loop obstruction) se produce cuando un segmento intestinal queda obstruido simultáneamente en dos puntos, sin vía de escape ni proximal ni distal (p. ej., vólvulo, brida que atrapa un asa en U). Esto provoca distensión rápida, isquemia precoz y riesgo elevado de perforación por aumento brusco de la presión intraluminal. La TC es el estudio de elección para diagnosticarla. Requiere cirugía urgente.",
+    tip:"<strong>Asa cerrada = doble punto de obstrucción:</strong> Imagen en TC: asa en U o en C con edema de la pared, ausencia de realce con contraste (isquemia) o gas en pared (necrosis). El vólvulo es el prototipo de asa cerrada. Alta mortalidad si no se interviene antes de 6 horas de instaurada la isquemia.",
+    ref:"GPC: Tratamiento quirúrgico de la oclusión intestinal por adherencias postquirúrgicas. IMSS-2012."
+  },
+  {
+    cat:"vol", catName:"Vólvulo",
+    q:"Anciano de 78 años, institucionalizado, con estreñimiento crónico, se presenta con distensión abdominal masiva de inicio súbito, dolor abdominal leve y ausencia de deposiciones hace 3 días. La Rx simple de abdomen muestra una imagen en 'grano de café' que ocupa el hemiabdomen izquierdo y se extiende hasta el hipocondrio derecho. ¿Cuál es el diagnóstico?",
+    opts:["Megacolon tóxico por colitis ulcerosa","Vólvulo de sigmoides","Obstrucción del colon por carcinoma","Pseudoobstrucción colónica aguda (Síndrome de Ogilvie)"],
+    ans:1,
+    exp:"La imagen en 'grano de café' o 'omega' en la Rx de abdomen es el signo radiológico clásico del vólvulo de sigmoides. Corresponde al asa sigmoide enormemente dilatada que se tuerce sobre su eje mesentérico. El patrón epidemiológico (anciano, institucionalizado, estreñimiento crónico, colon redundante) es característico. La GPC de vólvulo en adultos (2015) establece que esta imagen tiene alta sensibilidad y especificidad diagnóstica.",
+    tip:"<strong>Imagen en grano de café / grano de frijol:</strong> El asa sigmoide dilatada forma dos columnas de gas separadas por una línea densa central (el mesenterio torcido). Se extiende desde la pelvis hacia el hipocondrio derecho (sentido contrario a las agujas del reloj). Recuerda: vólvulo sigmoides = anciano + estreñimiento + imagen en grano de café.",
+    ref:"GPC: Diagnóstico y tratamiento médico y quirúrgico del vólvulo en el adulto. SSA-2015."
+  },
+  {
+    cat:"vol", catName:"Vólvulo",
+    q:"Se confirma vólvulo de sigmoides sin datos de peritonitis ni isquemia en el paciente anciano. ¿Cuál es el tratamiento inicial de elección según la GPC?",
+    opts:["Sigmoidectomía de urgencia con colostomía de Hartmann","Destorsión endoscópica + colocación de tubo descompresivo transrectal","Enema opaco a presión","Laparotomía exploradora con devolvulación manual"],
+    ans:1,
+    exp:"En vólvulo de sigmoides sin datos de peritonitis, perforación ni isquemia, el tratamiento inicial de elección es la destorsión endoscópica (rectosigmoidoscopía rígida o flexible) con colocación de tubo rectal para mantener la descompresión. La GPC establece que este procedimiento tiene una tasa de éxito del 70-90%. Tras la reducción exitosa, se recomienda planificar la sigmoidectomía electiva durante la misma hospitalización para prevenir la recidiva (riesgo de recurrencia sin cirugía: 40-90%).",
+    tip:"<strong>Algoritmo vólvulo de sigmoides:</strong> Sin peritonitis → endoscopía primero (éxito 70-90%) → sigmoidectomía electiva antes del alta. Con peritonitis/isquemia/perforación → cirugía urgente (Hartmann o resección con anastomosis primaria según estado del colon). La recurrencia sin cirugía electiva es altísima.",
+    ref:"GPC: Diagnóstico y tratamiento médico y quirúrgico del vólvulo en el adulto. SSA-2015."
+  },
+  {
+    cat:"vol", catName:"Vólvulo",
+    q:"¿Cuál es la diferencia fundamental en el manejo entre el vólvulo de sigmoides y el vólvulo de ciego?",
+    opts:["El vólvulo de ciego se trata primero con enema, el de sigmoides con cirugía","El vólvulo de ciego requiere tratamiento quirúrgico de entrada; el de sigmoides puede intentarse descompresión endoscópica primero","Ambos se manejan inicialmente con colonoscopía","El vólvulo de ciego es exclusivo de mujeres y el de sigmoides de ancianos"],
+    ans:1,
+    exp:"El vólvulo de ciego no puede ser reducido endoscópicamente porque la colonoscopía no puede alcanzar el ciego de forma fiable ni ejercer la destorsión necesaria. Por ello, el tratamiento del vólvulo de ciego es quirúrgico de entrada: cecopexia (fijación), cecostomía o hemicolectomía derecha según el estado del tejido. La GPC establece esta diferencia de manejo como punto crítico: sigmoides → endoscopía primero; ciego → cirugía directa.",
+    tip:"<strong>Vólvulo de ciego vs sigmoides:</strong> Ciego: 20-30 años, mujer, colon derecho móvil por malrotación, TX quirúrgico directo, imagen en 'grano de café' en hemiabdomen derecho. Sigmoides: anciano, estreñimiento crónico, imagen en grano de café en hemiabdomen izquierdo, TX endoscópico primero si no hay isquemia.",
+    ref:"GPC: Diagnóstico y tratamiento médico y quirúrgico del vólvulo en el adulto. SSA-2015."
+  },
+  {
+    cat:"isq", catName:"Isquemia Mesentérica",
+    q:"Hombre de 72 años con fibrilación auricular (FA) crónica presenta dolor abdominal periumbilical intenso de inicio súbito hace 3 horas. A la exploración física el abdomen está blando, sin rebote, sin defensa muscular. El dolor es claramente desproporcionado a los hallazgos del examen físico. Gases arteriales: pH 7.28, HCO3 16, lactato 4.2 mmol/L. ¿Cuál es el diagnóstico más probable y su mecanismo?",
+    opts:["Pancreatitis aguda grave por hipertrigliceridemia","Isquemia mesentérica aguda por embolia de arteria mesentérica superior","Colitis isquémica por hipoperfusión","Perforación gástrica con peritonitis química"],
+    ans:1,
+    exp:"La isquemia mesentérica aguda por embolia de la arteria mesentérica superior (AMS) es el diagnóstico. La tríada clásica es: dolor abdominal severo desproporcionado al examen físico (hallazgo patognomónico en fase inicial), fuente embolígena (FA crónica en este caso) y acidosis metabólica con lactato elevado. La GPC de isquemia intestinal (2010) resalta que el dolor 'desproporcionado al examen' es la clave diagnóstica más importante y no debe ignorarse.",
+    tip:"<strong>Isquemia mesentérica = dolor desproporcionado:</strong> Si el paciente grita de dolor pero el abdomen está blando → piensa isquemia mesentérica. La peritonitis aparece TARDE cuando ya hay necrosis transmural. La FA es la fuente embolígena número 1 (émbolo se aloja en AMS distal al origen de la arteria cólica media). Lactato elevado confirma isquemia tisular.",
+    ref:"GPC: Diagnóstico y tratamiento médico y quirúrgico del infarto e isquemia intestinal. SSA-2010."
+  },
+  {
+    cat:"isq", catName:"Isquemia Mesentérica",
+    q:"En isquemia mesentérica aguda por embolia de la arteria mesentérica superior, ¿cuál es el estudio diagnóstico de elección para confirmar el diagnóstico y planificar el tratamiento?",
+    opts:["Ultrasonido Doppler abdominal","Angiografía por tomografía computarizada (Angio-TC) de abdomen","Arteriografía mesentérica selectiva por catéter","Resonancia magnética con gadolinio"],
+    ans:1,
+    exp:"La Angio-TC multidetector (MDCT) de abdomen es el estudio de elección para el diagnóstico de isquemia mesentérica aguda. Permite visualizar el árbol mesentérico, localizar el nivel de la oclusión (embolia vs trombosis), evaluar signos de isquemia intestinal (engrosamiento de pared, neumatosis intestinal, gas portal) y planificar el abordaje. La GPC recomienda la Angio-TC como primera línea diagnóstica por su disponibilidad, velocidad y precisión diagnóstica.",
+    tip:"<strong>Angio-TC vs arteriografía:</strong> Angio-TC: primera línea, no invasiva, diagnóstica y permite ver signos de necrosis. Arteriografía selectiva: cuando se planea tratamiento endovascular (trombólisis intraarterial, angioplastia). Si el paciente tiene signos de peritonitis franca → directo a quirófano sin estudios. El tiempo es tejido intestinal.",
+    ref:"GPC: Diagnóstico y tratamiento médico y quirúrgico del infarto e isquemia intestinal. SSA-2010."
+  },
+  {
+    cat:"isq", catName:"Isquemia Mesentérica",
+    q:"¿Cuál es la diferencia entre isquemia mesentérica aguda por embolia vs trombosis de la arteria mesentérica superior en cuanto a su presentación clínica y manejo?",
+    opts:["Son idénticas en presentación y manejo; solo se diferencian por arteriografía","Embolia: inicio súbito, fuente cardiaca (FA), tratamiento embolectomía o trombolisis. Trombosis: inicio gradual, sobre placa aterosclerótica preexistente, tratamiento revascularización quirúrgica o endovascular","Trombosis siempre se resuelve con anticoagulación; embolia requiere cirugía siempre","Embolia afecta la AMS proximal; trombosis solo afecta ramas distales"],
+    ans:1,
+    exp:"La embolia de la AMS se presenta con inicio súbito en paciente con fuente embolígena (FA, cardiopatía valvular, infarto reciente). El émbolo se aloja típicamente distal a la arteria cólica media, respetando el yeyuno proximal. El tratamiento es embolectomía quirúrgica o trombólisis intraarterial. La trombosis se desarrolla sobre una placa aterosclerótica preexistente (paciente con angina intestinal previa), afecta el origen de la AMS y requiere revascularización. La GPC distingue ambas entidades por su fisiopatología y abordaje.",
+    tip:"<strong>Embolia vs Trombosis AMS:</strong> Embolia (50%): inicio brusco, FA/cardiopatía, localización distal al origen de arteria cólica media, sin historia previa. Trombosis (25%): inicio gradual, aterosclerosis, historia de angina intestinal, origen de AMS afectado. Isquemia no oclusiva (20%): shock, bajo gasto, vasoespasmo; tratar causa + papaverina intraarterial.",
+    ref:"GPC: Diagnóstico y tratamiento médico y quirúrgico del infarto e isquemia intestinal. SSA-2010."
+  },
+  {
+    cat:"isq", catName:"Isquemia Mesentérica",
+    q:"Paciente de 65 años con historia de dolor abdominal posprandial de 3 meses de evolución que le impide comer ('miedo a comer'), pérdida de peso de 10 kg y soplo abdominal. Tiene antecedente de tabaquismo y cardiopatía isquémica. ¿Cuál es el diagnóstico?",
+    opts:["Úlcera péptica complicada","Isquemia mesentérica crónica (angina intestinal)","Neoplasia gástrica","Síndrome de intestino irritable"],
+    ans:1,
+    exp:"La isquemia mesentérica crónica (angina intestinal) se caracteriza por la triada: dolor abdominal posprandial (30-60 min tras comer, por aumento de demanda de flujo), sitofobia o miedo a comer (condiciona pérdida de peso importante) y soplo abdominal (estenosis aterosclerótica de troncos mesentéricos). Afecta pacientes con aterosclerosis sistémica (tabaquismo, DM, cardiopatía). La GPC establece que requiere generalmente dos de los tres troncos esplácnicos ocluidos para ser sintomática.",
+    tip:"<strong>Angina intestinal = isquemia mesentérica crónica:</strong> Triada: dolor posprandial + sitofobia + pérdida de peso. El dolor imita un cólico mesentérico 30-60 min después de comer (cuando la demanda supera el aporte). Diagnóstico: Doppler o Angio-TC/Angio-RMN. Tratamiento: revascularización (angioplastia con stent o bypass quirúrgico).",
+    ref:"GPC: Diagnóstico y tratamiento médico y quirúrgico del infarto e isquemia intestinal. SSA-2010."
+  },
+  {
+    cat:"tx", catName:"Tratamiento Quirúrgico",
+    q:"Paciente con isquemia mesentérica aguda por embolia de la AMS es llevado a cirugía. Se realiza embolectomía con éxito y se observa que un segmento de 40 cm de yeyuno está de coloración gris-verde, sin peristaltismo y sin pulso en los vasos mesentéricos correspondientes. ¿Cuál es la conducta quirúrgica adecuada?",
+    opts:["Observar el asa 30 minutos tras la revascularización y si no recupera coloración, resección con anastomosis primaria","Resección inmediata del segmento necrótico y anastomosis primaria sin esperar","Resección del segmento con cierre de cabos y segundo tiempo quirúrgico (second-look) a las 24-48 horas para valorar viabilidad del intestino restante","Dejar el asa y colocar parche de omento esperando recuperación espontánea"],
+    ans:2,
+    exp:"Ante intestino con signos claros de necrosis (color gris-verde, sin peristaltismo, sin pulso mesentérico), la conducta es la resección del segmento necrótico. Sin embargo, en isquemia mesentérica aguda es frecuente que queden zonas de viabilidad dudosa en los bordes del segmento resecado. La GPC y la evidencia quirúrgica recomiendan la estrategia de 'second-look' (segunda exploración a las 24-48h) para valorar si el intestino restante es viable antes de realizar la anastomosis, reduciendo el riesgo de fuga anastomótica.",
+    tip:"<strong>Second-look en isquemia mesentérica:</strong> Indicado cuando: hay intestino de viabilidad dudosa en los márgenes, la extensión de la isquemia es masiva, se requiere resección mayor. El paciente regresa a quirófano a las 24-48h: si el intestino está viable → anastomosis; si hay más necrosis → resección adicional. Evita anastomosis en intestino isquémico → reduce fuga.",
+    ref:"GPC: Diagnóstico y tratamiento médico y quirúrgico del infarto e isquemia intestinal. SSA-2010."
+  },
+  {
+    cat:"par", catName:"Íleo Paralítico",
+    q:"Paciente de 50 años operado de colecistectomía laparoscópica hace 72 horas. Presenta distensión abdominal, náuseas, ausencia de ruidos peristálticos y no ha eliminado gases. La Rx de abdomen muestra gas distribuido en todo el intestino delgado y colon sin niveles hidroaéreos significativos. ¿Cuál es el diagnóstico diferencial más importante y qué característica diferencia esta condición de la obstrucción mecánica?",
+    opts:["Vólvulo de sigmoides postoperatorio; se diferencia por imagen en grano de café","Íleo adinámico (paralítico) postoperatorio; se diferencia por gas difuso en todo el intestino incluyendo colon, sin punto de corte ni niveles hidroaéreos en escala de piano","Obstrucción precoz por bridas postoperatorias; idéntica a la obstrucción mecánica","Isquemia mesentérica postoperatoria; se diferencia por acidosis metabólica"],
+    ans:1,
+    exp:"El íleo adinámico (paralítico) se caracteriza por la ausencia de peristaltismo sin obstrucción mecánica. Radiológicamente, el gas se distribuye difusamente en todo el trayecto intestinal incluyendo el colon (a diferencia de la obstrucción mecánica donde el gas se acumula proximal al punto de obstrucción y el colon está vacío). Los niveles hidroaéreos en escala de piano son escasos o ausentes. El íleo postoperatorio es la causa más común y se resuelve espontáneamente en 3-5 días. La GPC distingue claramente estas dos entidades por su manejo.",
+    tip:"<strong>Íleo paralítico vs obstrucción mecánica en Rx:</strong> Íleo: gas en todo el intestino incluyendo colon, sin punto de corte, niveles mínimos. Obstrucción mecánica: gas proximal al punto de obstrucción, colon sin gas (obstrucción completa), niveles en escala de piano. Manejo del íleo: deambulación precoz, metoclopramida, goma de mascar (estimula reflejo gastrocólico), NPO hasta resolución.",
+    ref:"GPC: Tratamiento quirúrgico de la oclusión intestinal por adherencias postquirúrgicas. IMSS-2012."
+  },
+  {
+    cat:"obs", catName:"Obstrucción Intestinal",
+    q:"Mujer de 70 años con diagnóstico de cáncer de colon sigmoide presenta oclusión intestinal aguda de colon. La TC confirma lesión estenosante del sigmoides con dilatación del colon proximal. La paciente está estable hemodinámicamente y sin peritonitis. ¿Cuál es la causa más frecuente de obstrucción mecánica de intestino grueso en adultos?",
+    opts:["Vólvulo de sigmoides","Diverticulitis aguda complicada","Neoplasia colorrectal","Hernia inguinal incarcerada con obstrucción colónica"],
+    ans:2,
+    exp:"La neoplasia colorrectal es la causa más frecuente de obstrucción mecánica de colon en adultos, representando el 60-65% de los casos. El colon sigmoide es el sitio más común de obstrucción neoplásica. A diferencia de la obstrucción de intestino delgado (donde predominan las bridas), en el intestino grueso las neoplasias son la etiología principal. La GPC establece que ante obstrucción de colon en adulto mayor debe descartarse neoplasia como causa prioritaria.",
+    tip:"<strong>Causas de obstrucción colónica en adultos:</strong> 1° Neoplasia colorrectal (60-65%), 2° Vólvulo de sigmoides (15-20%), 3° Diverticulitis complicada (10%). En niños y adultos jóvenes: vólvulo de ciego, enfermedad de Hirschsprung. La neoplasia de colon obstructiva puede manejarse con stent metálico como puente a la cirugía electiva en casos seleccionados.",
+    ref:"GPC: Diagnóstico y tratamiento médico y quirúrgico del vólvulo en el adulto. SSA-2015."
+  },
+  {
+    cat:"tx", catName:"Tratamiento Quirúrgico",
+    q:"Paciente con vólvulo de sigmoides es llevado a cirugía de urgencia por datos de isquemia intestinal. Se realiza resección del colon sigmoide necrótico. ¿Cuál es el procedimiento de elección en este contexto de urgencia con intestino no preparado y potencialmente isquémico?",
+    opts:["Resección con anastomosis colorrectal primaria y lavado intraoperatorio","Operación de Hartmann: sigmoidectomía con colostomía terminal y cierre del muñón rectal","Colostomía derivativa proximal sin resección del segmento afectado","Sutura primaria del vólvulo con pexia al mesenterio"],
+    ans:1,
+    exp:"La operación de Hartmann es el procedimiento estándar de urgencia para vólvulo de sigmoides con isquemia o perforación en colon no preparado. Consiste en: resección del segmento afectado (sigmoidectomía) + colostomía terminal (descendente) + cierre del muñón rectal. Evita la anastomosis en condiciones desfavorables (isquemia, contaminación, colon no preparado) que conllevaría alto riesgo de fuga. En segundo tiempo (3-6 meses después) se puede restablecer el tránsito. La GPC avala este abordaje como el más seguro en urgencias.",
+    tip:"<strong>Hartmann = resección + colostomía + cierre muñón:</strong> Ventaja: evita anastomosis de alto riesgo. Desventaja: colostomía temporal y segunda cirugía para reconexión. La anastomosis primaria solo es válida en vólvulo de sigmoides sin isquemia, colon preparado, paciente estable y cirujano con experiencia. En urgencias, Hartmann es la opción más segura.",
+    ref:"GPC: Diagnóstico y tratamiento médico y quirúrgico del vólvulo en el adulto. SSA-2015."
+  }
+];
+
+let currentQ = 0, score = 0, answers = [];
+let catStats = { obs:{c:0,t:0}, vol:{c:0,t:0}, isq:{c:0,t:0}, par:{c:0,t:0}, tx:{c:0,t:0} };
+
+function shuffle(arr) {
+  for (let i=arr.length-1;i>0;i--) {
+    const j=Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+
+function init() {
+  shuffle(questions);
+  currentQ=0; score=0; answers=[];
+  catStats = { obs:{c:0,t:0}, vol:{c:0,t:0}, isq:{c:0,t:0}, par:{c:0,t:0}, tx:{c:0,t:0} };
+  const r=document.getElementById('resultsArea');
+  r.classList.remove('show'); r.innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const qa=questions[currentQ], total=questions.length;
+  document.getElementById('progressBar').style.width=(currentQ/total*100)+'%';
+  document.getElementById('progressText').textContent=`${currentQ+1} / ${total}`;
+  document.getElementById('nextBtn').classList.remove('show');
+  const letters=['A','B','C','D'];
+  let html=`<div class="question-card">
+    <div class="q-category cat-${qa.cat}">${qa.catName}</div>
+    <div class="q-number">Pregunta ${currentQ+1} de ${total}</div>
+    <div class="q-text">${qa.q}</div>
+    <div class="options">`;
+  qa.opts.forEach((opt,i)=>{
+    html+=`<button class="option-btn" onclick="selectAnswer(${i})" data-idx="${i}">
+      <span class="option-letter">${letters[i]}</span><span>${opt}</span></button>`;
+  });
+  html+=`</div><div class="feedback" id="feedback"></div></div>`;
+  document.getElementById('quizArea').innerHTML=html;
+}
+
+function selectAnswer(idx) {
+  const qa=questions[currentQ];
+  const btns=document.querySelectorAll('.option-btn');
+  const fb=document.getElementById('feedback');
+  const isCorrect=idx===qa.ans;
+  btns.forEach((btn,i)=>{
+    btn.classList.add('disabled'); btn.onclick=null;
+    if(i===qa.ans) btn.classList.add('correct-answer');
+    if(i===idx&&!isCorrect) btn.classList.add('wrong-answer');
+  });
+  if(!catStats[qa.cat]) catStats[qa.cat]={c:0,t:0};
+  catStats[qa.cat].t++;
+  if(isCorrect){score++;catStats[qa.cat].c++;}
+  if(!examMode){
+    fb.className=isCorrect?'feedback correct-fb show':'feedback wrong-fb show';
+    fb.innerHTML=isCorrect
+      ?`<div class="feedback-title">✅ ¡Correcto!</div><div>${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`
+      :`<div class="feedback-title">❌ Incorrecto</div><div><strong>Respuesta correcta:</strong> ${qa.opts[qa.ans]}</div><div style="margin-top:8px;">${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;
+  }
+  answers.push({q:qa.q,correct:isCorrect,userAns:qa.opts[idx],correctAns:qa.opts[qa.ans],cat:qa.catName,exp:qa.exp,ref:qa.ref});
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion() {
+  currentQ++;
+  if(currentQ>=questions.length) showResults();
+  else renderQuestion();
+}
+
+function showResults() {
+  document.getElementById('quizArea').innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  document.getElementById('progressBar').style.width='100%';
+  document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;
+  const pct=Math.round((score/questions.length)*100);
+  const msg=pct>=90?'🏆 ¡Dominio excelente de oclusión e isquemia intestinal!':pct>=70?'👏 ¡Muy bien! Repasa los temas con menor puntaje.':pct>=50?'📚 Aceptable, refuerza las áreas débiles.':'⚠️ Revisa las GPC de oclusión intestinal, vólvulo e isquemia mesentérica.';
+  const cats=[
+    {name:'Obstrucción Intestinal',key:'obs',color:'#fbbf24'},
+    {name:'Vólvulo',key:'vol',color:'#38bdf8'},
+    {name:'Isquemia Mesentérica',key:'isq',color:'#a78bfa'},
+    {name:'Íleo Paralítico',key:'par',color:'#f472b6'},
+    {name:'Tratamiento Qx',key:'tx',color:'#34d399'},
+  ];
+  let html=`<div class="results-header">
+    <div class="score-big">${pct}%</div>
+    <div class="score-label">${score} de ${questions.length} correctas</div>
+    <div class="score-msg">${msg}</div>
+  </div>
+  <div class="chart-section">
+    <div class="chart-title"><span>📊</span> Rendimiento por Categoría</div>
+    <div class="bar-chart">`;
+  cats.forEach(cat=>{
+    const s=catStats[cat.key]||{c:0,t:0};
+    const p=s.t>0?Math.round((s.c/s.t)*100):0;
+    html+=`<div class="bar-row"><div class="bar-label">${cat.name}</div><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${cat.color};">${p}% (${s.c}/${s.t})</div></div></div>`;
+  });
+  html+=`</div></div>
+  <div class="chart-section">
+    <div class="chart-title"><span>🎯</span> Resumen General</div>
+    <div class="donut-wrap">
+      <svg class="donut-svg" viewBox="0 0 42 42">
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a2235" stroke-width="4"/>
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#34d399" stroke-width="4" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="25" stroke-linecap="round"/>
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#f87171" stroke-width="4" stroke-dasharray="${100-pct} ${pct}" stroke-dashoffset="${25-pct}" stroke-linecap="round"/>
+        <text x="21" y="22.5" text-anchor="middle" font-size="6" font-weight="700" fill="#e8ecf4" font-family="Plus Jakarta Sans">${pct}%</text>
+      </svg>
+      <div class="donut-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#34d399;"></div>Correctas: ${score}</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Incorrectas: ${questions.length-score}</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#38bdf8;"></div>Total: ${questions.length}</div>
+      </div>
+    </div>
+  </div>
+  <div class="chart-section">
+    <div class="chart-title"><span>📋</span> Revisión de Respuestas</div>`;
+  answers.forEach((a,i)=>{
+    html+=`<div class="review-card ${a.correct?'review-correct':'review-wrong'}">
+      <div class="review-q">${i+1}. ${a.q} <span style="font-size:0.72rem;color:var(--text-dim);">[${a.cat}]</span></div>
+      <div class="review-answer">${a.correct?`<strong>✅ ${a.correctAns}</strong>`:`<em>❌ Tu respuesta: ${a.userAns}</em><br><strong>✅ Correcta: ${a.correctAns}</strong>`}</div>
+      <div style="margin-top:8px;font-size:0.8rem;color:var(--text-dim);line-height:1.5;">${a.exp}</div>
+      <div style="margin-top:6px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;">📖 ${a.ref}</div>
+    </div>`;
+  });
+  html+=`</div><button class="retry-btn" onclick="init()">🔄 Reintentar</button>`;
+  const res=document.getElementById('resultsArea');
+  res.innerHTML=html; res.classList.add('show');
+  res.scrollIntoView({behavior:'smooth'});
+}
+
+function toggleSpec(header){header.classList.toggle('open');header.nextElementSibling.classList.toggle('open');}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+
+init();
+</script>
+</body>
+</html>

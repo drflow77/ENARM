@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cáncer de Colon — ENARM · MediCode Solutions</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0a0e1a; --surface: #111827; --surface2: #1a2235; --surface3: #212d45;
+    --border: #2a3a5c; --text: #e8ecf4; --text-dim: #8896b3;
+    --accent: #38bdf8; --accent-glow: rgba(56,189,248,0.15);
+    --correct: #34d399; --correct-bg: rgba(52,211,153,0.1); --correct-border: rgba(52,211,153,0.4);
+    --wrong: #f87171; --wrong-bg: rgba(248,113,113,0.1); --wrong-border: rgba(248,113,113,0.4);
+    --gold: #fbbf24; --purple: #a78bfa; --pink: #f472b6; --teal: #2dd4bf;
+    --sidebar-w: 280px; --radius: 14px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; display:flex; }
+
+  .sidebar {
+    width:var(--sidebar-w); min-height:100vh; background:var(--surface);
+    border-right:1px solid var(--border); display:flex; flex-direction:column;
+    position:fixed; left:0; top:0; bottom:0; overflow-y:auto; z-index:100; transition:transform 0.3s;
+  }
+  .sidebar-logo { padding:24px 20px 16px; border-bottom:1px solid var(--border); }
+  .logo-badge { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,var(--accent),var(--purple)); padding:6px 14px; border-radius:100px; font-size:0.75rem; font-weight:800; color:var(--bg); letter-spacing:0.5px; text-transform:uppercase; margin-bottom:10px; }
+  .sidebar-logo h2 { font-size:1.1rem; font-weight:800; background:linear-gradient(135deg,var(--text),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .sidebar-logo p { font-size:0.72rem; color:var(--text-dim); margin-top:2px; }
+  .back-btn { display:flex; align-items:center; gap:8px; padding:14px 20px; color:var(--text-dim); font-size:0.8rem; text-decoration:none; border-bottom:1px solid var(--border); transition:color 0.2s; }
+  .back-btn:hover { color:var(--accent); }
+  .sidebar-nav { flex:1; padding:12px 0 24px; }
+  .specialty-header { display:flex; align-items:center; justify-content:space-between; padding:10px 16px 10px 20px; cursor:pointer; transition:background 0.2s; user-select:none; }
+  .specialty-header:hover { background:var(--surface2); }
+  .specialty-name { display:flex; align-items:center; gap:10px; font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; }
+  .specialty-icon { width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:0.9rem; flex-shrink:0; }
+  .chevron { font-size:0.65rem; color:var(--text-dim); transition:transform 0.3s; }
+  .specialty-header.open .chevron { transform:rotate(90deg); }
+  .topics-list { display:none; padding:4px 0 8px; }
+  .topics-list.open { display:block; }
+  .topic-link { display:flex; align-items:center; gap:10px; padding:8px 16px 8px 56px; font-size:0.78rem; color:var(--text-dim); text-decoration:none; transition:all 0.2s; border-left:2px solid transparent; line-height:1.4; }
+  .topic-link:hover { color:var(--text); background:var(--surface3); }
+  .topic-link.active { color:var(--accent); border-left-color:var(--accent); background:var(--accent-glow); font-weight:600; }
+  .topic-link.coming-soon { opacity:0.4; cursor:not-allowed; pointer-events:none; }
+  .topic-num { font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--text-dim); min-width:20px; }
+  .badge-soon { margin-left:auto; background:rgba(136,150,179,0.1); color:var(--text-dim); font-size:0.62rem; font-weight:600; padding:2px 7px; border-radius:100px; }
+  .star-tag { margin-left:auto; font-size:0.7rem; }
+
+  .main { margin-left:var(--sidebar-w); flex:1; display:flex; flex-direction:column; }
+  .container { max-width:760px; margin:0 auto; padding:20px 16px 40px; width:100%; }
+
+  .mode-bar { display:flex; align-items:center; gap:10px; margin:24px 0 20px; background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:6px; width:fit-content; }
+  .mode-btn { padding:8px 20px; border-radius:100px; border:none; cursor:pointer; font-family:inherit; font-size:0.82rem; font-weight:600; transition:all 0.2s; color:var(--text-dim); background:transparent; }
+  .mode-btn.active { background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); }
+
+  .header { text-align:center; padding:40px 20px 24px; position:relative; overflow:hidden; }
+  .header::before { content:''; position:absolute; top:-60%; left:50%; transform:translateX(-50%); width:600px; height:600px; background:radial-gradient(circle,rgba(56,189,248,0.08) 0%,transparent 70%); pointer-events:none; }
+  .header-badge { display:inline-flex; align-items:center; gap:8px; background:var(--surface2); border:1px solid var(--border); padding:6px 16px; border-radius:100px; font-size:0.78rem; color:var(--accent); font-weight:600; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:16px; }
+  .header h1 { font-size:clamp(1.6rem,5vw,2.2rem); font-weight:800; background:linear-gradient(135deg,var(--text) 0%,var(--accent) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:8px; }
+  .header p { color:var(--text-dim); font-size:0.95rem; max-width:500px; margin:0 auto; }
+
+  .progress-wrap { background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:12px 20px; margin:20px 0 28px; display:flex; align-items:center; gap:14px; }
+  .progress-bar-bg { flex:1; height:8px; background:var(--surface3); border-radius:100px; overflow:hidden; }
+  .progress-bar-fill { height:100%; width:0%; background:linear-gradient(90deg,var(--accent),var(--purple)); border-radius:100px; transition:width 0.5s ease; }
+  .progress-text { font-size:0.82rem; font-weight:600; color:var(--text-dim); white-space:nowrap; font-family:'JetBrains Mono',monospace; }
+
+  .question-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:28px 24px; margin-bottom:20px; animation:slideIn 0.4s ease; position:relative; overflow:hidden; }
+  .question-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--gold),var(--accent),var(--purple)); }
+  @keyframes slideIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+  .q-category { display:inline-flex; align-items:center; gap:6px; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; padding:4px 12px; border-radius:100px; margin-bottom:14px; }
+  .cat-epi  { background:rgba(251,191,36,0.12); color:var(--gold); }
+  .cat-diag { background:rgba(56,189,248,0.12); color:var(--accent); }
+  .cat-tam  { background:rgba(167,139,250,0.12); color:var(--purple); }
+  .cat-her  { background:rgba(244,114,182,0.12); color:var(--pink); }
+  .cat-tx   { background:rgba(52,211,153,0.12);  color:var(--correct); }
+
+  .q-number { font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--text-dim); margin-bottom:10px; }
+  .q-text { font-size:1.05rem; font-weight:600; line-height:1.55; margin-bottom:20px; color:var(--text); }
+
+  .options { display:flex; flex-direction:column; gap:10px; }
+  .option-btn { display:flex; align-items:flex-start; gap:12px; padding:14px 16px; background:var(--surface2); border:1.5px solid var(--border); border-radius:12px; cursor:pointer; transition:all 0.2s; text-align:left; font-size:0.92rem; color:var(--text); font-family:inherit; line-height:1.5; width:100%; }
+  .option-btn:hover:not(.disabled) { border-color:var(--accent); background:var(--accent-glow); transform:translateX(4px); }
+  .option-letter { display:flex; align-items:center; justify-content:center; min-width:30px; height:30px; border-radius:8px; background:var(--surface3); font-weight:700; font-size:0.82rem; color:var(--accent); flex-shrink:0; }
+  .option-btn.correct-answer { border-color:var(--correct-border); background:var(--correct-bg); }
+  .option-btn.correct-answer .option-letter { background:var(--correct); color:var(--bg); }
+  .option-btn.wrong-answer { border-color:var(--wrong-border); background:var(--wrong-bg); }
+  .option-btn.wrong-answer .option-letter { background:var(--wrong); color:var(--bg); }
+  .option-btn.disabled { cursor:default; }
+  .option-btn.disabled:hover { transform:none; }
+
+  .feedback { margin-top:18px; padding:18px; border-radius:12px; font-size:0.88rem; line-height:1.65; animation:fadeIn 0.3s ease; display:none; }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  .feedback.show { display:block; }
+  .feedback.correct-fb { background:var(--correct-bg); border:1px solid var(--correct-border); color:var(--correct); }
+  .feedback.wrong-fb { background:var(--wrong-bg); border:1px solid var(--wrong-border); color:#fca5a5; }
+  .feedback-title { font-weight:700; font-size:0.95rem; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
+  .feedback .tip { margin-top:10px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.08); color:var(--text-dim); font-size:0.82rem; }
+  .feedback .tip strong { color:var(--gold); }
+  .feedback .ref { margin-top:8px; font-size:0.75rem; color:var(--text-dim); opacity:0.7; font-style:italic; }
+
+  .next-btn { display:none; margin:20px auto 0; padding:12px 32px; background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:0.92rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+  .next-btn:hover { transform:scale(1.05); box-shadow:0 4px 24px var(--accent-glow); }
+  .next-btn.show { display:block; }
+
+  .results { display:none; animation:slideIn 0.5s ease; }
+  .results.show { display:block; }
+  .results-header { text-align:center; padding:30px 20px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:20px; position:relative; overflow:hidden; }
+  .results-header::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--correct),var(--accent),var(--purple),var(--pink)); }
+  .score-big { font-size:3.5rem; font-weight:800; background:linear-gradient(135deg,var(--correct),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .score-label { font-size:1.1rem; color:var(--text-dim); margin-top:4px; }
+  .score-msg { margin-top:12px; font-size:0.95rem; color:var(--text); font-weight:500; }
+  .chart-section { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px 20px; margin-bottom:20px; }
+  .chart-title { font-size:0.95rem; font-weight:700; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
+  .bar-chart { display:flex; flex-direction:column; gap:14px; }
+  .bar-row { display:flex; align-items:center; gap:12px; }
+  .bar-label { width:130px; font-size:0.78rem; font-weight:600; text-align:right; color:var(--text-dim); flex-shrink:0; }
+  .bar-track { flex:1; height:28px; background:var(--surface3); border-radius:8px; overflow:hidden; }
+  .bar-fill { height:100%; border-radius:8px; transition:width 1s ease; display:flex; align-items:center; padding-left:10px; font-size:0.75rem; font-weight:700; color:var(--bg); min-width:fit-content; }
+  .donut-wrap { display:flex; align-items:center; justify-content:center; gap:30px; flex-wrap:wrap; }
+  .donut-svg { width:160px; height:160px; }
+  .donut-legend { display:flex; flex-direction:column; gap:10px; }
+  .legend-item { display:flex; align-items:center; gap:10px; font-size:0.84rem; }
+  .legend-dot { width:12px; height:12px; border-radius:4px; flex-shrink:0; }
+  .review-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; margin-bottom:12px; }
+  .review-card.review-correct { border-left:4px solid var(--correct); }
+  .review-card.review-wrong { border-left:4px solid var(--wrong); }
+  .review-q { font-size:0.88rem; font-weight:600; margin-bottom:8px; }
+  .review-answer { font-size:0.82rem; color:var(--text-dim); line-height:1.5; }
+  .review-answer strong { color:var(--correct); }
+  .review-answer em { color:var(--wrong); font-style:normal; }
+  .retry-btn { display:block; margin:28px auto; padding:14px 40px; background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:1rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+  .retry-btn:hover { transform:scale(1.05); }
+  .hamburger { display:none; position:fixed; top:16px; left:16px; z-index:200; background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:10px; cursor:pointer; font-size:1.2rem; }
+  .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:90; }
+  .footer { text-align:center; padding:20px; color:var(--text-dim); font-size:0.72rem; opacity:0.5; }
+
+  @media(max-width:768px) {
+    .sidebar { transform:translateX(-100%); }
+    .sidebar.open { transform:translateX(0); }
+    .main { margin-left:0; }
+    .hamburger { display:flex; align-items:center; justify-content:center; }
+    .overlay.show { display:block; }
+    .container { padding:12px 10px 30px; }
+    .question-card { padding:20px 16px; }
+    .bar-label { width:90px; font-size:0.72rem; }
+    .mode-bar { margin:16px auto; }
+  }
+</style>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-badge">🩺 MCS</div>
+    <h2>ENARM · Banco de Preguntas</h2>
+    <p>2025–2026</p>
+  </div>
+  <a href="index.html" class="back-btn">← Volver al inicio</a>
+  <nav class="sidebar-nav">
+    <div class="specialty-group">
+      <div class="specialty-header open" onclick="toggleSpec(this)">
+        <div class="specialty-name">
+          <div class="specialty-icon" style="background:rgba(56,189,248,0.12);color:#38bdf8;">🔪</div>
+          Cirugía General
+        </div>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="topics-list open">
+        <a href="01-apendicitis.html" class="topic-link"><span class="topic-num">01</span>Abdomen agudo / Apendicitis<span class="star-tag">⭐</span></a>
+        <a href="02-patologia-biliar.html" class="topic-link"><span class="topic-num">02</span>Patología biliar<span class="star-tag">⭐</span></a>
+        <a href="03-enfermedad-diverticular.html" class="topic-link"><span class="topic-num">03</span>Enfermedad diverticular</a>
+        <a href="04-erge-esofagitis-dispepsia.html" class="topic-link"><span class="topic-num">04</span>ERGE / Esofagitis / Dispepsia</a>
+        <a href="05-cancer-esofago-gastrico.html" class="topic-link"><span class="topic-num">05</span>Cáncer esófago / gástrico</a>
+        <a href="06-gastritis-ulcera-peptica.html" class="topic-link"><span class="topic-num">06</span>Gastritis / Úlcera péptica</a>
+        <a href="07-obesidad-bariatrica.html" class="topic-link"><span class="topic-num">07</span>Obesidad / Bariátrica</a>
+        <a href="08-patologia-perianal.html" class="topic-link"><span class="topic-num">08</span>Patología perianal</a>
+        <a href="09-hernias-esplenectomia.html" class="topic-link"><span class="topic-num">09</span>Hernias / Esplenectomía</a>
+        <a href="10-insuficiencia-venosa-arterial.html" class="topic-link"><span class="topic-num">10</span>Insuf. venosa y arterial</a>
+        <a href="11-oclusion-volvulos-isquemia.html" class="topic-link"><span class="topic-num">11</span>Oclusión / Vólvulos / Isquemia</a>
+        <a href="12-cancer-colon.html" class="topic-link active"><span class="topic-num">12</span>Cáncer de colon<span class="star-tag">⭐</span></a>
+        <a href="13-cancer-hepatico.html" class="topic-link"><span class="topic-num">13</span>Cáncer hepático</a>
+        <a href="14-cancer-pancreas-trasplante.html" class="topic-link"><span class="topic-num">14</span>Cáncer páncreas / Trasplante</a>
+        <a href="15-pancreatitis.html" class="topic-link"><span class="topic-num">15</span>Pancreatitis</a>
+        <a href="16-mordeduras-picaduras.html" class="topic-link"><span class="topic-num">16</span>Mordeduras / Picaduras</a>
+        <a href="17-quemaduras.html" class="topic-link"><span class="topic-num">17</span>Quemaduras</a>
+        <a href="18-atls1.html" class="topic-link"><span class="topic-num">18</span>ATLS 1</a>
+        <a href="19-atls2.html" class="topic-link"><span class="topic-num">19</span>ATLS 2</a>
+        <a href="20-patologia-quirurgica.html" class="topic-link"><span class="topic-num">20</span>Patología quirúrgica</a>
+      </div>
+    </div>
+  </nav>
+</aside>
+
+<main class="main">
+<div class="container">
+
+  <div class="header">
+    <div class="header-badge"><span>🔪</span> ENARM · Cirugía General · Tema 12</div>
+    <h1>Cáncer de Colon y Recto</h1>
+    <p>Adenocarcinoma colorrectal · Pólipos · Tamizaje · Síndromes hereditarios</p>
+  </div>
+
+  <div style="display:flex;justify-content:center;">
+    <div class="mode-bar">
+      <button class="mode-btn active" id="btnRepaso" onclick="setMode('repaso')">📖 Modo Repaso</button>
+      <button class="mode-btn" id="btnExamen" onclick="setMode('examen')">⏱️ Modo Examen</button>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 15</div>
+  </div>
+
+  <div id="quizArea"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+  <div class="results" id="resultsArea"></div>
+
+</div>
+<div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+</main>
+
+<script>
+let examMode = false;
+
+function setMode(mode) {
+  examMode = (mode === 'examen');
+  document.getElementById('btnRepaso').classList.toggle('active', !examMode);
+  document.getElementById('btnExamen').classList.toggle('active', examMode);
+  init();
+}
+
+const questions = [
+  {
+    cat:"epi", catName:"Epidemiología / Factores de Riesgo",
+    q:"Hombre de 58 años, fumador de 20 años, con ingesta habitual de carne roja (≥5 veces/semana), obesidad y antecedente de colitis ulcerosa de 10 años de evolución. ¿Cuál de los siguientes factores de riesgo confiere el MAYOR riesgo relativo para desarrollar cáncer colorrectal?",
+    opts:["Tabaquismo de 20 años","Dieta alta en carne roja","Colitis ulcerosa de 10 años de evolución","Obesidad mórbida"],
+    ans:2,
+    exp:"La enfermedad inflamatoria intestinal (EII), particularmente la colitis ulcerosa de larga evolución (>8-10 años), es uno de los factores de riesgo más importantes para cáncer colorrectal, con un riesgo relativo de 5-10 veces mayor que la población general. La GPC de Detección Oportuna establece que pacientes con pancolitis de >8 años requieren colonoscopia de vigilancia cada 1-2 años. La dieta alta en carne roja, tabaco y obesidad también aumentan el riesgo, pero en menor magnitud.",
+    tip:"<strong>Riesgo en EII:</strong> Pancolitis &gt;8 años → colonoscopia de vigilancia anual o bianual. Colitis izquierda &gt;15 años → misma vigilancia. El riesgo acumulado a 30 años de pancolitis es de ~18%. La displasia en biopsias de vigilancia es indicación de colectomía total.",
+    ref:"GPC: Detección oportuna y diagnóstico de cáncer de colon y recto no hereditario. SSA-IMSS-ISSSTE. 2008."
+  },
+  {
+    cat:"epi", catName:"Epidemiología / Factores de Riesgo",
+    q:"La secuencia adenoma-carcinoma es el principal mecanismo de desarrollo del cáncer colorrectal esporádico. ¿Cuál es el tiempo estimado de progresión desde un pólipo adenomatoso hasta un carcinoma invasor?",
+    opts:["1-2 años","5-10 años","15-20 años","Mayor de 25 años"],
+    ans:1,
+    exp:"La secuencia adenoma-carcinoma tarda en promedio 5-10 años en completarse. Este periodo prolongado es precisamente el que justifica los programas de tamizaje con colonoscopia: detectar y resecar adenomas antes de que progresen a carcinoma. La GPC establece que los adenomas son las lesiones precursoras del 80-90% de los cánceres colorrectales esporádicos, a través de acumulación de mutaciones en APC, KRAS, SMAD4 y TP53.",
+    tip:"<strong>Vía clásica del CCR:</strong> Mucosa normal → pólipo hiperplásico (sin riesgo) → adenoma tubular → adenoma tubulovelloso → adenoma velloso → carcinoma in situ → carcinoma invasor. Los adenomas vellosesenciales (&gt;1cm, histología vellosa, displasia de alto grado) tienen mayor riesgo de malignización.",
+    ref:"GPC: Detección oportuna y diagnóstico de cáncer de colon y recto no hereditario. SSA-IMSS-ISSSTE. 2008."
+  },
+  {
+    cat:"epi", catName:"Epidemiología / Factores de Riesgo",
+    q:"¿Cuál de los siguientes tipos de pólipo colorrectal tiene el MAYOR potencial de malignización?",
+    opts:["Pólipo hiperplásico sésil de 3 mm en recto","Adenoma tubular de 5 mm con displasia de bajo grado","Adenoma velloso de 3 cm con displasia de alto grado","Pólipo inflamatorio en paciente con enfermedad de Crohn"],
+    ans:2,
+    exp:"Los adenomas velloseos de gran tamaño con displasia de alto grado tienen el mayor riesgo de malignización. Los pólipos hiperplásicos NO tienen potencial maligno. Los adenomas se clasifican por histología (tubular, tubulovelloso, velloso), tamaño y grado de displasia. La GPC establece que son de alto riesgo: adenoma velloso, diámetro >1 cm, displasia de alto grado o adenoma con foco de carcinoma (pólipo maligno).",
+    tip:"<strong>Características de alto riesgo en adenomas:</strong> Histología vellosa (riesgo 3-4x mayor que tubular), tamaño &gt;1 cm, displasia de alto grado, multiplicidad ≥3. Un adenoma tubular pequeño sin displasia de alto grado tiene &lt;1% de riesgo de malignización. Adenoma velloso &gt;2 cm: riesgo de 35-40%.",
+    ref:"GPC: Detección oportuna y diagnóstico de cáncer de colon y recto no hereditario. SSA-IMSS-ISSSTE. 2008."
+  },
+  {
+    cat:"tam", catName:"Tamizaje",
+    q:"Mujer de 51 años, sin antecedentes familiares de cáncer colorrectal ni factores de riesgo personales. ¿Cuál es el esquema de tamizaje recomendado por la GPC para población de riesgo promedio?",
+    opts:["Sangre oculta en heces cada 3 años a partir de los 40 años","Colonoscopia cada 10 años a partir de los 50 años O sangre oculta en heces anual","Sigmoidoscopia flexible cada 5 años a partir de los 45 años","Enema de bario de doble contraste cada 5 años"],
+    ans:1,
+    exp:"Para población de riesgo promedio, la GPC recomienda iniciar tamizaje a los 50 años con alguna de las siguientes estrategias: colonoscopia cada 10 años (estándar de oro), sangre oculta en heces (SOH) anual con prueba guayaco o FIT (test inmunoquímico fecal), o sigmoidoscopia flexible cada 5 años. La colonoscopia permite detección y resección simultánea de pólipos, siendo el método más completo. Un resultado positivo de SOH obliga a colonoscopia diagnóstica.",
+    tip:"<strong>Algoritmo de tamizaje:</strong> Riesgo promedio (sin historia familiar ni EII): colonoscopia c/10 años desde 50 años, o SOH anual. Riesgo alto (1 familiar 1° &gt;60 años o 2 familiares 1°): colonoscopia desde 40 años c/5 años. Riesgo muy alto (FAP, Lynch): inicio más temprano con esquemas específicos.",
+    ref:"GPC: Detección oportuna y diagnóstico de cáncer de colon y recto no hereditario. SSA-IMSS-ISSSTE. 2008."
+  },
+  {
+    cat:"tam", catName:"Tamizaje",
+    q:"Un paciente de 45 años refiere que su padre fue diagnosticado con cáncer de colon a los 58 años. No tiene otros antecedentes familiares ni síntomas. ¿Cuál es la recomendación de tamizaje para este paciente?",
+    opts:["Iniciar tamizaje a los 50 años igual que la población general","Colonoscopia inmediata por alto riesgo hereditario","Iniciar colonoscopia a los 40 años y repetir cada 5 años","Sangre oculta en heces anual desde los 40 años sin necesidad de colonoscopia"],
+    ans:2,
+    exp:"Con un familiar de primer grado diagnosticado con CCR, el paciente tiene riesgo moderadamente elevado. La GPC recomienda iniciar colonoscopia a los 40 años (o 10 años antes de la edad de diagnóstico del familiar, lo que ocurra primero) y repetirla cada 5 años si es normal. En este caso, el padre fue diagnosticado a los 58 años, por lo que el tamizaje inicia a los 40 años del paciente (que ya tiene 45 → debe realizarse colonoscopia ahora).",
+    tip:"<strong>Regla práctica:</strong> 1 familiar 1° con CCR &gt;60 años: colonoscopia desde 40 años c/5 años. 1 familiar 1° con CCR &lt;60 años o 2 familiares 1°: colonoscopia desde 40 años (o 10 años antes del dx del familiar) c/5 años. Estos pacientes NO son HNPCC hasta demostrar lo contrario.",
+    ref:"GPC: Detección oportuna y diagnóstico de cáncer de colon y recto no hereditario. SSA-IMSS-ISSSTE. 2008."
+  },
+  {
+    cat:"diag", catName:"Diagnóstico / Estadificación",
+    q:"Hombre de 62 años con 3 meses de hematoquecia, cambio en el hábito intestinal hacia estreñimiento y pérdida de 8 kg de peso. La colonoscopia revela lesión circunferencial en colon sigmoides. La TC de tórax, abdomen y pelvis muestra engrosamiento parietal del sigmoides sin adenopatías ni metástasis a distancia. La biopsia confirma adenocarcinoma. ¿Cuál es la estadificación TNM/Dukes más probable si el reporte quirúrgico informa tumor que invade la muscular propia sin rebasar la serosa y sin ganglios positivos?",
+    opts:["T1N0M0 — Dukes A","T2N0M0 — Dukes B","T3N1M0 — Dukes C","T4N0M0 — Dukes B"],
+    ans:1,
+    exp:"Según la clasificación TNM, T2 indica que el tumor invade la muscular propia (sin rebasar la serosa). N0 indica ausencia de metástasis ganglionares. M0 indica ausencia de metástasis a distancia. Esto corresponde a estadio II (T2N0M0), que en la clasificación de Dukes se denomina Dukes B. Dukes A = T1N0M0 (solo mucosa/submucosa). Dukes C = cualquier T con N positivo. Dukes D = M1.",
+    tip:"<strong>Clasificación Dukes simplificada:</strong> A = tumor confinado a pared (T1-T2, N0, M0). B = tumor que atraviesa pared (T3-T4, N0, M0). C = ganglios positivos (cualquier T, N1-N2, M0). D = metástasis a distancia (M1). La sobrevida a 5 años: Dukes A ~90%, B ~70-75%, C ~40-50%, D &lt;10%.",
+    ref:"Recomendaciones para diagnóstico y tratamiento del cáncer de colon y recto en México. AMC-AMCE. 2019."
+  },
+  {
+    cat:"diag", catName:"Diagnóstico / Estadificación",
+    q:"¿Cuál es el papel del antígeno carcinoembrionario (CEA) en el manejo del cáncer colorrectal según las guías actuales?",
+    opts:["Marcador diagnóstico de primera línea: valores >5 ng/mL confirman cáncer colorrectal","Marcador de seguimiento postoperatorio para detectar recurrencia; no es útil para diagnóstico primario","Determina la indicación de quimioterapia adyuvante en estadio II","Guía la decisión de resección de metástasis hepáticas"],
+    ans:1,
+    exp:"El CEA no es útil como herramienta diagnóstica primaria por su baja sensibilidad y especificidad (puede elevarse en fumadores, cirrosis, pancreatitis, etc.). Su utilidad principal es en el seguimiento postoperatorio: niveles elevados preoperatorios que no normalizan tras la resección o que aumentan durante el seguimiento sugieren recurrencia o metástasis. La GPC de 2019 recomienda medir CEA preoperatorio (valor pronóstico) y cada 3 meses durante 2 años postoperatorios.",
+    tip:"<strong>CEA en CCR:</strong> Preoperatorio elevado = factor pronóstico adverso. Post-resección debe normalizarse en 4-6 semanas. Elevación durante seguimiento → buscar recurrencia con TC. Sensibilidad del CEA para recurrencia ~60-70%. Nunca usar CEA como único criterio diagnóstico — siempre confirmar con imagen y biopsia.",
+    ref:"Recomendaciones para diagnóstico y tratamiento del cáncer de colon y recto en México. AMC-AMCE. 2019."
+  },
+  {
+    cat:"her", catName:"Síndromes Hereditarios",
+    q:"Familia con los siguientes antecedentes: abuelo materno con cáncer de colon a los 48 años, madre con cáncer de endometrio a los 52 años, hermana mayor con cáncer de colon a los 44 años. El paciente tiene 35 años y colonoscopia normal hace 2 años. ¿Cuál es el síndrome más probable y qué criterios diagnósticos aplican?",
+    opts:["Poliposis adenomatosa familiar (FAP) — criterio: >100 pólipos adenomatosos","HNPCC/Síndrome de Lynch — criterios de Amsterdam II","Cáncer colorrectal hereditario sin poliposis atenuado — criterios de Bethesda","Síndrome de Peutz-Jeghers — criterio: pólipos hamartomatosos + pigmentación mucocutánea"],
+    ans:1,
+    exp:"Este caso cumple los Criterios de Amsterdam II para HNPCC/Síndrome de Lynch: (1) ≥3 familiares con cáncer asociado a Lynch (colon, endometrio, vías urinarias, intestino delgado), (2) uno de los afectados es familiar de primer grado de los otros dos, (3) ≥2 generaciones consecutivas afectadas, (4) ≥1 caso diagnosticado antes de los 50 años, (5) exclusión de FAP. La GPC indica que Lynch se confirma con inestabilidad de microsatélites (IMS) o déficit de proteínas MMR por inmunohistoquímica.",
+    tip:"<strong>Criterios de Amsterdam II (regla 3-2-1):</strong> 3 familiares con cáncer Lynch-relacionado, en 2 generaciones consecutivas, 1 diagnosticado &lt;50 años, 1 es familiar 1° de los otros dos, sin FAP. Lynch representa solo 2-5% del CCR total pero el riesgo acumulado de CCR es 70-80%. Screening en portadores: colonoscopia cada 1-2 años desde los 20-25 años.",
+    ref:"GPC: Detección oportuna y diagnóstico de cáncer de colon y recto no hereditario. SSA-IMSS-ISSSTE. 2008."
+  },
+  {
+    cat:"her", catName:"Síndromes Hereditarios",
+    q:"Adolescente de 16 años con colonoscopia que muestra más de 200 pólipos adenomatosos distribuidos en todo el colon. Su padre fue colectomizado a los 30 años por la misma causa. ¿Cuál es el diagnóstico, el gen involucrado y el tratamiento definitivo?",
+    opts:["HNPCC/Lynch — gen MLH1 — colonoscopia de vigilancia anual","Poliposis adenomatosa familiar (FAP) — gen APC — colectomía profiláctica total","Poliposis hiperplásica — sin gen específico — observación","Síndrome de Gardner — gen MUTYH — colectomía segmentaria"],
+    ans:1,
+    exp:"La poliposis adenomatosa familiar (FAP) es causada por mutaciones germinales en el gen APC (cromosoma 5q). Se caracteriza por la aparición de cientos a miles de pólipos adenomatosos en el colon a partir de la adolescencia. Sin tratamiento, prácticamente el 100% desarrolla cáncer colorrectal antes de los 40 años. El tratamiento definitivo es la colectomía total profiláctica (preferentemente proctocolectomía restauradora con bolsa ileal-anal) generalmente indicada entre los 18-25 años o antes si hay displasia severa.",
+    tip:"<strong>FAP clásica vs atenuada:</strong> Clásica: &gt;100 pólipos, inicio adolescencia, gen APC. Atenuada (AFAP): 10-100 pólipos, inicio más tardío. Manifestaciones extracolónicas de FAP: osteomas (síndrome de Gardner), tumores desmoides, hipertrofia congénita del epitelio pigmentario retiniano (CHRPE), quistes epidermoides. Sigmoidoscopia anual desde los 10-12 años en portadores del gen APC.",
+    ref:"GPC: Detección oportuna y diagnóstico de cáncer de colon y recto no hereditario. SSA-IMSS-ISSSTE. 2008."
+  },
+  {
+    cat:"tx", catName:"Tratamiento",
+    q:"Paciente con adenocarcinoma de colon derecho (ciego) estadio II (T3N0M0). ¿Cuál es el tratamiento quirúrgico de elección?",
+    opts:["Hemicolectomía izquierda con anastomosis colorrectal","Hemicolectomía derecha con anastomosis ileocólica","Colectomía total con ileostomía terminal","Resección segmentaria del ciego con cierre primario"],
+    ans:1,
+    exp:"Para tumores del colon derecho (ciego, colon ascendente, ángulo hepático y colon transverso proximal), el procedimiento de elección es la hemicolectomía derecha con anastomosis ileocólica. Esta cirugía incluye resección oncológica con márgenes adecuados y linfadenectomía regional. La resección debe incluir al menos 12 ganglios linfáticos para estadificación adecuada según las recomendaciones de 2019.",
+    tip:"<strong>Cirugía según localización del tumor:</strong> Ciego/colon ascendente/ángulo hepático → Hemicolectomía derecha. Colon transverso → Colectomía transversa o hemicolectomía ampliada. Ángulo esplénico/colon descendente → Hemicolectomía izquierda. Sigmoides → Sigmoidectomía o hemicolectomía izquierda. La regla es seguir el territorio vascular (arteria ileocólica, cólica derecha, cólica media, cólica izquierda, sigmoideas).",
+    ref:"Recomendaciones para diagnóstico y tratamiento del cáncer de colon y recto en México. AMC-AMCE. 2019."
+  },
+  {
+    cat:"tx", catName:"Tratamiento",
+    q:"Mujer de 55 años con adenocarcinoma de recto bajo (a 4 cm del margen anal) estadio III (T3N1M0). ¿Cuál es la estrategia terapéutica recomendada según las guías actuales?",
+    opts:["Amputación abdominoperineal (operación de Miles) directa sin neoadyuvancia","Radioterapia exclusiva sin cirugía","Quimiorradioterapia neoadyuvante seguida de resección anterior ultrabaja o amputación abdominoperineal según respuesta","Hemicolectomía izquierda con anastomosis colorrectal baja"],
+    ans:2,
+    exp:"Para cáncer de recto localmente avanzado (estadio II-III), el estándar de tratamiento es quimiorradioterapia (QRT) neoadyuvante (5-fluorouracilo o capecitabina + radioterapia de larga duración), seguida de cirugía 6-8 semanas después. La QRT neoadyuvante reduce el tamaño tumoral, aumenta la tasa de resección R0 y mejora el control local. La cirugía puede ser resección anterior baja (con preservación del esfínter) o amputación abdominoperineal (operación de Miles) si el tumor no permite márgenes adecuados con preservación esfinteriana.",
+    tip:"<strong>Cáncer de recto bajo — decisión esfinteriana:</strong> El tumor a &lt;2 cm del borde anal generalmente requiere amputación abdominoperineal (colostomía permanente). Entre 2-5 cm: la QRT neoadyuvante puede permitir resección anterior ultrabaja preservando el esfínter. La escisión mesorrectal total (EMT/TME) es el estándar quirúrgico para cáncer de recto — reduce recurrencia local de 30% a &lt;5%.",
+    ref:"Recomendaciones para diagnóstico y tratamiento del cáncer de colon y recto en México. AMC-AMCE. 2019."
+  },
+  {
+    cat:"tx", catName:"Tratamiento",
+    q:"Paciente con cáncer de colon estadio III (T3N2M0) resecado con éxito (R0). ¿Cuál es la quimioterapia adyuvante de elección según las recomendaciones actuales?",
+    opts:["FOLFIRI (5-FU + leucovorín + irinotecán) por 6 meses","FOLFOX (5-FU + leucovorín + oxaliplatino) por 6 meses","Bevacizumab en monoterapia","Capecitabina oral sin oxaliplatino solo en pacientes ancianos"],
+    ans:1,
+    exp:"Para cáncer de colon estadio III operado (R0), el estándar de quimioterapia adyuvante es FOLFOX (5-fluorouracilo en infusión continua + leucovorín + oxaliplatino) por 6 meses, o su equivalente oral CAPOX (capecitabina + oxaliplatino). Los estudios MOSAIC y XELOXA demostraron que la adición de oxaliplatino al 5-FU/leucovorín mejora significativamente la supervivencia libre de enfermedad y global en estadio III.",
+    tip:"<strong>Quimioterapia adyuvante en CCR:</strong> Estadio I: no requiere. Estadio II bajo riesgo: observación. Estadio II alto riesgo (T4, perforación, obstrucción, &lt;12 ganglios analizados): considerar quimioterapia. Estadio III: FOLFOX o CAPOX obligatorio. Estadio IV (metastásico): FOLFOX o FOLFIRI ± bevacizumab o cetuximab (según mutación RAS/BRAF).",
+    ref:"Recomendaciones para diagnóstico y tratamiento del cáncer de colon y recto en México. AMC-AMCE. 2019."
+  },
+  {
+    cat:"diag", catName:"Diagnóstico / Estadificación",
+    q:"Hombre de 66 años con cáncer de colon sigmoides diagnosticado hace 8 meses y resecado. En seguimiento, la TC de control muestra 2 lesiones hepáticas en lóbulo derecho (segmentos V y VI), hipodensas, de 2 y 3 cm, sin otras metástasis. El CEA ha aumentado de 3 a 18 ng/mL. ¿Cuál es la conducta más adecuada?",
+    opts:["Quimioterapia paliativa exclusiva con FOLFIRI sin intentar resección","Evaluación por equipo multidisciplinario para resección de metástasis hepáticas si son técnicamente resecables","Hepatectomía de urgencia sin quimioterapia previa","Radioembolización con itrio-90 como primera opción sin cirugía"],
+    ans:1,
+    exp:"Las metástasis hepáticas del cáncer colorrectal son potencialmente curables mediante resección quirúrgica si son técnicamente resecables (margen libre posible, remanente hepático adecuado ≥20-30%). La supervivencia a 5 años tras resección de metástasis hepáticas es del 35-58%. La evaluación debe ser por un equipo multidisciplinario (oncología, cirugía hepatobiliar, radiología intervencionista). Si no son resecables de inicio, la quimioterapia de conversión (FOLFOX o FOLFIRI ± bevacizumab) puede hacer resecable hasta 15-30% de los casos.",
+    tip:"<strong>Criterios de resecabilidad hepática en CCR:</strong> Margen oncológico posible (R0), remanente hepático funcional ≥20-30% (o ≥40% en hígado esteatósico/cirrótico), ausencia de enfermedad extrahepática no controlable, paciente con condición física adecuada. El número de metástasis no es contraindicación absoluta — la resecabilidad técnica y biológica es lo que importa.",
+    ref:"Recomendaciones para diagnóstico y tratamiento del cáncer de colon y recto en México. AMC-AMCE. 2019."
+  },
+  {
+    cat:"epi", catName:"Epidemiología / Factores de Riesgo",
+    q:"¿Cuál de los siguientes patrones clínicos debe alertar al médico sobre la posibilidad de un cáncer de colon derecho vs. colon izquierdo?",
+    opts:["Colon derecho: hematoquecia franca y cambio en calibre de heces; colon izquierdo: anemia ferropénica asintomática","Colon derecho: anemia ferropénica crónica sin sangrado visible y masa palpable en FID; colon izquierdo: hematoquecia, cambio en calibre de heces y síntomas obstructivos","Ambos lados se presentan igual: siempre con hematoquecia y dolor cólico","Colon derecho: ictericia obstructiva; colon izquierdo: ascitis maligna"],
+    ans:1,
+    exp:"Los tumores del colon derecho tienden a ser lesiones exofíticas en un segmento de gran calibre, por lo que frecuentemente se presentan como anemia ferropénica crónica (sangrado oculto) sin síntomas obstructivos, y en ocasiones como masa palpable en fosa ilíaca derecha. Los tumores del colon izquierdo ocurren en un segmento de menor calibre con heces ya formadas, provocando obstrucción, cambio en el calibre (heces en 'lápiz'), hematoquecia macroscópica y tenesmo. Esta diferencia clínica es crucial para el ENARM.",
+    tip:"<strong>Mnemotecnia colon D vs I:</strong> Derecho = 'Dentro' (sangrado oculto, anemia, asintomático hasta tarde). Izquierdo = 'Afuera' (sangre visible, obstrucción, cambio hábito). Anemia ferropénica inexplicable en adulto mayor sin causa evidente = colonoscopia obligatoria para descartar neoplasia de colon derecho.",
+    ref:"GPC: Detección oportuna y diagnóstico de cáncer de colon y recto no hereditario. SSA-IMSS-ISSSTE. 2008."
+  },
+  {
+    cat:"tam", catName:"Tamizaje",
+    q:"Se realiza colonoscopia de tamizaje a una mujer de 53 años asintomática. Se encuentran y resecan 3 adenomas tubulares, el mayor de 8 mm, sin displasia de alto grado. ¿Cuándo debe realizarse la próxima colonoscopia de vigilancia?",
+    opts:["En 10 años (igual que tamizaje de riesgo promedio)","En 5 años (adenomas de riesgo intermedio: 3-4 adenomas o adenoma 6-9 mm)","En 1-3 años (adenomas de alto riesgo)","En 6 meses (resección incompleta probable)"],
+    ans:1,
+    exp:"Según las guías de vigilancia post-polipectomía, pacientes con 3-4 adenomas o con un adenoma de 6-9 mm son considerados de riesgo intermedio y deben repetir la colonoscopia en 3-5 años (el intervalo exacto varía según guía, con tendencia actual a 3 años). Alto riesgo (vigilancia en 1-3 años): ≥5 adenomas, o adenoma ≥10 mm, o adenoma velloso/displasia alto grado. Este caso con 3 adenomas y el mayor de 8 mm corresponde a riesgo intermedio → siguiente colonoscopia en 3 años según las recomendaciones más recientes.",
+    tip:"<strong>Intervalos de vigilancia post-polipectomía:</strong> Sin pólipos o solo hiperplásicos: repetir en 10 años. 1-2 adenomas tubulares &lt;10 mm bajo grado: 5-10 años. 3-4 adenomas o adenoma 6-9 mm: 3 años. ≥5 adenomas, adenoma ≥10 mm, velloso o alto grado: 1-3 años. Resección fragmentada de adenoma grande: 6 meses para confirmar resección completa.",
+    ref:"GPC: Detección oportuna y diagnóstico de cáncer de colon y recto no hereditario. SSA-IMSS-ISSSTE. 2008."
+  }
+];
+
+let currentQ = 0, score = 0, answers = [];
+let catStats = { epi:{c:0,t:0}, diag:{c:0,t:0}, tam:{c:0,t:0}, her:{c:0,t:0}, tx:{c:0,t:0} };
+
+function shuffle(arr) {
+  for (let i=arr.length-1;i>0;i--) {
+    const j=Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+
+function init() {
+  shuffle(questions);
+  currentQ=0; score=0; answers=[];
+  catStats = { epi:{c:0,t:0}, diag:{c:0,t:0}, tam:{c:0,t:0}, her:{c:0,t:0}, tx:{c:0,t:0} };
+  const r=document.getElementById('resultsArea');
+  r.classList.remove('show'); r.innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const qa=questions[currentQ], total=questions.length;
+  document.getElementById('progressBar').style.width=(currentQ/total*100)+'%';
+  document.getElementById('progressText').textContent=`${currentQ+1} / ${total}`;
+  document.getElementById('nextBtn').classList.remove('show');
+  const letters=['A','B','C','D'];
+  let html=`<div class="question-card">
+    <div class="q-category cat-${qa.cat}">${qa.catName}</div>
+    <div class="q-number">Pregunta ${currentQ+1} de ${total}</div>
+    <div class="q-text">${qa.q}</div>
+    <div class="options">`;
+  qa.opts.forEach((opt,i)=>{
+    html+=`<button class="option-btn" onclick="selectAnswer(${i})" data-idx="${i}">
+      <span class="option-letter">${letters[i]}</span><span>${opt}</span></button>`;
+  });
+  html+=`</div><div class="feedback" id="feedback"></div></div>`;
+  document.getElementById('quizArea').innerHTML=html;
+}
+
+function selectAnswer(idx) {
+  const qa=questions[currentQ];
+  const btns=document.querySelectorAll('.option-btn');
+  const fb=document.getElementById('feedback');
+  const isCorrect=idx===qa.ans;
+  btns.forEach((btn,i)=>{
+    btn.classList.add('disabled'); btn.onclick=null;
+    if(i===qa.ans) btn.classList.add('correct-answer');
+    if(i===idx&&!isCorrect) btn.classList.add('wrong-answer');
+  });
+  if(!catStats[qa.cat]) catStats[qa.cat]={c:0,t:0};
+  catStats[qa.cat].t++;
+  if(isCorrect){score++;catStats[qa.cat].c++;}
+  if(!examMode){
+    fb.className=isCorrect?'feedback correct-fb show':'feedback wrong-fb show';
+    fb.innerHTML=isCorrect
+      ?`<div class="feedback-title">✅ ¡Correcto!</div><div>${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`
+      :`<div class="feedback-title">❌ Incorrecto</div><div><strong>Respuesta correcta:</strong> ${qa.opts[qa.ans]}</div><div style="margin-top:8px;">${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;
+  }
+  answers.push({q:qa.q,correct:isCorrect,userAns:qa.opts[idx],correctAns:qa.opts[qa.ans],cat:qa.catName,exp:qa.exp,ref:qa.ref});
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion() {
+  currentQ++;
+  if(currentQ>=questions.length) showResults();
+  else renderQuestion();
+}
+
+function showResults() {
+  document.getElementById('quizArea').innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  document.getElementById('progressBar').style.width='100%';
+  document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;
+  const pct=Math.round((score/questions.length)*100);
+  const msg=pct>=90?'🏆 ¡Dominio excelente de cáncer colorrectal!':pct>=70?'👏 ¡Muy bien! Repasa los temas con menor puntaje.':pct>=50?'📚 Aceptable, refuerza las áreas débiles.':'⚠️ Revisa las GPC de detección y tratamiento de cáncer colorrectal.';
+  const cats=[
+    {name:'Epidemiología/FR',key:'epi',color:'#fbbf24'},
+    {name:'Diagnóstico/Estadif.',key:'diag',color:'#38bdf8'},
+    {name:'Tamizaje',key:'tam',color:'#34d399'},
+    {name:'Síndromes Hereditarios',key:'her',color:'#f472b6'},
+    {name:'Tratamiento',key:'tx',color:'#a78bfa'},
+  ];
+  let html=`<div class="results-header">
+    <div class="score-big">${pct}%</div>
+    <div class="score-label">${score} de ${questions.length} correctas</div>
+    <div class="score-msg">${msg}</div>
+  </div>
+  <div class="chart-section">
+    <div class="chart-title"><span>📊</span> Rendimiento por Categoría</div>
+    <div class="bar-chart">`;
+  cats.forEach(cat=>{
+    const s=catStats[cat.key]||{c:0,t:0};
+    const p=s.t>0?Math.round((s.c/s.t)*100):0;
+    html+=`<div class="bar-row"><div class="bar-label">${cat.name}</div><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${cat.color};">${p}% (${s.c}/${s.t})</div></div></div>`;
+  });
+  html+=`</div></div>
+  <div class="chart-section">
+    <div class="chart-title"><span>🎯</span> Resumen General</div>
+    <div class="donut-wrap">
+      <svg class="donut-svg" viewBox="0 0 42 42">
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a2235" stroke-width="4"/>
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#34d399" stroke-width="4" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="25" stroke-linecap="round"/>
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#f87171" stroke-width="4" stroke-dasharray="${100-pct} ${pct}" stroke-dashoffset="${25-pct}" stroke-linecap="round"/>
+        <text x="21" y="22.5" text-anchor="middle" font-size="6" font-weight="700" fill="#e8ecf4" font-family="Plus Jakarta Sans">${pct}%</text>
+      </svg>
+      <div class="donut-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#34d399;"></div>Correctas: ${score}</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Incorrectas: ${questions.length-score}</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#38bdf8;"></div>Total: ${questions.length}</div>
+      </div>
+    </div>
+  </div>
+  <div class="chart-section">
+    <div class="chart-title"><span>📋</span> Revisión de Respuestas</div>`;
+  answers.forEach((a,i)=>{
+    html+=`<div class="review-card ${a.correct?'review-correct':'review-wrong'}">
+      <div class="review-q">${i+1}. ${a.q} <span style="font-size:0.72rem;color:var(--text-dim);">[${a.cat}]</span></div>
+      <div class="review-answer">${a.correct?`<strong>✅ ${a.correctAns}</strong>`:`<em>❌ Tu respuesta: ${a.userAns}</em><br><strong>✅ Correcta: ${a.correctAns}</strong>`}</div>
+      <div style="margin-top:8px;font-size:0.8rem;color:var(--text-dim);line-height:1.5;">${a.exp}</div>
+      <div style="margin-top:6px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;">📖 ${a.ref}</div>
+    </div>`;
+  });
+  html+=`</div><button class="retry-btn" onclick="init()">🔄 Reintentar</button>`;
+  const res=document.getElementById('resultsArea');
+  res.innerHTML=html; res.classList.add('show');
+  res.scrollIntoView({behavior:'smooth'});
+}
+
+function toggleSpec(header){header.classList.toggle('open');header.nextElementSibling.classList.toggle('open');}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+
+init();
+</script>
+</body>
+</html>

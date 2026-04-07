@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gastritis / Úlcera Péptica — ENARM · MediCode Solutions</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0a0e1a; --surface: #111827; --surface2: #1a2235; --surface3: #212d45;
+    --border: #2a3a5c; --text: #e8ecf4; --text-dim: #8896b3;
+    --accent: #38bdf8; --accent-glow: rgba(56,189,248,0.15);
+    --correct: #34d399; --correct-bg: rgba(52,211,153,0.1); --correct-border: rgba(52,211,153,0.4);
+    --wrong: #f87171; --wrong-bg: rgba(248,113,113,0.1); --wrong-border: rgba(248,113,113,0.4);
+    --gold: #fbbf24; --purple: #a78bfa; --pink: #f472b6; --teal: #2dd4bf;
+    --sidebar-w: 280px; --radius: 14px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; display:flex; }
+
+  .sidebar {
+    width:var(--sidebar-w); min-height:100vh; background:var(--surface);
+    border-right:1px solid var(--border); display:flex; flex-direction:column;
+    position:fixed; left:0; top:0; bottom:0; overflow-y:auto; z-index:100; transition:transform 0.3s;
+  }
+  .sidebar-logo { padding:24px 20px 16px; border-bottom:1px solid var(--border); }
+  .logo-badge { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,var(--accent),var(--purple)); padding:6px 14px; border-radius:100px; font-size:0.75rem; font-weight:800; color:var(--bg); letter-spacing:0.5px; text-transform:uppercase; margin-bottom:10px; }
+  .sidebar-logo h2 { font-size:1.1rem; font-weight:800; background:linear-gradient(135deg,var(--text),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .sidebar-logo p { font-size:0.72rem; color:var(--text-dim); margin-top:2px; }
+  .back-btn { display:flex; align-items:center; gap:8px; padding:14px 20px; color:var(--text-dim); font-size:0.8rem; text-decoration:none; border-bottom:1px solid var(--border); transition:color 0.2s; }
+  .back-btn:hover { color:var(--accent); }
+  .sidebar-nav { flex:1; padding:12px 0 24px; }
+  .specialty-header { display:flex; align-items:center; justify-content:space-between; padding:10px 16px 10px 20px; cursor:pointer; transition:background 0.2s; user-select:none; }
+  .specialty-header:hover { background:var(--surface2); }
+  .specialty-name { display:flex; align-items:center; gap:10px; font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; }
+  .specialty-icon { width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:0.9rem; flex-shrink:0; }
+  .chevron { font-size:0.65rem; color:var(--text-dim); transition:transform 0.3s; }
+  .specialty-header.open .chevron { transform:rotate(90deg); }
+  .topics-list { display:none; padding:4px 0 8px; }
+  .topics-list.open { display:block; }
+  .topic-link { display:flex; align-items:center; gap:10px; padding:8px 16px 8px 56px; font-size:0.78rem; color:var(--text-dim); text-decoration:none; transition:all 0.2s; border-left:2px solid transparent; line-height:1.4; }
+  .topic-link:hover { color:var(--text); background:var(--surface3); }
+  .topic-link.active { color:var(--accent); border-left-color:var(--accent); background:var(--accent-glow); font-weight:600; }
+  .topic-link.coming-soon { opacity:0.4; cursor:not-allowed; pointer-events:none; }
+  .topic-num { font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--text-dim); min-width:20px; }
+  .badge-soon { margin-left:auto; background:rgba(136,150,179,0.1); color:var(--text-dim); font-size:0.62rem; font-weight:600; padding:2px 7px; border-radius:100px; }
+  .star-tag { margin-left:auto; font-size:0.7rem; }
+
+  .main { margin-left:var(--sidebar-w); flex:1; display:flex; flex-direction:column; }
+  .container { max-width:760px; margin:0 auto; padding:20px 16px 40px; width:100%; }
+
+  .mode-bar { display:flex; align-items:center; gap:10px; margin:24px 0 20px; background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:6px; width:fit-content; }
+  .mode-btn { padding:8px 20px; border-radius:100px; border:none; cursor:pointer; font-family:inherit; font-size:0.82rem; font-weight:600; transition:all 0.2s; color:var(--text-dim); background:transparent; }
+  .mode-btn.active { background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); }
+
+  .header { text-align:center; padding:40px 20px 24px; position:relative; overflow:hidden; }
+  .header::before { content:''; position:absolute; top:-60%; left:50%; transform:translateX(-50%); width:600px; height:600px; background:radial-gradient(circle,rgba(56,189,248,0.08) 0%,transparent 70%); pointer-events:none; }
+  .header-badge { display:inline-flex; align-items:center; gap:8px; background:var(--surface2); border:1px solid var(--border); padding:6px 16px; border-radius:100px; font-size:0.78rem; color:var(--accent); font-weight:600; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:16px; }
+  .header h1 { font-size:clamp(1.6rem,5vw,2.2rem); font-weight:800; background:linear-gradient(135deg,var(--text) 0%,var(--accent) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:8px; }
+  .header p { color:var(--text-dim); font-size:0.95rem; max-width:500px; margin:0 auto; }
+
+  .progress-wrap { background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:12px 20px; margin:20px 0 28px; display:flex; align-items:center; gap:14px; }
+  .progress-bar-bg { flex:1; height:8px; background:var(--surface3); border-radius:100px; overflow:hidden; }
+  .progress-bar-fill { height:100%; width:0%; background:linear-gradient(90deg,var(--accent),var(--purple)); border-radius:100px; transition:width 0.5s ease; }
+  .progress-text { font-size:0.82rem; font-weight:600; color:var(--text-dim); white-space:nowrap; font-family:'JetBrains Mono',monospace; }
+
+  .question-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:28px 24px; margin-bottom:20px; animation:slideIn 0.4s ease; position:relative; overflow:hidden; }
+  .question-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--gold),var(--accent),var(--purple)); }
+  @keyframes slideIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+  .q-category { display:inline-flex; align-items:center; gap:6px; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; padding:4px 12px; border-radius:100px; margin-bottom:14px; }
+  .cat-gast  { background:rgba(251,191,36,0.12); color:var(--gold); }
+  .cat-ulc   { background:rgba(56,189,248,0.12); color:var(--accent); }
+  .cat-hpyl  { background:rgba(167,139,250,0.12); color:var(--purple); }
+  .cat-ze    { background:rgba(45,212,191,0.12);  color:var(--teal); }
+  .cat-cx    { background:rgba(244,114,182,0.12); color:var(--pink); }
+
+  .q-number { font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--text-dim); margin-bottom:10px; }
+  .q-text { font-size:1.05rem; font-weight:600; line-height:1.55; margin-bottom:20px; color:var(--text); }
+
+  .options { display:flex; flex-direction:column; gap:10px; }
+  .option-btn { display:flex; align-items:flex-start; gap:12px; padding:14px 16px; background:var(--surface2); border:1.5px solid var(--border); border-radius:12px; cursor:pointer; transition:all 0.2s; text-align:left; font-size:0.92rem; color:var(--text); font-family:inherit; line-height:1.5; width:100%; }
+  .option-btn:hover:not(.disabled) { border-color:var(--accent); background:var(--accent-glow); transform:translateX(4px); }
+  .option-letter { display:flex; align-items:center; justify-content:center; min-width:30px; height:30px; border-radius:8px; background:var(--surface3); font-weight:700; font-size:0.82rem; color:var(--accent); flex-shrink:0; }
+  .option-btn.correct-answer { border-color:var(--correct-border); background:var(--correct-bg); }
+  .option-btn.correct-answer .option-letter { background:var(--correct); color:var(--bg); }
+  .option-btn.wrong-answer { border-color:var(--wrong-border); background:var(--wrong-bg); }
+  .option-btn.wrong-answer .option-letter { background:var(--wrong); color:var(--bg); }
+  .option-btn.disabled { cursor:default; }
+  .option-btn.disabled:hover { transform:none; }
+
+  .feedback { margin-top:18px; padding:18px; border-radius:12px; font-size:0.88rem; line-height:1.65; animation:fadeIn 0.3s ease; display:none; }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  .feedback.show { display:block; }
+  .feedback.correct-fb { background:var(--correct-bg); border:1px solid var(--correct-border); color:var(--correct); }
+  .feedback.wrong-fb { background:var(--wrong-bg); border:1px solid var(--wrong-border); color:#fca5a5; }
+  .feedback-title { font-weight:700; font-size:0.95rem; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
+  .feedback .tip { margin-top:10px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.08); color:var(--text-dim); font-size:0.82rem; }
+  .feedback .tip strong { color:var(--gold); }
+  .feedback .ref { margin-top:8px; font-size:0.75rem; color:var(--text-dim); opacity:0.7; font-style:italic; }
+
+  .next-btn { display:none; margin:20px auto 0; padding:12px 32px; background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:0.92rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+  .next-btn:hover { transform:scale(1.05); box-shadow:0 4px 24px var(--accent-glow); }
+  .next-btn.show { display:block; }
+
+  .results { display:none; animation:slideIn 0.5s ease; }
+  .results.show { display:block; }
+  .results-header { text-align:center; padding:30px 20px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:20px; position:relative; overflow:hidden; }
+  .results-header::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--correct),var(--accent),var(--purple),var(--pink)); }
+  .score-big { font-size:3.5rem; font-weight:800; background:linear-gradient(135deg,var(--correct),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .score-label { font-size:1.1rem; color:var(--text-dim); margin-top:4px; }
+  .score-msg { margin-top:12px; font-size:0.95rem; color:var(--text); font-weight:500; }
+  .chart-section { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px 20px; margin-bottom:20px; }
+  .chart-title { font-size:0.95rem; font-weight:700; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
+  .bar-chart { display:flex; flex-direction:column; gap:14px; }
+  .bar-row { display:flex; align-items:center; gap:12px; }
+  .bar-label { width:130px; font-size:0.78rem; font-weight:600; text-align:right; color:var(--text-dim); flex-shrink:0; }
+  .bar-track { flex:1; height:28px; background:var(--surface3); border-radius:8px; overflow:hidden; }
+  .bar-fill { height:100%; border-radius:8px; transition:width 1s ease; display:flex; align-items:center; padding-left:10px; font-size:0.75rem; font-weight:700; color:var(--bg); min-width:fit-content; }
+  .donut-wrap { display:flex; align-items:center; justify-content:center; gap:30px; flex-wrap:wrap; }
+  .donut-svg { width:160px; height:160px; }
+  .donut-legend { display:flex; flex-direction:column; gap:10px; }
+  .legend-item { display:flex; align-items:center; gap:10px; font-size:0.84rem; }
+  .legend-dot { width:12px; height:12px; border-radius:4px; flex-shrink:0; }
+  .review-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; margin-bottom:12px; }
+  .review-card.review-correct { border-left:4px solid var(--correct); }
+  .review-card.review-wrong { border-left:4px solid var(--wrong); }
+  .review-q { font-size:0.88rem; font-weight:600; margin-bottom:8px; }
+  .review-answer { font-size:0.82rem; color:var(--text-dim); line-height:1.5; }
+  .review-answer strong { color:var(--correct); }
+  .review-answer em { color:var(--wrong); font-style:normal; }
+  .retry-btn { display:block; margin:28px auto; padding:14px 40px; background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:1rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+  .retry-btn:hover { transform:scale(1.05); }
+  .hamburger { display:none; position:fixed; top:16px; left:16px; z-index:200; background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:10px; cursor:pointer; font-size:1.2rem; }
+  .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:90; }
+  .footer { text-align:center; padding:20px; color:var(--text-dim); font-size:0.72rem; opacity:0.5; }
+
+  @media(max-width:768px) {
+    .sidebar { transform:translateX(-100%); }
+    .sidebar.open { transform:translateX(0); }
+    .main { margin-left:0; }
+    .hamburger { display:flex; align-items:center; justify-content:center; }
+    .overlay.show { display:block; }
+    .container { padding:12px 10px 30px; }
+    .question-card { padding:20px 16px; }
+    .bar-label { width:90px; font-size:0.72rem; }
+    .mode-bar { margin:16px auto; }
+  }
+</style>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-badge">🩺 MCS</div>
+    <h2>ENARM · Banco de Preguntas</h2>
+    <p>2025–2026</p>
+  </div>
+  <a href="index.html" class="back-btn">← Volver al inicio</a>
+  <nav class="sidebar-nav">
+    <div class="specialty-group">
+      <div class="specialty-header open" onclick="toggleSpec(this)">
+        <div class="specialty-name">
+          <div class="specialty-icon" style="background:rgba(56,189,248,0.12);color:#38bdf8;">🔪</div>
+          Cirugía General
+        </div>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="topics-list open">
+        <a href="01-apendicitis.html" class="topic-link"><span class="topic-num">01</span>Abdomen agudo / Apendicitis</a>
+        <a href="02-patologia-biliar.html" class="topic-link"><span class="topic-num">02</span>Patología biliar</a>
+        <a href="03-enfermedad-diverticular.html" class="topic-link"><span class="topic-num">03</span>Enfermedad diverticular</a>
+        <a href="04-erge-esofagitis-dispepsia.html" class="topic-link"><span class="topic-num">04</span>ERGE / Esofagitis / Dispepsia</a>
+        <a href="05-cancer-esofago-gastrico.html" class="topic-link"><span class="topic-num">05</span>Cáncer esófago / gástrico</a>
+        <a href="06-gastritis-ulcera-peptica.html" class="topic-link active"><span class="topic-num">06</span>Gastritis / Úlcera péptica</a>
+        <a href="07-obesidad-bariatrica.html" class="topic-link"><span class="topic-num">07</span>Obesidad / Bariátrica</a>
+        <a href="08-patologia-perianal.html" class="topic-link"><span class="topic-num">08</span>Patología perianal</a>
+        <a href="09-hernias-esplenectomia.html" class="topic-link"><span class="topic-num">09</span>Hernias / Esplenectomía</a>
+        <a href="10-insuficiencia-venosa-arterial.html" class="topic-link"><span class="topic-num">10</span>Insuf. venosa y arterial</a>
+        <a href="11-oclusion-volvulos-isquemia.html" class="topic-link"><span class="topic-num">11</span>Oclusión / Vólvulos / Isquemia</a>
+        <a href="12-cancer-colon.html" class="topic-link"><span class="topic-num">12</span>Cáncer de colon</a>
+        <a href="13-cancer-hepatico.html" class="topic-link"><span class="topic-num">13</span>Cáncer hepático</a>
+        <a href="14-cancer-pancreas-trasplante.html" class="topic-link"><span class="topic-num">14</span>Cáncer páncreas / Trasplante</a>
+        <a href="15-pancreatitis.html" class="topic-link"><span class="topic-num">15</span>Pancreatitis</a>
+        <a href="16-mordeduras-picaduras.html" class="topic-link"><span class="topic-num">16</span>Mordeduras / Picaduras</a>
+        <a href="17-quemaduras.html" class="topic-link"><span class="topic-num">17</span>Quemaduras</a>
+        <a href="18-atls1.html" class="topic-link"><span class="topic-num">18</span>ATLS 1</a>
+        <a href="19-atls2.html" class="topic-link"><span class="topic-num">19</span>ATLS 2</a>
+        <a href="20-patologia-quirurgica.html" class="topic-link"><span class="topic-num">20</span>Patología quirúrgica</a>
+      </div>
+    </div>
+  </nav>
+</aside>
+
+<main class="main">
+<div class="container">
+
+  <div class="header">
+    <div class="header-badge"><span>🔪</span> ENARM · Cirugía General · Tema 06</div>
+    <h1>Gastritis y Úlcera Péptica</h1>
+    <p>Gastritis aguda · Gastritis crónica · Síndrome de Zollinger-Ellison · Úlcera péptica</p>
+  </div>
+
+  <div style="display:flex;justify-content:center;">
+    <div class="mode-bar">
+      <button class="mode-btn active" id="btnRepaso" onclick="setMode('repaso')">📖 Modo Repaso</button>
+      <button class="mode-btn" id="btnExamen" onclick="setMode('examen')">⏱️ Modo Examen</button>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 15</div>
+  </div>
+
+  <div id="quizArea"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+  <div class="results" id="resultsArea"></div>
+
+</div>
+<div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+</main>
+
+<script>
+let examMode = false;
+
+function setMode(mode) {
+  examMode = (mode === 'examen');
+  document.getElementById('btnRepaso').classList.toggle('active', !examMode);
+  document.getElementById('btnExamen').classList.toggle('active', examMode);
+  init();
+}
+
+const questions = [
+  {
+    cat:"gast", catName:"Gastritis",
+    q:"Mujer de 35 años con artritis reumatoide en tratamiento crónico con naproxeno 500 mg c/12 h. Acude por epigastralgia intensa de 3 días de evolución, náusea y un episodio de hematemesis de escasa cuantía. La endoscopia muestra múltiples erosiones superficiales en antro y cuerpo gástrico sin úlcera definida. ¿Cuál es el diagnóstico?",
+    opts:["Úlcera gástrica tipo I de Johnson","Gastritis aguda erosiva por AINEs","Síndrome de Zollinger-Ellison","Gastropatía por reflujo biliar"],
+    ans:1,
+    exp:"La gastritis aguda erosiva por AINEs es la causa más frecuente de erosiones gástricas en pacientes con uso crónico de antiinflamatorios. Los AINEs inhiben la COX-1, reduciendo la síntesis de prostaglandinas protectoras (PGE2), lo que disminuye el moco gástrico, el bicarbonato y el flujo sanguíneo de la mucosa. La GPC señala que las erosiones superficiales múltiples en antro y cuerpo sin ulceración profunda son el hallazgo endoscópico típico de gastritis erosiva por AINEs.",
+    tip:"<strong>Mecanismo dual de daño por AINEs:</strong> Efecto tópico directo (irritación mucosa) + efecto sistémico (inhibición COX-1 → ↓PGE2 → ↓moco y bicarbonato). Los AINEs selectivos COX-2 (celecoxib) tienen menor riesgo GI pero no lo eliminan. Siempre asociar IBP en uso crónico de AINEs con factores de riesgo.",
+    ref:"GPC: Profilaxis, diagnóstico y tratamiento de gastritis aguda (erosiva) en adultos en los tres niveles de atención. SSA/IMSS/ISSSTE."
+  },
+  {
+    cat:"gast", catName:"Gastritis",
+    q:"Paciente masculino de 28 años con ingesta abundante de alcohol etílico (>10 bebidas) la noche anterior. Refiere epigastralgia intensa, náusea y vómito de contenido gástrico sin sangre. A la EF: dolor epigástrico leve a la palpación, sin irritación peritoneal. Amilasa y lipasa normales. ¿Cuál es la causa más probable de su cuadro?",
+    opts:["Pancreatitis aguda leve","Gastritis aguda por alcohol","Úlcera duodenal perforada","Síndrome de Mallory-Weiss"],
+    ans:1,
+    exp:"El alcohol produce gastritis aguda por efecto tópico directo: altera la barrera mucosa gástrica al disolver la capa de moco, aumentar la permeabilidad epitelial y estimular la secreción ácida. La GPC establece que en el contexto de ingesta aguda de alcohol, la epigastralgia con náusea y vómito sin fiebre ni datos de irritación peritoneal, con amilasa/lipasa normales, orienta a gastritis aguda por alcohol como diagnóstico de exclusión clínica.",
+    tip:"<strong>Gastritis por alcohol vs Pancreatitis:</strong> En gastritis alcohólica: dolor epigástrico que mejora al vomitar, sin irradiación dorsal, amilasa normal. En pancreatitis: dolor intenso con irradiación en cinturón, amilasa/lipasa >3 veces el valor normal, posible íleo. Siempre pedir amilasa/lipasa para diferenciar.",
+    ref:"GPC: Profilaxis, diagnóstico y tratamiento de gastritis aguda (erosiva) en adultos en los tres niveles de atención. SSA/IMSS/ISSSTE."
+  },
+  {
+    cat:"hpyl", catName:"H. pylori",
+    q:"Hombre de 45 años con epigastralgia de 6 meses, sin uso de AINEs, sin pérdida de peso. Se le realiza endoscopia que muestra úlcera gástrica de 1 cm en curvatura menor. Las biopsias reportan gastritis crónica activa con presencia de bacilos curvos en la mucosa. ¿Cuál es el método diagnóstico considerado estándar de oro para confirmar H. pylori directamente desde la biopsia?",
+    opts:["Prueba de aliento con urea C13","Antígeno de H. pylori en heces","Prueba rápida de ureasa en biopsia + histología","Serología (IgG anti-H. pylori)"],
+    ans:2,
+    exp:"El diagnóstico histológico mediante biopsia gástrica (tinción de Giemsa o hematoxilina-eosina) es el estándar de oro para identificar H. pylori directamente en la mucosa, especialmente en pacientes sometidos a endoscopia. La prueba rápida de ureasa en biopsia (CLO test) también es de alta utilidad endoscópica con sensibilidad de 90-95%. La histología identifica además el grado de gastritis, metaplasia intestinal y displasia. La GPC recomienda tomar biopsias de antro y cuerpo para aumentar la sensibilidad diagnóstica.",
+    tip:"<strong>Métodos diagnósticos de H. pylori:</strong> Invasivos (requieren endoscopia): histología (oro), CLO test, cultivo. No invasivos: prueba de aliento C13 (mejor para confirmar erradicación), antígeno en heces (útil en seguimiento), serología (no distingue infección activa de pasada). La serología no sirve para confirmar erradicación.",
+    ref:"GPC: Manejo de la úlcera péptica en adultos en el primer y segundo niveles de atención. IMSS-DGIS."
+  },
+  {
+    cat:"hpyl", catName:"H. pylori",
+    q:"Paciente de 52 años con diagnóstico de úlcera duodenal activa y confirmación de H. pylori por prueba de aliento positiva. No tiene alergias conocidas. ¿Cuál es el esquema de erradicación de primera línea recomendado por las GPC mexicanas?",
+    opts:["Claritromicina 500 mg c/12h + Amoxicilina 1g c/12h + IBP por 14 días","Metronidazol 500 mg c/8h + Tetraciclina 500 mg c/6h + Bismuto + IBP por 14 días","Levofloxacino 500 mg c/24h + Amoxicilina 1g c/12h + IBP por 10 días","Ciprofloxacino 500 mg c/12h + Claritromicina 500 mg c/12h por 7 días"],
+    ans:0,
+    exp:"La triple terapia estándar (Claritromicina + Amoxicilina + IBP) por 14 días es el esquema de primera línea recomendado por las GPC mexicanas para erradicación de H. pylori en pacientes sin resistencia conocida a claritromicina. La duración de 14 días ha demostrado tasas de erradicación superiores a los esquemas de 7 días (85-90% vs 75-80%). El IBP se debe administrar 30 minutos antes del desayuno y la cena para maximizar su efecto.",
+    tip:"<strong>Triple terapia de 14 días: C-A-I</strong> — Claritromicina + Amoxicilina + IBP. Si alergia a penicilina: sustituir amoxicilina por metronidazol. Si la tasa local de resistencia a claritromicina >15%: usar cuádruple terapia con bismuto de entrada. Confirmar erradicación con prueba de aliento C13 mínimo 4 semanas después de terminar el tratamiento (suspender IBP 2 semanas antes).",
+    ref:"GPC: Manejo de la úlcera péptica en adultos en el primer y segundo niveles de atención. IMSS-DGIS."
+  },
+  {
+    cat:"ulc", catName:"Úlcera Péptica",
+    q:"Mujer de 38 años refiere dolor epigástrico que aparece 1-2 horas después de comer, se alivia con antiácidos pero regresa. Por las noches la despierta el dolor. No usa AINEs. ¿A qué tipo de úlcera corresponde este patrón clínico y cuál es su fisiopatología predominante?",
+    opts:["Úlcera gástrica: dolor que empeora con los alimentos, hipersecreción ácida relativa","Úlcera duodenal: dolor que mejora con alimentos (efecto tampón), hipersecreción ácida y vaciamiento gástrico acelerado","Gastritis crónica atrófica: dolor continuo, hipoclorhidria","Síndrome de Zollinger-Ellison: dolor refractario, diarrea, úlceras múltiples"],
+    ans:1,
+    exp:"La úlcera duodenal se caracteriza por dolor epigástrico que aparece 1-3 horas posprandial (cuando el ácido pasa al duodeno sin el efecto tampón del alimento en el estómago), se alivia con alimentos o antiácidos (nuevo efecto tampón) y puede despertar al paciente a medianoche (momento de máxima secreción ácida). La fisiopatología incluye hipersecreción de ácido, vaciamiento gástrico acelerado, reducción de bicarbonato duodenal e infección por H. pylori (90-95% de casos). La GPC establece este patrón como cardinal de úlcera duodenal.",
+    tip:"<strong>Diferencia clave úlcera duodenal vs gástrica:</strong> Duodenal: 'DOLOR que MEJORA con comida' (tampón), dolor nocturno frecuente, más jóvenes, H. pylori en 95%. Gástrica: 'DOLOR que EMPEORA con comida' (estimula ácido en úlcera gástrica), pérdida de peso, riesgo de malignidad, H. pylori en 70-80%. Mnemotecnia: 'Duodenal = alivio con Dieta'.",
+    ref:"GPC: Diagnóstico y tratamiento de úlcera péptica complicada en el adulto. IMSS-275-15. 2015."
+  },
+  {
+    cat:"ulc", catName:"Úlcera Péptica",
+    q:"En la clasificación de Johnson para úlceras gástricas, ¿cuál es la localización y fisiopatología del tipo I, el más frecuente?",
+    opts:["Curvatura menor del antro, asociada a hipersecreción ácida y H. pylori en 95%","Curvatura menor en la unión de antro y cuerpo (zona de transición), asociada a hipoclorhidria y reflujo duodenal","Canal pilórico, mismo comportamiento que úlcera duodenal con hipersecreción ácida","Curvatura mayor o cara posterior, asociada al uso de AINEs"],
+    ans:1,
+    exp:"La úlcera gástrica tipo I de Johnson es la más frecuente (60-70%) y se localiza en la curvatura menor, en la zona de transición entre el antro y el cuerpo (angularis/incisura). Su fisiopatología es distinta a la úlcera duodenal: se asocia a hipoclorhidria (no hipersecreción), retardo en el vaciamiento gástrico y reflujo duodenogástrico de bilis que daña la mucosa. H. pylori está presente en 70-80%. La GPC y la clasificación de Johnson distinguen 5 tipos con implicaciones fisiopatológicas y quirúrgicas diferentes.",
+    tip:"<strong>Clasificación de Johnson simplificada:</strong> Tipo I: curvatura menor (más frecuente, hipoclorhidria). Tipo II: cuerpo + duodeno simultánea (hipersecreción). Tipo III: canal pilórico (= úlcera duodenal, hipersecreción). Tipo IV: unión esofagogástrica (alta, rara). Tipo V: cualquier localización por AINEs. Para el ENARM: Tipo I = zona de transición + hipoclorhidria.",
+    ref:"GPC: Diagnóstico y tratamiento de úlcera péptica complicada en el adulto. IMSS-275-15. 2015."
+  },
+  {
+    cat:"cx", catName:"Complicaciones",
+    q:"Hombre de 60 años con antecedente de úlcera duodenal llega a urgencias con hematemesis masiva y melena. TA 90/60 mmHg, FC 118 lpm. Se estabiliza con 2 litros de cristaloides y transfusión de 2 unidades de paquete globular. La endoscopia urgente muestra úlcera duodenal con vaso visible sin sangrado activo. ¿Cuál es la clasificación endoscópica de Forrest de este hallazgo y cuál es el manejo?",
+    opts:["Forrest Ia (sangrado en chorro activo) → hemostasia endoscópica inmediata","Forrest IIa (vaso visible sin sangrado activo) → hemostasia endoscópica + IBP IV en infusión continua","Forrest IIb (coágulo adherido) → observación con IBP oral","Forrest III (base limpia) → alta con IBP oral, sin intervención endoscópica"],
+    ans:1,
+    exp:"La clasificación de Forrest IIa (vaso visible no sangrante) tiene un riesgo de resangrado de 43-55%, por lo que requiere hemostasia endoscópica (inyección de epinefrina + coagulación térmica o clips) combinada con IBP en infusión IV continua (omeprazol 80 mg en bolo + 8 mg/h por 72 horas). La GPC establece que los hallazgos Forrest I y IIa-IIb son indicación de tratamiento endoscópico, mientras que Forrest IIc y III pueden manejarse con IBP oral sin intervención endoscópica adicional.",
+    tip:"<strong>Clasificación de Forrest y riesgo de resangrado:</strong> Ia (chorro): 90% → endoscopia urgente. Ib (sangrado en napa): 50% → endoscopia. IIa (vaso visible): 43% → endoscopia + IBP IV. IIb (coágulo): 22% → endoscopia discutible + IBP IV. IIc (mancha plana): 7% → IBP oral. III (base limpia): 2% → IBP oral, alta. Mnemotecnia: '≥IIa necesita endoscopia terapéutica'.",
+    ref:"GPC: Diagnóstico y tratamiento de úlcera péptica complicada en el adulto. IMSS-275-15. 2015."
+  },
+  {
+    cat:"cx", catName:"Complicaciones",
+    q:"Paciente masculino de 55 años con antecedente de úlcera péptica llega a urgencias con dolor abdominal súbito e intenso tipo 'puñalada' en epigastrio que se generalizó en 30 minutos. A la EF: abdomen en tabla, silencio abdominal, signos de irritación peritoneal difusa. La Rx de tórax muestra neumoperitoneo. ¿Cuál es el diagnóstico y el manejo de urgencia?",
+    opts:["Pancreatitis aguda grave → manejo conservador con ayuno e IBP IV","Perforación de úlcera péptica → cirugía de urgencia (rafia de Graham + lavado peritoneal)","Isquemia mesentérica aguda → arteriografía urgente","Vólvulo gástrico agudo → reducción endoscópica"],
+    ans:1,
+    exp:"La perforación de úlcera péptica se presenta con dolor abdominal súbito e intenso ('en puñalada'), abdomen en tabla (defensa involuntaria por peritonitis química) y neumoperitoneo en Rx de tórax (presente en 70-80% de casos). La GPC establece que es una urgencia quirúrgica: la rafia con epiploplastia (técnica de Graham) es el procedimiento de elección, complementada con lavado peritoneal abundante. En centros con experiencia puede realizarse por laparoscopia.",
+    tip:"<strong>Tríada de perforación péptica:</strong> Dolor súbito epigástrico + Abdomen en tabla + Neumoperitoneo. La posición de Trendelenburg invertida aumenta la sensibilidad del neumoperitoneo en Rx. Si no hay neumoperitoneo en Rx pero la sospecha es alta → TC (identifica mínimas cantidades de gas libre). La demora quirúrgica >24h aumenta la mortalidad significativamente.",
+    ref:"GPC: Diagnóstico y tratamiento de úlcera péptica complicada en el adulto. IMSS-275-15. 2015."
+  },
+  {
+    cat:"ze", catName:"Zollinger-Ellison",
+    q:"Hombre de 48 años con úlceras pépticas múltiples en duodeno distal, bulbo y yeyuno proximal, refractarias a tratamiento con IBP a dosis estándar, asociadas a diarrea crónica acuosa y pérdida de peso. Los niveles séricos de gastrina en ayuno son de 1,200 pg/mL (VN &lt;100 pg/mL). ¿Cuál es el diagnóstico?",
+    opts:["Gastritis por H. pylori con hipergastrinemia reactiva","Síndrome de Zollinger-Ellison por gastrinoma","Carcinoide gástrico tipo I asociado a gastritis atrófica","Gastroparesia diabética con reflujo ácido"],
+    ans:1,
+    exp:"El síndrome de Zollinger-Ellison (SZE) es causado por un tumor secretor de gastrina (gastrinoma), generalmente localizado en el triángulo del gastrinoma (duodeno, páncreas, nódulos linfáticos peripancreáticos). Se caracteriza por: úlceras múltiples, de localización atípica (duodeno distal, yeyuno), refractarias a tratamiento convencional, diarrea crónica (por hipersecreción ácida que inactiva lipasa pancreática) y gastrina sérica en ayuno >1,000 pg/mL, que es diagnóstica cuando se combina con pH gástrico ácido (&lt;2). La GPC y la literatura establecen este umbral como criterio diagnóstico del SZE.",
+    tip:"<strong>Criterios diagnósticos del SZE:</strong> Gastrina basal >1,000 pg/mL + pH gástrico &lt;2 = diagnóstico. Si gastrina 100-1,000 pg/mL → prueba de estimulación con secretina (alza >200 pg/mL = positiva para gastrinoma). 25% se asocian a MEN-1 (buscar hiperparatiroidismo e hiperprolactinemia). Localizar tumor: TC/RMN → octreoscan (receptor de somatostatina).",
+    ref:"GPC: Diagnóstico y tratamiento de úlcera péptica complicada en el adulto. IMSS-275-15. 2015."
+  },
+  {
+    cat:"ze", catName:"Zollinger-Ellison",
+    q:"En un paciente con diagnóstico confirmado de síndrome de Zollinger-Ellison sin evidencia de metástasis ni MEN-1, tumor único localizado en la cabeza del páncreas de 2 cm. ¿Cuál es el manejo inicial y el tratamiento definitivo?",
+    opts:["IBP a dosis altas de por vida sin cirugía, ya que los gastrinomas son siempre malignos","IBP a dosis altas para control sintomático + resección quirúrgica del gastrinoma","Quimioterapia con estreptozocina + 5-fluorouracilo como primera línea","Octreótide SC para inhibir la secreción de gastrina sin necesidad de cirugía"],
+    ans:1,
+    exp:"El manejo del SZE requiere control de la hipersecreción ácida con IBP a dosis altas (omeprazol 40-80 mg/día o equivalente) como medida inmediata y de mantenimiento. El tratamiento definitivo en gastrinomas esporádicos localizados sin metástasis es la resección quirúrgica, que puede ser curativa en 30-40% de los casos. La GPC establece que la cirugía debe considerarse en todos los pacientes con SZE esporádico sin metástasis hepáticas extensas. En MEN-1, la cirugía es más controvertida por la naturaleza multifocal.",
+    tip:"<strong>SZE - Manejo en 2 pasos:</strong> 1) Control ácido: IBP dosis altas (omeprazol 40-80 mg/d) → resuelve síntomas y cicatriza úlceras. 2) Tratar el tumor: cirugía si esporádico y localizable. El 60-70% de gastrinomas son malignos al diagnóstico (metástasis hepáticas). El octreótide es útil para control sintomático en metástasis o como coadyuvante, no como tratamiento definitivo.",
+    ref:"GPC: Diagnóstico y tratamiento de úlcera péptica complicada en el adulto. IMSS-275-15. 2015."
+  },
+  {
+    cat:"ulc", catName:"Úlcera Péptica",
+    q:"Paciente de 70 años con osteoartritis que requiere uso crónico de AINEs (diclofenaco 75 mg c/12h). Tiene antecedente de úlcera gástrica hace 2 años (cicatrizada), actualmente asintomático. H. pylori negativo. ¿Cuál es la recomendación de la GPC respecto a la profilaxis gastroprotectora?",
+    opts:["No requiere profilaxis ya que está asintomático y H. pylori es negativo","Agregar IBP (omeprazol 20 mg/día) durante todo el tratamiento con AINEs","Sustituir diclofenaco por AINEs selectivos COX-2 sin necesidad de IBP adicional","Usar antiácidos a demanda y vigilar síntomas"],
+    ans:1,
+    exp:"La GPC de gastritis y la guía de profilaxis GI recomiendan el uso concomitante de IBP en pacientes con AINEs que tienen factores de riesgo gastrointestinal. El antecedente de úlcera péptica previa es el factor de riesgo más importante (riesgo 10-15 veces mayor de complicación GI). Otros factores de riesgo incluyen: edad >65 años, uso de anticoagulantes, corticoesteroides, dosis alta de AINEs y presencia de H. pylori. Este paciente tiene 2 factores (úlcera previa + edad >65) lo que hace mandatorio el IBP.",
+    tip:"<strong>Indicaciones absolutas de IBP con AINEs:</strong> Úlcera péptica previa (principal), edad >65 años + dosis alta de AINE, uso simultáneo de anticoagulante o corticoesteroide, H. pylori positivo. Con 1 factor de alto riesgo o 2 de riesgo moderado → IBP obligatorio. El misoprostol es alternativa pero con peor tolerabilidad (diarrea). Los IBP son la profilaxis de elección.",
+    ref:"GPC: Profilaxis, diagnóstico y tratamiento de gastritis aguda (erosiva) en adultos en los tres niveles de atención. SSA/IMSS/ISSSTE."
+  },
+  {
+    cat:"gast", catName:"Gastritis",
+    q:"Paciente de 40 años en UCI por sepsis de foco pulmonar, en ventilación mecánica hace 72 horas. El personal de enfermería reporta aspirado gástrico oscuro y caída del hematócrito de 38% a 30%. ¿Cuál es el diagnóstico y cuál es la indicación profiláctica que debió haberse iniciado desde el ingreso?",
+    opts:["Gastroenteritis viral → suspender sonda nasogástrica y dieta líquida","Úlcera de estrés (gastritis erosiva por estrés) → profilaxis con IBP IV desde el ingreso a UCI","Síndrome de Mallory-Weiss → endoscopia diagnóstica sin profilaxis previa","Úlcera péptica crónica reagudizada → H. pylori como etiología probable"],
+    ans:1,
+    exp:"La úlcera de estrés (gastritis erosiva por estrés) es una complicación frecuente en pacientes críticos, especialmente en ventilación mecánica >48 horas y coagulopatía. La GPC de gastritis establece que estos dos factores son indicaciones absolutas de profilaxis con IBP IV (omeprazol 40 mg IV c/12-24h o pantoprazol 40 mg IV) desde el ingreso a UCI. La ventilación mecánica prolongada aumenta 15 veces el riesgo de sangrado GI clínicamente significativo.",
+    tip:"<strong>Indicaciones de profilaxis de úlcera de estrés en UCI:</strong> Ventilación mecánica >48h (principal), coagulopatía (plaquetas &lt;50,000 o INR >1.5), antecedente de úlcera GI en el último año, TCE grave (úlcera de Cushing: hipersecreción por estimulación vagal), quemaduras >35% (úlcera de Curling: isquemia mucosa). Si el paciente puede recibir nutrición enteral: el alimento per se es protector.",
+    ref:"GPC: Profilaxis, diagnóstico y tratamiento de gastritis aguda (erosiva) en adultos en los tres niveles de atención. SSA/IMSS/ISSSTE."
+  },
+  {
+    cat:"hpyl", catName:"H. pylori",
+    q:"Paciente de 50 años recibió triple terapia (claritromicina + amoxicilina + omeprazol) por 14 días para erradicación de H. pylori asociada a úlcera duodenal. Completó el tratamiento hace 6 semanas. ¿Cuál es el método de elección para confirmar la erradicación y cuándo debe realizarse?",
+    opts:["Serología IgG anti-H. pylori a las 4 semanas del tratamiento","Prueba de aliento con urea C13 mínimo 4 semanas después de completar el tratamiento (suspendiendo IBP 2 semanas antes)","Repetir la endoscopia con biopsias para CLO test a las 2 semanas","Antígeno de H. pylori en heces a las 24 horas de terminar el tratamiento"],
+    ans:1,
+    exp:"La prueba de aliento con urea C13 es el método no invasivo de elección para confirmar erradicación de H. pylori por su alta sensibilidad (>95%) y especificidad (>95%), y porque detecta infección activa (a diferencia de la serología que permanece positiva meses-años tras la erradicación). Debe realizarse mínimo 4 semanas después de terminar el tratamiento. La GPC indica suspender IBP al menos 2 semanas antes de la prueba, ya que suprimen H. pylori sin erradicarlo, pudiendo dar falsos negativos.",
+    tip:"<strong>Reglas para prueba de aliento C13:</strong> Mínimo 4 semanas post-tratamiento. Suspender IBP 2 semanas antes. Suspender antibióticos 4 semanas antes. El antígeno en heces también es válido para seguimiento (suspender IBP 2 semanas antes igualmente). La serología NO sirve para confirmar erradicación. Si H. pylori persiste → segunda línea: cuádruple terapia con bismuto.",
+    ref:"GPC: Manejo de la úlcera péptica en adultos en el primer y segundo niveles de atención. IMSS-DGIS."
+  },
+  {
+    cat:"cx", catName:"Complicaciones",
+    q:"Hombre de 65 años con úlcera duodenal de larga evolución presenta náusea, vómito postprandial tardío (2-4 horas después de comer), saciedad temprana y pérdida de peso de 8 kg en 2 meses. El vómito tiene contenido alimentario sin bilis. La endoscopia muestra deformidad y estenosis del bulbo duodenal. ¿Cuál es la complicación diagnosticada?",
+    opts:["Adenocarcinoma gástrico antral obstructivo","Obstrucción gastroduodenal por úlcera péptica (estenosis pilórica cicatricial)","Síndrome de la arteria mesentérica superior","Gastroparesia diabética"],
+    ans:1,
+    exp:"La obstrucción gastroduodenal (estenosis pilórica cicatricial) es una complicación crónica de la úlcera péptica duodenal o pilórica por cicatrización repetida que estrecha la luz. Se presenta con vómito de contenido alimentario sin bilis (el contenido no ha pasado la obstrucción para recibir bilis), saciedad temprana y pérdida de peso. La GPC establece que la endoscopia con visualización directa de la estenosis y la prueba de retención salina (>200 mL de salina retenida tras 30 minutos) confirman el diagnóstico. El tratamiento incluye corrección hidroelectrolítica, descompresión nasogástrica, IBP y dilatación endoscópica o cirugía.",
+    tip:"<strong>Complicaciones de úlcera péptica y su presentación:</strong> Sangrado (más frecuente, 15-20%): hematemesis/melena. Perforación (2ª en frecuencia): abdomen en tabla + neumoperitoneo. Penetración: dolor que cambia de características, irradia al dorso. Obstrucción (menos frecuente): vómito sin bilis + pérdida de peso. Mnemotecnia: 'SPPOE' (Sangrado, Perforación, Penetración, Obstrucción, En ese orden de frecuencia).",
+    ref:"GPC: Diagnóstico y tratamiento de úlcera péptica complicada en el adulto. IMSS-275-15. 2015."
+  },
+  {
+    cat:"ulc", catName:"Úlcera Péptica",
+    q:"En el tratamiento quirúrgico de la úlcera duodenal refractaria al tratamiento médico, ¿cuál es la ventaja de la vagotomía supraselectiva (altamente selectiva) sobre la vagotomía troncal + antrectomía?",
+    opts:["Mayor reducción de la secreción ácida y menor tasa de recurrencia de úlcera","Preserva el nervio de Latarjet y el vaciamiento gástrico, con menor morbilidad a largo plazo (sin síndrome de vaciamiento rápido ni diarrea postvagotomía)","Mayor facilidad técnica y menor tiempo quirúrgico","Previene mejor las complicaciones como sangrado y perforación a largo plazo"],
+    ans:1,
+    exp:"La vagotomía supraselectiva (o de células parietales) denerva únicamente las células parietales del cuerpo y fondo gástrico, preservando los nervios de Latarjet (inervación del antro y píloro), lo que mantiene el vaciamiento gástrico normal. En contraste, la vagotomía troncal denerva también el antro y los órganos abdominales, requiriendo piloroplastia o antrectomía para el vaciamiento, y se asocia con diarrea postvagotomía (20-30%) y síndrome de vaciamiento rápido (dumping). La GPC señala que la vagotomía supraselectiva tiene menor morbilidad funcional, aunque con mayor tasa de recurrencia (10-15% vs 2-5%).",
+    tip:"<strong>Comparación vagotomías para el ENARM:</strong> Vagotomía supraselectiva: sin drenaje gástrico necesario, preserva vaciamiento, menos efectos secundarios, más recurrencia (10-15%). Vagotomía troncal + piloroplastia/antrectomía: máxima reducción ácida, menor recurrencia (&lt;5%), pero diarrea postvagotomía y dumping más frecuentes. En la era del IBP y erradicación de H. pylori, la cirugía electiva es cada vez menos frecuente.",
+    ref:"GPC: Diagnóstico y tratamiento de úlcera péptica complicada en el adulto. IMSS-275-15. 2015."
+  }
+];
+
+let currentQ = 0, score = 0, answers = [];
+let catStats = { gast:{c:0,t:0}, ulc:{c:0,t:0}, hpyl:{c:0,t:0}, ze:{c:0,t:0}, cx:{c:0,t:0} };
+
+function shuffle(arr) {
+  for (let i=arr.length-1;i>0;i--) {
+    const j=Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+
+function init() {
+  shuffle(questions);
+  currentQ=0; score=0; answers=[];
+  catStats = { gast:{c:0,t:0}, ulc:{c:0,t:0}, hpyl:{c:0,t:0}, ze:{c:0,t:0}, cx:{c:0,t:0} };
+  const r=document.getElementById('resultsArea');
+  r.classList.remove('show'); r.innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const qa=questions[currentQ], total=questions.length;
+  document.getElementById('progressBar').style.width=(currentQ/total*100)+'%';
+  document.getElementById('progressText').textContent=`${currentQ+1} / ${total}`;
+  document.getElementById('nextBtn').classList.remove('show');
+  const letters=['A','B','C','D'];
+  let html=`<div class="question-card">
+    <div class="q-category cat-${qa.cat}">${qa.catName}</div>
+    <div class="q-number">Pregunta ${currentQ+1} de ${total}</div>
+    <div class="q-text">${qa.q}</div>
+    <div class="options">`;
+  qa.opts.forEach((opt,i)=>{
+    html+=`<button class="option-btn" onclick="selectAnswer(${i})" data-idx="${i}">
+      <span class="option-letter">${letters[i]}</span><span>${opt}</span></button>`;
+  });
+  html+=`</div><div class="feedback" id="feedback"></div></div>`;
+  document.getElementById('quizArea').innerHTML=html;
+}
+
+function selectAnswer(idx) {
+  const qa=questions[currentQ];
+  const btns=document.querySelectorAll('.option-btn');
+  const fb=document.getElementById('feedback');
+  const isCorrect=idx===qa.ans;
+  btns.forEach((btn,i)=>{
+    btn.classList.add('disabled'); btn.onclick=null;
+    if(i===qa.ans) btn.classList.add('correct-answer');
+    if(i===idx&&!isCorrect) btn.classList.add('wrong-answer');
+  });
+  if(!catStats[qa.cat]) catStats[qa.cat]={c:0,t:0};
+  catStats[qa.cat].t++;
+  if(isCorrect){score++;catStats[qa.cat].c++;}
+  if(!examMode){
+    fb.className=isCorrect?'feedback correct-fb show':'feedback wrong-fb show';
+    fb.innerHTML=isCorrect
+      ?`<div class="feedback-title">✅ ¡Correcto!</div><div>${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`
+      :`<div class="feedback-title">❌ Incorrecto</div><div><strong>Respuesta correcta:</strong> ${qa.opts[qa.ans]}</div><div style="margin-top:8px;">${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;
+  }
+  answers.push({q:qa.q,correct:isCorrect,userAns:qa.opts[idx],correctAns:qa.opts[qa.ans],cat:qa.catName,exp:qa.exp,ref:qa.ref});
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion() {
+  currentQ++;
+  if(currentQ>=questions.length) showResults();
+  else renderQuestion();
+}
+
+function showResults() {
+  document.getElementById('quizArea').innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  document.getElementById('progressBar').style.width='100%';
+  document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;
+  const pct=Math.round((score/questions.length)*100);
+  const msg=pct>=90?'🏆 ¡Dominio excelente de gastritis y úlcera péptica!':pct>=70?'👏 ¡Muy bien! Repasa los temas con menor puntaje.':pct>=50?'📚 Aceptable, refuerza las áreas débiles.':'⚠️ Revisa las GPC de úlcera péptica y gastritis.';
+  const cats=[
+    {name:'Gastritis',key:'gast',color:'#fbbf24'},
+    {name:'Úlcera Péptica',key:'ulc',color:'#38bdf8'},
+    {name:'H. pylori',key:'hpyl',color:'#a78bfa'},
+    {name:'Zollinger-Ellison',key:'ze',color:'#2dd4bf'},
+    {name:'Complicaciones',key:'cx',color:'#f472b6'},
+  ];
+  let html=`<div class="results-header">
+    <div class="score-big">${pct}%</div>
+    <div class="score-label">${score} de ${questions.length} correctas</div>
+    <div class="score-msg">${msg}</div>
+  </div>
+  <div class="chart-section">
+    <div class="chart-title"><span>📊</span> Rendimiento por Categoría</div>
+    <div class="bar-chart">`;
+  cats.forEach(cat=>{
+    const s=catStats[cat.key]||{c:0,t:0};
+    const p=s.t>0?Math.round((s.c/s.t)*100):0;
+    html+=`<div class="bar-row"><div class="bar-label">${cat.name}</div><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${cat.color};">${p}% (${s.c}/${s.t})</div></div></div>`;
+  });
+  html+=`</div></div>
+  <div class="chart-section">
+    <div class="chart-title"><span>🎯</span> Resumen General</div>
+    <div class="donut-wrap">
+      <svg class="donut-svg" viewBox="0 0 42 42">
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a2235" stroke-width="4"/>
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#34d399" stroke-width="4" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="25" stroke-linecap="round"/>
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#f87171" stroke-width="4" stroke-dasharray="${100-pct} ${pct}" stroke-dashoffset="${25-pct}" stroke-linecap="round"/>
+        <text x="21" y="22.5" text-anchor="middle" font-size="6" font-weight="700" fill="#e8ecf4" font-family="Plus Jakarta Sans">${pct}%</text>
+      </svg>
+      <div class="donut-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#34d399;"></div>Correctas: ${score}</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Incorrectas: ${questions.length-score}</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#38bdf8;"></div>Total: ${questions.length}</div>
+      </div>
+    </div>
+  </div>
+  <div class="chart-section">
+    <div class="chart-title"><span>📋</span> Revisión de Respuestas</div>`;
+  answers.forEach((a,i)=>{
+    html+=`<div class="review-card ${a.correct?'review-correct':'review-wrong'}">
+      <div class="review-q">${i+1}. ${a.q} <span style="font-size:0.72rem;color:var(--text-dim);">[${a.cat}]</span></div>
+      <div class="review-answer">${a.correct?`<strong>✅ ${a.correctAns}</strong>`:`<em>❌ Tu respuesta: ${a.userAns}</em><br><strong>✅ Correcta: ${a.correctAns}</strong>`}</div>
+      <div style="margin-top:8px;font-size:0.8rem;color:var(--text-dim);line-height:1.5;">${a.exp}</div>
+      <div style="margin-top:6px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;">📖 ${a.ref}</div>
+    </div>`;
+  });
+  html+=`</div><button class="retry-btn" onclick="init()">🔄 Reintentar</button>`;
+  const res=document.getElementById('resultsArea');
+  res.innerHTML=html; res.classList.add('show');
+  res.scrollIntoView({behavior:'smooth'});
+}
+
+function toggleSpec(header){header.classList.toggle('open');header.nextElementSibling.classList.toggle('open');}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+
+init();
+</script>
+</body>
+</html>

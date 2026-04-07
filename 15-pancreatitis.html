@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pancreatitis — ENARM · MediCode Solutions</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0a0e1a; --surface: #111827; --surface2: #1a2235; --surface3: #212d45;
+    --border: #2a3a5c; --text: #e8ecf4; --text-dim: #8896b3;
+    --accent: #38bdf8; --accent-glow: rgba(56,189,248,0.15);
+    --correct: #34d399; --correct-bg: rgba(52,211,153,0.1); --correct-border: rgba(52,211,153,0.4);
+    --wrong: #f87171; --wrong-bg: rgba(248,113,113,0.1); --wrong-border: rgba(248,113,113,0.4);
+    --gold: #fbbf24; --purple: #a78bfa; --pink: #f472b6; --teal: #2dd4bf;
+    --sidebar-w: 280px; --radius: 14px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; display:flex; }
+
+  .sidebar {
+    width:var(--sidebar-w); min-height:100vh; background:var(--surface);
+    border-right:1px solid var(--border); display:flex; flex-direction:column;
+    position:fixed; left:0; top:0; bottom:0; overflow-y:auto; z-index:100; transition:transform 0.3s;
+  }
+  .sidebar-logo { padding:24px 20px 16px; border-bottom:1px solid var(--border); }
+  .logo-badge { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,var(--accent),var(--purple)); padding:6px 14px; border-radius:100px; font-size:0.75rem; font-weight:800; color:var(--bg); letter-spacing:0.5px; text-transform:uppercase; margin-bottom:10px; }
+  .sidebar-logo h2 { font-size:1.1rem; font-weight:800; background:linear-gradient(135deg,var(--text),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .sidebar-logo p { font-size:0.72rem; color:var(--text-dim); margin-top:2px; }
+  .back-btn { display:flex; align-items:center; gap:8px; padding:14px 20px; color:var(--text-dim); font-size:0.8rem; text-decoration:none; border-bottom:1px solid var(--border); transition:color 0.2s; }
+  .back-btn:hover { color:var(--accent); }
+  .sidebar-nav { flex:1; padding:12px 0 24px; }
+  .specialty-header { display:flex; align-items:center; justify-content:space-between; padding:10px 16px 10px 20px; cursor:pointer; transition:background 0.2s; user-select:none; }
+  .specialty-header:hover { background:var(--surface2); }
+  .specialty-name { display:flex; align-items:center; gap:10px; font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; }
+  .specialty-icon { width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:0.9rem; flex-shrink:0; }
+  .chevron { font-size:0.65rem; color:var(--text-dim); transition:transform 0.3s; }
+  .specialty-header.open .chevron { transform:rotate(90deg); }
+  .topics-list { display:none; padding:4px 0 8px; }
+  .topics-list.open { display:block; }
+  .topic-link { display:flex; align-items:center; gap:10px; padding:8px 16px 8px 56px; font-size:0.78rem; color:var(--text-dim); text-decoration:none; transition:all 0.2s; border-left:2px solid transparent; line-height:1.4; }
+  .topic-link:hover { color:var(--text); background:var(--surface3); }
+  .topic-link.active { color:var(--accent); border-left-color:var(--accent); background:var(--accent-glow); font-weight:600; }
+  .topic-link.coming-soon { opacity:0.4; cursor:not-allowed; pointer-events:none; }
+  .topic-num { font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--text-dim); min-width:20px; }
+  .badge-soon { margin-left:auto; background:rgba(136,150,179,0.1); color:var(--text-dim); font-size:0.62rem; font-weight:600; padding:2px 7px; border-radius:100px; }
+  .star-tag { margin-left:auto; font-size:0.7rem; }
+
+  .main { margin-left:var(--sidebar-w); flex:1; display:flex; flex-direction:column; }
+  .container { max-width:760px; margin:0 auto; padding:20px 16px 40px; width:100%; }
+
+  .mode-bar { display:flex; align-items:center; gap:10px; margin:24px 0 20px; background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:6px; width:fit-content; }
+  .mode-btn { padding:8px 20px; border-radius:100px; border:none; cursor:pointer; font-family:inherit; font-size:0.82rem; font-weight:600; transition:all 0.2s; color:var(--text-dim); background:transparent; }
+  .mode-btn.active { background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); }
+
+  .header { text-align:center; padding:40px 20px 24px; position:relative; overflow:hidden; }
+  .header::before { content:''; position:absolute; top:-60%; left:50%; transform:translateX(-50%); width:600px; height:600px; background:radial-gradient(circle,rgba(56,189,248,0.08) 0%,transparent 70%); pointer-events:none; }
+  .header-badge { display:inline-flex; align-items:center; gap:8px; background:var(--surface2); border:1px solid var(--border); padding:6px 16px; border-radius:100px; font-size:0.78rem; color:var(--accent); font-weight:600; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:16px; }
+  .header h1 { font-size:clamp(1.6rem,5vw,2.2rem); font-weight:800; background:linear-gradient(135deg,var(--text) 0%,var(--accent) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:8px; }
+  .header p { color:var(--text-dim); font-size:0.95rem; max-width:500px; margin:0 auto; }
+
+  .progress-wrap { background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:12px 20px; margin:20px 0 28px; display:flex; align-items:center; gap:14px; }
+  .progress-bar-bg { flex:1; height:8px; background:var(--surface3); border-radius:100px; overflow:hidden; }
+  .progress-bar-fill { height:100%; width:0%; background:linear-gradient(90deg,var(--accent),var(--purple)); border-radius:100px; transition:width 0.5s ease; }
+  .progress-text { font-size:0.82rem; font-weight:600; color:var(--text-dim); white-space:nowrap; font-family:'JetBrains Mono',monospace; }
+
+  .question-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:28px 24px; margin-bottom:20px; animation:slideIn 0.4s ease; position:relative; overflow:hidden; }
+  .question-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--gold),var(--accent),var(--purple)); }
+  @keyframes slideIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+  .q-category { display:inline-flex; align-items:center; gap:6px; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; padding:4px 12px; border-radius:100px; margin-bottom:14px; }
+  .cat-diag  { background:rgba(251,191,36,0.12); color:var(--gold); }
+  .cat-sev   { background:rgba(56,189,248,0.12); color:var(--accent); }
+  .cat-comp  { background:rgba(244,114,182,0.12); color:var(--pink); }
+  .cat-man   { background:rgba(167,139,250,0.12); color:var(--purple); }
+  .cat-cron  { background:rgba(52,211,153,0.12);  color:var(--correct); }
+
+  .q-number { font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--text-dim); margin-bottom:10px; }
+  .q-text { font-size:1.05rem; font-weight:600; line-height:1.55; margin-bottom:20px; color:var(--text); }
+
+  .options { display:flex; flex-direction:column; gap:10px; }
+  .option-btn { display:flex; align-items:flex-start; gap:12px; padding:14px 16px; background:var(--surface2); border:1.5px solid var(--border); border-radius:12px; cursor:pointer; transition:all 0.2s; text-align:left; font-size:0.92rem; color:var(--text); font-family:inherit; line-height:1.5; width:100%; }
+  .option-btn:hover:not(.disabled) { border-color:var(--accent); background:var(--accent-glow); transform:translateX(4px); }
+  .option-letter { display:flex; align-items:center; justify-content:center; min-width:30px; height:30px; border-radius:8px; background:var(--surface3); font-weight:700; font-size:0.82rem; color:var(--accent); flex-shrink:0; }
+  .option-btn.correct-answer { border-color:var(--correct-border); background:var(--correct-bg); }
+  .option-btn.correct-answer .option-letter { background:var(--correct); color:var(--bg); }
+  .option-btn.wrong-answer { border-color:var(--wrong-border); background:var(--wrong-bg); }
+  .option-btn.wrong-answer .option-letter { background:var(--wrong); color:var(--bg); }
+  .option-btn.disabled { cursor:default; }
+  .option-btn.disabled:hover { transform:none; }
+
+  .feedback { margin-top:18px; padding:18px; border-radius:12px; font-size:0.88rem; line-height:1.65; animation:fadeIn 0.3s ease; display:none; }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  .feedback.show { display:block; }
+  .feedback.correct-fb { background:var(--correct-bg); border:1px solid var(--correct-border); color:var(--correct); }
+  .feedback.wrong-fb { background:var(--wrong-bg); border:1px solid var(--wrong-border); color:#fca5a5; }
+  .feedback-title { font-weight:700; font-size:0.95rem; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
+  .feedback .tip { margin-top:10px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.08); color:var(--text-dim); font-size:0.82rem; }
+  .feedback .tip strong { color:var(--gold); }
+  .feedback .ref { margin-top:8px; font-size:0.75rem; color:var(--text-dim); opacity:0.7; font-style:italic; }
+
+  .next-btn { display:none; margin:20px auto 0; padding:12px 32px; background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:0.92rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+  .next-btn:hover { transform:scale(1.05); box-shadow:0 4px 24px var(--accent-glow); }
+  .next-btn.show { display:block; }
+
+  .results { display:none; animation:slideIn 0.5s ease; }
+  .results.show { display:block; }
+  .results-header { text-align:center; padding:30px 20px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:20px; position:relative; overflow:hidden; }
+  .results-header::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--correct),var(--accent),var(--purple),var(--pink)); }
+  .score-big { font-size:3.5rem; font-weight:800; background:linear-gradient(135deg,var(--correct),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .score-label { font-size:1.1rem; color:var(--text-dim); margin-top:4px; }
+  .score-msg { margin-top:12px; font-size:0.95rem; color:var(--text); font-weight:500; }
+  .chart-section { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px 20px; margin-bottom:20px; }
+  .chart-title { font-size:0.95rem; font-weight:700; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
+  .bar-chart { display:flex; flex-direction:column; gap:14px; }
+  .bar-row { display:flex; align-items:center; gap:12px; }
+  .bar-label { width:130px; font-size:0.78rem; font-weight:600; text-align:right; color:var(--text-dim); flex-shrink:0; }
+  .bar-track { flex:1; height:28px; background:var(--surface3); border-radius:8px; overflow:hidden; }
+  .bar-fill { height:100%; border-radius:8px; transition:width 1s ease; display:flex; align-items:center; padding-left:10px; font-size:0.75rem; font-weight:700; color:var(--bg); min-width:fit-content; }
+  .donut-wrap { display:flex; align-items:center; justify-content:center; gap:30px; flex-wrap:wrap; }
+  .donut-svg { width:160px; height:160px; }
+  .donut-legend { display:flex; flex-direction:column; gap:10px; }
+  .legend-item { display:flex; align-items:center; gap:10px; font-size:0.84rem; }
+  .legend-dot { width:12px; height:12px; border-radius:4px; flex-shrink:0; }
+  .review-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; margin-bottom:12px; }
+  .review-card.review-correct { border-left:4px solid var(--correct); }
+  .review-card.review-wrong { border-left:4px solid var(--wrong); }
+  .review-q { font-size:0.88rem; font-weight:600; margin-bottom:8px; }
+  .review-answer { font-size:0.82rem; color:var(--text-dim); line-height:1.5; }
+  .review-answer strong { color:var(--correct); }
+  .review-answer em { color:var(--wrong); font-style:normal; }
+  .retry-btn { display:block; margin:28px auto; padding:14px 40px; background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:1rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+  .retry-btn:hover { transform:scale(1.05); }
+  .hamburger { display:none; position:fixed; top:16px; left:16px; z-index:200; background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:10px; cursor:pointer; font-size:1.2rem; }
+  .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:90; }
+  .footer { text-align:center; padding:20px; color:var(--text-dim); font-size:0.72rem; opacity:0.5; }
+
+  @media(max-width:768px) {
+    .sidebar { transform:translateX(-100%); }
+    .sidebar.open { transform:translateX(0); }
+    .main { margin-left:0; }
+    .hamburger { display:flex; align-items:center; justify-content:center; }
+    .overlay.show { display:block; }
+    .container { padding:12px 10px 30px; }
+    .question-card { padding:20px 16px; }
+    .bar-label { width:90px; font-size:0.72rem; }
+    .mode-bar { margin:16px auto; }
+  }
+</style>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-badge">🩺 MCS</div>
+    <h2>ENARM · Banco de Preguntas</h2>
+    <p>2025–2026</p>
+  </div>
+  <a href="index.html" class="back-btn">← Volver al inicio</a>
+  <nav class="sidebar-nav">
+    <div class="specialty-group">
+      <div class="specialty-header open" onclick="toggleSpec(this)">
+        <div class="specialty-name">
+          <div class="specialty-icon" style="background:rgba(56,189,248,0.12);color:#38bdf8;">🔪</div>
+          Cirugía General
+        </div>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="topics-list open">
+        <a href="01-apendicitis.html" class="topic-link"><span class="topic-num">01</span>Abdomen agudo / Apendicitis<span class="star-tag">⭐</span></a>
+        <a href="02-patologia-biliar.html" class="topic-link"><span class="topic-num">02</span>Patología biliar<span class="star-tag">⭐</span></a>
+        <a href="03-enfermedad-diverticular.html" class="topic-link"><span class="topic-num">03</span>Enfermedad diverticular</a>
+        <a href="04-erge-esofagitis-dispepsia.html" class="topic-link"><span class="topic-num">04</span>ERGE / Esofagitis / Dispepsia</a>
+        <a href="05-cancer-esofago-gastrico.html" class="topic-link"><span class="topic-num">05</span>Cáncer esófago / gástrico</a>
+        <a href="06-gastritis-ulcera-peptica.html" class="topic-link"><span class="topic-num">06</span>Gastritis / Úlcera péptica</a>
+        <a href="07-obesidad-bariatrica.html" class="topic-link"><span class="topic-num">07</span>Obesidad / Bariátrica</a>
+        <a href="08-patologia-perianal.html" class="topic-link"><span class="topic-num">08</span>Patología perianal</a>
+        <a href="09-hernias-esplenectomia.html" class="topic-link"><span class="topic-num">09</span>Hernias / Esplenectomía</a>
+        <a href="10-insuficiencia-venosa-arterial.html" class="topic-link"><span class="topic-num">10</span>Insuf. venosa y arterial</a>
+        <a href="11-oclusion-volvulos-isquemia.html" class="topic-link"><span class="topic-num">11</span>Oclusión / Vólvulos / Isquemia</a>
+        <a href="12-cancer-colon.html" class="topic-link"><span class="topic-num">12</span>Cáncer de colon</a>
+        <a href="13-cancer-hepatico.html" class="topic-link"><span class="topic-num">13</span>Cáncer hepático</a>
+        <a href="14-cancer-pancreas-trasplante.html" class="topic-link"><span class="topic-num">14</span>Cáncer páncreas / Trasplante</a>
+        <a href="15-pancreatitis.html" class="topic-link active"><span class="topic-num">15</span>Pancreatitis<span class="star-tag">⭐</span></a>
+        <a href="16-mordeduras-picaduras.html" class="topic-link"><span class="topic-num">16</span>Mordeduras / Picaduras</a>
+        <a href="17-quemaduras.html" class="topic-link"><span class="topic-num">17</span>Quemaduras</a>
+        <a href="18-atls1.html" class="topic-link"><span class="topic-num">18</span>ATLS 1</a>
+        <a href="19-atls2.html" class="topic-link"><span class="topic-num">19</span>ATLS 2</a>
+        <a href="20-patologia-quirurgica.html" class="topic-link"><span class="topic-num">20</span>Patología quirúrgica</a>
+      </div>
+    </div>
+  </nav>
+</aside>
+
+<main class="main">
+<div class="container">
+
+  <div class="header">
+    <div class="header-badge"><span>🔪</span> ENARM · Cirugía General · Tema 15</div>
+    <h1>Pancreatitis Aguda y Crónica</h1>
+    <p>Clasificación de Atlanta · Criterios de severidad · Necrosis pancreática · Pancreatitis crónica</p>
+  </div>
+
+  <div style="display:flex;justify-content:center;">
+    <div class="mode-bar">
+      <button class="mode-btn active" id="btnRepaso" onclick="setMode('repaso')">📖 Modo Repaso</button>
+      <button class="mode-btn" id="btnExamen" onclick="setMode('examen')">⏱️ Modo Examen</button>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 15</div>
+  </div>
+
+  <div id="quizArea"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+  <div class="results" id="resultsArea"></div>
+
+</div>
+<div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+</main>
+
+<script>
+let examMode = false;
+
+function setMode(mode) {
+  examMode = (mode === 'examen');
+  document.getElementById('btnRepaso').classList.toggle('active', !examMode);
+  document.getElementById('btnExamen').classList.toggle('active', examMode);
+  init();
+}
+
+const questions = [
+  {
+    cat:"diag", catName:"Diagnóstico/Criterios",
+    q:"Paciente masculino de 48 años llega a urgencias con dolor abdominal intenso en epigastrio con irradiación en cinturón hacia la espalda, náusea y vómito de 8 horas de evolución. Tiene antecedente de consumo de alcohol. Amilasa sérica 780 U/L (VN <100) y lipasa sérica 950 U/L (VN <60). ¿Cuántos de los criterios diagnósticos de pancreatitis aguda cumple?",
+    opts:["Solo 1 criterio (solo enzimas elevadas)","2 de 3 criterios (dolor abdominal típico + enzimas ≥3x el límite normal)","Los 3 criterios (dolor + enzimas + imagen confirmatoria en TC)","Ningún criterio; se necesita TC para diagnosticar"],
+    ans:1,
+    exp:"El diagnóstico de pancreatitis aguda requiere al menos 2 de 3 criterios: (1) dolor abdominal característico en epigastrio con irradiación en cinturón, (2) amilasa o lipasa sérica ≥3 veces el límite superior normal, y (3) hallazgos confirmatorios en imagen (TC o USG). Este paciente cumple los criterios 1 y 2: dolor epigástrico típico con irradiación y lipasa 950 U/L (>3x normal). La TC no es necesaria para el diagnóstico cuando se cumplen los primeros dos criterios.",
+    tip:"<strong>Regla del 2 de 3:</strong> Dolor típico + Enzimas ≥3x = Diagnóstico confirmado. No necesitas TC de rutina al ingreso. La TC con contraste se reserva para evaluar complicaciones (necrosis) o cuando el diagnóstico es dudoso. Solicitar TC innecesaria aumenta radiación y costos.",
+    ref:"GPC: Diagnóstico y tratamiento de la pancreatitis aguda. IMSS-2022. Actualización en el manejo inicial de la pancreatitis aguda. 2019."
+  },
+  {
+    cat:"diag", catName:"Diagnóstico/Criterios",
+    q:"En un paciente con sospecha de pancreatitis aguda, ¿cuál enzima pancreática es más específica para el diagnóstico y por qué?",
+    opts:["Amilasa, porque se eleva más precozmente y en mayor magnitud","Lipasa, porque es más específica para páncreas y permanece elevada por más tiempo","Amilasa, porque es el estándar de oro según todas las GPC","Ambas tienen la misma especificidad diagnóstica"],
+    ans:1,
+    exp:"La lipasa sérica es más específica que la amilasa para el diagnóstico de pancreatitis aguda. La amilasa puede elevarse en otras condiciones (parotiditis, perforación intestinal, isquemia mesentérica, insuficiencia renal, macroamilasemia). La lipasa se eleva casi exclusivamente en patología pancreática, tiene mayor sensibilidad (85-100% vs 67-83%) y permanece elevada más tiempo (7-14 días vs 3-5 días), siendo útil en presentaciones tardías.",
+    tip:"<strong>Lipasa &gt; Amilasa en especificidad:</strong> La amilasa puede ser normal hasta en 20% de pancreatitis por hipertrigliceridemia (los triglicéridos interfieren con el ensayo). La lipasa no tiene este problema. En alcoholismo crónico, la amilasa puede no elevarse por agotamiento de la reserva pancreática. Siempre pide ambas, pero confía más en la lipasa.",
+    ref:"GPC: Diagnóstico y tratamiento de la pancreatitis aguda. IMSS-2022."
+  },
+  {
+    cat:"diag", catName:"Diagnóstico/Criterios",
+    q:"¿Cuál es la causa más frecuente de pancreatitis aguda en México y a nivel mundial, y cuál ocupa el segundo lugar?",
+    opts:["#1 Alcohol (35%), #2 Biliar/colelitiasis (40%)","#1 Biliar/colelitiasis (~40%), #2 Alcohol (~35%)","#1 Hipertrigliceridemia, #2 Idiopática","#1 CPRE iatrogénica, #2 Biliar"],
+    ans:1,
+    exp:"La causa más frecuente de pancreatitis aguda a nivel mundial es la biliar/colelitiasis (aproximadamente 40%), seguida del alcohol (aproximadamente 35%). Un cálculo migrado al colédoco puede obstruir el esfínter de Oddi y el conducto pancreático, generando activación de enzimas pancreáticas. Otras causas incluyen: hipertrigliceridemia >1000 mg/dL, medicamentos, post-CPRE (3-5%), hipercalcemia, traumatismo y causas idiopáticas.",
+    tip:"<strong>Mnemotecnia de causas (I GET SMASHED):</strong> Idiopática, Gallstones (cálculos), Etanol, Trauma, Steroids, Mumps/Malignancy, Autoimmune, Scorpion stings, Hyperlipidemia/Hypercalcemia, ERCP, Drugs. En México: biliar &gt; alcohol. En jóvenes: alcohol más frecuente. Siempre buscar hipertrigliceridemia (requiere tratamiento específico).",
+    ref:"GPC: Diagnóstico y tratamiento de la pancreatitis aguda. IMSS-2022. Actualización en el manejo inicial de la pancreatitis aguda. 2019."
+  },
+  {
+    cat:"sev", catName:"Severidad/Clasificación",
+    q:"Según la Clasificación de Atlanta Revisada 2012, ¿cómo se define la pancreatitis aguda moderadamente grave?",
+    opts:["Falla orgánica persistente >48 horas sin complicaciones locales","Falla orgánica transitoria que se resuelve en <48 horas y/o presencia de complicaciones locales (colección, necrosis)","Ausencia de falla orgánica y ausencia de complicaciones locales o sistémicas","Falla orgánica persistente >48 horas con necrosis infectada"],
+    ans:1,
+    exp:"La Clasificación de Atlanta Revisada 2012 define tres grados de severidad: (1) Pancreatitis leve: sin falla orgánica y sin complicaciones locales o sistémicas — mortalidad &lt;1%. (2) Pancreatitis moderadamente grave: falla orgánica transitoria que se resuelve en menos de 48 horas Y/O presencia de complicaciones locales (colección líquida, necrosis) — mortalidad ~8%. (3) Pancreatitis grave: falla orgánica persistente >48 horas — mortalidad 30-50%.",
+    tip:"<strong>Atlanta Revisada 2012 — clave el tiempo de 48h:</strong> Falla orgánica &lt;48h = moderadamente grave. Falla orgánica &gt;48h = grave. La falla orgánica se evalúa con el Score de Marshall modificado: cardiovascular (PAM), respiratorio (PaO2/FiO2), renal (creatinina). Score ≥2 en cualquier órgano = falla orgánica. Mortalidad se dispara en falla orgánica persistente.",
+    ref:"GPC: Diagnóstico y tratamiento de la pancreatitis aguda. IMSS-2022."
+  },
+  {
+    cat:"sev", catName:"Severidad/Clasificación",
+    q:"Un paciente con pancreatitis aguda tiene al ingreso: edad 60 años, leucocitos 18,000/mm³, glucosa 220 mg/dL, LDH 400 U/L y AST 280 U/L. A las 48 horas: hematócrito disminuyó 12%, BUN aumentó 7 mg/dL, calcio 7.5 mg/dL, PaO2 55 mmHg, secuestro de líquidos 7 litros y déficit de base -5. ¿Cuántos criterios de Ranson tiene y qué indica?",
+    opts:["3 criterios de Ranson — pancreatitis leve","6 criterios de Ranson — pancreatitis grave con alta mortalidad","4 criterios de Ranson — riesgo moderado","2 criterios de Ranson — pronóstico favorable"],
+    ans:1,
+    exp:"Los criterios de Ranson al ingreso son 5: edad >55 años (sí, 60), leucocitos >16,000 (sí, 18,000), glucosa >200 mg/dL (sí, 220), LDH >350 U/L (sí, 400), AST >250 U/L (sí, 280) = 5 criterios al ingreso. A las 48h son 6: hematócrito ↓>10% (sí, 12%), BUN ↑>5 mg/dL (sí, 7 mg/dL), calcio <8 mg/dL (sí, 7.5), PaO2 <60 mmHg (sí, 55), secuestro líquidos >6L (sí, 7L), déficit base >4 (sí, -5) = 6 criterios a las 48h. Total = 11 criterios (≥3 = grave; ≥7 = mortalidad >50%).",
+    tip:"<strong>Ranson al ingreso (5):</strong> Edad &gt;55, Leucos &gt;16K, Glucosa &gt;200, LDH &gt;350, AST &gt;250. <strong>A las 48h (6):</strong> Hto ↓&gt;10%, BUN ↑&gt;5, Ca &lt;8, PaO2 &lt;60, Líquidos &gt;6L, Déficit base &gt;4. Ranson ≥3 = grave. Limitación: requiere 48h para calcularse completamente. No sirve para reevaluar pronóstico.",
+    ref:"GPC: Diagnóstico y tratamiento de la pancreatitis aguda. IMSS-2022."
+  },
+  {
+    cat:"sev", catName:"Severidad/Clasificación",
+    q:"¿Qué sistema de puntuación de severidad en pancreatitis aguda puede calcularse al ingreso con 5 parámetros simples y se asocia a mayor mortalidad cuando el score es ≥3?",
+    opts:["Score APACHE II","Score BISAP (Bedside Index for Severity in Acute Pancreatitis)","Criterios de Ranson","Score de Balthazar en TC"],
+    ans:1,
+    exp:"El score BISAP (Bedside Index for Severity in Acute Pancreatitis) se calcula al ingreso con 5 parámetros, 1 punto cada uno: BUN >25 mg/dL, alteración del estado mental (Glasgow &lt;15), SIRS (≥2 criterios: FC>90, FR>20, Temp>38 o &lt;36, Leucos>12K o &lt;4K), edad >60 años, derrame pleural en imagen. BISAP ≥3 se asocia con falla orgánica, necrosis pancreática y mortalidad elevada (>20%). Su ventaja es la simplicidad y disponibilidad inmediata.",
+    tip:"<strong>BISAP = BUN + Impaired mentation + SIRS + Age &gt;60 + Pleural effusion.</strong> Ventajas: calculable en minutos al ingreso con datos clínicos básicos. Score ≥3 = alto riesgo. Comparado con Ranson: BISAP es más rápido (no requiere 48h) y más sencillo. Comparado con APACHE II: BISAP es mucho más práctico en urgencias.",
+    ref:"GPC: Diagnóstico y tratamiento de la pancreatitis aguda. IMSS-2022. Actualización en el manejo inicial de la pancreatitis aguda. 2019."
+  },
+  {
+    cat:"diag", catName:"Diagnóstico/Criterios",
+    q:"Paciente con pancreatitis aguda grave presenta equimosis en flancos bilaterales. ¿Cómo se denomina este signo, qué otro signo cutáneo se asocia a peor pronóstico y qué indica fisiopatológicamente?",
+    opts:["Signo de Murphy (flancos) y signo de Blumberg (periumbilical) — indican peritonitis","Signo de Grey Turner (flancos) y signo de Cullen (periumbilical) — indican necrosis grasa retroperitoneal","Signo de Chvostek (flancos) y signo de Trousseau (periumbilical) — indican hipocalcemia","Signo de Courvoisier (flancos) y signo de Virchow (periumbilical) — indican ictericia obstructiva"],
+    ans:1,
+    exp:"El signo de Grey Turner es la equimosis en flancos y el signo de Cullen es la equimosis periumbilical. Ambos aparecen en pancreatitis aguda grave por extravasación de sangre y líquido retroperitoneal con necrosis grasa extensiva. Su aparición es tardía (24-72h) y ambos son indicadores de mal pronóstico, asociándose con necrosis pancreática extensa, hemorragia retroperitoneal y alta mortalidad (>30%). Son signos de necrosis grasa retroperitoneal con disección de sangre a planos fasciales.",
+    tip:"<strong>Nemotecnia:</strong> Grey Turner = Flancos (laterales, como 'Turner' suena a 'girar/lateral'). Cullen = periUmbilical (C de Cullen = C de Centro/Ombligo). Ambos = MAL PRONÓSTICO. Fisiopatología: la lipasa activa digiere la grasa retroperitoneal, los vasos se rompen, la sangre diseca los planos fasciales hasta llegar a la piel. Aparición tardía = ya hay necrosis establecida.",
+    ref:"GPC: Diagnóstico y tratamiento de la pancreatitis aguda. IMSS-2022."
+  },
+  {
+    cat:"man", catName:"Manejo/Tratamiento",
+    q:"¿Cuál es el pilar fundamental del manejo inicial de la pancreatitis aguda en las primeras 24 horas y cuál es la solución de elección?",
+    opts:["Antibióticos profilácticos de amplio espectro IV para prevenir necrosis infectada","Hidratación agresiva con Ringer lactato 250-500 mL/hora en las primeras 24 horas","Nutrición parenteral total inmediata para reposo pancreático","Inhibidores de la bomba de protones y octreótido para disminuir secreción pancreática"],
+    ans:1,
+    exp:"La hidratación agresiva con cristaloides es el pilar del manejo inicial de la pancreatitis aguda. La solución de elección es el Ringer lactato (vs solución salina 0.9%), ya que múltiples estudios demuestran menor incidencia de síndrome inflamatorio sistémico, menor progresión a necrosis y menor mortalidad. Se administran 250-500 mL/hora en las primeras 24 horas (125-150 mL/h en ancianos o cardiopáticos). La fluidoterapia agresiva mejora la perfusión pancreática y evita la progresión del edema intersticial a necrosis.",
+    tip:"<strong>Ringer Lactato &gt; Solución Salina 0.9%:</strong> La solución salina provoca acidosis hiperclorémica y empeora la inflamación. El Ringer lactato tiene pH más fisiológico y contiene lactato (precursor del bicarbonato). Metas de la hidratación: FC &lt;120, PAM 65-85 mmHg, gasto urinario >0.5 mL/kg/h, BUN decreciente. Evitar sobrerehidratación en cardiopátas — aumenta riesgo de SIRS por tercer espacio abdominal.",
+    ref:"GPC: Diagnóstico y tratamiento de la pancreatitis aguda. IMSS-2022. Actualización en el manejo inicial de la pancreatitis aguda. 2019."
+  },
+  {
+    cat:"man", catName:"Manejo/Tratamiento",
+    q:"En pancreatitis aguda grave, ¿cuál es la estrategia de soporte nutricional de elección y cuándo debe iniciarse?",
+    opts:["Nutrición parenteral total desde el ingreso para reposo pancreático absoluto","Nutrición enteral por sonda nasoyeyunal iniciando a las 24-48 horas del ingreso","Ayuno total hasta la resolución clínica (normalización de enzimas y dolor)","Dieta oral blanda hipograsa desde las primeras 24 horas si el paciente tolera"],
+    ans:1,
+    exp:"En pancreatitis aguda grave, la nutrición enteral por sonda nasoyeyunal es el soporte nutricional de elección, iniciando entre las 24-48 horas del ingreso. La alimentación nasoyeyunal (más allá del ángulo de Treitz) no estimula la secreción pancreática exocrina. La nutrición enteral preserva la barrera intestinal, previene la traslocación bacteriana (mecanismo principal de necrosis infectada) y se asocia a menor mortalidad, menos complicaciones infecciosas y menor estancia hospitalaria que la nutrición parenteral.",
+    tip:"<strong>Enteral &gt; Parenteral en pancreatitis grave:</strong> La nutrición parenteral total se asocia a mayor riesgo de infección (catéter venoso central, traslocación bacteriana al no usar el intestino), atrofia de la mucosa intestinal y mayor costo. La sonda nasoyeyunal evita estimular el páncreas (el estímulo pancreático es duodenal). Si no tolera nasoyeyunal, usar nasogástrica puede ser igual de seguro según evidencia reciente.",
+    ref:"GPC: Diagnóstico y tratamiento de la pancreatitis aguda. IMSS-2022."
+  },
+  {
+    cat:"man", catName:"Manejo/Tratamiento",
+    q:"¿En cuál de las siguientes situaciones está INDICADA la CPRE urgente en pancreatitis aguda de origen biliar?",
+    opts:["En toda pancreatitis aguda biliar para limpiar el colédoco y prevenir recurrencias","En pancreatitis aguda biliar asociada a colangitis aguda o bilirrubina muy elevada con deterioro clínico progresivo","En pancreatitis leve de origen biliar como parte del protocolo estándar en las primeras 24h","En pancreatitis grave para descomprimir el conducto pancreático principal"],
+    ans:1,
+    exp:"La CPRE urgente está indicada en pancreatitis aguda biliar únicamente cuando existe colangitis aguda asociada (fiebre, ictericia, signos de sepsis) o cuando hay obstrucción biliar persistente con bilirrubina muy elevada y deterioro clínico. No se recomienda la CPRE de rutina en pancreatitis biliar sin evidencia de obstrucción persistente o colangitis, ya que no mejora el pronóstico y tiene riesgo de complicaciones (pancreatitis post-CPRE, perforación, hemorragia). En pancreatitis biliar sin colangitis, la colecistectomía laparoscópica electiva es el tratamiento definitivo.",
+    tip:"<strong>CPRE urgente = solo con colangitis o ictericia obstructiva persistente:</strong> Si hay colangitis (fiebre + ictericia + dolor = Charcot) → CPRE en &lt;24-72h. Si pancreatitis biliar sin colangitis → manejo conservador → colecistectomía laparoscópica en el mismo ingreso (pancreatitis leve) o diferida 4-6 semanas (grave). La CPRE rutinaria NO reduce complicaciones ni mortalidad en pancreatitis biliar sin colangitis.",
+    ref:"GPC: Diagnóstico y tratamiento de la pancreatitis aguda. IMSS-2022. Actualización en el manejo inicial de la pancreatitis aguda. 2019."
+  },
+  {
+    cat:"man", catName:"Manejo/Tratamiento",
+    q:"¿Cuál es la indicación correcta del uso de antibióticos en pancreatitis aguda según la evidencia actual?",
+    opts:["Antibióticos profilácticos de amplio espectro en toda pancreatitis aguda para prevenir infección","Antibióticos profilácticos solo en pancreatitis grave con necrosis >30% en TC","Antibióticos NO profilácticos; solo indicados ante sospecha o confirmación de necrosis infectada","Antibióticos durante los primeros 7 días en toda pancreatitis moderada-grave"],
+    ans:2,
+    exp:"Los antibióticos NO deben usarse de forma profiláctica en pancreatitis aguda, incluso en casos graves con necrosis. Múltiples metaanálisis y ensayos clínicos aleatorizados han demostrado que los antibióticos profilácticos no reducen la incidencia de necrosis infectada, la mortalidad ni las complicaciones. Los antibióticos están indicados únicamente cuando existe sospecha clínica o confirmación de necrosis infectada (gas en TC, deterioro clínico, fiebre persistente >72h, biopsia con aspiración por aguja fina positiva o cultivo positivo de drenaje).",
+    tip:"<strong>NO a los antibióticos profilácticos en pancreatitis:</strong> Esta es una pregunta ENARM clásica. El error común es dar carbapenémicos 'por si acaso'. La evidencia es contundente: no hay beneficio y genera resistencia. Sospecha de infección → aspiración por aguja fina (PAAF) guiada por TC o EUS para cultivo → si positivo → antibióticos + drenaje. La presencia de gas en TC (signo de infección) puede obviar la PAAF.",
+    ref:"GPC: Diagnóstico y tratamiento de la pancreatitis aguda. IMSS-2022."
+  },
+  {
+    cat:"comp", catName:"Complicaciones",
+    q:"Según la Clasificación de Atlanta Revisada 2012, ¿cuál es la diferencia entre un pseudoquiste pancreático y una necrosis encapsulada (walled-off necrosis)?",
+    opts:["El pseudoquiste contiene material sólido necrótico y la walled-off necrosis es solo líquido; ambas aparecen antes de las 4 semanas","El pseudoquiste es una colección de líquido puro sin material sólido que aparece después de 4 semanas; la walled-off necrosis contiene material sólido y/o semisólido y también aparece después de 4 semanas","El pseudoquiste siempre requiere drenaje quirúrgico y la walled-off necrosis se resuelve espontáneamente","Son la misma entidad con diferentes nombres según el centro médico"],
+    ans:1,
+    exp:"Según Atlanta 2012, las colecciones pancreáticas se clasifican según contenido y tiempo de evolución. En pancreatitis intersticial edematosa: colección líquida aguda peripancreática (&lt;4 semanas, sin pared definida, solo líquido) y pseudoquiste pancreático (>4 semanas, pared bien definida, contenido líquido puro). En pancreatitis necrotizante: colección necrótica aguda (&lt;4 semanas, contenido sólido/semisólido, sin pared) y necrosis encapsulada o walled-off necrosis (>4 semanas, pared bien definida, contenido sólido/semisólido/necrótico).",
+    tip:"<strong>Clasificación de colecciones (Atlanta 2012):</strong><br>Tiempo: &lt;4 sem = aguda, &gt;4 sem = madura (tiene pared).<br>Contenido: Solo líquido = colección líquida/pseudoquiste. Sólido-necrótico = colección necrótica/walled-off necrosis.<br>La walled-off necrosis es importante porque NO puede drenarse solo con aguja (contenido sólido) — requiere desbridamiento endoscópico, percutáneo o quirúrgico.",
+    ref:"GPC: Diagnóstico y tratamiento de la pancreatitis aguda. IMSS-2022."
+  },
+  {
+    cat:"comp", catName:"Complicaciones",
+    q:"Un paciente con pancreatitis aguda grave evoluciona con fiebre persistente a los 12 días, deterioro clínico y la TC muestra burbujas de gas en el área de necrosis pancreática. ¿Cuál es el abordaje terapéutico correcto (step-up approach)?",
+    opts:["Cirugía abierta inmediata con necrosectomía pancreática de urgencia","Drenaje percutáneo o endoscópico como primer paso; escalar a cirugía solo si falla (step-up approach)","Antibióticos solos sin drenaje durante 4-6 semanas y reevaluar","CPRE urgente para drenar el conducto pancreático"],
+    ans:1,
+    exp:"La necrosis infectada se maneja con el 'step-up approach': primero drenaje mínimamente invasivo (percutáneo guiado por TC o drenaje endoscópico transgástrico bajo ecoendoscopia), y escalar a cirugía (necrosectomía) solo si el drenaje mínimamente invasivo falla. Este abordaje escalonado reduce significativamente la mortalidad y morbilidad comparado con la necrosectomía abierta primaria. El gas en la TC es patognomónico de infección por gérmenes productores de gas y puede obviar la necesidad de biopsia. Los antibióticos se inician simultáneamente (carbapenémicos de primera elección por penetración en tejido pancreático).",
+    tip:"<strong>Step-up approach = escalar de menor a mayor invasividad:</strong> (1) Antibióticos + drenaje percutáneo/endoscópico → (2) si falla → videoscopía retroperitoneal o desbridamiento endoscópico → (3) si falla → cirugía abierta. Esperar 4+ semanas para intervenir permite que la necrosis se encapsule (walled-off) y facilita el drenaje. Intervención quirúrgica precoz (&lt;14 días) tiene mortalidad muy alta.",
+    ref:"GPC: Diagnóstico y tratamiento de la pancreatitis aguda. IMSS-2022."
+  },
+  {
+    cat:"cron", catName:"Pancreatitis Crónica",
+    q:"Paciente masculino de 52 años con antecedente de alcoholismo crónico de 20 años presenta dolor abdominal crónico, pérdida de peso significativa y esteatorrea (heces grasosas, malolientes). La Rx de abdomen simple muestra calcificaciones en proyección del páncreas. ¿Cuál es el diagnóstico y qué mecanismo explica la esteatorrea?",
+    opts:["Cáncer de páncreas; la esteatorrea por obstrucción del conducto biliar común","Pancreatitis crónica; insuficiencia exocrina pancreática por pérdida de acinos secretores de lipasa","Enfermedad de Crohn; la esteatorrea por malabsorción de ácidos biliares en íleon terminal","Pancreatitis aguda recurrente; la esteatorrea por fístula pancreática"],
+    ans:1,
+    exp:"La pancreatitis crónica se caracteriza por inflamación progresiva con fibrosis y destrucción del parénquima pancreático. El alcohol es la causa más frecuente (#1 en adultos). Las calcificaciones pancreáticas en Rx o TC son patognomónicas. La esteatorrea ocurre por insuficiencia exocrina pancreática: cuando se pierde >90% de la función exocrina, no se produce suficiente lipasa para digerir las grasas → malabsorción de grasas → esteatorrea. También hay déficit de vitaminas liposolubles (A, D, E, K). La insuficiencia endocrina (diabetes pancreática) aparece tardíamente.",
+    tip:"<strong>Pancreatitis crónica = 3 pilares:</strong> (1) Dolor crónico (el más difícil de manejar). (2) Insuficiencia exocrina: esteatorrea + déficit vitaminas ADEK (necesita enzimas pancreáticas sustitutivas). (3) Insuficiencia endocrina: diabetes tipo 3c (resistente a tratamiento, hipoglucemias frecuentes). Calcificaciones en Rx = diagnóstico. Causa #1: alcohol. Abstinencia + enzimas pancreáticas + analgesia = pilares del tratamiento.",
+    ref:"GPC: Diagnóstico y tratamiento de la pancreatitis aguda. IMSS-2022."
+  },
+  {
+    cat:"cron", catName:"Pancreatitis Crónica",
+    q:"¿Cuáles son los pilares del tratamiento de la pancreatitis crónica con insuficiencia exocrina pancreática?",
+    opts:["Corticosteroides sistémicos para disminuir la fibrosis pancreática + nutrición parenteral total","Abstinencia absoluta de alcohol + enzimas pancreáticas sustitutivas con las comidas + analgesia escalonada + vitaminas liposolubles","Colecistectomía laparoscópica + inhibidores de la bomba de protones + dieta hipograsa exclusiva","CPRE con dilatación del conducto de Wirsung + octreótido para disminuir secreción pancreática"],
+    ans:1,
+    exp:"El tratamiento de la pancreatitis crónica con insuficiencia exocrina incluye: (1) Abstinencia absoluta de alcohol y tabaco — evita progresión. (2) Enzimas pancreáticas sustitutivas (pancreatina) con cada comida — al menos 25,000-40,000 UI de lipasa por comida para tratar la esteatorrea. (3) Analgesia escalonada (paracetamol → AINEs → tramadol → opioides) para el dolor crónico. (4) Suplementación de vitaminas liposolubles (A, D, E, K) por malabsorción. (5) Manejo de la diabetes pancreática con insulina si hay insuficiencia endocrina.",
+    tip:"<strong>Enzimas pancreáticas: perlas ENARM:</strong> Dar con cada comida (no entre comidas). Dosis: mínimo 25,000-40,000 UI de lipasa/comida. Si no hay respuesta → verificar compliance, aumentar dosis, agregar IBP (el ácido gástrico inactiva las enzimas). Las enzimas NO tienen cápsula entérica se inactivan en estómago — usar formulaciones con cubierta entérica. El IBP aumenta el pH y protege las enzimas.",
+    ref:"GPC: Diagnóstico y tratamiento de la pancreatitis aguda. IMSS-2022."
+  }
+];
+
+let currentQ = 0, score = 0, answers = [];
+let catStats = { diag:{c:0,t:0}, sev:{c:0,t:0}, comp:{c:0,t:0}, man:{c:0,t:0}, cron:{c:0,t:0} };
+
+function shuffle(arr) {
+  for (let i=arr.length-1;i>0;i--) {
+    const j=Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+
+function init() {
+  shuffle(questions);
+  currentQ=0; score=0; answers=[];
+  catStats = { diag:{c:0,t:0}, sev:{c:0,t:0}, comp:{c:0,t:0}, man:{c:0,t:0}, cron:{c:0,t:0} };
+  const r=document.getElementById('resultsArea');
+  r.classList.remove('show'); r.innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const qa=questions[currentQ], total=questions.length;
+  document.getElementById('progressBar').style.width=(currentQ/total*100)+'%';
+  document.getElementById('progressText').textContent=`${currentQ+1} / ${total}`;
+  document.getElementById('nextBtn').classList.remove('show');
+  const letters=['A','B','C','D'];
+  let html=`<div class="question-card">
+    <div class="q-category cat-${qa.cat}">${qa.catName}</div>
+    <div class="q-number">Pregunta ${currentQ+1} de ${total}</div>
+    <div class="q-text">${qa.q}</div>
+    <div class="options">`;
+  qa.opts.forEach((opt,i)=>{
+    html+=`<button class="option-btn" onclick="selectAnswer(${i})" data-idx="${i}">
+      <span class="option-letter">${letters[i]}</span><span>${opt}</span></button>`;
+  });
+  html+=`</div><div class="feedback" id="feedback"></div></div>`;
+  document.getElementById('quizArea').innerHTML=html;
+}
+
+function selectAnswer(idx) {
+  const qa=questions[currentQ];
+  const btns=document.querySelectorAll('.option-btn');
+  const fb=document.getElementById('feedback');
+  const isCorrect=idx===qa.ans;
+  btns.forEach((btn,i)=>{
+    btn.classList.add('disabled'); btn.onclick=null;
+    if(i===qa.ans) btn.classList.add('correct-answer');
+    if(i===idx&&!isCorrect) btn.classList.add('wrong-answer');
+  });
+  if(!catStats[qa.cat]) catStats[qa.cat]={c:0,t:0};
+  catStats[qa.cat].t++;
+  if(isCorrect){score++;catStats[qa.cat].c++;}
+  if(!examMode){
+    fb.className=isCorrect?'feedback correct-fb show':'feedback wrong-fb show';
+    fb.innerHTML=isCorrect
+      ?`<div class="feedback-title">✅ ¡Correcto!</div><div>${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`
+      :`<div class="feedback-title">❌ Incorrecto</div><div><strong>Respuesta correcta:</strong> ${qa.opts[qa.ans]}</div><div style="margin-top:8px;">${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;
+  }
+  answers.push({q:qa.q,correct:isCorrect,userAns:qa.opts[idx],correctAns:qa.opts[qa.ans],cat:qa.catName,exp:qa.exp,ref:qa.ref});
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion() {
+  currentQ++;
+  if(currentQ>=questions.length) showResults();
+  else renderQuestion();
+}
+
+function showResults() {
+  document.getElementById('quizArea').innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  document.getElementById('progressBar').style.width='100%';
+  document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;
+  const pct=Math.round((score/questions.length)*100);
+  const msg=pct>=90?'🏆 ¡Dominio excelente de pancreatitis!':pct>=70?'👏 ¡Muy bien! Repasa los temas con menor puntaje.':pct>=50?'📚 Aceptable, refuerza las áreas débiles.':'⚠️ Revisa las GPC de pancreatitis aguda 2022.';
+  const cats=[
+    {name:'Diagnóstico/Criterios',key:'diag',color:'#fbbf24'},
+    {name:'Severidad/Clasificación',key:'sev',color:'#38bdf8'},
+    {name:'Complicaciones',key:'comp',color:'#f472b6'},
+    {name:'Manejo/Tratamiento',key:'man',color:'#a78bfa'},
+    {name:'Pancreatitis Crónica',key:'cron',color:'#34d399'},
+  ];
+  let html=`<div class="results-header">
+    <div class="score-big">${pct}%</div>
+    <div class="score-label">${score} de ${questions.length} correctas</div>
+    <div class="score-msg">${msg}</div>
+  </div>
+  <div class="chart-section">
+    <div class="chart-title"><span>📊</span> Rendimiento por Categoría</div>
+    <div class="bar-chart">`;
+  cats.forEach(cat=>{
+    const s=catStats[cat.key]||{c:0,t:0};
+    const p=s.t>0?Math.round((s.c/s.t)*100):0;
+    html+=`<div class="bar-row"><div class="bar-label">${cat.name}</div><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${cat.color};">${p}% (${s.c}/${s.t})</div></div></div>`;
+  });
+  html+=`</div></div>
+  <div class="chart-section">
+    <div class="chart-title"><span>🎯</span> Resumen General</div>
+    <div class="donut-wrap">
+      <svg class="donut-svg" viewBox="0 0 42 42">
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a2235" stroke-width="4"/>
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#34d399" stroke-width="4" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="25" stroke-linecap="round"/>
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#f87171" stroke-width="4" stroke-dasharray="${100-pct} ${pct}" stroke-dashoffset="${25-pct}" stroke-linecap="round"/>
+        <text x="21" y="22.5" text-anchor="middle" font-size="6" font-weight="700" fill="#e8ecf4" font-family="Plus Jakarta Sans">${pct}%</text>
+      </svg>
+      <div class="donut-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#34d399;"></div>Correctas: ${score}</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Incorrectas: ${questions.length-score}</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#38bdf8;"></div>Total: ${questions.length}</div>
+      </div>
+    </div>
+  </div>
+  <div class="chart-section">
+    <div class="chart-title"><span>📋</span> Revisión de Respuestas</div>`;
+  answers.forEach((a,i)=>{
+    html+=`<div class="review-card ${a.correct?'review-correct':'review-wrong'}">
+      <div class="review-q">${i+1}. ${a.q} <span style="font-size:0.72rem;color:var(--text-dim);">[${a.cat}]</span></div>
+      <div class="review-answer">${a.correct?`<strong>✅ ${a.correctAns}</strong>`:`<em>❌ Tu respuesta: ${a.userAns}</em><br><strong>✅ Correcta: ${a.correctAns}</strong>`}</div>
+      <div style="margin-top:8px;font-size:0.8rem;color:var(--text-dim);line-height:1.5;">${a.exp}</div>
+      <div style="margin-top:6px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;">📖 ${a.ref}</div>
+    </div>`;
+  });
+  html+=`</div><button class="retry-btn" onclick="init()">🔄 Reintentar</button>`;
+  const res=document.getElementById('resultsArea');
+  res.innerHTML=html; res.classList.add('show');
+  res.scrollIntoView({behavior:'smooth'});
+}
+
+function toggleSpec(header){header.classList.toggle('open');header.nextElementSibling.classList.toggle('open');}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+
+init();
+</script>
+</body>
+</html>
