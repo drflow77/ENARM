@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Síndrome de Apnea Obstructiva — ENARM · ORL · Tema 27</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0a0e1a; --surface: #111827; --surface2: #1a2235; --surface3: #212d45;
+    --border: #2a3a5c; --text: #e8ecf4; --text-dim: #8896b3;
+    --accent: #38bdf8; --accent-glow: rgba(56,189,248,0.15);
+    --correct: #34d399; --correct-bg: rgba(52,211,153,0.1); --correct-border: rgba(52,211,153,0.4);
+    --wrong: #f87171; --wrong-bg: rgba(248,113,113,0.1); --wrong-border: rgba(248,113,113,0.4);
+    --gold: #fbbf24; --purple: #a78bfa; --pink: #f472b6; --teal: #2dd4bf;
+    --sidebar-w: 280px; --radius: 14px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; display:flex; }
+
+  .sidebar {
+    width:var(--sidebar-w); min-height:100vh; background:var(--surface);
+    border-right:1px solid var(--border); display:flex; flex-direction:column;
+    position:fixed; left:0; top:0; bottom:0; overflow-y:auto; z-index:100; transition:transform 0.3s;
+  }
+  .sidebar-logo { padding:24px 20px 16px; border-bottom:1px solid var(--border); }
+  .logo-badge { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,var(--accent),var(--purple)); padding:6px 14px; border-radius:100px; font-size:0.75rem; font-weight:800; color:var(--bg); letter-spacing:0.5px; text-transform:uppercase; margin-bottom:10px; }
+  .sidebar-logo h2 { font-size:1.1rem; font-weight:800; background:linear-gradient(135deg,var(--text),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .sidebar-logo p { font-size:0.72rem; color:var(--text-dim); margin-top:2px; }
+  .back-btn { display:flex; align-items:center; gap:8px; padding:14px 20px; color:var(--text-dim); font-size:0.8rem; text-decoration:none; border-bottom:1px solid var(--border); transition:color 0.2s; }
+  .back-btn:hover { color:var(--accent); }
+  .sidebar-nav { flex:1; padding:12px 0 24px; }
+  .specialty-header { display:flex; align-items:center; justify-content:space-between; padding:10px 16px 10px 20px; cursor:pointer; transition:background 0.2s; user-select:none; }
+  .specialty-header:hover { background:var(--surface2); }
+  .specialty-name { display:flex; align-items:center; gap:10px; font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; }
+  .specialty-icon { width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:0.9rem; flex-shrink:0; }
+  .chevron { font-size:0.65rem; color:var(--text-dim); transition:transform 0.3s; }
+  .specialty-header.open .chevron { transform:rotate(90deg); }
+  .topics-list { display:none; padding:4px 0 8px; }
+  .topics-list.open { display:block; }
+  .topic-link { display:flex; align-items:center; gap:10px; padding:8px 16px 8px 56px; font-size:0.78rem; color:var(--text-dim); text-decoration:none; transition:all 0.2s; border-left:2px solid transparent; line-height:1.4; }
+  .topic-link:hover { color:var(--text); background:var(--surface3); }
+  .topic-link.active { color:var(--accent); border-left-color:var(--accent); background:var(--accent-glow); font-weight:600; }
+  .topic-link.coming-soon { opacity:0.4; cursor:not-allowed; pointer-events:none; }
+  .topic-num { font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--text-dim); min-width:20px; }
+  .badge-soon { margin-left:auto; background:rgba(136,150,179,0.1); color:var(--text-dim); font-size:0.62rem; font-weight:600; padding:2px 7px; border-radius:100px; }
+  .star-tag { margin-left:auto; font-size:0.7rem; }
+
+  .main { margin-left:var(--sidebar-w); flex:1; display:flex; flex-direction:column; }
+  .container { max-width:760px; margin:0 auto; padding:20px 16px 40px; width:100%; }
+
+  .mode-bar { display:flex; align-items:center; gap:10px; margin:24px 0 20px; background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:6px; width:fit-content; }
+  .mode-btn { padding:8px 20px; border-radius:100px; border:none; cursor:pointer; font-family:inherit; font-size:0.82rem; font-weight:600; transition:all 0.2s; color:var(--text-dim); background:transparent; }
+  .mode-btn.active { background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); }
+
+  .header { text-align:center; padding:40px 20px 24px; position:relative; overflow:hidden; }
+  .header::before { content:''; position:absolute; top:-60%; left:50%; transform:translateX(-50%); width:600px; height:600px; background:radial-gradient(circle,rgba(56,189,248,0.08) 0%,transparent 70%); pointer-events:none; }
+  .header-badge { display:inline-flex; align-items:center; gap:8px; background:var(--surface2); border:1px solid var(--border); padding:6px 16px; border-radius:100px; font-size:0.78rem; color:var(--accent); font-weight:600; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:16px; }
+  .header h1 { font-size:clamp(1.6rem,5vw,2.2rem); font-weight:800; background:linear-gradient(135deg,var(--text) 0%,var(--accent) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:8px; }
+  .header p { color:var(--text-dim); font-size:0.95rem; max-width:500px; margin:0 auto; }
+
+  .progress-wrap { background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:12px 20px; margin:20px 0 28px; display:flex; align-items:center; gap:14px; }
+  .progress-bar-bg { flex:1; height:8px; background:var(--surface3); border-radius:100px; overflow:hidden; }
+  .progress-bar-fill { height:100%; width:0%; background:linear-gradient(90deg,var(--accent),var(--purple)); border-radius:100px; transition:width 0.5s ease; }
+  .progress-text { font-size:0.82rem; font-weight:600; color:var(--text-dim); white-space:nowrap; font-family:'JetBrains Mono',monospace; }
+
+  .question-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:28px 24px; margin-bottom:20px; animation:slideIn 0.4s ease; position:relative; overflow:hidden; }
+  .question-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--gold),var(--accent),var(--purple)); }
+  @keyframes slideIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+  .q-category { display:inline-flex; align-items:center; gap:6px; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; padding:4px 12px; border-radius:100px; margin-bottom:14px; }
+  .cat-diag { background:rgba(56,189,248,0.12); color:var(--accent); }
+  .cat-fact { background:rgba(251,191,36,0.12); color:var(--gold); }
+  .cat-cpap { background:rgba(167,139,250,0.12); color:var(--purple); }
+  .cat-cx   { background:rgba(244,114,182,0.12); color:var(--pink); }
+  .cat-comp { background:rgba(52,211,153,0.12);  color:var(--correct); }
+
+  .q-number { font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--text-dim); margin-bottom:10px; }
+  .q-text { font-size:1.05rem; font-weight:600; line-height:1.55; margin-bottom:20px; color:var(--text); }
+
+  .options { display:flex; flex-direction:column; gap:10px; }
+  .option-btn { display:flex; align-items:flex-start; gap:12px; padding:14px 16px; background:var(--surface2); border:1.5px solid var(--border); border-radius:12px; cursor:pointer; transition:all 0.2s; text-align:left; font-size:0.92rem; color:var(--text); font-family:inherit; line-height:1.5; width:100%; }
+  .option-btn:hover:not(.disabled) { border-color:var(--accent); background:var(--accent-glow); transform:translateX(4px); }
+  .option-letter { display:flex; align-items:center; justify-content:center; min-width:30px; height:30px; border-radius:8px; background:var(--surface3); font-weight:700; font-size:0.82rem; color:var(--accent); flex-shrink:0; }
+  .option-btn.correct-answer { border-color:var(--correct-border); background:var(--correct-bg); }
+  .option-btn.correct-answer .option-letter { background:var(--correct); color:var(--bg); }
+  .option-btn.wrong-answer { border-color:var(--wrong-border); background:var(--wrong-bg); }
+  .option-btn.wrong-answer .option-letter { background:var(--wrong); color:var(--bg); }
+  .option-btn.disabled { cursor:default; }
+  .option-btn.disabled:hover { transform:none; }
+
+  .feedback { margin-top:18px; padding:18px; border-radius:12px; font-size:0.88rem; line-height:1.65; animation:fadeIn 0.3s ease; display:none; }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  .feedback.show { display:block; }
+  .feedback.correct-fb { background:var(--correct-bg); border:1px solid var(--correct-border); color:var(--correct); }
+  .feedback.wrong-fb { background:var(--wrong-bg); border:1px solid var(--wrong-border); color:#fca5a5; }
+  .feedback-title { font-weight:700; font-size:0.95rem; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
+  .feedback .tip { margin-top:10px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.08); color:var(--text-dim); font-size:0.82rem; }
+  .feedback .tip strong { color:var(--gold); }
+  .feedback .ref { margin-top:8px; font-size:0.75rem; color:var(--text-dim); opacity:0.7; font-style:italic; }
+
+  .next-btn { display:none; margin:20px auto 0; padding:12px 32px; background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:0.92rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+  .next-btn:hover { transform:scale(1.05); box-shadow:0 4px 24px var(--accent-glow); }
+  .next-btn.show { display:block; }
+
+  .results { display:none; animation:slideIn 0.5s ease; }
+  .results.show { display:block; }
+  .results-header { text-align:center; padding:30px 20px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:20px; position:relative; overflow:hidden; }
+  .results-header::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--correct),var(--accent),var(--purple),var(--pink)); }
+  .score-big { font-size:3.5rem; font-weight:800; background:linear-gradient(135deg,var(--correct),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .score-label { font-size:1.1rem; color:var(--text-dim); margin-top:4px; }
+  .score-msg { margin-top:12px; font-size:0.95rem; color:var(--text); font-weight:500; }
+  .chart-section { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px 20px; margin-bottom:20px; }
+  .chart-title { font-size:0.95rem; font-weight:700; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
+  .bar-chart { display:flex; flex-direction:column; gap:14px; }
+  .bar-row { display:flex; align-items:center; gap:12px; }
+  .bar-label { width:130px; font-size:0.78rem; font-weight:600; text-align:right; color:var(--text-dim); flex-shrink:0; }
+  .bar-track { flex:1; height:28px; background:var(--surface3); border-radius:8px; overflow:hidden; }
+  .bar-fill { height:100%; border-radius:8px; transition:width 1s ease; display:flex; align-items:center; padding-left:10px; font-size:0.75rem; font-weight:700; color:var(--bg); min-width:fit-content; }
+  .donut-wrap { display:flex; align-items:center; justify-content:center; gap:30px; flex-wrap:wrap; }
+  .donut-svg { width:160px; height:160px; }
+  .donut-legend { display:flex; flex-direction:column; gap:10px; }
+  .legend-item { display:flex; align-items:center; gap:10px; font-size:0.84rem; }
+  .legend-dot { width:12px; height:12px; border-radius:4px; flex-shrink:0; }
+  .review-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; margin-bottom:12px; }
+  .review-card.review-correct { border-left:4px solid var(--correct); }
+  .review-card.review-wrong { border-left:4px solid var(--wrong); }
+  .review-q { font-size:0.88rem; font-weight:600; margin-bottom:8px; }
+  .review-answer { font-size:0.82rem; color:var(--text-dim); line-height:1.5; }
+  .review-answer strong { color:var(--correct); }
+  .review-answer em { color:var(--wrong); font-style:normal; }
+  .retry-btn { display:block; margin:28px auto; padding:14px 40px; background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:1rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+  .retry-btn:hover { transform:scale(1.05); }
+  .hamburger { display:none; position:fixed; top:16px; left:16px; z-index:200; background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:10px; cursor:pointer; font-size:1.2rem; }
+  .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:90; }
+  .footer { text-align:center; padding:20px; color:var(--text-dim); font-size:0.72rem; opacity:0.5; }
+
+  @media(max-width:768px) {
+    .sidebar { transform:translateX(-100%); }
+    .sidebar.open { transform:translateX(0); }
+    .main { margin-left:0; }
+    .hamburger { display:flex; align-items:center; justify-content:center; }
+    .overlay.show { display:block; }
+    .container { padding:12px 10px 30px; }
+    .question-card { padding:20px 16px; }
+    .bar-label { width:90px; font-size:0.72rem; }
+    .mode-bar { margin:16px auto; }
+  }
+</style>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-badge">🩺 MCS</div>
+    <h2>ENARM · Banco de Preguntas</h2>
+    <p>2025–2026</p>
+  </div>
+  <a href="index.html" class="back-btn">← Volver al inicio</a>
+  <nav class="sidebar-nav">
+
+    <!-- ORL: abierta, tema 27 active -->
+    <div class="specialty-group">
+      <div class="specialty-header open" onclick="toggleSpec(this)">
+        <div class="specialty-name">
+          <div class="specialty-icon" style="background:rgba(167,139,250,0.12);color:#a78bfa;">👂</div>
+          Otorrinolaringología
+        </div>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="topics-list open">
+        <a href="21-vertigo.html" class="topic-link"><span class="topic-num">21</span>Vértigo</a>
+        <a href="22-hipoacusias-paralisis-facial.html" class="topic-link"><span class="topic-num">22</span>Hipoacusias / Parálisis facial</a>
+        <a href="23-rinologia.html" class="topic-link"><span class="topic-num">23</span>Rinología</a>
+        <a href="24-patologia-faringe.html" class="topic-link"><span class="topic-num">24</span>Patología de faringe</a>
+        <a href="25-patologia-laringe.html" class="topic-link"><span class="topic-num">25</span>Patología de laringe</a>
+        <a href="26-otologia.html" class="topic-link"><span class="topic-num">26</span>Otología</a>
+        <a href="27-sindrome-apnea-obstructiva.html" class="topic-link active"><span class="topic-num">27</span>Síndrome de apnea obstructiva</a>
+      </div>
+    </div>
+
+    <!-- Cirugía General: colapsada -->
+    <div class="specialty-group">
+      <div class="specialty-header" onclick="toggleSpec(this)">
+        <div class="specialty-name">
+          <div class="specialty-icon" style="background:rgba(56,189,248,0.12);color:#38bdf8;">🔪</div>
+          Cirugía General
+        </div>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="topics-list">
+        <a href="01-apendicitis.html" class="topic-link"><span class="topic-num">01</span>Abdomen agudo / Apendicitis<span class="star-tag">⭐</span></a>
+        <a href="02-patologia-biliar.html" class="topic-link"><span class="topic-num">02</span>Patología biliar<span class="star-tag">⭐</span></a>
+        <a href="03-enfermedad-diverticular.html" class="topic-link"><span class="topic-num">03</span>Enfermedad diverticular</a>
+        <a href="04-erge-esofagitis-dispepsia.html" class="topic-link"><span class="topic-num">04</span>ERGE / Esofagitis</a>
+        <a href="05-cancer-esofago-gastrico.html" class="topic-link"><span class="topic-num">05</span>Cáncer esófago / gástrico</a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">06</span>Gastritis / Úlcera péptica<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">07</span>Obesidad / Bariátrica<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">08</span>Patología perianal<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">09</span>Hernias / Esplenectomía<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">10</span>Insuf. venosa y arterial<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">11</span>Oclusión / Vólvulos<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">12</span>Cáncer de colon<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">13</span>Cáncer hepático<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">14</span>Cáncer páncreas<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">15</span>Pancreatitis<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">16</span>Mordeduras / Picaduras<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">17</span>Quemaduras<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">18</span>ATLS 1<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">19</span>ATLS 2<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">20</span>Patología quirúrgica<span class="badge-soon">Pronto</span></a>
+      </div>
+    </div>
+
+  </nav>
+</aside>
+
+<main class="main">
+<div class="container">
+
+  <div class="header">
+    <div class="header-badge"><span>👂</span> ENARM · Otorrinolaringología · Tema 27</div>
+    <h1>Síndrome de Apnea Obstructiva del Sueño</h1>
+    <p>SAOS · Diagnóstico · CPAP · Tratamiento quirúrgico</p>
+  </div>
+
+  <div style="display:flex;justify-content:center;">
+    <div class="mode-bar">
+      <button class="mode-btn active" id="btnRepaso" onclick="setMode('repaso')">📖 Modo Repaso</button>
+      <button class="mode-btn" id="btnExamen" onclick="setMode('examen')">⏱️ Modo Examen</button>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 15</div>
+  </div>
+
+  <div id="quizArea"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+  <div class="results" id="resultsArea"></div>
+
+</div>
+<div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+</main>
+
+<script>
+let examMode = false;
+
+function setMode(mode) {
+  examMode = (mode === 'examen');
+  document.getElementById('btnRepaso').classList.toggle('active', !examMode);
+  document.getElementById('btnExamen').classList.toggle('active', examMode);
+  init();
+}
+
+const questions = [
+  {
+    cat:"diag", catName:"Diagnóstico/Criterios",
+    q:"¿Cuál es la definición del Síndrome de Apnea Obstructiva del Sueño (SAOS) según la GPC 2021?",
+    opts:["IAH ≥5 eventos/hora con síntomas O IAH ≥15 eventos/hora sin síntomas","IAH ≥10 eventos/hora independientemente de síntomas","IAH ≥5 eventos/hora únicamente si hay somnolencia diurna excesiva","IAH ≥20 eventos/hora con ronquido habitual documentado"],
+    ans:0,
+    exp:"La GPC 2021 define el SAOS como IAH ≥5 eventos/hora en presencia de síntomas (somnolencia diurna, ronquido, apneas presenciadas, etc.) O IAH ≥15 eventos/hora aunque el paciente esté asintomático. Esta definición dual es fundamental para el diagnóstico.",
+    tip:"<strong>Regla mnemotécnica:</strong> '5 con síntomas, 15 sin síntomas'. La presencia de síntomas reduce el umbral diagnóstico del IAH a la mitad.",
+    ref:"GPC: Diagnóstico y tratamiento del SAOS en población pediátrica y adulta. IMSS. 2021."
+  },
+  {
+    cat:"diag", catName:"Diagnóstico/Criterios",
+    q:"Un hombre de 52 años refiere ronquido habitual, apneas presenciadas por su pareja y somnolencia diurna excesiva. ¿Cuál es el estándar de oro para confirmar el diagnóstico de SAOS?",
+    opts:["Poligrafía respiratoria ambulatoria","Polisomnografía nocturna en laboratorio","Oximetría nocturna domiciliaria","Escala de Epworth con puntuación >10"],
+    ans:1,
+    exp:"La polisomnografía nocturna en laboratorio (PSG) es el gold standard para el diagnóstico del SAOS. Registra simultáneamente EEG, EOG, EMG, flujo aéreo, esfuerzo respiratorio, saturación de oxígeno, ECG y posición corporal, permitiendo calcular el IAH con máxima precisión.",
+    tip:"<strong>Gold standard = Polisomnografía.</strong> La poligrafía respiratoria es una alternativa válida para casos de sospecha moderada-alta SIN comorbilidades importantes, pero NO reemplaza a la PSG en casos complejos.",
+    ref:"GPC: Diagnóstico y tratamiento del SAOS en población pediátrica y adulta. IMSS. 2021."
+  },
+  {
+    cat:"diag", catName:"Diagnóstico/Criterios",
+    q:"¿Cuál es la definición técnica de una 'apnea' en el contexto del SAOS?",
+    opts:["Reducción del flujo aéreo ≥30% con duración ≥5 segundos","Cese completo del flujo aéreo (≥90% reducción) con duración ≥10 segundos","Desaturación de oxígeno ≥4% independientemente del flujo aéreo","Reducción del flujo aéreo ≥50% con arousal electroencefalográfico"],
+    ans:1,
+    exp:"Una apnea se define como el cese o reducción del flujo aéreo ≥90% con duración ≥10 segundos. Se clasifica en obstructiva (con esfuerzo respiratorio mantenido), central (sin esfuerzo) o mixta (inicia como central y termina como obstructiva).",
+    tip:"<strong>Apnea vs Hipopnea:</strong> Apnea = cese ≥90% flujo ≥10 seg. Hipopnea = reducción ≥30% flujo ≥10 seg + desaturación ≥3% O arousal. Ambas cuentan para el IAH.",
+    ref:"GPC: Diagnóstico y tratamiento del SAOS en población pediátrica y adulta. IMSS. 2021."
+  },
+  {
+    cat:"diag", catName:"Diagnóstico/Criterios",
+    q:"La Escala de Somnolencia de Epworth evalúa la probabilidad de quedarse dormido en 8 situaciones cotidianas. ¿A partir de qué puntuación se considera patológica?",
+    opts:["Mayor de 6 puntos","Mayor de 8 puntos","Mayor de 10 puntos","Mayor de 14 puntos"],
+    ans:2,
+    exp:"La Escala de Epworth puntúa de 0-3 cada situación (máximo 24 puntos). Una puntuación >10 se considera somnolencia diurna excesiva patológica. Una puntuación >16 indica somnolencia grave. Es una herramienta subjetiva de tamizaje, no diagnóstica por sí sola.",
+    tip:"<strong>Cortes de Epworth:</strong> 0-10 normal, >10 patológico (somnolencia diurna excesiva), >16 grave. Las 8 situaciones incluyen: sentado leyendo, viendo TV, en reunión, como pasajero, acostado a media tarde, conversando, tras comer, en el auto.",
+    ref:"GPC: Diagnóstico y tratamiento del SAOS en población pediátrica y adulta. IMSS. 2021."
+  },
+  {
+    cat:"diag", catName:"Diagnóstico/Criterios",
+    q:"¿Cuál es la clasificación de severidad del SAOS en adultos según el Índice de Apnea-Hipopnea (IAH)?",
+    opts:["Leve 1-9, moderado 10-19, grave ≥20","Leve 5-14, moderado 15-29, grave ≥30","Leve 5-9, moderado 10-24, grave ≥25","Leve 5-19, moderado 20-39, grave ≥40"],
+    ans:1,
+    exp:"La clasificación de severidad del SAOS en adultos por IAH es: Leve: 5-14 eventos/hora, Moderado: 15-29 eventos/hora, Grave: ≥30 eventos/hora. Esta clasificación guía las decisiones terapéuticas: el CPAP está indicado de forma prioritaria en SAOS moderado-grave.",
+    tip:"<strong>Nemotecnia:</strong> 5-14 (leve), 15-29 (moderado), ≥30 (grave). El umbral de 15 es clave: separa leve de moderado y también define el diagnóstico de SAOS sin síntomas.",
+    ref:"GPC: Diagnóstico y tratamiento del SAOS en población pediátrica y adulta. IMSS. 2021."
+  },
+  {
+    cat:"fact", catName:"Factores de Riesgo",
+    q:"¿Cuál es el factor de riesgo modificable más importante para el SAOS en adultos?",
+    opts:["Sexo masculino","Consumo de alcohol","Obesidad (IMC >30 kg/m²)","Hipotiroidismo"],
+    ans:2,
+    exp:"La obesidad con IMC >30 kg/m² es el principal factor de riesgo modificable del SAOS. El exceso de grasa faríngea reduce el calibre de la vía aérea superior y aumenta su colapsabilidad. La pérdida de peso puede reducir significativamente el IAH.",
+    tip:"<strong>Factores de riesgo del SAOS:</strong> Obesidad (IMC>30) #1 modificable, circunferencia cervical >43cm hombre / >38cm mujer, sexo masculino (2-3x más frecuente), edad, alcohol, sedantes/BZD, hipotiroidismo, macroglosia, retrognatia.",
+    ref:"GPC: Diagnóstico y tratamiento del SAOS en población pediátrica y adulta. IMSS. 2021."
+  },
+  {
+    cat:"fact", catName:"Factores de Riesgo",
+    q:"Un paciente con SAOS pregunta cuáles medidas de higiene del sueño son importantes. ¿Cuál de los siguientes AUMENTA el riesgo y severidad del SAOS?",
+    opts:["Dormir en decúbito lateral","Evitar el alcohol 4 horas antes de dormir","El consumo de alcohol y sedantes antes de dormir","Mantener peso corporal ideal"],
+    ans:2,
+    exp:"El alcohol y los sedantes (benzodiacepinas, opioides) relajan la musculatura faríngea y deprimen los mecanismos de arousal, incrementando tanto la frecuencia como la duración de las apneas. Son factores de riesgo modificables importantes en el SAOS.",
+    tip:"<strong>Medidas no farmacológicas en SAOS:</strong> Perder peso, evitar alcohol y sedantes, posición lateral para dormir, higiene del sueño, tratar hipotiroidismo si existe. Estas medidas complementan —nunca reemplazan— al CPAP en SAOS moderado-grave.",
+    ref:"GPC: Diagnóstico y tratamiento del SAOS en población pediátrica y adulta. IMSS. 2021."
+  },
+  {
+    cat:"fact", catName:"Factores de Riesgo",
+    q:"Un paciente masculino de 48 años con cuello robusto es evaluado por ronquido. ¿Cuál es el valor de circunferencia cervical que constituye factor de riesgo para SAOS en el hombre?",
+    opts:["Mayor de 38 cm","Mayor de 40 cm","Mayor de 43 cm","Mayor de 46 cm"],
+    ans:2,
+    exp:"Una circunferencia cervical >43 cm en el hombre y >38 cm en la mujer es factor de riesgo independiente para SAOS. El aumento del tejido adiposo perivascular faríngeo en personas con cuello grueso reduce la luz de la vía aérea superior facilitando su colapso.",
+    tip:"<strong>Circunferencia cervical de riesgo:</strong> Hombre >43 cm, Mujer >38 cm. Fácil de recordar: la mujer tiene el umbral 5 cm menor. Siempre medir junto al IMC en la evaluación inicial del paciente con sospecha de SAOS.",
+    ref:"GPC: Diagnóstico y tratamiento del SAOS en población pediátrica y adulta. IMSS. 2021."
+  },
+  {
+    cat:"cpap", catName:"CPAP/Tratamiento médico",
+    q:"¿Cuál es el tratamiento de primera línea para el SAOS moderado-grave en adultos según la GPC 2021?",
+    opts:["Dispositivo de avance mandibular","CPAP (presión positiva continua en la vía aérea)","Uvulopalatofaringoplastia (UPPP)","Pérdida de peso exclusivamente"],
+    ans:1,
+    exp:"El CPAP (Continuous Positive Airway Pressure) es el tratamiento de primera línea para el SAOS moderado-grave. Actúa como una 'férula neumática' que mantiene abierta la vía aérea superior mediante presión positiva continua, eliminando las apneas e hipopneas. Mejora la somnolencia, la HTA, la calidad de vida y reduce el riesgo cardiovascular.",
+    tip:"<strong>CPAP = Férula neumática.</strong> Indicaciones: SAOS moderado (IAH 15-29) o grave (IAH ≥30), o SAOS leve con síntomas importantes o comorbilidades cardiovasculares. El CPAP NO cura el SAOS; requiere uso crónico.",
+    ref:"GPC: Diagnóstico y tratamiento del SAOS en población pediátrica y adulta. IMSS. 2021."
+  },
+  {
+    cat:"cpap", catName:"CPAP/Tratamiento médico",
+    q:"¿Cuál es la definición de adherencia adecuada al CPAP según criterios estándar?",
+    opts:["Uso mínimo de 2 horas/noche en al menos el 50% de las noches","Uso mínimo de 4 horas/noche en al menos el 70% de las noches","Uso mínimo de 6 horas/noche en al menos el 60% de las noches","Uso mínimo de 8 horas/noche en al menos el 80% de las noches"],
+    ans:1,
+    exp:"La adherencia adecuada al CPAP se define como su uso ≥4 horas por noche en al menos el 70% de las noches. Los pacientes que no alcanzan este umbral tienen peor control del SAOS y no obtienen los beneficios cardiovasculares del tratamiento. La educación y el seguimiento cercano mejoran la adherencia.",
+    tip:"<strong>Adherencia CPAP: 4/70.</strong> Al menos 4 horas por noche, en el 70% de las noches. Los factores que reducen adherencia incluyen: claustrofobia, dermatitis por mascarilla, sequedad nasal, ruido del equipo. Se pueden usar humidificadores y diferentes tipos de interfaces.",
+    ref:"GPC: Diagnóstico y tratamiento del SAOS en población pediátrica y adulta. IMSS. 2021."
+  },
+  {
+    cat:"cpap", catName:"CPAP/Tratamiento médico",
+    q:"Un paciente con SAOS leve (IAH 8) y sin comorbilidades cardiovasculares no tolera el CPAP. ¿Cuál es la alternativa más adecuada?",
+    opts:["Uvulopalatofaringoplastia de urgencia","Dispositivo de avance mandibular (DAM)","Traqueotomía","Oxigenoterapia nocturna exclusiva"],
+    ans:1,
+    exp:"Los dispositivos de avance mandibular (DAM) están indicados en SAOS leve a moderado o en pacientes con SAOS moderado-grave que no toleran el CPAP. Funcionan avanzando la mandíbula para aumentar el calibre de la vía aérea superior. Son menos efectivos que el CPAP pero mejoran significativamente los síntomas y el IAH.",
+    tip:"<strong>DAM vs CPAP:</strong> CPAP es más eficaz (elimina más apneas), pero la adherencia al DAM suele ser mayor por mayor comodidad. La GPC recomienda CPAP de primera línea en moderado-grave; DAM en leve o como alternativa si hay intolerancia.",
+    ref:"GPC: Diagnóstico y tratamiento del SAOS en población pediátrica y adulta. IMSS. 2021."
+  },
+  {
+    cat:"cx", catName:"Tratamiento Quirúrgico",
+    q:"¿Cuál es el procedimiento quirúrgico más utilizado en adultos con SAOS seleccionados que no toleran el CPAP?",
+    opts:["Amigdalectomía aislada","Uvulopalatofaringoplastia (UPPP)","Avance bimaxilar","Turbinectomía inferior bilateral"],
+    ans:1,
+    exp:"La uvulopalatofaringoplastia (UPPP) es la cirugía más utilizada en adultos con SAOS en casos seleccionados que no toleran o fallan el CPAP. Consiste en resección de úvula, paladar blando redundante y amígdalas palatinas para ampliar la vía aérea retropalatal. Su tasa de éxito es variable (40-60%) y menor que el CPAP.",
+    tip:"<strong>UPPP:</strong> Uvulo-Palato-Faringo-Plastia. Se realiza en adultos seleccionados (obesidad no mórbida, obstrucción retropalatal predominante). No indicada de forma universal. El avance bimaxilar es más efectivo pero más invasivo.",
+    ref:"GPC: Diagnóstico y tratamiento del SAOS en población pediátrica y adulta. IMSS. 2021."
+  },
+  {
+    cat:"cx", catName:"Tratamiento Quirúrgico",
+    q:"En un niño de 6 años con SAOS, ronquido intenso, hiperactividad, problemas de aprendizaje y enuresis nocturna, la polisomnografía confirma el diagnóstico. ¿Cuál es el tratamiento de primera línea?",
+    opts:["CPAP nocturno con mascarilla pediátrica","Dispositivo de avance mandibular pediátrico","Adenoamigdalectomía","Corticosteroides intranasales exclusivamente"],
+    ans:2,
+    exp:"En niños con SAOS, la hipertrofia adenoamigdalina es la causa principal. El tratamiento de primera línea es la adenoamigdalectomía (adenoidectomía + amigdalectomía), que es curativa en la mayoría de los casos. Los síntomas pediátricos difieren de los adultos: predominan hiperactividad, déficit de atención, problemas de aprendizaje y enuresis sobre la somnolencia.",
+    tip:"<strong>SAOS pediátrico vs adulto:</strong> Causa: hipertrofia adenoamigdalina (niños) vs obesidad (adultos). Síntomas: hiperactividad/enuresis/problemas de aprendizaje (niños) vs somnolencia/cefalea matutina (adultos). Tratamiento 1ª línea: adenoamigdalectomía (niños) vs CPAP (adultos).",
+    ref:"GPC: Diagnóstico y tratamiento del SAOS en población pediátrica y adulta. IMSS. 2021."
+  },
+  {
+    cat:"comp", catName:"Complicaciones/Consecuencias",
+    q:"Un paciente con SAOS grave no tratado acude por hipertensión arterial resistente a 3 fármacos. ¿Cuál es la relación entre el SAOS no tratado y la hipertensión?",
+    opts:["No existe relación causal demostrada entre SAOS e hipertensión","El SAOS es una causa reconocida de HTA resistente; el CPAP puede reducir la presión arterial","El SAOS solo causa HTA pulmonar, no sistémica","El SAOS produce HTA únicamente en pacientes obesos"],
+    ans:1,
+    exp:"El SAOS no tratado es una causa reconocida y frecuente de HTA resistente (refractaria a 3 o más fármacos). Los mecanismos incluyen activación del sistema nervioso simpático, estrés oxidativo e inflamación sistémica por las hipoxemias intermitentes. El tratamiento con CPAP puede reducir la presión arterial, especialmente en pacientes con SAOS grave.",
+    tip:"<strong>SAOS no tratado → consecuencias cardiovasculares:</strong> HTA resistente, arritmias (FA), IC, EVC/AVC, DM2. Además: accidentes de tráfico (somnolencia), deterioro cognitivo, depresión. El CPAP reduce morbimortalidad cardiovascular.",
+    ref:"GPC: Diagnóstico y tratamiento del SAOS en población pediátrica y adulta. IMSS. 2021."
+  },
+  {
+    cat:"diag", catName:"Diagnóstico/Criterios",
+    q:"¿En qué situación clínica está indicada la poligrafía respiratoria como alternativa a la polisomnografía para el diagnóstico de SAOS?",
+    opts:["En pacientes con SAOS leve sin síntomas","En pacientes con sospecha moderada-alta de SAOS sin comorbilidades relevantes","En todos los pacientes como estudio inicial de primera línea","En pacientes con enfermedad pulmonar obstructiva crónica grave"],
+    ans:1,
+    exp:"La poligrafía respiratoria (PR) es una alternativa válida y costo-efectiva a la polisomnografía en pacientes con sospecha moderada-alta de SAOS y sin comorbilidades significativas (sin IC, EPOC, enfermedades neuromusculares). No registra variables electroencefalográficas, por lo que no detecta arousals; puede subestimar el IAH real.",
+    tip:"<strong>PR vs PSG:</strong> Poligrafía (ambulatoria, menos canales, sin EEG) = alternativa en sospecha moderada-alta sin comorbilidades. Polisomnografía (gold standard, laboratorio, todos los canales) = indicada en sospecha baja, comorbilidades, resultado de PR negativo con alta sospecha clínica.",
+    ref:"GPC: Diagnóstico y tratamiento del SAOS en población pediátrica y adulta. IMSS. 2021."
+  }
+];
+
+let currentQ=0, score=0, answers=[], catStats={};
+
+function shuffle(arr) {
+  for (let i=arr.length-1;i>0;i--) {
+    const j=Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+
+function init() {
+  shuffle(questions);
+  currentQ=0; score=0; answers=[];
+  catStats = { diag:{c:0,t:0}, fact:{c:0,t:0}, cpap:{c:0,t:0}, cx:{c:0,t:0}, comp:{c:0,t:0} };
+  const r=document.getElementById('resultsArea');
+  r.classList.remove('show'); r.innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const qa=questions[currentQ], total=questions.length;
+  document.getElementById('progressBar').style.width=(currentQ/total*100)+'%';
+  document.getElementById('progressText').textContent=`${currentQ+1} / ${total}`;
+  document.getElementById('nextBtn').classList.remove('show');
+  const letters=['A','B','C','D'];
+  let html=`<div class="question-card">
+    <div class="q-category cat-${qa.cat}">${qa.catName}</div>
+    <div class="q-number">Pregunta ${currentQ+1} de ${total}</div>
+    <div class="q-text">${qa.q}</div>
+    <div class="options">`;
+  qa.opts.forEach((opt,i)=>{
+    html+=`<button class="option-btn" onclick="selectAnswer(${i})" data-idx="${i}">
+      <span class="option-letter">${letters[i]}</span><span>${opt}</span></button>`;
+  });
+  html+=`</div><div class="feedback" id="feedback"></div></div>`;
+  document.getElementById('quizArea').innerHTML=html;
+}
+
+function selectAnswer(idx) {
+  const qa=questions[currentQ];
+  const btns=document.querySelectorAll('.option-btn');
+  const fb=document.getElementById('feedback');
+  const isCorrect=idx===qa.ans;
+  btns.forEach((btn,i)=>{
+    btn.classList.add('disabled'); btn.onclick=null;
+    if(i===qa.ans) btn.classList.add('correct-answer');
+    if(i===idx&&!isCorrect) btn.classList.add('wrong-answer');
+  });
+  if(!catStats[qa.cat]) catStats[qa.cat]={c:0,t:0};
+  catStats[qa.cat].t++;
+  if(isCorrect){score++;catStats[qa.cat].c++;}
+  if(!examMode){
+    fb.className=isCorrect?'feedback correct-fb show':'feedback wrong-fb show';
+    fb.innerHTML=isCorrect
+      ?`<div class="feedback-title">✅ ¡Correcto!</div><div>${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`
+      :`<div class="feedback-title">❌ Incorrecto</div><div><strong>Respuesta correcta:</strong> ${qa.opts[qa.ans]}</div><div style="margin-top:8px;">${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;
+  }
+  answers.push({q:qa.q,correct:isCorrect,userAns:qa.opts[idx],correctAns:qa.opts[qa.ans],cat:qa.catName,exp:qa.exp,ref:qa.ref});
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion() {
+  currentQ++;
+  if(currentQ>=questions.length) showResults();
+  else renderQuestion();
+}
+
+function showResults() {
+  document.getElementById('quizArea').innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  document.getElementById('progressBar').style.width='100%';
+  document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;
+  const pct=Math.round((score/questions.length)*100);
+  const msg=pct>=90?'🏆 ¡Dominio excelente del SAOS!':pct>=70?'👏 ¡Muy bien! Repasa los temas con menor puntaje.':pct>=50?'📚 Aceptable, refuerza las áreas débiles.':'⚠️ Revisa la GPC de SAOS 2021 con detalle.';
+  const cats=[
+    {name:'Diagnóstico',key:'diag',color:'#38bdf8'},
+    {name:'Factores de Riesgo',key:'fact',color:'#fbbf24'},
+    {name:'CPAP/Tto médico',key:'cpap',color:'#a78bfa'},
+    {name:'Tto Quirúrgico',key:'cx',color:'#f472b6'},
+    {name:'Complicaciones',key:'comp',color:'#34d399'},
+  ];
+  let html=`<div class="results-header">
+    <div class="score-big">${pct}%</div>
+    <div class="score-label">${score} de ${questions.length} correctas</div>
+    <div class="score-msg">${msg}</div>
+  </div>
+  <div class="chart-section">
+    <div class="chart-title"><span>📊</span> Rendimiento por Categoría</div>
+    <div class="bar-chart">`;
+  cats.forEach(cat=>{
+    const s=catStats[cat.key]||{c:0,t:0};
+    const p=s.t>0?Math.round((s.c/s.t)*100):0;
+    html+=`<div class="bar-row"><div class="bar-label">${cat.name}</div><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${cat.color};">${p}% (${s.c}/${s.t})</div></div></div>`;
+  });
+  html+=`</div></div>
+  <div class="chart-section">
+    <div class="chart-title"><span>🎯</span> Resumen General</div>
+    <div class="donut-wrap">
+      <svg class="donut-svg" viewBox="0 0 42 42">
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a2235" stroke-width="4"/>
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#34d399" stroke-width="4" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="25" stroke-linecap="round"/>
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#f87171" stroke-width="4" stroke-dasharray="${100-pct} ${pct}" stroke-dashoffset="${25-pct}" stroke-linecap="round"/>
+        <text x="21" y="22.5" text-anchor="middle" font-size="6" font-weight="700" fill="#e8ecf4" font-family="Plus Jakarta Sans">${pct}%</text>
+      </svg>
+      <div class="donut-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#34d399;"></div>Correctas: ${score}</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Incorrectas: ${questions.length-score}</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#38bdf8;"></div>Total: ${questions.length}</div>
+      </div>
+    </div>
+  </div>
+  <div class="chart-section">
+    <div class="chart-title"><span>📋</span> Revisión de Respuestas</div>`;
+  answers.forEach((a,i)=>{
+    html+=`<div class="review-card ${a.correct?'review-correct':'review-wrong'}">
+      <div class="review-q">${i+1}. ${a.q} <span style="font-size:0.72rem;color:var(--text-dim);">[${a.cat}]</span></div>
+      <div class="review-answer">${a.correct?`<strong>✅ ${a.correctAns}</strong>`:`<em>❌ Tu respuesta: ${a.userAns}</em><br><strong>✅ Correcta: ${a.correctAns}</strong>`}</div>
+      <div style="margin-top:8px;font-size:0.8rem;color:var(--text-dim);line-height:1.5;">${a.exp}</div>
+      <div style="margin-top:6px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;">📖 ${a.ref}</div>
+    </div>`;
+  });
+  html+=`</div><button class="retry-btn" onclick="init()">🔄 Reintentar</button>`;
+  const res=document.getElementById('resultsArea');
+  res.innerHTML=html; res.classList.add('show');
+  res.scrollIntoView({behavior:'smooth'});
+}
+
+function toggleSpec(header){header.classList.toggle('open');header.nextElementSibling.classList.toggle('open');}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patología de Laringe — ENARM · ORL · Tema 25</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0a0e1a; --surface: #111827; --surface2: #1a2235; --surface3: #212d45;
+    --border: #2a3a5c; --text: #e8ecf4; --text-dim: #8896b3;
+    --accent: #38bdf8; --accent-glow: rgba(56,189,248,0.15);
+    --correct: #34d399; --correct-bg: rgba(52,211,153,0.1); --correct-border: rgba(52,211,153,0.4);
+    --wrong: #f87171; --wrong-bg: rgba(248,113,113,0.1); --wrong-border: rgba(248,113,113,0.4);
+    --gold: #fbbf24; --purple: #a78bfa; --pink: #f472b6; --teal: #2dd4bf;
+    --sidebar-w: 280px; --radius: 14px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; display:flex; }
+
+  .sidebar {
+    width:var(--sidebar-w); min-height:100vh; background:var(--surface);
+    border-right:1px solid var(--border); display:flex; flex-direction:column;
+    position:fixed; left:0; top:0; bottom:0; overflow-y:auto; z-index:100; transition:transform 0.3s;
+  }
+  .sidebar-logo { padding:24px 20px 16px; border-bottom:1px solid var(--border); }
+  .logo-badge { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,var(--accent),var(--purple)); padding:6px 14px; border-radius:100px; font-size:0.75rem; font-weight:800; color:var(--bg); letter-spacing:0.5px; text-transform:uppercase; margin-bottom:10px; }
+  .sidebar-logo h2 { font-size:1.1rem; font-weight:800; background:linear-gradient(135deg,var(--text),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .sidebar-logo p { font-size:0.72rem; color:var(--text-dim); margin-top:2px; }
+  .back-btn { display:flex; align-items:center; gap:8px; padding:14px 20px; color:var(--text-dim); font-size:0.8rem; text-decoration:none; border-bottom:1px solid var(--border); transition:color 0.2s; }
+  .back-btn:hover { color:var(--accent); }
+  .sidebar-nav { flex:1; padding:12px 0 24px; }
+  .specialty-header { display:flex; align-items:center; justify-content:space-between; padding:10px 16px 10px 20px; cursor:pointer; transition:background 0.2s; user-select:none; }
+  .specialty-header:hover { background:var(--surface2); }
+  .specialty-name { display:flex; align-items:center; gap:10px; font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; }
+  .specialty-icon { width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:0.9rem; flex-shrink:0; }
+  .chevron { font-size:0.65rem; color:var(--text-dim); transition:transform 0.3s; }
+  .specialty-header.open .chevron { transform:rotate(90deg); }
+  .topics-list { display:none; padding:4px 0 8px; }
+  .topics-list.open { display:block; }
+  .topic-link { display:flex; align-items:center; gap:10px; padding:8px 16px 8px 56px; font-size:0.78rem; color:var(--text-dim); text-decoration:none; transition:all 0.2s; border-left:2px solid transparent; line-height:1.4; }
+  .topic-link:hover { color:var(--text); background:var(--surface3); }
+  .topic-link.active { color:var(--accent); border-left-color:var(--accent); background:var(--accent-glow); font-weight:600; }
+  .topic-link.coming-soon { opacity:0.4; cursor:not-allowed; pointer-events:none; }
+  .topic-num { font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--text-dim); min-width:20px; }
+  .badge-soon { margin-left:auto; background:rgba(136,150,179,0.1); color:var(--text-dim); font-size:0.62rem; font-weight:600; padding:2px 7px; border-radius:100px; }
+  .star-tag { margin-left:auto; font-size:0.7rem; }
+
+  .main { margin-left:var(--sidebar-w); flex:1; display:flex; flex-direction:column; }
+  .container { max-width:760px; margin:0 auto; padding:20px 16px 40px; width:100%; }
+
+  .mode-bar { display:flex; align-items:center; gap:10px; margin:24px 0 20px; background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:6px; width:fit-content; }
+  .mode-btn { padding:8px 20px; border-radius:100px; border:none; cursor:pointer; font-family:inherit; font-size:0.82rem; font-weight:600; transition:all 0.2s; color:var(--text-dim); background:transparent; }
+  .mode-btn.active { background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); }
+
+  .header { text-align:center; padding:40px 20px 24px; position:relative; overflow:hidden; }
+  .header::before { content:''; position:absolute; top:-60%; left:50%; transform:translateX(-50%); width:600px; height:600px; background:radial-gradient(circle,rgba(56,189,248,0.08) 0%,transparent 70%); pointer-events:none; }
+  .header-badge { display:inline-flex; align-items:center; gap:8px; background:var(--surface2); border:1px solid var(--border); padding:6px 16px; border-radius:100px; font-size:0.78rem; color:var(--accent); font-weight:600; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:16px; }
+  .header h1 { font-size:clamp(1.6rem,5vw,2.2rem); font-weight:800; background:linear-gradient(135deg,var(--text) 0%,var(--accent) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:8px; }
+  .header p { color:var(--text-dim); font-size:0.95rem; max-width:500px; margin:0 auto; }
+
+  .progress-wrap { background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:12px 20px; margin:20px 0 28px; display:flex; align-items:center; gap:14px; }
+  .progress-bar-bg { flex:1; height:8px; background:var(--surface3); border-radius:100px; overflow:hidden; }
+  .progress-bar-fill { height:100%; width:0%; background:linear-gradient(90deg,var(--accent),var(--purple)); border-radius:100px; transition:width 0.5s ease; }
+  .progress-text { font-size:0.82rem; font-weight:600; color:var(--text-dim); white-space:nowrap; font-family:'JetBrains Mono',monospace; }
+
+  .question-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:28px 24px; margin-bottom:20px; animation:slideIn 0.4s ease; position:relative; overflow:hidden; }
+  .question-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--gold),var(--accent),var(--purple)); }
+  @keyframes slideIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+  .q-category { display:inline-flex; align-items:center; gap:6px; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; padding:4px 12px; border-radius:100px; margin-bottom:14px; }
+  .cat-ca  { background:rgba(251,191,36,0.12); color:var(--gold); }
+  .cat-pap { background:rgba(56,189,248,0.12); color:var(--accent); }
+  .cat-dis { background:rgba(167,139,250,0.12); color:var(--purple); }
+  .cat-par { background:rgba(244,114,182,0.12); color:var(--pink); }
+  .cat-tx  { background:rgba(52,211,153,0.12);  color:var(--correct); }
+
+  .q-number { font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--text-dim); margin-bottom:10px; }
+  .q-text { font-size:1.05rem; font-weight:600; line-height:1.55; margin-bottom:20px; color:var(--text); }
+
+  .options { display:flex; flex-direction:column; gap:10px; }
+  .option-btn { display:flex; align-items:flex-start; gap:12px; padding:14px 16px; background:var(--surface2); border:1.5px solid var(--border); border-radius:12px; cursor:pointer; transition:all 0.2s; text-align:left; font-size:0.92rem; color:var(--text); font-family:inherit; line-height:1.5; width:100%; }
+  .option-btn:hover:not(.disabled) { border-color:var(--accent); background:var(--accent-glow); transform:translateX(4px); }
+  .option-letter { display:flex; align-items:center; justify-content:center; min-width:30px; height:30px; border-radius:8px; background:var(--surface3); font-weight:700; font-size:0.82rem; color:var(--accent); flex-shrink:0; }
+  .option-btn.correct-answer { border-color:var(--correct-border); background:var(--correct-bg); }
+  .option-btn.correct-answer .option-letter { background:var(--correct); color:var(--bg); }
+  .option-btn.wrong-answer { border-color:var(--wrong-border); background:var(--wrong-bg); }
+  .option-btn.wrong-answer .option-letter { background:var(--wrong); color:var(--bg); }
+  .option-btn.disabled { cursor:default; }
+  .option-btn.disabled:hover { transform:none; }
+
+  .feedback { margin-top:18px; padding:18px; border-radius:12px; font-size:0.88rem; line-height:1.65; animation:fadeIn 0.3s ease; display:none; }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  .feedback.show { display:block; }
+  .feedback.correct-fb { background:var(--correct-bg); border:1px solid var(--correct-border); color:var(--correct); }
+  .feedback.wrong-fb { background:var(--wrong-bg); border:1px solid var(--wrong-border); color:#fca5a5; }
+  .feedback-title { font-weight:700; font-size:0.95rem; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
+  .feedback .tip { margin-top:10px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.08); color:var(--text-dim); font-size:0.82rem; }
+  .feedback .tip strong { color:var(--gold); }
+  .feedback .ref { margin-top:8px; font-size:0.75rem; color:var(--text-dim); opacity:0.7; font-style:italic; }
+
+  .next-btn { display:none; margin:20px auto 0; padding:12px 32px; background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:0.92rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+  .next-btn:hover { transform:scale(1.05); box-shadow:0 4px 24px var(--accent-glow); }
+  .next-btn.show { display:block; }
+
+  .results { display:none; animation:slideIn 0.5s ease; }
+  .results.show { display:block; }
+  .results-header { text-align:center; padding:30px 20px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:20px; position:relative; overflow:hidden; }
+  .results-header::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--correct),var(--accent),var(--purple),var(--pink)); }
+  .score-big { font-size:3.5rem; font-weight:800; background:linear-gradient(135deg,var(--correct),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .score-label { font-size:1.1rem; color:var(--text-dim); margin-top:4px; }
+  .score-msg { margin-top:12px; font-size:0.95rem; color:var(--text); font-weight:500; }
+  .chart-section { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px 20px; margin-bottom:20px; }
+  .chart-title { font-size:0.95rem; font-weight:700; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
+  .bar-chart { display:flex; flex-direction:column; gap:14px; }
+  .bar-row { display:flex; align-items:center; gap:12px; }
+  .bar-label { width:130px; font-size:0.78rem; font-weight:600; text-align:right; color:var(--text-dim); flex-shrink:0; }
+  .bar-track { flex:1; height:28px; background:var(--surface3); border-radius:8px; overflow:hidden; }
+  .bar-fill { height:100%; border-radius:8px; transition:width 1s ease; display:flex; align-items:center; padding-left:10px; font-size:0.75rem; font-weight:700; color:var(--bg); min-width:fit-content; }
+  .donut-wrap { display:flex; align-items:center; justify-content:center; gap:30px; flex-wrap:wrap; }
+  .donut-svg { width:160px; height:160px; }
+  .donut-legend { display:flex; flex-direction:column; gap:10px; }
+  .legend-item { display:flex; align-items:center; gap:10px; font-size:0.84rem; }
+  .legend-dot { width:12px; height:12px; border-radius:4px; flex-shrink:0; }
+  .review-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; margin-bottom:12px; }
+  .review-card.review-correct { border-left:4px solid var(--correct); }
+  .review-card.review-wrong { border-left:4px solid var(--wrong); }
+  .review-q { font-size:0.88rem; font-weight:600; margin-bottom:8px; }
+  .review-answer { font-size:0.82rem; color:var(--text-dim); line-height:1.5; }
+  .review-answer strong { color:var(--correct); }
+  .review-answer em { color:var(--wrong); font-style:normal; }
+  .retry-btn { display:block; margin:28px auto; padding:14px 40px; background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:1rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+  .retry-btn:hover { transform:scale(1.05); }
+  .hamburger { display:none; position:fixed; top:16px; left:16px; z-index:200; background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:10px; cursor:pointer; font-size:1.2rem; }
+  .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:90; }
+  .footer { text-align:center; padding:20px; color:var(--text-dim); font-size:0.72rem; opacity:0.5; }
+
+  @media(max-width:768px) {
+    .sidebar { transform:translateX(-100%); }
+    .sidebar.open { transform:translateX(0); }
+    .main { margin-left:0; }
+    .hamburger { display:flex; align-items:center; justify-content:center; }
+    .overlay.show { display:block; }
+    .container { padding:12px 10px 30px; }
+    .question-card { padding:20px 16px; }
+    .bar-label { width:90px; font-size:0.72rem; }
+    .mode-bar { margin:16px auto; }
+  }
+</style>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-badge">🩺 MCS</div>
+    <h2>ENARM · Banco de Preguntas</h2>
+    <p>2025–2026</p>
+  </div>
+  <a href="index.html" class="back-btn">← Volver al inicio</a>
+  <nav class="sidebar-nav">
+    <div class="specialty-group">
+      <div class="specialty-header open" onclick="toggleSpec(this)">
+        <div class="specialty-name">
+          <div class="specialty-icon" style="background:rgba(56,189,248,0.12);color:#38bdf8;">👂</div>
+          Otorrinolaringología
+        </div>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="topics-list open">
+        <a href="21-vertigo.html" class="topic-link"><span class="topic-num">21</span>Vértigo</a>
+        <a href="22-hipoacusias-paralisis-facial.html" class="topic-link"><span class="topic-num">22</span>Hipoacusias / Parálisis facial</a>
+        <a href="23-rinologia.html" class="topic-link"><span class="topic-num">23</span>Rinología</a>
+        <a href="24-patologia-faringe.html" class="topic-link"><span class="topic-num">24</span>Patología de faringe</a>
+        <a href="25-patologia-laringe.html" class="topic-link active"><span class="topic-num">25</span>Patología de laringe</a>
+        <a href="26-otologia.html" class="topic-link"><span class="topic-num">26</span>Otología</a>
+        <a href="27-sindrome-apnea-obstructiva.html" class="topic-link"><span class="topic-num">27</span>Síndrome apnea obstructiva</a>
+      </div>
+    </div>
+    <div class="specialty-group">
+      <div class="specialty-header" onclick="toggleSpec(this)">
+        <div class="specialty-name">
+          <div class="specialty-icon" style="background:rgba(56,189,248,0.12);color:#38bdf8;">🔪</div>
+          Cirugía General
+        </div>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="topics-list">
+        <a href="01-apendicitis.html" class="topic-link"><span class="topic-num">01</span>Abdomen agudo / Apendicitis</a>
+        <a href="02-patologia-biliar.html" class="topic-link"><span class="topic-num">02</span>Patología biliar</a>
+        <a href="03-enfermedad-diverticular.html" class="topic-link"><span class="topic-num">03</span>Enfermedad diverticular</a>
+        <a href="04-erge-esofagitis-dispepsia.html" class="topic-link"><span class="topic-num">04</span>ERGE / Esofagitis</a>
+        <a href="05-cancer-esofago-gastrico.html" class="topic-link"><span class="topic-num">05</span>Cáncer esófago / gástrico</a>
+      </div>
+    </div>
+  </nav>
+</aside>
+
+<main class="main">
+<div class="container">
+
+  <div class="header">
+    <div class="header-badge"><span>👂</span> ENARM · Otorrinolaringología · Tema 25</div>
+    <h1>Patología de Laringe</h1>
+    <p>Cáncer de laringe · Papilomatosis laríngea · Disfonía · Parálisis de cuerdas vocales</p>
+  </div>
+
+  <div style="display:flex;justify-content:center;">
+    <div class="mode-bar">
+      <button class="mode-btn active" id="btnRepaso" onclick="setMode('repaso')">📖 Modo Repaso</button>
+      <button class="mode-btn" id="btnExamen" onclick="setMode('examen')">⏱️ Modo Examen</button>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 15</div>
+  </div>
+
+  <div id="quizArea"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+  <div class="results" id="resultsArea"></div>
+
+</div>
+<div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+</main>
+
+<script>
+let examMode = false;
+
+function setMode(mode) {
+  examMode = (mode === 'examen');
+  document.getElementById('btnRepaso').classList.toggle('active', !examMode);
+  document.getElementById('btnExamen').classList.toggle('active', examMode);
+  init();
+}
+
+const questions = [
+  {
+    cat:"ca", catName:"Cáncer de Laringe",
+    q:"Hombre de 58 años, fumador de 40 años-paquete y consumidor crónico de alcohol, con disfonía persistente de 5 semanas de evolución. La laringoscopía indirecta revela lesión blanquecina en cuerda vocal izquierda. ¿Cuál es el tipo histológico más frecuente de cáncer de laringe?",
+    opts:["Adenocarcinoma","Carcinoma epidermoide (escamoso)","Carcinoma de células pequeñas","Linfoma laríngeo"],
+    ans:1,
+    exp:"El carcinoma epidermoide (escamoso) representa el 95% de todos los cánceres de laringe. La GPC de Diagnóstico y tratamiento del cáncer epidermoide de laringe (2011) establece que el tabaco y el alcohol son los principales factores de riesgo, con efecto sinérgico. La disfonía persistente mayor de 3 semanas en fumador debe considerarse cáncer hasta demostrar lo contrario.",
+    tip:"<strong>95% epidermoide:</strong> Si una pregunta del ENARM menciona cáncer de laringe sin especificar histología, asume carcinoma epidermoide. Tabaco = factor 1, alcohol = factor 2 con efecto sinérgico multiplicativo. Disfonía >3 semanas en fumador → laringoscopía obligatoria.",
+    ref:"GPC: Diagnóstico y tratamiento del cáncer epidermoide de laringe. SSA-237-09. 2011."
+  },
+  {
+    cat:"ca", catName:"Cáncer de Laringe",
+    q:"Respecto a la localización del cáncer de laringe y su pronóstico, ¿cuál de las siguientes afirmaciones es CORRECTA?",
+    opts:["El cáncer supraglótico tiene mejor pronóstico que el glótico por su menor tamaño al diagnóstico","El cáncer glótico tiene mejor pronóstico porque produce disfonía temprana y tiene escasa red linfática","El cáncer subglótico es el más frecuente con 60% de los casos","El cáncer glótico se diagnostica en estadios avanzados por ser asintomático"],
+    ans:1,
+    exp:"El cáncer glótico (60% de los casos) tiene mejor pronóstico que el supraglótico porque las cuerdas vocales producen disfonía al inicio de la enfermedad (diagnóstico temprano) y tienen escasa red linfática (menor riesgo de metástasis ganglionares). El cáncer supraglótico tiene peor pronóstico: es asintomático hasta estadios avanzados y la región supraglótica tiene rica red linfática bilateral, lo que favorece metástasis cervicales tempranas.",
+    tip:"<strong>Glótico = mejor pronóstico:</strong> Disfonía temprana + pocas linfáticas = diagnóstico precoz + menos metástasis. Supraglótico = peor pronóstico: rico en linfáticos bilaterales → ganglios bilaterales → N+ en el 50% al diagnóstico. Subglótico: el más raro (&lt;5%), extensión traqueobronquial.",
+    ref:"GPC: Diagnóstico y tratamiento del cáncer epidermoide de laringe. SSA-237-09. 2011."
+  },
+  {
+    cat:"ca", catName:"Cáncer de Laringe",
+    q:"¿Cuál es el síntoma más precoz y característico del cáncer glótico de laringe?",
+    opts:["Disfagia progresiva","Disfonía persistente mayor de 3 semanas","Masa cervical palpable","Hemoptisis recurrente"],
+    ans:1,
+    exp:"La disfonía persistente mayor de 3 semanas es el síntoma cardinal y más temprano del cáncer glótico, ya que las cuerdas vocales son las estructuras fonatorias y cualquier lesión en ellas altera la voz. La GPC establece que toda disfonía persistente >3 semanas en adulto fumador o mayor de 40 años debe estudiarse con laringoscopía. La masa cervical indica metástasis ganglionares (estadio avanzado N+).",
+    tip:"<strong>Regla de las 3 semanas:</strong> Disfonía >3 semanas = laringoscopía obligatoria. No tratar con analgésicos o antiácidos sin visualizar la laringe. La disfagia es más característica del cáncer supraglótico (afecta epiglotis/aritenoides). Hemoptisis y disnea = enfermedad avanzada.",
+    ref:"GPC: Diagnóstico y tratamiento del cáncer epidermoide de laringe. SSA-237-09. 2011."
+  },
+  {
+    cat:"ca", catName:"Cáncer de Laringe",
+    q:"¿Cuál es el método diagnóstico de confirmación para el cáncer de laringe?",
+    opts:["Tomografía computarizada de cuello con contraste","Laringoscopía directa con biopsia de la lesión","Resonancia magnética de laringe","Citología de esputo en tres muestras"],
+    ans:1,
+    exp:"El diagnóstico definitivo de cáncer de laringe se establece mediante laringoscopía directa (con microscopio o endoscopio rígido bajo anestesia general) con toma de biopsia y estudio histopatológico. La laringoscopía indirecta o fibroscopía flexible es el primer paso para visualizar la lesión, pero la biopsia es indispensable para confirmación histológica. La TC es complementaria para estadificación.",
+    tip:"<strong>Visualización + biopsia = diagnóstico:</strong> La TC ayuda a estadificar (invasión cartílago, extensión extralaríngea, ganglios) pero no diagnostica. El PET-CT se usa para descartar metástasis a distancia en estadios avanzados. Siempre biopsia antes de cualquier tratamiento.",
+    ref:"GPC: Diagnóstico y tratamiento del cáncer epidermoide de laringe. SSA-237-09. 2011."
+  },
+  {
+    cat:"tx", catName:"Tratamiento",
+    q:"Paciente con cáncer glótico estadio T1N0M0 (lesión limitada a una cuerda vocal con movilidad conservada). ¿Cuál es el tratamiento de elección?",
+    opts:["Laringectomía total + radioterapia adyuvante","Radioterapia radical o cordectomía con láser CO2 (preservación laríngea)","Quimioterapia de inducción + cirugía","Laringectomía parcial supraglótica"],
+    ans:1,
+    exp:"En el cáncer glótico T1N0M0, la GPC recomienda tratamientos con preservación laríngea: radioterapia radical (con tasas de control local >90%) o cordectomía endoscópica con láser CO2. Ambos tienen resultados oncológicos equivalentes. La elección depende de disponibilidad, preferencia del paciente y características de la lesión. La laringectomía total se reserva para estadios avanzados T3-T4 o recurrencia.",
+    tip:"<strong>T1-T2 glótico = preservar laringe:</strong> RT radical o láser CO2 tienen control local >85-90% y preservan la voz. Laringectomía total solo en T3-T4, invasión de cartílago, o fallo de tratamiento conservador. El ENARM pregunta mucho sobre preservación de órgano en estadios tempranos.",
+    ref:"GPC: Diagnóstico y tratamiento del cáncer epidermoide de laringe. SSA-237-09. 2011."
+  },
+  {
+    cat:"tx", catName:"Tratamiento",
+    q:"Paciente con cáncer de laringe T3N2M0 (parálisis de cuerda vocal, dos ganglios ipsilaterales <6cm). ¿Cuál es el abordaje terapéutico más adecuado?",
+    opts:["Radioterapia paliativa exclusiva","Laringectomía total + vaciamiento ganglionar cervical + radioterapia/quimioterapia adyuvante","Cordectomía láser como único tratamiento","Observación y manejo de síntomas"],
+    ans:1,
+    exp:"En el cáncer de laringe localmente avanzado (T3-T4 y/o N+), el tratamiento estándar es la laringectomía total con vaciamiento ganglionar cervical funcional o radical modificado, seguida de radioterapia adyuvante ± quimioterapia (cisplatino) según factores de riesgo patológicos (márgenes positivos, extensión extraganglionar). La GPC indica que la quimiorradioterapia concomitante puede ser alternativa en centros seleccionados para preservación de laringe en T3.",
+    tip:"<strong>T3-T4 con ganglios:</strong> Cirugía + RT ± QT. El vaciamiento ganglionar es obligatorio cuando hay N+ clínico. En T3 seleccionado, la quimiorradioterapia con cisplatino puede preservar laringe (protocolo del Veterans Affairs). Pero en T4 con invasión cartilaginosa → laringectomía total obligatoria.",
+    ref:"GPC: Diagnóstico y tratamiento del cáncer epidermoide de laringe. SSA-237-09. 2011."
+  },
+  {
+    cat:"pap", catName:"Papilomatosis",
+    q:"Niño de 4 años con estridor inspiratorio progresivo y disfonía de 8 meses de evolución. La laringoscopía muestra múltiples lesiones verrugosas en cuerdas vocales y epiglotis. ¿Cuál es el agente etiológico de la papilomatosis laríngea recurrente?",
+    opts:["Virus de Epstein-Barr (VEB)","Virus del papiloma humano tipos 6 y 11","Virus herpes simple tipo 1","Candida albicans"],
+    ans:1,
+    exp:"La papilomatosis laríngea recurrente (PLR) es causada por el Virus del Papiloma Humano (VPH) tipos 6 y 11. La forma juvenil (inicio antes de los 5 años) es más agresiva, requiere más cirugías y tiene mayor riesgo de extensión traqueobronquial. La GPC de Tratamiento quirúrgico de la papilomatosis juvenil (2012) establece que la transmisión ocurre durante el parto por contacto con secreciones genitales maternas infectadas.",
+    tip:"<strong>VPH 6 y 11 = papilomatosis:</strong> VPH 6 y 11 son de bajo riesgo oncogénico (benigno en 98%). A diferencia, VPH 16 y 18 causan cáncer de cabeza/cuello y cérvix. La forma juvenil es más agresiva que la del adulto. El estridor inspiratorio en niño + lesiones verrugosas = papilomatosis hasta demostrar lo contrario.",
+    ref:"GPC: Tratamiento quirúrgico de la papilomatosis juvenil recurrente de laringe. SSA-2012."
+  },
+  {
+    cat:"pap", catName:"Papilomatosis",
+    q:"Respecto al tratamiento de la papilomatosis laríngea recurrente juvenil, ¿cuál de las siguientes afirmaciones es CORRECTA según la GPC?",
+    opts:["La cirugía con láser CO2 o microdebridador es curativa en el 80% de los casos con una sola intervención","No existe cura definitiva; el tratamiento quirúrgico repetido es la base del manejo para mantener la vía aérea permeable","Los antivirales sistémicos (aciclovir) son el tratamiento de primera línea","La traqueotomía es el tratamiento definitivo de elección en niños"],
+    ans:1,
+    exp:"La GPC establece claramente que la papilomatosis laríngea recurrente NO tiene cura definitiva. El tratamiento consiste en cirugía repetida (láser CO2 o microdebridador endoscópico) para eliminar las lesiones, mantener la vía aérea permeable y preservar la función vocal. El objetivo no es curación sino control de la enfermedad. El cidofovir intralesional es el adyuvante más utilizado para reducir la frecuencia de recurrencias.",
+    tip:"<strong>Sin cura, control crónico:</strong> La papilomatosis recurrente puede requerir decenas de cirugías a lo largo de la vida. Cidofovir intralesional = adyuvante más usado (no aprobado por FDA pero ampliamente utilizado). Interferón alfa: adyuvante de segunda línea. Traqueotomía: solo si hay obstrucción grave aguda, NO es tratamiento definitivo (puede diseminar lesiones).",
+    ref:"GPC: Tratamiento quirúrgico de la papilomatosis juvenil recurrente de laringe. SSA-2012."
+  },
+  {
+    cat:"pap", catName:"Papilomatosis",
+    q:"¿Cuál de las siguientes complicaciones, aunque rara, puede presentarse en la papilomatosis laríngea recurrente de larga evolución?",
+    opts:["Transformación a carcinoma epidermoide (degeneración maligna)","Laringomalacia secundaria","Parálisis laríngea bilateral espontánea","Granuloma aritenoides por papilomatosis"],
+    ans:0,
+    exp:"La transformación maligna es una complicación rara (1-3% de los casos) de la papilomatosis laríngea recurrente, especialmente asociada al VPH tipo 11, extensión pulmonar y exposición previa a radioterapia o tabaquismo. La GPC menciona que aunque es infrecuente, los pacientes deben tener seguimiento a largo plazo. El riesgo es mayor en la forma adulta y en pacientes inmunocomprometidos.",
+    tip:"<strong>Transformación maligna: rara pero posible:</strong> VPH 11 > VPH 6 en riesgo de malignización. Factores de riesgo adicionales: RT previa, tabaquismo, inmunosupresión, extensión pulmonar. La mayoría de los casos de PLR son benignos de por vida, pero requieren vigilancia. Si hay cambio en el patrón de crecimiento → biopsia.",
+    ref:"GPC: Tratamiento quirúrgico de la papilomatosis juvenil recurrente de laringe. SSA-2012."
+  },
+  {
+    cat:"dis", catName:"Disfonía/Nódulos",
+    q:"Maestra de primaria de 35 años con disfonía crónica de 6 meses, empeora al final de la jornada laboral. La laringoscopía muestra lesiones bilaterales y simétricas en la unión del tercio anterior con los dos tercios posteriores de ambas cuerdas vocales. ¿Cuál es el diagnóstico?",
+    opts:["Pólipo vocal unilateral","Nódulos vocales (nódulos de cantante)","Granuloma aritenoides bilateral","Carcinoma in situ bilateral"],
+    ans:1,
+    exp:"Los nódulos vocales son lesiones benignas bilaterales y simétricas que aparecen en la unión del tercio anterior con los dos tercios posteriores de las cuerdas vocales (punto de máxima vibración y trauma). Son más frecuentes en profesionales de la voz (maestros, cantantes, locutores). La disfonía empeora con el uso de la voz y mejora con el reposo vocal.",
+    tip:"<strong>Nódulos vocales = bilateral y simétrico:</strong> Localización característica en unión 1/3 anterior - 2/3 posterior (punto de mayor vibración). Afecta profesionales de la voz. Tratamiento: PRIMERO fonoterapia (logopedia) por 3-6 meses; cirugía (microcirugía con láser o tijeras frías) solo si la fonoterapia falla. El pólipo es unilateral y va directo a cirugía.",
+    ref:"Patología benigna de la laringe. Literatura de referencia ORL ENARM."
+  },
+  {
+    cat:"dis", catName:"Disfonía/Nódulos",
+    q:"Cantante de ópera de 28 años con disfonía aguda tras concierto. La laringoscopía muestra lesión unilateral, pediculada, rojiza en cuerda vocal derecha. ¿Cuál es el diagnóstico y tratamiento de elección?",
+    opts:["Nódulo vocal bilateral; fonoterapia por 6 meses","Pólipo vocal; microcirugía laríngea con extirpación","Granuloma aritenoides; inhibidores de bomba de protones","Leucoplasia vocal; observación por 3 meses"],
+    ans:1,
+    exp:"El pólipo vocal es una lesión benigna unilateral, generalmente pediculada o sésil, que aparece típicamente tras un traumatismo vocal agudo (gritar, cantar en exceso). A diferencia de los nódulos vocales, el pólipo vocal no responde bien a la fonoterapia y el tratamiento de elección es la extirpación microquirúrgica endoscópica (microcirugía laríngea con instrumental frío o láser CO2). La fonoterapia postoperatoria es complementaria.",
+    tip:"<strong>Nódulo vs Pólipo:</strong> Nódulo = bilateral, simétrico, crónico, profesional de voz → primero fonoterapia. Pólipo = unilateral, agudo, post-traumático → cirugía directa. El granuloma aritenoides está en la apófisis vocal del aritenoides (posterior) y se asocia a RGE o intubación → IBP primero.",
+    ref:"Patología benigna de la laringe. Literatura de referencia ORL ENARM."
+  },
+  {
+    cat:"par", catName:"Parálisis Cuerdas",
+    q:"Paciente de 55 años operado de tiroidectomía total hace 2 semanas, refiere voz soplada y bitonal. La laringoscopía muestra cuerda vocal izquierda inmóvil en posición paramediana. ¿Cuál es el diagnóstico y nervio afectado?",
+    opts:["Parálisis del nervio laríngeo superior bilateral","Parálisis unilateral del nervio laríngeo recurrente izquierdo","Parálisis bilateral del nervio laríngeo recurrente","Luxación aritenoides bilateral por intubación"],
+    ans:1,
+    exp:"La parálisis unilateral del nervio laríngeo recurrente (NLR) es la complicación más frecuente de la tiroidectomía total. Se manifiesta con voz soplada, bitonal o ronca, y aspiración leve. La cuerda vocal ipsilateral queda inmóvil en posición paramediana (entre aducción y abducción). La causa más frecuente de parálisis del NLR en general es iatrogénica (tiroidectomía), seguida de neoplasia (pulmón, tiroides, esófago) y aneurisma aórtico (NLR izquierdo más largo).",
+    tip:"<strong>Tiroidectomía → NLR:</strong> El NLR izquierdo rodea el cayado aórtico (más largo y vulnerable). El NLR derecho rodea la arteria subclavia derecha. Parálisis UNILATERAL: voz bitonal/soplada, sin disnea grave → manejo expectante 6-12 meses (puede recuperar). Parálisis BILATERAL: disnea grave, estridor → traqueotomía de urgencia.",
+    ref:"Patología laríngea. Parálisis de cuerdas vocales. Literatura de referencia ORL ENARM."
+  },
+  {
+    cat:"par", catName:"Parálisis Cuerdas",
+    q:"Paciente con parálisis bilateral de cuerdas vocales en posición mediana tras tiroidectomía total. ¿Cuál es la complicación más grave y el manejo inmediato?",
+    opts:["Disfonía permanente; fonoterapia intensiva","Obstrucción de vía aérea con disnea grave; traqueotomía de urgencia","Aspiración crónica; sonda nasogástrica","Disfagia alta; gastrostomía percutánea"],
+    ans:1,
+    exp:"La parálisis bilateral de cuerdas vocales con las cuerdas en posición mediana (aducción) es una emergencia médica porque las dos cuerdas obstruyen la glotis, produciendo disnea grave, estridor bifásico y cianosis. El manejo inmediato es la traqueotomía de urgencia para asegurar la vía aérea. La voz paradójicamente puede ser casi normal (cuerdas en contacto), pero la respiración está gravemente comprometida.",
+    tip:"<strong>Bilateral en mediana = emergencia respiratoria:</strong> Regla nemotécnica: 'Uno canta, dos ahoga'. Parálisis unilateral → voz bitonal pero respira. Parálisis bilateral en mediana → voz casi normal pero DISNEA GRAVE → traqueotomía urgente. Bilateral en abducción (lateral): respira bien pero voz soplada grave y aspira.",
+    ref:"Patología laríngea. Parálisis de cuerdas vocales. Literatura de referencia ORL ENARM."
+  },
+  {
+    cat:"par", catName:"Parálisis Cuerdas",
+    q:"Neonato de 3 semanas con estridor inspiratorio que empeora en posición supina y mejora en decúbito prono. La laringoscopía muestra colapso de la epiglotis y aritenoides durante la inspiración. ¿Cuál es el diagnóstico y su evolución natural?",
+    opts:["Estenosis subglótica congénita; requiere traqueotomía inmediata","Laringomalacia; causa más frecuente de estridor congénito, resolución espontánea en la mayoría","Parálisis laríngea bilateral congénita; tratamiento quirúrgico urgente","Quiste de vallécula; resección endoscópica urgente"],
+    ans:1,
+    exp:"La laringomalacia es la causa más frecuente de estridor congénito en neonatos y lactantes (60-70% de todos los estridores congénitos). Se debe a la laxitud y flacidez de las estructuras supraglóticas (epiglotis omega, aritenoides redundantes) que colapsan durante la inspiración. El estridor empeora en supino (gravedad), con el llanto, y mejora en prono. La GPC establece que en la gran mayoría de los casos (>90%) se resuelve espontáneamente entre los 12-24 meses. La supraglotoplastia endoscópica se reserva para casos graves con falla de medro o apneas.",
+    tip:"<strong>Laringomalacia = estridor congénito más frecuente:</strong> Estridor INSPIRATORIO (glótico) + mejora en PRONO + empeora supino. Resolución espontánea en la mayoría antes de los 2 años. Diferencial: estenosis subglótica (estridor bifásico, post-intubación), traqueomalacia (estridor espiratorio). Solo operar casos graves con hipoxia, apnea o falla de medro.",
+    ref:"Patología laríngea pediátrica. Laringomalacia. Literatura de referencia ORL ENARM."
+  },
+  {
+    cat:"ca", catName:"Cáncer de Laringe",
+    q:"En la estadificación TNM del cáncer de laringe, ¿cuál de los siguientes hallazgos corresponde a un tumor T4a (estadio localmente avanzado resecable)?",
+    opts:["Tumor limitado a una cuerda vocal con movilidad normal","Tumor que invade el cartílago tiroides y/o estructuras extralaríngeas (tráquea, tiroides, esófago, músculos del cuello)","Tumor con extensión a mediastino o arteria carótida (irresecable)","Tumor supraglótico que afecta una cuerda vocal con movilidad conservada"],
+    ans:1,
+    exp:"Según la clasificación TNM del AJCC adoptada por la GPC, T4a corresponde al tumor localmente avanzado resecable que invade el cartílago tiroides y/o se extiende a estructuras extralaríngeas (tráquea, tejidos blandos del cuello, tiroides, esófago). T4b (irresecable) implica invasión del espacio prevertebral, arteria carótida o estructuras mediastínicas. T1: limitado a un subsitio con movilidad normal. T2: extensión a subsitios adyacentes. T3: limitado a laringe con fijación de cuerda o invasión del espacio paraglótico.",
+    tip:"<strong>TNM laríngeo resumido:</strong> T1 = subsitio único, móvil. T2 = varios subsitios, móvil. T3 = cuerda fija O espacio paraglótico. T4a = cartílago tiroides O extralaríngeo (resecable). T4b = carótida O mediastino (irresecable). N1 = ganglio único ipsilateral &lt;3cm. N2 = múltiples o &lt;6cm. N3 = >6cm.",
+    ref:"GPC: Diagnóstico y tratamiento del cáncer epidermoide de laringe. SSA-237-09. 2011."
+  }
+];
+
+let currentQ = 0, score = 0, answers = [];
+let catStats = { ca:{c:0,t:0}, pap:{c:0,t:0}, dis:{c:0,t:0}, par:{c:0,t:0}, tx:{c:0,t:0} };
+
+function shuffle(arr) {
+  for (let i=arr.length-1;i>0;i--) {
+    const j=Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+
+function init() {
+  shuffle(questions);
+  currentQ=0; score=0; answers=[];
+  catStats = { ca:{c:0,t:0}, pap:{c:0,t:0}, dis:{c:0,t:0}, par:{c:0,t:0}, tx:{c:0,t:0} };
+  const r=document.getElementById('resultsArea');
+  r.classList.remove('show'); r.innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const qa=questions[currentQ], total=questions.length;
+  document.getElementById('progressBar').style.width=(currentQ/total*100)+'%';
+  document.getElementById('progressText').textContent=`${currentQ+1} / ${total}`;
+  document.getElementById('nextBtn').classList.remove('show');
+  const letters=['A','B','C','D'];
+  let html=`<div class="question-card">
+    <div class="q-category cat-${qa.cat}">${qa.catName}</div>
+    <div class="q-number">Pregunta ${currentQ+1} de ${total}</div>
+    <div class="q-text">${qa.q}</div>
+    <div class="options">`;
+  qa.opts.forEach((opt,i)=>{
+    html+=`<button class="option-btn" onclick="selectAnswer(${i})" data-idx="${i}">
+      <span class="option-letter">${letters[i]}</span><span>${opt}</span></button>`;
+  });
+  html+=`</div><div class="feedback" id="feedback"></div></div>`;
+  document.getElementById('quizArea').innerHTML=html;
+}
+
+function selectAnswer(idx) {
+  const qa=questions[currentQ];
+  const btns=document.querySelectorAll('.option-btn');
+  const fb=document.getElementById('feedback');
+  const isCorrect=idx===qa.ans;
+  btns.forEach((btn,i)=>{
+    btn.classList.add('disabled'); btn.onclick=null;
+    if(i===qa.ans) btn.classList.add('correct-answer');
+    if(i===idx&&!isCorrect) btn.classList.add('wrong-answer');
+  });
+  if(!catStats[qa.cat]) catStats[qa.cat]={c:0,t:0};
+  catStats[qa.cat].t++;
+  if(isCorrect){score++;catStats[qa.cat].c++;}
+  if(!examMode){
+    fb.className=isCorrect?'feedback correct-fb show':'feedback wrong-fb show';
+    fb.innerHTML=isCorrect
+      ?`<div class="feedback-title">✅ ¡Correcto!</div><div>${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`
+      :`<div class="feedback-title">❌ Incorrecto</div><div><strong>Respuesta correcta:</strong> ${qa.opts[qa.ans]}</div><div style="margin-top:8px;">${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;
+  }
+  answers.push({q:qa.q,correct:isCorrect,userAns:qa.opts[idx],correctAns:qa.opts[qa.ans],cat:qa.catName,exp:qa.exp,ref:qa.ref});
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion() {
+  currentQ++;
+  if(currentQ>=questions.length) showResults();
+  else renderQuestion();
+}
+
+function showResults() {
+  document.getElementById('quizArea').innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  document.getElementById('progressBar').style.width='100%';
+  document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;
+  const pct=Math.round((score/questions.length)*100);
+  const msg=pct>=90?'🏆 ¡Dominio excelente de patología laríngea!':pct>=70?'👏 ¡Muy bien! Repasa los temas con menor puntaje.':pct>=50?'📚 Aceptable, refuerza las áreas débiles.':'⚠️ Revisa las GPC de cáncer de laringe y papilomatosis.';
+  const cats=[
+    {name:'Cáncer de Laringe',key:'ca',color:'#fbbf24'},
+    {name:'Papilomatosis',key:'pap',color:'#38bdf8'},
+    {name:'Disfonía/Nódulos',key:'dis',color:'#a78bfa'},
+    {name:'Parálisis Cuerdas',key:'par',color:'#f472b6'},
+    {name:'Tratamiento',key:'tx',color:'#34d399'},
+  ];
+  let html=`<div class="results-header">
+    <div class="score-big">${pct}%</div>
+    <div class="score-label">${score} de ${questions.length} correctas</div>
+    <div class="score-msg">${msg}</div>
+  </div>
+  <div class="chart-section">
+    <div class="chart-title"><span>📊</span> Rendimiento por Categoría</div>
+    <div class="bar-chart">`;
+  cats.forEach(cat=>{
+    const s=catStats[cat.key]||{c:0,t:0};
+    const p=s.t>0?Math.round((s.c/s.t)*100):0;
+    html+=`<div class="bar-row"><div class="bar-label">${cat.name}</div><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${cat.color};">${p}% (${s.c}/${s.t})</div></div></div>`;
+  });
+  html+=`</div></div>
+  <div class="chart-section">
+    <div class="chart-title"><span>🎯</span> Resumen General</div>
+    <div class="donut-wrap">
+      <svg class="donut-svg" viewBox="0 0 42 42">
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a2235" stroke-width="4"/>
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#34d399" stroke-width="4" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="25" stroke-linecap="round"/>
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#f87171" stroke-width="4" stroke-dasharray="${100-pct} ${pct}" stroke-dashoffset="${25-pct}" stroke-linecap="round"/>
+        <text x="21" y="22.5" text-anchor="middle" font-size="6" font-weight="700" fill="#e8ecf4" font-family="Plus Jakarta Sans">${pct}%</text>
+      </svg>
+      <div class="donut-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#34d399;"></div>Correctas: ${score}</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Incorrectas: ${questions.length-score}</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#38bdf8;"></div>Total: ${questions.length}</div>
+      </div>
+    </div>
+  </div>
+  <div class="chart-section">
+    <div class="chart-title"><span>📋</span> Revisión de Respuestas</div>`;
+  answers.forEach((a,i)=>{
+    html+=`<div class="review-card ${a.correct?'review-correct':'review-wrong'}">
+      <div class="review-q">${i+1}. ${a.q} <span style="font-size:0.72rem;color:var(--text-dim);">[${a.cat}]</span></div>
+      <div class="review-answer">${a.correct?`<strong>✅ ${a.correctAns}</strong>`:`<em>❌ Tu respuesta: ${a.userAns}</em><br><strong>✅ Correcta: ${a.correctAns}</strong>`}</div>
+      <div style="margin-top:8px;font-size:0.8rem;color:var(--text-dim);line-height:1.5;">${a.exp}</div>
+      <div style="margin-top:6px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;">📖 ${a.ref}</div>
+    </div>`;
+  });
+  html+=`</div><button class="retry-btn" onclick="init()">🔄 Reintentar</button>`;
+  const res=document.getElementById('resultsArea');
+  res.innerHTML=html; res.classList.add('show');
+  res.scrollIntoView({behavior:'smooth'});
+}
+
+function toggleSpec(header){header.classList.toggle('open');header.nextElementSibling.classList.toggle('open');}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+
+init();
+</script>
+</body>
+</html>
