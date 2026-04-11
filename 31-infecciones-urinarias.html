@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infecciones Urinarias — ENARM · Urología · Tema 31</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0a0e1a; --surface: #111827; --surface2: #1a2235; --surface3: #212d45;
+    --border: #2a3a5c; --text: #e8ecf4; --text-dim: #8896b3;
+    --accent: #38bdf8; --accent-glow: rgba(56,189,248,0.15);
+    --correct: #34d399; --correct-bg: rgba(52,211,153,0.1); --correct-border: rgba(52,211,153,0.4);
+    --wrong: #f87171; --wrong-bg: rgba(248,113,113,0.1); --wrong-border: rgba(248,113,113,0.4);
+    --gold: #fbbf24; --purple: #a78bfa; --pink: #f472b6; --teal: #2dd4bf;
+    --sidebar-w: 280px; --radius: 14px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; display:flex; }
+
+  .sidebar {
+    width:var(--sidebar-w); min-height:100vh; background:var(--surface);
+    border-right:1px solid var(--border); display:flex; flex-direction:column;
+    position:fixed; left:0; top:0; bottom:0; overflow-y:auto; z-index:100; transition:transform 0.3s;
+  }
+  .sidebar-logo { padding:24px 20px 16px; border-bottom:1px solid var(--border); }
+  .logo-badge { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,var(--accent),var(--purple)); padding:6px 14px; border-radius:100px; font-size:0.75rem; font-weight:800; color:var(--bg); letter-spacing:0.5px; text-transform:uppercase; margin-bottom:10px; }
+  .sidebar-logo h2 { font-size:1.1rem; font-weight:800; background:linear-gradient(135deg,var(--text),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .sidebar-logo p { font-size:0.72rem; color:var(--text-dim); margin-top:2px; }
+  .back-btn { display:flex; align-items:center; gap:8px; padding:14px 20px; color:var(--text-dim); font-size:0.8rem; text-decoration:none; border-bottom:1px solid var(--border); transition:color 0.2s; }
+  .back-btn:hover { color:var(--accent); }
+  .sidebar-nav { flex:1; padding:12px 0 24px; }
+  .specialty-header { display:flex; align-items:center; justify-content:space-between; padding:10px 16px 10px 20px; cursor:pointer; transition:background 0.2s; user-select:none; }
+  .specialty-header:hover { background:var(--surface2); }
+  .specialty-name { display:flex; align-items:center; gap:10px; font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; }
+  .specialty-icon { width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:0.9rem; flex-shrink:0; }
+  .chevron { font-size:0.65rem; color:var(--text-dim); transition:transform 0.3s; }
+  .specialty-header.open .chevron { transform:rotate(90deg); }
+  .topics-list { display:none; padding:4px 0 8px; }
+  .topics-list.open { display:block; }
+  .topic-link { display:flex; align-items:center; gap:10px; padding:8px 16px 8px 56px; font-size:0.78rem; color:var(--text-dim); text-decoration:none; transition:all 0.2s; border-left:2px solid transparent; line-height:1.4; }
+  .topic-link:hover { color:var(--text); background:var(--surface3); }
+  .topic-link.active { color:var(--accent); border-left-color:var(--accent); background:var(--accent-glow); font-weight:600; }
+  .topic-link.coming-soon { opacity:0.4; cursor:not-allowed; pointer-events:none; }
+  .topic-num { font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--text-dim); min-width:20px; }
+  .badge-soon { margin-left:auto; background:rgba(136,150,179,0.1); color:var(--text-dim); font-size:0.62rem; font-weight:600; padding:2px 7px; border-radius:100px; }
+  .star-tag { margin-left:auto; font-size:0.7rem; }
+
+  .main { margin-left:var(--sidebar-w); flex:1; display:flex; flex-direction:column; }
+  .container { max-width:760px; margin:0 auto; padding:20px 16px 40px; width:100%; }
+
+  .mode-bar { display:flex; align-items:center; gap:10px; margin:24px 0 20px; background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:6px; width:fit-content; }
+  .mode-btn { padding:8px 20px; border-radius:100px; border:none; cursor:pointer; font-family:inherit; font-size:0.82rem; font-weight:600; transition:all 0.2s; color:var(--text-dim); background:transparent; }
+  .mode-btn.active { background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); }
+
+  .header { text-align:center; padding:40px 20px 24px; position:relative; overflow:hidden; }
+  .header::before { content:''; position:absolute; top:-60%; left:50%; transform:translateX(-50%); width:600px; height:600px; background:radial-gradient(circle,rgba(56,189,248,0.08) 0%,transparent 70%); pointer-events:none; }
+  .header-badge { display:inline-flex; align-items:center; gap:8px; background:var(--surface2); border:1px solid var(--border); padding:6px 16px; border-radius:100px; font-size:0.78rem; color:var(--accent); font-weight:600; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:16px; }
+  .header h1 { font-size:clamp(1.6rem,5vw,2.2rem); font-weight:800; background:linear-gradient(135deg,var(--text) 0%,var(--accent) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:8px; }
+  .header p { color:var(--text-dim); font-size:0.95rem; max-width:500px; margin:0 auto; }
+
+  .progress-wrap { background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:12px 20px; margin:20px 0 28px; display:flex; align-items:center; gap:14px; }
+  .progress-bar-bg { flex:1; height:8px; background:var(--surface3); border-radius:100px; overflow:hidden; }
+  .progress-bar-fill { height:100%; width:0%; background:linear-gradient(90deg,var(--accent),var(--purple)); border-radius:100px; transition:width 0.5s ease; }
+  .progress-text { font-size:0.82rem; font-weight:600; color:var(--text-dim); white-space:nowrap; font-family:'JetBrains Mono',monospace; }
+
+  .question-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:28px 24px; margin-bottom:20px; animation:slideIn 0.4s ease; position:relative; overflow:hidden; }
+  .question-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--gold),var(--accent),var(--purple)); }
+  @keyframes slideIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+  .q-category { display:inline-flex; align-items:center; gap:6px; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; padding:4px 12px; border-radius:100px; margin-bottom:14px; }
+  .cat-itu  { background:rgba(56,189,248,0.12);  color:#38bdf8; }
+  .cat-pna  { background:rgba(244,114,182,0.12); color:#f472b6; }
+  .cat-comp { background:rgba(251,191,36,0.12);  color:#fbbf24; }
+  .cat-pros { background:rgba(167,139,250,0.12); color:#a78bfa; }
+  .cat-prev { background:rgba(52,211,153,0.12);  color:#34d399; }
+
+  .q-number { font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--text-dim); margin-bottom:10px; }
+  .q-text { font-size:1.05rem; font-weight:600; line-height:1.55; margin-bottom:20px; color:var(--text); }
+
+  .options { display:flex; flex-direction:column; gap:10px; }
+  .option-btn { display:flex; align-items:flex-start; gap:12px; padding:14px 16px; background:var(--surface2); border:1.5px solid var(--border); border-radius:12px; cursor:pointer; transition:all 0.2s; text-align:left; font-size:0.92rem; color:var(--text); font-family:inherit; line-height:1.5; width:100%; }
+  .option-btn:hover:not(.disabled) { border-color:var(--accent); background:var(--accent-glow); transform:translateX(4px); }
+  .option-letter { display:flex; align-items:center; justify-content:center; min-width:30px; height:30px; border-radius:8px; background:var(--surface3); font-weight:700; font-size:0.82rem; color:var(--accent); flex-shrink:0; }
+  .option-btn.correct-answer { border-color:var(--correct-border); background:var(--correct-bg); }
+  .option-btn.correct-answer .option-letter { background:var(--correct); color:var(--bg); }
+  .option-btn.wrong-answer { border-color:var(--wrong-border); background:var(--wrong-bg); }
+  .option-btn.wrong-answer .option-letter { background:var(--wrong); color:var(--bg); }
+  .option-btn.disabled { cursor:default; }
+  .option-btn.disabled:hover { transform:none; }
+
+  .feedback { margin-top:18px; padding:18px; border-radius:12px; font-size:0.88rem; line-height:1.65; animation:fadeIn 0.3s ease; display:none; }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  .feedback.show { display:block; }
+  .feedback.correct-fb { background:var(--correct-bg); border:1px solid var(--correct-border); color:var(--correct); }
+  .feedback.wrong-fb { background:var(--wrong-bg); border:1px solid var(--wrong-border); color:#fca5a5; }
+  .feedback-title { font-weight:700; font-size:0.95rem; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
+  .feedback .tip { margin-top:10px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.08); color:var(--text-dim); font-size:0.82rem; }
+  .feedback .tip strong { color:var(--gold); }
+  .feedback .ref { margin-top:8px; font-size:0.75rem; color:var(--text-dim); opacity:0.7; font-style:italic; }
+
+  .next-btn { display:none; margin:20px auto 0; padding:12px 32px; background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:0.92rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+  .next-btn:hover { transform:scale(1.05); box-shadow:0 4px 24px var(--accent-glow); }
+  .next-btn.show { display:block; }
+
+  .results { display:none; animation:slideIn 0.5s ease; }
+  .results.show { display:block; }
+  .results-header { text-align:center; padding:30px 20px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:20px; position:relative; overflow:hidden; }
+  .results-header::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--correct),var(--accent),var(--purple),var(--pink)); }
+  .score-big { font-size:3.5rem; font-weight:800; background:linear-gradient(135deg,var(--correct),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .score-label { font-size:1.1rem; color:var(--text-dim); margin-top:4px; }
+  .score-msg { margin-top:12px; font-size:0.95rem; color:var(--text); font-weight:500; }
+  .chart-section { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px 20px; margin-bottom:20px; }
+  .chart-title { font-size:0.95rem; font-weight:700; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
+  .bar-chart { display:flex; flex-direction:column; gap:14px; }
+  .bar-row { display:flex; align-items:center; gap:12px; }
+  .bar-label { width:130px; font-size:0.78rem; font-weight:600; text-align:right; color:var(--text-dim); flex-shrink:0; }
+  .bar-track { flex:1; height:28px; background:var(--surface3); border-radius:8px; overflow:hidden; }
+  .bar-fill { height:100%; border-radius:8px; transition:width 1s ease; display:flex; align-items:center; padding-left:10px; font-size:0.75rem; font-weight:700; color:var(--bg); min-width:fit-content; }
+  .donut-wrap { display:flex; align-items:center; justify-content:center; gap:30px; flex-wrap:wrap; }
+  .donut-svg { width:160px; height:160px; }
+  .donut-legend { display:flex; flex-direction:column; gap:10px; }
+  .legend-item { display:flex; align-items:center; gap:10px; font-size:0.84rem; }
+  .legend-dot { width:12px; height:12px; border-radius:4px; flex-shrink:0; }
+  .review-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; margin-bottom:12px; }
+  .review-card.review-correct { border-left:4px solid var(--correct); }
+  .review-card.review-wrong { border-left:4px solid var(--wrong); }
+  .review-q { font-size:0.88rem; font-weight:600; margin-bottom:8px; }
+  .review-answer { font-size:0.82rem; color:var(--text-dim); line-height:1.5; }
+  .review-answer strong { color:var(--correct); }
+  .review-answer em { color:var(--wrong); font-style:normal; }
+  .retry-btn { display:block; margin:28px auto; padding:14px 40px; background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:1rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+  .retry-btn:hover { transform:scale(1.05); }
+  .hamburger { display:none; position:fixed; top:16px; left:16px; z-index:200; background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:10px; cursor:pointer; font-size:1.2rem; }
+  .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:90; }
+  .footer { text-align:center; padding:20px; color:var(--text-dim); font-size:0.72rem; opacity:0.5; }
+
+  @media(max-width:768px) {
+    .sidebar { transform:translateX(-100%); }
+    .sidebar.open { transform:translateX(0); }
+    .main { margin-left:0; }
+    .hamburger { display:flex; align-items:center; justify-content:center; }
+    .overlay.show { display:block; }
+    .container { padding:12px 10px 30px; }
+    .question-card { padding:20px 16px; }
+    .bar-label { width:90px; font-size:0.72rem; }
+    .mode-bar { margin:16px auto; }
+  }
+</style>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-badge">🩺 MCS</div>
+    <h2>ENARM · Banco de Preguntas</h2>
+    <p>2025–2026</p>
+  </div>
+  <a href="index.html" class="back-btn">← Volver al inicio</a>
+  <nav class="sidebar-nav">
+
+    <!-- Cirugía General — COLAPSADA -->
+    <div class="specialty-group">
+      <div class="specialty-header" onclick="toggleSpec(this)">
+        <div class="specialty-name">
+          <div class="specialty-icon" style="background:rgba(56,189,248,0.12);color:#38bdf8;">🔪</div>
+          Cirugía General
+        </div>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="topics-list">
+        <a href="01-apendicitis.html" class="topic-link coming-soon"><span class="topic-num">01</span>Abdomen agudo / Apendicitis<span class="badge-soon">Pronto</span></a>
+        <a href="02-patologia-biliar.html" class="topic-link coming-soon"><span class="topic-num">02</span>Patología biliar<span class="badge-soon">Pronto</span></a>
+        <a href="03-enfermedad-diverticular.html" class="topic-link coming-soon"><span class="topic-num">03</span>Enfermedad diverticular<span class="badge-soon">Pronto</span></a>
+        <a href="04-erge-esofagitis-dispepsia.html" class="topic-link coming-soon"><span class="topic-num">04</span>ERGE / Esofagitis<span class="badge-soon">Pronto</span></a>
+        <a href="05-cancer-esofago-gastrico.html" class="topic-link coming-soon"><span class="topic-num">05</span>Cáncer esófago / gástrico<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">06</span>Gastritis / Úlcera péptica<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">07</span>Obesidad / Bariátrica<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">08</span>Patología perianal<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">09</span>Hernias / Esplenectomía<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">10</span>Insuf. venosa y arterial<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">11</span>Oclusión / Vólvulos<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">12</span>Cáncer de colon<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">13</span>Cáncer hepático<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">14</span>Cáncer páncreas<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">15</span>Pancreatitis<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">16</span>Mordeduras / Picaduras<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">17</span>Quemaduras<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">18</span>ATLS 1<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">19</span>ATLS 2<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">20</span>Patología quirúrgica<span class="badge-soon">Pronto</span></a>
+      </div>
+    </div>
+
+    <!-- ORL — COLAPSADA -->
+    <div class="specialty-group">
+      <div class="specialty-header" onclick="toggleSpec(this)">
+        <div class="specialty-name">
+          <div class="specialty-icon" style="background:rgba(167,139,250,0.12);color:#a78bfa;">👂</div>
+          ORL
+        </div>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="topics-list">
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">21</span>Otitis<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">22</span>Sinusitis<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">23</span>Faringoamigdalitis<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">24</span>Laringitis / Croup<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">25</span>Hipoacusia<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">26</span>Vértigo / Mareo<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">27</span>Tumores ORL<span class="badge-soon">Pronto</span></a>
+      </div>
+    </div>
+
+    <!-- Oftalmología — COLAPSADA -->
+    <div class="specialty-group">
+      <div class="specialty-header" onclick="toggleSpec(this)">
+        <div class="specialty-name">
+          <div class="specialty-icon" style="background:rgba(52,211,153,0.12);color:#34d399;">👁️</div>
+          Oftalmología
+        </div>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="topics-list">
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">28</span>Glaucoma<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">29</span>Retinopatía diabética<span class="badge-soon">Pronto</span></a>
+        <a href="#" class="topic-link coming-soon"><span class="topic-num">30</span>Cataratas / Uveítis<span class="badge-soon">Pronto</span></a>
+      </div>
+    </div>
+
+    <!-- Urología — ABIERTA -->
+    <div class="specialty-group">
+      <div class="specialty-header open" onclick="toggleSpec(this)">
+        <div class="specialty-name">
+          <div class="specialty-icon" style="background:rgba(251,191,36,0.12);color:#fbbf24;">🫘</div>
+          Urología
+        </div>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="topics-list open">
+        <a href="31-infecciones-urinarias.html" class="topic-link active"><span class="topic-num">31</span>Infecciones urinarias</a>
+        <a href="32-litiasis-renal.html" class="topic-link coming-soon"><span class="topic-num">32</span>Litiasis renal<span class="badge-soon">Pronto</span></a>
+        <a href="33-cancer-prostata-vejiga.html" class="topic-link coming-soon"><span class="topic-num">33</span>Cáncer próstata / vejiga<span class="badge-soon">Pronto</span></a>
+        <a href="34-hiperplasia-prostatica.html" class="topic-link coming-soon"><span class="topic-num">34</span>Hiperplasia prostática<span class="badge-soon">Pronto</span></a>
+        <a href="35-disfuncion-erectil-infertilidad.html" class="topic-link coming-soon"><span class="topic-num">35</span>Disfunción eréctil / Infertilidad<span class="badge-soon">Pronto</span></a>
+      </div>
+    </div>
+
+  </nav>
+</aside>
+
+<main class="main">
+<div class="container">
+
+  <div class="header">
+    <div class="header-badge"><span>🫘</span> ENARM · Urología · Tema 31</div>
+    <h1>Infecciones del Tracto Urinario</h1>
+    <p>ITU no complicada · Pielonefritis · ITU complicada · Prostatitis</p>
+  </div>
+
+  <div style="display:flex;justify-content:center;">
+    <div class="mode-bar">
+      <button class="mode-btn active" id="btnRepaso" onclick="setMode('repaso')">📖 Modo Repaso</button>
+      <button class="mode-btn" id="btnExamen" onclick="setMode('examen')">⏱️ Modo Examen</button>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 15</div>
+  </div>
+
+  <div id="quizArea"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+  <div class="results" id="resultsArea"></div>
+
+</div>
+<div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+</main>
+
+<script>
+let examMode = false;
+
+function setMode(mode) {
+  examMode = (mode === 'examen');
+  document.getElementById('btnRepaso').classList.toggle('active', !examMode);
+  document.getElementById('btnExamen').classList.toggle('active', examMode);
+  init();
+}
+
+const questions = [
+  {
+    cat:"itu", catName:"ITU No Complicada",
+    q:"Mujer de 26 años, previamente sana, sin embarazo, consulta por disuria, polaquiuria y urgencia urinaria de 2 días de evolución, sin fiebre ni dolor lumbar. Tira reactiva: nitritos positivos, leucocitos positivos. ¿Cuál es el diagnóstico y el tratamiento de primera línea según la GPC IMSS?",
+    opts:["Pielonefritis aguda; ciprofloxacino 500 mg c/12h x 14 días","Cistitis no complicada; TMP-SMX 160/800 mg c/12h x 5-7 días","ITU complicada; hospitalización y antibióticos IV","Uretritis; azitromicina 1 g dosis única"],
+    ans:1,
+    exp:"La cistitis no complicada en mujer joven no embarazada se define por la triada de disuria, polaquiuria y urgencia, sin fiebre ni dolor lumbar (lo que descarta pielonefritis). La GPC IMSS-055-08 establece que el diagnóstico es clínico, apoyado por tira reactiva (nitritos + leucocitos). El tratamiento de primera línea es TMP-SMX 160/800 mg c/12h por 5-7 días o nitrofurantoína 100 mg c/12h por 5-7 días. Las fluoroquinolonas se reservan por resistencia creciente.",
+    tip:"<strong>Clave diagnóstica de cistitis no complicada:</strong> Disuria + frecuencia + urgencia SIN fiebre SIN dolor lumbar = cistitis. La presencia de fiebre >38°C y/o dolor lumbar cambia el diagnóstico a pielonefritis. No se requiere urocultivo en cistitis no complicada típica.",
+    ref:"GPC: Diagnóstico y tratamiento de las infecciones del tracto urinario no complicadas en mujeres. IMSS-055-08. 2009."
+  },
+  {
+    cat:"itu", catName:"ITU No Complicada",
+    q:"En el tratamiento de cistitis no complicada en mujer, ¿por qué las fluoroquinolonas (ciprofloxacino, levofloxacino) NO se recomiendan como primera línea según la GPC?",
+    opts:["Porque no son efectivas contra E. coli","Porque su uso indiscriminado genera resistencia y deben reservarse para infecciones más graves","Porque causan daño renal irreversible","Porque su duración mínima de tratamiento es 21 días"],
+    ans:1,
+    exp:"Las fluoroquinolonas son altamente efectivas contra E. coli, el principal agente de ITU (80% de los casos). Sin embargo, la GPC IMSS-055-08 recomienda reservarlas para situaciones específicas (pielonefritis, ITU complicada, prostatitis) porque su uso excesivo en infecciones menores acelera el desarrollo de resistencia bacteriana, dejando sin opciones terapéuticas para infecciones más graves. TMP-SMX y nitrofurantoína son igualmente eficaces y más adecuados para cistitis no complicada.",
+    tip:"<strong>Antibióticos de primera línea para cistitis no complicada:</strong> TMP-SMX 160/800 mg c/12h x 5-7 días. Nitrofurantoína 100 mg c/12h x 5-7 días. Reservar fluoroquinolonas para: pielonefritis, ITU complicada, prostatitis. La resistencia de E. coli a fluoroquinolonas ya supera el 20% en muchas regiones de México.",
+    ref:"GPC: Diagnóstico y tratamiento de las infecciones del tracto urinario no complicadas en mujeres. IMSS-055-08. 2009."
+  },
+  {
+    cat:"itu", catName:"ITU No Complicada",
+    q:"¿En cuál de las siguientes situaciones es OBLIGATORIO solicitar urocultivo en una mujer con síntomas de ITU baja?",
+    opts:["Cualquier mujer con disuria y polaquiuria sin fiebre","ITU recurrente (≥3 episodios/año) o síntomas atípicos","Mujer con tira reactiva positiva a nitritos","Mujer con primer episodio de cistitis no complicada"],
+    ans:1,
+    exp:"La GPC establece que en cistitis no complicada típica de primer episodio, el diagnóstico es clínico y el urocultivo no es necesario. Sin embargo, el urocultivo es obligatorio en: ITU recurrente (≥3 episodios/año), síntomas atípicos o falla al tratamiento empírico previo, embarazada con bacteriuria asintomática, cualquier ITU en hombre, pielonefritis aguda e ITU complicada. Permite identificar el agente y su sensibilidad para guiar el tratamiento.",
+    tip:"<strong>¿Cuándo pedir urocultivo?</strong> Cistitis no complicada primer episodio: NO necesario. ITU recurrente, embarazo, hombre, pielonefritis, ITU complicada, falla al tratamiento: SÍ obligatorio. Criterio de positividad: ≥100,000 UFC/mL de un solo uropatógeno en orina limpia de chorro medio.",
+    ref:"GPC: Diagnóstico y tratamiento de las infecciones del tracto urinario no complicadas en mujeres. IMSS-055-08. 2009."
+  },
+  {
+    cat:"pna", catName:"Pielonefritis Aguda",
+    q:"Mujer de 32 años con fiebre de 39°C, escalofríos, dolor lumbar derecho, disuria y polaquiuria de 3 días de evolución. Tira reactiva: nitritos +, leucocitos ++, hematuria +. ¿Cuál es el diagnóstico y el estudio imprescindible para su manejo?",
+    opts:["Cistitis complicada; solo tira reactiva es suficiente","Pielonefritis aguda; urocultivo con antibiograma es obligatorio","Litiasis renal obstructiva; TC de abdomen urgente","Apendicitis; ultrasonido pélvico urgente"],
+    ans:1,
+    exp:"La pielonefritis aguda (PNA) se diagnostica por la triada: fiebre >38°C + dolor lumbar (puño-percusión positiva) + signos de ITU baja (disuria, polaquiuria), con piuria en el análisis de orina. A diferencia de la cistitis no complicada, en la PNA el urocultivo con antibiograma es OBLIGATORIO porque permite confirmar el agente (E. coli en 85% de los casos), su sensibilidad y guiar la terapia, especialmente si no hay respuesta al tratamiento empírico inicial.",
+    tip:"<strong>Triada de pielonefritis aguda:</strong> Fiebre >38°C + Dolor lumbar (Murphy renal / puño-percusión positiva) + Piuria. La cistitis NO tiene fiebre ni dolor lumbar. En PNA siempre: urocultivo + hemocultivos si sepsis + imagen si no mejora en 48-72h.",
+    ref:"GPC: Diagnóstico y tratamiento de las infecciones del tracto urinario no complicadas en mujeres. IMSS-055-08. 2009."
+  },
+  {
+    cat:"pna", catName:"Pielonefritis Aguda",
+    q:"Mujer de 28 años con pielonefritis aguda leve-moderada sin vómito, sin sepsis, sin embarazo e inmunocompetente. ¿Cuál es el manejo adecuado?",
+    opts:["Hospitalización obligatoria con antibióticos IV independientemente de la gravedad","Tratamiento ambulatorio con ciprofloxacino 500 mg c/12h x 7-14 días + urocultivo","Solo analgésicos y vigilancia domiciliaria","Alta con nitrofurantoína oral x 3 días"],
+    ans:1,
+    exp:"La pielonefritis aguda leve-moderada en paciente sin criterios de hospitalización puede manejarse de forma ambulatoria. Los criterios para manejo ambulatorio incluyen: tolerancia oral, ausencia de vómito, sin signos de sepsis, inmunocompetente, no embarazada y sin uropatía obstructiva. El tratamiento de elección es ciprofloxacino 500 mg c/12h por 7-14 días (o levofloxacino 750 mg/día x 5-7 días). Se debe tomar urocultivo antes de iniciar antibiótico. Nitrofurantoína NO sirve para pielonefritis (no alcanza concentraciones tisulares adecuadas).",
+    tip:"<strong>Criterios de HOSPITALIZACIÓN en pielonefritis:</strong> Sepsis/choque séptico, vómito que impide tratamiento oral, inmunosupresión, embarazo, anomalía urológica subyacente, falla al tratamiento ambulatorio en 48-72h, hombre con sospecha de prostatitis. Si cumple alguno: hospitalizar y antibióticos IV.",
+    ref:"GPC: Diagnóstico y tratamiento de las infecciones del tracto urinario no complicadas en mujeres. IMSS-055-08. 2009."
+  },
+  {
+    cat:"pna", catName:"Pielonefritis Aguda",
+    q:"¿Por qué la nitrofurantoína está CONTRAINDICADA en el tratamiento de pielonefritis aguda?",
+    opts:["Porque causa toxicidad renal grave en ITU alta","Porque no alcanza concentraciones tisulares renales adecuadas (solo actúa en orina)","Porque induce resistencia de E. coli en menos de 48 horas","Porque es nefrotóxica en presencia de fiebre"],
+    ans:1,
+    exp:"La nitrofurantoína es excretada rápidamente por vía renal y alcanza concentraciones muy altas en la orina, pero concentraciones tisulares en el parénquima renal insuficientes para erradicar la infección del tejido renal. Por esta razón es eficaz solo para cistitis (infección de mucosa vesical) pero NO para pielonefritis (infección del parénquima renal). Usarla en PNA llevaría a falla terapéutica y riesgo de complicaciones como absceso renal.",
+    tip:"<strong>Regla para nitrofurantoína:</strong> Solo para cistitis NO complicada. Jamás en pielonefritis, ITU complicada o cuando se sospecha bacteriemia. También evitar en insuficiencia renal (ClCr <30 mL/min) porque no alcanza concentraciones urinarias eficaces. No usar en 3er trimestre de embarazo (riesgo de hemólisis neonatal).",
+    ref:"GPC: Diagnóstico y tratamiento de las infecciones del tracto urinario no complicadas en mujeres. IMSS-055-08. 2009."
+  },
+  {
+    cat:"comp", catName:"ITU Complicada",
+    q:"¿Cuál de los siguientes NO es un factor que clasifica una ITU como complicada?",
+    opts:["Paciente masculino con ITU","Embarazo","Catéter urinario permanente","Mujer joven inmunocompetente con cistitis típica sin comorbilidades"],
+    ans:3,
+    exp:"Una ITU se considera complicada cuando ocurre en presencia de factores que aumentan el riesgo de falla terapéutica o de infección por microorganismos resistentes: sexo masculino, embarazo, catéter urinario permanente, anomalía anatómica o funcional del tracto urinario, obstrucción urinaria, diabetes mellitus, inmunosupresión, insuficiencia renal, instrumentación urológica reciente, microorganismo resistente. La mujer joven sana con cistitis típica es precisamente el prototipo de ITU NO complicada.",
+    tip:"<strong>Mnemotecnia de ITU complicada (CHIOMAD):</strong> Catéter, Hombre, Inmunosupresión/Insuficiencia renal, Obstrucción, Malformación urológica, Anomalía anatómica, Diabetes/Embarazo. Cualquiera de estos = ITU complicada = requiere urocultivo + tratamiento mínimo 7-14 días + seguimiento estrecho.",
+    ref:"GPC: Diagnóstico y tratamiento de las infecciones del tracto urinario no complicadas en mujeres. IMSS-055-08. 2009."
+  },
+  {
+    cat:"comp", catName:"ITU Complicada",
+    q:"Paciente masculino de 65 años, diabético, con sonda Foley permanente, presenta fiebre de 38.8°C, disuria y dolor suprapúbico. Urocultivo pendiente. ¿Cuál es la conducta correcta?",
+    opts:["Iniciar TMP-SMX empírico por 3 días y esperar urocultivo","Tomar urocultivo, iniciar antibiótico empírico de amplio espectro y tratar mínimo 7-14 días según cultivo","Solo retirar la sonda Foley y observar 48 horas","Alta con nitrofurantoína sin urocultivo"],
+    ans:1,
+    exp:"Esta es una ITU complicada (hombre + diabético + catéter urinario). El manejo requiere: (1) Tomar urocultivo ANTES de iniciar antibiótico, (2) Iniciar tratamiento empírico de amplio espectro que cubra gramnegativos incluyendo Pseudomonas (fluoroquinolona o cefalosporina de 3ª-4ª generación o piperacilina/tazobactam según severidad), (3) Duración mínima de 7-14 días, ajustando según el resultado del urocultivo, (4) Identificar y corregir el factor complicante si es posible (cambiar o retirar sonda).",
+    tip:"<strong>ITU complicada: reglas de oro:</strong> 1) Siempre urocultivo antes del antibiótico. 2) Cobertura más amplia que en cistitis no complicada. 3) Duración ≥7-14 días. 4) Atacar el factor complicante (retirar catéter, resolver obstrucción, controlar glucemia). 5) Seguimiento con urocultivo de control 5-7 días post-tratamiento.",
+    ref:"GPC: Diagnóstico y tratamiento de las infecciones del tracto urinario no complicadas en mujeres. IMSS-055-08. 2009."
+  },
+  {
+    cat:"comp", catName:"ITU Complicada",
+    q:"Una mujer embarazada de 14 semanas se diagnostica con bacteriuria asintomática (urocultivo: E. coli >100,000 UFC/mL sin síntomas). ¿Cuál es la conducta correcta según la GPC?",
+    opts:["No tratar porque es asintomática; repetir urocultivo en 4 semanas","Tratar siempre en embarazada porque tiene 25% de riesgo de desarrollar pielonefritis","Solo vigilancia estrecha con urocultivos mensuales sin antibiótico","Tratar solo si los síntomas aparecen en las siguientes 72 horas"],
+    ans:1,
+    exp:"La bacteriuria asintomática en embarazadas es una excepción a la regla general de no tratar. Esto se debe a que en el embarazo existe riesgo de progresar a pielonefritis en hasta el 25-40% de los casos no tratados (por inmunosupresión fisiológica, estasis urinaria por compresión uterina y dilatación ureteral). La GPC recomienda tamizaje con urocultivo en la semana 12-16 de gestación y tratamiento obligatorio de toda bacteriuria asintomática en embarazo. Antibióticos seguros: cefalexina, nitrofurantoína (no en 3er trimestre), amoxicilina-clavulanato.",
+    tip:"<strong>Bacteriuria asintomática: ¿tratar o no tratar?</strong> NO tratar (población general, ancianos, pacientes con catéter crónico sin cirugía urológica). SÍ tratar SIEMPRE en: embarazo (25% riesgo de PNA) y previo a cirugía urológica/instrumentación. El tamizaje en embarazo es mandatorio entre las semanas 12-16.",
+    ref:"GPC: Diagnóstico y tratamiento de las infecciones del tracto urinario no complicadas en mujeres. IMSS-055-08. 2009."
+  },
+  {
+    cat:"pros", catName:"Prostatitis",
+    q:"Hombre de 40 años con fiebre de 39.5°C, escalofríos, dolor perineal intenso, disuria, dificultad para orinar y malestar general de 2 días. Al tacto rectal: próstata edematosa, extremadamente dolorosa y caliente. ¿Cuál es la conducta inicial correcta?",
+    opts:["Masaje prostático para obtener secreción y cultivarla","Diagnóstico clínico de prostatitis aguda bacteriana; urocultivo + antibióticos IV; tacto rectal CONTRAINDICADO en fase aguda","Realizar cistoscopia urgente para descartar tumor","Alta con ciprofloxacino oral y seguimiento en consulta externa"],
+    ans:1,
+    exp:"La prostatitis aguda bacteriana se presenta con fiebre alta, escalofríos, dolor perineal/suprapúbico/lumbar, disuria y síntomas obstructivos. El tacto rectal está CONTRAINDICADO en la fase aguda porque puede desencadenar bacteriemia y sepsis al masajear una próstata inflamada con bacteria activa. El diagnóstico es clínico; se toma urocultivo (E. coli en 80% de los casos) y se inicia antibiótico IV (ciprofloxacino o ceftriaxona) hasta mejoría clínica, continuando con fluoroquinolona oral por un total mínimo de 4 semanas.",
+    tip:"<strong>Tacto rectal en prostatitis AGUDA = CONTRAINDICADO.</strong> Riesgo de bacteriemia/sepsis. El masaje prostático (test de Meares-Stamey) se reserva para prostatitis CRÓNICA bacteriana cuando ya no hay infección aguda activa. Duración total del tratamiento en prostatitis aguda: mínimo 4 semanas para evitar cronicidad.",
+    ref:"GPC: Diagnóstico y tratamiento de la prostatitis. CENETEC."
+  },
+  {
+    cat:"pros", catName:"Prostatitis",
+    q:"Hombre de 50 años con ITU de repetición por el mismo uropatógeno (E. coli), sin fiebre, con molestias perineales leves y eyaculación dolorosa ocasional. ¿Cuál es el diagnóstico más probable y su abordaje diagnóstico específico?",
+    opts:["Hiperplasia prostática benigna; PSA y ultrasonido transrectal","Prostatitis crónica bacteriana; test de Meares-Stamey (cultivo de las 4 fracciones) + fluoroquinolonas 6 semanas","Cistitis recurrente simple; TMP-SMX 3 días en cada episodio","Cáncer de próstata; biopsia transrectal urgente"],
+    ans:1,
+    exp:"La prostatitis crónica bacteriana se manifiesta como ITU recurrente en el hombre causada por el mismo microorganismo que persiste en el foco prostático entre episodios. El diagnóstico se confirma con el test de Meares-Stamey (cultivo de 4 fracciones: orina inicial VB1, orina media VB2, secreción prostática EPS obtenida por masaje, y orina post-masaje VB3): un recuento en EPS o VB3 ≥10 veces mayor que VB1/VB2 confirma el foco prostático. El tratamiento son fluoroquinolonas (ciprofloxacino o levofloxacino) por 6 semanas, ya que penetran bien en el tejido prostático.",
+    tip:"<strong>Test de Meares-Stamey:</strong> 4 fracciones de orina/secreción. El cultivo positivo en la fracción prostática (EPS/VB3) con recuento ≥10x mayor que orina inicial = foco prostático confirmado. Las fluoroquinolonas son de elección en prostatitis porque tienen excelente penetración al tejido prostático (a diferencia de TMP-SMX que penetra menos).",
+    ref:"GPC: Diagnóstico y tratamiento de la prostatitis. CENETEC."
+  },
+  {
+    cat:"pros", catName:"Prostatitis",
+    q:"¿Cuál es la duración mínima del tratamiento antibiótico en prostatitis aguda bacteriana y por qué es tan prolongada comparada con la cistitis?",
+    opts:["3-5 días, igual que en cistitis no complicada","Mínimo 4 semanas, para erradicar la bacteria del tejido prostático y evitar cronicidad","Solo 7 días con ciprofloxacino IV","2 semanas máximo para evitar efectos adversos de fluoroquinolonas"],
+    ans:1,
+    exp:"El tratamiento de la prostatitis aguda bacteriana requiere mínimo 4 semanas (algunos autores recomiendan hasta 6 semanas) por varias razones: (1) La barrera hematoprostática limita la penetración de antibióticos al tejido glandular prostático, (2) La próstata inflamada tiene pH alterado que reduce la actividad de algunos antibióticos, (3) Un tratamiento corto deja bacteria residual en el tejido prostático que puede cronificar la infección, llevando a prostatitis crónica bacteriana de muy difícil erradicación. Las fluoroquinolonas son de elección por su excelente penetración en tejido prostático.",
+    tip:"<strong>Duración del tratamiento en infecciones urinarias:</strong> Cistitis no complicada: 5-7 días. Pielonefritis aguda ambulatoria: 7-14 días. ITU complicada: 7-14 días. Prostatitis aguda: mínimo 4 semanas. Prostatitis crónica: 6 semanas. La duración corta en prostatitis lleva inevitablemente a recurrencia y cronificación.",
+    ref:"GPC: Diagnóstico y tratamiento de la prostatitis. CENETEC."
+  },
+  {
+    cat:"prev", catName:"Prevención/Seguimiento",
+    q:"Mujer de 30 años con 4 episodios de cistitis no complicada en el último año, todos resueltos con antibiótico. ¿Cuál es la estrategia de prevención recomendada por la GPC?",
+    opts:["Antibiótico de amplio espectro en cada episodio y urocultivo mensual","Profilaxis continua con nitrofurantoína 50 mg/noche o TMP-SMX dosis baja, o profilaxis postcoital si hay relación con coito","Cistoscopia para descartar anomalía anatómica en cada recurrencia","Cambio permanente de antibiótico a fluoroquinolonas de por vida"],
+    ans:1,
+    exp:"La ITU recurrente se define como ≥3 episodios por año o ≥2 episodios en 6 meses. La GPC IMSS-055-08 recomienda profilaxis antibiótica continua a dosis bajas: nitrofurantoína 50 mg/noche o TMP-SMX 40/200 mg/noche por 6-12 meses. Si los episodios están claramente relacionados con el coito, la alternativa es profilaxis postcoital (dosis única de TMP-SMX o nitrofurantoína después de cada relación sexual). También se recomiendan medidas no farmacológicas: hidratación adecuada, micción postcoital y jugo de arándano (evidencia limitada).",
+    tip:"<strong>ITU recurrente: opciones de profilaxis:</strong> (1) Continua nocturna: nitrofurantoína 50 mg/noche o TMP-SMX 40/200 mg/noche x 6-12 meses. (2) Postcoital: dosis única postcoital si relación con coito (muy efectivo, menos antibiótico total). (3) Autotratamiento supervisado: la paciente inicia antibiótico ante primeros síntomas con tira reactiva domiciliaria. No usar fluoroquinolonas como profilaxis.",
+    ref:"GPC: Diagnóstico y tratamiento de las infecciones del tracto urinario no complicadas en mujeres. IMSS-055-08. 2009."
+  },
+  {
+    cat:"prev", catName:"Prevención/Seguimiento",
+    q:"¿Cuál de los siguientes antibióticos está CONTRAINDICADO en el embarazo para el tratamiento de ITU, especialmente en el primer trimestre?",
+    opts:["Cefalexina 500 mg c/6h","Nitrofurantoína 100 mg c/12h en tercer trimestre","TMP-SMX en el primer trimestre (antifolato que interfiere con el desarrollo del tubo neural)","Amoxicilina-clavulanato 500/125 mg c/8h"],
+    ans:2,
+    exp:"TMP-SMX (Trimetoprim-Sulfametoxazol) es un antifolato que interfiere con la síntesis de ácido fólico. En el primer trimestre del embarazo, cuando ocurre la organogénesis y el cierre del tubo neural, su uso se asocia a defectos del tubo neural y otras malformaciones congénitas. También debe evitarse en el tercer trimestre por riesgo de hiperbilirrubinemia neonatal. Las fluoroquinolonas también están contraindicadas en el embarazo (daño al cartílago fetal). Antibióticos seguros en embarazo: cefalexina, amoxicilina-clavulanato, nitrofurantoína (excepto tercer trimestre — riesgo de hemólisis neonatal).",
+    tip:"<strong>Antibióticos en embarazo para ITU:</strong> SEGUROS: Cefalexina (todo el embarazo), Amoxicilina-clavulanato (todo el embarazo), Nitrofurantoína (1er y 2do trimestre). EVITAR: TMP-SMX en 1er trimestre (antifolato → tubo neural) y en 3er trimestre (hiperbilirrubinemia). Nitrofurantoína en 3er trimestre (hemólisis neonatal). Fluoroquinolonas todo el embarazo (daño cartilaginoso fetal).",
+    ref:"GPC: Diagnóstico y tratamiento de las infecciones del tracto urinario no complicadas en mujeres. IMSS-055-08. 2009."
+  },
+  {
+    cat:"prev", catName:"Prevención/Seguimiento",
+    q:"Anciano de 78 años, institucionalizado, con sonda Foley permanente. El urocultivo de rutina reporta E. coli >100,000 UFC/mL. El paciente está afebril, sin disuria (por catéter no refiere disuria), sin dolor suprapúbico y en buen estado general. ¿Cuál es la conducta correcta?",
+    opts:["Iniciar TMP-SMX inmediatamente para evitar pielonefritis","No tratar la bacteriuria asintomática en paciente con catéter crónico; solo vigilancia clínica","Retirar la sonda e iniciar ciprofloxacino IV por 14 días","Cambiar a ampicilina IV de inmediato por riesgo de sepsis"],
+    ans:1,
+    exp:"La bacteriuria asintomática en pacientes con catéter urinario permanente NO debe tratarse (excepto si van a someterse a cirugía urológica). Las razones son: (1) El tratamiento no elimina la colonización en presencia del catéter y selecciona microorganismos resistentes, (2) No reduce complicaciones ni mortalidad, (3) Genera resistencia antimicrobiana sin beneficio clínico. Esta recomendación se aplica también a ancianos institucionalizados. Solo se trata la bacteriuria asintomática en embarazadas y en pacientes que van a someterse a instrumentación urológica.",
+    tip:"<strong>Bacteriuria asintomática: resumen de manejo:</strong> TRATAR: Embarazo (riesgo PNA 25%), previo a cirugía urológica. NO TRATAR: Adultos mayores no embarazados, pacientes con catéter permanente, diabetes no complicada, pacientes con lesión medular, pacientes institucionalizados. Tratar bacteriuria asintomática en catéter solo aumenta resistencias sin beneficio.",
+    ref:"GPC: Diagnóstico y tratamiento de las infecciones del tracto urinario no complicadas en mujeres. IMSS-055-08. 2009."
+  }
+];
+
+let currentQ = 0, score = 0, answers = [];
+let catStats = { itu:{c:0,t:0}, pna:{c:0,t:0}, comp:{c:0,t:0}, pros:{c:0,t:0}, prev:{c:0,t:0} };
+
+function shuffle(arr) {
+  for (let i=arr.length-1;i>0;i--) {
+    const j=Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+
+function init() {
+  shuffle(questions);
+  currentQ=0; score=0; answers=[];
+  catStats = { itu:{c:0,t:0}, pna:{c:0,t:0}, comp:{c:0,t:0}, pros:{c:0,t:0}, prev:{c:0,t:0} };
+  const r=document.getElementById('resultsArea');
+  r.classList.remove('show'); r.innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const qa=questions[currentQ], total=questions.length;
+  document.getElementById('progressBar').style.width=(currentQ/total*100)+'%';
+  document.getElementById('progressText').textContent=`${currentQ+1} / ${total}`;
+  document.getElementById('nextBtn').classList.remove('show');
+  const letters=['A','B','C','D'];
+  let html=`<div class="question-card">
+    <div class="q-category cat-${qa.cat}">${qa.catName}</div>
+    <div class="q-number">Pregunta ${currentQ+1} de ${total}</div>
+    <div class="q-text">${qa.q}</div>
+    <div class="options">`;
+  qa.opts.forEach((opt,i)=>{
+    html+=`<button class="option-btn" onclick="selectAnswer(${i})" data-idx="${i}">
+      <span class="option-letter">${letters[i]}</span><span>${opt}</span></button>`;
+  });
+  html+=`</div><div class="feedback" id="feedback"></div></div>`;
+  document.getElementById('quizArea').innerHTML=html;
+}
+
+function selectAnswer(idx) {
+  const qa=questions[currentQ];
+  const btns=document.querySelectorAll('.option-btn');
+  const fb=document.getElementById('feedback');
+  const isCorrect=idx===qa.ans;
+  btns.forEach((btn,i)=>{
+    btn.classList.add('disabled'); btn.onclick=null;
+    if(i===qa.ans) btn.classList.add('correct-answer');
+    if(i===idx&&!isCorrect) btn.classList.add('wrong-answer');
+  });
+  if(!catStats[qa.cat]) catStats[qa.cat]={c:0,t:0};
+  catStats[qa.cat].t++;
+  if(isCorrect){score++;catStats[qa.cat].c++;}
+  if(!examMode){
+    fb.className=isCorrect?'feedback correct-fb show':'feedback wrong-fb show';
+    fb.innerHTML=isCorrect
+      ?`<div class="feedback-title">✅ ¡Correcto!</div><div>${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`
+      :`<div class="feedback-title">❌ Incorrecto</div><div><strong>Respuesta correcta:</strong> ${qa.opts[qa.ans]}</div><div style="margin-top:8px;">${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;
+  }
+  answers.push({q:qa.q,correct:isCorrect,userAns:qa.opts[idx],correctAns:qa.opts[qa.ans],cat:qa.catName,exp:qa.exp,ref:qa.ref});
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion() {
+  currentQ++;
+  if(currentQ>=questions.length) showResults();
+  else renderQuestion();
+}
+
+function showResults() {
+  document.getElementById('quizArea').innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  document.getElementById('progressBar').style.width='100%';
+  document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;
+  const pct=Math.round((score/questions.length)*100);
+  const msg=pct>=90?'🏆 ¡Excelente dominio de infecciones urinarias!':pct>=70?'👏 ¡Muy bien! Repasa los temas con menor puntaje.':pct>=50?'📚 Aceptable, refuerza las áreas débiles.':'⚠️ Revisa las GPC de ITU y prostatitis.';
+  const cats=[
+    {name:'ITU No Complicada', key:'itu', color:'#38bdf8'},
+    {name:'Pielonefritis Aguda', key:'pna', color:'#f472b6'},
+    {name:'ITU Complicada',     key:'comp',color:'#fbbf24'},
+    {name:'Prostatitis',        key:'pros',color:'#a78bfa'},
+    {name:'Prevención/Seguimiento', key:'prev', color:'#34d399'},
+  ];
+  let html=`<div class="results-header">
+    <div class="score-big">${pct}%</div>
+    <div class="score-label">${score} de ${questions.length} correctas</div>
+    <div class="score-msg">${msg}</div>
+  </div>
+  <div class="chart-section">
+    <div class="chart-title"><span>📊</span> Rendimiento por Categoría</div>
+    <div class="bar-chart">`;
+  cats.forEach(cat=>{
+    const s=catStats[cat.key]||{c:0,t:0};
+    const p=s.t>0?Math.round((s.c/s.t)*100):0;
+    html+=`<div class="bar-row"><div class="bar-label">${cat.name}</div><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${cat.color};">${p}% (${s.c}/${s.t})</div></div></div>`;
+  });
+  html+=`</div></div>
+  <div class="chart-section">
+    <div class="chart-title"><span>🎯</span> Resumen General</div>
+    <div class="donut-wrap">
+      <svg class="donut-svg" viewBox="0 0 42 42">
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a2235" stroke-width="4"/>
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#34d399" stroke-width="4" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="25" stroke-linecap="round"/>
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#f87171" stroke-width="4" stroke-dasharray="${100-pct} ${pct}" stroke-dashoffset="${25-pct}" stroke-linecap="round"/>
+        <text x="21" y="22.5" text-anchor="middle" font-size="6" font-weight="700" fill="#e8ecf4" font-family="Plus Jakarta Sans">${pct}%</text>
+      </svg>
+      <div class="donut-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#34d399;"></div>Correctas: ${score}</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Incorrectas: ${questions.length-score}</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#38bdf8;"></div>Total: ${questions.length}</div>
+      </div>
+    </div>
+  </div>
+  <div class="chart-section">
+    <div class="chart-title"><span>📋</span> Revisión de Respuestas</div>`;
+  answers.forEach((a,i)=>{
+    html+=`<div class="review-card ${a.correct?'review-correct':'review-wrong'}">
+      <div class="review-q">${i+1}. ${a.q} <span style="font-size:0.72rem;color:var(--text-dim);">[${a.cat}]</span></div>
+      <div class="review-answer">${a.correct?`<strong>✅ ${a.correctAns}</strong>`:`<em>❌ Tu respuesta: ${a.userAns}</em><br><strong>✅ Correcta: ${a.correctAns}</strong>`}</div>
+      <div style="margin-top:8px;font-size:0.8rem;color:var(--text-dim);line-height:1.5;">${a.exp}</div>
+      <div style="margin-top:6px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;">📖 ${a.ref}</div>
+    </div>`;
+  });
+  html+=`</div><button class="retry-btn" onclick="init()">🔄 Reintentar</button>`;
+  const res=document.getElementById('resultsArea');
+  res.innerHTML=html; res.classList.add('show');
+  res.scrollIntoView({behavior:'smooth'});
+}
+
+function toggleSpec(header){header.classList.toggle('open');header.nextElementSibling.classList.toggle('open');}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+
+init();
+</script>
+</body>
+</html>
