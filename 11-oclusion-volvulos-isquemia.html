@@ -148,53 +148,14 @@
     .mode-bar { margin:16px auto; }
   }
 </style>
+  <script src="sidebar.js"></script>
 </head>
 <body>
 
 <button class="hamburger" onclick="toggleSidebar()">☰</button>
 <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
-<aside class="sidebar" id="sidebar">
-  <div class="sidebar-logo">
-    <div class="logo-badge">🩺 MCS</div>
-    <h2>ENARM · Banco de Preguntas</h2>
-    <p>2025–2026</p>
-  </div>
-  <a href="index.html" class="back-btn">← Volver al inicio</a>
-  <nav class="sidebar-nav">
-    <div class="specialty-group">
-      <div class="specialty-header open" onclick="toggleSpec(this)">
-        <div class="specialty-name">
-          <div class="specialty-icon" style="background:rgba(56,189,248,0.12);color:#38bdf8;">🔪</div>
-          Cirugía General
-        </div>
-        <span class="chevron">▶</span>
-      </div>
-      <div class="topics-list open">
-        <a href="01-apendicitis.html" class="topic-link"><span class="topic-num">01</span>Abdomen agudo / Apendicitis<span class="star-tag">⭐</span></a>
-        <a href="02-patologia-biliar.html" class="topic-link"><span class="topic-num">02</span>Patología biliar<span class="star-tag">⭐</span></a>
-        <a href="03-enfermedad-diverticular.html" class="topic-link"><span class="topic-num">03</span>Enfermedad diverticular</a>
-        <a href="04-erge-esofagitis-dispepsia.html" class="topic-link"><span class="topic-num">04</span>ERGE / Esofagitis</a>
-        <a href="05-cancer-esofago-gastrico.html" class="topic-link"><span class="topic-num">05</span>Cáncer esófago / gástrico</a>
-        <a href="06-gastritis-ulcera-peptica.html" class="topic-link"><span class="topic-num">06</span>Gastritis / Úlcera péptica</a>
-        <a href="07-obesidad-bariatrica.html" class="topic-link"><span class="topic-num">07</span>Obesidad / Bariátrica</a>
-        <a href="08-patologia-perianal.html" class="topic-link"><span class="topic-num">08</span>Patología perianal</a>
-        <a href="09-hernias-esplenectomia.html" class="topic-link"><span class="topic-num">09</span>Hernias / Esplenectomía</a>
-        <a href="10-insuficiencia-venosa-arterial.html" class="topic-link"><span class="topic-num">10</span>Insuf. venosa y arterial</a>
-        <a href="11-oclusion-volvulos-isquemia.html" class="topic-link active"><span class="topic-num">11</span>Oclusión / Vólvulos / Isquemia</a>
-        <a href="12-cancer-colon.html" class="topic-link"><span class="topic-num">12</span>Cáncer de colon</a>
-        <a href="13-cancer-hepatico.html" class="topic-link"><span class="topic-num">13</span>Cáncer hepático</a>
-        <a href="14-cancer-pancreas-trasplante.html" class="topic-link"><span class="topic-num">14</span>Cáncer páncreas / Trasplante</a>
-        <a href="15-pancreatitis.html" class="topic-link"><span class="topic-num">15</span>Pancreatitis</a>
-        <a href="16-mordeduras-picaduras.html" class="topic-link"><span class="topic-num">16</span>Mordeduras / Picaduras</a>
-        <a href="17-quemaduras.html" class="topic-link"><span class="topic-num">17</span>Quemaduras</a>
-        <a href="18-atls1.html" class="topic-link"><span class="topic-num">18</span>ATLS 1</a>
-        <a href="19-atls2.html" class="topic-link"><span class="topic-num">19</span>ATLS 2</a>
-        <a href="20-patologia-quirurgica.html" class="topic-link"><span class="topic-num">20</span>Patología quirúrgica</a>
-      </div>
-    </div>
-  </nav>
-</aside>
+<aside class="sidebar" id="sidebar"></aside>
 
 <main class="main">
 <div class="container">
