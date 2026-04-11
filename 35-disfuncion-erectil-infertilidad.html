@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Disfunción Eréctil e Infertilidad — ENARM · Urología · Tema 35</title>
+<script src="sidebar.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0a0e1a; --surface: #111827; --surface2: #1a2235; --surface3: #212d45;
+    --border: #2a3a5c; --text: #e8ecf4; --text-dim: #8896b3;
+    --accent: #38bdf8; --accent-glow: rgba(56,189,248,0.15);
+    --correct: #34d399; --correct-bg: rgba(52,211,153,0.1); --correct-border: rgba(52,211,153,0.4);
+    --wrong: #f87171; --wrong-bg: rgba(248,113,113,0.1); --wrong-border: rgba(248,113,113,0.4);
+    --gold: #fbbf24; --purple: #a78bfa; --pink: #f472b6; --teal: #2dd4bf;
+    --sidebar-w: 280px; --radius: 14px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; display:flex; }
+
+  .sidebar { width:var(--sidebar-w); min-height:100vh; background:var(--surface); border-right:1px solid var(--border); display:flex; flex-direction:column; position:fixed; left:0; top:0; bottom:0; overflow-y:auto; z-index:100; transition:transform 0.3s; }
+  .sidebar-logo { padding:24px 20px 16px; border-bottom:1px solid var(--border); }
+  .logo-badge { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,var(--accent),var(--purple)); padding:6px 14px; border-radius:100px; font-size:0.75rem; font-weight:800; color:var(--bg); letter-spacing:0.5px; text-transform:uppercase; margin-bottom:10px; }
+  .sidebar-logo h2 { font-size:1.1rem; font-weight:800; background:linear-gradient(135deg,var(--text),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .sidebar-logo p { font-size:0.72rem; color:var(--text-dim); margin-top:2px; }
+  .back-btn { display:flex; align-items:center; gap:8px; padding:14px 20px; color:var(--text-dim); font-size:0.8rem; text-decoration:none; border-bottom:1px solid var(--border); transition:color 0.2s; }
+  .back-btn:hover { color:var(--accent); }
+  .sidebar-nav { flex:1; padding:12px 0 24px; }
+  .specialty-header { display:flex; align-items:center; justify-content:space-between; padding:10px 16px 10px 20px; cursor:pointer; transition:background 0.2s; user-select:none; }
+  .specialty-header:hover { background:var(--surface2); }
+  .specialty-name { display:flex; align-items:center; gap:10px; font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; }
+  .specialty-icon { width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:0.9rem; flex-shrink:0; }
+  .chevron { font-size:0.65rem; color:var(--text-dim); transition:transform 0.3s; }
+  .specialty-header.open .chevron { transform:rotate(90deg); }
+  .topics-list { display:none; padding:4px 0 8px; }
+  .topics-list.open { display:block; }
+  .topic-link { display:flex; align-items:center; gap:10px; padding:8px 16px 8px 56px; font-size:0.78rem; color:var(--text-dim); text-decoration:none; transition:all 0.2s; border-left:2px solid transparent; line-height:1.4; }
+  .topic-link:hover { color:var(--text); background:var(--surface3); }
+  .topic-link.active { color:var(--accent); border-left-color:var(--accent); background:var(--accent-glow); font-weight:600; }
+  .topic-link.coming-soon { opacity:0.4; cursor:not-allowed; pointer-events:none; }
+  .topic-num { font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--text-dim); min-width:20px; }
+  .badge-ready { margin-left:auto; background:rgba(52,211,153,0.15); color:var(--correct); font-size:0.62rem; font-weight:700; padding:2px 7px; border-radius:100px; text-transform:uppercase; letter-spacing:0.4px; }
+  .badge-soon { margin-left:auto; background:rgba(136,150,179,0.1); color:var(--text-dim); font-size:0.62rem; font-weight:600; padding:2px 7px; border-radius:100px; }
+
+  .main { margin-left:var(--sidebar-w); flex:1; display:flex; flex-direction:column; }
+  .container { max-width:760px; margin:0 auto; padding:20px 16px 40px; width:100%; }
+
+  .mode-bar { display:flex; align-items:center; gap:10px; margin:24px 0 20px; background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:6px; width:fit-content; }
+  .mode-btn { padding:8px 20px; border-radius:100px; border:none; cursor:pointer; font-family:inherit; font-size:0.82rem; font-weight:600; transition:all 0.2s; color:var(--text-dim); background:transparent; }
+  .mode-btn.active { background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); }
+
+  .header { text-align:center; padding:40px 20px 24px; position:relative; overflow:hidden; }
+  .header::before { content:''; position:absolute; top:-60%; left:50%; transform:translateX(-50%); width:600px; height:600px; background:radial-gradient(circle,rgba(56,189,248,0.08) 0%,transparent 70%); pointer-events:none; }
+  .header-badge { display:inline-flex; align-items:center; gap:8px; background:var(--surface2); border:1px solid var(--border); padding:6px 16px; border-radius:100px; font-size:0.78rem; color:var(--accent); font-weight:600; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:16px; }
+  .header h1 { font-size:clamp(1.6rem,5vw,2.2rem); font-weight:800; background:linear-gradient(135deg,var(--text) 0%,var(--accent) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:8px; }
+  .header p { color:var(--text-dim); font-size:0.95rem; max-width:500px; margin:0 auto; }
+
+  .progress-wrap { background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:12px 20px; margin:20px 0 28px; display:flex; align-items:center; gap:14px; }
+  .progress-bar-bg { flex:1; height:8px; background:var(--surface3); border-radius:100px; overflow:hidden; }
+  .progress-bar-fill { height:100%; width:0%; background:linear-gradient(90deg,var(--accent),var(--purple)); border-radius:100px; transition:width 0.5s ease; }
+  .progress-text { font-size:0.82rem; font-weight:600; color:var(--text-dim); white-space:nowrap; font-family:'JetBrains Mono',monospace; }
+
+  .question-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:28px 24px; margin-bottom:20px; animation:slideIn 0.4s ease; position:relative; overflow:hidden; }
+  .question-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--gold),var(--accent),var(--purple)); }
+  @keyframes slideIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+  .q-category { display:inline-flex; align-items:center; gap:6px; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; padding:4px 12px; border-radius:100px; margin-bottom:14px; }
+  .cat-de     { background:rgba(56,189,248,0.12);  color:#38bdf8; }
+  .cat-dx_de  { background:rgba(251,191,36,0.12);  color:#fbbf24; }
+  .cat-tx_de  { background:rgba(244,114,182,0.12); color:#f472b6; }
+  .cat-inf    { background:rgba(167,139,250,0.12); color:#a78bfa; }
+  .cat-esp    { background:rgba(52,211,153,0.12);  color:#34d399; }
+
+  .q-number { font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--text-dim); margin-bottom:10px; }
+  .q-text { font-size:1.05rem; font-weight:600; line-height:1.55; margin-bottom:20px; color:var(--text); }
+
+  .options { display:flex; flex-direction:column; gap:10px; }
+  .option-btn { display:flex; align-items:flex-start; gap:12px; padding:14px 16px; background:var(--surface2); border:1.5px solid var(--border); border-radius:12px; cursor:pointer; transition:all 0.2s; text-align:left; font-size:0.92rem; color:var(--text); font-family:inherit; line-height:1.5; width:100%; }
+  .option-btn:hover:not(.disabled) { border-color:var(--accent); background:var(--accent-glow); transform:translateX(4px); }
+  .option-letter { display:flex; align-items:center; justify-content:center; min-width:30px; height:30px; border-radius:8px; background:var(--surface3); font-weight:700; font-size:0.82rem; color:var(--accent); flex-shrink:0; }
+  .option-btn.correct-answer { border-color:var(--correct-border); background:var(--correct-bg); }
+  .option-btn.correct-answer .option-letter { background:var(--correct); color:var(--bg); }
+  .option-btn.wrong-answer { border-color:var(--wrong-border); background:var(--wrong-bg); }
+  .option-btn.wrong-answer .option-letter { background:var(--wrong); color:var(--bg); }
+  .option-btn.disabled { cursor:default; }
+  .option-btn.disabled:hover { transform:none; }
+
+  .feedback { margin-top:18px; padding:18px; border-radius:12px; font-size:0.88rem; line-height:1.65; animation:fadeIn 0.3s ease; display:none; }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  .feedback.show { display:block; }
+  .feedback.correct-fb { background:var(--correct-bg); border:1px solid var(--correct-border); color:var(--correct); }
+  .feedback.wrong-fb { background:var(--wrong-bg); border:1px solid var(--wrong-border); color:#fca5a5; }
+  .feedback-title { font-weight:700; font-size:0.95rem; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
+  .feedback .tip { margin-top:10px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.08); color:var(--text-dim); font-size:0.82rem; }
+  .feedback .tip strong { color:var(--gold); }
+  .feedback .ref { margin-top:8px; font-size:0.75rem; color:var(--text-dim); opacity:0.7; font-style:italic; }
+
+  .next-btn { display:none; margin:20px auto 0; padding:12px 32px; background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:0.92rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+  .next-btn:hover { transform:scale(1.05); box-shadow:0 4px 24px var(--accent-glow); }
+  .next-btn.show { display:block; }
+
+  .results { display:none; animation:slideIn 0.5s ease; }
+  .results.show { display:block; }
+  .results-header { text-align:center; padding:30px 20px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:20px; position:relative; overflow:hidden; }
+  .results-header::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--correct),var(--accent),var(--purple),var(--pink)); }
+  .score-big { font-size:3.5rem; font-weight:800; background:linear-gradient(135deg,var(--correct),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .score-label { font-size:1.1rem; color:var(--text-dim); margin-top:4px; }
+  .score-msg { margin-top:12px; font-size:0.95rem; color:var(--text); font-weight:500; }
+  .chart-section { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px 20px; margin-bottom:20px; }
+  .chart-title { font-size:0.95rem; font-weight:700; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
+  .bar-chart { display:flex; flex-direction:column; gap:14px; }
+  .bar-row { display:flex; align-items:center; gap:12px; }
+  .bar-label { width:140px; font-size:0.78rem; font-weight:600; text-align:right; color:var(--text-dim); flex-shrink:0; }
+  .bar-track { flex:1; height:28px; background:var(--surface3); border-radius:8px; overflow:hidden; }
+  .bar-fill { height:100%; border-radius:8px; transition:width 1s ease; display:flex; align-items:center; padding-left:10px; font-size:0.75rem; font-weight:700; color:var(--bg); min-width:fit-content; }
+  .donut-wrap { display:flex; align-items:center; justify-content:center; gap:30px; flex-wrap:wrap; }
+  .donut-svg { width:160px; height:160px; }
+  .donut-legend { display:flex; flex-direction:column; gap:10px; }
+  .legend-item { display:flex; align-items:center; gap:10px; font-size:0.84rem; }
+  .legend-dot { width:12px; height:12px; border-radius:4px; flex-shrink:0; }
+  .review-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; margin-bottom:12px; }
+  .review-card.review-correct { border-left:4px solid var(--correct); }
+  .review-card.review-wrong { border-left:4px solid var(--wrong); }
+  .review-q { font-size:0.88rem; font-weight:600; margin-bottom:8px; }
+  .review-answer { font-size:0.82rem; color:var(--text-dim); line-height:1.5; }
+  .review-answer strong { color:var(--correct); }
+  .review-answer em { color:var(--wrong); font-style:normal; }
+  .retry-btn { display:block; margin:28px auto; padding:14px 40px; background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:1rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+  .retry-btn:hover { transform:scale(1.05); }
+  .hamburger { display:none; position:fixed; top:16px; left:16px; z-index:200; background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:10px; cursor:pointer; font-size:1.2rem; }
+  .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:90; }
+  .footer { text-align:center; padding:20px; color:var(--text-dim); font-size:0.72rem; opacity:0.5; }
+
+  @media(max-width:768px) {
+    .sidebar { transform:translateX(-100%); }
+    .sidebar.open { transform:translateX(0); }
+    .main { margin-left:0; }
+    .hamburger { display:flex; align-items:center; justify-content:center; }
+    .overlay.show { display:block; }
+    .container { padding:12px 10px 30px; }
+    .question-card { padding:20px 16px; }
+    .bar-label { width:100px; font-size:0.72rem; }
+    .mode-bar { margin:16px auto; }
+  }
+</style>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+<aside class="sidebar" id="sidebar"></aside>
+
+<main class="main">
+<div class="container">
+  <div class="header">
+    <div class="header-badge"><span>🫘</span> ENARM · Urología · Tema 35</div>
+    <h1>Disfunción Eréctil e Infertilidad</h1>
+    <p>Inhibidores PDE-5 · Priapismo · Espermograma · Varicocele · Azoospermia</p>
+  </div>
+  <div style="display:flex;justify-content:center;">
+    <div class="mode-bar">
+      <button class="mode-btn active" id="btnRepaso" onclick="setMode('repaso')">📖 Modo Repaso</button>
+      <button class="mode-btn" id="btnExamen" onclick="setMode('examen')">⏱️ Modo Examen</button>
+    </div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 15</div>
+  </div>
+  <div id="quizArea"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+  <div class="results" id="resultsArea"></div>
+</div>
+<div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+</main>
+
+<script>
+let examMode = false;
+function setMode(mode) {
+  examMode = (mode==='examen');
+  document.getElementById('btnRepaso').classList.toggle('active',!examMode);
+  document.getElementById('btnExamen').classList.toggle('active',examMode);
+  init();
+}
+
+const questions = [
+  {
+    cat:"de", catName:"Disfunción Eréctil",
+    q:"Hombre de 55 años con DM tipo 2 de 10 años de evolución, HTA y tabaquismo activo, refiere incapacidad para mantener erecciones suficientes para la relación sexual en los últimos 8 meses. ¿Cuál es la causa más probable de su disfunción eréctil?",
+    opts:["Psicógena por estrés laboral","Orgánica vasculogénica por daño endotelial","Neurógena por neuropatía autonómica aislada","Hormonal por hipogonadismo primario"],
+    ans:1,
+    exp:"La disfunción eréctil (DE) orgánica vasculogénica es la causa más frecuente en pacientes con factores de riesgo cardiovascular. La DM, HTA y tabaco dañan el endotelio vascular y reducen la producción de óxido nítrico (NO), que es el principal mediador de la relajación del músculo liso cavernoso. La DM además causa neuropatía autonómica que afecta la inervación parasimpática del pene. La presencia de erecciones matutinas preservadas orienta a etiología psicógena; su ausencia sugiere causa orgánica.",
+    tip:"<strong>DE orgánica vs psicógena:</strong> Orgánica: inicio gradual, afecta todas las situaciones (masturbación, matutinas, coito), factores de riesgo CV presentes. Psicógena: inicio súbito, situacional (falla con pareja pero erecciones espontáneas presentes), asociada a ansiedad o evento precipitante. La prueba de tumescencia peneana nocturna (RigiScan) diferencia ambas.",
+    ref:"GPC: Diagnóstico y tratamiento de disfunción eréctil. CENETEC."
+  },
+  {
+    cat:"dx_de", catName:"Diagnóstico/FR",
+    q:"¿Cuál de los siguientes fármacos es causa reconocida de disfunción eréctil que debe investigarse antes de iniciar tratamiento específico?",
+    opts:["Metformina","Tiazidas / beta-bloqueadores / antidepresivos ISRS","Estatinas","Inhibidores de la ECA"],
+    ans:1,
+    exp:"Varios fármacos de uso frecuente causan DE: diuréticos tiazídicos (espironolactona es el más asociado), beta-bloqueadores no selectivos (disminuyen flujo cavernoso y libido), antidepresivos ISRS (retrasan/inhiben orgasmo y erección), antipsicóticos (hiperprolactinemia), antiandrógenos y finasterida. Antes de iniciar inhibidores de PDE-5, la GPC recomienda revisar la medicación y considerar cambiar fármacos causantes si es posible.",
+    tip:"<strong>Fármacos que causan DE — top ENARM:</strong> Espironolactona (antiandrogénico), ISRS (fluoxetina, sertralina), antipsicóticos (risperidona → hiperprolactinemia), beta-bloqueadores (propranolol > cardioselectivos), tiazidas. Los IECA, estatinas y metformina NO causan DE — de hecho mejorar el control metabólico puede mejorar la función eréctil.",
+    ref:"GPC: Diagnóstico y tratamiento de disfunción eréctil. CENETEC."
+  },
+  {
+    cat:"dx_de", catName:"Diagnóstico/FR",
+    q:"Hombre de 48 años con DE consulta. Niega factores de riesgo cardiovascular. ¿Qué estudios básicos solicita la GPC en la evaluación inicial?",
+    opts:["Solo testosterona total sérica","Glucosa, perfil lipídico, testosterona total y PSA en >40 años","Biopsia testicular y cariotipo de entrada","Arteriografía peneana como primer estudio"],
+    ans:1,
+    exp:"La evaluación inicial de la DE según la GPC incluye: glucosa (descartar DM no diagnosticada), perfil lipídico (dislipidemia), testosterona total matutina (hipogonadismo), y en mayores de 40 años PSA antes de iniciar terapia con testosterona. Si la testosterona total es baja (<300 ng/dL), se confirma con segunda determinación y se agregan LH y FSH para clasificar el hipogonadismo. La arteriografía es estudio de tercera línea para casos quirúrgicos.",
+    tip:"<strong>Testosterona en DE:</strong> El hipogonadismo causa DE por reducción del deseo y alteración de la síntesis de NO cavernoso. Solicitar testosterona matutina (pico entre 8-10am). Si baja: repetir + LH/FSH. LH/FSH bajas → hipogonadismo hipogonadotrópico (hipofisario). LH/FSH altas → falla testicular primaria (hipergonadotrópico). Prolactina si LH/FSH bajas para descartar prolactinoma.",
+    ref:"GPC: Diagnóstico y tratamiento de disfunción eréctil. CENETEC."
+  },
+  {
+    cat:"tx_de", catName:"Tratamiento DE",
+    q:"¿Cuál es el tratamiento farmacológico de primera línea para la disfunción eréctil según la GPC?",
+    opts:["Alprostadil intracavernoso","Inhibidores de fosfodiesterasa tipo 5 (sildenafil, tadalafil, vardenafil)","Testosterona exógena en todos los pacientes","Yohimbina oral"],
+    ans:1,
+    exp:"Los inhibidores de PDE-5 (iPDE-5) son la primera línea de tratamiento para la DE de cualquier etiología. Actúan inhibiendo la degradación del GMPc en el músculo liso cavernoso, potenciando el efecto del NO liberado durante la estimulación sexual. Requieren estimulación sexual para funcionar (no producen erección espontánea). Sildenafil (inicio 30-60 min, duración 4-6h), tadalafil (inicio 30 min, duración hasta 36h — 'fin de semana'), vardenafil y avanafil son las opciones disponibles.",
+    tip:"<strong>iPDE-5: contraindicación ABSOLUTA con nitratos.</strong> La combinación produce hipotensión severa potencialmente fatal. Contraindicados también con guanilato ciclasa estimuladores (riociguat). Precaución con alfa-bloqueadores (hipotensión aditiva). El tadalafil diario (5 mg) es útil también para síntomas del tracto urinario inferior por HPB — doble beneficio en el paciente con HPB + DE.",
+    ref:"GPC: Diagnóstico y tratamiento de disfunción eréctil. CENETEC."
+  },
+  {
+    cat:"tx_de", catName:"Tratamiento DE",
+    q:"Paciente con DE severa no responde a dosis máxima de sildenafil. ¿Cuál es el siguiente escalón terapéutico según la GPC?",
+    opts:["Cambiar a tadalafil y esperar 6 meses más","Alprostadil intrauretral (MUSE) o inyección intracavernosa","Prótesis peneana inmediata","Psicoterapia exclusiva"],
+    ans:1,
+    exp:"El manejo escalonado de la DE es: 1ª línea: iPDE-5 + modificación de factores de riesgo + psicosexología. 2ª línea: alprostadil intrauretral (MUSE: 125-1000 mcg) o inyección intracavernosa de alprostadil (prostaglandina E1) o combinaciones (bimix/trimix). 3ª línea: prótesis peneana inflable o malleable (cuando falla la terapia médica). El alprostadil intracavernoso tiene eficacia de 70-80% incluso en pacientes que no responden a iPDE-5.",
+    tip:"<strong>Prótesis peneana: última opción pero alta satisfacción.</strong> La prótesis inflable de 3 piezas tiene 90-95% de satisfacción a largo plazo. Indicación: falla de segunda línea O elección del paciente. Contraindicada en infección activa, coagulopatía no controlada. Una vez implantada, el tejido eréctil se fibrosa — no hay retorno a erección natural.",
+    ref:"GPC: Diagnóstico y tratamiento de disfunción eréctil. CENETEC."
+  },
+  {
+    cat:"tx_de", catName:"Tratamiento DE",
+    q:"Hombre de 35 años llega a urgencias con erección dolorosa de 5 horas sin estimulación sexual. ¿Cuál es el diagnóstico y el manejo inmediato?",
+    opts:["Priapismo isquémico (bajo flujo): aspiración del cuerpo cavernoso + fenilefrina intracavernosa","Priapismo no isquémico (alto flujo): cirugía inmediata","Parafimosis: reducción manual urgente","Torsión testicular: exploración quirúrgica urgente"],
+    ans:0,
+    exp:"El priapismo isquémico (bajo flujo, venooclusivo) es una emergencia urológica que ocurre por oclusión del drenaje venoso cavernoso con hipoxia tisular progresiva. Después de 4-6 horas hay daño irreversible del músculo liso cavernoso con riesgo de fibrosis y DE permanente. El tratamiento es aspiración del cuerpo cavernoso seguida de inyección intracavernosa de fenilefrina (alfa-1 agonista que produce vasoconstricción y facilita el drenaje). Si falla: shunt quirúrgico.",
+    tip:"<strong>Priapismo isquémico vs no isquémico:</strong> Isquémico (90%): doloroso, sangre oscura en aspirado (pO2 baja), causa: drepanocitosis, fármacos (trazodona, antipsicóticos, alprostadil), idiopático. No isquémico (10%): indoloro, por fístula arteriovenosa post-traumática, sangre roja en aspirado. Tiempo es tejido: cada hora sin tratamiento aumenta el riesgo de DE permanente.",
+    ref:"GPC: Diagnóstico y tratamiento de disfunción eréctil. CENETEC."
+  },
+  {
+    cat:"inf", catName:"Infertilidad Masculina",
+    q:"¿Cuál es la definición correcta de infertilidad de pareja según la OMS y cuándo se evalúa al varón?",
+    opts:["Ausencia de embarazo tras 6 meses de RS sin protección; varón se evalúa al año","Ausencia de embarazo tras 12 meses de RS regulares sin protección; varón se evalúa desde el inicio junto con la mujer","Solo se evalúa al varón si la mujer tiene ciclos normales","Ausencia de embarazo tras 24 meses; varón se evalúa si hay azoospermia en espermograma previo"],
+    ans:1,
+    exp:"La OMS define infertilidad como la incapacidad de lograr embarazo después de 12 meses de relaciones sexuales regulares sin uso de anticonceptivos en parejas en edad reproductiva. El estudio debe ser simultáneo de ambos miembros desde el inicio, ya que el factor masculino contribuye al 40-50% de los casos. En mayores de 35 años (ella) o con factores de riesgo conocidos, la evaluación puede iniciarse a los 6 meses.",
+    tip:"<strong>Factor masculino: más frecuente de lo que se cree.</strong> 40% factor masculino exclusivo, 20% factor mixto. El espermograma es el estudio inicial obligatorio del varón — barato, no invasivo y muy informativo. Nunca evaluar solo a la mujer sin estudiar al varón simultáneamente. La GPC enfatiza el enfoque de pareja.",
+    ref:"GPC: Diagnóstico y tratamiento de infertilidad masculina. CENETEC."
+  },
+  {
+    cat:"inf", catName:"Infertilidad Masculina",
+    q:"¿Cuál es la causa tratable más frecuente de infertilidad masculina?",
+    opts:["Criptorquidia bilateral","Varicocele","Hipogonadismo hipogonadotrópico","Azoospermia obstructiva por vasectomía"],
+    ans:1,
+    exp:"El varicocele es la causa tratable identificable más frecuente de infertilidad masculina, presente en 35-40% de hombres infértiles vs 15% de la población general. Es una dilatación varicosa del plexo pampiniforme que aumenta la temperatura escrotal 1-2°C, deteriorando la espermatogénesis. El varicocele izquierdo es más frecuente (85-90%) por la angulación de la vena espermática izquierda que drena en la vena renal izquierda en ángulo recto. La varicocelectomía mejora los parámetros seminales en 60-70% y las tasas de embarazo en 30-40%.",
+    tip:"<strong>Varicocele: diagnóstico y grados.</strong> Grado I: palpable solo con Valsalva. Grado II: palpable sin Valsalva. Grado III: visible. Subclínico: solo por USG Doppler. Indicación de tratamiento: varicocele clínico (grado I-III) + parámetros seminales alterados + pareja sin factor femenino que lo explique. El USG escrotal con Doppler confirma reflujo venoso.",
+    ref:"GPC: Diagnóstico y tratamiento de infertilidad masculina. CENETEC."
+  },
+  {
+    cat:"inf", catName:"Infertilidad Masculina",
+    q:"Hombre de 28 años con infertilidad primaria de 2 años. Al examen: testículos pequeños y firmes, ginecomastia. Espermograma: azoospermia. ¿Cuál es el diagnóstico más probable?",
+    opts:["Hipogonadismo hipogonadotrópico (síndrome de Kallmann)","Síndrome de Klinefelter (47,XXY)","Obstrucción bilateral de conductos deferentes","Eyaculación retrógrada"],
+    ans:1,
+    exp:"El síndrome de Klinefelter (47,XXY) es la causa genética más frecuente de azoospermia no obstructiva. Presenta: testículos pequeños y firmes (<4 mL), ginecomastia (por conversión periférica de testosterona a estradiol), azoospermia, testosterona baja, FSH y LH muy elevadas. El diagnóstico se confirma con cariotipo. A pesar de la azoospermia, en algunos casos se pueden recuperar espermatozoides con biopsia testicular (TESE) para FIV/ICSI.",
+    tip:"<strong>Klinefelter: la tríada clásica.</strong> Testículos pequeños + ginecomastia + azoospermia = Klinefelter hasta demostrar lo contrario. La FSH muy elevada (>15 UI/L) indica daño testicular primario severo. Riesgo aumentado de: cáncer de mama, osteoporosis, síndrome metabólico. El tratamiento con testosterona mejora síntomas pero no restaura la fertilidad.",
+    ref:"GPC: Diagnóstico y tratamiento de infertilidad masculina. CENETEC."
+  },
+  {
+    cat:"esp", catName:"Espermograma/Causas",
+    q:"¿Cuáles son los valores normales del espermograma según los criterios de la OMS 2021?",
+    opts:["Concentración >20 mill/mL, motilidad >50%, morfología >14% (Kruger)","Concentración >15 mill/mL, motilidad progresiva >32%, morfología normal >4% (Kruger estricto)","Concentración >10 mill/mL, motilidad >40%, morfología >10%","Concentración >5 mill/mL, motilidad >25%, morfología >2%"],
+    ans:1,
+    exp:"Los valores de referencia OMS 2021 (5to percentil) son: volumen >1.4 mL, pH 7.2-8.0, concentración >16 millones/mL, recuento total >39 millones por eyaculado, motilidad progresiva (PR) >30%, motilidad total (PR+NP) >42%, morfología normal >4% (criterio estricto de Kruger), vitalidad >54%. Un espermograma con valores bajo estos límites se denomina según el parámetro alterado: oligospermia, astenospermia, teratospermia, o combinaciones (OAT).",
+    tip:"<strong>Terminología del espermograma — ENARM:</strong> Oligo: concentración baja. Asteno: motilidad baja. Terato: morfología anormal. Azoospermia: sin espermatozoides. Criptozoospermia: <1 mill/mL (centrifugar para encontrarlos). OAT síndrome (oligo-asteno-teratozoospermia): combinación de los tres, común en varicocele severo y causa genética.",
+    ref:"GPC: Diagnóstico y tratamiento de infertilidad masculina. CENETEC."
+  },
+  {
+    cat:"esp", catName:"Espermograma/Causas",
+    q:"Espermograma reporta azoospermia. FSH = 1.2 UI/L (normal 1-8). ¿Cuál es la interpretación y el siguiente paso?",
+    opts:["Falla testicular primaria; solicitar cariotipo","Obstrucción del tracto seminal; solicitar USG escrotal y transrectal","Hipogonadismo hipogonadotrópico; solicitar FSH, LH y prolactina","Eyaculación retrógrada; analizar orina postorgasmo"],
+    ans:1,
+    exp:"En la azoospermia, la FSH es la clave diagnóstica. FSH normal o baja con azoospermia sugiere obstrucción del tracto seminal (espermatogénesis conservada pero espermatozoides no llegan al eyaculado) o hipogonadismo hipogonadotrópico. FSH elevada (>2x normal) indica daño testicular primario (azoospermia no obstructiva). Con FSH de 1.2 (normal-baja) se sospecha obstrucción; el USG escrotal busca dilatación epididimaria y el transrectal evalúa vesículas seminales y conductos eyaculadores.",
+    tip:"<strong>Azoospermia: algoritmo por FSH.</strong> FSH alta (>10-15 UI/L) → no obstructiva (Sertoli only, Klinefelter, criptorquidia). FSH normal/baja → obstructiva (vasectomía previa, infección, agenesia de conductos deferentes) O hipogonadismo hipogonadotrópico (tratable con gonadotrofinas). La biopsia testicular diferencia definitivamente entre ambas cuando la FSH es ambigua.",
+    ref:"GPC: Diagnóstico y tratamiento de infertilidad masculina. CENETEC."
+  },
+  {
+    cat:"esp", catName:"Espermograma/Causas",
+    q:"Hombre de 32 años con azoospermia y agenesia bilateral de conductos deferentes (CBAVD). ¿Qué condición sistémica debe descartarse obligatoriamente?",
+    opts:["Diabetes mellitus tipo 1","Fibrosis quística (mutaciones CFTR)","Hipertiroidismo","Enfermedad de Crohn"],
+    ans:1,
+    exp:"La agenesia congénita bilateral de conductos deferentes (CBAVD) es la presentación genitourinaria de la fibrosis quística (FQ). Hasta el 98% de los hombres con FQ tienen CBAVD. Además, 60-70% de hombres con CBAVD aislada (sin FQ clínica) tienen al menos una mutación del gen CFTR. Por esto, todo paciente con CBAVD debe realizarse estudio genético de mutaciones CFTR y evaluación pulmonar. La pareja también debe estudiarse genéticamente antes de técnicas de reproducción asistida.",
+    tip:"<strong>CBAVD + CFTR = siempre buscar FQ.</strong> Si el paciente tiene CBAVD y la pareja es portadora de CFTR, el riesgo de FQ en el hijo es 25-50%. En CBAVD: testículos normales, epidididmos palpables, FSH normal, pero ausencia de conductos deferentes al tacto. Los espermatozoides pueden recuperarse del epidídimo (PESA/MESA) para ICSI — tienen función normal.",
+    ref:"GPC: Diagnóstico y tratamiento de infertilidad masculina. CENETEC."
+  },
+  {
+    cat:"de", catName:"Disfunción Eréctil",
+    q:"¿Cuál es la fisiopatología correcta de la erección normal y el mecanismo de acción de los iPDE-5?",
+    opts:["La erección depende de la liberación de acetilcolina que activa canales de Ca²⁺; los iPDE-5 bloquean estos canales","La estimulación libera NO → activa guanilato ciclasa → GMPc → relajación músculo liso cavernoso; iPDE-5 inhiben la degradación del GMPc","La testosterona activa directamente los canales iónicos del músculo liso; iPDE-5 potencian este efecto","La erección es un reflejo simpático puro; los iPDE-5 bloquean los receptores adrenérgicos"],
+    ans:1,
+    exp:"La erección es un proceso neurovascular mediado por el sistema nervioso parasimpático. La estimulación sexual activa neuronas no adrenérgicas no colinérgicas (NANC) que liberan óxido nítrico (NO) en el tejido cavernoso. El NO activa la guanilato ciclasa soluble → produce GMPc → activa PKG → fosforila canales de K⁺ y Ca²⁺ → relajación del músculo liso → aumento del flujo arterial cavernoso → erección. La PDE-5 degrada el GMPc; los iPDE-5 al inhibirla mantienen niveles altos de GMPc prolongando la erección.",
+    tip:"<strong>Eje NO-GMPc-PDE5: el más importante en urología funcional.</strong> Por eso los nitratos (que también elevan GMPc/GMP) están absolutamente contraindicados con iPDE-5 — el GMPc se acumula masivamente causando vasodilatación sistémica severa e hipotensión potencialmente letal. Este mecanismo también explica por qué los iPDE-5 requieren estimulación sexual previa — sin NO no hay GMPc que proteger.",
+    ref:"GPC: Diagnóstico y tratamiento de disfunción eréctil. CENETEC."
+  },
+  {
+    cat:"inf", catName:"Infertilidad Masculina",
+    q:"Hombre de 25 años con anosmia desde la infancia, testículos pequeños y azoospermia. LH=0.5 UI/L, FSH=0.8 UI/L, testosterona=85 ng/dL. ¿Cuál es el diagnóstico y el tratamiento para lograr fertilidad?",
+    opts:["Klinefelter: TESE + ICSI","Síndrome de Kallmann: gonadotrofinas exógenas (hCG + FSH recombinante)","Obstrucción bilateral: vasoepididimostomía","Criptorquidia: orquidopexia tardía"],
+    ans:1,
+    exp:"El síndrome de Kallmann es un hipogonadismo hipogonadotrópico congénito causado por déficit de GnRH con anosmia asociada (falla en la migración neuronal olfatoria y gonadotrópica). Se presenta con: hipogonadismo (LH y FSH bajas), testosterona baja, azoospermia y anosmia (diagnóstico diferencial clave). A diferencia de otros hipogonadismos, la espermatogénesis puede inducirse con gonadotrofinas exógenas: hCG (estimula LH → testosterona) + FSH recombinante (estimula espermatogénesis), logrando espermatozoides y embarazos en 70-80%.",
+    tip:"<strong>Kallmann vs Klinefelter — diferencias clave ENARM:</strong> Kallmann: anosmia + LH/FSH bajas + tratable con gonadotrofinas (espermatogénesis inducible). Klinefelter: ginecomastia + LH/FSH MUY altas + cariotipo 47,XXY + no tratable médicamente (TESE si hay focos de espermatogénesis). La anosmia en un hombre joven con hipogonadismo = Kallmann hasta demostrar lo contrario.",
+    ref:"GPC: Diagnóstico y tratamiento de infertilidad masculina. CENETEC."
+  },
+  {
+    cat:"esp", catName:"Espermograma/Causas",
+    q:"Pareja con infertilidad de 18 meses. Espermograma: volumen 0.5 mL, pH 6.5, azoospermia. ¿Cuál es la causa más probable?",
+    opts:["Azoospermia no obstructiva por falla testicular primaria","Obstrucción/agenesia de vesículas seminales o conductos eyaculadores","Varicocele bilateral severo","Hipogonadismo hipogonadotrópico"],
+    ans:1,
+    exp:"El patrón de volumen bajo (<1.5 mL) + pH ácido (<7.2) + azoospermia es clásico de obstrucción o agenesia de las vesículas seminales y/o conductos eyaculadores. Las vesículas seminales contribuyen al 70% del volumen seminal y al pH alcalino (fructosa, prostaglandinas). Si están ausentes/bloqueadas: volumen bajo, pH ácido, ausencia de fructosa en análisis seminal. La agenesia de conductos deferentes (CBAVD) da un patrón similar. USG transrectal confirma la anomalía.",
+    tip:"<strong>Volumen seminal bajo: diagnóstico diferencial.</strong> <1.5 mL + pH ácido + azoospermia → problema de vesículas seminales/conductos eyaculadores (congénito o infeccioso). <1.5 mL + pH normal + azoospermia → eyaculación retrógrada (analizar orina post-orgasmo) o hipoandrogenismo. Eyaculación retrógrada: antecedente de RTU-P, DM avanzada, simpaticolíticos — se diagnostica con espermatozoides en orina postorgasmo.",
+    ref:"GPC: Diagnóstico y tratamiento de infertilidad masculina. CENETEC."
+  }
+];
+
+let currentQ = 0, score = 0, answers = [];
+let catStats = { de:{c:0,t:0}, dx_de:{c:0,t:0}, tx_de:{c:0,t:0}, inf:{c:0,t:0}, esp:{c:0,t:0} };
+
+function shuffle(arr) {
+  for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}
+  return arr;
+}
+
+function init() {
+  shuffle(questions);
+  currentQ=0; score=0; answers=[];
+  catStats = { de:{c:0,t:0}, dx_de:{c:0,t:0}, tx_de:{c:0,t:0}, inf:{c:0,t:0}, esp:{c:0,t:0} };
+  const r=document.getElementById('resultsArea');
+  r.classList.remove('show'); r.innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const qa=questions[currentQ], total=questions.length;
+  document.getElementById('progressBar').style.width=(currentQ/total*100)+'%';
+  document.getElementById('progressText').textContent=`${currentQ+1} / ${total}`;
+  document.getElementById('nextBtn').classList.remove('show');
+  const letters=['A','B','C','D'];
+  let html=`<div class="question-card"><div class="q-category cat-${qa.cat}">${qa.catName}</div><div class="q-number">Pregunta ${currentQ+1} de ${total}</div><div class="q-text">${qa.q}</div><div class="options">`;
+  qa.opts.forEach((opt,i)=>{html+=`<button class="option-btn" onclick="selectAnswer(${i})" data-idx="${i}"><span class="option-letter">${letters[i]}</span><span>${opt}</span></button>`;});
+  html+=`</div><div class="feedback" id="feedback"></div></div>`;
+  document.getElementById('quizArea').innerHTML=html;
+}
+
+function selectAnswer(idx) {
+  const qa=questions[currentQ];
+  const btns=document.querySelectorAll('.option-btn');
+  const fb=document.getElementById('feedback');
+  const isCorrect=idx===qa.ans;
+  btns.forEach((btn,i)=>{
+    btn.classList.add('disabled'); btn.onclick=null;
+    if(i===qa.ans) btn.classList.add('correct-answer');
+    if(i===idx&&!isCorrect) btn.classList.add('wrong-answer');
+  });
+  if(!catStats[qa.cat]) catStats[qa.cat]={c:0,t:0};
+  catStats[qa.cat].t++;
+  if(isCorrect){score++;catStats[qa.cat].c++;}
+  if(!examMode){
+    fb.className=isCorrect?'feedback correct-fb show':'feedback wrong-fb show';
+    fb.innerHTML=isCorrect
+      ?`<div class="feedback-title">✅ ¡Correcto!</div><div>${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`
+      :`<div class="feedback-title">❌ Incorrecto</div><div><strong>Respuesta correcta:</strong> ${qa.opts[qa.ans]}</div><div style="margin-top:8px;">${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;
+  }
+  answers.push({q:qa.q,correct:isCorrect,userAns:qa.opts[idx],correctAns:qa.opts[qa.ans],cat:qa.catName,exp:qa.exp,ref:qa.ref});
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion() {
+  currentQ++;
+  if(currentQ>=questions.length) showResults();
+  else renderQuestion();
+}
+
+function showResults() {
+  document.getElementById('quizArea').innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  document.getElementById('progressBar').style.width='100%';
+  document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;
+  const pct=Math.round((score/questions.length)*100);
+  const msg=pct>=90?'🏆 ¡Excelente dominio de urología funcional!':pct>=70?'👏 ¡Muy bien! Repasa los temas con menor puntaje.':pct>=50?'📚 Aceptable, refuerza las áreas débiles.':'⚠️ Revisa las GPC de DE e infertilidad masculina.';
+  const cats=[
+    {name:'Disfunción Eréctil',key:'de',color:'#38bdf8'},
+    {name:'Diagnóstico/FR',key:'dx_de',color:'#fbbf24'},
+    {name:'Tratamiento DE',key:'tx_de',color:'#f472b6'},
+    {name:'Infertilidad Masculina',key:'inf',color:'#a78bfa'},
+    {name:'Espermograma/Causas',key:'esp',color:'#34d399'},
+  ];
+  let html=`<div class="results-header"><div class="score-big">${pct}%</div><div class="score-label">${score} de ${questions.length} correctas</div><div class="score-msg">${msg}</div></div>
+  <div class="chart-section"><div class="chart-title"><span>📊</span> Rendimiento por Categoría</div><div class="bar-chart">`;
+  cats.forEach(cat=>{
+    const s=catStats[cat.key]||{c:0,t:0};
+    const p=s.t>0?Math.round((s.c/s.t)*100):0;
+    html+=`<div class="bar-row"><div class="bar-label">${cat.name}</div><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${cat.color};">${p}% (${s.c}/${s.t})</div></div></div>`;
+  });
+  html+=`</div></div><div class="chart-section"><div class="chart-title"><span>🎯</span> Resumen General</div><div class="donut-wrap">
+    <svg class="donut-svg" viewBox="0 0 42 42">
+      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a2235" stroke-width="4"/>
+      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#34d399" stroke-width="4" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="25" stroke-linecap="round"/>
+      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#f87171" stroke-width="4" stroke-dasharray="${100-pct} ${pct}" stroke-dashoffset="${25-pct}" stroke-linecap="round"/>
+      <text x="21" y="22.5" text-anchor="middle" font-size="6" font-weight="700" fill="#e8ecf4" font-family="Plus Jakarta Sans">${pct}%</text>
+    </svg>
+    <div class="donut-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#34d399;"></div>Correctas: ${score}</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Incorrectas: ${questions.length-score}</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#38bdf8;"></div>Total: ${questions.length}</div>
+    </div></div></div>
+  <div class="chart-section"><div class="chart-title"><span>📋</span> Revisión de Respuestas</div>`;
+  answers.forEach((a,i)=>{
+    html+=`<div class="review-card ${a.correct?'review-correct':'review-wrong'}">
+      <div class="review-q">${i+1}. ${a.q} <span style="font-size:0.72rem;color:var(--text-dim);">[${a.cat}]</span></div>
+      <div class="review-answer">${a.correct?`<strong>✅ ${a.correctAns}</strong>`:`<em>❌ Tu respuesta: ${a.userAns}</em><br><strong>✅ Correcta: ${a.correctAns}</strong>`}</div>
+      <div style="margin-top:8px;font-size:0.8rem;color:var(--text-dim);line-height:1.5;">${a.exp}</div>
+      <div style="margin-top:6px;font-size:0.72rem;color:var(--text-dim);opacity:0.6;font-style:italic;">📖 ${a.ref}</div>
+    </div>`;
+  });
+  html+=`</div><button class="retry-btn" onclick="init()">🔄 Repetir Tema</button>`;
+  const ra=document.getElementById('resultsArea');
+  ra.innerHTML=html; ra.classList.add('show');
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
+}
+
+function toggleSpec(header) {
+  header.classList.toggle('open');
+  const list=header.nextElementSibling;
+  list.classList.toggle('open');
+}
+
+init();
+</script>
+</body>
+</html>

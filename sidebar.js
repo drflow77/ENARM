@@ -77,6 +77,17 @@
       ]
     },
     {
+      key: 'traumatologia',
+      icon: '🦴',
+      color: '#2dd4bf',
+      bg: 'rgba(45,212,191,0.12)',
+      label: 'Traumatología y Ortopedia',
+      topics: [
+        { num:'38', label:'Fracturas miembro superior', file:'38-fracturas-miembro-superior.html', ready:true },
+        { num:'39', label:'Fracturas miembro inferior', file:'39-fracturas-miembro-inferior.html', ready:true },
+      ]
+    },
+    {
       key: 'uro',
       icon: '🫘',
       color: '#fbbf24',
@@ -87,7 +98,7 @@
         { num:'32', label:'Litiasis renal',                    file:'32-litiasis-renal.html',                  ready:true },
         { num:'33', label:'Cáncer próstata / vejiga',          file:'33-cancer-prostata-vejiga.html',          ready:true },
         { num:'34', label:'Hiperplasia prostática',            file:'34-hiperplasia-prostatica.html',          ready:true },
-        { num:'35', label:'Disfunción eréctil / Infertilidad', file:'35-disfuncion-erectil-infertilidad.html', ready:false },
+        { num:'35', label:'Disfunción eréctil / Infertilidad', file:'35-disfuncion-erectil-infertilidad.html', ready:true },
       ]
     },
     // ── Próximas especialidades ─────────────────────────────────────────
