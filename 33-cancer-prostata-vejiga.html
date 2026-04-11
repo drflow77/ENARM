@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cáncer de Próstata y Vejiga — ENARM · Urología · Tema 33</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0a0e1a; --surface: #111827; --surface2: #1a2235; --surface3: #212d45;
+    --border: #2a3a5c; --text: #e8ecf4; --text-dim: #8896b3;
+    --accent: #38bdf8; --accent-glow: rgba(56,189,248,0.15);
+    --correct: #34d399; --correct-bg: rgba(52,211,153,0.1); --correct-border: rgba(52,211,153,0.4);
+    --wrong: #f87171; --wrong-bg: rgba(248,113,113,0.1); --wrong-border: rgba(248,113,113,0.4);
+    --gold: #fbbf24; --purple: #a78bfa; --pink: #f472b6; --teal: #2dd4bf;
+    --sidebar-w: 280px; --radius: 14px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; display:flex; }
+
+  .sidebar { width:var(--sidebar-w); min-height:100vh; background:var(--surface); border-right:1px solid var(--border); display:flex; flex-direction:column; position:fixed; left:0; top:0; bottom:0; overflow-y:auto; z-index:100; transition:transform 0.3s; }
+  .sidebar-logo { padding:24px 20px 16px; border-bottom:1px solid var(--border); }
+  .logo-badge { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,var(--accent),var(--purple)); padding:6px 14px; border-radius:100px; font-size:0.75rem; font-weight:800; color:var(--bg); letter-spacing:0.5px; text-transform:uppercase; margin-bottom:10px; }
+  .sidebar-logo h2 { font-size:1.1rem; font-weight:800; background:linear-gradient(135deg,var(--text),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .sidebar-logo p { font-size:0.72rem; color:var(--text-dim); margin-top:2px; }
+  .back-btn { display:flex; align-items:center; gap:8px; padding:14px 20px; color:var(--text-dim); font-size:0.8rem; text-decoration:none; border-bottom:1px solid var(--border); transition:color 0.2s; }
+  .back-btn:hover { color:var(--accent); }
+  .sidebar-nav { flex:1; padding:12px 0 24px; }
+  .specialty-header { display:flex; align-items:center; justify-content:space-between; padding:10px 16px 10px 20px; cursor:pointer; transition:background 0.2s; user-select:none; }
+  .specialty-header:hover { background:var(--surface2); }
+  .specialty-name { display:flex; align-items:center; gap:10px; font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; }
+  .specialty-icon { width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:0.9rem; flex-shrink:0; }
+  .chevron { font-size:0.65rem; color:var(--text-dim); transition:transform 0.3s; }
+  .specialty-header.open .chevron { transform:rotate(90deg); }
+  .topics-list { display:none; padding:4px 0 8px; }
+  .topics-list.open { display:block; }
+  .topic-link { display:flex; align-items:center; gap:10px; padding:8px 16px 8px 56px; font-size:0.78rem; color:var(--text-dim); text-decoration:none; transition:all 0.2s; border-left:2px solid transparent; line-height:1.4; }
+  .topic-link:hover { color:var(--text); background:var(--surface3); }
+  .topic-link.active { color:var(--accent); border-left-color:var(--accent); background:var(--accent-glow); font-weight:600; }
+  .topic-link.coming-soon { opacity:0.4; cursor:not-allowed; pointer-events:none; }
+  .topic-num { font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--text-dim); min-width:20px; }
+  .badge-ready { margin-left:auto; background:rgba(52,211,153,0.15); color:var(--correct); font-size:0.62rem; font-weight:700; padding:2px 7px; border-radius:100px; text-transform:uppercase; letter-spacing:0.4px; }
+  .badge-soon { margin-left:auto; background:rgba(136,150,179,0.1); color:var(--text-dim); font-size:0.62rem; font-weight:600; padding:2px 7px; border-radius:100px; }
+
+  .main { margin-left:var(--sidebar-w); flex:1; display:flex; flex-direction:column; }
+  .container { max-width:760px; margin:0 auto; padding:20px 16px 40px; width:100%; }
+
+  .mode-bar { display:flex; align-items:center; gap:10px; margin:24px 0 20px; background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:6px; width:fit-content; }
+  .mode-btn { padding:8px 20px; border-radius:100px; border:none; cursor:pointer; font-family:inherit; font-size:0.82rem; font-weight:600; transition:all 0.2s; color:var(--text-dim); background:transparent; }
+  .mode-btn.active { background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); }
+
+  .header { text-align:center; padding:40px 20px 24px; position:relative; overflow:hidden; }
+  .header::before { content:''; position:absolute; top:-60%; left:50%; transform:translateX(-50%); width:600px; height:600px; background:radial-gradient(circle,rgba(56,189,248,0.08) 0%,transparent 70%); pointer-events:none; }
+  .header-badge { display:inline-flex; align-items:center; gap:8px; background:var(--surface2); border:1px solid var(--border); padding:6px 16px; border-radius:100px; font-size:0.78rem; color:var(--accent); font-weight:600; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:16px; }
+  .header h1 { font-size:clamp(1.6rem,5vw,2.2rem); font-weight:800; background:linear-gradient(135deg,var(--text) 0%,var(--accent) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:8px; }
+  .header p { color:var(--text-dim); font-size:0.95rem; max-width:500px; margin:0 auto; }
+
+  .progress-wrap { background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:12px 20px; margin:20px 0 28px; display:flex; align-items:center; gap:14px; }
+  .progress-bar-bg { flex:1; height:8px; background:var(--surface3); border-radius:100px; overflow:hidden; }
+  .progress-bar-fill { height:100%; width:0%; background:linear-gradient(90deg,var(--accent),var(--purple)); border-radius:100px; transition:width 0.5s ease; }
+  .progress-text { font-size:0.82rem; font-weight:600; color:var(--text-dim); white-space:nowrap; font-family:'JetBrains Mono',monospace; }
+
+  .question-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:28px 24px; margin-bottom:20px; animation:slideIn 0.4s ease; position:relative; overflow:hidden; }
+  .question-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--gold),var(--accent),var(--purple)); }
+  @keyframes slideIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+  .q-category { display:inline-flex; align-items:center; gap:6px; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; padding:4px 12px; border-radius:100px; margin-bottom:14px; }
+  .cat-pros { background:rgba(56,189,248,0.12); color:#38bdf8; }
+  .cat-psa  { background:rgba(251,191,36,0.12); color:#fbbf24; }
+  .cat-vej  { background:rgba(244,114,182,0.12); color:#f472b6; }
+  .cat-tx   { background:rgba(167,139,250,0.12); color:#a78bfa; }
+  .cat-crib { background:rgba(52,211,153,0.12); color:#34d399; }
+
+  .q-number { font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--text-dim); margin-bottom:10px; }
+  .q-text { font-size:1.05rem; font-weight:600; line-height:1.55; margin-bottom:20px; color:var(--text); }
+
+  .options { display:flex; flex-direction:column; gap:10px; }
+  .option-btn { display:flex; align-items:flex-start; gap:12px; padding:14px 16px; background:var(--surface2); border:1.5px solid var(--border); border-radius:12px; cursor:pointer; transition:all 0.2s; text-align:left; font-size:0.92rem; color:var(--text); font-family:inherit; line-height:1.5; width:100%; }
+  .option-btn:hover:not(.disabled) { border-color:var(--accent); background:var(--accent-glow); transform:translateX(4px); }
+  .option-letter { display:flex; align-items:center; justify-content:center; min-width:30px; height:30px; border-radius:8px; background:var(--surface3); font-weight:700; font-size:0.82rem; color:var(--accent); flex-shrink:0; }
+  .option-btn.correct-answer { border-color:var(--correct-border); background:var(--correct-bg); }
+  .option-btn.correct-answer .option-letter { background:var(--correct); color:var(--bg); }
+  .option-btn.wrong-answer { border-color:var(--wrong-border); background:var(--wrong-bg); }
+  .option-btn.wrong-answer .option-letter { background:var(--wrong); color:var(--bg); }
+  .option-btn.disabled { cursor:default; }
+  .option-btn.disabled:hover { transform:none; }
+
+  .feedback { margin-top:18px; padding:18px; border-radius:12px; font-size:0.88rem; line-height:1.65; animation:fadeIn 0.3s ease; display:none; }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  .feedback.show { display:block; }
+  .feedback.correct-fb { background:var(--correct-bg); border:1px solid var(--correct-border); color:var(--correct); }
+  .feedback.wrong-fb { background:var(--wrong-bg); border:1px solid var(--wrong-border); color:#fca5a5; }
+  .feedback-title { font-weight:700; font-size:0.95rem; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
+  .feedback .tip { margin-top:10px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.08); color:var(--text-dim); font-size:0.82rem; }
+  .feedback .tip strong { color:var(--gold); }
+  .feedback .ref { margin-top:8px; font-size:0.75rem; color:var(--text-dim); opacity:0.7; font-style:italic; }
+
+  .next-btn { display:none; margin:20px auto 0; padding:12px 32px; background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:0.92rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+  .next-btn:hover { transform:scale(1.05); box-shadow:0 4px 24px var(--accent-glow); }
+  .next-btn.show { display:block; }
+
+  .results { display:none; animation:slideIn 0.5s ease; }
+  .results.show { display:block; }
+  .results-header { text-align:center; padding:30px 20px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:20px; position:relative; overflow:hidden; }
+  .results-header::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--correct),var(--accent),var(--purple),var(--pink)); }
+  .score-big { font-size:3.5rem; font-weight:800; background:linear-gradient(135deg,var(--correct),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .score-label { font-size:1.1rem; color:var(--text-dim); margin-top:4px; }
+  .score-msg { margin-top:12px; font-size:0.95rem; color:var(--text); font-weight:500; }
+  .chart-section { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px 20px; margin-bottom:20px; }
+  .chart-title { font-size:0.95rem; font-weight:700; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
+  .bar-chart { display:flex; flex-direction:column; gap:14px; }
+  .bar-row { display:flex; align-items:center; gap:12px; }
+  .bar-label { width:130px; font-size:0.78rem; font-weight:600; text-align:right; color:var(--text-dim); flex-shrink:0; }
+  .bar-track { flex:1; height:28px; background:var(--surface3); border-radius:8px; overflow:hidden; }
+  .bar-fill { height:100%; border-radius:8px; transition:width 1s ease; display:flex; align-items:center; padding-left:10px; font-size:0.75rem; font-weight:700; color:var(--bg); min-width:fit-content; }
+  .donut-wrap { display:flex; align-items:center; justify-content:center; gap:30px; flex-wrap:wrap; }
+  .donut-svg { width:160px; height:160px; }
+  .donut-legend { display:flex; flex-direction:column; gap:10px; }
+  .legend-item { display:flex; align-items:center; gap:10px; font-size:0.84rem; }
+  .legend-dot { width:12px; height:12px; border-radius:4px; flex-shrink:0; }
+  .review-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; margin-bottom:12px; }
+  .review-card.review-correct { border-left:4px solid var(--correct); }
+  .review-card.review-wrong { border-left:4px solid var(--wrong); }
+  .review-q { font-size:0.88rem; font-weight:600; margin-bottom:8px; }
+  .review-answer { font-size:0.82rem; color:var(--text-dim); line-height:1.5; }
+  .review-answer strong { color:var(--correct); }
+  .review-answer em { color:var(--wrong); font-style:normal; }
+  .retry-btn { display:block; margin:28px auto; padding:14px 40px; background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:1rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+  .retry-btn:hover { transform:scale(1.05); }
+  .hamburger { display:none; position:fixed; top:16px; left:16px; z-index:200; background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:10px; cursor:pointer; font-size:1.2rem; }
+  .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:90; }
+  .footer { text-align:center; padding:20px; color:var(--text-dim); font-size:0.72rem; opacity:0.5; }
+
+  @media(max-width:768px) {
+    .sidebar { transform:translateX(-100%); }
+    .sidebar.open { transform:translateX(0); }
+    .main { margin-left:0; }
+    .hamburger { display:flex; align-items:center; justify-content:center; }
+    .overlay.show { display:block; }
+    .container { padding:12px 10px 30px; }
+    .question-card { padding:20px 16px; }
+    .bar-label { width:90px; font-size:0.72rem; }
+    .mode-bar { margin:16px auto; }
+  }
+</style>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-badge">🩺 MCS</div>
+    <h2>ENARM · Banco de Preguntas</h2>
+    <p>2025–2026</p>
+  </div>
+  <a href="index.html" class="back-btn">← Volver al inicio</a>
+  <nav class="sidebar-nav">
+    <div class="specialty-group">
+      <div class="specialty-header" onclick="toggleSpec(this)">
+        <div class="specialty-name"><div class="specialty-icon" style="background:rgba(56,189,248,0.12);color:#38bdf8;">🔪</div>Cirugía General</div>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="topics-list">
+        <a href="01-apendicitis.html" class="topic-link"><span class="topic-num">01</span>Abdomen agudo / Apendicitis<span class="badge-ready">Listo</span></a>
+        <a href="02-patologia-biliar.html" class="topic-link"><span class="topic-num">02</span>Patología biliar<span class="badge-ready">Listo</span></a>
+        <a href="03-enfermedad-diverticular.html" class="topic-link"><span class="topic-num">03</span>Enfermedad diverticular<span class="badge-ready">Listo</span></a>
+        <a href="04-erge-esofagitis-dispepsia.html" class="topic-link"><span class="topic-num">04</span>ERGE / Esofagitis<span class="badge-ready">Listo</span></a>
+        <a href="05-cancer-esofago-gastrico.html" class="topic-link"><span class="topic-num">05</span>Cáncer esófago / gástrico<span class="badge-ready">Listo</span></a>
+        <a href="06-gastritis-ulcera-peptica.html" class="topic-link"><span class="topic-num">06</span>Gastritis / Úlcera péptica<span class="badge-ready">Listo</span></a>
+        <a href="07-obesidad-bariatrica.html" class="topic-link"><span class="topic-num">07</span>Obesidad / Bariátrica<span class="badge-ready">Listo</span></a>
+        <a href="08-patologia-perianal.html" class="topic-link"><span class="topic-num">08</span>Patología perianal<span class="badge-ready">Listo</span></a>
+        <a href="09-hernias-esplenectomia.html" class="topic-link"><span class="topic-num">09</span>Hernias / Esplenectomía<span class="badge-ready">Listo</span></a>
+        <a href="10-insuficiencia-venosa-arterial.html" class="topic-link"><span class="topic-num">10</span>Insuf. venosa y arterial<span class="badge-ready">Listo</span></a>
+        <a href="11-oclusion-volvulos-isquemia.html" class="topic-link"><span class="topic-num">11</span>Oclusión / Vólvulos<span class="badge-ready">Listo</span></a>
+        <a href="12-cancer-colon.html" class="topic-link"><span class="topic-num">12</span>Cáncer de colon<span class="badge-ready">Listo</span></a>
+        <a href="13-cancer-hepatico.html" class="topic-link"><span class="topic-num">13</span>Cáncer hepático<span class="badge-ready">Listo</span></a>
+        <a href="14-cancer-pancreas-trasplante.html" class="topic-link"><span class="topic-num">14</span>Cáncer páncreas<span class="badge-ready">Listo</span></a>
+        <a href="15-pancreatitis.html" class="topic-link"><span class="topic-num">15</span>Pancreatitis<span class="badge-ready">Listo</span></a>
+        <a href="16-mordeduras-picaduras.html" class="topic-link"><span class="topic-num">16</span>Mordeduras / Picaduras<span class="badge-ready">Listo</span></a>
+        <a href="17-quemaduras.html" class="topic-link"><span class="topic-num">17</span>Quemaduras<span class="badge-ready">Listo</span></a>
+        <a href="18-atls1.html" class="topic-link"><span class="topic-num">18</span>ATLS 1<span class="badge-ready">Listo</span></a>
+        <a href="19-atls2.html" class="topic-link"><span class="topic-num">19</span>ATLS 2<span class="badge-ready">Listo</span></a>
+        <a href="20-patologia-quirurgica.html" class="topic-link"><span class="topic-num">20</span>Patología quirúrgica<span class="badge-ready">Listo</span></a>
+      </div>
+    </div>
+    <div class="specialty-group">
+      <div class="specialty-header" onclick="toggleSpec(this)">
+        <div class="specialty-name"><div class="specialty-icon" style="background:rgba(167,139,250,0.12);color:#a78bfa;">👂</div>Otorrinolaringología</div>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="topics-list">
+        <a href="21-vertigo.html" class="topic-link"><span class="topic-num">21</span>Vértigo<span class="badge-ready">Listo</span></a>
+        <a href="22-hipoacusias-paralisis-facial.html" class="topic-link"><span class="topic-num">22</span>Hipoacusias / Parálisis facial<span class="badge-ready">Listo</span></a>
+        <a href="23-rinologia.html" class="topic-link"><span class="topic-num">23</span>Rinología<span class="badge-ready">Listo</span></a>
+        <a href="24-patologia-faringe.html" class="topic-link"><span class="topic-num">24</span>Patología de faringe<span class="badge-ready">Listo</span></a>
+        <a href="25-patologia-laringe.html" class="topic-link"><span class="topic-num">25</span>Patología de laringe<span class="badge-ready">Listo</span></a>
+        <a href="26-otologia.html" class="topic-link"><span class="topic-num">26</span>Otología<span class="badge-ready">Listo</span></a>
+        <a href="27-sindrome-apnea-obstructiva.html" class="topic-link"><span class="topic-num">27</span>Síndrome apnea obstructiva<span class="badge-ready">Listo</span></a>
+      </div>
+    </div>
+    <div class="specialty-group">
+      <div class="specialty-header" onclick="toggleSpec(this)">
+        <div class="specialty-name"><div class="specialty-icon" style="background:rgba(52,211,153,0.12);color:#34d399;">👁️</div>Oftalmología</div>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="topics-list">
+        <a href="28-glaucoma.html" class="topic-link"><span class="topic-num">28</span>Glaucoma<span class="badge-ready">Listo</span></a>
+        <a href="29-retinopatia-diabetica.html" class="topic-link"><span class="topic-num">29</span>Retinopatía diabética<span class="badge-ready">Listo</span></a>
+        <a href="30-urgencias-oftalmologicas.html" class="topic-link"><span class="topic-num">30</span>Urgencias oftalmológicas<span class="badge-ready">Listo</span></a>
+      </div>
+    </div>
+    <div class="specialty-group">
+      <div class="specialty-header open" onclick="toggleSpec(this)">
+        <div class="specialty-name"><div class="specialty-icon" style="background:rgba(251,191,36,0.12);color:#fbbf24;">🫘</div>Urología</div>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="topics-list open">
+        <a href="31-infecciones-urinarias.html" class="topic-link"><span class="topic-num">31</span>Infecciones urinarias<span class="badge-ready">Listo</span></a>
+        <a href="32-litiasis-renal.html" class="topic-link"><span class="topic-num">32</span>Litiasis renal<span class="badge-ready">Listo</span></a>
+        <a href="33-cancer-prostata-vejiga.html" class="topic-link active"><span class="topic-num">33</span>Cáncer próstata / vejiga<span class="badge-ready">Listo</span></a>
+        <a href="34-hiperplasia-prostatica.html" class="topic-link"><span class="topic-num">34</span>Hiperplasia prostática<span class="badge-ready">Listo</span></a>
+        <a href="35-disfuncion-erectil-infertilidad.html" class="topic-link"><span class="topic-num">35</span>Disfunción eréctil / Infertilidad<span class="badge-ready">Listo</span></a>
+      </div>
+    </div>
+  </nav>
+</aside>
+
+<main class="main">
+<div class="container">
+  <div class="header">
+    <div class="header-badge"><span>🫘</span> ENARM · Urología · Tema 33</div>
+    <h1>Cáncer de Próstata y Vejiga</h1>
+    <p>Adenocarcinoma próstata · PSA · Gleason · Cáncer vesical · Cistoscopia</p>
+  </div>
+  <div style="display:flex;justify-content:center;">
+    <div class="mode-bar">
+      <button class="mode-btn active" id="btnRepaso" onclick="setMode('repaso')">📖 Modo Repaso</button>
+      <button class="mode-btn" id="btnExamen" onclick="setMode('examen')">⏱️ Modo Examen</button>
+    </div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 15</div>
+  </div>
+  <div id="quizArea"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+  <div class="results" id="resultsArea"></div>
+</div>
+<div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+</main>
+
+<script>
+let examMode = false;
+function setMode(mode) {
+  examMode = (mode==='examen');
+  document.getElementById('btnRepaso').classList.toggle('active',!examMode);
+  document.getElementById('btnExamen').classList.toggle('active',examMode);
+  init();
+}
+
+const questions = [
+  {
+    cat:"pros", catName:"Cáncer Próstata",
+    q:"Hombre de 65 años con PSA de 7.2 ng/mL y tacto rectal que muestra nódulo duro en lóbulo derecho. ¿Cuál es el siguiente paso diagnóstico?",
+    opts:["RM multiparamétrica de próstata urgente","Biopsia prostática guiada por ultrasonido transrectal","Repetir PSA en 3 meses","Cistoscopia"],
+    ans:1,
+    exp:"La biopsia prostática está indicada cuando el PSA es >4 ng/mL o cuando el tacto rectal es anormal (nódulo, induración, asimetría), independientemente del valor del PSA. La biopsia guiada por USG transrectal con mínimo 12 cilindros es el estándar diagnóstico según la GPC. La RM multiparamétrica puede hacerse antes de la biopsia en centros especializados pero no reemplaza el estudio histológico.",
+    tip:"<strong>Indicaciones de biopsia:</strong> PSA >4 ng/mL O tacto rectal anormal. Cualquiera de los dos es suficiente para indicarla. El tacto rectal puede detectar cáncer con PSA normal, de ahí la importancia de no omitirlo.",
+    ref:"GPC: Diagnóstico y tratamiento del cáncer de próstata. IMSS/SSA. CENETEC."
+  },
+  {
+    cat:"pros", catName:"Cáncer Próstata",
+    q:"Biopsia de próstata reporta adenocarcinoma con Gleason 4+3=7. Gammagrafía ósea negativa. Estadio T2bN0M0. ¿Cómo se clasifica este tumor?",
+    opts:["Bajo riesgo — vigilancia activa","Riesgo intermedio desfavorable — tratamiento activo indicado","Alto riesgo — castración hormonal inmediata","Muy alto riesgo — quimioterapia de inicio"],
+    ans:1,
+    exp:"El sistema de estratificación de riesgo de D'Amico clasifica el cáncer de próstata en bajo riesgo (PSA<10, Gleason≤6, T1-T2a), riesgo intermedio (PSA 10-20 O Gleason 7 O T2b) y alto riesgo (PSA>20 O Gleason 8-10 O T2c-T3). Gleason 4+3=7 con T2b corresponde a riesgo intermedio desfavorable, donde la vigilancia activa no es apropiada y se requiere tratamiento definitivo.",
+    tip:"<strong>Gleason 3+4 vs 4+3:</strong> Aunque ambos suman 7, el patrón predominante importa. Gleason 3+4 (predomina patrón 3, menos agresivo) = riesgo intermedio favorable. Gleason 4+3 (predomina patrón 4, más agresivo) = riesgo intermedio desfavorable. El denominador marca la diferencia pronóstica.",
+    ref:"GPC: Diagnóstico y tratamiento del cáncer de próstata. IMSS/SSA. CENETEC."
+  },
+  {
+    cat:"pros", catName:"Cáncer Próstata",
+    q:"¿Cuál es el sitio más frecuente de metástasis del cáncer de próstata?",
+    opts:["Pulmón","Hígado","Hueso (osteoblásticas)","Cerebro"],
+    ans:2,
+    exp:"El cáncer de próstata metastatiza preferentemente al hueso, produciendo lesiones osteoblásticas (escleróticas) a diferencia de la mayoría de los tumores sólidos que producen lesiones osteolíticas. Los sitios más frecuentes son columna lumbar, pelvis, costillas y fémur proximal. La gammagrafía ósea es el estudio de elección para detectar metástasis óseas.",
+    tip:"<strong>Lesiones osteoblásticas = próstata y mama.</strong> El resto de tumores sólidos (riñón, pulmón, tiroides) tienden a dar lesiones osteolíticas. En Rx: lesiones blancas densas en columna/pelvis en hombre anciano → sospechar metástasis de próstata.",
+    ref:"GPC: Diagnóstico y tratamiento del cáncer de próstata. IMSS/SSA. CENETEC."
+  },
+  {
+    cat:"psa", catName:"PSA/Diagnóstico",
+    q:"PSA total de 6.8 ng/mL. El médico solicita PSA libre y obtiene PSA libre/total = 8%. ¿Cómo interpreta este resultado?",
+    opts:["PSA libre/total <10% sugiere origen benigno, biopsia no necesaria","PSA libre/total <10% sugiere malignidad, aumenta indicación de biopsia","PSA libre/total <10% es normal, repetir en 1 año","PSA libre/total no es útil cuando el PSA total es <10 ng/mL"],
+    ans:1,
+    exp:"En la zona gris del PSA (4-10 ng/mL), el cociente PSA libre/total ayuda a discriminar entre HPB y cáncer. Un cociente <10% se asocia con alta probabilidad de malignidad (sensibilidad 71%, especificidad 80%), mientras que >25% sugiere origen benigno. La GPC recomienda usar este índice en la zona gris para evitar biopsias innecesarias o para reforzar la indicación.",
+    tip:"<strong>Regla del PSA libre:</strong> Libre/Total <10% → cáncer probable (biopsia). Libre/Total >25% → benigno probable (observar). En HPB hay más PSA libre porque la glándula produce más isoformas libres. En cáncer el PSA se une más a proteínas, quedando menos libre.",
+    ref:"GPC: Diagnóstico y tratamiento del cáncer de próstata. IMSS/SSA. CENETEC."
+  },
+  {
+    cat:"psa", catName:"PSA/Diagnóstico",
+    q:"¿Cuál de las siguientes situaciones NO eleva el PSA sérico?",
+    opts:["Hiperplasia prostática benigna","Prostatitis aguda bacteriana","Biopsia prostática realizada hace 48 horas","Vasectomía realizada hace 10 años"],
+    ans:3,
+    exp:"La vasectomía no eleva el PSA. Las causas de elevación del PSA distintas al cáncer incluyen: HPB (eleva levemente por aumento de masa glandular), prostatitis (eleva significativamente por inflamación), biopsia prostática (elevar dramáticamente hasta 4-6 semanas), tacto rectal vigoroso (elevación mínima y transitoria), eyaculación reciente, ejercicio en bicicleta prolongado y cateterismo uretral.",
+    tip:"<strong>Antes de medir el PSA:</strong> Evitar biopsia reciente (esperar 6 semanas), prostatitis activa (tratar primero), eyaculación (abstinencia 48h). El tacto rectal tiene efecto mínimo, no es necesario posponerlo. Si PSA elevado por prostatitis: tratar, esperar 6 semanas y repetir.",
+    ref:"GPC: Diagnóstico y tratamiento del cáncer de próstata. IMSS/SSA. CENETEC."
+  },
+  {
+    cat:"psa", catName:"PSA/Diagnóstico",
+    q:"¿A qué edad y con qué frecuencia recomienda la GPC el cribado de cáncer de próstata con PSA en hombres de riesgo promedio?",
+    opts:["Inicio a los 40 años, anual","Inicio a los 50 años, cada 1-2 años hasta los 70","Inicio a los 60 años, cada 5 años","PSA no se recomienda como cribado poblacional"],
+    ans:1,
+    exp:"La GPC recomienda ofrecer información sobre riesgos y beneficios del cribado con PSA a partir de los 50 años en hombres de riesgo promedio, con una periodicidad de cada 1-2 años. En hombres con factores de riesgo (antecedente familiar en 1er grado, raza afroamericana), el cribado puede iniciarse a los 40-45 años. El cribado se suspende cuando la expectativa de vida es <10 años.",
+    tip:"<strong>Cribado individualizado, no poblacional:</strong> A diferencia del cáncer de mama o cervicouterino, el cribado de cáncer de próstata es controvertido. La decisión debe tomarse con el paciente informado sobre sobrediagnóstico y sobretratamiento. PSA>1 ng/mL a los 40 años = factor de riesgo para desarrollar cáncer clínicamente significativo.",
+    ref:"GPC: Diagnóstico y tratamiento del cáncer de próstata. IMSS/SSA. CENETEC."
+  },
+  {
+    cat:"vej", catName:"Cáncer Vejiga",
+    q:"Hombre de 58 años, fumador de 30 años, con 3 episodios de hematuria macroscópica indolora en los últimos 2 meses. ¿Cuál es la conducta correcta?",
+    opts:["Urocultivo y antibiótico empírico, repetir USG en 3 meses","Cistoscopia con biopsia de urgencia","Citología urinaria como único estudio inicial","TC abdomen con contraste y esperar resultado"],
+    ans:1,
+    exp:"Hematuria macroscópica indolora en hombre adulto fumador es cáncer de vejiga hasta demostrar lo contrario. La cistoscopia es el gold standard diagnóstico del cáncer vesical y está indicada de forma urgente. La GPC establece que toda hematuria macroscópica en adulto sin causa evidente (infección, litiasis) debe estudiarse con cistoscopia. No debe tratarse empíricamente como ITU.",
+    tip:"<strong>Hematuria + adulto + sin dolor = tumor hasta que se demuestre lo contrario.</strong> La tríada de alarma para cáncer vesical: hematuria indolora + adulto + factores de riesgo (tabaco, anilinas). No esperar una segunda hematuria para hacer cistoscopia. Una sola hematuria macroscópica es indicación.",
+    ref:"GPC: Diagnóstico y tratamiento del cáncer de vejiga. CENETEC."
+  },
+  {
+    cat:"vej", catName:"Cáncer Vejiga",
+    q:"¿Cuál es el factor de riesgo más importante para el desarrollo de carcinoma urotelial de vejiga?",
+    opts:["Infección por VPH","Tabaquismo","Consumo de alcohol","Sedentarismo"],
+    ans:1,
+    exp:"El tabaquismo es el factor de riesgo más importante para el cáncer de vejiga, aumentando el riesgo 2-4 veces. Los carcinógenos del tabaco (aminas aromáticas, nitrosaminas) se excretan por orina y tienen contacto prolongado con el urotelio. Otros factores de riesgo incluyen: exposición ocupacional a anilinas/benceno (pintores, trabajadores de caucho), ciclofosfamida, radioterapia pélvica previa, y esquistosomiasis (para carcinoma escamoso).",
+    tip:"<strong>Tabaco = factor #1 en cáncer vesical:</strong> 50% de los casos en hombres y 30% en mujeres se atribuyen al tabaco. Dejar de fumar reduce el riesgo, pero nunca vuelve a ser igual al de un no fumador. Anilinas ocupacionales: latencia de 20-30 años entre exposición y tumor.",
+    ref:"GPC: Diagnóstico y tratamiento del cáncer de vejiga. CENETEC."
+  },
+  {
+    cat:"vej", catName:"Cáncer Vejiga",
+    q:"Cistoscopia muestra tumor vesical papilar. RTU-V reporta carcinoma urotelial de alto grado que infiltra lámina propia (T1). ¿Cuál es el tratamiento adyuvante recomendado?",
+    opts:["Observación y cistoscopia cada 6 meses","BCG intravesical + cistoscopia de seguimiento cada 3 meses","Cistectomía radical inmediata","Radioterapia externa pélvica"],
+    ans:1,
+    exp:"El carcinoma vesical T1 de alto grado (no músculo-invasivo) tiene alto riesgo de recurrencia (70%) y progresión (30-50%). Tras RTU-V completa, la inmunoterapia intravesical con BCG (Bacilo de Calmette-Guérin) es el tratamiento adyuvante estándar, reduciendo la recurrencia en 30-40% y la progresión en 25-30%. El seguimiento con cistoscopia cada 3 meses el primer año es obligatorio.",
+    tip:"<strong>BCG intravesical: mecanismo y contraindicaciones.</strong> BCG activa respuesta inmune local contra células tumorales. Contraindicada en: inmunosupresión (VIH, trasplantados, corticoides), hematuria activa, ITU activa, RTU reciente (<2 semanas por riesgo de absorción sistémica y sepsis por BCG). Alternativa: mitomicina C.",
+    ref:"GPC: Diagnóstico y tratamiento del cáncer de vejiga. CENETEC."
+  },
+  {
+    cat:"vej", catName:"Cáncer Vejiga",
+    q:"TC urografía muestra tumor vesical que invade capa muscular (T2). ¿Cuál es el tratamiento estándar?",
+    opts:["RTU-V + BCG intravesical como en T1","Cistectomía radical + quimioterapia neoadyuvante con cisplatino","Radioterapia exclusiva","Quimioterapia sistémica exclusiva"],
+    ans:1,
+    exp:"El cáncer vesical músculo-invasivo (T2 o mayor) requiere tratamiento definitivo con cistectomía radical. En hombres incluye vejiga, próstata y vesículas seminales; en mujeres, vejiga, útero y ovarios. La quimioterapia neoadyuvante basada en cisplatino (MVAC o gemcitabina+cisplatino) antes de la cistectomía mejora la supervivencia a 5 años en 5-8% según meta-análisis, y la GPC la recomienda en pacientes elegibles.",
+    tip:"<strong>Neoadyuvante antes de cistectomía:</strong> La quimio primero permite tratar micrometástasis y evaluar respuesta tumoral. Si hay respuesta patológica completa (pT0), el pronóstico mejora significativamente. Cisplatino es el backbone — si el paciente no tolera cisplatino (IRC, neuropatía), la quimio neoadyuvante no se recomienda.",
+    ref:"GPC: Diagnóstico y tratamiento del cáncer de vejiga. CENETEC."
+  },
+  {
+    cat:"tx", catName:"Tratamiento",
+    q:"Paciente de 72 años con cáncer de próstata Gleason 6, PSA 8 ng/mL, T1c, sin síntomas. ¿Cuál es la opción de manejo más apropiada según guías actuales?",
+    opts:["Prostatectomía radical de urgencia","Radioterapia externa inmediata","Vigilancia activa con PSA, tacto rectal y biopsia periódica","Castración hormonal con análogos de LHRH"],
+    ans:2,
+    exp:"El cáncer de próstata de bajo riesgo (Gleason ≤6, PSA <10, T1-T2a) en pacientes mayores o con comorbilidades tiene un curso indolente. La vigilancia activa es una estrategia validada que evita el sobretratamiento y sus efectos adversos (disfunción eréctil, incontinencia urinaria). Incluye PSA cada 3-6 meses, tacto rectal anual y biopsia de confirmación al año. Si progresa a riesgo intermedio, se ofrece tratamiento definitivo.",
+    tip:"<strong>Vigilancia activa ≠ watchful waiting:</strong> Vigilancia activa es con intención curativa — monitoriza para tratar si progresa. Watchful waiting es paliativo en pacientes mayores con corta expectativa de vida. La clave del bajo riesgo: Gleason ≤6 + PSA <10 + T1-T2a + <3 cilindros positivos en biopsia + <50% de cada cilindro afectado.",
+    ref:"GPC: Diagnóstico y tratamiento del cáncer de próstata. IMSS/SSA. CENETEC."
+  },
+  {
+    cat:"tx", catName:"Tratamiento",
+    q:"Paciente con cáncer de próstata metastásico a hueso, hormono-sensible. ¿Cuál es el tratamiento de primera línea?",
+    opts:["Quimioterapia con docetaxel exclusiva","Castración química con análogos de LHRH + docetaxel o abiraterona","Prostatectomía radical paliativa","Radioterapia ósea exclusiva"],
+    ans:1,
+    exp:"El cáncer de próstata metastásico hormono-sensible se trata con privación androgénica (castración química con análogos de LHRH como leuprolide o goserelina, o castración quirúrgica con orquiectomía bilateral) como base. Los estudios CHAARTED y LATITUDE demostraron que añadir docetaxel o abiraterona+prednisona respectivamente a la privación androgénica mejora significativamente la supervivencia global.",
+    tip:"<strong>Evolución del manejo del cáncer próstata metastásico:</strong> Antes solo castración → ahora castración + intensificación. El síndrome de flare (exacerbación transitoria por análogos de LHRH al inicio) se previene con antiandrógeno las primeras 2-4 semanas. Orquiectomía: irreversible pero más barata y sin riesgo de flare.",
+    ref:"GPC: Diagnóstico y tratamiento del cáncer de próstata. IMSS/SSA. CENETEC."
+  },
+  {
+    cat:"crib", catName:"Cribado",
+    q:"¿Cuál es el estudio de elección para el seguimiento después de RTU-V por cáncer vesical no músculo-invasivo?",
+    opts:["TC abdomen con contraste cada 6 meses","Cistoscopia cada 3 meses el primer año","Citología urinaria mensual","USG vesical cada 6 meses"],
+    ans:1,
+    exp:"El seguimiento del cáncer vesical no músculo-invasivo tras RTU-V se realiza obligatoriamente con cistoscopia, no con imagen. La GPC establece cistoscopia cada 3 meses el primer año (por alta tasa de recurrencia temprana), luego cada 6 meses el segundo año, y anual a partir del tercero si no hay recurrencia. La citología urinaria complementa para detectar carcinoma in situ de alto grado.",
+    tip:"<strong>Cistoscopia es el gold standard de seguimiento:</strong> El USG y la TC no reemplazan la cistoscopia para detectar recurrencia vesical. Los tumores pequeños (<5mm) se pierden con imagen. La cistoscopia flexible bajo anestesia local tolerable es la preferida para seguimiento ambulatorio.",
+    ref:"GPC: Diagnóstico y tratamiento del cáncer de vejiga. CENETEC."
+  },
+  {
+    cat:"crib", catName:"Cribado",
+    q:"Un paciente inicia finasterida para HPB. ¿Cómo afecta esto la interpretación del PSA?",
+    opts:["No afecta el PSA","Eleva el PSA artificialmente en 50%","Reduce el PSA en 50% aproximadamente tras 6-12 meses","Solo afecta el PSA libre, no el total"],
+    ans:2,
+    exp:"Los inhibidores de 5-alfa-reductasa (finasterida, dutasterida) reducen el PSA sérico aproximadamente 50% tras 6-12 meses de uso, al disminuir el volumen prostático. Esto puede enmascarar un cáncer de próstata. La GPC recomienda que si el PSA no desciende 50% tras 6 meses de tratamiento, o si hay cualquier elevación del PSA durante el tratamiento, debe sospecharse malignidad y considerar biopsia.",
+    tip:"<strong>Regla del PSA con 5-alfa-reductasa:</strong> Duplica el PSA medido para comparar con valores de referencia. PSA=3 ng/mL bajo finasterida equivale a PSA=6 ng/mL. Cualquier elevación bajo tratamiento es sospechosa. Advertir siempre al paciente que está tomando finasterida al solicitar o interpretar el PSA.",
+    ref:"GPC: Diagnóstico y tratamiento del cáncer de próstata. IMSS/SSA. CENETEC."
+  },
+  {
+    cat:"pros", catName:"Cáncer Próstata",
+    q:"¿En qué zona de la próstata se origina la mayoría de los adenocarcinomas prostáticos?",
+    opts:["Zona de transición (central)","Zona periférica","Zona fibromuscular anterior","Zona central periductal"],
+    ans:1,
+    exp:"El 70-80% de los adenocarcinomas prostáticos se originan en la zona periférica de la próstata, que es la región accesible al tacto rectal (localizada en la cara posterior). Esta es la razón por la que el tacto rectal puede detectar nódulos o induración en cánceres de zona periférica. En contraste, la HPB se origina en la zona de transición (central), que rodea la uretra y causa síntomas obstructivos.",
+    tip:"<strong>Zonas de la próstata y patología:</strong> Zona periférica (70% volumen) → cáncer. Zona transicional (30% en adulto mayor) → HPB. El cáncer de zona transicional existe pero es menos frecuente y de mejor pronóstico. Por eso la HPB no predispone al cáncer — son zonas anatómicas diferentes.",
+    ref:"GPC: Diagnóstico y tratamiento del cáncer de próstata. IMSS/SSA. CENETEC."
+  }
+];
+
+let currentQ = 0, score = 0, answers = [];
+let catStats = { pros:{c:0,t:0}, psa:{c:0,t:0}, vej:{c:0,t:0}, tx:{c:0,t:0}, crib:{c:0,t:0} };
+
+function shuffle(arr) {
+  for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}
+  return arr;
+}
+
+function init() {
+  shuffle(questions);
+  currentQ=0; score=0; answers=[];
+  catStats = { pros:{c:0,t:0}, psa:{c:0,t:0}, vej:{c:0,t:0}, tx:{c:0,t:0}, crib:{c:0,t:0} };
+  const r=document.getElementById('resultsArea');
+  r.classList.remove('show'); r.innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const qa=questions[currentQ], total=questions.length;
+  document.getElementById('progressBar').style.width=(currentQ/total*100)+'%';
+  document.getElementById('progressText').textContent=`${currentQ+1} / ${total}`;
+  document.getElementById('nextBtn').classList.remove('show');
+  const letters=['A','B','C','D'];
+  let html=`<div class="question-card"><div class="q-category cat-${qa.cat}">${qa.catName}</div><div class="q-number">Pregunta ${currentQ+1} de ${total}</div><div class="q-text">${qa.q}</div><div class="options">`;
+  qa.opts.forEach((opt,i)=>{html+=`<button class="option-btn" onclick="selectAnswer(${i})" data-idx="${i}"><span class="option-letter">${letters[i]}</span><span>${opt}</span></button>`;});
+  html+=`</div><div class="feedback" id="feedback"></div></div>`;
+  document.getElementById('quizArea').innerHTML=html;
+}
+
+function selectAnswer(idx) {
+  const qa=questions[currentQ];
+  const btns=document.querySelectorAll('.option-btn');
+  const fb=document.getElementById('feedback');
+  const isCorrect=idx===qa.ans;
+  btns.forEach((btn,i)=>{
+    btn.classList.add('disabled'); btn.onclick=null;
+    if(i===qa.ans) btn.classList.add('correct-answer');
+    if(i===idx&&!isCorrect) btn.classList.add('wrong-answer');
+  });
+  if(!catStats[qa.cat]) catStats[qa.cat]={c:0,t:0};
+  catStats[qa.cat].t++;
+  if(isCorrect){score++;catStats[qa.cat].c++;}
+  if(!examMode){
+    fb.className=isCorrect?'feedback correct-fb show':'feedback wrong-fb show';
+    fb.innerHTML=isCorrect
+      ?`<div class="feedback-title">✅ ¡Correcto!</div><div>${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`
+      :`<div class="feedback-title">❌ Incorrecto</div><div><strong>Respuesta correcta:</strong> ${qa.opts[qa.ans]}</div><div style="margin-top:8px;">${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;
+  }
+  answers.push({q:qa.q,correct:isCorrect,userAns:qa.opts[idx],correctAns:qa.opts[qa.ans],cat:qa.catName,exp:qa.exp,ref:qa.ref});
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion() {
+  currentQ++;
+  if(currentQ>=questions.length) showResults();
+  else renderQuestion();
+}
+
+function showResults() {
+  document.getElementById('quizArea').innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  document.getElementById('progressBar').style.width='100%';
+  document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;
+  const pct=Math.round((score/questions.length)*100);
+  const msg=pct>=90?'🏆 ¡Excelente dominio de oncología urológica!':pct>=70?'👏 ¡Muy bien! Repasa los temas con menor puntaje.':pct>=50?'📚 Aceptable, refuerza las áreas débiles.':'⚠️ Revisa las GPC de cáncer de próstata y vejiga.';
+  const cats=[
+    {name:'Cáncer Próstata',key:'pros',color:'#38bdf8'},
+    {name:'PSA/Diagnóstico',key:'psa',color:'#fbbf24'},
+    {name:'Cáncer Vejiga',key:'vej',color:'#f472b6'},
+    {name:'Tratamiento',key:'tx',color:'#a78bfa'},
+    {name:'Cribado',key:'crib',color:'#34d399'},
+  ];
+  let html=`<div class="results-header"><div class="score-big">${pct}%</div><div class="score-label">${score} de ${questions.length} correctas</div><div class="score-msg">${msg}</div></div>
+  <div class="chart-section"><div class="chart-title"><span>📊</span> Rendimiento por Categoría</div><div class="bar-chart">`;
+  cats.forEach(cat=>{
+    const s=catStats[cat.key]||{c:0,t:0};
+    const p=s.t>0?Math.round((s.c/s.t)*100):0;
+    html+=`<div class="bar-row"><div class="bar-label">${cat.name}</div><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${cat.color};">${p}% (${s.c}/${s.t})</div></div></div>`;
+  });
+  html+=`</div></div><div class="chart-section"><div class="chart-title"><span>🎯</span> Resumen General</div><div class="donut-wrap">
+    <svg class="donut-svg" viewBox="0 0 42 42">
+      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a2235" stroke-width="4"/>
+      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#34d399" stroke-width="4" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="25" stroke-linecap="round"/>
+      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#f87171" stroke-width="4" stroke-dasharray="${100-pct} ${pct}" stroke-dashoffset="${25-pct}" stroke-linecap="round"/>
+      <text x="21" y="22.5" text-anchor="middle" font-size="6" font-weight="700" fill="#e8ecf4" font-family="Plus Jakarta Sans">${pct}%</text>
+    </svg>
+    <div class="donut-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#34d399;"></div>Correctas: ${score}</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Incorrectas: ${questions.length-score}</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#38bdf8;"></div>Total: ${questions.length}</div>
+    </div></div></div>
+  <div class="chart-section"><div class="chart-title"><span>📋</span> Revisión de Respuestas</div>`;
+  answers.forEach((a,i)=>{
+    html+=`<div class="review-card ${a.correct?'review-correct':'review-wrong'}">
+      <div class="review-q">${i+1}. ${a.q} <span style="font-size:0.72rem;color:var(--text-dim);">[${a.cat}]</span></div>
+      <div class="review-answer">${a.correct?`<strong>✅ ${a.correctAns}</strong>`:`<em>❌ Tu respuesta: ${a.userAns}</em><br><strong>✅ Correcta: ${a.correctAns}</strong>`}</div>
+      <div style="margin-top:8px;font-size:0.8rem;color:var(--text-dim);line-height:1.5;">${a.exp}</div>
+      <div style="margin-top:6px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;">📖 ${a.ref}</div>
+    </div>`;
+  });
+  html+=`</div><button class="retry-btn" onclick="init()">🔄 Reintentar</button>`;
+  const res=document.getElementById('resultsArea');
+  res.innerHTML=html; res.classList.add('show');
+  res.scrollIntoView({behavior:'smooth'});
+}
+
+function toggleSpec(header){header.classList.toggle('open');header.nextElementSibling.classList.toggle('open');}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+
+init();
+</script>
+</body>
+</html>
