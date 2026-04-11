@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abscesos y Tumores Cerebrales — ENARM · Neurocirugía · Tema 37</title>
+<script src="sidebar.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0a0e1a; --surface: #111827; --surface2: #1a2235; --surface3: #212d45;
+    --border: #2a3a5c; --text: #e8ecf4; --text-dim: #8896b3;
+    --accent: #38bdf8; --accent-glow: rgba(56,189,248,0.15);
+    --correct: #34d399; --correct-bg: rgba(52,211,153,0.1); --correct-border: rgba(52,211,153,0.4);
+    --wrong: #f87171; --wrong-bg: rgba(248,113,113,0.1); --wrong-border: rgba(248,113,113,0.4);
+    --gold: #fbbf24; --purple: #a78bfa; --pink: #f472b6; --teal: #2dd4bf;
+    --sidebar-w: 280px; --radius: 14px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; display:flex; }
+
+  .sidebar { width:var(--sidebar-w); min-height:100vh; background:var(--surface); border-right:1px solid var(--border); display:flex; flex-direction:column; position:fixed; left:0; top:0; bottom:0; overflow-y:auto; z-index:100; transition:transform 0.3s; }
+  .sidebar-logo { padding:24px 20px 16px; border-bottom:1px solid var(--border); }
+  .logo-badge { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,var(--accent),var(--purple)); padding:6px 14px; border-radius:100px; font-size:0.75rem; font-weight:800; color:var(--bg); letter-spacing:0.5px; text-transform:uppercase; margin-bottom:10px; }
+  .sidebar-logo h2 { font-size:1.1rem; font-weight:800; background:linear-gradient(135deg,var(--text),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .sidebar-logo p { font-size:0.72rem; color:var(--text-dim); margin-top:2px; }
+  .back-btn { display:flex; align-items:center; gap:8px; padding:14px 20px; color:var(--text-dim); font-size:0.8rem; text-decoration:none; border-bottom:1px solid var(--border); transition:color 0.2s; }
+  .back-btn:hover { color:var(--accent); }
+  .sidebar-nav { flex:1; padding:12px 0 24px; }
+  .specialty-header { display:flex; align-items:center; justify-content:space-between; padding:10px 16px 10px 20px; cursor:pointer; transition:background 0.2s; user-select:none; }
+  .specialty-header:hover { background:var(--surface2); }
+  .specialty-name { display:flex; align-items:center; gap:10px; font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; }
+  .specialty-icon { width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:0.9rem; flex-shrink:0; }
+  .chevron { font-size:0.65rem; color:var(--text-dim); transition:transform 0.3s; }
+  .specialty-header.open .chevron { transform:rotate(90deg); }
+  .topics-list { display:none; padding:4px 0 8px; }
+  .topics-list.open { display:block; }
+  .topic-link { display:flex; align-items:center; gap:10px; padding:8px 16px 8px 56px; font-size:0.78rem; color:var(--text-dim); text-decoration:none; transition:all 0.2s; border-left:2px solid transparent; line-height:1.4; }
+  .topic-link:hover { color:var(--text); background:var(--surface3); }
+  .topic-link.active { color:var(--accent); border-left-color:var(--accent); background:var(--accent-glow); font-weight:600; }
+  .topic-link.coming-soon { opacity:0.4; cursor:not-allowed; pointer-events:none; }
+  .topic-num { font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--text-dim); min-width:20px; }
+  .badge-ready { margin-left:auto; background:rgba(52,211,153,0.15); color:var(--correct); font-size:0.62rem; font-weight:700; padding:2px 7px; border-radius:100px; text-transform:uppercase; letter-spacing:0.4px; }
+  .badge-soon { margin-left:auto; background:rgba(136,150,179,0.1); color:var(--text-dim); font-size:0.62rem; font-weight:600; padding:2px 7px; border-radius:100px; }
+
+  .main { margin-left:var(--sidebar-w); flex:1; display:flex; flex-direction:column; }
+  .container { max-width:760px; margin:0 auto; padding:20px 16px 40px; width:100%; }
+
+  .mode-bar { display:flex; align-items:center; gap:10px; margin:24px 0 20px; background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:6px; width:fit-content; }
+  .mode-btn { padding:8px 20px; border-radius:100px; border:none; cursor:pointer; font-family:inherit; font-size:0.82rem; font-weight:600; transition:all 0.2s; color:var(--text-dim); background:transparent; }
+  .mode-btn.active { background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); }
+
+  .header { text-align:center; padding:40px 20px 24px; position:relative; overflow:hidden; }
+  .header::before { content:''; position:absolute; top:-60%; left:50%; transform:translateX(-50%); width:600px; height:600px; background:radial-gradient(circle,rgba(244,114,182,0.08) 0%,transparent 70%); pointer-events:none; }
+  .header-badge { display:inline-flex; align-items:center; gap:8px; background:var(--surface2); border:1px solid var(--border); padding:6px 16px; border-radius:100px; font-size:0.78rem; color:var(--pink); font-weight:600; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:16px; }
+  .header h1 { font-size:clamp(1.6rem,5vw,2.2rem); font-weight:800; background:linear-gradient(135deg,var(--text) 0%,var(--pink) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:8px; }
+  .header p { color:var(--text-dim); font-size:0.95rem; max-width:500px; margin:0 auto; }
+
+  .progress-wrap { background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:12px 20px; margin:20px 0 28px; display:flex; align-items:center; gap:14px; }
+  .progress-bar-bg { flex:1; height:8px; background:var(--surface3); border-radius:100px; overflow:hidden; }
+  .progress-bar-fill { height:100%; width:0%; background:linear-gradient(90deg,var(--pink),var(--purple)); border-radius:100px; transition:width 0.5s ease; }
+  .progress-text { font-size:0.82rem; font-weight:600; color:var(--text-dim); white-space:nowrap; font-family:'JetBrains Mono',monospace; }
+
+  .question-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:28px 24px; margin-bottom:20px; animation:slideIn 0.4s ease; position:relative; overflow:hidden; }
+  .question-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--pink),var(--purple),var(--accent)); }
+  @keyframes slideIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+  .q-category { display:inline-flex; align-items:center; gap:6px; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; padding:4px 12px; border-radius:100px; margin-bottom:14px; }
+  .cat-abs    { background:rgba(244,114,182,0.12); color:#f472b6; }
+  .cat-dx_abs { background:rgba(251,191,36,0.12);  color:#fbbf24; }
+  .cat-tumor  { background:rgba(56,189,248,0.12);   color:#38bdf8; }
+  .cat-meta   { background:rgba(167,139,250,0.12);  color:#a78bfa; }
+  .cat-tx     { background:rgba(52,211,153,0.12);   color:#34d399; }
+
+  .q-number { font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--text-dim); margin-bottom:10px; }
+  .q-text { font-size:1.05rem; font-weight:600; line-height:1.55; margin-bottom:20px; color:var(--text); }
+
+  .options { display:flex; flex-direction:column; gap:10px; }
+  .option-btn { display:flex; align-items:flex-start; gap:12px; padding:14px 16px; background:var(--surface2); border:1.5px solid var(--border); border-radius:12px; cursor:pointer; transition:all 0.2s; text-align:left; font-size:0.92rem; color:var(--text); font-family:inherit; line-height:1.5; width:100%; }
+  .option-btn:hover:not(.disabled) { border-color:var(--pink); background:rgba(244,114,182,0.08); transform:translateX(4px); }
+  .option-letter { display:flex; align-items:center; justify-content:center; min-width:30px; height:30px; border-radius:8px; background:var(--surface3); font-weight:700; font-size:0.82rem; color:var(--pink); flex-shrink:0; }
+  .option-btn.correct-answer { border-color:var(--correct-border); background:var(--correct-bg); }
+  .option-btn.correct-answer .option-letter { background:var(--correct); color:var(--bg); }
+  .option-btn.wrong-answer { border-color:var(--wrong-border); background:var(--wrong-bg); }
+  .option-btn.wrong-answer .option-letter { background:var(--wrong); color:var(--bg); }
+  .option-btn.disabled { cursor:default; }
+  .option-btn.disabled:hover { transform:none; border-color:var(--border); background:var(--surface2); }
+
+  .feedback { margin-top:18px; padding:18px; border-radius:12px; font-size:0.88rem; line-height:1.65; animation:fadeIn 0.3s ease; display:none; }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  .feedback.show { display:block; }
+  .feedback.correct-fb { background:var(--correct-bg); border:1px solid var(--correct-border); color:var(--correct); }
+  .feedback.wrong-fb { background:var(--wrong-bg); border:1px solid var(--wrong-border); color:#fca5a5; }
+  .feedback-title { font-weight:700; font-size:0.95rem; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
+  .feedback .tip { margin-top:10px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.08); color:var(--text-dim); font-size:0.82rem; }
+  .feedback .tip strong { color:var(--gold); }
+  .feedback .ref { margin-top:8px; font-size:0.75rem; color:var(--text-dim); opacity:0.7; font-style:italic; }
+
+  .next-btn { display:none; margin:20px auto 0; padding:12px 32px; background:linear-gradient(135deg,var(--pink),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:0.92rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+  .next-btn:hover { transform:scale(1.05); box-shadow:0 4px 24px rgba(244,114,182,0.3); }
+  .next-btn.show { display:block; }
+
+  .results { display:none; animation:slideIn 0.5s ease; }
+  .results.show { display:block; }
+  .results-header { text-align:center; padding:30px 20px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:20px; position:relative; overflow:hidden; }
+  .results-header::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--pink),var(--purple),var(--accent),var(--correct)); }
+  .score-big { font-size:3.5rem; font-weight:800; background:linear-gradient(135deg,var(--correct),var(--pink)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .score-label { font-size:1.1rem; color:var(--text-dim); margin-top:4px; }
+  .score-msg { margin-top:12px; font-size:0.95rem; color:var(--text); font-weight:500; }
+  .chart-section { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px 20px; margin-bottom:20px; }
+  .chart-title { font-size:0.95rem; font-weight:700; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
+  .bar-chart { display:flex; flex-direction:column; gap:14px; }
+  .bar-row { display:flex; align-items:center; gap:12px; }
+  .bar-label { width:140px; font-size:0.78rem; font-weight:600; text-align:right; color:var(--text-dim); flex-shrink:0; }
+  .bar-track { flex:1; height:28px; background:var(--surface3); border-radius:8px; overflow:hidden; }
+  .bar-fill { height:100%; border-radius:8px; transition:width 1s ease; display:flex; align-items:center; padding-left:10px; font-size:0.75rem; font-weight:700; color:var(--bg); min-width:fit-content; }
+  .donut-wrap { display:flex; align-items:center; justify-content:center; gap:30px; flex-wrap:wrap; }
+  .donut-svg { width:160px; height:160px; }
+  .donut-legend { display:flex; flex-direction:column; gap:10px; }
+  .legend-item { display:flex; align-items:center; gap:10px; font-size:0.84rem; }
+  .legend-dot { width:12px; height:12px; border-radius:4px; flex-shrink:0; }
+  .review-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; margin-bottom:12px; }
+  .review-card.review-correct { border-left:4px solid var(--correct); }
+  .review-card.review-wrong { border-left:4px solid var(--wrong); }
+  .review-q { font-size:0.88rem; font-weight:600; margin-bottom:8px; }
+  .review-answer { font-size:0.82rem; color:var(--text-dim); line-height:1.5; }
+  .review-answer strong { color:var(--correct); }
+  .review-answer em { color:var(--wrong); font-style:normal; }
+  .retry-btn { display:block; margin:28px auto; padding:14px 40px; background:linear-gradient(135deg,var(--pink),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:1rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+  .retry-btn:hover { transform:scale(1.05); }
+  .hamburger { display:none; position:fixed; top:16px; left:16px; z-index:200; background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:10px; cursor:pointer; font-size:1.2rem; }
+  .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:90; }
+  .footer { text-align:center; padding:20px; color:var(--text-dim); font-size:0.72rem; opacity:0.5; }
+
+  @media(max-width:768px) {
+    .sidebar { transform:translateX(-100%); }
+    .sidebar.open { transform:translateX(0); }
+    .main { margin-left:0; }
+    .hamburger { display:flex; align-items:center; justify-content:center; }
+    .overlay.show { display:block; }
+    .container { padding:12px 10px 30px; }
+    .question-card { padding:20px 16px; }
+    .bar-label { width:100px; font-size:0.72rem; }
+    .mode-bar { margin:16px auto; }
+  }
+</style>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+<aside class="sidebar" id="sidebar"></aside>
+
+<main class="main">
+<div class="container">
+  <div class="header">
+    <div class="header-badge"><span>🧠</span> ENARM · Neurocirugía · Tema 37</div>
+    <h1>Abscesos y Tumores Cerebrales</h1>
+    <p>Absceso cerebral · Glioblastoma · Meningioma · Meduloblastoma · Metástasis cerebrales</p>
+  </div>
+  <div style="display:flex;justify-content:center;">
+    <div class="mode-bar">
+      <button class="mode-btn active" id="btnRepaso" onclick="setMode('repaso')">📖 Modo Repaso</button>
+      <button class="mode-btn" id="btnExamen" onclick="setMode('examen')">⏱️ Modo Examen</button>
+    </div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 15</div>
+  </div>
+  <div id="quizArea"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+  <div class="results" id="resultsArea"></div>
+</div>
+<div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+</main>
+
+<script>
+let examMode = false;
+function setMode(mode) {
+  examMode = (mode==='examen');
+  document.getElementById('btnRepaso').classList.toggle('active',!examMode);
+  document.getElementById('btnExamen').classList.toggle('active',examMode);
+  init();
+}
+
+const questions = [
+  {
+    cat:"abs", catName:"Absceso Cerebral",
+    q:"Hombre de 42 años con sinusitis frontal crónica de 3 meses. Acude por cefalea progresiva, fiebre de 38.5°C y hemiparesia derecha de 5 días de evolución. TC con contraste muestra lesión hipodensa frontal izquierda con realce periférico en anillo. ¿Cuál es el diagnóstico más probable?",
+    opts:["Glioblastoma multiforme","Absceso cerebral por extensión directa desde sinusitis frontal","Metástasis cerebral única","Infarto cerebral subagudo"],
+    ans:1,
+    exp:"El absceso cerebral es una colección supurativa intraparenquimatosa. La extensión por contigüidad desde focos parameníngeos (sinusitis frontal → lóbulo frontal, otitis media → lóbulo temporal o cerebelo) es una de sus principales vías de origen. La tríada clásica es: cefalea + fiebre + déficit neurológico focal, aunque la fiebre puede estar ausente en hasta 50% de los casos. La imagen en 'anillo' (ring-enhancing lesion) en TC es característica pero no patognomónica.",
+    tip:"<strong>Vías de origen del absceso cerebral:</strong> 1) Contigüidad: sinusitis → frontal, otitis → temporal/cerebelo. 2) Hematógena: endocarditis, infección dental, cardiopatía congénita cianótica (cortocircuito D→I evita filtro pulmonar). 3) Postraumática/postquirúrgica. La RM con difusión (DWI) es clave: el absceso muestra restricción brillante en DWI (pus viscoso), mientras las metástasis necróticas no restringen.",
+    ref:"GPC: Diagnóstico y tratamiento de absceso cerebral. CENETEC."
+  },
+  {
+    cat:"abs", catName:"Absceso Cerebral",
+    q:"¿Cuál es la microbiología más frecuente en un absceso cerebral originado por otitis media crónica colesteatomatosa?",
+    opts:["Staphylococcus aureus exclusivamente","Flora mixta: estreptococos anaerobios, Bacteroides, Enterobacterias","Toxoplasma gondii","Cryptococcus neoformans"],
+    ans:1,
+    exp:"El absceso cerebral de origen ótico (otitis media crónica colesteatomatosa) se asocia a flora polimicrobiana con predominio de anaerobios: estreptococos anaerobios (Peptostreptococcus), Bacteroides fragilis y Prevotella, junto con Enterobacterias (Proteus, E. coli). En abscesos por sinusitis predominan Streptococcus milleri/anginosus. En abscesos postraumáticos/postquirúrgicos predomina S. aureus. En pacientes con VIH con CD4 <100: Toxoplasma gondii es la causa más frecuente de lesión focal cerebral.",
+    tip:"<strong>Microbiología por origen — memorizar para ENARM:</strong> Ótico → anaerobios + Bacteroides. Sinusal → Streptococcus milleri. Traumático/postQx → S. aureus. Dental → Streptococcus viridans + anaerobios. VIH (CD4<100) → Toxoplasma. Inmunocomprometido trasplantado → Aspergillus, Nocardia. El cultivo del pus guía el tratamiento definitivo.",
+    ref:"GPC: Diagnóstico y tratamiento de absceso cerebral. CENETEC."
+  },
+  {
+    cat:"dx_abs", catName:"Diagnóstico Absceso",
+    q:"¿Cuál es el estudio de imagen que mejor diferencia un absceso cerebral de una metástasis necrótica o de un glioblastoma?",
+    opts:["TC simple de cráneo","RM con secuencia de difusión (DWI) y coeficiente de difusión aparente (ADC)","PET-TC con FDG","Angiografía cerebral convencional"],
+    ans:1,
+    exp:"La RM con secuencia DWI es el estudio de elección para diferenciar absceso de otras lesiones en anillo. El absceso muestra restricción de la difusión (hiperintenso en DWI, hipointenso en ADC) porque el pus es viscoso y limita el movimiento del agua. Las metástasis necróticas y el glioblastoma con necrosis central NO restringen en DWI (isointenso o hipointenso en DWI, hiperintenso en ADC) porque el líquido necrótico es de baja viscosidad. Esta diferencia tiene sensibilidad >90%.",
+    tip:"<strong>DWI: la clave diagnóstica de absceso vs tumor.</strong> Restricción brillante en DWI + hiposeñal en ADC = absceso (difusión restringida por pus). Sin restricción = tumor necrótico o metástasis. También útil: espectroscopia RM — el absceso muestra picos de aminoácidos (leucina, isoleucina, valina) y ausencia de colina, a diferencia del tumor que muestra colina elevada.",
+    ref:"GPC: Diagnóstico y tratamiento de absceso cerebral. CENETEC."
+  },
+  {
+    cat:"dx_abs", catName:"Diagnóstico Absceso",
+    q:"Paciente con VIH, CD4 de 60 células/µL, sin TARV, presenta cefalea y hemiparesia. RM muestra múltiples lesiones en anillo en ganglios basales y sustancia blanca. ¿Cuál es el manejo inicial más apropiado?",
+    opts:["Biopsia estereotáxica inmediata antes de iniciar cualquier tratamiento","Tratamiento empírico con pirimetamina + sulfadiazina + leucovorina y reevaluación a las 2 semanas","Drenaje quirúrgico urgente de la lesión mayor","Aciclovir IV para encefalitis herpética"],
+    ans:1,
+    exp:"En paciente con VIH y CD4 <100 con lesiones en anillo múltiples (especialmente en ganglios basales), la toxoplasmosis cerebral es el diagnóstico más probable. La GPC recomienda iniciar tratamiento empírico con pirimetamina 200 mg/día carga, luego 50-75 mg/día + sulfadiazina 4-6 g/día en 4 dosis + leucovorina 10-20 mg/día (para prevenir toxicidad medular de la pirimetamina). Si hay respuesta clínica y radiológica a las 2 semanas, se confirma el diagnóstico sin necesidad de biopsia. La ausencia de respuesta a las 2 semanas indica biopsia para descartar linfoma primario del SNC.",
+    tip:"<strong>Toxoplasmosis vs linfoma primario SNC en VIH:</strong> Ambos dan lesiones en anillo. Toxoplasma: múltiples, ganglios basales, serologías IgG positivas (90%), responde a pirimetamina en 2 semanas. Linfoma: generalmente única, periventricular, serología negativa o IgG+, NO responde a pirimetamina, PET muestra hipermetabolismo, SPECT con Talio-201 positivo. La biopsia solo si falla tratamiento empírico.",
+    ref:"GPC: Diagnóstico y tratamiento de absceso cerebral. CENETEC."
+  },
+  {
+    cat:"tumor", catName:"Tumores Cerebrales",
+    q:"¿Cuál es el tumor cerebral primario maligno más frecuente en adultos?",
+    opts:["Meningioma grado I","Astrocitoma pilocítico (grado I OMS)","Glioblastoma multiforme (grado IV OMS)","Schwannoma vestibular"],
+    ans:2,
+    exp:"El glioblastoma multiforme (GBM), ahora denominado glioblastoma IDH-wildtype grado 4 en la clasificación OMS 2021, es el tumor cerebral primario maligno más frecuente en adultos (45-50% de todos los gliomas). Se origina de astrocitos y se caracteriza por: heterogeneidad, necrosis central, neovasculización, invasión difusa sin bordes definidos. La supervivencia media con tratamiento estándar (cirugía + RT + temozolomida) es de 14-16 meses. La imagen característica en RM es lesión en 'mariposa' cruzando el cuerpo calloso.",
+    tip:"<strong>GBM en imágenes — lo que el ENARM pregunta:</strong> TC: lesión hipodensa con realce en anillo irregular y edema perilesional importante. RM T1 + gadolinio: realce heterogéneo en anillo con necrosis central. RM T2/FLAIR: edema perilesional extenso. La 'imagen en mariposa' (cruza cuerpo calloso) es patognomónica de GBM. Mutación IDH: GBM IDH-mutado (mejor pronóstico) vs IDH-wildtype (peor pronóstico).",
+    ref:"GPC: Diagnóstico y tratamiento de tumores del sistema nervioso central. CENETEC."
+  },
+  {
+    cat:"tumor", catName:"Tumores Cerebrales",
+    q:"Mujer de 52 años con cefalea progresiva de 6 meses y episodios convulsivos. RM muestra lesión extraaxial en convexidad parietal derecha con realce homogéneo intenso, 'cola dural' y calcificaciones. ¿Cuál es el diagnóstico?",
+    opts:["Glioblastoma multiforme","Metástasis cerebral","Meningioma","Schwannoma intracraneal"],
+    ans:2,
+    exp:"El meningioma es el tumor intracraneal más frecuente en general (36% de todos los tumores cerebrales), más común en mujeres (2:1), pico en la 6ta-7ma década. Es un tumor extraaxial (se origina en las meninges, no en el parénquima cerebral) que comprime sin invadir el cerebro. Sus características en imagen son diagnósticas: lesión extraaxial, realce homogéneo intenso con gadolinio, 'cola dural' (engrosamiento meníngeo adyacente), base de implantación en la duramadre, calcificaciones frecuentes. La mayoría son grado I (benignos) de la OMS.",
+    tip:"<strong>Meningioma — perlas ENARM:</strong> Extraaxial (desplaza, no invade), realce homogéneo (a diferencia del GBM que es heterogéneo), cola dural. Incidentaloma frecuente en mujeres posmenopáusicas. Receptores de progesterona positivos (empeoran con embarazo). Tratamiento: observación si asintomático y pequeño; cirugía si sintomático o creciente; radiocirugía (Gamma Knife) para los no resecables. Recurrencia: grado I <10%, grado II 40%, grado III >75%.",
+    ref:"GPC: Diagnóstico y tratamiento de tumores del sistema nervioso central. CENETEC."
+  },
+  {
+    cat:"tumor", catName:"Tumores Cerebrales",
+    q:"Niño de 7 años con ataxia, nistagmo y cefalea matutina con vómito de 3 semanas. RM muestra lesión en vermis cerebeloso que ocluye el cuarto ventrículo. ¿Cuál es el diagnóstico más probable?",
+    opts:["Glioblastoma multiforme","Ependimoma supratentorial","Meduloblastoma","Craneofaringioma"],
+    ans:2,
+    exp:"El meduloblastoma es el tumor maligno intracraneal más frecuente en niños (20% de todos los tumores pediátricos del SNC). Se origina en el vermis cerebeloso, obstruye el cuarto ventrículo causando hidrocefalia obstructiva (cefalea matutina, vómito en proyectil) y produce ataxia cerebelosa. Es un tumor de fosa posterior. Clasificación OMS: grado 4. Aunque maligno, tiene alta sensibilidad a radioterapia y quimioterapia — supervivencia a 5 años del 70-80% con tratamiento multimodal. Puede diseminarse por el LCR ('tumor en gota').",
+    tip:"<strong>Tumores cerebrales pediátricos — top 3 ENARM:</strong> 1) Astrocitoma pilocítico (grado I): más frecuente general en niños, fosa posterior, quístico con nódulo mural, pronóstico excelente. 2) Meduloblastoma: maligno, vermis, hidrocefalia, radiosensible. 3) Ependimoma: suelo del cuarto ventrículo, 'pasa por el agujero de Luschka'. Adultos: GBM > meningioma > metástasis.",
+    ref:"GPC: Diagnóstico y tratamiento de tumores del sistema nervioso central. CENETEC."
+  },
+  {
+    cat:"tumor", catName:"Tumores Cerebrales",
+    q:"Paciente de 35 años con hipoacusia unilateral derecha progresiva, acúfeno y desequilibrio. RM con gadolinio muestra lesión en ángulo pontocerebeloso derecho con realce intenso y extensión al conducto auditivo interno. ¿Cuál es el diagnóstico?",
+    opts:["Meningioma del ángulo pontocerebeloso","Schwannoma vestibular (neurinoma del acústico)","Ependimoma del cuarto ventrículo","Colesteatoma del peñasco"],
+    ans:1,
+    exp:"El schwannoma vestibular (antes llamado neurinoma del acústico) es el tumor más frecuente del ángulo pontocerebeloso (80-90% de los tumores de esa localización). Se origina en las células de Schwann de la división vestibular del VIII par craneal. La clínica característica es: hipoacusia neurosensorial unilateral progresiva (síntoma más frecuente y precoz), acúfeno unilateral, desequilibrio. La extensión al conducto auditivo interno (CAI) en RM con gadolinio es diagnóstica. Asociado a neurofibromatosis tipo 2 (NF2) cuando es bilateral.",
+    tip:"<strong>Ángulo pontocerebeloso — diagnóstico diferencial:</strong> Schwannoma vestibular (80%): hipoacusia + extensión al CAI, forma de 'helado' en RM. Meningioma (10%): base ancha en duramadre, sin extensión al CAI, calcificaciones. Colesteatoma epidérmico (5%): hiperintenso en DWI, no realza. NF2: schwannomas vestibulares BILATERALES = diagnóstico de NF2. Tratamiento: observación, radiocirugía o cirugía según tamaño y clínica.",
+    ref:"GPC: Diagnóstico y tratamiento de tumores del sistema nervioso central. CENETEC."
+  },
+  {
+    cat:"meta", catName:"Metástasis/Pronóstico",
+    q:"¿Cuál es el tumor primario más frecuente que origina metástasis cerebrales en adultos?",
+    opts:["Melanoma","Cáncer de mama","Cáncer de pulmón","Cáncer colorrectal"],
+    ans:2,
+    exp:"Las metástasis cerebrales son más frecuentes que los tumores cerebrales primarios en adultos (4:1). El cáncer de pulmón es la causa más frecuente de metástasis cerebrales (40-50% de todos los casos), seguido por cáncer de mama (15-20%), melanoma (10%), carcinoma de células renales y carcinoma colorrectal. El melanoma, aunque menos frecuente en número absoluto, tiene la mayor tasa de metastatización al cerebro por tumor primario (>50% de los pacientes). Las metástasis suelen ser múltiples (70%), en la unión sustancia gris-blanca, con edema perilesional desproporcionado.",
+    tip:"<strong>Metástasis cerebrales — regla mnemotécnica:</strong> 'Pulmón, Mama, Melanoma, Riñón, Colon' (en orden de frecuencia). El melanoma da metástasis hemorrágicas (hiperdensas en TC simple). Cáncer de pulmón de células pequeñas: metástasis muy frecuentes y precoces — la TC de cráneo es obligatoria en la estadificación. Metástasis únicas: considerar resección quirúrgica + RT.",
+    ref:"GPC: Diagnóstico y tratamiento de tumores del sistema nervioso central. CENETEC."
+  },
+  {
+    cat:"meta", catName:"Metástasis/Pronóstico",
+    q:"¿Cuál es la presentación clínica más frecuente de los tumores cerebrales en general, sea primario o metastásico?",
+    opts:["Crisis convulsivas como síntoma de debut en todos los casos","Cefalea de características de hipertensión intracraneal (matutina, opresiva, asociada a náusea/vómito)","Deterioro cognitivo progresivo aislado sin cefalea","Pérdida súbita de consciencia como primer síntoma"],
+    ans:1,
+    exp:"La cefalea es el síntoma más frecuente de presentación de los tumores cerebrales (50-60% de los casos). La cefalea por hipertensión intracraneal (HIC) tiene características clásicas: peor en las mañanas (el decúbito nocturno aumenta la PIC), mejora al ponerse de pie, se agrava con Valsalva, progresiva, asociada a náusea y vómito en proyectil. El papiledema es el signo físico más importante de HIC crónica. Las convulsiones ocurren en 20-40% como debut, más frecuentes en tumores de bajo grado que comprimen la corteza.",
+    tip:"<strong>Cefalea de HIC vs migraña — diferencias ENARM:</strong> HIC: matutina, empeora con Valsalva/decúbito, progresiva en días-semanas, asociada a déficit neurológico o papiledema. Migraña: episódica, fotofobia/fonofobia, aura, sin papiledema. La 'peor cefalea de su vida' de inicio súbito = hemorragia subaracnoidea (aneurisma). Cefalea + papiledema bilateral + sin lesión en imagen = hipertensión intracraneal idiopática (seudotumor cerebri).",
+    ref:"GPC: Diagnóstico y tratamiento de tumores del sistema nervioso central. CENETEC."
+  },
+  {
+    cat:"meta", catName:"Metástasis/Pronóstico",
+    q:"Adolescente de 16 años con amenorrea, diabetes insípida, déficit visual bitemporal y cefalea. TC muestra lesión supraselar con calcificaciones en 'cáscara de huevo'. ¿Cuál es el diagnóstico?",
+    opts:["Adenoma hipofisario macroadeoma","Craneofaringioma","Germinoma","Meningioma del tubérculo selar"],
+    ans:1,
+    exp:"El craneofaringioma es un tumor benigno (grado I OMS) que se origina en restos de la bolsa de Rathke (región selar/supraselar). Es el tumor supraselar más frecuente en niños y adolescentes. La tríada clásica es: 1) Déficit visual por compresión del quiasma óptico (hemianopsia bitemporal), 2) Disfunción hipofisaria (déficit de GH, hipotiroidismo, insuficiencia suprarrenal, hipogonadismo, retraso del crecimiento), 3) Diabetes insípida (compresión del tallo hipofisario). Las calcificaciones en 'cáscara de huevo' o en 'glóbulos' en TC son prácticamente patognomónicas.",
+    tip:"<strong>Craneofaringioma: el gran simulador endocrino-oftalmológico.</strong> Dos tipos: adamantinomatoso (niños, quístico, calcificaciones, contenido 'aceite de motor') y papilar (adultos, sólido, menos calcificaciones). La hemianopsia bitemporal (pérdida de campos temporales) indica compresión del quiasma óptico — también en adenoma hipofisario, pero el craneofaringioma la asocia a déficit de GH y diabetes insípida en jóvenes.",
+    ref:"GPC: Diagnóstico y tratamiento de tumores del sistema nervioso central. CENETEC."
+  },
+  {
+    cat:"tx", catName:"Tratamiento",
+    q:"¿Cuál es el tratamiento estándar para el absceso cerebral maduro con efecto de masa significativo?",
+    opts:["Antibióticos IV exclusivos por 8 semanas sin cirugía","Aspiración estereotáxica guiada por imagen + antibióticos IV por 6-8 semanas","Craneotomía con escisión completa del absceso como primera opción en todos los casos","Drenaje lumbar de LCR para reducir la presión"],
+    ans:1,
+    exp:"El tratamiento del absceso cerebral maduro (con cápsula bien formada) es la aspiración estereotáxica guiada por imagen (TC o RM), que es mínimamente invasiva, permite obtener material para cultivo y descomprimir la lesión. Se combina con antibióticos IV de amplio espectro por 6-8 semanas. El régimen empírico inicial incluye: ceftriaxona (3ª generación) + metronidazol (anaerobios) ± vancomicina (si S. aureus o postquirúrgico). La craneotomía con escisión se reserva para abscesos >2.5 cm con efecto de masa severo, abscesos multiloculados o los que no responden a aspiración.",
+    tip:"<strong>Cuándo cirugía vs antibióticos solos en absceso cerebral:</strong> Solo antibióticos: abscesos pequeños (<2.5 cm), en fase cerebritis (sin cápsula), múltiples en áreas elocuentes, toxoplasmosis (tratamiento médico inicial). Aspiración estereotáxica: absceso maduro único >2.5 cm, diagnóstico incierto, sin mejoría a los 7-10 días de antibióticos. Escisión quirúrgica: absceso traumático (con cuerpo extraño), fúngico, gas en cavidad.",
+    ref:"GPC: Diagnóstico y tratamiento de absceso cerebral. CENETEC."
+  },
+  {
+    cat:"tx", catName:"Tratamiento",
+    q:"¿Cuál es el protocolo de Stupp para el tratamiento del glioblastoma multiforme recién diagnosticado?",
+    opts:["Cirugía + quimioterapia con temozolomida exclusiva sin radioterapia","Cirugía máxima (resección o biopsia) + radioterapia fraccionada 60 Gy + temozolomida concomitante y adyuvante","Radioterapia exclusiva sin cirugía","Inmunoterapia con bevacizumab como primera línea"],
+    ans:1,
+    exp:"El protocolo de Stupp (2005) es el estándar de tratamiento para GBM: 1) Cirugía: resección máxima segura (o biopsia si no resecable) para diagnóstico histomolecular y reducción del volumen tumoral. 2) Radioterapia fraccionada: 60 Gy en 30 fracciones (6 semanas), con temozolomida concomitante 75 mg/m²/día. 3) Temozolomida adyuvante: 150-200 mg/m² durante 5 días cada 28 días por 6 ciclos. La metilación del promotor de MGMT es el principal biomarcador predictivo de respuesta a temozolomida.",
+    tip:"<strong>Biomarcadores pronósticos en gliomas — ENARM avanzado:</strong> IDH mutado: mejor pronóstico (glioma grado 2-3 principalmente). MGMT metilado: mejor respuesta a temozolomida en GBM. 1p/19q codeleción: oligodendroglioma, mejor pronóstico y respuesta a quimio. EGFR amplificado: GBM IDH-wildtype, peor pronóstico. La clasificación OMS 2021 integra histología + molecular para definir el diagnóstico.",
+    ref:"GPC: Diagnóstico y tratamiento de tumores del sistema nervioso central. CENETEC."
+  },
+  {
+    cat:"tx", catName:"Tratamiento",
+    q:"¿Cuál es el manejo del edema cerebral vasogénico secundario a tumor cerebral en el período preoperatorio?",
+    opts:["Manitol al 20% IV como primera línea en todos los casos","Dexametasona IV (4-8 mg c/6h) para reducir la permeabilidad vascular peritumoral","Solución hipertónica de NaCl al 3% exclusiva","Furosemida IV como diurético de elección"],
+    ans:1,
+    exp:"El edema vasogénico peritumoral se debe a disrupción de la barrera hematoencefálica por el tumor, permitiendo la extravasación de proteínas y agua al espacio extracelular. Los corticosteroides, especialmente la dexametasona, son el tratamiento de elección porque reducen la permeabilidad vascular mediada por VEGF, disminuyendo el edema en 24-48 horas. La dosis estándar es 4-8 mg IV cada 6 horas. El manitol se usa en crisis agudas de HIC (herniation inminente). Los corticosteroides NO son útiles en el edema citotóxico (infarto cerebral).",
+    tip:"<strong>Corticosteroides en neuro-oncología:</strong> Dexametasona es de elección (menor actividad mineralocorticoide, máxima potencia antiinflamatoria). Mejora síntomas en 24-48h. Úsalos antes de la cirugía para reducir el edema y mejorar el estado neurológico. Efectos adversos a largo plazo: hiperglucemia, miopatía, inmunosupresión, psicosis. Retirar gradualmente post-cirugía/radioterapia para evitar síndrome de abstinencia.",
+    ref:"GPC: Diagnóstico y tratamiento de tumores del sistema nervioso central. CENETEC."
+  },
+  {
+    cat:"abs", catName:"Absceso Cerebral",
+    q:"Paciente de 28 años con cardiopatía congénita cianótica (tetralogía de Fallot no corregida) desarrolla fiebre, cefalea y hemiplejia izquierda. RM muestra absceso cerebral parietal derecho. ¿Por qué es susceptible este paciente?",
+    opts:["La hipoxia crónica debilita el sistema inmune local del SNC","El cortocircuito derecha-izquierda permite que émbolos sépticos eviten el filtro pulmonar y lleguen directamente al cerebro","La policitemia secundaria aumenta la viscosidad y facilita la colonización bacteriana","La hipercapnia crónica altera la barrera hematoencefálica"],
+    ans:1,
+    exp:"En las cardiopatías congénitas cianóticas con cortocircuito derecha-izquierda (tetralogía de Fallot, transposición de grandes vasos, síndrome de Eisenmenger), la sangre venosa pasa directamente a la circulación sistémica sin pasar por el filtro pulmonar. Esto permite que bacteriemias de cualquier origen (dental, cutáneo, respiratorio) lleguen directamente al cerebro en forma de émbolos sépticos, causando abscesos cerebrales hematógenos. La policitemia secundaria (por hipoxia crónica) también contribuye a la hiperviscosidad.",
+    tip:"<strong>Cardiopatía cianótica + absceso cerebral = clásico del ENARM.</strong> El riesgo de absceso cerebral es 5-10% en cardiopatías con shunt D→I no corregidas. Los abscesos son múltiples y en la distribución de la arteria cerebral media (territorio frontal-parietal). Toda fiebre + déficit neurológico en paciente con cardiopatía cianótica es absceso cerebral hasta demostrar lo contrario. Corrección quirúrgica de la cardiopatía elimina el riesgo.",
+    ref:"GPC: Diagnóstico y tratamiento de absceso cerebral. CENETEC."
+  }
+];
+
+let currentQ = 0, score = 0, answers = [];
+let catStats = { abs:{c:0,t:0}, dx_abs:{c:0,t:0}, tumor:{c:0,t:0}, meta:{c:0,t:0}, tx:{c:0,t:0} };
+
+function shuffle(arr) {
+  for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}
+  return arr;
+}
+
+function init() {
+  shuffle(questions);
+  currentQ=0; score=0; answers=[];
+  catStats = { abs:{c:0,t:0}, dx_abs:{c:0,t:0}, tumor:{c:0,t:0}, meta:{c:0,t:0}, tx:{c:0,t:0} };
+  const r=document.getElementById('resultsArea');
+  r.classList.remove('show'); r.innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const qa=questions[currentQ], total=questions.length;
+  document.getElementById('progressBar').style.width=(currentQ/total*100)+'%';
+  document.getElementById('progressText').textContent=`${currentQ+1} / ${total}`;
+  document.getElementById('nextBtn').classList.remove('show');
+  const letters=['A','B','C','D'];
+  let html=`<div class="question-card"><div class="q-category cat-${qa.cat}">${qa.catName}</div><div class="q-number">Pregunta ${currentQ+1} de ${total}</div><div class="q-text">${qa.q}</div><div class="options">`;
+  qa.opts.forEach((opt,i)=>{html+=`<button class="option-btn" onclick="selectAnswer(${i})" data-idx="${i}"><span class="option-letter">${letters[i]}</span><span>${opt}</span></button>`;});
+  html+=`</div><div class="feedback" id="feedback"></div></div>`;
+  document.getElementById('quizArea').innerHTML=html;
+}
+
+function selectAnswer(idx) {
+  const qa=questions[currentQ];
+  const btns=document.querySelectorAll('.option-btn');
+  const fb=document.getElementById('feedback');
+  const isCorrect=idx===qa.ans;
+  btns.forEach((btn,i)=>{
+    btn.classList.add('disabled'); btn.onclick=null;
+    if(i===qa.ans) btn.classList.add('correct-answer');
+    if(i===idx&&!isCorrect) btn.classList.add('wrong-answer');
+  });
+  if(!catStats[qa.cat]) catStats[qa.cat]={c:0,t:0};
+  catStats[qa.cat].t++;
+  if(isCorrect){score++;catStats[qa.cat].c++;}
+  if(!examMode){
+    fb.className=isCorrect?'feedback correct-fb show':'feedback wrong-fb show';
+    fb.innerHTML=isCorrect
+      ?`<div class="feedback-title">✅ ¡Correcto!</div><div>${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`
+      :`<div class="feedback-title">❌ Incorrecto</div><div><strong>Respuesta correcta:</strong> ${qa.opts[qa.ans]}</div><div style="margin-top:8px;">${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;
+  }
+  answers.push({q:qa.q,correct:isCorrect,userAns:qa.opts[idx],correctAns:qa.opts[qa.ans],cat:qa.catName,exp:qa.exp,ref:qa.ref});
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion() {
+  currentQ++;
+  if(currentQ>=questions.length) showResults();
+  else renderQuestion();
+}
+
+function showResults() {
+  document.getElementById('quizArea').innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  document.getElementById('progressBar').style.width='100%';
+  document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;
+  const pct=Math.round((score/questions.length)*100);
+  const msg=pct>=90?'🏆 ¡Excelente dominio de neuro-oncología!':pct>=70?'👏 ¡Muy bien! Repasa los temas con menor puntaje.':pct>=50?'📚 Aceptable, refuerza las áreas débiles.':'⚠️ Revisa las GPC de absceso cerebral y tumores del SNC.';
+  const cats=[
+    {name:'Absceso Cerebral',key:'abs',color:'#f472b6'},
+    {name:'Diagnóstico Absceso',key:'dx_abs',color:'#fbbf24'},
+    {name:'Tumores Cerebrales',key:'tumor',color:'#38bdf8'},
+    {name:'Metástasis/Pronóstico',key:'meta',color:'#a78bfa'},
+    {name:'Tratamiento',key:'tx',color:'#34d399'},
+  ];
+  let html=`<div class="results-header"><div class="score-big">${pct}%</div><div class="score-label">${score} de ${questions.length} correctas</div><div class="score-msg">${msg}</div></div>
+  <div class="chart-section"><div class="chart-title"><span>📊</span> Rendimiento por Categoría</div><div class="bar-chart">`;
+  cats.forEach(cat=>{
+    const s=catStats[cat.key]||{c:0,t:0};
+    const p=s.t>0?Math.round((s.c/s.t)*100):0;
+    html+=`<div class="bar-row"><div class="bar-label">${cat.name}</div><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${cat.color};">${p}% (${s.c}/${s.t})</div></div></div>`;
+  });
+  html+=`</div></div><div class="chart-section"><div class="chart-title"><span>🎯</span> Resumen General</div><div class="donut-wrap">
+    <svg class="donut-svg" viewBox="0 0 42 42">
+      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a2235" stroke-width="4"/>
+      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#34d399" stroke-width="4" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="25" stroke-linecap="round"/>
+      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#f87171" stroke-width="4" stroke-dasharray="${100-pct} ${pct}" stroke-dashoffset="${25-pct}" stroke-linecap="round"/>
+      <text x="21" y="22.5" text-anchor="middle" font-size="6" font-weight="700" fill="#e8ecf4" font-family="Plus Jakarta Sans">${pct}%</text>
+    </svg>
+    <div class="donut-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#34d399;"></div>Correctas: ${score}</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Incorrectas: ${questions.length-score}</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f472b6;"></div>Total: ${questions.length}</div>
+    </div></div></div>
+  <div class="chart-section"><div class="chart-title"><span>📋</span> Revisión de Respuestas</div>`;
+  answers.forEach((a,i)=>{
+    html+=`<div class="review-card ${a.correct?'review-correct':'review-wrong'}">
+      <div class="review-q">${i+1}. ${a.q} <span style="font-size:0.72rem;color:var(--text-dim);">[${a.cat}]</span></div>
+      <div class="review-answer">${a.correct?`<strong>✅ ${a.correctAns}</strong>`:`<em>❌ Tu respuesta: ${a.userAns}</em><br><strong>✅ Correcta: ${a.correctAns}</strong>`}</div>
+      <div style="margin-top:8px;font-size:0.8rem;color:var(--text-dim);line-height:1.5;">${a.exp}</div>
+      <div style="margin-top:6px;font-size:0.72rem;color:var(--text-dim);opacity:0.6;font-style:italic;">📖 ${a.ref}</div>
+    </div>`;
+  });
+  html+=`</div><button class="retry-btn" onclick="init()">🔄 Repetir Tema</button>`;
+  const ra=document.getElementById('resultsArea');
+  ra.innerHTML=html; ra.classList.add('show');
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
+}
+
+function toggleSpec(header) {
+  header.classList.toggle('open');
+  const list=header.nextElementSibling;
+  list.classList.toggle('open');
+}
+
+init();
+</script>
+</body>
+</html>
