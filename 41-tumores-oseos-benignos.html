@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tumores Óseos Benignos — ENARM · MediCode Solutions</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root{--bg:#0a0e1a;--surface:#111827;--surface2:#1a2235;--surface3:#212d45;--border:#2a3a5c;--text:#e8ecf4;--text-dim:#8896b3;--accent:#38bdf8;--accent-glow:rgba(56,189,248,0.15);--correct:#34d399;--correct-bg:rgba(52,211,153,0.1);--correct-border:rgba(52,211,153,0.4);--wrong:#f87171;--wrong-bg:rgba(248,113,113,0.1);--wrong-border:rgba(248,113,113,0.4);--gold:#fbbf24;--purple:#a78bfa;--pink:#f472b6;--teal:#2dd4bf;--sidebar-w:280px;--radius:14px;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;}
+  .sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;overflow-y:auto;z-index:100;transition:transform 0.3s;}
+  .sidebar-logo{padding:24px 20px 16px;border-bottom:1px solid var(--border);}
+  .logo-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--purple));padding:6px 14px;border-radius:100px;font-size:0.75rem;font-weight:800;color:var(--bg);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px;}
+  .sidebar-logo h2{font-size:1.1rem;font-weight:800;background:linear-gradient(135deg,var(--text),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .sidebar-logo p{font-size:0.72rem;color:var(--text-dim);margin-top:2px;}
+  .back-btn{display:flex;align-items:center;gap:8px;padding:14px 20px;color:var(--text-dim);font-size:0.8rem;text-decoration:none;border-bottom:1px solid var(--border);transition:color 0.2s;}
+  .back-btn:hover{color:var(--accent);}
+  .sidebar-nav{flex:1;padding:12px 0 24px;}
+  .specialty-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px 10px 20px;cursor:pointer;transition:background 0.2s;user-select:none;}
+  .specialty-header:hover{background:var(--surface2);}
+  .specialty-name{display:flex;align-items:center;gap:10px;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;}
+  .specialty-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;}
+  .chevron{font-size:0.65rem;color:var(--text-dim);transition:transform 0.3s;}
+  .specialty-header.open .chevron{transform:rotate(90deg);}
+  .topics-list{display:none;padding:4px 0 8px;}
+  .topics-list.open{display:block;}
+  .topic-link{display:flex;align-items:center;gap:10px;padding:8px 16px 8px 56px;font-size:0.78rem;color:var(--text-dim);text-decoration:none;transition:all 0.2s;border-left:2px solid transparent;line-height:1.4;}
+  .topic-link:hover{color:var(--text);background:var(--surface3);}
+  .topic-link.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-glow);font-weight:600;}
+  .topic-link.coming-soon{opacity:0.4;cursor:not-allowed;pointer-events:none;}
+  .topic-num{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--text-dim);min-width:20px;}
+  .badge-soon{margin-left:auto;background:rgba(136,150,179,0.1);color:var(--text-dim);font-size:0.62rem;font-weight:600;padding:2px 7px;border-radius:100px;}
+  .badge-ready{margin-left:auto;background:rgba(52,211,153,0.1);color:#34d399;font-size:0.62rem;font-weight:600;padding:2px 7px;border-radius:100px;}
+  .main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;}
+  .container{max-width:760px;margin:0 auto;padding:20px 16px 40px;width:100%;}
+  .mode-bar{display:flex;align-items:center;gap:10px;margin:24px 0 20px;background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:6px;width:fit-content;}
+  .mode-btn{padding:8px 20px;border-radius:100px;border:none;cursor:pointer;font-family:inherit;font-size:0.82rem;font-weight:600;transition:all 0.2s;color:var(--text-dim);background:transparent;}
+  .mode-btn.active{background:linear-gradient(135deg,var(--accent),var(--purple));color:var(--bg);}
+  .header{text-align:center;padding:40px 20px 24px;position:relative;overflow:hidden;}
+  .header::before{content:'';position:absolute;top:-60%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(56,189,248,0.08) 0%,transparent 70%);pointer-events:none;}
+  .header-badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);padding:6px 16px;border-radius:100px;font-size:0.78rem;color:var(--accent);font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:16px;}
+  .header h1{font-size:clamp(1.6rem,5vw,2.2rem);font-weight:800;background:linear-gradient(135deg,var(--text) 0%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;}
+  .header p{color:var(--text-dim);font-size:0.95rem;max-width:500px;margin:0 auto;}
+  .progress-wrap{background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:12px 20px;margin:20px 0 28px;display:flex;align-items:center;gap:14px;}
+  .progress-bar-bg{flex:1;height:8px;background:var(--surface3);border-radius:100px;overflow:hidden;}
+  .progress-bar-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--purple));border-radius:100px;transition:width 0.5s ease;}
+  .progress-text{font-size:0.82rem;font-weight:600;color:var(--text-dim);white-space:nowrap;font-family:'JetBrains Mono',monospace;}
+  .question-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px;margin-bottom:20px;animation:slideIn 0.4s ease;position:relative;overflow:hidden;}
+  .question-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--purple),var(--pink));}
+  @keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .q-category{display:inline-flex;align-items:center;gap:6px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;padding:4px 12px;border-radius:100px;margin-bottom:14px;}
+  .cat-dx{background:rgba(56,189,248,0.12);color:var(--accent);}
+  .cat-tx{background:rgba(167,139,250,0.12);color:var(--purple);}
+  .cat-cx{background:rgba(244,114,182,0.12);color:var(--pink);}
+  .cat-lab{background:rgba(52,211,153,0.12);color:var(--correct);}
+  .q-number{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--text-dim);margin-bottom:10px;}
+  .q-text{font-size:1.05rem;font-weight:600;line-height:1.55;margin-bottom:20px;color:var(--text);}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .option-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:all 0.2s;text-align:left;font-size:0.92rem;color:var(--text);font-family:inherit;line-height:1.5;width:100%;}
+  .option-btn:hover:not(.disabled){border-color:var(--accent);background:var(--accent-glow);transform:translateX(4px);}
+  .option-letter{display:flex;align-items:center;justify-content:center;min-width:30px;height:30px;border-radius:8px;background:var(--surface3);font-weight:700;font-size:0.82rem;color:var(--accent);flex-shrink:0;}
+  .option-btn.correct-answer{border-color:var(--correct-border);background:var(--correct-bg);}
+  .option-btn.correct-answer .option-letter{background:var(--correct);color:var(--bg);}
+  .option-btn.wrong-answer{border-color:var(--wrong-border);background:var(--wrong-bg);}
+  .option-btn.wrong-answer .option-letter{background:var(--wrong);color:var(--bg);}
+  .option-btn.disabled{cursor:default;}
+  .option-btn.disabled:hover{transform:none;}
+  .feedback{margin-top:18px;padding:18px;border-radius:12px;font-size:0.88rem;line-height:1.65;animation:fadeIn 0.3s ease;display:none;}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .feedback.show{display:block;}
+  .feedback.correct-fb{background:var(--correct-bg);border:1px solid var(--correct-border);color:var(--correct);}
+  .feedback.wrong-fb{background:var(--wrong-bg);border:1px solid var(--wrong-border);color:#fca5a5;}
+  .feedback-title{font-weight:700;font-size:0.95rem;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+  .feedback .tip{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.08);color:var(--text-dim);font-size:0.82rem;}
+  .feedback .tip strong{color:var(--gold);}
+  .feedback .ref{margin-top:8px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;}
+  .next-btn{display:none;margin:20px auto 0;padding:12px 32px;background:linear-gradient(135deg,var(--accent),var(--purple));color:var(--bg);border:none;border-radius:100px;font-family:inherit;font-size:0.92rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+  .next-btn:hover{transform:scale(1.05);box-shadow:0 4px 24px var(--accent-glow);}
+  .next-btn.show{display:block;}
+  .results{display:none;animation:slideIn 0.5s ease;}
+  .results.show{display:block;}
+  .results-header{text-align:center;padding:30px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;position:relative;overflow:hidden;}
+  .results-header::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--correct),var(--accent),var(--purple),var(--pink));}
+  .score-big{font-size:3.5rem;font-weight:800;background:linear-gradient(135deg,var(--correct),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .score-label{font-size:1.1rem;color:var(--text-dim);margin-top:4px;}
+  .score-msg{margin-top:12px;font-size:0.95rem;color:var(--text);font-weight:500;}
+  .chart-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px 20px;margin-bottom:20px;}
+  .chart-title{font-size:0.95rem;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+  .bar-chart{display:flex;flex-direction:column;gap:14px;}
+  .bar-row{display:flex;align-items:center;gap:12px;}
+  .bar-label{width:110px;font-size:0.78rem;font-weight:600;text-align:right;color:var(--text-dim);flex-shrink:0;}
+  .bar-track{flex:1;height:28px;background:var(--surface3);border-radius:8px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:8px;transition:width 1s ease;display:flex;align-items:center;padding-left:10px;font-size:0.75rem;font-weight:700;color:var(--bg);min-width:fit-content;}
+  .donut-wrap{display:flex;align-items:center;justify-content:center;gap:30px;flex-wrap:wrap;}
+  .donut-svg{width:160px;height:160px;}
+  .donut-legend{display:flex;flex-direction:column;gap:10px;}
+  .legend-item{display:flex;align-items:center;gap:10px;font-size:0.84rem;}
+  .legend-dot{width:12px;height:12px;border-radius:4px;flex-shrink:0;}
+  .review-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:12px;}
+  .review-card.review-correct{border-left:4px solid var(--correct);}
+  .review-card.review-wrong{border-left:4px solid var(--wrong);}
+  .review-q{font-size:0.88rem;font-weight:600;margin-bottom:8px;}
+  .review-answer{font-size:0.82rem;color:var(--text-dim);line-height:1.5;}
+  .review-answer strong{color:var(--correct);}
+  .review-answer em{color:var(--wrong);font-style:normal;}
+  .retry-btn{display:block;margin:28px auto;padding:14px 40px;background:linear-gradient(135deg,var(--accent),var(--purple));color:var(--bg);border:none;border-radius:100px;font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+  .retry-btn:hover{transform:scale(1.05);}
+  .hamburger{display:none;position:fixed;top:16px;left:16px;z-index:200;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px;cursor:pointer;font-size:1.2rem;}
+  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:90;}
+  .footer{text-align:center;padding:20px;color:var(--text-dim);font-size:0.72rem;opacity:0.5;}
+  @media(max-width:768px){.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}.main{margin-left:0;}.hamburger{display:flex;align-items:center;justify-content:center;}.overlay.show{display:block;}.container{padding:12px 10px 30px;}.question-card{padding:20px 16px;}.bar-label{width:80px;font-size:0.72rem;}.mode-bar{margin:16px auto;}}
+</style>
+  <script src="sidebar.js"></script>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+<aside class="sidebar" id="sidebar"></aside>
+
+<main class="main">
+<div class="container">
+
+  <div class="header">
+    <div class="header-badge"><span>🦴</span> ENARM · Traumatología · Tema 41</div>
+    <h1>Tumores Óseos Benignos</h1>
+    <p>Osteocondroma · Osteoide Osteoma · Quiste Óseo · Condroma · Fibroma</p>
+  </div>
+
+  <div style="display:flex;justify-content:center;">
+    <div class="mode-bar">
+      <button class="mode-btn active" id="btnRepaso" onclick="setMode('repaso')">📖 Modo Repaso</button>
+      <button class="mode-btn" id="btnExamen" onclick="setMode('examen')">⏱️ Modo Examen</button>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 15</div>
+  </div>
+
+  <div id="quizArea"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+  <div class="results" id="resultsArea"></div>
+
+</div>
+<div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+</main>
+
+<script>
+let examMode=false;
+function setMode(m){examMode=(m==='examen');document.getElementById('btnRepaso').classList.toggle('active',!examMode);document.getElementById('btnExamen').classList.toggle('active',examMode);init();}
+
+const questions=[
+  {
+    cat:"dx",catName:"Diagnóstico",
+    q:"Adolescente de 15 años con masa dura, no dolorosa, en la cara medial de la rodilla derecha de 2 años de evolución. La Rx muestra lesión ósea pediculada con continuidad cortical y medular con el hueso adyacente. ¿Cuál es el diagnóstico más probable?",
+    opts:["Osteosarcoma parostal","Osteocondroma (exostosis osteocartilaginosa)","Tumor de células gigantes","Condrosarcoma periférico"],
+    ans:1,
+    exp:"El osteocondroma es el tumor óseo benigno más frecuente (35-40% de los tumores óseos benignos). Se caracteriza por una proliferación ósea con cubierta cartilaginosa que tiene continuidad cortical y medular con el hueso subyacente (hallazgo patognomónico). Predomina en adolescentes cerca de las fisis (rodilla distal, hombro proximal). El 85% son solitarios; el 15% son múltiples (exostosis hereditaria múltiple, EHM).",
+    tip:"<strong>Osteocondroma - clave diagnóstica:</strong> Continuidad cortical + medular con hueso base = patognomónico. Cubierta cartilaginosa (capuchón) >2cm en adulto → sospecha transformación maligna a condrosarcoma secundario. EHM (múltiples) = riesgo mayor de malignización. Crece junto con el hueso, se detiene al cierre fisario.",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores Óseos Benignos. SSA. 2010."
+  },
+  {
+    cat:"dx",catName:"Diagnóstico",
+    q:"Joven de 18 años con dolor nocturno en la diáfisis tibial que mejora dramáticamente con AINEs (aspirina/ibuprofeno). La TC muestra una lesión radiolúcida central (nidus) <2 cm rodeada de esclerosis reactiva densa. ¿Cuál es el diagnóstico?",
+    opts:["Absceso de Brodie (osteomielitis crónica)","Osteoide osteoma","Osteoblastoma","Granuloma eosinófilo"],
+    ans:1,
+    exp:"El osteoide osteoma es un tumor benigno productor de prostaglandinas que explica el dolor nocturno característico y la respuesta dramática a AINEs (que inhiben COX y reducen prostaglandinas). El nidus (<2 cm) es la lesión tumoral; la esclerosis periférica es reacción del hueso adyacente. Predomina en la diáfisis de huesos largos (fémur y tibia), en jóvenes de 10-30 años. TC es el estudio de elección.",
+    tip:"<strong>Tríada del Osteoide Osteoma:</strong> Dolor nocturno + mejora con AAS/AINEs + nidus <2cm en TC. Mecanismo: el nidus produce PGE2 → dolor + hiperemia. Los AINEs bloquean COX → alivio. Tratamiento: ablación percutánea por radiofrecuencia (de elección) o escisión quirúrgica del nidus. Si no se reseca el nidus, recidiva.",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores Óseos Benignos. SSA. 2010."
+  },
+  {
+    cat:"dx",catName:"Diagnóstico",
+    q:"Niño de 8 años con fractura patológica del húmero proximal. La Rx muestra lesión osteolítica central, bien delimitada, con adelgazamiento de la cortical y sin reacción perióstica. No hay dolor previo. ¿Cuál es el diagnóstico más probable?",
+    opts:["Quiste óseo aneurismático","Quiste óseo simple (unicameral)","Displasia fibrosa","Tumor de células gigantes"],
+    ans:1,
+    exp:"El quiste óseo simple (unicameral) o quiste óseo solitario es la causa más frecuente de fractura patológica en niños. Es una cavidad llena de líquido seroso, localizada en la metáfisis proximal del húmero (50%) y fémur (25%), con máxima incidencia entre 5-15 años. En la Rx: lesión osteolítica central, cortical adelgazada ('fallen leaf sign' al fracturarse), sin reacción perióstica agresiva.",
+    tip:"<strong>Quiste óseo simple:</strong> Niño + fractura patológica + húmero proximal = diagnóstico hasta demostrar lo contrario. 'Fallen leaf sign' = fragmento óseo que cae al fondo del quiste por la fractura (patognomónico). Tratamiento: inyección de corticosteroide intralesional (metilprednisolona) o clavos intramedulares elásticos.",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores Óseos Benignos. SSA. 2010."
+  },
+  {
+    cat:"lab",catName:"Imagen y Diagnóstico",
+    q:"¿Cuál es el estudio de imagen de primera línea para la evaluación inicial de una masa ósea sospechosa?",
+    opts:["Resonancia magnética con gadolinio","Radiografía simple en dos proyecciones","Gammagrama óseo con tecnecio-99m","Tomografía por emisión de positrones (PET-CT)"],
+    ans:1,
+    exp:"La radiografía simple en dos proyecciones es siempre el estudio inicial y frecuentemente diagnóstico en tumores óseos. Proporciona información esencial: localización (epífisis/metáfisis/diáfisis), tipo de lesión (lítica/blástica/mixta), márgenes (bien/mal definidos), reacción perióstica, extensión. La RM complementa para extensión intramedular y partes blandas. La TC para evaluar matriz y cortical. El PET para estadificación.",
+    tip:"<strong>Secuencia de imagen en tumor óseo:</strong> Rx simple (siempre primero) → RM (extensión local, partes blandas) → TC (cortical, matriz mineralizada) → Gammagrafía (lesiones múltiples) → PET (estadificación en malignos). La Rx puede ser diagnóstica por sí sola en muchos tumores benignos.",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores Óseos Benignos. SSA. 2010."
+  },
+  {
+    cat:"dx",catName:"Diagnóstico",
+    q:"Adulto de 30 años con lesión osteolítica epifisaria en la rodilla, expansiva, con patrón 'en jabón' (trabéculas internas), sin reacción perióstica. La biopsia muestra células gigantes multinucleadas (tipo osteoclasto) en abundancia. ¿Cuál es el diagnóstico?",
+    opts:["Condrosarcoma de células claras","Tumor de células gigantes (osteoclastoma)","Quiste óseo aneurismático","Osteoblastoma"],
+    ans:1,
+    exp:"El tumor de células gigantes (TCG) u osteoclastoma es un tumor de comportamiento benigno pero localmente agresivo, localizado en la epífisis de huesos largos (rodilla distal/proximal del fémur y tibia, radio distal). Se presenta en adultos de 20-40 años, tras el cierre fisario. Rx: lesión lítica epifisaria excéntrica, patrón 'en jabón', sin esclerosis marginal ni mineralización. Potencial de transformación maligna <1-5%.",
+    tip:"<strong>TCG (osteoclastoma) - características clave:</strong> Epífisis (no metáfisis) + adulto joven + células gigantes = TCG. Localización más frecuente: rodilla (fémur distal + tibia proximal = 50%). Radio distal = 10%. Tratamiento: curetaje + injerto ± cemento óseo. Alta tasa de recidiva local (15-30%). El 1-2% metastatiza a pulmón (aun siendo 'benigno').",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores Óseos Benignos. SSA. 2010."
+  },
+  {
+    cat:"tx",catName:"Tratamiento",
+    q:"¿Cuál es el tratamiento de elección para el osteoide osteoma sintomático en la actualidad?",
+    opts:["Resección quirúrgica en bloque con márgenes","Ablación percutánea por radiofrecuencia (RFA) guiada por TC","AINEs indefinidamente sin intervención","Radioterapia de haz externo"],
+    ans:1,
+    exp:"La ablación percutánea por radiofrecuencia (RFA) guiada por TC es el tratamiento de elección actual para el osteoide osteoma. Se introduce una aguja de radiofrecuencia directamente en el nidus y se destruye con calor (90°C, 4-6 min). Tasa de éxito >90%, con mínima morbilidad y corta hospitalización. Ha desplazado a la cirugía abierta como estándar. La cirugía abierta se reserva para nidus no accesibles percutáneamente.",
+    tip:"<strong>Osteoide osteoma - tratamiento:</strong> RFA percutánea (>90% éxito, mínima morbilidad) = primera línea actual. Cirugía abierta = segunda línea si no accesible. AINEs = solo para control sintomático temporal o pacientes que rechazan procedimiento. La enfermedad puede remitir espontáneamente en 3-7 años, pero la mayoría opta por tratamiento.",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores Óseos Benignos. SSA. 2010."
+  },
+  {
+    cat:"dx",catName:"Diagnóstico",
+    q:"Adulto joven con lesión osteolítica expansiva excéntrica en la metáfisis femoral distal, con múltiples niveles líquido-líquido en la RM. ¿Cuál es el diagnóstico más probable?",
+    opts:["Quiste óseo simple","Quiste óseo aneurismático (QOA)","Tumor de células gigantes","Fibroma no osificante"],
+    ans:1,
+    exp:"El quiste óseo aneurismático (QOA) se caracteriza por espacios vasculares comunicantes llenos de sangre, con niveles líquido-líquido en la RM (signo patognomónico). Es una lesión expansiva, excéntrica, con tabiques internos. Puede ser primario (20%) o secundario a otro tumor (80%: TCG, condromixoide, osteoblastoma). Predomina en la metáfisis de huesos largos y columna vertebral en pacientes de 10-30 años.",
+    tip:"<strong>Niveles líquido-líquido en RM = QOA.</strong> Los niveles ocurren por estratificación de la sangre (glóbulos rojos sedimentan). El QOA primario tiene translocación TRE17/USP6. El secundario = siempre buscar el tumor subyacente (50% TCG). Tratamiento: curetaje + injerto óseo ± embolización arterial preoperatoria.",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores Óseos Benignos. SSA. 2010."
+  },
+  {
+    cat:"lab",catName:"Imagen y Diagnóstico",
+    q:"En la evaluación de un tumor óseo, ¿cuál es el hallazgo radiológico que mejor indica benignidad?",
+    opts:["Reacción perióstica en 'sol naciente' o 'capas de cebolla'","Márgenes bien definidos con halo esclerótico (zona de transición estrecha)","Extensión a partes blandas con masa de tejidos blandos","Patrón lítico permeativo o apolillado"],
+    ans:1,
+    exp:"Los márgenes bien definidos con halo esclerótico (zona de transición estrecha) indican que el hueso tiene tiempo de reaccionar al crecimiento tumoral lento = tumor benigno o de bajo grado. Por el contrario: zona de transición ancha (permeativo/apolillado) = crecimiento rápido agresivo = maligno. La reacción perióstica en 'sol naciente' (osteosarcoma) y 'capas de cebolla' (Ewing) son indicadores de malignidad.",
+    tip:"<strong>Criterios de Lodwick (agresividad):</strong> IA = geográfico con esclerosis (benigno) · IB = geográfico sin esclerosis · IC = geográfico con margen mal definido · II = apolillado · III = permeativo (III = maligno). Reacción perióstica: sólida = reactiva/benigna · interrumpida (triángulo de Codman, sol naciente) = maligna.",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores Óseos Benignos. SSA. 2010."
+  },
+  {
+    cat:"dx",catName:"Diagnóstico",
+    q:"Niño de 12 años con hallazgo incidental en Rx de rodilla: lesión osteolítica metafisaria excéntrica, bien delimitada, con esclerosis marginal, cortical intacta, asintomática. ¿Cuál es el diagnóstico?",
+    opts:["Osteosarcoma telangectásico","Fibroma no osificante (defecto fibroso cortical)","Condrosarcoma de bajo grado","Displasia fibrosa"],
+    ans:1,
+    exp:"El fibroma no osificante (defecto fibroso cortical) es el tumor óseo benigno más frecuente en niños (30-40% de los niños tienen uno en algún momento). Es asintomático, hallazgo incidental, en la metáfisis de huesos largos (fémur distal, tibia). Características Rx: lesión lítica excéntrica, lobulada, con esclerosis marginal bien definida ('festoneada'), sin reacción perióstica. Involucionan espontáneamente. No requieren tratamiento.",
+    tip:"<strong>Fibroma no osificante:</strong> Hallazgo incidental en niño en Rx de rodilla = clásico. Excéntrico + metáfisis + esclerosis marginal + festoneado = patognomónico. NO biopsia, NO cirugía (involucionan solos). Excepción: lesión >50% del diámetro transverso → riesgo de fractura patológica → considerar injerto.",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores Óseos Benignos. SSA. 2010."
+  },
+  {
+    cat:"tx",catName:"Tratamiento",
+    q:"Paciente con osteocondroma solitario asintomático del fémur distal, de 2 cm, en un adolescente de 14 años. ¿Cuál es la conducta adecuada?",
+    opts:["Resección quirúrgica inmediata preventiva","Observación clínica y radiológica; cirugía solo si hay síntomas o crecimiento post-cierre fisario","Biopsia incisional para confirmar benignidad","Radioterapia profiláctica"],
+    ans:1,
+    exp:"La mayoría de los osteocondromas solitarios asintomáticos en pacientes esqueléticamente inmaduros se manejan con observación. El crecimiento es esperado hasta el cierre fisario. Indicaciones de resección: dolor o limitación funcional, compromiso neurovascular, bursa dolorosa, o crecimiento post-cierre fisario (sugiere transformación maligna). El capuchón cartilaginoso >2 cm en adulto también es indicación de cirugía.",
+    tip:"<strong>Osteocondroma - indicaciones de cirugía:</strong> Síntomas (dolor, limitación, compresión vascular/nerviosa) + Crecimiento post-cierre fisario + Capuchón >2cm en adulto + Exostosis hereditaria múltiple con cambio en lesión. Asintomático en niño = observar. La tasa de malignización del osteocondroma solitario es <1%; en EHM es 3-5%.",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores Óseos Benignos. SSA. 2010."
+  },
+  {
+    cat:"dx",catName:"Diagnóstico",
+    q:"Adulto de 35 años con dolor crónico sordo en la cadera. La Rx muestra lesión osteolítica de la cabeza femoral con matriz condroide ('palomitas de maíz'). La RM muestra lesión intramedular con áreas de alta señal en T2. ¿Cuál es el diagnóstico?",
+    opts:["Necrosis avascular de la cabeza femoral","Encondroma (condroma intraóseo)","Condrosarcoma de alto grado","Tumor de células gigantes de la cabeza femoral"],
+    ans:1,
+    exp:"El encondroma es un tumor benigno formado por cartílago hialino maduro dentro del hueso (intramedular). Es la segunda neoplasia ósea benigna más frecuente. La matriz condroide calcificada con patrón 'en palomitas de maíz' o 'arcos y anillos' es característica en Rx. Predilección por huesos tubulares de las manos/pies (50%) y huesos largos. Alta señal en T2 en RM (por contenido acuoso del cartílago).",
+    tip:"<strong>Encondroma vs Condrosarcoma:</strong> Encondroma: asintomático + palomitas de maíz + sin erosión endóstica. Condrosarcoma: dolor + erosión de cortical endóstica >2/3 + masa de partes blandas. El encondroma de huesos tubulares pequeños (manos) NO maligniza. El de pelvis y fémur proximal tiene mayor riesgo. Síndrome de Ollier = encondromatosis múltiple.",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores Óseos Benignos. SSA. 2010."
+  },
+  {
+    cat:"cx",catName:"Complicaciones",
+    q:"Paciente con exostosis hereditaria múltiple (EHM) que nota rápido crecimiento de una de sus lesiones en la pelvis en la edad adulta, con dolor persistente. ¿Cuál es la complicación más temida?",
+    opts:["Fractura patológica de la pelvis","Transformación maligna a condrosarcoma secundario","Infección de la exostosis (osteomielitis)","Compresión del nervio ciático"],
+    ans:1,
+    exp:"La transformación maligna a condrosarcoma periférico es la complicación más grave de la EHM, ocurriendo en 3-5% de los casos (vs <1% en osteocondroma solitario). Signos de alerta de malignización: crecimiento post-puberal, capuchón cartilaginoso >2 cm en adulto, dolor persistente, nueva masa de partes blandas adyacente. Las lesiones pélvicas y escapulares tienen mayor riesgo de malignización.",
+    tip:"<strong>Señales de alarma de malignización en osteocondroma:</strong> 1) Crecimiento después del cierre fisario. 2) Capuchón cartilaginoso >2cm. 3) Dolor nuevo o persistente en adulto. 4) Masa de partes blandas. 5) Calcificaciones irregulares. Si alguna presente → RM + biopsia + resección. EHM pelvis/escápula = vigilancia estrecha.",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores Óseos Benignos. SSA. 2010."
+  },
+  {
+    cat:"lab",catName:"Imagen y Diagnóstico",
+    q:"¿Cuál es el estudio de imagen más útil para evaluar la extensión intramedular y la afección de partes blandas en un tumor óseo antes de la cirugía?",
+    opts:["Tomografía computarizada sin contraste","Resonancia magnética con y sin contraste","Gammagrafía ósea con Tc-99m","Ultrasonido de alta resolución"],
+    ans:1,
+    exp:"La RM es el estudio de elección para planeación quirúrgica de tumores óseos: define con precisión la extensión intramedular (longitud del tumor dentro del hueso), la relación con estructuras neurovasculares, el compromiso articular y la extensión a partes blandas. Esta información es esencial para determinar los márgenes de resección en cirugías de preservación de extremidades. La TC es superior para evaluar la matriz mineral y la cortical.",
+    tip:"<strong>RM en tumor óseo - planeación quirúrgica:</strong> Extensión intramedular en T1 (médula grasa = alta señal, tumor = baja señal). Partes blandas en T2 supresión grasa. Realce con gadolinio = componente vascularizado viable. La RM define el 'salto de resección' para margen libre de tumor.",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores Óseos Benignos. SSA. 2010."
+  },
+  {
+    cat:"tx",catName:"Tratamiento",
+    q:"¿Cuál es el tratamiento estándar para el tumor de células gigantes (TCG) localizado en la epífisis distal del radio?",
+    opts:["Amputación como tratamiento de elección","Curetaje intralesional + cemento óseo o injerto + reconstrucción","Radioterapia de haz externo exclusiva","Quimioterapia sistémica con metotrexato"],
+    ans:1,
+    exp:"El tratamiento estándar del TCG es el curetaje intralesional ampliado (con alta velocidad y fenolización o nitrógeno líquido como adyuvante local) seguido de relleno con cemento óseo (polimetilmetacrilato) o injerto óseo. En el radio distal, frecuentemente se requiere resección en bloque con reconstrucción (injerto libre de peroné o artrodesis de muñeca) por la alta tasa de recidiva con curetaje solo en esta localización. Denosumab es opción para casos irresecables.",
+    tip:"<strong>TCG - tratamiento según localización:</strong> Mayoría = curetaje + cemento (tasa recidiva 15-30%). Radio distal = resección en bloque + reconstrucción (mejor control oncológico). Columna/sacro irresecable = denosumab (anti-RANK-L, reduce células gigantes). Alta tasa recidiva local = seguimiento con RM cada 6 meses.",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores Óseos Benignos. SSA. 2010."
+  },
+  {
+    cat:"cx",catName:"Complicaciones",
+    q:"Paciente pediátrico con displasia fibrosa monostótica del fémur proximal que desarrolla deformidad progresiva en 'cayado de pastor' (coxa vara). ¿Cuál es la razón fisiopatológica de esta deformidad?",
+    opts:["El tumor invade el cartílago de crecimiento y lo destruye","El hueso displásico (woven bone sin laminar) es estructuralmente débil y se deforma por carga","La displasia fibrosa produce osteoporosis generalizada","La lesión comprime la arteria femoral causando isquemia"],
+    ans:1,
+    exp:"La displasia fibrosa es un trastorno del desarrollo en el que el hueso normal es reemplazado por tejido fibroso con islotes de hueso inmaduro (woven bone) no mineralizado correctamente. Este hueso displásico es estructuralmente inferior al hueso laminar normal, y bajo las fuerzas de carga axial, el fémur proximal se deforma progresivamente adoptando la forma de 'cayado de pastor'. El gen GNAS1 está mutado (Gsα activante).",
+    tip:"<strong>Displasia fibrosa:</strong> GNAS1 mutado → Gsα activa constantemente → ↑ cAMP → diferenciación osteoblástica anormal → woven bone débil. Monostótica (85%): fémur proximal más afectado. Poliostótica (15%): síndrome de McCune-Albright (manchas café con leche + pubertad precoz + displasia). 'Cayado de pastor' = deformidad clásica por carga sobre hueso débil.",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores Óseos Benignos. SSA. 2010."
+  }
+];
+
+let currentQ=0,score=0,answers=[];
+let catStats={dx:{c:0,t:0},tx:{c:0,t:0},cx:{c:0,t:0},lab:{c:0,t:0}};
+
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+function init(){shuffle(questions);currentQ=0;score=0;answers=[];catStats={dx:{c:0,t:0},tx:{c:0,t:0},cx:{c:0,t:0},lab:{c:0,t:0}};const r=document.getElementById('resultsArea');r.classList.remove('show');r.innerHTML='';document.getElementById('nextBtn').classList.remove('show');renderQuestion();}
+function renderQuestion(){const qa=questions[currentQ];const total=questions.length;document.getElementById('progressBar').style.width=(currentQ/total*100)+'%';document.getElementById('progressText').textContent=`${currentQ+1} / ${total}`;document.getElementById('nextBtn').classList.remove('show');const letters=['A','B','C','D'];let html=`<div class="question-card"><div class="q-category cat-${qa.cat}">${qa.catName}</div><div class="q-number">Pregunta ${currentQ+1} de ${total}</div><div class="q-text">${qa.q}</div><div class="options">`;qa.opts.forEach((opt,i)=>{html+=`<button class="option-btn" onclick="selectAnswer(${i})" data-idx="${i}"><span class="option-letter">${letters[i]}</span><span>${opt}</span></button>`;});html+=`</div><div class="feedback" id="feedback"></div></div>`;document.getElementById('quizArea').innerHTML=html;}
+function selectAnswer(idx){const qa=questions[currentQ];const btns=document.querySelectorAll('.option-btn');const fb=document.getElementById('feedback');const isCorrect=idx===qa.ans;btns.forEach((btn,i)=>{btn.classList.add('disabled');btn.onclick=null;if(i===qa.ans)btn.classList.add('correct-answer');if(i===idx&&!isCorrect)btn.classList.add('wrong-answer');});if(!catStats[qa.cat])catStats[qa.cat]={c:0,t:0};catStats[qa.cat].t++;if(isCorrect){score++;catStats[qa.cat].c++;}if(!examMode){if(isCorrect){fb.className='feedback correct-fb show';fb.innerHTML=`<div class="feedback-title">✅ ¡Correcto!</div><div>${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;}else{fb.className='feedback wrong-fb show';fb.innerHTML=`<div class="feedback-title">❌ Incorrecto</div><div><strong>Respuesta correcta:</strong> ${qa.opts[qa.ans]}</div><div style="margin-top:8px;">${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;}}answers.push({q:qa.q,correct:isCorrect,userAns:qa.opts[idx],correctAns:qa.opts[qa.ans],cat:qa.catName,exp:qa.exp,tip:qa.tip,ref:qa.ref});document.getElementById('nextBtn').classList.add('show');}
+function nextQuestion(){currentQ++;if(currentQ>=questions.length)showResults();else renderQuestion();}
+function showResults(){document.getElementById('quizArea').innerHTML='';document.getElementById('nextBtn').classList.remove('show');document.getElementById('progressBar').style.width='100%';document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;const pct=Math.round((score/questions.length)*100);let msg=pct>=90?'🏆 ¡Excelente dominio del tema! Listo para el ENARM.':pct>=70?'👏 ¡Muy bien! Repasa las áreas con menor puntaje.':pct>=50?'📚 Aceptable, pero hay áreas de oportunidad importantes.':'⚠️ Necesitas reforzar este tema. Revisa las GPC correspondientes.';const cats=[{name:'Diagnóstico',key:'dx',color:'#38bdf8'},{name:'Imagen/Lab',key:'lab',color:'#34d399'},{name:'Tratamiento',key:'tx',color:'#a78bfa'},{name:'Complicaciones',key:'cx',color:'#f472b6'}];let html=`<div class="results-header"><div class="score-big">${pct}%</div><div class="score-label">${score} de ${questions.length} correctas</div><div class="score-msg">${msg}</div></div><div class="chart-section"><div class="chart-title"><span>📊</span> Rendimiento por Categoría</div><div class="bar-chart">`;cats.forEach(cat=>{const s=catStats[cat.key]||{c:0,t:0};const p=s.t>0?Math.round((s.c/s.t)*100):0;html+=`<div class="bar-row"><div class="bar-label">${cat.name}</div><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${cat.color};">${p}% (${s.c}/${s.t})</div></div></div>`;});html+=`</div></div><div class="chart-section"><div class="chart-title"><span>🎯</span> Resumen General</div><div class="donut-wrap"><svg class="donut-svg" viewBox="0 0 42 42"><circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a2235" stroke-width="4"/><circle cx="21" cy="21" r="15.915" fill="none" stroke="#34d399" stroke-width="4" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="25" stroke-linecap="round"/><circle cx="21" cy="21" r="15.915" fill="none" stroke="#f87171" stroke-width="4" stroke-dasharray="${100-pct} ${pct}" stroke-dashoffset="${25-pct}" stroke-linecap="round"/><text x="21" y="22.5" text-anchor="middle" font-size="6" font-weight="700" fill="#e8ecf4" font-family="Plus Jakarta Sans">${pct}%</text></svg><div class="donut-legend"><div class="legend-item"><div class="legend-dot" style="background:#34d399;"></div>Correctas: ${score}</div><div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Incorrectas: ${questions.length-score}</div><div class="legend-item"><div class="legend-dot" style="background:#38bdf8;"></div>Total: ${questions.length}</div></div></div></div><div class="chart-section"><div class="chart-title"><span>📋</span> Revisión de Respuestas</div>`;answers.forEach((a,i)=>{html+=`<div class="review-card ${a.correct?'review-correct':'review-wrong'}"><div class="review-q">${i+1}. ${a.q} <span style="font-size:0.72rem;color:var(--text-dim);">[${a.cat}]</span></div><div class="review-answer">${a.correct?`<strong>✅ ${a.correctAns}</strong>`:`<em>❌ Tu respuesta: ${a.userAns}</em><br><strong>✅ Correcta: ${a.correctAns}</strong>`}</div><div style="margin-top:8px;font-size:0.8rem;color:var(--text-dim);line-height:1.5;">${a.exp}</div><div style="margin-top:6px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;">📖 ${a.ref}</div></div>`;});html+=`</div><button class="retry-btn" onclick="init()">🔄 Reintentar</button>`;const res=document.getElementById('resultsArea');res.innerHTML=html;res.classList.add('show');res.scrollIntoView({behavior:'smooth'});}
+function toggleSpec(h){h.classList.toggle('open');h.nextElementSibling.classList.toggle('open');}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+init();
+</script>
+</body>
+</html>

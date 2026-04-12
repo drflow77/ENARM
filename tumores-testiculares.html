@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tumores Testiculares — ENARM · MediCode Solutions</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root{--bg:#0a0e1a;--surface:#111827;--surface2:#1a2235;--surface3:#212d45;--border:#2a3a5c;--text:#e8ecf4;--text-dim:#8896b3;--accent:#38bdf8;--accent-glow:rgba(56,189,248,0.15);--correct:#34d399;--correct-bg:rgba(52,211,153,0.1);--correct-border:rgba(52,211,153,0.4);--wrong:#f87171;--wrong-bg:rgba(248,113,113,0.1);--wrong-border:rgba(248,113,113,0.4);--gold:#fbbf24;--purple:#a78bfa;--pink:#f472b6;--teal:#2dd4bf;--sidebar-w:280px;--radius:14px;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;}
+  .sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;overflow-y:auto;z-index:100;transition:transform 0.3s;}
+  .sidebar-logo{padding:24px 20px 16px;border-bottom:1px solid var(--border);}
+  .logo-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--purple));padding:6px 14px;border-radius:100px;font-size:0.75rem;font-weight:800;color:var(--bg);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px;}
+  .sidebar-logo h2{font-size:1.1rem;font-weight:800;background:linear-gradient(135deg,var(--text),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .sidebar-logo p{font-size:0.72rem;color:var(--text-dim);margin-top:2px;}
+  .back-btn{display:flex;align-items:center;gap:8px;padding:14px 20px;color:var(--text-dim);font-size:0.8rem;text-decoration:none;border-bottom:1px solid var(--border);transition:color 0.2s;}
+  .back-btn:hover{color:var(--accent);}
+  .sidebar-nav{flex:1;padding:12px 0 24px;}
+  .specialty-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px 10px 20px;cursor:pointer;transition:background 0.2s;user-select:none;}
+  .specialty-header:hover{background:var(--surface2);}
+  .specialty-name{display:flex;align-items:center;gap:10px;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;}
+  .specialty-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;}
+  .chevron{font-size:0.65rem;color:var(--text-dim);transition:transform 0.3s;}
+  .specialty-header.open .chevron{transform:rotate(90deg);}
+  .topics-list{display:none;padding:4px 0 8px;}
+  .topics-list.open{display:block;}
+  .topic-link{display:flex;align-items:center;gap:10px;padding:8px 16px 8px 56px;font-size:0.78rem;color:var(--text-dim);text-decoration:none;transition:all 0.2s;border-left:2px solid transparent;line-height:1.4;}
+  .topic-link:hover{color:var(--text);background:var(--surface3);}
+  .topic-link.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-glow);font-weight:600;}
+  .topic-link.coming-soon{opacity:0.4;cursor:not-allowed;pointer-events:none;}
+  .topic-num{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--text-dim);min-width:20px;}
+  .badge-soon{margin-left:auto;background:rgba(136,150,179,0.1);color:var(--text-dim);font-size:0.62rem;font-weight:600;padding:2px 7px;border-radius:100px;}
+  .badge-ready{margin-left:auto;background:rgba(52,211,153,0.1);color:#34d399;font-size:0.62rem;font-weight:600;padding:2px 7px;border-radius:100px;}
+  .main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;}
+  .container{max-width:760px;margin:0 auto;padding:20px 16px 40px;width:100%;}
+  .mode-bar{display:flex;align-items:center;gap:10px;margin:24px 0 20px;background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:6px;width:fit-content;}
+  .mode-btn{padding:8px 20px;border-radius:100px;border:none;cursor:pointer;font-family:inherit;font-size:0.82rem;font-weight:600;transition:all 0.2s;color:var(--text-dim);background:transparent;}
+  .mode-btn.active{background:linear-gradient(135deg,var(--accent),var(--purple));color:var(--bg);}
+  .header{text-align:center;padding:40px 20px 24px;position:relative;overflow:hidden;}
+  .header::before{content:'';position:absolute;top:-60%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(56,189,248,0.08) 0%,transparent 70%);pointer-events:none;}
+  .header-badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);padding:6px 16px;border-radius:100px;font-size:0.78rem;color:var(--accent);font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:16px;}
+  .header h1{font-size:clamp(1.6rem,5vw,2.2rem);font-weight:800;background:linear-gradient(135deg,var(--text) 0%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;}
+  .header p{color:var(--text-dim);font-size:0.95rem;max-width:500px;margin:0 auto;}
+  .progress-wrap{background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:12px 20px;margin:20px 0 28px;display:flex;align-items:center;gap:14px;}
+  .progress-bar-bg{flex:1;height:8px;background:var(--surface3);border-radius:100px;overflow:hidden;}
+  .progress-bar-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--purple));border-radius:100px;transition:width 0.5s ease;}
+  .progress-text{font-size:0.82rem;font-weight:600;color:var(--text-dim);white-space:nowrap;font-family:'JetBrains Mono',monospace;}
+  .question-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px;margin-bottom:20px;animation:slideIn 0.4s ease;position:relative;overflow:hidden;}
+  .question-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--purple),var(--pink));}
+  @keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .q-category{display:inline-flex;align-items:center;gap:6px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;padding:4px 12px;border-radius:100px;margin-bottom:14px;}
+  .cat-dx{background:rgba(56,189,248,0.12);color:var(--accent);}
+  .cat-tx{background:rgba(167,139,250,0.12);color:var(--purple);}
+  .cat-cx{background:rgba(244,114,182,0.12);color:var(--pink);}
+  .cat-lab{background:rgba(52,211,153,0.12);color:var(--correct);}
+  .q-number{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--text-dim);margin-bottom:10px;}
+  .q-text{font-size:1.05rem;font-weight:600;line-height:1.55;margin-bottom:20px;color:var(--text);}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .option-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:all 0.2s;text-align:left;font-size:0.92rem;color:var(--text);font-family:inherit;line-height:1.5;width:100%;}
+  .option-btn:hover:not(.disabled){border-color:var(--accent);background:var(--accent-glow);transform:translateX(4px);}
+  .option-letter{display:flex;align-items:center;justify-content:center;min-width:30px;height:30px;border-radius:8px;background:var(--surface3);font-weight:700;font-size:0.82rem;color:var(--accent);flex-shrink:0;}
+  .option-btn.correct-answer{border-color:var(--correct-border);background:var(--correct-bg);}
+  .option-btn.correct-answer .option-letter{background:var(--correct);color:var(--bg);}
+  .option-btn.wrong-answer{border-color:var(--wrong-border);background:var(--wrong-bg);}
+  .option-btn.wrong-answer .option-letter{background:var(--wrong);color:var(--bg);}
+  .option-btn.disabled{cursor:default;}
+  .option-btn.disabled:hover{transform:none;}
+  .feedback{margin-top:18px;padding:18px;border-radius:12px;font-size:0.88rem;line-height:1.65;animation:fadeIn 0.3s ease;display:none;}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .feedback.show{display:block;}
+  .feedback.correct-fb{background:var(--correct-bg);border:1px solid var(--correct-border);color:var(--correct);}
+  .feedback.wrong-fb{background:var(--wrong-bg);border:1px solid var(--wrong-border);color:#fca5a5;}
+  .feedback-title{font-weight:700;font-size:0.95rem;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+  .feedback .tip{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.08);color:var(--text-dim);font-size:0.82rem;}
+  .feedback .tip strong{color:var(--gold);}
+  .feedback .ref{margin-top:8px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;}
+  .next-btn{display:none;margin:20px auto 0;padding:12px 32px;background:linear-gradient(135deg,var(--accent),var(--purple));color:var(--bg);border:none;border-radius:100px;font-family:inherit;font-size:0.92rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+  .next-btn:hover{transform:scale(1.05);box-shadow:0 4px 24px var(--accent-glow);}
+  .next-btn.show{display:block;}
+  .results{display:none;animation:slideIn 0.5s ease;}
+  .results.show{display:block;}
+  .results-header{text-align:center;padding:30px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;position:relative;overflow:hidden;}
+  .results-header::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--correct),var(--accent),var(--purple),var(--pink));}
+  .score-big{font-size:3.5rem;font-weight:800;background:linear-gradient(135deg,var(--correct),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .score-label{font-size:1.1rem;color:var(--text-dim);margin-top:4px;}
+  .score-msg{margin-top:12px;font-size:0.95rem;color:var(--text);font-weight:500;}
+  .chart-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px 20px;margin-bottom:20px;}
+  .chart-title{font-size:0.95rem;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+  .bar-chart{display:flex;flex-direction:column;gap:14px;}
+  .bar-row{display:flex;align-items:center;gap:12px;}
+  .bar-label{width:110px;font-size:0.78rem;font-weight:600;text-align:right;color:var(--text-dim);flex-shrink:0;}
+  .bar-track{flex:1;height:28px;background:var(--surface3);border-radius:8px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:8px;transition:width 1s ease;display:flex;align-items:center;padding-left:10px;font-size:0.75rem;font-weight:700;color:var(--bg);min-width:fit-content;}
+  .donut-wrap{display:flex;align-items:center;justify-content:center;gap:30px;flex-wrap:wrap;}
+  .donut-svg{width:160px;height:160px;}
+  .donut-legend{display:flex;flex-direction:column;gap:10px;}
+  .legend-item{display:flex;align-items:center;gap:10px;font-size:0.84rem;}
+  .legend-dot{width:12px;height:12px;border-radius:4px;flex-shrink:0;}
+  .review-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:12px;}
+  .review-card.review-correct{border-left:4px solid var(--correct);}
+  .review-card.review-wrong{border-left:4px solid var(--wrong);}
+  .review-q{font-size:0.88rem;font-weight:600;margin-bottom:8px;}
+  .review-answer{font-size:0.82rem;color:var(--text-dim);line-height:1.5;}
+  .review-answer strong{color:var(--correct);}
+  .review-answer em{color:var(--wrong);font-style:normal;}
+  .retry-btn{display:block;margin:28px auto;padding:14px 40px;background:linear-gradient(135deg,var(--accent),var(--purple));color:var(--bg);border:none;border-radius:100px;font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+  .retry-btn:hover{transform:scale(1.05);}
+  .hamburger{display:none;position:fixed;top:16px;left:16px;z-index:200;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px;cursor:pointer;font-size:1.2rem;}
+  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:90;}
+  .footer{text-align:center;padding:20px;color:var(--text-dim);font-size:0.72rem;opacity:0.5;}
+  @media(max-width:768px){.sidebar{transform:translateX(-100%);}  .sidebar.open{transform:translateX(0);}.main{margin-left:0;}.hamburger{display:flex;align-items:center;justify-content:center;}.overlay.show{display:block;}.container{padding:12px 10px 30px;}.question-card{padding:20px 16px;}.bar-label{width:80px;font-size:0.72rem;}.mode-bar{margin:16px auto;}}
+</style>
+  <script src="sidebar.js"></script>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+<aside class="sidebar" id="sidebar"></aside>
+
+<main class="main">
+<div class="container">
+
+  <div class="header">
+    <div class="header-badge"><span>🫘</span> ENARM · Urología</div>
+    <h1>Tumores Testiculares</h1>
+    <p>Clasificación · Marcadores · Tratamiento · Seguimiento</p>
+  </div>
+
+  <div style="display:flex;justify-content:center;">
+    <div class="mode-bar">
+      <button class="mode-btn active" id="btnRepaso" onclick="setMode('repaso')">📖 Modo Repaso</button>
+      <button class="mode-btn" id="btnExamen" onclick="setMode('examen')">⏱️ Modo Examen</button>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 15</div>
+  </div>
+
+  <div id="quizArea"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+  <div class="results" id="resultsArea"></div>
+
+</div>
+<div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+</main>
+
+<script>
+let examMode=false;
+function setMode(m){examMode=(m==='examen');document.getElementById('btnRepaso').classList.toggle('active',!examMode);document.getElementById('btnExamen').classList.toggle('active',examMode);init();}
+
+const questions=[
+  {
+    cat:"dx",catName:"Diagnóstico",
+    q:"Hombre de 24 años con masa testicular indolora de 3 semanas de evolución. A la exploración: testículo derecho aumentado de tamaño, consistencia pétrea, sin signos inflamatorios. ¿Cuál es el diagnóstico más probable y el primer paso diagnóstico?",
+    opts:["Epididimitis aguda; iniciar antibióticos","Tumor testicular; ultrasonido testicular de alta resolución","Hidrocele; punción diagnóstica","Torsión testicular; exploración quirúrgica urgente"],
+    ans:1,
+    exp:"Una masa testicular sólida, dura, indolora en un hombre joven es tumor testicular hasta demostrar lo contrario. El ultrasonido testicular de alta resolución (7.5-15 MHz) es el estudio de primera elección: sensibilidad >95%, identifica masas intratesticulares, distingue de lesiones extratesticulares. NO se realiza biopsia transescrotal (riesgo de diseminación linfática).",
+    tip:"<strong>Regla de oro:</strong> Masa testicular sólida en hombre joven = tumor testicular hasta demostrar lo contrario. USG es el PRIMER paso. La biopsia transescrotal está CONTRAINDICADA (siembra en ganglios inguinales alterando el drenaje linfático habitual).",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores de Testículo en el Adulto. SSA. 2012."
+  },
+  {
+    cat:"dx",catName:"Clasificación",
+    q:"¿Cuál es el tumor testicular más frecuente en hombres entre 15 y 35 años?",
+    opts:["Teratoma maduro","Seminoma","Coriocarcinoma puro","Tumor de células de Leydig"],
+    ans:1,
+    exp:"El seminoma es el tumor testicular de células germinales más frecuente (40-50% de todos los tumores testiculares). Tiene un pico de incidencia entre los 30-45 años. Los tumores no seminomatosos (carcinoma embrionario, teratoma, coriocarcinoma, tumor de saco vitelino) predominan entre 20-30 años. El 95% de los tumores testiculares son de células germinales (seminomatosos y no seminomatosos).",
+    tip:"<strong>Tumores testiculares por edad:</strong> Infancia → Tumor saco vitelino (yolk sac). 15-35 → NSGCT (no seminoma). 30-45 → Seminoma. >50 → Linfoma testicular (más frecuente >60 años). Regla: NSGCT más agresivos pero más quimiosensibles.",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores de Testículo en el Adulto. SSA. 2012."
+  },
+  {
+    cat:"lab",catName:"Marcadores Tumorales",
+    q:"¿Cuál es la batería completa de marcadores tumorales que debe solicitarse ante la sospecha de tumor testicular?",
+    opts:["Solo AFP (alfa-fetoproteína)","AFP + β-hCG + LDH","CEA + AFP + PSA","β-hCG + CA-125 + LDH"],
+    ans:1,
+    exp:"Los marcadores tumorales del tumor testicular son: AFP (alfa-fetoproteína), β-hCG (gonadotropina coriónica humana fracción beta) y LDH (deshidrogenasa láctica). Deben medirse ANTES de la orquiectomía y en el seguimiento. El seminoma puro NO eleva AFP (si AFP está elevada, hay componente no seminomatoso). El coriocarcinoma eleva masivamente β-hCG.",
+    tip:"<strong>Marcadores y tipos:</strong> Seminoma → β-hCG (20%) + LDH. AFP = NUNCA en seminoma puro. Carcinoma embrionario → AFP + β-hCG. Coriocarcinoma → β-hCG muy elevada. Tumor saco vitelino → AFP. Teratoma → negativos. Si AFP + en 'seminoma' → reclasificar como mixto/NSGCT.",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores de Testículo en el Adulto. SSA. 2012."
+  },
+  {
+    cat:"lab",catName:"Marcadores Tumorales",
+    q:"Tras orquiectomía radical por tumor testicular, los marcadores no descienden a valores normales según su vida media. AFP no normaliza a los 7 días post-cirugía. ¿Qué indica este hallazgo?",
+    opts:["Es normal, los marcadores tardan meses en normalizarse","Sugiere enfermedad residual o metástasis oculta","Indica falla renal que impide depurar los marcadores","Requiere nueva biopsia del testículo contralateral"],
+    ans:1,
+    exp:"La vida media de la AFP es 5-7 días y la de β-hCG es 24-36 horas. Si después de la orquiectomía los marcadores no descienden según su vida media esperada, indica enfermedad residual (metástasis ganglionares u órganos a distancia). Este es un criterio de estadificación importante. La persistencia de marcadores elevados indica estadio avanzado (S2-S3 según clasificación IGCCCG).",
+    tip:"<strong>Vida media de marcadores:</strong> β-hCG = 24-36 h. AFP = 5-7 días. Si post-orquiectomía: β-hCG no baja en 48h o AFP no baja en 7 días → enfermedad residual. Regla práctica: marcadores deben normalizarse en ≤3 semanas post-cirugía si enfermedad localizada.",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores de Testículo en el Adulto. SSA. 2012."
+  },
+  {
+    cat:"tx",catName:"Tratamiento Quirúrgico",
+    q:"Confirmado por ultrasonido y marcadores elevados el tumor testicular, ¿cuál es el procedimiento quirúrgico inicial estándar?",
+    opts:["Orquiectomía radical vía escrotal para diagnóstico y tratamiento","Orquiectomía radical vía inguinal con ligadura alta del cordón","Biopsia con aguja gruesa transescrotal guiada por ultrasonido","Hemiorquiectomía preservadora de tejido testicular"],
+    ans:1,
+    exp:"La orquiectomía radical vía inguinal (con ligadura alta del cordón espermático al nivel del anillo inguinal interno) es el procedimiento estándar para diagnóstico y tratamiento inicial del tumor testicular. La vía inguinal previene la diseminación linfática alterada que ocurriría con la vía escrotal. La ligadura alta del cordón espermático es esencial para control oncológico.",
+    tip:"<strong>SIEMPRE vía inguinal:</strong> La vía escrotal está CONTRAINDICADA (disrumpe el drenaje linfático natural hacia ganglios retroperitoneales; lo desvía a inguinales, complicando el manejo). Ligadura alta del cordón = control del pedículo vascular antes de manipular el tumor.",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores de Testículo en el Adulto. SSA. 2012."
+  },
+  {
+    cat:"tx",catName:"Tratamiento Sistémico",
+    q:"Paciente con seminoma estadio I (confinado al testículo, marcadores normales post-orquiectomía, sin metástasis). ¿Cuál es la conducta recomendada?",
+    opts:["Quimioterapia con BEP x4 ciclos obligatoria","Vigilancia activa o radioterapia retroperitoneal adyuvante (20-25 Gy)","Disección ganglionar retroperitoneal (RPLND) estándar","Trasplante de stem cells hematopoyéticas"],
+    ans:1,
+    exp:"Para seminoma estadio I, las opciones incluyen: vigilancia activa (recaída ~15-20%, pero rescatable), radioterapia adyuvante retroperitoneal (20-25 Gy, reduce recaída a 3-5%) o carboplatino AUC7 x1 ciclo. La RPLND no es estándar en seminoma. La GPC resalta que >80% de pacientes en estadio I se curan solo con orquiectomía; la decisión entre vigilancia y adyuvancia es individualizada.",
+    tip:"<strong>Seminoma estadio I - opciones:</strong> Vigilancia (prefería en bajo riesgo) · RT 20-25Gy (estándar histórico) · Carboplatino x1. Ventaja de vigilancia: evita toxicidad de RT/QT en el 80% que ya están curados. Nunca RPLND en seminoma.",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores de Testículo en el Adulto. SSA. 2012."
+  },
+  {
+    cat:"tx",catName:"Tratamiento Sistémico",
+    q:"¿Cuál es el esquema de quimioterapia de primera línea para tumor testicular no seminomatoso (NSGCT) metastásico de buen pronóstico?",
+    opts:["MVAC (metotrexato + vinblastina + doxorubicina + cisplatino)","BEP (bleomicina + etopósido + cisplatino) x3-4 ciclos","FOLFOX (oxaliplatino + leucovorín + 5-FU)","Carboplatino AUC7 x1 ciclo"],
+    ans:1,
+    exp:"BEP (Bleomicina + Etopósido + Cisplatino) es el esquema estándar de primera línea para tumores testiculares de células germinales metastásicos. Para buen pronóstico (IGCCCG): 3 ciclos BEP. Para pronóstico intermedio/pobre: 4 ciclos BEP. Los tumores testiculares tienen una de las tasas de curación más altas entre los tumores sólidos metastásicos (>90% en buen pronóstico).",
+    tip:"<strong>BEP en tumores testiculares:</strong> Buen pronóstico = 3 ciclos · Intermedio/Pobre = 4 ciclos. El cisplatino es el agente clave. La bleomicina tiene toxicidad pulmonar acumulativa (fibrosis). El etopósido aumenta riesgo de leucemia secundaria. A pesar de toxicidades, BEP tiene >90% curación en buen pronóstico.",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores de Testículo en el Adulto. SSA. 2012."
+  },
+  {
+    cat:"dx",catName:"Factores de Riesgo",
+    q:"¿Cuál es el factor de riesgo más importante para el desarrollo de tumor testicular?",
+    opts:["Infección por VPH","Criptorquidia (testículo no descendido)","Trauma testicular previo","Varicocele grado III"],
+    ans:1,
+    exp:"La criptorquidia es el factor de riesgo más importante para tumor testicular, aumentando el riesgo 3-5 veces comparado con la población general. El riesgo persiste incluso después de la orquiopexia, aunque se reduce si se realiza antes de los 2 años de edad. Los testículos intraabdominales tienen mayor riesgo que los inguinales. El 10% de los tumores testiculares ocurren en pacientes con criptorquidia.",
+    tip:"<strong>Factores de riesgo para tumor testicular:</strong> Criptorquidia (RR 3-5x) > Síndrome de Klinefelter (XXY) > Tumor contralateral previo (RR 25x) > Historia familiar > Atrofia testicular post-orquitis. El trauma NO es factor de riesgo (solo lleva al médico que descubre el tumor).",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores de Testículo en el Adulto. SSA. 2012."
+  },
+  {
+    cat:"cx",catName:"Complicaciones",
+    q:"Paciente con NSGCT en tratamiento con BEP desarrolla disnea progresiva, tos seca y crepitantes bibasales. ¿Cuál es el diagnóstico más probable?",
+    opts:["Neumonía por Pneumocystis jirovecii","Toxicidad pulmonar por bleomicina (neumonitis/fibrosis)","Metástasis pulmonares en progresión","Embolia pulmonar"],
+    ans:1,
+    exp:"La toxicidad pulmonar por bleomicina es una complicación grave del esquema BEP, presentándose como neumonitis intersticial progresando a fibrosis pulmonar. Factores de riesgo: dosis acumulada >300 UI, edad >40, función renal deteriorada, oxígeno suplementario (FiO2 alta). El diagnóstico es clínico/radiológico. Tratamiento: suspender bleomicina +/- esteroides. Puede ser irreversible.",
+    tip:"<strong>Bleomicina y pulmones:</strong> Neumonitis → fibrosis pulmonar. Factores de riesgo: dosis >300U + FiO2 alta (cuidado en cirugía posterior) + IR + edad >40. Siempre monitorizar función pulmonar (DLCO). Si DLCO cae >25%→ suspender bleomicina. El anestesiólogo debe saber si recibió bleomicina (evitar FiO2 alta).",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores de Testículo en el Adulto. SSA. 2012."
+  },
+  {
+    cat:"lab",catName:"Estadificación",
+    q:"¿Cuál es el estudio de imagen para estadificación sistémica obligatorio en todo paciente con tumor testicular confirmado?",
+    opts:["PET-CT con FDG de cuerpo completo","TC de tórax, abdomen y pelvis con contraste","Gammagrama óseo + TC de abdomen","Resonancia magnética de retroperitoneo"],
+    ans:1,
+    exp:"La TC de tórax, abdomen y pelvis con contraste es el estudio estándar para estadificación del tumor testicular. Evalúa ganglios retroperitoneales (drenaje linfático primario), mediastinales y pulmonares. El drenaje linfático primario del testículo derecho es a ganglios interaortocavos; del izquierdo, a paraaórticos. La TC detecta ganglios >1 cm (sensibilidad ~70-80%).",
+    tip:"<strong>Estadificación testicular:</strong> TC toraco-abdómino-pélvica + marcadores post-QTX. Drenaje linfático: testículo derecho → interaortocavo · testículo izquierdo → paraaórtico izquierdo. Por eso las metástasis retroperitoneales siguen este patrón. PET-CT útil en seminoma post-QT para detectar masa residual viable.",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores de Testículo en el Adulto. SSA. 2012."
+  },
+  {
+    cat:"cx",catName:"Complicaciones del Tratamiento",
+    q:"Tras disección ganglionar retroperitoneal (RPLND) por NSGCT, el paciente refiere eyaculación retrógrada. ¿Cuál es la causa?",
+    opts:["Lesión de la vejiga durante la cirugía","Lesión de los nervios simpáticos L1-L3 que controlan la emisión y cierre del cuello vesical","Infección del campo quirúrgico","Toxicidad de la quimioterapia previa"],
+    ans:1,
+    exp:"La eyaculación retrógrada es la complicación más frecuente de la RPLND estándar (ocurre en 70-100% si no es nerve-sparing). Es causada por lesión de los nervios simpáticos toracolumbares (T12-L3) que controlan la emisión seminal y el cierre del cuello vesical durante la eyaculación. La RPLND con preservación nerviosa (nerve-sparing) reduce esta complicación al 5-10%.",
+    tip:"<strong>RPLND y función sexual:</strong> La eyaculación retrógrada ≠ disfunción eréctil. La erección es función parasimpática (S2-S4), preservada. La emisión y cierre del cuello vesical es simpática (T12-L3), dañada en RPLND. RPLND nerve-sparing preserva estos nervios, especialmente ganglios simpáticos paravertebrales.",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores de Testículo en el Adulto. SSA. 2012."
+  },
+  {
+    cat:"tx",catName:"Tratamiento",
+    q:"Paciente con seminoma estadio IIA (ganglios retroperitoneales 1.5 cm). Post-orquiectomía con β-hCG normalizada. ¿Cuál es el tratamiento de elección?",
+    opts:["Vigilancia activa exclusiva","Radioterapia retroperitoneal + ilíaca ipsilateral (30 Gy) o quimioterapia (carboplatino x1)","BEP x4 ciclos de quimioterapia","RPLND bilateral modificada"],
+    ans:1,
+    exp:"Para seminoma estadio IIA-IIB, el tratamiento es radioterapia retroperitoneal con extensión a ganglios ilíacos ipsilaterales (campo en 'pata de perro') con 30-36 Gy, con tasas de curación >95%. Como alternativa, 3 ciclos de BEP o 4 ciclos de EP tienen resultados equivalentes. La RT es el estándar histórico pero la quimioterapia es igualmente efectiva.",
+    tip:"<strong>Seminoma estadio II:</strong> IIA/IIB (<5cm) → RT o QT (equivalentes, >95% curación). IIC (>5cm) o III → QT (BEP x3-4). La RT en estadio II incluye campo 'pata de perro': retroperitoneo + ilíaca ipsilateral. Para NSGCT estadio II siempre QT (BEP).",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores de Testículo en el Adulto. SSA. 2012."
+  },
+  {
+    cat:"dx",catName:"Diagnóstico Diferencial",
+    q:"Hombre de 28 años con ginecomastia bilateral y masa testicular izquierda. AFP normal, β-hCG elevada (450 mUI/mL). ¿Cuál de los siguientes tumores produce ginecomastia por producción hormonal intrínseca del tumor?",
+    opts:["Seminoma puro","Coriocarcinoma (por β-hCG que estimula receptores LH en mama)","Teratoma maduro","Tumor de saco vitelino"],
+    ans:1,
+    exp:"El coriocarcinoma y otros tumores que producen β-hCG pueden causar ginecomastia. La β-hCG tiene homología estructural con la LH y puede estimular receptores de LH en las células de Leydig, aumentando la producción de testosterona que se aromatiza a estradiol, causando ginecomastia. Los tumores de células de Leydig y Sertoli también producen ginecomastia por producción directa de estrógenos.",
+    tip:"<strong>Ginecomastia + tumor testicular:</strong> β-hCG elevada → estimula receptores LH → ↑ testosterona → aromatización a estradiol → ginecomastia. También tumores de Leydig (producen directamente estrógenos). La ginecomastia en hombre joven → buscar tumor testicular + β-hCG.",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores de Testículo en el Adulto. SSA. 2012."
+  },
+  {
+    cat:"cx",catName:"Masa Residual Post-QT",
+    q:"Paciente con NSGCT metastásico que completa 4 ciclos de BEP. Los marcadores se normalizan pero persiste masa retroperitoneal de 3 cm en TC. ¿Cuál es la conducta?",
+    opts:["Observación; la masa es solo fibrosis post-QT","RPLND (resección de masa residual) para histología","2 ciclos adicionales de BEP","Radioterapia a la masa residual"],
+    ans:1,
+    exp:"En NSGCT con masa residual post-quimioterapia (marcadores normalizados), la conducta estándar es resección quirúrgica (RPLND de masa residual). La histología de la masa puede ser: fibrosis/necrosis (45%), teratoma maduro (45%) o carcinoma viable (10%). El teratoma maduro es quimiorresistente y puede crecer ('síndrome de teratoma creciente') y transformarse malignamente si no se reseca.",
+    tip:"<strong>Masa residual en NSGCT:</strong> Marcadores normales + masa >1cm → RPLND siempre. ¿Por qué? Teratoma maduro = quimiorresistente + puede transformarse. 45% solo fibrosis, pero no puedes saber sin resecar. En SEMINOMA: masa residual >3cm → PET-CT (si positivo → QT rescate; si negativo → observar).",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores de Testículo en el Adulto. SSA. 2012."
+  },
+  {
+    cat:"dx",catName:"Pronóstico",
+    q:"Según la clasificación IGCCCG (International Germ Cell Cancer Collaborative Group), ¿cuál de los siguientes escenarios corresponde a 'mal pronóstico' en un tumor de células germinales no seminomatoso?",
+    opts:["AFP <1000, β-hCG <5000, LDH <1.5x normal, metástasis pulmonares únicamente","Cualquier valor de AFP o β-hCG con metástasis no pulmonares viscerales (hígado, hueso, cerebro)","Seminoma estadio I con marcadores negativos","AFP 500, β-hCG 2000, LDH 1.2x normal, solo metástasis pulmonares"],
+    ans:1,
+    exp:"La clasificación IGCCCG para NSGCT: Buen pronóstico = AFP <1000 + β-hCG <5000 + LDH <1.5x + metástasis pulmonares solo. Pronóstico intermedio = AFP 1000-10,000 ó β-hCG 5000-50,000 ó LDH 1.5-10x. Mal pronóstico = AFP >10,000 ó β-hCG >50,000 ó LDH >10x ó metástasis viscerales no pulmonares (hígado, cerebro, hueso). Para seminoma: no existe 'mal pronóstico' IGCCCG.",
+    tip:"<strong>IGCCCG mal pronóstico en NSGCT:</strong> AFP >10,000 ó β-hCG >50,000 ó LDH >10x normal ó metástasis viscerales no pulmonares. Supervivencia a 5 años: buen pronóstico ~90%, intermedio ~75%, mal pronóstico ~50%. El seminoma solo tiene buen/intermedio (nunca 'mal').",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores de Testículo en el Adulto. SSA. 2012."
+  }
+];
+
+let currentQ=0,score=0,answers=[];
+let catStats={dx:{c:0,t:0},tx:{c:0,t:0},cx:{c:0,t:0},lab:{c:0,t:0}};
+
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+function init(){shuffle(questions);currentQ=0;score=0;answers=[];catStats={dx:{c:0,t:0},tx:{c:0,t:0},cx:{c:0,t:0},lab:{c:0,t:0}};const r=document.getElementById('resultsArea');r.classList.remove('show');r.innerHTML='';document.getElementById('nextBtn').classList.remove('show');renderQuestion();}
+function renderQuestion(){const qa=questions[currentQ];const total=questions.length;document.getElementById('progressBar').style.width=(currentQ/total*100)+'%';document.getElementById('progressText').textContent=`${currentQ+1} / ${total}`;document.getElementById('nextBtn').classList.remove('show');const letters=['A','B','C','D'];let html=`<div class="question-card"><div class="q-category cat-${qa.cat}">${qa.catName}</div><div class="q-number">Pregunta ${currentQ+1} de ${total}</div><div class="q-text">${qa.q}</div><div class="options">`;qa.opts.forEach((opt,i)=>{html+=`<button class="option-btn" onclick="selectAnswer(${i})" data-idx="${i}"><span class="option-letter">${letters[i]}</span><span>${opt}</span></button>`;});html+=`</div><div class="feedback" id="feedback"></div></div>`;document.getElementById('quizArea').innerHTML=html;}
+function selectAnswer(idx){const qa=questions[currentQ];const btns=document.querySelectorAll('.option-btn');const fb=document.getElementById('feedback');const isCorrect=idx===qa.ans;btns.forEach((btn,i)=>{btn.classList.add('disabled');btn.onclick=null;if(i===qa.ans)btn.classList.add('correct-answer');if(i===idx&&!isCorrect)btn.classList.add('wrong-answer');});if(!catStats[qa.cat])catStats[qa.cat]={c:0,t:0};catStats[qa.cat].t++;if(isCorrect){score++;catStats[qa.cat].c++;}if(!examMode){if(isCorrect){fb.className='feedback correct-fb show';fb.innerHTML=`<div class="feedback-title">✅ ¡Correcto!</div><div>${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;}else{fb.className='feedback wrong-fb show';fb.innerHTML=`<div class="feedback-title">❌ Incorrecto</div><div><strong>Respuesta correcta:</strong> ${qa.opts[qa.ans]}</div><div style="margin-top:8px;">${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;}}answers.push({q:qa.q,correct:isCorrect,userAns:qa.opts[idx],correctAns:qa.opts[qa.ans],cat:qa.catName,exp:qa.exp,tip:qa.tip,ref:qa.ref});document.getElementById('nextBtn').classList.add('show');}
+function nextQuestion(){currentQ++;if(currentQ>=questions.length)showResults();else renderQuestion();}
+function showResults(){document.getElementById('quizArea').innerHTML='';document.getElementById('nextBtn').classList.remove('show');document.getElementById('progressBar').style.width='100%';document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;const pct=Math.round((score/questions.length)*100);let msg=pct>=90?'🏆 ¡Excelente dominio del tema! Listo para el ENARM.':pct>=70?'👏 ¡Muy bien! Repasa las áreas con menor puntaje.':pct>=50?'📚 Aceptable, pero hay áreas de oportunidad importantes.':'⚠️ Necesitas reforzar este tema. Revisa las GPC correspondientes.';const cats=[{name:'Diagnóstico',key:'dx',color:'#38bdf8'},{name:'Marcadores/Lab',key:'lab',color:'#34d399'},{name:'Tratamiento',key:'tx',color:'#a78bfa'},{name:'Complicaciones',key:'cx',color:'#f472b6'}];let html=`<div class="results-header"><div class="score-big">${pct}%</div><div class="score-label">${score} de ${questions.length} correctas</div><div class="score-msg">${msg}</div></div><div class="chart-section"><div class="chart-title"><span>📊</span> Rendimiento por Categoría</div><div class="bar-chart">`;cats.forEach(cat=>{const s=catStats[cat.key]||{c:0,t:0};const p=s.t>0?Math.round((s.c/s.t)*100):0;html+=`<div class="bar-row"><div class="bar-label">${cat.name}</div><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${cat.color};">${p}% (${s.c}/${s.t})</div></div></div>`;});html+=`</div></div><div class="chart-section"><div class="chart-title"><span>🎯</span> Resumen General</div><div class="donut-wrap"><svg class="donut-svg" viewBox="0 0 42 42"><circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a2235" stroke-width="4"/><circle cx="21" cy="21" r="15.915" fill="none" stroke="#34d399" stroke-width="4" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="25" stroke-linecap="round"/><circle cx="21" cy="21" r="15.915" fill="none" stroke="#f87171" stroke-width="4" stroke-dasharray="${100-pct} ${pct}" stroke-dashoffset="${25-pct}" stroke-linecap="round"/><text x="21" y="22.5" text-anchor="middle" font-size="6" font-weight="700" fill="#e8ecf4" font-family="Plus Jakarta Sans">${pct}%</text></svg><div class="donut-legend"><div class="legend-item"><div class="legend-dot" style="background:#34d399;"></div>Correctas: ${score}</div><div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Incorrectas: ${questions.length-score}</div><div class="legend-item"><div class="legend-dot" style="background:#38bdf8;"></div>Total: ${questions.length}</div></div></div></div><div class="chart-section"><div class="chart-title"><span>📋</span> Revisión de Respuestas</div>`;answers.forEach((a,i)=>{html+=`<div class="review-card ${a.correct?'review-correct':'review-wrong'}"><div class="review-q">${i+1}. ${a.q} <span style="font-size:0.72rem;color:var(--text-dim);">[${a.cat}]</span></div><div class="review-answer">${a.correct?`<strong>✅ ${a.correctAns}</strong>`:`<em>❌ Tu respuesta: ${a.userAns}</em><br><strong>✅ Correcta: ${a.correctAns}</strong>`}</div><div style="margin-top:8px;font-size:0.8rem;color:var(--text-dim);line-height:1.5;">${a.exp}</div><div style="margin-top:6px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;">📖 ${a.ref}</div></div>`;});html+=`</div><button class="retry-btn" onclick="init()">🔄 Reintentar</button>`;const res=document.getElementById('resultsArea');res.innerHTML=html;res.classList.add('show');res.scrollIntoView({behavior:'smooth'});}
+function toggleSpec(h){h.classList.toggle('open');h.nextElementSibling.classList.toggle('open');}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+init();
+</script>
+</body>
+</html>

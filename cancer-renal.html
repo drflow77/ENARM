@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cáncer Renal — ENARM · MediCode Solutions</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --bg:#0a0e1a;--surface:#111827;--surface2:#1a2235;--surface3:#212d45;
+    --border:#2a3a5c;--text:#e8ecf4;--text-dim:#8896b3;
+    --accent:#38bdf8;--accent-glow:rgba(56,189,248,0.15);
+    --correct:#34d399;--correct-bg:rgba(52,211,153,0.1);--correct-border:rgba(52,211,153,0.4);
+    --wrong:#f87171;--wrong-bg:rgba(248,113,113,0.1);--wrong-border:rgba(248,113,113,0.4);
+    --gold:#fbbf24;--purple:#a78bfa;--pink:#f472b6;--teal:#2dd4bf;
+    --sidebar-w:280px;--radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;}
+  .sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;overflow-y:auto;z-index:100;transition:transform 0.3s;}
+  .sidebar-logo{padding:24px 20px 16px;border-bottom:1px solid var(--border);}
+  .logo-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--purple));padding:6px 14px;border-radius:100px;font-size:0.75rem;font-weight:800;color:var(--bg);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px;}
+  .sidebar-logo h2{font-size:1.1rem;font-weight:800;background:linear-gradient(135deg,var(--text),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .sidebar-logo p{font-size:0.72rem;color:var(--text-dim);margin-top:2px;}
+  .back-btn{display:flex;align-items:center;gap:8px;padding:14px 20px;color:var(--text-dim);font-size:0.8rem;text-decoration:none;border-bottom:1px solid var(--border);transition:color 0.2s;}
+  .back-btn:hover{color:var(--accent);}
+  .sidebar-nav{flex:1;padding:12px 0 24px;}
+  .specialty-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px 10px 20px;cursor:pointer;transition:background 0.2s;user-select:none;}
+  .specialty-header:hover{background:var(--surface2);}
+  .specialty-name{display:flex;align-items:center;gap:10px;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;}
+  .specialty-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;}
+  .chevron{font-size:0.65rem;color:var(--text-dim);transition:transform 0.3s;}
+  .specialty-header.open .chevron{transform:rotate(90deg);}
+  .topics-list{display:none;padding:4px 0 8px;}
+  .topics-list.open{display:block;}
+  .topic-link{display:flex;align-items:center;gap:10px;padding:8px 16px 8px 56px;font-size:0.78rem;color:var(--text-dim);text-decoration:none;transition:all 0.2s;border-left:2px solid transparent;line-height:1.4;}
+  .topic-link:hover{color:var(--text);background:var(--surface3);}
+  .topic-link.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-glow);font-weight:600;}
+  .topic-link.coming-soon{opacity:0.4;cursor:not-allowed;pointer-events:none;}
+  .topic-num{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--text-dim);min-width:20px;}
+  .badge-soon{margin-left:auto;background:rgba(136,150,179,0.1);color:var(--text-dim);font-size:0.62rem;font-weight:600;padding:2px 7px;border-radius:100px;}
+  .badge-ready{margin-left:auto;background:rgba(52,211,153,0.1);color:#34d399;font-size:0.62rem;font-weight:600;padding:2px 7px;border-radius:100px;}
+  .main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;}
+  .container{max-width:760px;margin:0 auto;padding:20px 16px 40px;width:100%;}
+  .mode-bar{display:flex;align-items:center;gap:10px;margin:24px 0 20px;background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:6px;width:fit-content;}
+  .mode-btn{padding:8px 20px;border-radius:100px;border:none;cursor:pointer;font-family:inherit;font-size:0.82rem;font-weight:600;transition:all 0.2s;color:var(--text-dim);background:transparent;}
+  .mode-btn.active{background:linear-gradient(135deg,var(--accent),var(--purple));color:var(--bg);}
+  .header{text-align:center;padding:40px 20px 24px;position:relative;overflow:hidden;}
+  .header::before{content:'';position:absolute;top:-60%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(56,189,248,0.08) 0%,transparent 70%);pointer-events:none;}
+  .header-badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);padding:6px 16px;border-radius:100px;font-size:0.78rem;color:var(--accent);font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:16px;}
+  .header h1{font-size:clamp(1.6rem,5vw,2.2rem);font-weight:800;background:linear-gradient(135deg,var(--text) 0%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;}
+  .header p{color:var(--text-dim);font-size:0.95rem;max-width:500px;margin:0 auto;}
+  .progress-wrap{background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:12px 20px;margin:20px 0 28px;display:flex;align-items:center;gap:14px;}
+  .progress-bar-bg{flex:1;height:8px;background:var(--surface3);border-radius:100px;overflow:hidden;}
+  .progress-bar-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--purple));border-radius:100px;transition:width 0.5s ease;}
+  .progress-text{font-size:0.82rem;font-weight:600;color:var(--text-dim);white-space:nowrap;font-family:'JetBrains Mono',monospace;}
+  .question-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px;margin-bottom:20px;animation:slideIn 0.4s ease;position:relative;overflow:hidden;}
+  .question-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--purple),var(--pink));}
+  @keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .q-category{display:inline-flex;align-items:center;gap:6px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;padding:4px 12px;border-radius:100px;margin-bottom:14px;}
+  .cat-dx{background:rgba(56,189,248,0.12);color:var(--accent);}
+  .cat-tx{background:rgba(167,139,250,0.12);color:var(--purple);}
+  .cat-cx{background:rgba(244,114,182,0.12);color:var(--pink);}
+  .cat-lab{background:rgba(52,211,153,0.12);color:var(--correct);}
+  .q-number{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--text-dim);margin-bottom:10px;}
+  .q-text{font-size:1.05rem;font-weight:600;line-height:1.55;margin-bottom:20px;color:var(--text);}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .option-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:all 0.2s;text-align:left;font-size:0.92rem;color:var(--text);font-family:inherit;line-height:1.5;width:100%;}
+  .option-btn:hover:not(.disabled){border-color:var(--accent);background:var(--accent-glow);transform:translateX(4px);}
+  .option-letter{display:flex;align-items:center;justify-content:center;min-width:30px;height:30px;border-radius:8px;background:var(--surface3);font-weight:700;font-size:0.82rem;color:var(--accent);flex-shrink:0;}
+  .option-btn.correct-answer{border-color:var(--correct-border);background:var(--correct-bg);}
+  .option-btn.correct-answer .option-letter{background:var(--correct);color:var(--bg);}
+  .option-btn.wrong-answer{border-color:var(--wrong-border);background:var(--wrong-bg);}
+  .option-btn.wrong-answer .option-letter{background:var(--wrong);color:var(--bg);}
+  .option-btn.disabled{cursor:default;}
+  .option-btn.disabled:hover{transform:none;}
+  .feedback{margin-top:18px;padding:18px;border-radius:12px;font-size:0.88rem;line-height:1.65;animation:fadeIn 0.3s ease;display:none;}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .feedback.show{display:block;}
+  .feedback.correct-fb{background:var(--correct-bg);border:1px solid var(--correct-border);color:var(--correct);}
+  .feedback.wrong-fb{background:var(--wrong-bg);border:1px solid var(--wrong-border);color:#fca5a5;}
+  .feedback-title{font-weight:700;font-size:0.95rem;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+  .feedback .tip{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.08);color:var(--text-dim);font-size:0.82rem;}
+  .feedback .tip strong{color:var(--gold);}
+  .feedback .ref{margin-top:8px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;}
+  .next-btn{display:none;margin:20px auto 0;padding:12px 32px;background:linear-gradient(135deg,var(--accent),var(--purple));color:var(--bg);border:none;border-radius:100px;font-family:inherit;font-size:0.92rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+  .next-btn:hover{transform:scale(1.05);box-shadow:0 4px 24px var(--accent-glow);}
+  .next-btn.show{display:block;}
+  .results{display:none;animation:slideIn 0.5s ease;}
+  .results.show{display:block;}
+  .results-header{text-align:center;padding:30px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;position:relative;overflow:hidden;}
+  .results-header::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--correct),var(--accent),var(--purple),var(--pink));}
+  .score-big{font-size:3.5rem;font-weight:800;background:linear-gradient(135deg,var(--correct),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .score-label{font-size:1.1rem;color:var(--text-dim);margin-top:4px;}
+  .score-msg{margin-top:12px;font-size:0.95rem;color:var(--text);font-weight:500;}
+  .chart-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px 20px;margin-bottom:20px;}
+  .chart-title{font-size:0.95rem;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+  .bar-chart{display:flex;flex-direction:column;gap:14px;}
+  .bar-row{display:flex;align-items:center;gap:12px;}
+  .bar-label{width:110px;font-size:0.78rem;font-weight:600;text-align:right;color:var(--text-dim);flex-shrink:0;}
+  .bar-track{flex:1;height:28px;background:var(--surface3);border-radius:8px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:8px;transition:width 1s ease;display:flex;align-items:center;padding-left:10px;font-size:0.75rem;font-weight:700;color:var(--bg);min-width:fit-content;}
+  .donut-wrap{display:flex;align-items:center;justify-content:center;gap:30px;flex-wrap:wrap;}
+  .donut-svg{width:160px;height:160px;}
+  .donut-legend{display:flex;flex-direction:column;gap:10px;}
+  .legend-item{display:flex;align-items:center;gap:10px;font-size:0.84rem;}
+  .legend-dot{width:12px;height:12px;border-radius:4px;flex-shrink:0;}
+  .review-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:12px;}
+  .review-card.review-correct{border-left:4px solid var(--correct);}
+  .review-card.review-wrong{border-left:4px solid var(--wrong);}
+  .review-q{font-size:0.88rem;font-weight:600;margin-bottom:8px;}
+  .review-answer{font-size:0.82rem;color:var(--text-dim);line-height:1.5;}
+  .review-answer strong{color:var(--correct);}
+  .review-answer em{color:var(--wrong);font-style:normal;}
+  .retry-btn{display:block;margin:28px auto;padding:14px 40px;background:linear-gradient(135deg,var(--accent),var(--purple));color:var(--bg);border:none;border-radius:100px;font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+  .retry-btn:hover{transform:scale(1.05);}
+  .hamburger{display:none;position:fixed;top:16px;left:16px;z-index:200;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px;cursor:pointer;font-size:1.2rem;}
+  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:90;}
+  .footer{text-align:center;padding:20px;color:var(--text-dim);font-size:0.72rem;opacity:0.5;}
+  @media(max-width:768px){
+    .sidebar{transform:translateX(-100%);}
+    .sidebar.open{transform:translateX(0);}
+    .main{margin-left:0;}
+    .hamburger{display:flex;align-items:center;justify-content:center;}
+    .overlay.show{display:block;}
+    .container{padding:12px 10px 30px;}
+    .question-card{padding:20px 16px;}
+    .bar-label{width:80px;font-size:0.72rem;}
+    .mode-bar{margin:16px auto;}
+  }
+</style>
+  <script src="sidebar.js"></script>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<aside class="sidebar" id="sidebar"></aside>
+
+<main class="main">
+<div class="container">
+
+  <div class="header">
+    <div class="header-badge"><span>🫘</span> ENARM · Urología</div>
+    <h1>Cáncer Renal</h1>
+    <p>Diagnóstico · Estadificación · Tratamiento · Terapia dirigida</p>
+  </div>
+
+  <div style="display:flex;justify-content:center;">
+    <div class="mode-bar">
+      <button class="mode-btn active" id="btnRepaso" onclick="setMode('repaso')">📖 Modo Repaso</button>
+      <button class="mode-btn" id="btnExamen" onclick="setMode('examen')">⏱️ Modo Examen</button>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 15</div>
+  </div>
+
+  <div id="quizArea"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+  <div class="results" id="resultsArea"></div>
+
+</div>
+<div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+</main>
+
+<script>
+let examMode = false;
+function setMode(m){examMode=(m==='examen');document.getElementById('btnRepaso').classList.toggle('active',!examMode);document.getElementById('btnExamen').classList.toggle('active',examMode);init();}
+
+const questions = [
+  {
+    cat:"dx",catName:"Diagnóstico",
+    q:"Hombre de 58 años con hematuria macroscópica indolora de 2 semanas, dolor en flanco derecho y masa palpable en fosa lumbar. ¿Cuál es la tríada clásica que sugiere carcinoma de células renales?",
+    opts:["Hematuria + dolor lumbar + masa abdominal","Fiebre + disuria + hematuria","Hematuria + poliuria + hipertensión","Dolor cólico + hematuria + fiebre"],
+    ans:0,
+    exp:"La tríada clásica del carcinoma de células renales (CCR) es: hematuria macroscópica (50-60%), dolor en flanco (40%) y masa palpable en fosa renal (30-40%). Sin embargo, esta tríada completa solo se presenta en 10-15% de los casos, frecuentemente indicando enfermedad avanzada. La mayoría de los CCR se descubren incidentalmente.",
+    tip:"<strong>Tríada del CCR:</strong> Hematuria + Dolor lumbar + Masa. Pero recuerda: solo 10-15% la presenta completa. Actualmente >50% son hallazgos incidentales en imagen. La tríada completa = enfermedad avanzada.",
+    ref:"GPC: Diagnóstico y Tratamiento del Carcinoma de Células Renales. SSA. 2009."
+  },
+  {
+    cat:"dx",catName:"Diagnóstico",
+    q:"¿Cuál es el tipo histológico más frecuente de carcinoma de células renales?",
+    opts:["Carcinoma de células transicionales","Carcinoma de células claras","Carcinoma papilar tipo 1","Carcinoma cromófobo"],
+    ans:1,
+    exp:"El carcinoma de células claras (CCR convencional) representa el 70-80% de todos los tumores malignos renales. Se origina del túbulo proximal y se caracteriza por células con citoplasma claro por acumulación de glucógeno y lípidos. Se asocia a mutación del gen VHL en el cromosoma 3p. El tipo papilar representa 10-15% y el cromófobo 5%.",
+    tip:"<strong>Tipos histológicos de CCR (% frecuencia):</strong> Células claras 75% → Papilar 15% → Cromófobo 5% → Ductos de Bellini 1%. El tipo células claras es el más agresivo y el que más metastatiza. El cromófobo tiene mejor pronóstico.",
+    ref:"GPC: Diagnóstico y Tratamiento del Carcinoma de Células Renales. SSA. 2009."
+  },
+  {
+    cat:"lab",catName:"Imagen y Estadificación",
+    q:"Paciente con masa renal sólida de 3.5 cm detectada en ultrasonido. ¿Cuál es el estudio de elección para estadificación y planeación quirúrgica del CCR?",
+    opts:["Resonancia magnética con gadolinio","Tomografía computarizada trifásica de abdomen y pelvis","PET-CT con FDG","Urografía excretora"],
+    ans:1,
+    exp:"La TC trifásica (sin contraste, fase corticomedular y fase excretora) es el estudio de elección para el CCR. Permite: caracterizar la masa (realce >15 UH sugiere malignidad), determinar extensión local, evaluar vena renal y cava, detectar ganglios y metástasis. La sensibilidad para CCR es >90%. La RM se reserva para contraindicación de contraste yodado o trombosis venosa.",
+    tip:"<strong>TC trifásica en CCR:</strong> Realce >15 UH = masa sólida con vascularidad = maligna hasta demostrar lo contrario. El CCR es muy vascularizado (hipervascular). Siempre incluir tórax para descartar metástasis pulmonares.",
+    ref:"GPC: Diagnóstico y Tratamiento del Carcinoma de Células Renales. SSA. 2009."
+  },
+  {
+    cat:"lab",catName:"Imagen y Estadificación",
+    q:"Un paciente con CCR tiene masa renal de 8 cm confinada al riñón sin extensión a grasa perirrenal ni vena renal. ¿Cuál es el estadio TNM?",
+    opts:["T1b N0 M0","T2a N0 M0","T3a N0 M0","T2b N0 M0"],
+    ans:1,
+    exp:"Según la clasificación TNM del CCR: T1a = tumor ≤4 cm confinado al riñón; T1b = tumor >4 cm y ≤7 cm; T2a = tumor >7 cm y ≤10 cm confinado al riñón; T2b = tumor >10 cm confinado al riñón; T3a = extensión a grasa perirrenal o vena renal. Un tumor de 8 cm sin extensión = T2a N0 M0.",
+    tip:"<strong>TNM renal simplificado:</strong> T1a ≤4cm → T1b 4-7cm → T2a 7-10cm → T2b >10cm (todos confinados). T3a = grasa perirrenal o vena renal. T3b = trombo en cava infrarrenal. T3c = trombo suprarrenal o auricular. T4 = Gerota.",
+    ref:"GPC: Diagnóstico y Tratamiento del Carcinoma de Células Renales. SSA. 2009."
+  },
+  {
+    cat:"tx",catName:"Tratamiento Quirúrgico",
+    q:"Paciente con CCR de células claras, T1a (2.8 cm), riñón contralateral sano. ¿Cuál es el tratamiento quirúrgico de elección?",
+    opts:["Nefrectomía radical laparoscópica","Nefrectomía parcial (preservadora de nefronas)","Ablación por radiofrecuencia","Observación activa"],
+    ans:1,
+    exp:"Para tumores T1a (<4 cm) con riñón contralateral funcionante, la nefrectomía parcial (abierta o laparoscópica) es el estándar de oro. Preserva la función renal con resultados oncológicos equivalentes a la nefrectomía radical para tumores pequeños. La GPC recomienda nefrectomía parcial siempre que sea técnicamente factible en T1a.",
+    tip:"<strong>Regla del ENARM:</strong> T1a (<4cm) → Nefrectomía PARCIAL de elección. T1b (4-7cm) → parcial si factible, radical si no. T2+ → radical. Preservar nefronas = preservar función renal a largo plazo. Ablación = solo pacientes con alto riesgo quirúrgico.",
+    ref:"GPC: Diagnóstico y Tratamiento del Carcinoma de Células Renales. SSA. 2009."
+  },
+  {
+    cat:"tx",catName:"Tratamiento Quirúrgico",
+    q:"¿Cuál es el tratamiento estándar para el CCR localizado estadio T2 (>7 cm, confinado al riñón) sin contraindicación quirúrgica?",
+    opts:["Nefrectomía parcial obligatoria","Nefrectomía radical (abierta o laparoscópica)","Quimioterapia neoadyuvante + cirugía","Radioterapia estereotáctica ablativa"],
+    ans:1,
+    exp:"La nefrectomía radical es el tratamiento estándar para CCR T2. Incluye exéresis del riñón, fascia de Gerota, grasa perirrenal y en algunos casos glándula suprarrenal ipsilateral (si sospecha de invasión). La vía laparoscópica ha demostrado resultados oncológicos equivalentes con menor morbilidad para T1-T2.",
+    tip:"<strong>CCR resecable:</strong> T1a → parcial · T1b → parcial (si técnicamente posible) · T2-T3 → radical. La linfadenectomía extendida no mejora supervivencia en CCR localizado (a diferencia de otros tumores urológicos). Se realiza solo con ganglios sospechosos.",
+    ref:"GPC: Diagnóstico y Tratamiento del Carcinoma de Células Renales. SSA. 2009."
+  },
+  {
+    cat:"lab",catName:"Síndromes Paraneoplásicos",
+    q:"¿Cuál es el síndrome paraneoplásico más frecuentemente asociado al carcinoma de células renales?",
+    opts:["Síndrome de Cushing por ACTH ectópica","Hipercalcemia por PTHrP","Eritrocitosis por producción de eritropoyetina","Hiponatremia por SIADH"],
+    ans:2,
+    exp:"La eritrocitosis (policitemia) es el síndrome paraneoplásico más frecuente del CCR, ocurriendo en 3-10% de los casos, producida por secreción ectópica de eritropoyetina por las células tumorales. El CCR también puede producir: hipercalcemia (por PTHrP o metástasis óseas), hipertensión (renina), síndrome de Stauffer (disfunción hepática no metastásica), y fiebre paraneoplásica.",
+    tip:"<strong>Síndromes paraneoplásicos del CCR:</strong> EPO → Eritrocitosis · PTHrP → Hipercalcemia · Renina → HTA · Glucagón → Hiperglucemia · Síndrome Stauffer = ↑ FA + disfunción hepática SIN metástasis (reversible con nefrectomía). Fiebre paraneoplásica es muy sugestiva.",
+    ref:"GPC: Diagnóstico y Tratamiento del Carcinoma de Células Renales. SSA. 2009."
+  },
+  {
+    cat:"dx",catName:"Genética y Factores de Riesgo",
+    q:"Paciente de 35 años con CCR de células claras bilateral, hemangioblastomas cerebelosos y angiomas retinianos. ¿Cuál es el síndrome genético más probable?",
+    opts:["Síndrome de Birt-Hogg-Dubé","Esclerosis tuberosa","Enfermedad de Von Hippel-Lindau","Síndrome de Lynch"],
+    ans:2,
+    exp:"La enfermedad de Von Hippel-Lindau (VHL) es un síndrome autosómico dominante por mutación del gen VHL en el cromosoma 3p25-26. Se caracteriza por: CCR de células claras bilateral y multifocal (en 25-45% de pacientes), hemangioblastomas del SNC y retina, feocromocitoma, quistes pancreáticos y epididimarios. El CCR en VHL aparece en décadas más jóvenes.",
+    tip:"<strong>Tríada VHL:</strong> CCR bilateral/multifocal + Hemangioblastoma SNC + Angioma retiniano. Gen VHL = supresor tumoral → HIF-α acumulado → VEGF/PDGF ↑ → tumor muy vascularizado. Esta es la base de la terapia anti-VEGF en CCR metastásico.",
+    ref:"GPC: Diagnóstico y Tratamiento del Carcinoma de Células Renales. SSA. 2009."
+  },
+  {
+    cat:"tx",catName:"Tratamiento Sistémico",
+    q:"Paciente con CCR de células claras metastásico (pulmón y hueso), ECOG 1, nefrectomía citorreductora realizada. ¿Cuál es el tratamiento de primera línea recomendado?",
+    opts:["Quimioterapia con gemcitabina + cisplatino","Sunitinib (inhibidor de tirosina cinasa anti-VEGFR)","Interferón alfa + IL-2","Radioterapia sistémica"],
+    ans:1,
+    exp:"El sunitinib (inhibidor multitarget de tirosina cinasa: VEGFR1-3, PDGFR, c-Kit) fue el estándar de primera línea para CCR metastásico de células claras de riesgo intermedio/favorable durante años. Actualmente, la combinación nivolumab+ipilimumab (para riesgo intermedio/alto) o pembrolizumab+axitinib son opciones preferidas, pero el sunitinib sigue siendo válido. El CCR es resistente a quimioterapia convencional.",
+    tip:"<strong>CCR metastásico - evolución del tratamiento:</strong> Era citocinas (IL-2, IFN-α) → Era TKI (sunitinib, pazopanib) → Era inmunoterapia + TKI (pembro+axitinib, nivo+ipi). CCR es RESISTENTE a quimioterapia clásica. No se da gemcitabina/cisplatino.",
+    ref:"GPC: Diagnóstico y Tratamiento del Carcinoma de Células Renales. SSA. 2009."
+  },
+  {
+    cat:"lab",catName:"Clasificación de Bosniak",
+    q:"En la TC de abdomen se encuentra una masa renal quística con septos internos delgados, calcificaciones y leve realce de sus paredes. Según la clasificación de Bosniak, ¿cuál es la categoría y recomendación?",
+    opts:["Bosniak I: quiste simple, no requiere seguimiento","Bosniak IIF: seguimiento con imagen cada 6-12 meses","Bosniak III: resección quirúrgica","Bosniak IV: resección quirúrgica urgente"],
+    ans:1,
+    exp:"La clasificación de Bosniak categoriza las masas quísticas renales: I = quiste simple (0% malignidad), II = quiste con septos delgados o calcificaciones mínimas (<1% malignidad), IIF = septos múltiples + calcificaciones o leve engrosamiento sin realce (5-10%), III = septos gruesos o irregulares con realce (55% malignidad), IV = componente sólido con realce franco (>85% malignidad). Bosniak IIF requiere seguimiento.",
+    tip:"<strong>Bosniak resumido:</strong> I-II = observar · IIF = Follow up · III = ¿cirugía? (55% malignos) · IV = Operar. Los septos que realzan con contraste son la clave para subir de categoría. 'F' en IIF = Follow up requerido.",
+    ref:"GPC: Diagnóstico y Tratamiento del Carcinoma de Células Renales. SSA. 2009."
+  },
+  {
+    cat:"dx",catName:"Diagnóstico",
+    q:"¿Cuál es el sitio de metástasis a distancia más frecuente del carcinoma de células renales?",
+    opts:["Hígado","Pulmón","Cerebro","Hueso"],
+    ans:1,
+    exp:"El pulmón es el sitio de metástasis más frecuente del CCR (50-60% de las metástasis a distancia), seguido de hueso (30-35%), hígado (30%), cerebro (5%) y suprarrenales. El CCR se caracteriza por metástasis 'raras' o 'tardías' (puede metastatizar décadas después del diagnóstico inicial). Las metástasis óseas son líticas y pueden causar fracturas patológicas.",
+    tip:"<strong>Metástasis del CCR (orden frecuencia):</strong> Pulmón > Hueso > Hígado > Cerebro > Suprarrenal. El CCR tiene la peculiaridad de metástasis tardías (hasta 20 años después). Ante fractura patológica en adulto sin primario conocido, siempre descartar CCR + mama + pulmón + próstata + tiroides.",
+    ref:"GPC: Diagnóstico y Tratamiento del Carcinoma de Células Renales. SSA. 2009."
+  },
+  {
+    cat:"cx",catName:"Complicaciones",
+    q:"Paciente con CCR derecho T3b, la TC muestra trombo tumoral que se extiende a la vena cava inferior por debajo de las venas hepáticas. ¿Cuál es el abordaje quirúrgico necesario?",
+    opts:["Nefrectomía laparoscópica estándar sin consideraciones adicionales","Nefrectomía radical + trombectomía de vena cava con control vascular","Quimioterapia de inducción para reducir el trombo primero","Solo tratamiento anticoagulante y observación"],
+    ans:1,
+    exp:"El trombo tumoral en vena cava (T3b/T3c) requiere nefrectomía radical más trombectomía de vena cava inferior. La extensión del trombo determina la complejidad: infrarrenal (nivel I), intrarrenal (nivel II), suprahepático infra-auricular (nivel III), auricular (nivel IV - bypass cardiopulmonar). A pesar de la extensión venosa, la nefrectomía con trombectomía puede ser curativa si no hay metástasis.",
+    tip:"<strong>Trombo tumoral en cava - Niveles:</strong> I = infrarrenal · II = intrahepático · III = suprahepático · IV = auricular (bypass). El trombo tumoral NO es sinónimo de metástasis. Con trombo limitado sin M1, la cirugía tiene intención curativa. Requiere cirujano vascular/cardíaco según nivel.",
+    ref:"GPC: Diagnóstico y Tratamiento del Carcinoma de Células Renales. SSA. 2009."
+  },
+  {
+    cat:"tx",catName:"Tratamiento",
+    q:"¿Cuál es el papel de la radioterapia en el carcinoma de células renales primario localizado?",
+    opts:["Es el tratamiento de elección en T1a","Se usa como adyuvante post-nefrectomía en todos los casos","El CCR es radioresistente; la RT no tiene papel en el manejo primario","Se indica cuando el tumor es >10 cm"],
+    ans:2,
+    exp:"El CCR es clásicamente radioresistente. La radioterapia no tiene papel en el tratamiento primario del CCR localizado. Sin embargo, la radioterapia estereotáctica ablativa (SBRT) tiene aplicaciones emergentes en pacientes no quirúrgicos. La RT paliativa sí tiene indicación para metástasis óseas dolorosas (alivio del dolor) y metástasis cerebrales.",
+    tip:"<strong>CCR y radioterapia:</strong> Primario = NO RT (radioresistente). Metástasis óseas dolorosas = SÍ RT paliativa. Metástasis cerebrales = radioterapia estereotáctica. Esta resistencia a RT y quimioterapia hace al CCR dependiente de cirugía y terapia dirigida.",
+    ref:"GPC: Diagnóstico y Tratamiento del Carcinoma de Células Renales. SSA. 2009."
+  },
+  {
+    cat:"cx",catName:"Pronóstico",
+    q:"¿Cuál de los siguientes factores histológicos confiere el peor pronóstico en el CCR de células claras?",
+    opts:["Grado de Fuhrman 1","Grado de Fuhrman 4 con necrosis tumoral","Tumor de 3.5 cm bien delimitado","Ausencia de invasión linfovascular"],
+    ans:1,
+    exp:"El grado nuclear de Fuhrman (1-4) es el sistema de gradación histológico del CCR. Grado 4 (núcleos grandes, pleomórficos, nucléolos prominentes) se asocia a la peor supervivencia. Otros factores de mal pronóstico: estadio avanzado, necrosis, sarcomatoide o rabdoide diferenciación, invasión microvascular, ECOG deteriorado y síntomas al diagnóstico.",
+    tip:"<strong>Fuhrman en CCR:</strong> Grado 1 = núcleos redondos uniformes (mejor) → Grado 4 = pleomorfismo extremo, nucléolos grotescos (peor). La diferenciación sarcomatoide (cualquier grado) = peor pronóstico de todos (~supervivencia media 6-12 meses). Se reporta en 5% de CCR.",
+    ref:"GPC: Diagnóstico y Tratamiento del Carcinoma de Células Renales. SSA. 2009."
+  },
+  {
+    cat:"dx",catName:"Diagnóstico",
+    q:"Mujer de 62 años con hipertensión resistente al tratamiento, policitemia y masa renal de 6 cm. La biopsia confirma CCR de células claras. ¿Cuál es la relación entre hipertensión y este tumor?",
+    opts:["La HTA es una coincidencia sin relación causal","El tumor produce renina ectópica causando HTA secundaria","La HTA causa el tumor por isquemia renal crónica","La HTA es secundaria a metástasis suprarrenal"],
+    ans:1,
+    exp:"El CCR puede producir renina de forma ectópica, causando hipertensión renovascular secundaria (síndrome paraneoplásico). Esto puede ser la manifestación inicial del tumor. La nefrectomía frecuentemente resuelve la hipertensión cuando es de origen paraneoplásico. Otros mecanismos de HTA en CCR: compresión de arteria renal por el tumor o metástasis suprarrenal.",
+    tip:"<strong>CCR y HTA paraneoplásica:</strong> Renina ectópica → HTA refractaria al tratamiento → nefrectomía = curación de la HTA. La HTA refractaria en adulto mayor + policitemia + masa renal = tríada muy específica de CCR con síndromes paraneoplásicos múltiples.",
+    ref:"GPC: Diagnóstico y Tratamiento del Carcinoma de Células Renales. SSA. 2009."
+  }
+];
+
+let currentQ=0,score=0,answers=[];
+let catStats={dx:{c:0,t:0},tx:{c:0,t:0},cx:{c:0,t:0},lab:{c:0,t:0}};
+
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+
+function init(){
+  shuffle(questions);currentQ=0;score=0;answers=[];
+  catStats={dx:{c:0,t:0},tx:{c:0,t:0},cx:{c:0,t:0},lab:{c:0,t:0}};
+  const r=document.getElementById('resultsArea');
+  r.classList.remove('show');r.innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const qa=questions[currentQ];const total=questions.length;
+  document.getElementById('progressBar').style.width=(currentQ/total*100)+'%';
+  document.getElementById('progressText').textContent=`${currentQ+1} / ${total}`;
+  document.getElementById('nextBtn').classList.remove('show');
+  const letters=['A','B','C','D'];
+  let html=`<div class="question-card"><div class="q-category cat-${qa.cat}">${qa.catName}</div><div class="q-number">Pregunta ${currentQ+1} de ${total}</div><div class="q-text">${qa.q}</div><div class="options">`;
+  qa.opts.forEach((opt,i)=>{html+=`<button class="option-btn" onclick="selectAnswer(${i})" data-idx="${i}"><span class="option-letter">${letters[i]}</span><span>${opt}</span></button>`;});
+  html+=`</div><div class="feedback" id="feedback"></div></div>`;
+  document.getElementById('quizArea').innerHTML=html;
+}
+
+function selectAnswer(idx){
+  const qa=questions[currentQ];const btns=document.querySelectorAll('.option-btn');const fb=document.getElementById('feedback');const isCorrect=idx===qa.ans;
+  btns.forEach((btn,i)=>{btn.classList.add('disabled');btn.onclick=null;if(i===qa.ans)btn.classList.add('correct-answer');if(i===idx&&!isCorrect)btn.classList.add('wrong-answer');});
+  if(!catStats[qa.cat])catStats[qa.cat]={c:0,t:0};
+  catStats[qa.cat].t++;if(isCorrect){score++;catStats[qa.cat].c++;}
+  if(!examMode){
+    if(isCorrect){fb.className='feedback correct-fb show';fb.innerHTML=`<div class="feedback-title">✅ ¡Correcto!</div><div>${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;}
+    else{fb.className='feedback wrong-fb show';fb.innerHTML=`<div class="feedback-title">❌ Incorrecto</div><div><strong>Respuesta correcta:</strong> ${qa.opts[qa.ans]}</div><div style="margin-top:8px;">${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;}
+  }
+  answers.push({q:qa.q,correct:isCorrect,userAns:qa.opts[idx],correctAns:qa.opts[qa.ans],cat:qa.catName,exp:qa.exp,tip:qa.tip,ref:qa.ref});
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion(){currentQ++;if(currentQ>=questions.length)showResults();else renderQuestion();}
+
+function showResults(){
+  document.getElementById('quizArea').innerHTML='';document.getElementById('nextBtn').classList.remove('show');
+  document.getElementById('progressBar').style.width='100%';document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;
+  const pct=Math.round((score/questions.length)*100);
+  let msg=pct>=90?'🏆 ¡Excelente dominio del tema! Listo para el ENARM.':pct>=70?'👏 ¡Muy bien! Repasa las áreas con menor puntaje.':pct>=50?'📚 Aceptable, pero hay áreas de oportunidad importantes.':'⚠️ Necesitas reforzar este tema. Revisa las GPC correspondientes.';
+  const cats=[{name:'Diagnóstico',key:'dx',color:'#38bdf8'},{name:'Imagen/Estadificación',key:'lab',color:'#34d399'},{name:'Tratamiento',key:'tx',color:'#a78bfa'},{name:'Complicaciones/Pron.',key:'cx',color:'#f472b6'}];
+  let html=`<div class="results-header"><div class="score-big">${pct}%</div><div class="score-label">${score} de ${questions.length} correctas</div><div class="score-msg">${msg}</div></div><div class="chart-section"><div class="chart-title"><span>📊</span> Rendimiento por Categoría</div><div class="bar-chart">`;
+  cats.forEach(cat=>{const s=catStats[cat.key]||{c:0,t:0};const p=s.t>0?Math.round((s.c/s.t)*100):0;html+=`<div class="bar-row"><div class="bar-label">${cat.name}</div><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${cat.color};">${p}% (${s.c}/${s.t})</div></div></div>`;});
+  html+=`</div></div><div class="chart-section"><div class="chart-title"><span>🎯</span> Resumen General</div><div class="donut-wrap"><svg class="donut-svg" viewBox="0 0 42 42"><circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a2235" stroke-width="4"/><circle cx="21" cy="21" r="15.915" fill="none" stroke="#34d399" stroke-width="4" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="25" stroke-linecap="round"/><circle cx="21" cy="21" r="15.915" fill="none" stroke="#f87171" stroke-width="4" stroke-dasharray="${100-pct} ${pct}" stroke-dashoffset="${25-pct}" stroke-linecap="round"/><text x="21" y="22.5" text-anchor="middle" font-size="6" font-weight="700" fill="#e8ecf4" font-family="Plus Jakarta Sans">${pct}%</text></svg><div class="donut-legend"><div class="legend-item"><div class="legend-dot" style="background:#34d399;"></div>Correctas: ${score}</div><div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Incorrectas: ${questions.length-score}</div><div class="legend-item"><div class="legend-dot" style="background:#38bdf8;"></div>Total: ${questions.length}</div></div></div></div><div class="chart-section"><div class="chart-title"><span>📋</span> Revisión de Respuestas</div>`;
+  answers.forEach((a,i)=>{html+=`<div class="review-card ${a.correct?'review-correct':'review-wrong'}"><div class="review-q">${i+1}. ${a.q} <span style="font-size:0.72rem;color:var(--text-dim);">[${a.cat}]</span></div><div class="review-answer">${a.correct?`<strong>✅ ${a.correctAns}</strong>`:`<em>❌ Tu respuesta: ${a.userAns}</em><br><strong>✅ Correcta: ${a.correctAns}</strong>`}</div><div style="margin-top:8px;font-size:0.8rem;color:var(--text-dim);line-height:1.5;">${a.exp}</div><div style="margin-top:6px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;">📖 ${a.ref}</div></div>`;});
+  html+=`</div><button class="retry-btn" onclick="init()">🔄 Reintentar</button>`;
+  const res=document.getElementById('resultsArea');res.innerHTML=html;res.classList.add('show');res.scrollIntoView({behavior:'smooth'});
+}
+
+function toggleSpec(h){h.classList.toggle('open');h.nextElementSibling.classList.toggle('open');}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+
+init();
+</script>
+</body>
+</html>

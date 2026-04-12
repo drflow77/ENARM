@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tumores Óseos Malignos — ENARM · MediCode Solutions</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root{--bg:#0a0e1a;--surface:#111827;--surface2:#1a2235;--surface3:#212d45;--border:#2a3a5c;--text:#e8ecf4;--text-dim:#8896b3;--accent:#38bdf8;--accent-glow:rgba(56,189,248,0.15);--correct:#34d399;--correct-bg:rgba(52,211,153,0.1);--correct-border:rgba(52,211,153,0.4);--wrong:#f87171;--wrong-bg:rgba(248,113,113,0.1);--wrong-border:rgba(248,113,113,0.4);--gold:#fbbf24;--purple:#a78bfa;--pink:#f472b6;--teal:#2dd4bf;--sidebar-w:280px;--radius:14px;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;}
+  .sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;overflow-y:auto;z-index:100;transition:transform 0.3s;}
+  .sidebar-logo{padding:24px 20px 16px;border-bottom:1px solid var(--border);}
+  .logo-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--purple));padding:6px 14px;border-radius:100px;font-size:0.75rem;font-weight:800;color:var(--bg);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px;}
+  .sidebar-logo h2{font-size:1.1rem;font-weight:800;background:linear-gradient(135deg,var(--text),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .sidebar-logo p{font-size:0.72rem;color:var(--text-dim);margin-top:2px;}
+  .back-btn{display:flex;align-items:center;gap:8px;padding:14px 20px;color:var(--text-dim);font-size:0.8rem;text-decoration:none;border-bottom:1px solid var(--border);transition:color 0.2s;}
+  .back-btn:hover{color:var(--accent);}
+  .sidebar-nav{flex:1;padding:12px 0 24px;}
+  .specialty-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px 10px 20px;cursor:pointer;transition:background 0.2s;user-select:none;}
+  .specialty-header:hover{background:var(--surface2);}
+  .specialty-name{display:flex;align-items:center;gap:10px;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;}
+  .specialty-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;}
+  .chevron{font-size:0.65rem;color:var(--text-dim);transition:transform 0.3s;}
+  .specialty-header.open .chevron{transform:rotate(90deg);}
+  .topics-list{display:none;padding:4px 0 8px;}
+  .topics-list.open{display:block;}
+  .topic-link{display:flex;align-items:center;gap:10px;padding:8px 16px 8px 56px;font-size:0.78rem;color:var(--text-dim);text-decoration:none;transition:all 0.2s;border-left:2px solid transparent;line-height:1.4;}
+  .topic-link:hover{color:var(--text);background:var(--surface3);}
+  .topic-link.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-glow);font-weight:600;}
+  .topic-link.coming-soon{opacity:0.4;cursor:not-allowed;pointer-events:none;}
+  .topic-num{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--text-dim);min-width:20px;}
+  .badge-soon{margin-left:auto;background:rgba(136,150,179,0.1);color:var(--text-dim);font-size:0.62rem;font-weight:600;padding:2px 7px;border-radius:100px;}
+  .badge-ready{margin-left:auto;background:rgba(52,211,153,0.1);color:#34d399;font-size:0.62rem;font-weight:600;padding:2px 7px;border-radius:100px;}
+  .main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;}
+  .container{max-width:760px;margin:0 auto;padding:20px 16px 40px;width:100%;}
+  .mode-bar{display:flex;align-items:center;gap:10px;margin:24px 0 20px;background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:6px;width:fit-content;}
+  .mode-btn{padding:8px 20px;border-radius:100px;border:none;cursor:pointer;font-family:inherit;font-size:0.82rem;font-weight:600;transition:all 0.2s;color:var(--text-dim);background:transparent;}
+  .mode-btn.active{background:linear-gradient(135deg,var(--accent),var(--purple));color:var(--bg);}
+  .header{text-align:center;padding:40px 20px 24px;position:relative;overflow:hidden;}
+  .header::before{content:'';position:absolute;top:-60%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(56,189,248,0.08) 0%,transparent 70%);pointer-events:none;}
+  .header-badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);padding:6px 16px;border-radius:100px;font-size:0.78rem;color:var(--accent);font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:16px;}
+  .header h1{font-size:clamp(1.6rem,5vw,2.2rem);font-weight:800;background:linear-gradient(135deg,var(--text) 0%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;}
+  .header p{color:var(--text-dim);font-size:0.95rem;max-width:500px;margin:0 auto;}
+  .progress-wrap{background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:12px 20px;margin:20px 0 28px;display:flex;align-items:center;gap:14px;}
+  .progress-bar-bg{flex:1;height:8px;background:var(--surface3);border-radius:100px;overflow:hidden;}
+  .progress-bar-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--purple));border-radius:100px;transition:width 0.5s ease;}
+  .progress-text{font-size:0.82rem;font-weight:600;color:var(--text-dim);white-space:nowrap;font-family:'JetBrains Mono',monospace;}
+  .question-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px;margin-bottom:20px;animation:slideIn 0.4s ease;position:relative;overflow:hidden;}
+  .question-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--purple),var(--pink));}
+  @keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .q-category{display:inline-flex;align-items:center;gap:6px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;padding:4px 12px;border-radius:100px;margin-bottom:14px;}
+  .cat-dx{background:rgba(56,189,248,0.12);color:var(--accent);}
+  .cat-tx{background:rgba(167,139,250,0.12);color:var(--purple);}
+  .cat-cx{background:rgba(244,114,182,0.12);color:var(--pink);}
+  .cat-lab{background:rgba(52,211,153,0.12);color:var(--correct);}
+  .q-number{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--text-dim);margin-bottom:10px;}
+  .q-text{font-size:1.05rem;font-weight:600;line-height:1.55;margin-bottom:20px;color:var(--text);}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .option-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:all 0.2s;text-align:left;font-size:0.92rem;color:var(--text);font-family:inherit;line-height:1.5;width:100%;}
+  .option-btn:hover:not(.disabled){border-color:var(--accent);background:var(--accent-glow);transform:translateX(4px);}
+  .option-letter{display:flex;align-items:center;justify-content:center;min-width:30px;height:30px;border-radius:8px;background:var(--surface3);font-weight:700;font-size:0.82rem;color:var(--accent);flex-shrink:0;}
+  .option-btn.correct-answer{border-color:var(--correct-border);background:var(--correct-bg);}
+  .option-btn.correct-answer .option-letter{background:var(--correct);color:var(--bg);}
+  .option-btn.wrong-answer{border-color:var(--wrong-border);background:var(--wrong-bg);}
+  .option-btn.wrong-answer .option-letter{background:var(--wrong);color:var(--bg);}
+  .option-btn.disabled{cursor:default;}
+  .option-btn.disabled:hover{transform:none;}
+  .feedback{margin-top:18px;padding:18px;border-radius:12px;font-size:0.88rem;line-height:1.65;animation:fadeIn 0.3s ease;display:none;}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .feedback.show{display:block;}
+  .feedback.correct-fb{background:var(--correct-bg);border:1px solid var(--correct-border);color:var(--correct);}
+  .feedback.wrong-fb{background:var(--wrong-bg);border:1px solid var(--wrong-border);color:#fca5a5;}
+  .feedback-title{font-weight:700;font-size:0.95rem;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+  .feedback .tip{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.08);color:var(--text-dim);font-size:0.82rem;}
+  .feedback .tip strong{color:var(--gold);}
+  .feedback .ref{margin-top:8px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;}
+  .next-btn{display:none;margin:20px auto 0;padding:12px 32px;background:linear-gradient(135deg,var(--accent),var(--purple));color:var(--bg);border:none;border-radius:100px;font-family:inherit;font-size:0.92rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+  .next-btn:hover{transform:scale(1.05);box-shadow:0 4px 24px var(--accent-glow);}
+  .next-btn.show{display:block;}
+  .results{display:none;animation:slideIn 0.5s ease;}
+  .results.show{display:block;}
+  .results-header{text-align:center;padding:30px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;position:relative;overflow:hidden;}
+  .results-header::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--correct),var(--accent),var(--purple),var(--pink));}
+  .score-big{font-size:3.5rem;font-weight:800;background:linear-gradient(135deg,var(--correct),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .score-label{font-size:1.1rem;color:var(--text-dim);margin-top:4px;}
+  .score-msg{margin-top:12px;font-size:0.95rem;color:var(--text);font-weight:500;}
+  .chart-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px 20px;margin-bottom:20px;}
+  .chart-title{font-size:0.95rem;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+  .bar-chart{display:flex;flex-direction:column;gap:14px;}
+  .bar-row{display:flex;align-items:center;gap:12px;}
+  .bar-label{width:110px;font-size:0.78rem;font-weight:600;text-align:right;color:var(--text-dim);flex-shrink:0;}
+  .bar-track{flex:1;height:28px;background:var(--surface3);border-radius:8px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:8px;transition:width 1s ease;display:flex;align-items:center;padding-left:10px;font-size:0.75rem;font-weight:700;color:var(--bg);min-width:fit-content;}
+  .donut-wrap{display:flex;align-items:center;justify-content:center;gap:30px;flex-wrap:wrap;}
+  .donut-svg{width:160px;height:160px;}
+  .donut-legend{display:flex;flex-direction:column;gap:10px;}
+  .legend-item{display:flex;align-items:center;gap:10px;font-size:0.84rem;}
+  .legend-dot{width:12px;height:12px;border-radius:4px;flex-shrink:0;}
+  .review-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:12px;}
+  .review-card.review-correct{border-left:4px solid var(--correct);}
+  .review-card.review-wrong{border-left:4px solid var(--wrong);}
+  .review-q{font-size:0.88rem;font-weight:600;margin-bottom:8px;}
+  .review-answer{font-size:0.82rem;color:var(--text-dim);line-height:1.5;}
+  .review-answer strong{color:var(--correct);}
+  .review-answer em{color:var(--wrong);font-style:normal;}
+  .retry-btn{display:block;margin:28px auto;padding:14px 40px;background:linear-gradient(135deg,var(--accent),var(--purple));color:var(--bg);border:none;border-radius:100px;font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+  .retry-btn:hover{transform:scale(1.05);}
+  .hamburger{display:none;position:fixed;top:16px;left:16px;z-index:200;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px;cursor:pointer;font-size:1.2rem;}
+  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:90;}
+  .footer{text-align:center;padding:20px;color:var(--text-dim);font-size:0.72rem;opacity:0.5;}
+  @media(max-width:768px){.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}.main{margin-left:0;}.hamburger{display:flex;align-items:center;justify-content:center;}.overlay.show{display:block;}.container{padding:12px 10px 30px;}.question-card{padding:20px 16px;}.bar-label{width:80px;font-size:0.72rem;}.mode-bar{margin:16px auto;}}
+</style>
+  <script src="sidebar.js"></script>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+<aside class="sidebar" id="sidebar"></aside>
+
+<main class="main">
+<div class="container">
+
+  <div class="header">
+    <div class="header-badge"><span>🦴</span> ENARM · Traumatología · Tema 42</div>
+    <h1>Tumores Óseos Malignos</h1>
+    <p>Osteosarcoma · Sarcoma de Ewing · Condrosarcoma · Metástasis Óseas</p>
+  </div>
+
+  <div style="display:flex;justify-content:center;">
+    <div class="mode-bar">
+      <button class="mode-btn active" id="btnRepaso" onclick="setMode('repaso')">📖 Modo Repaso</button>
+      <button class="mode-btn" id="btnExamen" onclick="setMode('examen')">⏱️ Modo Examen</button>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 15</div>
+  </div>
+
+  <div id="quizArea"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+  <div class="results" id="resultsArea"></div>
+
+</div>
+<div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+</main>
+
+<script>
+let examMode=false;
+function setMode(m){examMode=(m==='examen');document.getElementById('btnRepaso').classList.toggle('active',!examMode);document.getElementById('btnExamen').classList.toggle('active',examMode);init();}
+
+const questions=[
+  {
+    cat:"dx",catName:"Osteosarcoma",
+    q:"Adolescente de 15 años con dolor y aumento de volumen progresivo en la rodilla derecha de 3 meses. La Rx muestra lesión osteolítica/blástica mixta en la metáfisis distal del fémur con reacción perióstica en 'sol naciente' y triángulo de Codman. ¿Cuál es el diagnóstico más probable?",
+    opts:["Osteomielitis aguda hematógena","Osteosarcoma convencional","Sarcoma de Ewing","Tumor de células gigantes"],
+    ans:1,
+    exp:"El osteosarcoma es el tumor óseo maligno primario más frecuente en niños y adolescentes (excluyendo mieloma en adultos). Pico de incidencia: 10-20 años, relacionado con el estirón puberal. Localización preferente: metáfisis de huesos largos de la rodilla (fémur distal 40%, tibia proximal 20%, húmero proximal 10%). Signos radiológicos clásicos: reacción perióstica en 'sol naciente' (rayos de Codman perpendiculares) y triángulo de Codman (periostio elevado).",
+    tip:"<strong>Osteosarcoma - tríada radiológica:</strong> Sol naciente + Triángulo de Codman + Lesión metafisaria mixta lítico-blástica. Regla: adolescente + dolor rodilla + masa + estos signos Rx = osteosarcoma hasta demostrar lo contrario. La fosfatasa alcalina y LDH están elevadas y sirven como marcadores de respuesta al tratamiento.",
+    ref:"GPC: Diagnóstico y Tratamiento del Osteosarcoma. SSA/CENETEC. 2010."
+  },
+  {
+    cat:"tx",catName:"Osteosarcoma",
+    q:"¿Cuál es el tratamiento estándar actual para el osteosarcoma localizado de extremidades?",
+    opts:["Amputación de la extremidad como único tratamiento curativo","Quimioterapia neoadyuvante → cirugía de preservación de extremidad → quimioterapia adyuvante","Radioterapia de haz externo exclusiva","Cirugía inmediata sin quimioterapia perioperatoria"],
+    ans:1,
+    exp:"El tratamiento estándar es multimodal: quimioterapia neoadyuvante (MAP: metotrexato + adriamicina + cisplatino, 2-3 ciclos) → cirugía de preservación de extremidad (resección en bloque con márgenes amplios + reconstrucción con endoprótesis o aloinjerto) → quimioterapia adyuvante. La respuesta histológica al tratamiento neoadyuvante (>90% necrosis = buena respuesta) es el factor pronóstico más importante. La supervivencia a 5 años es 60-70% en localizado.",
+    tip:"<strong>Osteosarcoma - protocolo MAP:</strong> Metotrexato (altas dosis) + Adriamicina (doxorubicina) + cisPlatin. La cirugía de preservación ha reemplazado a la amputación en >85% de casos con igual supervivencia. El osteosarcoma es RADIOrresistente (como el CCR) → RT solo paliativa. Respuesta >90% necrosis = buen pronóstico.",
+    ref:"GPC: Diagnóstico y Tratamiento del Osteosarcoma. SSA/CENETEC. 2010."
+  },
+  {
+    cat:"dx",catName:"Osteosarcoma",
+    q:"¿Cuál es el marcador de laboratorio que se eleva en el osteosarcoma y es útil para monitorizar la respuesta al tratamiento?",
+    opts:["AFP (alfa-fetoproteína)","Fosfatasa alcalina (FA) y LDH","PSA (antígeno prostático específico)","CA-125"],
+    ans:1,
+    exp:"La fosfatasa alcalina (FA) y la LDH están elevadas en el osteosarcoma y son útiles como marcadores de respuesta: descienden con la quimioterapia efectiva y se elevan en la recidiva. La FA refleja la actividad osteoblástica del tumor. Niveles muy elevados al diagnóstico y persistencia post-QT se asocian a peor pronóstico. No son específicos pero son los más usados clínicamente para seguimiento.",
+    tip:"<strong>Marcadores en osteosarcoma:</strong> FA + LDH = marcadores de actividad tumoral. FA muy elevada = tumor muy activo / pobre respuesta. LDH elevada = factor de mal pronóstico independiente. Estos mismos marcadores se elevan en el Sarcoma de Ewing. A diferencia de los tumores de células germinales, no hay marcadores séricos específicos.",
+    ref:"GPC: Diagnóstico y Tratamiento del Osteosarcoma. SSA/CENETEC. 2010."
+  },
+  {
+    cat:"dx",catName:"Sarcoma de Ewing",
+    q:"Niño de 10 años con dolor óseo en la diáfisis del fémur izquierdo, fiebre de 38°C y leucocitosis leve. La Rx muestra lesión lítica permeativa diafisaria con reacción perióstica en 'capas de cebolla'. ¿Cuál es el diagnóstico más probable?",
+    opts:["Osteomielitis hematógena aguda","Sarcoma de Ewing","Osteosarcoma telangiectásico","Linfoma óseo primario"],
+    ans:1,
+    exp:"El sarcoma de Ewing es el segundo tumor óseo maligno primario más frecuente en niños (después del osteosarcoma). Pico: 5-15 años. Localización: diáfisis de huesos largos (fémur > tibia > húmero) y pelvis. Rx: lesión lítica permeativa con reacción perióstica en 'capas de cebolla' (laminada). Los síntomas sistémicos (fiebre, leucocitosis, VSG elevada) pueden simular osteomielitis, pero la biopsia confirma el diagnóstico.",
+    tip:"<strong>Sarcoma de Ewing vs Osteomielitis:</strong> Ambos: fiebre + dolor + masa + leucocitosis + diáfisis. Clave: Ewing tiene masa de partes blandas enorme (desproporcionada para la lesión ósea) y la biopsia muestra células pequeñas redondas azules. Translocación t(11;22) = EWS-FLI1 = diagnóstico molecular del Ewing.",
+    ref:"GPC: Diagnóstico y Tratamiento del Sarcoma de Ewing. SSA/CENETEC. 2010."
+  },
+  {
+    cat:"lab",catName:"Sarcoma de Ewing",
+    q:"¿Cuál es la alteración citogenética patognomónica del sarcoma de Ewing?",
+    opts:["Amplificación del gen MDM2","Translocación t(11;22)(q24;q12) → fusión EWS-FLI1","Mutación del gen RB1 (retinoblastoma)","Deleción del gen TP53 en el cromosoma 17p"],
+    ans:1,
+    exp:"La translocación t(11;22)(q24;q12) que genera la fusión EWS-FLI1 está presente en el 85-90% de los sarcomas de Ewing. Esta translocación es diagnóstica y puede detectarse por FISH, PCR o hibridación genómica comparativa en muestras de biopsia. La proteína de fusión EWS-FLI1 actúa como factor de transcripción aberrante que activa genes de proliferación. El 10-15% restante tiene otras translocaciones EWS con otros factores ETS.",
+    tip:"<strong>Tumores óseos y sus translocaciones:</strong> Sarcoma Ewing → t(11;22) EWS-FLI1 (85%). Sarcoma sinovial → t(X;18) SYT-SSX. Rabdomiosarcoma alveolar → t(2;13) PAX3-FOXO1. El Ewing forma parte de la 'familia de tumores Ewing' (tumor neuroectodérmico primitivo/PNET). Células pequeñas redondas azules = clave histológica.",
+    ref:"GPC: Diagnóstico y Tratamiento del Sarcoma de Ewing. SSA/CENETEC. 2010."
+  },
+  {
+    cat:"tx",catName:"Sarcoma de Ewing",
+    q:"A diferencia del osteosarcoma, el sarcoma de Ewing es sensible a la radioterapia. ¿Cuál es el papel de la radioterapia en su tratamiento?",
+    opts:["RT exclusiva es el tratamiento de elección en todos los casos","RT como tratamiento local cuando la cirugía no es posible (pelvis, columna) o como adyuvante post-cirugía con márgenes positivos","RT solo para control del dolor en enfermedad metastásica","RT no tiene ningún papel en el Ewing"],
+    ans:1,
+    exp:"El sarcoma de Ewing es radiosensible, a diferencia del osteosarcoma. La radioterapia tiene un rol como tratamiento local en: (1) tumores irresecables (pelvis, columna vertebral, sacro), (2) márgenes quirúrgicos positivos post-cirugía, (3) control local en combinación con cirugía en sitios de difícil acceso. Sin embargo, la cirugía más quimioterapia sigue siendo preferida cuando es factible, ya que la RT se asocia a mayor tasa de recidiva local que la cirugía.",
+    tip:"<strong>Ewing vs Osteosarcoma en radiosensibilidad:</strong> Osteosarcoma = RADIOrresistente (RT no funciona). Sarcoma de Ewing = RADIOsensible (RT tiene papel terapéutico). El protocolo del Ewing incluye: QT de inducción → evaluación → cirugía ± RT → QT de consolidación. QT estándar: VAC/IE (vincristina + actinomicina + ciclofosfamida alternando con ifosfamida + etopósido).",
+    ref:"GPC: Diagnóstico y Tratamiento del Sarcoma de Ewing. SSA/CENETEC. 2010."
+  },
+  {
+    cat:"dx",catName:"Condrosarcoma",
+    q:"Adulto de 55 años con dolor crónico en la cadera derecha. La Rx muestra lesión lítica de la pelvis con matriz cartilaginosa calcificada ('arcos y anillos') y erosión endóstica de la cortical. ¿Cuál es el diagnóstico más probable?",
+    opts:["Encondroma de la pelvis","Condrosarcoma central de bajo grado","Osteosarcoma condroblástico","Displasia fibrosa poliostótica"],
+    ans:1,
+    exp:"El condrosarcoma es el tercer tumor óseo maligno primario más frecuente. Se presenta en adultos de 40-70 años (a diferencia del osteosarcoma/Ewing que predominan en jóvenes). Localización preferente: pelvis (35%), fémur proximal, húmero proximal. Rx: lesión lítica con calcificaciones cartilaginosas en 'arcos y anillos' + erosión endóstica significativa de la cortical (distingue de encondroma benigno). Es resistente a quimioterapia y radioterapia convencionales.",
+    tip:"<strong>Encondroma vs Condrosarcoma:</strong> Encondroma: asintomático + sin erosión endóstica + manos/pies. Condrosarcoma: dolor + erosión cortical >2/3 + pelvis/fémur proximal + adulto >40 años. La distinción puede ser difícil incluso histológicamente. Clave: dolor persistente + lesión cartilaginosa en hueso axial en >40 años = condrosarcoma.",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores Óseos Malignos. SSA. 2010."
+  },
+  {
+    cat:"tx",catName:"Condrosarcoma",
+    q:"¿Cuál es el tratamiento de elección para el condrosarcoma convencional de grado I-II localizado?",
+    opts:["Quimioterapia neoadyuvante + cirugía (igual que el osteosarcoma)","Resección quirúrgica en bloque con márgenes amplios; el condrosarcoma es resistente a QT y RT convencionales","Radioterapia de haz externo exclusiva","Ablación por radiofrecuencia percutánea"],
+    ans:1,
+    exp:"El condrosarcoma convencional es resistente a quimioterapia y radioterapia convencionales. Por lo tanto, la cirugía con márgenes amplios es el único tratamiento curativo. La extensión de la resección depende del grado: grado I (bajo) permite márgenes más conservadores; grados II-III requieren resección en bloque amplia. La tasa de supervivencia a 5 años: grado I ~90%, grado II ~60-70%, grado III <30%.",
+    tip:"<strong>Condrosarcoma = cirugía o nada.</strong> QT convencional = ineficaz. RT convencional = ineficaz (aunque RT de protones tiene papel emergente). Excepciones: condrosarcoma mesenquimatoso y desdiferenciado (comportamiento agresivo, pueden responder a QT similar a Ewing/osteosarcoma). El grado histológico es el factor pronóstico más importante.",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores Óseos Malignos. SSA. 2010."
+  },
+  {
+    cat:"dx",catName:"Metástasis Óseas",
+    q:"Mujer de 65 años con historia de cáncer de mama tratado hace 5 años. Consulta por dolor lumbar intenso. Gammagrafía ósea muestra múltiples focos de hipercaptación. Rx de columna lumbar con lesiones osteoblásticas. ¿Cuál es el diagnóstico más probable?",
+    opts:["Mieloma múltiple","Metástasis óseas de cáncer de mama","Sarcoma de Ewing del adulto","Linfoma de Hodgkin óseo"],
+    ans:1,
+    exp:"Las metástasis óseas son los tumores óseos malignos más frecuentes (superan ampliamente a los tumores primarios). El cáncer de mama es uno de los 5 tumores que más frecuentemente metastatiza al hueso (junto con próstata, pulmón, riñón y tiroides). El cáncer de mama puede producir metástasis osteoblásticas (escleróticas), líticas o mixtas. La gammagrafía ósea es el estudio de escrutinio de elección por su alta sensibilidad.",
+    tip:"<strong>Tumores que más metastatizan a hueso:</strong> Mama + Pulmón + Próstata + Riñón + Tiroides = 'BLPRiT' o 'BLass PRiTy'. Tipo de lesión: Próstata → BLÁSTICA. Riñón/Tiroides → LÍTICA. Mama/Pulmón → MIXTA. Mieloma → siempre LÍTICA (gammagrafía puede ser FALSA NEGATIVA en mieloma → usar Rx de esqueleto completo).",
+    ref:"GPC: Diagnóstico y Tratamiento de Metástasis Óseas. SSA. 2010."
+  },
+  {
+    cat:"tx",catName:"Metástasis Óseas",
+    q:"Paciente con metástasis óseas múltiples de carcinoma de próstata, dolor óseo severo y riesgo de fractura patológica en el fémur proximal. ¿Cuál es el manejo del dolor óseo por metástasis?",
+    opts:["Solo opioides; la RT y cirugía no tienen papel en metástasis","Radioterapia paliativa (8 Gy dosis única o 30 Gy en 10 fracciones) + bifosfonatos/denosumab + analgesia multimodal","Quimioterapia sistémica intensiva como único tratamiento","Amputación de la extremidad para prevenir fractura"],
+    ans:1,
+    exp:"El manejo del dolor óseo por metástasis es multimodal: (1) RT paliativa local: reduce el dolor en 60-80% de casos; la dosis única de 8 Gy tiene eficacia equivalente a esquemas fraccionados para paliación. (2) Bifosfonatos (ácido zoledrónico) o denosumab: reducen eventos óseos (fracturas, compresión medular, hipercalcemia). (3) Analgesia escalonada (OMS). (4) Cirugía profiláctica para fracturas inminentes (criterios de Mirels: >8 puntos).",
+    tip:"<strong>Criterios de Mirels para fractura inminente:</strong> Sitio (miembro sup=1, inf=2, peritr=3) + Dolor (leve=1, moderado=2, severo=3) + Lesión (blástica=1, mixta=2, lítica=3) + Tamaño (<1/3=1, 1/3-2/3=2, >2/3=3). Score >8 = fijación profiláctica antes de fractura. La RT única 8Gy = tan efectiva como 30Gy en 10fx para paliación.",
+    ref:"GPC: Diagnóstico y Tratamiento de Metástasis Óseas. SSA. 2010."
+  },
+  {
+    cat:"lab",catName:"Diagnóstico",
+    q:"¿Cuál es el estudio de imagen de mayor sensibilidad para la detección de metástasis óseas múltiples en la estadificación inicial de un tumor primario?",
+    opts:["Resonancia magnética de cuerpo completo","Gammagrafía ósea con tecnecio-99m (Tc-99m MDP)","Tomografía simple sin contraste","Radiografía de esqueleto completo"],
+    ans:1,
+    exp:"La gammagrafía ósea con Tc-99m MDP es el estudio de escrutinio estándar para detección de metástasis óseas múltiples, con sensibilidad del 80-90%. Detecta cambios en el metabolismo óseo antes que la Rx convencional (que requiere >50% de destrucción mineral para ser visible). Excepción: mieloma múltiple (lesiones líticas puras, sin actividad osteoblástica) → gammagrafía puede ser negativa → usar Rx esqueleto completo o PET-CT con fluoruro.",
+    tip:"<strong>Gammagrafía ósea - limitaciones:</strong> Falsos negativos: mieloma (puramente lítico, sin respuesta blástica) + metástasis muy agresivas que crecen más rápido que la respuesta ósea. Falsos positivos: fracturas, artritis, osteomielitis. Para mieloma: Rx esqueleto completo o PET/CT. Para próstata metastásico: gammagrafía + PSMA PET/CT.",
+    ref:"GPC: Diagnóstico y Tratamiento de Metástasis Óseas. SSA. 2010."
+  },
+  {
+    cat:"cx",catName:"Complicaciones",
+    q:"Paciente con metástasis óseas vertebrales de cáncer de pulmón presenta dolor lumbar intenso de inicio súbito, debilidad de miembros inferiores y dificultad para orinar. ¿Cuál es la urgencia oncológica a considerar?",
+    opts:["Crisis hipercalcémica por metástasis","Síndrome de compresión medular metastásica","Embolia pulmonar por TVP","Fractura patológica de pelvis"],
+    ans:1,
+    exp:"El síndrome de compresión medular metastásica (SCMM) es una emergencia oncológica. Se produce por compresión del saco tecal por metástasis vertebral o colapso vertebral. Se manifiesta con: dolor de espalda (primer síntoma, 95%), debilidad progresiva de MMII, alteraciones sensitivas y disfunción esfinteriana (tardía). Tratamiento de urgencia: dexametasona IV (10 mg dosis de carga) + RT de urgencia o cirugía descompresiva.",
+    tip:"<strong>SCMM = URGENCIA:</strong> Dolor vertebral nuevo en paciente con cáncer + síntomas neurológicos = SCMM hasta demostrar lo contrario. Tratamiento: dexametasona IV inmediata (reduce edema) + RM de columna urgente (toda la columna) + RT vs cirugía descompresiva (en <48h para preservar función). Columna torácica más afectada (70%).",
+    ref:"GPC: Diagnóstico y Tratamiento de Metástasis Óseas. SSA. 2010."
+  },
+  {
+    cat:"cx",catName:"Complicaciones",
+    q:"¿Cuál es el tumor primario que con mayor frecuencia causa hipercalcemia maligna por metástasis óseas líticas?",
+    opts:["Cáncer de próstata (lesiones blásticas)","Cáncer de mama y mieloma múltiple","Cáncer colorrectal","Cáncer de cérvix"],
+    ans:1,
+    exp:"La hipercalcemia maligna ocurre en 10-30% de los pacientes oncológicos. Los tumores más frecuentemente asociados son cáncer de mama (40%), mieloma múltiple (20%) y cáncer de pulmón (15%). Mecanismos: (1) Osteólisis local por citocinas tumorales (RANKL, IL-6). (2) PTHrP ectópica (hipercalcemia humoral de la malignidad, sin metástasis óseas). El tratamiento: hidratación IV + bifosfonatos (ácido zoledrónico) + calcitonina en crisis graves.",
+    tip:"<strong>Hipercalcemia maligna - tipos:</strong> Con metástasis óseas líticas (mama, mieloma) → osteoclastos activados. Sin metástasis (epidermoide pulmón, CCR) → PTHrP ectópica. Tratamiento urgente: SF 1-2L IV + furosemida solo si sobrecarga hídrica + ácido zoledrónico 4mg IV. Calcitonina para descenso rápido (máximo 48h de efecto).",
+    ref:"GPC: Diagnóstico y Tratamiento de Metástasis Óseas. SSA. 2010."
+  },
+  {
+    cat:"dx",catName:"Diagnóstico Diferencial",
+    q:"¿Cuál es la principal diferencia radiológica entre el osteosarcoma y el sarcoma de Ewing?",
+    opts:["El osteosarcoma es siempre lítico; el Ewing es siempre blástico","Osteosarcoma: metáfisis + reacción perióstica en 'sol naciente' + matriz osteóide. Ewing: diáfisis + 'capas de cebolla' + gran masa de partes blandas","El osteosarcoma afecta solo la diáfisis; el Ewing solo la epífisis","No hay diferencias radiológicas entre ambos"],
+    ans:1,
+    exp:"Las diferencias clave entre osteosarcoma y sarcoma de Ewing: LOCALIZACIÓN: osteosarcoma en metáfisis (cerca del cartílago de crecimiento), Ewing en diáfisis. REACCIÓN PERIÓSTICA: osteosarcoma en 'sol naciente' (perpendicular), Ewing en 'capas de cebolla' (paralela/laminar). EDAD: osteosarcoma 10-25 años, Ewing 5-15 años. MASA PARTES BLANDAS: enorme en Ewing, moderada en osteosarcoma. SÍNTOMAS SISTÉMICOS: frecuentes en Ewing (fiebre).",
+    tip:"<strong>Osteosarcoma vs Ewing - tabla comparativa:</strong> OS: metáfisis, sol naciente, 15 años, no fiebre, FA/LDH elevadas. Ewing: diáfisis, capas cebolla, 10 años, fiebre/leucocitosis, t(11;22). Truco: Ewing = Diáfisis + cebolla + Diez años + fiebre. Osteosarcoma = metáfisis + Sol + adolescente mayor.",
+    ref:"GPC: Diagnóstico y Tratamiento de Tumores Óseos Malignos. SSA. 2010."
+  },
+  {
+    cat:"tx",catName:"Pronóstico",
+    q:"¿Cuál es el factor pronóstico más importante en el osteosarcoma localizado post-tratamiento?",
+    opts:["El tamaño del tumor al diagnóstico","El porcentaje de necrosis tumoral en la pieza quirúrgica tras la quimioterapia neoadyuvante","La edad del paciente al diagnóstico","El nivel de fosfatasa alcalina sérica preoperatoria"],
+    ans:1,
+    exp:"El porcentaje de necrosis histológica en la pieza quirúrgica (respuesta a la quimioterapia neoadyuvante) es el factor pronóstico más importante en el osteosarcoma: Buena respuesta: ≥90% de necrosis → supervivencia a 5 años ~75-85%. Mala respuesta: <90% de necrosis → supervivencia ~40-50%. Este dato orienta la modificación del esquema de quimioterapia adyuvante. El sistema de Huvos (grados I-IV) cuantifica la respuesta.",
+    tip:"<strong>Sistema de Huvos:</strong> Grado I = <50% necrosis (mala respuesta). Grado II = 50-89% necrosis. Grado III = 90-99% necrosis. Grado IV = 100% necrosis (respuesta completa, mejor pronóstico). ≥90% necrosis = buena respuesta. Esta es la única forma de saber si la QT neoadyuvante funcionó, y guía la QT adyuvante.",
+    ref:"GPC: Diagnóstico y Tratamiento del Osteosarcoma. SSA/CENETEC. 2010."
+  }
+];
+
+let currentQ=0,score=0,answers=[];
+let catStats={dx:{c:0,t:0},tx:{c:0,t:0},cx:{c:0,t:0},lab:{c:0,t:0}};
+
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+function init(){shuffle(questions);currentQ=0;score=0;answers=[];catStats={dx:{c:0,t:0},tx:{c:0,t:0},cx:{c:0,t:0},lab:{c:0,t:0}};const r=document.getElementById('resultsArea');r.classList.remove('show');r.innerHTML='';document.getElementById('nextBtn').classList.remove('show');renderQuestion();}
+function renderQuestion(){const qa=questions[currentQ];const total=questions.length;document.getElementById('progressBar').style.width=(currentQ/total*100)+'%';document.getElementById('progressText').textContent=`${currentQ+1} / ${total}`;document.getElementById('nextBtn').classList.remove('show');const letters=['A','B','C','D'];let html=`<div class="question-card"><div class="q-category cat-${qa.cat}">${qa.catName}</div><div class="q-number">Pregunta ${currentQ+1} de ${total}</div><div class="q-text">${qa.q}</div><div class="options">`;qa.opts.forEach((opt,i)=>{html+=`<button class="option-btn" onclick="selectAnswer(${i})" data-idx="${i}"><span class="option-letter">${letters[i]}</span><span>${opt}</span></button>`;});html+=`</div><div class="feedback" id="feedback"></div></div>`;document.getElementById('quizArea').innerHTML=html;}
+function selectAnswer(idx){const qa=questions[currentQ];const btns=document.querySelectorAll('.option-btn');const fb=document.getElementById('feedback');const isCorrect=idx===qa.ans;btns.forEach((btn,i)=>{btn.classList.add('disabled');btn.onclick=null;if(i===qa.ans)btn.classList.add('correct-answer');if(i===idx&&!isCorrect)btn.classList.add('wrong-answer');});if(!catStats[qa.cat])catStats[qa.cat]={c:0,t:0};catStats[qa.cat].t++;if(isCorrect){score++;catStats[qa.cat].c++;}if(!examMode){if(isCorrect){fb.className='feedback correct-fb show';fb.innerHTML=`<div class="feedback-title">✅ ¡Correcto!</div><div>${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;}else{fb.className='feedback wrong-fb show';fb.innerHTML=`<div class="feedback-title">❌ Incorrecto</div><div><strong>Respuesta correcta:</strong> ${qa.opts[qa.ans]}</div><div style="margin-top:8px;">${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;}}answers.push({q:qa.q,correct:isCorrect,userAns:qa.opts[idx],correctAns:qa.opts[qa.ans],cat:qa.catName,exp:qa.exp,tip:qa.tip,ref:qa.ref});document.getElementById('nextBtn').classList.add('show');}
+function nextQuestion(){currentQ++;if(currentQ>=questions.length)showResults();else renderQuestion();}
+function showResults(){document.getElementById('quizArea').innerHTML='';document.getElementById('nextBtn').classList.remove('show');document.getElementById('progressBar').style.width='100%';document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;const pct=Math.round((score/questions.length)*100);let msg=pct>=90?'🏆 ¡Excelente dominio del tema! Listo para el ENARM.':pct>=70?'👏 ¡Muy bien! Repasa las áreas con menor puntaje.':pct>=50?'📚 Aceptable, pero hay áreas de oportunidad importantes.':'⚠️ Necesitas reforzar este tema. Revisa las GPC correspondientes.';const cats=[{name:'Diagnóstico',key:'dx',color:'#38bdf8'},{name:'Imagen/Lab',key:'lab',color:'#34d399'},{name:'Tratamiento',key:'tx',color:'#a78bfa'},{name:'Complicaciones',key:'cx',color:'#f472b6'}];let html=`<div class="results-header"><div class="score-big">${pct}%</div><div class="score-label">${score} de ${questions.length} correctas</div><div class="score-msg">${msg}</div></div><div class="chart-section"><div class="chart-title"><span>📊</span> Rendimiento por Categoría</div><div class="bar-chart">`;cats.forEach(cat=>{const s=catStats[cat.key]||{c:0,t:0};const p=s.t>0?Math.round((s.c/s.t)*100):0;html+=`<div class="bar-row"><div class="bar-label">${cat.name}</div><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${cat.color};">${p}% (${s.c}/${s.t})</div></div></div>`;});html+=`</div></div><div class="chart-section"><div class="chart-title"><span>🎯</span> Resumen General</div><div class="donut-wrap"><svg class="donut-svg" viewBox="0 0 42 42"><circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a2235" stroke-width="4"/><circle cx="21" cy="21" r="15.915" fill="none" stroke="#34d399" stroke-width="4" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="25" stroke-linecap="round"/><circle cx="21" cy="21" r="15.915" fill="none" stroke="#f87171" stroke-width="4" stroke-dasharray="${100-pct} ${pct}" stroke-dashoffset="${25-pct}" stroke-linecap="round"/><text x="21" y="22.5" text-anchor="middle" font-size="6" font-weight="700" fill="#e8ecf4" font-family="Plus Jakarta Sans">${pct}%</text></svg><div class="donut-legend"><div class="legend-item"><div class="legend-dot" style="background:#34d399;"></div>Correctas: ${score}</div><div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Incorrectas: ${questions.length-score}</div><div class="legend-item"><div class="legend-dot" style="background:#38bdf8;"></div>Total: ${questions.length}</div></div></div></div><div class="chart-section"><div class="chart-title"><span>📋</span> Revisión de Respuestas</div>`;answers.forEach((a,i)=>{html+=`<div class="review-card ${a.correct?'review-correct':'review-wrong'}"><div class="review-q">${i+1}. ${a.q} <span style="font-size:0.72rem;color:var(--text-dim);">[${a.cat}]</span></div><div class="review-answer">${a.correct?`<strong>✅ ${a.correctAns}</strong>`:`<em>❌ Tu respuesta: ${a.userAns}</em><br><strong>✅ Correcta: ${a.correctAns}</strong>`}</div><div style="margin-top:8px;font-size:0.8rem;color:var(--text-dim);line-height:1.5;">${a.exp}</div><div style="margin-top:6px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;">📖 ${a.ref}</div></div>`;});html+=`</div><button class="retry-btn" onclick="init()">🔄 Reintentar</button>`;const res=document.getElementById('resultsArea');res.innerHTML=html;res.classList.add('show');res.scrollIntoView({behavior:'smooth'});}
+function toggleSpec(h){h.classList.toggle('open');h.nextElementSibling.classList.toggle('open');}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+init();
+</script>
+</body>
+</html>

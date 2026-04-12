@@ -83,8 +83,11 @@
       bg: 'rgba(45,212,191,0.12)',
       label: 'Traumatología y Ortopedia',
       topics: [
-        { num:'38', label:'Fracturas miembro superior', file:'38-fracturas-miembro-superior.html', ready:true },
-        { num:'39', label:'Fracturas miembro inferior', file:'39-fracturas-miembro-inferior.html', ready:true },
+        { num:'38', label:'Fracturas miembro superior',       file:'38-fracturas-miembro-superior.html',      ready:true },
+        { num:'39', label:'Fracturas miembro inferior',       file:'39-fracturas-miembro-inferior.html',      ready:true },
+        { num:'40', label:'Luxaciones y Partes Blandas',      file:'40-luxaciones-partes-blandas.html',       ready:true },
+        { num:'41', label:'Tumores óseos benignos',           file:'41-tumores-oseos-benignos.html',          ready:true },
+        { num:'42', label:'Tumores óseos malignos',           file:'42-tumores-oseos-malignos.html',          ready:true },
       ]
     },
     {
@@ -99,6 +102,8 @@
         { num:'33', label:'Cáncer próstata / vejiga',          file:'33-cancer-prostata-vejiga.html',          ready:true },
         { num:'34', label:'Hiperplasia prostática',            file:'34-hiperplasia-prostatica.html',          ready:true },
         { num:'35', label:'Disfunción eréctil / Infertilidad', file:'35-disfuncion-erectil-infertilidad.html', ready:true },
+        { num:'Uro', label:'Cáncer renal',                    file:'cancer-renal.html',                       ready:true },
+        { num:'Uro', label:'Tumores testiculares',             file:'tumores-testiculares.html',               ready:true },
       ]
     },
     // ── Próximas especialidades ─────────────────────────────────────────
