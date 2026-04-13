@@ -146,6 +146,7 @@
       topics: [
         { num:'Sim', label:'Simulador LAST — Intoxicación por AL', file:'40-intoxicacion-last-simulador.html', ready:true },
         { num:'Sim', label:'DAS 2025 · Vía Aérea Difícil',        file:'das-anestesia.html',                  ready:true },
+        { num:'Sim', label:'Bloqueos Regionales — Plexo Braquial', file:'bloqueos-regionales.html',           ready:true },
       ]
     },
   ];
