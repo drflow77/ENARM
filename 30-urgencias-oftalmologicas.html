@@ -3,33 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Urgencias Oftalmológicas — ENARM · Oftalmología · Tema 30</title>
+<title>Superficie Ocular y Urgencias — ENARM · Oftalmología · Tema 30</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 
   :root {
     --bg: #0a0e1a; --surface: #111827; --surface2: #1a2235; --surface3: #212d45;
     --border: #2a3a5c; --text: #e8ecf4; --text-dim: #8896b3;
-    --accent: #38bdf8; --accent-glow: rgba(56,189,248,0.15);
+    --accent: #34d399; --accent-glow: rgba(52,211,153,0.15);
     --correct: #34d399; --correct-bg: rgba(52,211,153,0.1); --correct-border: rgba(52,211,153,0.4);
     --wrong: #f87171; --wrong-bg: rgba(248,113,113,0.1); --wrong-border: rgba(248,113,113,0.4);
-    --gold: #fbbf24; --purple: #a78bfa; --pink: #f472b6; --teal: #2dd4bf;
+    --gold: #fbbf24; --purple: #a78bfa; --pink: #f472b6; --teal: #2dd4bf; --blue: #38bdf8;
     --sidebar-w: 280px; --radius: 14px;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; display:flex; }
 
+  /* ── Sidebar ── */
   .sidebar {
     width:var(--sidebar-w); min-height:100vh; background:var(--surface);
     border-right:1px solid var(--border); display:flex; flex-direction:column;
     position:fixed; left:0; top:0; bottom:0; overflow-y:auto; z-index:100; transition:transform 0.3s;
   }
   .sidebar-logo { padding:24px 20px 16px; border-bottom:1px solid var(--border); }
-  .logo-badge { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,var(--accent),var(--purple)); padding:6px 14px; border-radius:100px; font-size:0.75rem; font-weight:800; color:var(--bg); letter-spacing:0.5px; text-transform:uppercase; margin-bottom:10px; }
-  .sidebar-logo h2 { font-size:1.1rem; font-weight:800; background:linear-gradient(135deg,var(--text),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .logo-badge { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,var(--blue),var(--purple)); padding:6px 14px; border-radius:100px; font-size:0.75rem; font-weight:800; color:var(--bg); letter-spacing:0.5px; text-transform:uppercase; margin-bottom:10px; }
+  .sidebar-logo h2 { font-size:1.1rem; font-weight:800; background:linear-gradient(135deg,var(--text),var(--blue)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
   .sidebar-logo p { font-size:0.72rem; color:var(--text-dim); margin-top:2px; }
   .back-btn { display:flex; align-items:center; gap:8px; padding:14px 20px; color:var(--text-dim); font-size:0.8rem; text-decoration:none; border-bottom:1px solid var(--border); transition:color 0.2s; }
-  .back-btn:hover { color:var(--accent); }
+  .back-btn:hover { color:var(--blue); }
   .sidebar-nav { flex:1; padding:12px 0 24px; }
   .specialty-header { display:flex; align-items:center; justify-content:space-between; padding:10px 16px 10px 20px; cursor:pointer; transition:background 0.2s; user-select:none; }
   .specialty-header:hover { background:var(--surface2); }
@@ -41,433 +42,504 @@
   .topics-list.open { display:block; }
   .topic-link { display:flex; align-items:center; gap:10px; padding:8px 16px 8px 56px; font-size:0.78rem; color:var(--text-dim); text-decoration:none; transition:all 0.2s; border-left:2px solid transparent; line-height:1.4; }
   .topic-link:hover { color:var(--text); background:var(--surface3); }
-  .topic-link.active { color:#34d399; border-left-color:#34d399; background:rgba(52,211,153,0.12); font-weight:600; }
+  .topic-link.active { color:var(--accent); border-left-color:var(--accent); background:rgba(52,211,153,0.12); font-weight:600; }
   .topic-link.coming-soon { opacity:0.4; cursor:not-allowed; pointer-events:none; }
   .topic-num { font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--text-dim); min-width:20px; }
   .badge-soon { margin-left:auto; background:rgba(136,150,179,0.1); color:var(--text-dim); font-size:0.62rem; font-weight:600; padding:2px 7px; border-radius:100px; }
   .badge-ready { margin-left:auto; background:rgba(52,211,153,0.12); color:#34d399; font-size:0.62rem; font-weight:600; padding:2px 7px; border-radius:100px; }
-  .star-tag { margin-left:auto; font-size:0.7rem; }
 
-  .main { margin-left:var(--sidebar-w); flex:1; display:flex; flex-direction:column; }
-  .container { max-width:760px; margin:0 auto; padding:20px 16px 40px; width:100%; }
+  /* ── Main ── */
+  .main-wrap { margin-left:var(--sidebar-w); flex:1; display:flex; flex-direction:column; min-height:100vh; }
+  .top-bar { padding:20px 32px 0; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+  .topic-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(52,211,153,0.12); color:var(--accent); font-size:0.72rem; font-weight:700; padding:5px 12px; border-radius:100px; border:1px solid rgba(52,211,153,0.2); }
+  .mode-toggle { display:flex; gap:8px; }
+  .mode-btn { padding:7px 18px; border-radius:8px; border:1px solid var(--border); background:var(--surface2); color:var(--text-dim); font-family:inherit; font-size:0.78rem; font-weight:600; cursor:pointer; transition:all 0.2s; }
+  .mode-btn.active { background:var(--accent); color:var(--bg); border-color:transparent; }
 
-  .mode-bar { display:flex; align-items:center; gap:10px; margin:24px 0 20px; background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:6px; width:fit-content; }
-  .mode-btn { padding:8px 20px; border-radius:100px; border:none; cursor:pointer; font-family:inherit; font-size:0.82rem; font-weight:600; transition:all 0.2s; color:var(--text-dim); background:transparent; }
-  .mode-btn.active { background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); }
+  .hero { padding:24px 32px 20px; }
+  .hero h1 { font-size:1.55rem; font-weight:800; background:linear-gradient(135deg,var(--text) 60%,var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:4px; }
+  .hero p { font-size:0.82rem; color:var(--text-dim); }
+  .progress-row { display:flex; align-items:center; gap:12px; margin-top:14px; }
+  .progress-track { flex:1; height:5px; background:var(--surface3); border-radius:3px; overflow:hidden; }
+  .progress-fill { height:100%; background:linear-gradient(90deg,var(--accent),var(--teal)); border-radius:3px; transition:width 0.4s ease; }
+  .progress-label { font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--text-dim); white-space:nowrap; }
 
-  .header { text-align:center; padding:40px 20px 24px; position:relative; overflow:hidden; }
-  .header::before { content:''; position:absolute; top:-60%; left:50%; transform:translateX(-50%); width:600px; height:600px; background:radial-gradient(circle,rgba(56,189,248,0.08) 0%,transparent 70%); pointer-events:none; }
-  .header-badge { display:inline-flex; align-items:center; gap:8px; background:var(--surface2); border:1px solid var(--border); padding:6px 16px; border-radius:100px; font-size:0.78rem; color:var(--accent); font-weight:600; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:16px; }
-  .header h1 { font-size:clamp(1.6rem,5vw,2.2rem); font-weight:800; background:linear-gradient(135deg,var(--text) 0%,var(--accent) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:8px; }
-  .header p { color:var(--text-dim); font-size:0.95rem; max-width:500px; margin:0 auto; }
+  /* ── Category badge colors ── */
+  .cat-conj { background:rgba(45,212,191,0.12);  color:#2dd4bf; }
+  .cat-alrg { background:rgba(244,114,182,0.12); color:#f472b6; }
+  .cat-seco { background:rgba(56,189,248,0.12);  color:#38bdf8; }
+  .cat-qrat { background:rgba(251,191,36,0.12);  color:#fbbf24; }
+  .cat-pter { background:rgba(52,211,153,0.12);  color:#34d399; }
+  .cat-trau { background:rgba(251,146,60,0.12);  color:#fb923c; }
+  .cat-endo { background:rgba(248,113,113,0.12); color:#f87171; }
+  .cat-rop  { background:rgba(167,139,250,0.12); color:#a78bfa; }
+  .cat-celo { background:rgba(129,140,248,0.12); color:#818cf8; }
 
-  .progress-wrap { background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:12px 20px; margin:20px 0 28px; display:flex; align-items:center; gap:14px; }
-  .progress-bar-bg { flex:1; height:8px; background:var(--surface3); border-radius:100px; overflow:hidden; }
-  .progress-bar-fill { height:100%; width:0%; background:linear-gradient(90deg,var(--accent),var(--purple)); border-radius:100px; transition:width 0.5s ease; }
-  .progress-text { font-size:0.82rem; font-weight:600; color:var(--text-dim); white-space:nowrap; font-family:'JetBrains Mono',monospace; }
+  /* ── Card ── */
+  .quiz-area { padding:0 32px 32px; flex:1; }
+  .q-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:28px; margin-bottom:16px; position:relative; }
+  .q-card-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; flex-wrap:wrap; gap:8px; }
+  .cat-badge { font-size:0.7rem; font-weight:700; padding:4px 11px; border-radius:100px; }
+  .q-num { font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--text-dim); }
+  .q-text { font-size:1rem; font-weight:600; line-height:1.55; color:var(--text); margin-bottom:20px; }
+  .options { display:flex; flex-direction:column; gap:9px; }
+  .opt-btn {
+    display:flex; align-items:center; gap:14px; padding:13px 16px;
+    background:var(--surface2); border:1px solid var(--border); border-radius:10px;
+    color:var(--text-dim); font-family:inherit; font-size:0.88rem; font-weight:500;
+    cursor:pointer; transition:all 0.2s; text-align:left;
+  }
+  .opt-btn:hover:not(:disabled) { border-color:var(--accent); color:var(--text); background:var(--surface3); }
+  .opt-btn.correct { background:var(--correct-bg); border-color:var(--correct-border); color:var(--correct); }
+  .opt-btn.wrong   { background:var(--wrong-bg);   border-color:var(--wrong-border);   color:var(--wrong); }
+  .opt-btn.reveal  { background:var(--correct-bg); border-color:var(--correct-border); color:var(--correct); opacity:0.7; }
+  .opt-btn:disabled { cursor:default; }
+  .opt-letter { font-family:'JetBrains Mono',monospace; font-size:0.75rem; font-weight:700; min-width:26px; height:26px; border-radius:6px; background:var(--surface3); display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:background 0.2s,color 0.2s; }
+  .opt-btn.correct .opt-letter { background:var(--correct); color:var(--bg); }
+  .opt-btn.wrong   .opt-letter { background:var(--wrong);   color:var(--bg); }
+  .opt-btn.reveal  .opt-letter { background:var(--correct); color:var(--bg); }
 
-  .question-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:28px 24px; margin-bottom:20px; animation:slideIn 0.4s ease; position:relative; overflow:hidden; }
-  .question-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--gold),var(--accent),var(--purple)); }
-  @keyframes slideIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  /* ── Feedback ── */
+  .feedback { margin-top:18px; padding:16px 18px; background:var(--surface2); border-left:3px solid var(--accent); border-radius:0 10px 10px 0; display:none; }
+  .feedback.show { display:block; animation:fadeIn 0.3s ease; }
+  .feedback-header { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+  .feedback-icon { font-size:1rem; }
+  .feedback-label { font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--accent); }
+  .feedback p { font-size:0.84rem; line-height:1.6; color:var(--text-dim); }
+  .feedback strong { color:var(--text); }
+  .tip-row { margin-top:8px; display:flex; gap:6px; flex-wrap:wrap; }
+  .tip-tag { font-size:0.72rem; background:rgba(56,189,248,0.1); color:var(--blue); padding:3px 9px; border-radius:100px; font-weight:600; }
 
-  .q-category { display:inline-flex; align-items:center; gap:6px; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; padding:4px 12px; border-radius:100px; margin-bottom:14px; }
-  .cat-rojo { background:rgba(244,114,182,0.12); color:#f472b6; }
-  .cat-ret  { background:rgba(251,191,36,0.12);  color:#fbbf24; }
-  .cat-oac  { background:rgba(56,189,248,0.12);  color:#38bdf8; }
-  .cat-cata { background:rgba(52,211,153,0.12);  color:#34d399; }
-  .cat-uv   { background:rgba(167,139,250,0.12); color:#a78bfa; }
+  /* ── Nav buttons ── */
+  .nav-row { display:flex; justify-content:flex-end; gap:10px; margin-top:16px; }
+  .btn-next { padding:10px 24px; background:var(--accent); border:none; border-radius:9px; color:var(--bg); font-family:inherit; font-size:0.85rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+  .btn-next:hover { filter:brightness(1.1); }
+  .btn-next:disabled { opacity:0.35; cursor:not-allowed; }
 
-  .q-number { font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--text-dim); margin-bottom:10px; }
-  .q-text { font-size:1.05rem; font-weight:600; line-height:1.55; margin-bottom:20px; color:var(--text); }
+  /* ── Results ── */
+  .results-panel { display:none; padding:32px; }
+  .results-panel.show { display:block; }
+  .result-hero { text-align:center; margin-bottom:32px; }
+  .score-circle { width:120px; height:120px; border-radius:50%; border:4px solid var(--accent); display:flex; flex-direction:column; align-items:center; justify-content:center; margin:0 auto 16px; background:var(--correct-bg); }
+  .score-number { font-family:'JetBrains Mono',monospace; font-size:2rem; font-weight:800; color:var(--accent); line-height:1; }
+  .score-denom { font-family:'JetBrains Mono',monospace; font-size:0.85rem; color:var(--text-dim); }
+  .result-msg { font-size:1.1rem; font-weight:700; color:var(--text); margin-bottom:4px; }
+  .result-sub { font-size:0.82rem; color:var(--text-dim); }
+  .stats-grid { display:grid; gap:10px; margin-bottom:28px; }
+  .stat-row { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 16px; }
+  .stat-label { font-size:0.78rem; font-weight:600; margin-bottom:7px; display:flex; justify-content:space-between; }
+  .stat-label span:last-child { font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--text-dim); }
+  .stat-bar-track { height:6px; background:var(--surface3); border-radius:3px; overflow:hidden; }
+  .stat-bar-fill { height:100%; border-radius:3px; transition:width 0.6s ease; }
+  .btn-restart { display:block; width:100%; padding:14px; background:var(--surface2); border:1px solid var(--border); border-radius:10px; color:var(--text); font-family:inherit; font-size:0.9rem; font-weight:700; cursor:pointer; transition:all 0.2s; margin-top:8px; }
+  .btn-restart:hover { border-color:var(--accent); color:var(--accent); }
 
-  .options { display:flex; flex-direction:column; gap:10px; }
-  .option-btn { display:flex; align-items:flex-start; gap:12px; padding:14px 16px; background:var(--surface2); border:1.5px solid var(--border); border-radius:12px; cursor:pointer; transition:all 0.2s; text-align:left; font-size:0.92rem; color:var(--text); font-family:inherit; line-height:1.5; width:100%; }
-  .option-btn:hover:not(.disabled) { border-color:var(--accent); background:var(--accent-glow); transform:translateX(4px); }
-  .option-letter { display:flex; align-items:center; justify-content:center; min-width:30px; height:30px; border-radius:8px; background:var(--surface3); font-weight:700; font-size:0.82rem; color:var(--accent); flex-shrink:0; }
-  .option-btn.correct-answer { border-color:var(--correct-border); background:var(--correct-bg); }
-  .option-btn.correct-answer .option-letter { background:var(--correct); color:var(--bg); }
-  .option-btn.wrong-answer { border-color:var(--wrong-border); background:var(--wrong-bg); }
-  .option-btn.wrong-answer .option-letter { background:var(--wrong); color:var(--bg); }
-  .option-btn.disabled { cursor:default; }
-  .option-btn.disabled:hover { transform:none; }
-
-  .feedback { margin-top:18px; padding:18px; border-radius:12px; font-size:0.88rem; line-height:1.65; animation:fadeIn 0.3s ease; display:none; }
-  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
-  .feedback.show { display:block; }
-  .feedback.correct-fb { background:var(--correct-bg); border:1px solid var(--correct-border); color:var(--correct); }
-  .feedback.wrong-fb { background:var(--wrong-bg); border:1px solid var(--wrong-border); color:#fca5a5; }
-  .feedback-title { font-weight:700; font-size:0.95rem; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
-  .feedback .tip { margin-top:10px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.08); color:var(--text-dim); font-size:0.82rem; }
-  .feedback .tip strong { color:var(--gold); }
-  .feedback .ref { margin-top:8px; font-size:0.75rem; color:var(--text-dim); opacity:0.7; font-style:italic; }
-
-  .next-btn { display:none; margin:20px auto 0; padding:12px 32px; background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:0.92rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
-  .next-btn:hover { transform:scale(1.05); box-shadow:0 4px 24px var(--accent-glow); }
-  .next-btn.show { display:block; }
-
-  .results { display:none; animation:slideIn 0.5s ease; }
-  .results.show { display:block; }
-  .results-header { text-align:center; padding:30px 20px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:20px; position:relative; overflow:hidden; }
-  .results-header::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--correct),var(--accent),var(--purple),var(--pink)); }
-  .score-big { font-size:3.5rem; font-weight:800; background:linear-gradient(135deg,var(--correct),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-  .score-label { font-size:1.1rem; color:var(--text-dim); margin-top:4px; }
-  .score-msg { margin-top:12px; font-size:0.95rem; color:var(--text); font-weight:500; }
-  .chart-section { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px 20px; margin-bottom:20px; }
-  .chart-title { font-size:0.95rem; font-weight:700; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
-  .bar-chart { display:flex; flex-direction:column; gap:14px; }
-  .bar-row { display:flex; align-items:center; gap:12px; }
-  .bar-label { width:130px; font-size:0.78rem; font-weight:600; text-align:right; color:var(--text-dim); flex-shrink:0; }
-  .bar-track { flex:1; height:28px; background:var(--surface3); border-radius:8px; overflow:hidden; }
-  .bar-fill { height:100%; border-radius:8px; transition:width 1s ease; display:flex; align-items:center; padding-left:10px; font-size:0.75rem; font-weight:700; color:var(--bg); min-width:fit-content; }
-  .donut-wrap { display:flex; align-items:center; justify-content:center; gap:30px; flex-wrap:wrap; }
-  .donut-svg { width:160px; height:160px; }
-  .donut-legend { display:flex; flex-direction:column; gap:10px; }
-  .legend-item { display:flex; align-items:center; gap:10px; font-size:0.84rem; }
-  .legend-dot { width:12px; height:12px; border-radius:4px; flex-shrink:0; }
-  .review-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; margin-bottom:12px; }
-  .review-card.review-correct { border-left:4px solid var(--correct); }
-  .review-card.review-wrong { border-left:4px solid var(--wrong); }
-  .review-q { font-size:0.88rem; font-weight:600; margin-bottom:8px; }
-  .review-answer { font-size:0.82rem; color:var(--text-dim); line-height:1.5; }
-  .review-answer strong { color:var(--correct); }
-  .review-answer em { color:var(--wrong); font-style:normal; }
-  .retry-btn { display:block; margin:28px auto; padding:14px 40px; background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:1rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
-  .retry-btn:hover { transform:scale(1.05); }
-  .hamburger { display:none; position:fixed; top:16px; left:16px; z-index:200; background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:10px; cursor:pointer; font-size:1.2rem; }
-  .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:90; }
-  .footer { text-align:center; padding:20px; color:var(--text-dim); font-size:0.72rem; opacity:0.5; }
-
-  @media(max-width:768px) {
+  @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+  @media (max-width:768px) {
     .sidebar { transform:translateX(-100%); }
-    .sidebar.open { transform:translateX(0); }
-    .main { margin-left:0; }
-    .hamburger { display:flex; align-items:center; justify-content:center; }
-    .overlay.show { display:block; }
-    .container { padding:12px 10px 30px; }
-    .question-card { padding:20px 16px; }
-    .bar-label { width:90px; font-size:0.72rem; }
-    .mode-bar { margin:16px auto; }
+    .main-wrap { margin-left:0; }
+    .hero, .top-bar, .quiz-area, .results-panel { padding-left:16px; padding-right:16px; }
   }
 </style>
-  <script src="sidebar.js"></script>
 </head>
 <body>
 
-<button class="hamburger" onclick="toggleSidebar()">☰</button>
-<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+<aside id="sidebar"></aside>
 
-<aside class="sidebar" id="sidebar"></aside>
-
-<main class="main">
-<div class="container">
-
-  <div class="header">
-    <div class="header-badge"><span>👁️</span> ENARM · Oftalmología · Tema 30</div>
-    <h1>Urgencias Oftalmológicas</h1>
-    <p>Ojo rojo · Desprendimiento de retina · Oclusión arteria central · Cataratas · Uveítis</p>
-  </div>
-
-  <div style="display:flex;justify-content:center;">
-    <div class="mode-bar">
-      <button class="mode-btn active" id="btnRepaso" onclick="setMode('repaso')">📖 Modo Repaso</button>
-      <button class="mode-btn" id="btnExamen" onclick="setMode('examen')">⏱️ Modo Examen</button>
+<div class="main-wrap">
+  <div class="top-bar">
+    <span class="topic-badge">👁️ Oftalmología · Tema 30</span>
+    <div class="mode-toggle">
+      <button class="mode-btn active" id="btn-repaso" onclick="setMode('repaso')">📖 Repaso</button>
+      <button class="mode-btn" id="btn-examen" onclick="setMode('examen')">📝 Examen</button>
     </div>
   </div>
 
-  <div class="progress-wrap">
-    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
-    <div class="progress-text" id="progressText">0 / 15</div>
+  <div class="hero">
+    <h1>Superficie Ocular y Urgencias</h1>
+    <p>9 Guías de Práctica Clínica · 27 preguntas · Conjuntivitis, Ojo Seco, Queratocono, Pterigión, Trauma, Endoftalmitis, ROP y Celulitis Orbitaria</p>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      <span class="progress-label" id="progressLabel">0 / 27</span>
+    </div>
   </div>
 
-  <div id="quizArea"></div>
-  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
-  <div class="results" id="resultsArea"></div>
-
-</div>
-<div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
-</main>
-
-<script>
-let examMode = false;
-
-function setMode(mode) {
-  examMode = (mode === 'examen');
-  document.getElementById('btnRepaso').classList.toggle('active', !examMode);
-  document.getElementById('btnExamen').classList.toggle('active', examMode);
-  init();
-}
-
-const questions = [
-  {
-    cat:"rojo", catName:"Ojo Rojo",
-    q:"Paciente de 28 años que acude por ojo rojo bilateral de 3 días de evolución, con secreción amarillo-verdosa abundante, sensación de parpados pegados al despertar, sin dolor y con agudeza visual normal. ¿Cuál es el diagnóstico más probable y el tratamiento de elección?",
-    opts:["Conjuntivitis viral; lavados con suero fisiológico","Conjuntivitis bacteriana; antibiótico tópico (ciprofloxacino o tobramicina colirio)","Queratitis bacteriana; aciclovir tópico","Uveítis anterior; corticoides tópicos"],
-    ans:1,
-    exp:"La conjuntivitis bacteriana se caracteriza por secreción mucopurulenta, bilateral (aunque puede iniciar unilateral), sin dolor significativo y con agudeza visual normal. La GPC recomienda antibióticos tópicos de amplio espectro como primera línea: ciprofloxacino, tobramicina o cloranfenicol colirio. La conjuntivitis viral se presenta con secreción acuosa y adenopatía preauricular.",
-    tip:"<strong>Clave diagnóstica del ojo rojo:</strong> Secreción purulenta = bacteriana (antibiótico tópico). Secreción acuosa + adenopatía preauricular = viral (autolimitada). Dolor + fotofobia + defecto epitelial = queratitis (urgencia). Dolor + miosis + precipitados queráticos = uveítis anterior.",
-    ref:"GPC: Diagnóstico y tratamiento de las conjuntivitis infecciosas en pacientes mayores de 1 año. SSA-CENETEC. 2008."
-  },
-  {
-    cat:"rojo", catName:"Ojo Rojo",
-    q:"Adulto de 35 años con ojo rojo unilateral, secreción acuosa clara, sensación de arenilla, adenopatía preauricular palpable y antecedente de infección respiratoria alta hace 5 días. Sin alteración de la agudeza visual. ¿Cuál es el diagnóstico?",
-    opts:["Conjuntivitis bacteriana aguda","Conjuntivitis viral (adenoviral)","Queratitis herpética","Escleritis anterior"],
-    ans:1,
-    exp:"La conjuntivitis viral, frecuentemente causada por adenovirus, se presenta con secreción acuosa o mucosa escasa, inicio unilateral que puede progresar a bilateral, adenopatía preauricular (hallazgo característico), sensación de cuerpo extraño y antecedente de infección respiratoria o contacto con caso similar. Es autolimitada (7-14 días). El tratamiento es sintomático (lágrimas artificiales, compresas frías).",
-    tip:"<strong>Adenopatía preauricular = Viral:</strong> Este signo distingue la conjuntivitis viral de la bacteriana. Los adenovirus causan el 65-90% de las conjuntivitis virales. Alta contagiosidad: lavado de manos frecuente, no compartir toallas. No prescribir antibióticos innecesarios.",
-    ref:"GPC: Diagnóstico y tratamiento de las conjuntivitis infecciosas en pacientes mayores de 1 año. SSA-CENETEC. 2008."
-  },
-  {
-    cat:"rojo", catName:"Ojo Rojo",
-    q:"Paciente de 42 años con antecedente de herpes labial recurrente presenta ojo rojo unilateral con dolor moderado, fotofobia intensa, lagrimeo y disminución leve de la agudeza visual. La tinción con fluoresceína revela una úlcera corneal con patrón dendrítico. ¿Cuál es el diagnóstico y tratamiento?",
-    opts:["Conjuntivitis bacteriana; tobramicina tópica","Queratitis herpética por VHS; aciclovir tópico 3% ungüento oftálmico","Úlcera corneal bacteriana; moxifloxacino tópico","Erosión corneal traumática; lubricantes oculares"],
-    ans:1,
-    exp:"La queratitis por virus herpes simplex (VHS) produce la úlcera dendrítica corneal, que es prácticamente patognomónica. Se visualiza con fluoresceína como una rama de árbol con terminaciones en bulbo. El tratamiento es aciclovir tópico al 3% ungüento oftálmico 5 veces al día por 7-10 días. Los corticoides tópicos están contraindicados pues empeoran la infección viral.",
-    tip:"<strong>Úlcera dendrítica = VHS:</strong> El patrón en rama de árbol con fluoresceína es diagnóstico. Contraindicado: corticoides tópicos (pueden causar perforación corneal). Referir a oftalmología. Si hay uveítis asociada, añadir aciclovir oral. No confundir con córnea en mariposa de VVZ (geográfica).",
-    ref:"GPC: Diagnóstico y tratamiento de la úlcera corneal en el primer y segundo nivel de atención. SSA-CENETEC. 2010."
-  },
-  {
-    cat:"rojo", catName:"Ojo Rojo",
-    q:"Mujer de 32 años con espondilitis anquilosante conocida presenta ojo rojo unilateral, dolor moderado, fotofobia, visión ligeramente borrosa y lagrimeo. A la lámpara de hendidura se observan precipitados queráticos finos en endotelio corneal, células y flare en cámara anterior, y miosis. ¿Cuál es el diagnóstico?",
-    opts:["Conjuntivitis alérgica aguda","Glaucoma agudo de ángulo cerrado","Uveítis anterior aguda (iritis/iridociclitis)","Queratitis bacteriana"],
-    ans:2,
-    exp:"La uveítis anterior se caracteriza por la tétrada: ojo rojo ciliar (perilímbico), dolor moderado, fotofobia y disminución de agudeza visual. Los hallazgos biomicroscópicos son precipitados queráticos (células inflamatorias en endotelio corneal), células y flare en cámara anterior, y miosis por espasmo esfinteriano. La asociación con HLA-B27 (espondilitis anquilosante, artritis reactiva) es la causa más frecuente de uveítis anterior en adultos jóvenes en México.",
-    tip:"<strong>HLA-B27 y ojo:</strong> Espondilitis anquilosante, artritis reactiva, artritis psoriásica y EII son las principales causas de uveítis anterior asociada a HLA-B27. Tratamiento: midriáticos (ciclopentolato) para romper sinequias + corticoides tópicos (prednisolona). Referir urgente a oftalmología.",
-    ref:"GPC: Diagnóstico y tratamiento de la uveítis en el adulto. IMSS-614-13. 2013."
-  },
-  {
-    cat:"ret", catName:"Retina / Vítreo",
-    q:"Paciente miope de 48 años refiere inicio súbito de múltiples 'moscas volantes' (miodesopsias) y destellos de luz (fotopsias) en ojo derecho desde hace 2 horas, sin pérdida de campo visual. ¿Cuál es la conducta más apropiada?",
-    opts:["Tranquilizar al paciente; es desprendimiento de vítreo posterior fisiológico, control en 6 meses","Referir urgente a oftalmología el mismo día para descartar desgarro retiniano","Iniciar tratamiento con vitaminas y antioxidantes oculares","Solicitar TAC de órbita urgente"],
-    ans:1,
-    exp:"El aumento súbito de miodesopsias acompañado de fotopsias es un signo de alarma que debe considerarse desgarro retiniano hasta demostrar lo contrario. Aunque el desprendimiento posterior de vítreo (DPV) es la causa más común y benigna, hasta el 10-15% de casos se asocian a desgarro retiniano que puede progresar a desprendimiento de retina. La GPC indica referencia urgente el mismo día para evaluación con oftalmoscopía indirecta y dilatación pupilar.",
-    tip:"<strong>Señales de alarma retiniana:</strong> Fotopsias (destellos) + miodesopsias nuevas = urgencia oftalmológica el mismo día. 'Cortina' o 'velo' en campo visual = probable desprendimiento de retina, referir inmediatamente. La miopía alta es factor de riesgo independiente para desgarros y desprendimiento.",
-    ref:"GPC: Diagnóstico y tratamiento del desprendimiento de retina regmatógeno en adultos. SSA-CENETEC. 2012."
-  },
-  {
-    cat:"ret", catName:"Retina / Vítreo",
-    q:"Hombre de 55 años miope alto refiere que desde ayer nota una 'cortina negra' que avanza desde la parte inferior de su campo visual derecho hacia el centro, asociada a fotopsias previas. La agudeza visual está disminuida. ¿Cuál es el diagnóstico y manejo?",
-    opts:["Hemorragia vítrea; observación y control en 4 semanas","Desprendimiento de retina regmatógeno; urgencia quirúrgica (vitrectomía o criopexia + cerclaje)","Oclusión de rama venosa retiniana; antiVEGF intravítreo","Neuritis óptica; metilprednisolona IV"],
-    ans:1,
-    exp:"El desprendimiento de retina regmatógeno se presenta con el fenómeno de 'cortina' o 'velo' que avanza en el campo visual, precedido de fotopsias y miodesopsias. Es una urgencia quirúrgica: sin tratamiento progresa a desprendimiento total con ceguera irreversible. El tratamiento es quirúrgico: criopexia o laserterapia para sellar desgarros + cerclaje escleral, o vitrectomía vía pars plana según extensión. La GPC establece que debe operarse dentro de las primeras 24-72 horas.",
-    tip:"<strong>Cortina en campo visual = Urgencia máxima:</strong> Si la mácula aún está aplicada (cortina periférica), el pronóstico visual es bueno con cirugía urgente. Si la mácula ya está desprendida (cortina central, visión central perdida), el pronóstico es peor aunque debe operarse igualmente. Tiempo = visión.",
-    ref:"GPC: Diagnóstico y tratamiento del desprendimiento de retina regmatógeno en adultos. SSA-CENETEC. 2012."
-  },
-  {
-    cat:"ret", catName:"Retina / Vítreo",
-    q:"Diabético tipo 2 de 60 años con retinopatía diabética proliferativa conocida refiere pérdida visual súbita e indolora en ojo izquierdo. A la exploración: agudeza visual solo percepción de luz, reflejo rojo ausente, no se visualiza fondo de ojo. ¿Cuál es el diagnóstico más probable?",
-    opts:["Oclusión de arteria central de la retina","Hemorragia vítrea","Desprendimiento de retina total","Neuropatía óptica isquémica anterior"],
-    ans:1,
-    exp:"La hemorragia vítrea se presenta con pérdida visual súbita e indolora, ausencia del reflejo rojo y fondo de ojo no visualizable. En el contexto de retinopatía diabética proliferativa, los neovasos frágiles sangran ante traumatismos menores o espontáneamente. El manejo inicial es reposo en posición semisentada para sedimentación, control glucémico estricto y referencia urgente. Si no se absorbe en 4-6 semanas, está indicada la vitrectomía.",
-    tip:"<strong>Reflejo rojo ausente:</strong> Pensar en hemorragia vítrea, catarata densa, desprendimiento de retina total o tumor intraocular. En diabético con RDP, la hemorragia vítrea es la causa más frecuente de pérdida visual súbita. Posición de Fowler 45° favorece la sedimentación inferior del hematoma.",
-    ref:"GPC: Diagnóstico y tratamiento de la retinopatía diabética. IMSS-179-09. 2009."
-  },
-  {
-    cat:"oac", catName:"Oclusiones Vasculares",
-    q:"Mujer de 68 años con hipertensión y fibrilación auricular acude por pérdida visual completa, súbita e indolora en ojo derecho desde hace 45 minutos. A la fundoscopía: retina pálida isquémica con mancha rojo cereza en fóvea, arteriolas en 'hilo de plata'. ¿Cuál es el diagnóstico y conducta inmediata?",
-    opts:["Neuritis óptica; iniciar metilprednisolona IV","Oclusión de arteria central de la retina (OACR); emergencia ocular, masaje ocular + paracentesis de cámara anterior + referencia inmediata","Desprendimiento de retina total; cirugía urgente","Oclusión de vena central de la retina; antiVEGF intravítreo"],
-    ans:1,
-    exp:"La oclusión de arteria central de la retina (OACR) es una emergencia oftalmológica equivalente al ACV isquémico. Se presenta con amaurosis súbita, indolora y unilateral. El fondo característico muestra retina pálida isquémica con mancha rojo cereza en la fóvea (por transparencia de la coroides intacta). El tiempo de isquemia retiniana tolerable es de 90-100 minutos antes de daño irreversible. Medidas inmediatas: masaje ocular digital (aumenta flujo), paracentesis de cámara anterior (reduce PIO), y referencia emergente. Buscar causa embolígena (carótida, corazón).",
-    tip:"<strong>OACR = ACV del ojo:</strong> Mancha rojo cereza en fóvea es el hallazgo patognomónico. Ventana terapéutica: &lt;90 min para esperar recuperación funcional. Estudiar urgente: ecocardio, Doppler carotídeo, holter (FA). Hasta 25% tienen ACV en los siguientes días — neurointervencionismo urgente si es oclusión carotídea.",
-    ref:"GPC: Diagnóstico y tratamiento de las oclusiones vasculares retinianas. SSA-CENETEC. 2011."
-  },
-  {
-    cat:"oac", catName:"Oclusiones Vasculares",
-    q:"Hombre de 62 años hipertenso y diabético con visión borrosa progresiva en ojo izquierdo de 3 semanas. La fundoscopía muestra hemorragias en 'llamaradas' en los 4 cuadrantes, edema de papila, dilatación y tortuosidad venosa, y manchas algodonosas. ¿Cuál es el diagnóstico?",
-    opts:["Retinopatía hipertensiva grado IV","Oclusión de vena central de la retina (OVCR)","Retinopatía diabética proliferativa","Desprendimiento de retina exudativo"],
-    ans:1,
-    exp:"La oclusión de vena central de la retina (OVCR) se presenta con el cuadro clásico de 'fundoscopía en tormenta de sangre': hemorragias en llama en los 4 cuadrantes (distribución en toda la retina), edema de papila, dilatación y tortuosidad de todas las venas retinianas, y exudados blandos (manchas algodonosas). Es más frecuente en hipertensos y diabéticos. Las complicaciones incluyen edema macular (causa de pérdida visual) y glaucoma neovascular.",
-    tip:"<strong>OVCR vs OACR:</strong> OVCR = 'sangre por todas partes' (hemorragias en 4 cuadrantes, venas ingurgitadas), visión borrosa progresiva. OACR = retina pálida + mancha rojo cereza, amaurosis súbita. Tratamiento OVCR: antiVEGF intravítreo para edema macular, fotocoagulación si hay neovasos.",
-    ref:"GPC: Diagnóstico y tratamiento de las oclusiones vasculares retinianas. SSA-CENETEC. 2011."
-  },
-  {
-    cat:"oac", catName:"Oclusiones Vasculares",
-    q:"Mujer de 71 años con antecedente de estenosis carotídea izquierda conocida presenta 3 episodios en la última semana de pérdida visual completa monocular izquierda de segundos a minutos de duración, con recuperación total espontánea. ¿Cómo se denomina este cuadro y cuál es la conducta?",
-    opts:["Aura migrañosa; tratamiento con triptanes","Amaurosis fugax; equivale a AIT ocular, estudio vascular urgente (Doppler carotídeo + ecocardio) y antiagregación","Espasmo de arteria central de retina; vasodilatadores","Diplopia transitoria; solicitar RMN cerebral"],
-    ans:1,
-    exp:"La amaurosis fugax es la pérdida visual monocular transitoria (segundos a minutos, &lt;1 hora) causada habitualmente por émbolos de colesterol (placas de Hollenhorst) o fibrina-plaquetarios provenientes de la carótida ipsilateral o el corazón. Es el equivalente ocular del AIT y predictor de ACV. La GPC indica estudio vascular urgente: Doppler carotídeo, ecocardiograma, holter, y antiagregación plaquetaria inmediata. Si hay estenosis carotídea significativa (&gt;70%), evaluar endarterectomía.",
-    tip:"<strong>Amaurosis fugax = AIT ocular:</strong> Pérdida visual monocular transitoria tipo 'persiana que baja y sube'. Riesgo de ACV en los siguientes días: 5-10%. Tratamiento inmediato: aspirina + estatina + control de factores de riesgo. Buscar placa de Hollenhorst en fundoscopía (punto brillante en bifurcación arteriolar).",
-    ref:"GPC: Diagnóstico y tratamiento de las oclusiones vasculares retinianas. SSA-CENETEC. 2011."
-  },
-  {
-    cat:"cata", catName:"Cataratas",
-    q:"Mujer de 72 años refiere disminución progresiva de agudeza visual bilateral de 2 años de evolución, mayor dificultad para leer y conducir de noche, y deslumbramiento con luces. A la exploración con lámpara de hendidura se observa opacificación nuclear del cristalino bilateral. ¿Cuál es el diagnóstico y la indicación quirúrgica?",
-    opts:["Degeneración macular asociada a edad; inyección antiVEGF","Catarata nuclear senil bilateral; indicación quirúrgica cuando la pérdida visual afecta la función diaria del paciente","Glaucoma crónico bilateral; timolol tópico","Retinopatía hipertensiva; control de presión arterial"],
-    ans:1,
-    exp:"La catarata nuclear senil es el tipo más frecuente en adultos mayores. Produce pérdida visual progresiva, 'miopización' senil (el paciente lee mejor de cerca temporalmente), halos y deslumbramiento nocturno. La GPC establece que la indicación quirúrgica no se basa en el grado de opacidad sino en la repercusión funcional: cuando la catarata interfiere con las actividades de la vida diaria (leer, conducir, trabajo). El tratamiento es quirúrgico: facoemulsificación con implante de lente intraocular (LIO).",
-    tip:"<strong>Indicación quirúrgica funcional:</strong> No existe un nivel de agudeza visual estándar para operar — la decisión es individualizada según las necesidades del paciente. Un piloto necesita operarse antes que alguien que no conduce. La facoemulsificación es el estándar de oro: incisión pequeña, sin puntos, recuperación rápida.",
-    ref:"GPC: Diagnóstico y tratamiento de la catarata en el adulto. IMSS-226-09. 2009."
-  },
-  {
-    cat:"cata", catName:"Cataratas",
-    q:"¿Cuál de los siguientes tipos de catarata se asocia típicamente al uso crónico de corticosteroides sistémicos o inhalados?",
-    opts:["Catarata nuclear senil","Catarata subcapsular posterior","Catarata subcapsular anterior","Catarata cortical periférica"],
-    ans:1,
-    exp:"La catarata subcapsular posterior es la forma característica asociada a uso de corticosteroides (sistémicos, tópicos o inhalados), diabetes mellitus, radiación y trauma ocular posterior. Se localiza en la cara posterior del cristalino justo debajo de la cápsula, y produce síntomas visuales desproporcionados (halos, fotofobia, dificultad en visión de cerca) porque se ubica exactamente en el eje pupilar. La GPC menciona este tipo como indicador de uso de esteroides.",
-    tip:"<strong>Catarata subcapsular posterior:</strong> Localización = eje pupilar = muy sintomática aunque sea pequeña. Asociaciones: corticoides (dosis y duración dependiente), DM (también causa subcapsular posterior), radiación, trauma. Los corticoides nasales e inhalados en dosis altas también la producen. Siempre preguntar por uso de esteroides.",
-    ref:"GPC: Diagnóstico y tratamiento de la catarata en el adulto. IMSS-226-09. 2009."
-  },
-  {
-    cat:"cata", catName:"Cataratas",
-    q:"Paciente diabético de 65 años con catarata hipermadura presenta dolor ocular intenso, ojo rojo, córnea edematosa y PIO de 52 mmHg. ¿Cuál es el diagnóstico de esta complicación y su manejo?",
-    opts:["Uveítis facoanafiláctica; corticoides intravítreos","Glaucoma facomórfico; reducción urgente de PIO (acetazolamida + timolol) + facoemulsificación urgente","Endoftalmitis postquirúrgica; antibióticos intravítreos","Glaucoma neovascular; panfotocoagulación retiniana"],
-    ans:1,
-    exp:"El glaucoma facomórfico es una complicación de la catarata hipermadura o intumescente: el cristalino aumenta de volumen y produce bloqueo pupilar con cierre angular secundario, elevando drásticamente la PIO. Es una urgencia oftalmológica. El manejo incluye reducción urgente de la PIO con acetazolamida IV/oral, betabloqueadores tópicos (timolol), manitol IV si es necesario, y posteriormente facoemulsificación urgente como tratamiento definitivo.",
-    tip:"<strong>Complicaciones de catarata hipermadura:</strong> Glaucoma facomórfico (cristalino grande obstruye ángulo) y uveítis facolítica (proteínas cristalinianas escapan y causan inflamación). Ambas son urgencias. La cirugía de catarata hipermadura es técnicamente difícil — referir a oftalmólogo experimentado.",
-    ref:"GPC: Diagnóstico y tratamiento de la catarata en el adulto. IMSS-226-09. 2009."
-  },
-  {
-    cat:"uv", catName:"Uveítis",
-    q:"Paciente inmunocompetente de 25 años presenta uveítis posterior con lesión blanca activa en polo posterior del ojo derecho adyacente a una cicatriz coriorretiniana pigmentada ('faro en la niebla'). Niega contacto con gatos pero consume carne poco cocida. ¿Cuál es el diagnóstico y tratamiento?",
-    opts:["Coriorretinitis por CMV; valganciclovir oral","Toxoplasmosis ocular; pirimetamina + sulfadiazina + ácido fólico + prednisona sistémica","Histoplasmosis ocular; anfotericina B IV","Sífilis ocular; penicilina G IV"],
-    ans:1,
-    exp:"La toxoplasmosis ocular es la causa más frecuente de uveítis posterior en México y Latinoamérica. El signo patognomónico es la lesión 'faro en la niebla': lesión blanca activa (retinocoroiditis activa) contigua a una cicatriz pigmentada (reactivación en borde de cicatriz previa). El tratamiento clásico incluye pirimetamina + sulfadiazina + ácido fólico (para prevenir supresión medular) + prednisona sistémica para reducir la inflamación.",
-    tip:"<strong>Toxoplasmosis = Causa #1 de uveítis posterior en México:</strong> 'Faro en la niebla' = lesión activa blanca + cicatriz adyacente. Vías de infección: carne mal cocida (principal en adultos), ooquistes de gato, congénita. Tratamiento alternativo: trimetoprima-sulfametoxazol (más disponible y económico en México). Ácido fólico imprescindible con pirimetamina.",
-    ref:"GPC: Diagnóstico y tratamiento de la uveítis en el adulto. IMSS-614-13. 2013."
-  },
-  {
-    cat:"uv", catName:"Uveítis",
-    q:"Paciente con VIH/SIDA con CD4 de 35 células/μL presenta pérdida visual progresiva unilateral indolora. La fundoscopía muestra áreas de necrosis retiniana periférica blanco-amarillenta con hemorragias en 'queso con catsup', siguiendo los vasos. ¿Cuál es el diagnóstico y tratamiento?",
-    opts:["Toxoplasmosis ocular; pirimetamina + sulfadiazina","Retinitis por citomegalovirus (CMV); ganciclovir IV o valganciclovir oral + TARV optimizado","Linfoma intraocular; metrotexato intravítreo","Criptococosis ocular; anfotericina B IV"],
-    ans:1,
-    exp:"La retinitis por CMV es la infección ocular oportunista más frecuente en pacientes con SIDA avanzado (CD4 &lt;50 células/μL). El patrón fundoscópico clásico es 'pizza de queso con catsup': áreas necróticas blanco-amarillentas (queso) con hemorragias (catsup), que siguen los vasos retinianos (distribución vascular). El tratamiento es ganciclovir IV o valganciclovir oral + optimización del TARV para recuperar inmunidad (principal tratamiento a largo plazo).",
-    tip:"<strong>CMV ocular en SIDA:</strong> CD4 &lt;50 = riesgo máximo de retinitis por CMV. 'Pizza' fundoscópica = diagnóstico clínico (no requiere biopsia). Sin tratamiento progresa a desprendimiento de retina y ceguera. El TARV efectivo (CD4 &gt;100) previene recurrencias y permite suspender profilaxis secundaria. Siempre explorar fondo en VIH con CD4 bajo.",
-    ref:"GPC: Diagnóstico y tratamiento de la uveítis en el adulto. IMSS-614-13. 2013."
-  }
-];
-
-let currentQ = 0, score = 0, answers = [];
-let catStats = { rojo:{c:0,t:0}, ret:{c:0,t:0}, oac:{c:0,t:0}, cata:{c:0,t:0}, uv:{c:0,t:0} };
-
-function shuffle(arr) {
-  for (let i=arr.length-1;i>0;i--) {
-    const j=Math.floor(Math.random()*(i+1));
-    [arr[i],arr[j]]=[arr[j],arr[i]];
-  }
-  return arr;
-}
-
-function init() {
-  shuffle(questions);
-  currentQ=0; score=0; answers=[];
-  catStats = { rojo:{c:0,t:0}, ret:{c:0,t:0}, oac:{c:0,t:0}, cata:{c:0,t:0}, uv:{c:0,t:0} };
-  const r=document.getElementById('resultsArea');
-  r.classList.remove('show'); r.innerHTML='';
-  document.getElementById('nextBtn').classList.remove('show');
-  renderQuestion();
-}
-
-function renderQuestion() {
-  const qa=questions[currentQ], total=questions.length;
-  document.getElementById('progressBar').style.width=(currentQ/total*100)+'%';
-  document.getElementById('progressText').textContent=`${currentQ+1} / ${total}`;
-  document.getElementById('nextBtn').classList.remove('show');
-  const letters=['A','B','C','D'];
-  let html=`<div class="question-card">
-    <div class="q-category cat-${qa.cat}">${qa.catName}</div>
-    <div class="q-number">Pregunta ${currentQ+1} de ${total}</div>
-    <div class="q-text">${qa.q}</div>
-    <div class="options">`;
-  qa.opts.forEach((opt,i)=>{
-    html+=`<button class="option-btn" onclick="selectAnswer(${i})" data-idx="${i}">
-      <span class="option-letter">${letters[i]}</span><span>${opt}</span></button>`;
-  });
-  html+=`</div><div class="feedback" id="feedback"></div></div>`;
-  document.getElementById('quizArea').innerHTML=html;
-}
-
-function selectAnswer(idx) {
-  const qa=questions[currentQ];
-  const btns=document.querySelectorAll('.option-btn');
-  const fb=document.getElementById('feedback');
-  const isCorrect=idx===qa.ans;
-  btns.forEach((btn,i)=>{
-    btn.classList.add('disabled'); btn.onclick=null;
-    if(i===qa.ans) btn.classList.add('correct-answer');
-    if(i===idx&&!isCorrect) btn.classList.add('wrong-answer');
-  });
-  if(!catStats[qa.cat]) catStats[qa.cat]={c:0,t:0};
-  catStats[qa.cat].t++;
-  if(isCorrect){score++;catStats[qa.cat].c++;}
-  if(!examMode){
-    fb.className=isCorrect?'feedback correct-fb show':'feedback wrong-fb show';
-    fb.innerHTML=isCorrect
-      ?`<div class="feedback-title">✅ ¡Correcto!</div><div>${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`
-      :`<div class="feedback-title">❌ Incorrecto</div><div><strong>Respuesta correcta:</strong> ${qa.opts[qa.ans]}</div><div style="margin-top:8px;">${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;
-  }
-  answers.push({q:qa.q,correct:isCorrect,userAns:qa.opts[idx],correctAns:qa.opts[qa.ans],cat:qa.catName,exp:qa.exp,ref:qa.ref});
-  document.getElementById('nextBtn').classList.add('show');
-}
-
-function nextQuestion() {
-  currentQ++;
-  if(currentQ>=questions.length) showResults();
-  else renderQuestion();
-}
-
-function showResults() {
-  document.getElementById('quizArea').innerHTML='';
-  document.getElementById('nextBtn').classList.remove('show');
-  document.getElementById('progressBar').style.width='100%';
-  document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;
-  const pct=Math.round((score/questions.length)*100);
-  const msg=pct>=90?'🏆 ¡Excelente manejo de urgencias oftalmológicas!':pct>=70?'👏 ¡Muy bien! Repasa los temas con menor puntaje.':pct>=50?'📚 Aceptable, refuerza las áreas débiles.':'⚠️ Revisa las GPC de oftalmología.';
-  const cats=[
-    {name:'Ojo Rojo',key:'rojo',color:'#f472b6'},
-    {name:'Retina / Vítreo',key:'ret',color:'#fbbf24'},
-    {name:'Oclusiones Vasculares',key:'oac',color:'#38bdf8'},
-    {name:'Cataratas',key:'cata',color:'#34d399'},
-    {name:'Uveítis',key:'uv',color:'#a78bfa'},
-  ];
-  let html=`<div class="results-header">
-    <div class="score-big">${pct}%</div>
-    <div class="score-label">${score} de ${questions.length} correctas</div>
-    <div class="score-msg">${msg}</div>
-  </div>
-  <div class="chart-section">
-    <div class="chart-title"><span>📊</span> Rendimiento por Categoría</div>
-    <div class="bar-chart">`;
-  cats.forEach(cat=>{
-    const s=catStats[cat.key]||{c:0,t:0};
-    const p=s.t>0?Math.round((s.c/s.t)*100):0;
-    html+=`<div class="bar-row"><div class="bar-label">${cat.name}</div><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${cat.color};">${p}% (${s.c}/${s.t})</div></div></div>`;
-  });
-  html+=`</div></div>
-  <div class="chart-section">
-    <div class="chart-title"><span>🎯</span> Resumen General</div>
-    <div class="donut-wrap">
-      <svg class="donut-svg" viewBox="0 0 42 42">
-        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a2235" stroke-width="4"/>
-        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#34d399" stroke-width="4" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="25" stroke-linecap="round"/>
-        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#f87171" stroke-width="4" stroke-dasharray="${100-pct} ${pct}" stroke-dashoffset="${25-pct}" stroke-linecap="round"/>
-        <text x="21" y="22.5" text-anchor="middle" font-size="6" font-weight="700" fill="#e8ecf4" font-family="Plus Jakarta Sans">${pct}%</text>
-      </svg>
-      <div class="donut-legend">
-        <div class="legend-item"><div class="legend-dot" style="background:#34d399;"></div>Correctas: ${score}</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Incorrectas: ${questions.length-score}</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#38bdf8;"></div>Total: ${questions.length}</div>
+  <div class="quiz-area" id="quizArea">
+    <div class="q-card" id="qCard">
+      <div class="q-card-top">
+        <span class="cat-badge" id="catBadge"></span>
+        <span class="q-num" id="qNum"></span>
+      </div>
+      <p class="q-text" id="qText"></p>
+      <div class="options" id="optionsDiv"></div>
+      <div class="feedback" id="feedback">
+        <div class="feedback-header">
+          <span class="feedback-icon">💡</span>
+          <span class="feedback-label">Explicación</span>
+        </div>
+        <p id="feedbackText"></p>
+        <div class="tip-row" id="tipRow"></div>
+      </div>
+      <div class="nav-row">
+        <button class="btn-next" id="btnNext" onclick="nextQ()" disabled>Siguiente →</button>
       </div>
     </div>
   </div>
-  <div class="chart-section">
-    <div class="chart-title"><span>📋</span> Revisión de Respuestas</div>`;
-  answers.forEach((a,i)=>{
-    html+=`<div class="review-card ${a.correct?'review-correct':'review-wrong'}">
-      <div class="review-q">${i+1}. ${a.q} <span style="font-size:0.72rem;color:var(--text-dim);">[${a.cat}]</span></div>
-      <div class="review-answer">${a.correct?`<strong>✅ ${a.correctAns}</strong>`:`<em>❌ Tu respuesta: ${a.userAns}</em><br><strong>✅ Correcta: ${a.correctAns}</strong>`}</div>
-      <div style="margin-top:8px;font-size:0.8rem;color:var(--text-dim);line-height:1.5;">${a.exp}</div>
-      <div style="margin-top:6px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;">📖 ${a.ref}</div>
-    </div>`;
-  });
-  html+=`</div><button class="retry-btn" onclick="init()">🔄 Reintentar</button>`;
-  const res=document.getElementById('resultsArea');
-  res.innerHTML=html; res.classList.add('show');
-  res.scrollIntoView({behavior:'smooth'});
+
+  <div class="results-panel" id="resultsPanel">
+    <div class="result-hero">
+      <div class="score-circle">
+        <span class="score-number" id="scoreNum">—</span>
+        <span class="score-denom" id="scoreDenom">/ 27</span>
+      </div>
+      <div class="result-msg" id="resultMsg"></div>
+      <div class="result-sub" id="resultSub"></div>
+    </div>
+    <div class="stats-grid" id="statsGrid"></div>
+    <button class="btn-restart" onclick="restart()">↺ Volver a intentar</button>
+  </div>
+</div>
+
+<script>
+function toggleSpec(h) {
+  const l = h.nextElementSibling;
+  const open = l.classList.contains('open');
+  document.querySelectorAll('.topics-list.open').forEach(x => { x.classList.remove('open'); x.previousElementSibling.classList.remove('open'); });
+  if (!open) { l.classList.add('open'); h.classList.add('open'); }
 }
 
-function toggleSpec(header){header.classList.toggle('open');header.nextElementSibling.classList.toggle('open');}
-function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+// ── QUESTIONS ────────────────────────────────────────────────────────────────
+const QS = [
+  // ── 1. Conjuntivitis Bacteriana (GPC IMSS 2009 / SSA 2010) ───────────────
+  { cat:'conj', catName:'Conjuntivitis Bacteriana',
+    q:'¿Cuál es el agente etiológico más frecuente de conjuntivitis bacteriana aguda en adultos?',
+    opts:['Haemophilus influenzae','Staphylococcus aureus / Staphylococcus epidermidis','Neisseria gonorrhoeae','Pseudomonas aeruginosa'],
+    ans:1,
+    exp:'En adultos el S. aureus y S. epidermidis son los gérmenes más comunes. En niños predomina H. influenzae. N. gonorrhoeae produce la forma hiperaguda (pus franca, riesgo de perforación corneal).',
+    tip:'Recuerda: en neonatos → N. gonorrhoeae (1-5 días) y Chlamydia (5-14 días).' },
 
-init();
+  { cat:'conj', catName:'Conjuntivitis Bacteriana',
+    q:'¿Cuál es la característica clínica que distingue la conjuntivitis bacteriana de la viral?',
+    opts:['Hiperemia conjuntival intensa','Secreción mucopurulenta (no acuosa)','Quémosis bilateral','Fotofobia severa'],
+    ans:1,
+    exp:'La secreción mucopurulenta es típica de la conjuntivitis bacteriana. La viral produce secreción acuosa o serosa. Ambas pueden causar hiperemia y quémosis, pero la secreción es el rasgo diferenciador clave.',
+    tip:'Bilateral desde inicio + secreción acuosa + adenopatía preauricular = viral (adenovirus).' },
+
+  { cat:'conj', catName:'Conjuntivitis Bacteriana',
+    q:'Primera línea de tratamiento para conjuntivitis bacteriana aguda no complicada:',
+    opts:['Corticosteroides tópicos (dexametasona)','Antibiótico tópico (ciprofloxacino o tobramicina colirio)','Antivirales sistémicos (aciclovir)','Antihistamínicos orales'],
+    ans:1,
+    exp:'Los antibióticos tópicos de amplio espectro (fluoroquinolonas, aminoglucósidos, ácido fusídico) acortan el curso. Los corticosteroides están contraindicados sin diagnóstico preciso, ya que pueden agravar infecciones virales o fúngicas.',
+    tip:'Contraindicados esteroides tópicos sin certeza diagnóstica: riesgo de úlcera herpética.' },
+
+  // ── 2. Conjuntivitis Alérgica (GPC IMSS 2011) ────────────────────────────
+  { cat:'alrg', catName:'Conjuntivitis Alérgica',
+    q:'Síntoma cardinal de la conjuntivitis alérgica que la distingue de otras formas:',
+    opts:['Dolor ocular agudo','Prurito intenso bilateral','Secreción purulenta','Visión borrosa progresiva'],
+    ans:1,
+    exp:'El prurito bilateral intenso es el síntoma patognomónico de la conjuntivitis alérgica. También produce epifora, quémosis y papilas en tarso superior. La secreción es acuosa o mucosa (no purulenta).',
+    tip:'Sin prurito → pensar en diagnóstico diferente (infecciosa, seca, etc.).' },
+
+  { cat:'alrg', catName:'Conjuntivitis Alérgica',
+    q:'Tipo más grave de conjuntivitis alérgica, asociado a daño corneal y visión comprometida:',
+    opts:['Conjuntivitis alérgica estacional','Queratoconjuntivitis vernal','Conjuntivitis papilar gigante','Queratoconjuntivitis atópica'],
+    ans:1,
+    exp:'La queratoconjuntivitis vernal (QCV) afecta predominantemente a niños y adultos jóvenes, con papilas gigantes en tarso superior ("empedrado"), puntos de Horner-Trantas y placas escudiformes corneales que amenazan la visión.',
+    tip:'QCV: papilas gigantes + puntos de Horner-Trantas en limbo + placa escudiforme corneal.' },
+
+  { cat:'alrg', catName:'Conjuntivitis Alérgica',
+    q:'Primera línea de tratamiento farmacológico para la conjuntivitis alérgica estacional leve:',
+    opts:['Corticosteroides tópicos','Antihistamínicos tópicos con efecto estabilizador de mastocitos (ketotifeno, olopatadina)','Ciclosporina tópica','Antibióticos tópicos'],
+    ans:1,
+    exp:'Los antagonistas H1 de doble acción (antihistamínico + estabilizador mastocitario) como ketotifeno u olopatadina son primera línea. Los corticosteroides se reservan para formas graves (QCV, QCA) por riesgo de hipertensión ocular, catarata y úlcera herpética.',
+    tip:'Corticosteroides tópicos: riesgo de glaucoma, catarata subcapsular posterior y sobreinfección herpética.' },
+
+  // ── 3. Síndrome de Ojo Seco (GPC SSA 2014) ───────────────────────────────
+  { cat:'seco', catName:'Síndrome de Ojo Seco',
+    q:'Clasificación del ojo seco según el mecanismo fisiopatológico principal:',
+    opts:['Inflamatorio vs. no inflamatorio','Deficiencia acuosa (ej. Sjögren) vs. evaporativo (ej. disfunción glándulas de Meibomio)','Agudo vs. crónico','Unilateral vs. bilateral'],
+    ans:1,
+    exp:'La clasificación del DEWS (Dry Eye Workshop) divide el ojo seco en: 1) Deficiencia acuosa: fallo de la glándula lagrimal (Sjögren, postirradiación); 2) Evaporativo: disfunción de las glándulas de Meibomio (MGD) es la causa más frecuente. Ambos comparten inflamación crónica de la superficie ocular.',
+    tip:'La disfunción de glándulas de Meibomio (MGD) es la causa más común de ojo seco evaporativo.' },
+
+  { cat:'seco', catName:'Síndrome de Ojo Seco',
+    q:'¿Qué mide el Test de Schirmer I y cuál es el valor límite de normalidad?',
+    opts:['Estabilidad de la película lagrimal; TFBUT < 10 segundos = patológico','Volumen de producción lagrimal basal + refleja; < 10 mm en 5 min = hiposecreción','Osmolaridad lagrimal; > 308 mOsm/L = ojo seco','Tinción corneal con fluoresceína; > 3 puntos = patológico'],
+    ans:1,
+    exp:'El Test de Schirmer I (sin anestesia) mide la producción lagrimal total. Valores ≤10 mm a los 5 minutos indican hiposecreción. El TFBUT (tiempo de ruptura de la película lagrimal) evalúa estabilidad: normal >10 seg.',
+    tip:'Schirmer I < 5 mm = ojo seco severo; 5-10 mm = moderado.' },
+
+  { cat:'seco', catName:'Síndrome de Ojo Seco',
+    q:'Tratamiento de segunda línea para ojo seco moderado-severo con componente inflamatorio refractario a lágrimas artificiales:',
+    opts:['Antibióticos tópicos profilácticos','Ciclosporina A tópica al 0.05-0.1% (Restasis®)','Corticosteroides tópicos a largo plazo','Antivirales orales'],
+    ans:1,
+    exp:'La ciclosporina tópica es inmunomoduladora: inhibe la activación de linfocitos T que perpetúan la inflamación en la superficie ocular y glándula lagrimal. Es la única molécula aprobada por la FDA para ojo seco con componente inflamatorio. Lágrimas artificiales siguen siendo la base.',
+    tip:'Ciclosporina tópica: inicio de efecto a las 3-6 semanas; uso a largo plazo, no inmunosupresor sistémico.' },
+
+  // ── 4. Queratocono (GPC IMSS 2010) ───────────────────────────────────────
+  { cat:'qrat', catName:'Queratocono',
+    q:'El queratocono se define como:',
+    opts:['Inflamación estromal de la córnea por herpes zóster','Ectasia corneal progresiva no inflamatoria que produce adelgazamiento y protrusión cónica de la córnea','Depósito de proteoglicanos en el estroma corneal','Calcificación subepitelial de la membrana de Bowman'],
+    ans:1,
+    exp:'El queratocono es una ectasia corneal progresiva (no inflamatoria) caracterizada por adelgazamiento y protrusión apical de la córnea. Produce astigmatismo irregular miópico progresivo. Onset: adolescencia-adulto joven. Bilateral (asimétrico).',
+    tip:'Signo de Munson: protrusión del párpado inferior al mirar hacia abajo. Anillos de Fleischer en la membrana de Bowman.' },
+
+  { cat:'qrat', catName:'Queratocono',
+    q:'Prueba diagnóstica gold standard para detectar queratocono en estadios tempranos (forme fruste):',
+    opts:['Agudeza visual con corrección','Microscopía especular del endotelio','Topografía corneal (curvatura anterior + posterior)','Biomicroscopía de lámpara de hendidura'],
+    ans:2,
+    exp:'La topografía corneal (Placido + Scheimpflug) es esencial. Detecta asimetría de curvatura, adelgazamiento corneal inferior y elevación posterior anormal antes de que haya signos biomicroscópicos. La forma fruste es el estadio subclínico de mayor importancia en candidatos a cirugía refractiva.',
+    tip:'Contraindicación absoluta de LASIK: queratocono confirmado o sospecha en topografía (forme fruste).' },
+
+  { cat:'qrat', catName:'Queratocono',
+    q:'Tratamiento para detener la progresión del queratocono en estadios iniciales a moderados:',
+    opts:['Lentes de contacto rígidos gas permeables','Cross-linking corneal (CXL) con riboflavina + UV-A','Implante de anillos intracorneales (INTACS)','Queratoplastia penetrante'],
+    ans:1,
+    exp:'El Cross-Linking Corneal (CXL) utiliza riboflavina (vitamina B2) tópica + radiación UV-A para crear nuevos enlaces covalentes en el colágeno estromal, aumentando la rigidez corneal y deteniendo la ectasia. No mejora la visión existente, pero detiene la progresión. Es el tratamiento modificador de enfermedad de primera línea.',
+    tip:'CXL solo detiene la progresión; los lentes rígidos mejoran la función visual. Queratoplastia en casos avanzados.' },
+
+  // ── 5. Pterigión (GPC SSA 2013) ──────────────────────────────────────────
+  { cat:'pter', catName:'Pterigión',
+    q:'Definición de pterigión:',
+    opts:['Calcificación subconjuntival en el fórnix inferior','Proliferación fibrovascular subconjuntival triangular que invade la córnea desde el limbo, habitualmente nasal','Quiste de inclusión epitelial conjuntival','Nevo melanocítico de conjuntiva bulbar'],
+    ans:1,
+    exp:'El pterigión es una proliferación fibrovascular de tejido conjuntival que invade la córnea a partir del limbo, generalmente del lado nasal. Se asocia a exposición crónica a UV, viento y polvo. Es diferente del pingüécula (no invade córnea).',
+    tip:'Pterigión: invade córnea. Pingüécula: solo conjuntiva (sin invasión corneal), mismo origen.' },
+
+  { cat:'pter', catName:'Pterigión',
+    q:'Principal factor de riesgo para el desarrollo de pterigión:',
+    opts:['Uso prolongado de lentes de contacto','Exposición crónica a radiación ultravioleta (UV)','Infecciones virales recurrentes (adenovirus)','Deficiencia de vitamina A'],
+    ans:1,
+    exp:'La exposición crónica a radiación UV (solar) es el principal factor etiológico, especialmente en regiones tropicales y en personas con actividades al aire libre. También contribuyen el viento y el polvo. Esto explica su mayor prevalencia entre latitudes 30°N y 30°S.',
+    tip:'La zona de mayor prevalencia mundial de pterigión corresponde a la "cintura pterigión" entre los paralelos 30°N y 30°S.' },
+
+  { cat:'pter', catName:'Pterigión',
+    q:'¿Cuándo está indicada la cirugía de pterigión?',
+    opts:['Ante cualquier pterigión visible para prevenir progresión','Cuando la cabeza del pterigión supera 3 mm en córnea, induce astigmatismo significativo o amenaza el eje visual','Solo en pterigión con inflamación aguda','Exclusivamente cuando causa dolor refractario al tratamiento médico'],
+    ans:1,
+    exp:'Las indicaciones quirúrgicas son: invasión corneal >3 mm, astigmatismo irregular inducido, compromiso del eje visual, inflamación crónica refractaria o razones cosméticas del paciente. La cirugía temprana profiláctica no está indicada y conlleva alto riesgo de recurrencia.',
+    tip:'Técnica con menor recurrencia: escisión + autoinjerto conjuntival limbal (vs. escisión simple).' },
+
+  // ── 6. Trauma Ocular y Quemaduras (GPC SSA 2010) ─────────────────────────
+  { cat:'trau', catName:'Trauma Ocular y Quemaduras',
+    q:'Ante una quemadura química ocular, la primera medida es:',
+    opts:['Medir el pH y consultar al oftalmólogo de inmediato','Irrigación copiosa y continua del ojo con solución salina o agua, mínimo 20-30 minutos, ANTES de cualquier evaluación o derivación','Administrar anestésico tópico y explorar la lesión','Aplicar antibiótico tópico profiláctico'],
+    ans:1,
+    exp:'La irrigación inmediata y copiosa es la maniobra salvavidas. Cada minuto sin irrigación empeora el pronóstico. Se realiza antes de cualquier evaluación, medición de pH o derivación. Objetivo: pH lagrimal 7.0-7.4 al final.',
+    tip:'Regla de oro: ¡IRRIGAR PRIMERO, PREGUNTAR DESPUÉS! El pH final debe ser 7.0-7.4.' },
+
+  { cat:'trau', catName:'Trauma Ocular y Quemaduras',
+    q:'¿Cuál es el tipo de quemadura química ocular más grave y por qué?',
+    opts:['Ácida, porque produce desnaturalización proteínica que limita la penetración','Alcalina (bases fuertes), porque produce saponificación de lípidos y penetración tisular profunda sin barrera','Ambos son igualmente graves y no hay diferencia clínica relevante','La lesión por ácido fluorhídrico porque precipita el calcio tisular'],
+    ans:1,
+    exp:'Las bases (álcalis: cal viva, lejía, amoniaco) son más peligrosas porque la saponificación lipídica destruye barreras celulares y permiten penetración hasta cámara anterior, causando isquemia limbal, opacificación corneal total y lesión del iris/cristalino. Los ácidos forman coagulum proteico que limita la penetración.',
+    tip:'Excepción: ácido fluorhídrico (HF) puede ser muy grave por fluorosis tisular, a pesar de ser ácido.' },
+
+  { cat:'trau', catName:'Trauma Ocular y Quemaduras',
+    q:'Según la clasificación de Roper-Hall, ¿qué caracteriza las quemaduras oculares de grado IV?',
+    opts:['Hiperemia conjuntival sin afectación corneal','Leve opacidad corneal con isquemia limbal <1/3','Opacidad corneal que oculta iris + isquemia limbal 1/3-1/2','Córnea opaca (sin visión de iris), isquemia limbal total (>1/2), pronóstico visual muy malo'],
+    ans:3,
+    exp:'Roper-Hall: Grado I (leve, buen pronóstico) → córnea clara, no isquemia. Grado II → opacidad leve, isquemia <1/3. Grado III → opacidad moderada, isquemia 1/3-1/2. Grado IV (peor pronóstico) → córnea totalmente opaca, sin visión de iris, isquemia limbal >1/2.',
+    tip:'Isquemia limbal extensa = destrucción de células madre → cicatrización y neovascularización crónica.' },
+
+  // ── 7. Endoftalmitis (GPC IMSS 2013) ─────────────────────────────────────
+  { cat:'endo', catName:'Endoftalmitis',
+    q:'Forma de endoftalmitis más frecuente en la práctica clínica:',
+    opts:['Endógena (hematógena)','Postquirúrgica aguda (postcirugía de catarata, primeras 6 semanas)','Traumática','Crónica por Propionibacterium acnes'],
+    ans:1,
+    exp:'La endoftalmitis postquirúrgica aguda es la forma más común, predominantemente tras cirugía de catarata. Ocurre en las primeras 6 semanas postoperatorias. Se manifiesta con dolor, disminución brusca de AV, hipopión, vitritis y quemosis. Requiere manejo urgente.',
+    tip:'Hipopión = leucocitos en cámara anterior → signo de endoftalmitis (o uveítis severa). Siempre es urgencia.' },
+
+  { cat:'endo', catName:'Endoftalmitis',
+    q:'Agente etiológico más frecuente en endoftalmitis postquirúrgica aguda tras cirugía de catarata:',
+    opts:['Streptococcus pneumoniae','Staphylococcus coagulasa negativo (ej. S. epidermidis)','Candida albicans','Pseudomonas aeruginosa'],
+    ans:1,
+    exp:'El Staphylococcus coagulasa negativo (especialmente S. epidermidis), flora normal del párpado y conjuntiva, es el patógeno más frecuente. Aunque es menos virulento que otras bacterias, puede causar daño visual importante. S. aureus y estreptococos tienen peor pronóstico visual.',
+    tip:'Endoftalmitis endógena: Candida (en inmunodeprimidos, drogadicción IV), Klebsiella, S. aureus.' },
+
+  { cat:'endo', catName:'Endoftalmitis',
+    q:'Según el Endophthalmitis Vitrectomy Study (EVS), ¿cuándo está indicada la vitrectomía inmediata en endoftalmitis postcatarata?',
+    opts:['En todos los casos para maximizar el pronóstico visual','Solo cuando la agudeza visual (AV) es de percepción luminosa o peor','Cuando el cultivo confirma Staphylococcus epidermidis','Solo si el paciente es inmunocomprometido'],
+    ans:1,
+    exp:'El EVS demostró que la vitrectomía inmediata beneficia a los pacientes con AV de solo percepción de luz (PL) al momento de presentación. En casos con AV de movimiento de manos o mejor, la inyección intravítrea de antibióticos sola (vancomicina + amikacina/ceftazidima) tiene resultados similares.',
+    tip:'EVS: vitrectomía beneficiosa en AV ≤ percepción luminosa. En AV > PL: inyección intravítrea sola = resultados equivalentes.' },
+
+  // ── 8. Retinopatía del Prematuro (GPC SSA 2008) ───────────────────────────
+  { cat:'rop', catName:'Retinopatía del Prematuro',
+    q:'Principales factores de riesgo para desarrollar Retinopatía del Prematuro (ROP):',
+    opts:['Hiperbilirrubinemia neonatal y uso de fototerapia','Prematurez (<32 semanas de gestación), bajo peso al nacer (<1500 g) y oxigenoterapia no controlada','Alimentación con fórmula y déficit de vitamina D','Parto por cesárea e hipoglucemia neonatal'],
+    ans:1,
+    exp:'La ROP es causada por la vascularización anormal de la retina inmadura en el prematuro. Los tres factores primarios son: 1) Prematurez (<32 semanas), 2) Bajo peso al nacer (<1500 g) y 3) Hiperoxia relativa. El oxígeno suplementario mal controlado genera VEGF excesivo al retirar el oxígeno.',
+    tip:'Tamizaje ROP: todo neonato <32 sem o <1500 g; primero a las 4-6 semanas de vida cronológica.' },
+
+  { cat:'rop', catName:'Retinopatía del Prematuro',
+    q:'En la clasificación internacional de ROP, ¿qué zona tiene el peor pronóstico visual?',
+    opts:['Zona III (retina anterior periférica)','Zona II (desde zona I hasta ora serrata nasal)','Zona I (doble del radio disco-mácula, centrado en papila)','El pronóstico no depende de la zona sino solo del estadio'],
+    ans:2,
+    exp:'Zona I: círculo centrado en la papila con radio = 2× distancia papila-mácula. Es la zona más posterior; la ROP en Zona I tiene el peor pronóstico y requiere tratamiento más urgente que en zonas más periféricas. "Plus disease" (tortuosidad vascular) en Zona I = ROP agresiva posterior.',
+    tip:'Zona I = más posterior = peor pronóstico. Zona III = periférica = mejor pronóstico.' },
+
+  { cat:'rop', catName:'Retinopatía del Prematuro',
+    q:'Tratamiento estándar actual para ROP en estadio 3 con enfermedad plus en Zona I o II posterior:',
+    opts:['Observación y control a las 2 semanas','Fotocoagulación con láser diodo de la retina avascular; bevacizumab intravítreo en Zona I','Vitrectomía inmediata','Suplemento de omega-3 y vitamina E'],
+    ans:1,
+    exp:'El tratamiento de elección es la fotocoagulación con láser diodo de la retina avascular (ablación de la periferia sin vascularizar). El anti-VEGF (bevacizumab intravítreo) es alternativa válida, especialmente en Zona I y ROP agresiva posterior, por acceso más fácil a toda la retina avascular posterior.',
+    tip:'CRYO-ROP y ETROP: umbral de tratamiento = estadio 3 con plus disease en Zona I o II. Ventana de 48-72 horas.' },
+
+  // ── 9. Celulitis Orbitaria (GPC SSA 2012) ────────────────────────────────
+  { cat:'celo', catName:'Celulitis Orbitaria',
+    q:'Origen más frecuente de celulitis orbitaria en niños:',
+    opts:['Traumatismo palpebral directo','Sinusitis etmoidal (extensión directa)','Bacteriemia por S. aureus','Dacriocistitis crónica complicada'],
+    ans:1,
+    exp:'La sinusitis etmoidal es la causa más común de celulitis orbitaria en niños (la lámina papyrácea es delgada y permite extensión directa). En adultos, la sinusitis pansinusal es más frecuente. S. aureus, Streptococcus y H. influenzae son los gérmenes habituales.',
+    tip:'Lámina papyrácea: pared medial de la órbita = tabique muy delgado entre etmoides y órbita.' },
+
+  { cat:'celo', catName:'Celulitis Orbitaria',
+    q:'¿Cuál de los siguientes hallazgos diferencia la celulitis orbitaria (postseptal) de la preseptal (periorbital)?',
+    opts:['Edema palpebral eritematoso','Proptosis, oftalmoplejia dolorosa y disminución de agudeza visual','Fiebre y leucocitosis','Dolor a la palpación del reborde orbitario'],
+    ans:1,
+    exp:'La celulitis preseptal (pleseptal) afecta tejidos anteriores al septo orbitario: solo edema palpebral eritematoso sin afección del movimiento ocular ni visión. La orbitaria (postseptal) afecta el contenido orbitario: proptosis, oftalmoplejia con dolor, quemosis y puede comprometer la visión y el nervio óptico.',
+    tip:'Celulitis preseptal = anterior al septo (sin proptosis, sin OFTALMOplejia). Orbitaria = postseptal (proptosis + dolor en movimientos).' },
+
+  { cat:'celo', catName:'Celulitis Orbitaria',
+    q:'Complicación más grave de la celulitis orbitaria, potencialmente mortal:',
+    opts:['Absceso subperióstico medial','Trombosis del seno cavernoso','Queratitis por exposición','Neuritis óptica aislada'],
+    ans:1,
+    exp:'La trombosis del seno cavernoso es la complicación más grave y potencialmente mortal (mortalidad 20-30% incluso con tratamiento). Se manifiesta con proptosis bilateral, parálisis de pares craneales III, IV, VI, dolor ocular severo, fiebre alta y signos meníngeos. Requiere antibióticos IV de amplio espectro urgentes.',
+    tip:'Clasificación de Chandler: I=celulitis preseptal, II=celulitis orbitaria, III=absceso subperióstico, IV=absceso orbitario, V=trombosis seno cavernoso.' }
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let mode = 'repaso';
+let idx = 0;
+let score = 0;
+let answered = false;
+let catStats = { conj:0, alrg:0, seco:0, qrat:0, pter:0, trau:0, endo:0, rop:0, celo:0 };
+let catTotals = { conj:3, alrg:3, seco:3, qrat:3, pter:3, trau:3, endo:3, rop:3, celo:3 };
+const catColors = {
+  conj:'#2dd4bf', alrg:'#f472b6', seco:'#38bdf8',
+  qrat:'#fbbf24', pter:'#34d399', trau:'#fb923c',
+  endo:'#f87171', rop:'#a78bfa', celo:'#818cf8'
+};
+
+function setMode(m) {
+  mode = m;
+  document.getElementById('btn-repaso').classList.toggle('active', m === 'repaso');
+  document.getElementById('btn-examen').classList.toggle('active', m === 'examen');
+  restart();
+}
+
+function restart() {
+  idx = 0; score = 0; answered = false;
+  catStats = { conj:0, alrg:0, seco:0, qrat:0, pter:0, trau:0, endo:0, rop:0, celo:0 };
+  document.getElementById('resultsPanel').classList.remove('show');
+  document.getElementById('quizArea').style.display = '';
+  renderQ();
+}
+
+function renderQ() {
+  if (idx >= QS.length) { showResults(); return; }
+  const q = QS[idx];
+  answered = false;
+
+  document.getElementById('progressFill').style.width = (idx / QS.length * 100) + '%';
+  document.getElementById('progressLabel').textContent = `${idx} / ${QS.length}`;
+
+  const badge = document.getElementById('catBadge');
+  badge.textContent = q.catName;
+  badge.className = `cat-badge cat-${q.cat}`;
+
+  document.getElementById('qNum').textContent = `Pregunta ${idx + 1}`;
+  document.getElementById('qText').textContent = q.q;
+
+  const opts = document.getElementById('optionsDiv');
+  opts.innerHTML = '';
+  ['A','B','C','D'].forEach((l, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.innerHTML = `<span class="opt-letter">${l}</span><span>${q.opts[i]}</span>`;
+    btn.onclick = () => pick(i);
+    opts.appendChild(btn);
+  });
+
+  const fb = document.getElementById('feedback');
+  fb.classList.remove('show');
+  document.getElementById('btnNext').disabled = true;
+}
+
+function pick(i) {
+  if (answered) return;
+  answered = true;
+  const q = QS[idx];
+  const btns = document.querySelectorAll('.opt-btn');
+
+  if (i === q.ans) {
+    btns[i].classList.add('correct');
+    score++;
+    catStats[q.cat]++;
+  } else {
+    btns[i].classList.add('wrong');
+    btns[q.ans].classList.add('reveal');
+  }
+  btns.forEach(b => b.disabled = true);
+
+  if (mode === 'repaso') {
+    const fb = document.getElementById('feedback');
+    document.getElementById('feedbackText').innerHTML = q.exp;
+    const tipRow = document.getElementById('tipRow');
+    tipRow.innerHTML = q.tip ? `<span class="tip-tag">💡 ${q.tip}</span>` : '';
+    fb.classList.add('show');
+  }
+
+  document.getElementById('btnNext').disabled = false;
+}
+
+function nextQ() {
+  idx++;
+  renderQ();
+}
+
+function showResults() {
+  document.getElementById('progressFill').style.width = '100%';
+  document.getElementById('progressLabel').textContent = `${QS.length} / ${QS.length}`;
+  document.getElementById('quizArea').style.display = 'none';
+
+  const panel = document.getElementById('resultsPanel');
+  panel.classList.add('show');
+  document.getElementById('scoreNum').textContent = score;
+  document.getElementById('scoreDenom').textContent = `/ ${QS.length}`;
+
+  const pct = Math.round(score / QS.length * 100);
+  document.getElementById('resultMsg').textContent =
+    pct >= 80 ? '¡Excelente dominio clínico!' :
+    pct >= 60 ? 'Buen trabajo — sigue repasando.' :
+    'Repasa los temas con menor puntaje.';
+  document.getElementById('resultSub').textContent = `${pct}% de respuestas correctas · ${score}/${QS.length}`;
+
+  const grid = document.getElementById('statsGrid');
+  const catNames = {
+    conj:'Conjuntivitis Bacteriana', alrg:'Conjuntivitis Alérgica',
+    seco:'Ojo Seco', qrat:'Queratocono', pter:'Pterigión',
+    trau:'Trauma y Quemaduras', endo:'Endoftalmitis',
+    rop:'Retinopatía del Prematuro', celo:'Celulitis Orbitaria'
+  };
+  grid.innerHTML = Object.keys(catStats).map(k => {
+    const val = catStats[k], tot = catTotals[k];
+    const p = Math.round(val / tot * 100);
+    return `<div class="stat-row">
+      <div class="stat-label">
+        <span style="color:${catColors[k]}">${catNames[k]}</span>
+        <span>${val}/${tot}</span>
+      </div>
+      <div class="stat-bar-track">
+        <div class="stat-bar-fill" style="width:${p}%;background:${catColors[k]}"></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+renderQ();
 </script>
+<script src="sidebar.js"></script>
 </body>
 </html>

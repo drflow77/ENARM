@@ -60,9 +60,9 @@
       bg: 'rgba(52,211,153,0.12)',
       label: 'Oftalmología',
       topics: [
-        { num:'28', label:'Glaucoma',                     file:'28-glaucoma.html',                        ready:true },
-        { num:'29', label:'Retinopatía diabética',        file:'29-retinopatia-diabetica.html',           ready:true },
-        { num:'30', label:'Urgencias oftalmológicas',     file:'30-urgencias-oftalmologicas.html',        ready:true },
+        { num:'28', label:'Párpados, Vía Lagrimal y Retina', file:'28-glaucoma.html',                        ready:true },
+        { num:'29', label:'Glaucoma, Cataratas y Estrabismo', file:'29-retinopatia-diabetica.html',        ready:true },
+        { num:'30', label:'Superficie Ocular y Urgencias',    file:'30-urgencias-oftalmologicas.html',     ready:true },
       ]
     },
     {
@@ -140,11 +140,12 @@
     {
       key: 'anestesia',
       icon: '💉',
-      color: '#8896b3',
-      bg: 'rgba(136,150,179,0.08)',
+      color: '#38bdf8',
+      bg: 'rgba(56,189,248,0.10)',
       label: 'Anestesiología',
       topics: [
-        { num:'—', label:'Anestesiología', file:null, ready:false }
+        { num:'Sim', label:'Simulador LAST — Intoxicación por AL', file:'40-intoxicacion-last-simulador.html', ready:true },
+        { num:'Sim', label:'DAS 2025 · Vía Aérea Difícil',        file:'das-anestesia.html',                  ready:true },
       ]
     },
   ];

@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAS 2025 · Vía Aérea Difícil — ENARM · Anestesiología</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0e1a; --surface: #111827; --surface2: #1a2235; --surface3: #212d45;
+      --border: #2a3a5c; --text: #e8ecf4; --text-dim: #8896b3;
+      --accent: #38bdf8; --accent-glow: rgba(56,189,248,0.15);
+      --correct: #34d399; --correct-bg: rgba(52,211,153,0.1); --correct-border: rgba(52,211,153,0.4);
+      --wrong: #f87171; --wrong-bg: rgba(248,113,113,0.1); --wrong-border: rgba(248,113,113,0.4);
+      --gold: #fbbf24; --purple: #a78bfa; --pink: #f472b6; --teal: #2dd4bf;
+      --sidebar-w: 280px; --radius: 14px;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      transition: background 0.7s ease;
+    }
+    body.cico-mode { background: radial-gradient(ellipse at top, rgba(100,10,10,0.35), var(--bg), #000); }
+
+    /* ── ENARM Navigation Sidebar ── */
+    #sidebar {
+      width:var(--sidebar-w); min-height:100vh; background:var(--surface);
+      border-right:1px solid var(--border); display:flex; flex-direction:column;
+      position:fixed; left:0; top:0; bottom:0; overflow-y:auto; z-index:100;
+    }
+    .sidebar-logo { padding:24px 20px 16px; border-bottom:1px solid var(--border); }
+    .logo-badge { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,var(--accent),var(--purple)); padding:6px 14px; border-radius:100px; font-size:0.75rem; font-weight:800; color:var(--bg); letter-spacing:0.5px; text-transform:uppercase; margin-bottom:10px; }
+    .sidebar-logo h2 { font-size:1.1rem; font-weight:800; background:linear-gradient(135deg,var(--text),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .sidebar-logo p { font-size:0.72rem; color:var(--text-dim); margin-top:2px; }
+    .back-btn { display:flex; align-items:center; gap:8px; padding:14px 20px; color:var(--text-dim); font-size:0.8rem; text-decoration:none; border-bottom:1px solid var(--border); transition:color 0.2s; }
+    .back-btn:hover { color:var(--accent); }
+    .sidebar-nav { flex:1; padding:12px 0 24px; }
+    .specialty-header { display:flex; align-items:center; justify-content:space-between; padding:10px 16px 10px 20px; cursor:pointer; transition:background 0.2s; user-select:none; }
+    .specialty-header:hover { background:var(--surface2); }
+    .specialty-name { display:flex; align-items:center; gap:10px; font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; }
+    .specialty-icon { width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:0.9rem; flex-shrink:0; }
+    .chevron { font-size:0.65rem; color:var(--text-dim); transition:transform 0.3s; }
+    .specialty-header.open .chevron { transform:rotate(90deg); }
+    .topics-list { display:none; padding:4px 0 8px; }
+    .topics-list.open { display:block; }
+    .topic-link { display:flex; align-items:center; gap:10px; padding:8px 16px 8px 56px; font-size:0.78rem; color:var(--text-dim); text-decoration:none; transition:all 0.2s; border-left:2px solid transparent; line-height:1.4; }
+    .topic-link:hover { color:var(--text); background:var(--surface3); }
+    .topic-link.active { color:#34d399; border-left-color:#34d399; background:rgba(52,211,153,0.12); font-weight:600; }
+    .topic-link.coming-soon { opacity:0.4; cursor:not-allowed; pointer-events:none; }
+    .topic-num { font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--text-dim); min-width:20px; }
+    .badge-soon { margin-left:auto; background:rgba(136,150,179,0.1); color:var(--text-dim); font-size:0.62rem; font-weight:600; padding:2px 7px; border-radius:100px; }
+    .badge-ready { margin-left:auto; background:rgba(52,211,153,0.12); color:#34d399; font-size:0.62rem; font-weight:600; padding:2px 7px; border-radius:100px; }
+
+    /* ── Main App ── */
+    .main-wrap { margin-left:var(--sidebar-w); display:flex; flex-direction:column; min-height:100vh; width:calc(100% - var(--sidebar-w)); }
+
+    /* ── App Navbar ── */
+    .app-nav {
+      position: sticky; top:0; z-index:50;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+      flex-shrink: 0;
+    }
+    .app-nav-logo { display:flex; align-items:center; gap:10px; }
+    .app-nav-icon {
+      width:34px; height:34px; border-radius:10px;
+      background: linear-gradient(135deg, var(--accent), var(--purple));
+      display:flex; align-items:center; justify-content:center;
+      color: var(--bg); font-size:0.9rem;
+    }
+    .app-nav-icon.cico-icon { background:var(--wrong); animation:redpulse 2s infinite; }
+    .app-nav-title { font-size:1rem; font-weight:800; color:var(--text); }
+    .app-nav-sub { font-size:0.72rem; color:var(--text-dim); }
+    .nav-tabs { display:flex; gap:4px; }
+    .nav-tab {
+      padding: 7px 16px; background:transparent; border:none;
+      color: var(--text-dim); border-radius:8px; cursor:pointer;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size:0.82rem; font-weight:600;
+      transition: all 0.2s;
+    }
+    .nav-tab:hover { color:var(--text); background:var(--surface2); }
+    .nav-tab.active { color:var(--accent); background:var(--accent-glow); }
+
+    /* ── Content area ── */
+    .app-content { flex:1; padding:28px; max-width:880px; margin:0 auto; width:100%; }
+
+    /* ── Views ── */
+    .view { display:none; flex-direction:column; animation:fadeIn 0.4s ease; }
+    .view.active { display:flex; }
+
+    /* ── Algoritmo ── */
+    .alg-view-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
+    .alg-view-title { font-size:1.6rem; font-weight:800; color:var(--text); }
+    .alg-view-sub { font-size:0.82rem; color:var(--text-dim); margin-top:2px; }
+    .alg-reset-btn { padding:8px 16px; background:var(--surface2); border:1px solid var(--border); border-radius:9px; color:var(--text-dim); font-family:inherit; font-size:0.8rem; cursor:pointer; transition:all 0.2s; }
+    .alg-reset-btn:hover { color:var(--accent); border-color:var(--accent); }
+
+    .plan-progress { display:flex; justify-content:space-between; align-items:center; padding:14px 24px; background:var(--surface2); border-radius:12px; margin-bottom:20px; border:1px solid var(--border); }
+    .plan-bubble { display:flex; flex-direction:column; align-items:center; gap:4px; }
+    .plan-circle { width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1rem; font-weight:900; border:2px solid var(--border); color:var(--text-dim); background:var(--surface3); font-family:'JetBrains Mono',monospace; transition:all 0.3s; }
+    .plan-circle.a-active { background:rgba(52,211,153,0.15); border-color:var(--correct); color:var(--correct); box-shadow:0 0 18px rgba(52,211,153,0.3); }
+    .plan-circle.b-active { background:rgba(251,191,36,0.15); border-color:var(--gold); color:var(--gold); box-shadow:0 0 18px rgba(251,191,36,0.3); }
+    .plan-circle.c-active { background:rgba(251,146,60,0.15); border-color:#fb923c; color:#fb923c; box-shadow:0 0 18px rgba(251,146,60,0.3); }
+    .plan-circle.d-active { background:rgba(248,113,113,0.15); border-color:var(--wrong); color:var(--wrong); box-shadow:0 0 20px rgba(248,113,113,0.5); animation:redpulse 2s infinite; }
+    .plan-circle.success-active { background:var(--correct-bg); border-color:var(--correct); color:var(--correct); }
+    .plan-label { font-size:0.65rem; color:var(--text-dim); font-weight:600; }
+
+    .alg-card { background:var(--surface2); border-radius:16px; border:1px solid var(--border); overflow:hidden; }
+    .alg-card-bar { height:5px; background:linear-gradient(90deg, var(--accent), var(--purple)); }
+    .alg-card-bar.emergency { background:var(--wrong); animation:redpulse 2s infinite; }
+    .alg-card-body { padding:24px; }
+    .alg-plan-badge { display:inline-block; padding:4px 12px; background:var(--accent-glow); border:1px solid rgba(56,189,248,0.2); border-radius:6px; font-size:0.7rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent); margin-bottom:12px; font-family:'JetBrains Mono',monospace; }
+    .alg-plan-badge.emergency { background:rgba(248,113,113,0.12); border-color:rgba(248,113,113,0.3); color:var(--wrong); }
+    .alg-title { font-size:1.5rem; font-weight:800; color:var(--text); margin-bottom:6px; }
+    .alg-desc { color:var(--text-dim); font-size:0.88rem; margin-bottom:20px; line-height:1.5; }
+    .alg-actions { display:flex; flex-direction:column; gap:10px; margin-bottom:20px; }
+    .alg-action-item { display:flex; align-items:flex-start; gap:12px; padding:14px; background:var(--surface3); border:1px solid var(--border); border-radius:10px; }
+    .alg-action-item.emergency { background:rgba(248,113,113,0.07); border-color:rgba(248,113,113,0.2); }
+    .alg-action-icon { color:var(--accent); margin-top:2px; flex-shrink:0; }
+    .alg-action-icon.emergency { color:var(--wrong); }
+    .alg-action-text { font-size:0.88rem; color:var(--text); line-height:1.5; }
+    .alg-warning { padding:14px 16px; background:rgba(251,191,36,0.07); border:1px solid rgba(251,191,36,0.25); border-radius:10px; margin-bottom:18px; }
+    .alg-warning.emergency { background:rgba(248,113,113,0.08); border-color:rgba(248,113,113,0.35); }
+    .alg-warning-title { font-size:0.82rem; font-weight:700; color:var(--gold); margin-bottom:6px; display:flex; align-items:center; gap:6px; }
+    .alg-warning.emergency .alg-warning-title { color:var(--wrong); }
+    .alg-warning ul { font-size:0.82rem; color:var(--text-dim); padding-left:18px; }
+    .alg-warning li { margin-bottom:3px; }
+    .alg-nav-btns { display:flex; gap:12px; flex-wrap:wrap; }
+    .alg-btn { flex:1; min-width:140px; padding:14px 20px; border:none; border-radius:10px; font-family:'Plus Jakarta Sans',sans-serif; font-size:0.88rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+    .alg-btn-success { background:var(--correct); color:var(--bg); }
+    .alg-btn-success:hover { filter:brightness(1.1); }
+    .alg-btn-next { background:var(--surface3); border:1px solid var(--border); color:var(--text); }
+    .alg-btn-next:hover { border-color:var(--accent); color:var(--accent); }
+    .alg-btn-emergency { background:rgba(248,113,113,0.15); border:1px solid var(--wrong); color:var(--wrong); animation:redpulse 2s infinite; }
+    .alg-btn-reset { background:var(--surface2); border:1px solid var(--border); color:var(--text-dim); width:100%; }
+    .alg-btn-reset:hover { color:var(--accent); border-color:var(--accent); }
+
+    /* ── Simulador ── */
+    .sim-header { margin-bottom:16px; flex-shrink:0; display:flex; align-items:flex-start; justify-content:space-between; }
+    .sim-title { font-size:1.4rem; font-weight:800; color:var(--text); display:flex; align-items:center; gap:8px; }
+    .sim-title-icon { color:var(--accent); }
+    .sim-subtitle { font-size:0.78rem; color:var(--text-dim); margin-top:3px; }
+    .sim-reset-btn { padding:8px 14px; background:var(--surface2); border:1px solid var(--border); border-radius:9px; color:var(--text-dim); font-family:inherit; font-size:0.78rem; cursor:pointer; transition:all 0.2s; flex-shrink:0; }
+    .sim-reset-btn:hover { color:var(--accent); border-color:var(--accent); }
+
+    .sim-container { display:flex; flex-direction:column; background:var(--surface2); border-radius:16px; border:1px solid var(--border); overflow:hidden; flex:1; }
+    .sim-chat { flex:1; overflow-y:auto; padding:20px; display:flex; flex-direction:column; gap:14px; min-height:300px; max-height:calc(100vh - 280px); }
+    .sim-choices { padding:14px; background:var(--surface); border-top:1px solid var(--border); display:flex; flex-direction:column; gap:7px; }
+
+    .message-row { display:flex; width:100%; animation:fadeIn 0.35s ease; }
+    .message-row.bot { justify-content:flex-start; }
+    .message-row.user { justify-content:flex-end; }
+    .sim-bubble { max-width:82%; padding:13px 17px; border-radius:12px; font-size:0.86rem; line-height:1.65; }
+    .sim-bubble.bot-msg { background:var(--surface3); border:1px solid var(--border); color:var(--text); border-bottom-left-radius:3px; }
+    .sim-bubble.bot-msg.error { background:rgba(251,146,60,0.1); border-color:rgba(251,146,60,0.3); color:#fed7aa; }
+    .sim-bubble.bot-msg.critical { background:var(--wrong-bg); border-color:var(--wrong); color:var(--wrong); animation:redpulse 2s infinite; }
+    .sim-bubble.user-msg { background:var(--accent-glow); border:1px solid rgba(56,189,248,0.25); color:var(--text); border-bottom-right-radius:3px; }
+    .sim-avatar { width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:0.75rem; background:var(--surface3); color:var(--text-dim); }
+    .sim-avatar.current { background:var(--accent); color:var(--bg); }
+    .sim-avatar.left { margin-right:9px; align-self:flex-end; }
+    .sim-choice-btn { display:flex; align-items:center; gap:12px; width:100%; text-align:left; padding:11px 15px; background:var(--surface2); border:1px solid var(--border); border-radius:9px; color:var(--text); font-family:'Plus Jakarta Sans',sans-serif; font-size:0.83rem; font-weight:500; cursor:pointer; transition:all 0.2s; }
+    .sim-choice-btn:hover { border-color:var(--accent); background:var(--surface3); }
+    .sim-choice-badge { width:28px; height:28px; border-radius:50%; background:var(--surface); border:2px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:700; color:var(--text-dim); flex-shrink:0; font-family:'JetBrains Mono',monospace; transition:all 0.2s; }
+    .sim-choice-btn:hover .sim-choice-badge { background:var(--accent); border-color:var(--accent); color:var(--bg); }
+
+    /* ── Quiz ── */
+    .quiz-view-header { text-align:center; margin-bottom:28px; }
+    .quiz-view-title { font-size:1.8rem; font-weight:800; color:var(--text); }
+    .quiz-view-sub { color:var(--text-dim); font-size:0.88rem; margin-top:4px; }
+    .quiz-card { background:var(--surface2); border-radius:20px; overflow:hidden; border:1px solid var(--border); }
+    .quiz-card-top { background:var(--surface3); padding:20px 24px; border-bottom:1px solid var(--border); }
+    .quiz-meta { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+    .quiz-num { font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--accent); font-family:'JetBrains Mono',monospace; }
+    .quiz-prog-bar { height:4px; background:var(--surface); border-radius:2px; overflow:hidden; width:100px; }
+    .quiz-prog-fill { height:100%; background:var(--accent); transition:width 0.3s; border-radius:2px; }
+    .quiz-question { font-size:1.05rem; font-weight:700; color:var(--text); line-height:1.45; }
+    .quiz-options { padding:18px 20px 8px; }
+    .quiz-opt-btn { display:flex; align-items:center; gap:12px; width:100%; text-align:left; padding:14px 16px; background:var(--surface3); border:2px solid var(--border); border-radius:11px; color:var(--text-dim); font-family:'Plus Jakarta Sans',sans-serif; font-size:0.88rem; cursor:pointer; transition:all 0.2s; margin-bottom:9px; }
+    .quiz-opt-btn:hover:not(:disabled) { border-color:var(--accent); color:var(--text); }
+    .quiz-opt-btn.correct { background:var(--correct-bg); border-color:var(--correct-border); color:var(--correct); box-shadow:0 0 14px rgba(52,211,153,0.12); }
+    .quiz-opt-btn.wrong { background:var(--wrong-bg); border-color:var(--wrong-border); color:var(--wrong); }
+    .quiz-opt-btn.dimmed { opacity:0.35; pointer-events:none; }
+    .quiz-opt-letter { width:30px; height:30px; border-radius:50%; border:2px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:700; font-family:'JetBrains Mono',monospace; flex-shrink:0; transition:all 0.2s; }
+    .quiz-opt-btn.correct .quiz-opt-letter { border-color:var(--correct); color:var(--correct); }
+    .quiz-opt-btn.wrong .quiz-opt-letter { border-color:var(--wrong); color:var(--wrong); }
+    .quiz-explanation { margin:0 20px 16px; padding:14px 16px; background:var(--accent-glow); border:1px solid rgba(56,189,248,0.2); border-radius:11px; }
+    .quiz-exp-title { font-size:0.78rem; font-weight:700; color:var(--accent); margin-bottom:6px; }
+    .quiz-exp-text { font-size:0.83rem; color:var(--text-dim); line-height:1.6; }
+    .quiz-next-btn { display:block; width:calc(100% - 40px); margin:0 20px 20px; padding:13px; background:var(--accent); border:none; border-radius:9px; color:var(--bg); font-family:'Plus Jakarta Sans',sans-serif; font-size:0.88rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+    .quiz-next-btn:hover { filter:brightness(1.1); }
+    .quiz-finale { background:var(--surface2); border-radius:20px; border:1px solid var(--border); text-align:center; padding:48px 32px; }
+    .quiz-score { font-size:4rem; font-weight:900; color:var(--accent); line-height:1; margin-bottom:6px; font-family:'JetBrains Mono',monospace; }
+    .quiz-score-label { font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-dim); margin-bottom:28px; }
+    .quiz-replay-btn { padding:13px 32px; background:var(--accent); border:none; border-radius:10px; color:var(--bg); font-family:'Plus Jakarta Sans',sans-serif; font-size:0.9rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+    .quiz-replay-btn:hover { filter:brightness(1.1); }
+
+    /* Typing */
+    .typing-indicator { display:inline-flex; gap:4px; padding:10px 13px; }
+    .typing-indicator span { width:6px; height:6px; background:var(--text-dim); border-radius:50%; animation:bounce 1.4s infinite ease-in-out both; display:inline-block; }
+    .typing-indicator span:nth-child(1) { animation-delay:-0.32s; }
+    .typing-indicator span:nth-child(2) { animation-delay:-0.16s; }
+
+    @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes bounce { 0%,80%,100%{transform:scale(0)} 40%{transform:scale(1)} }
+    @keyframes redpulse { 0%{box-shadow:0 0 0 0 rgba(248,113,113,0.4)} 70%{box-shadow:0 0 0 20px rgba(248,113,113,0)} 100%{box-shadow:0 0 0 0 rgba(248,113,113,0)} }
+
+    @media (max-width:900px) {
+      #sidebar { transform:translateX(-100%); }
+      .main-wrap { margin-left:0; width:100%; }
+      .app-nav { padding:0 14px; }
+      .app-nav-title { font-size:0.88rem; }
+      .app-nav-sub { display:none; }
+      .nav-tabs { overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+      .nav-tabs::-webkit-scrollbar { display:none; }
+      .nav-tab { padding:7px 11px; font-size:0.75rem; white-space:nowrap; }
+      .nav-tab i { display:none; }
+      .app-content { padding:16px; }
+      .alg-view-title { font-size:1.2rem; }
+      .alg-title { font-size:1.2rem; }
+      .alg-nav-btns { flex-direction:column; }
+      .plan-progress { flex-wrap:wrap; gap:8px; justify-content:center; }
+      .sim-chat { max-height:calc(100svh - 220px); }
+      .quiz-view-title { font-size:1.3rem; }
+    }
+    @media (max-width:480px) {
+      .alg-card-body { padding:16px; }
+      .quiz-card-top { padding:14px 16px; }
+      .quiz-options { padding:12px 14px 4px; }
+      .quiz-opt-btn { padding:11px 13px; font-size:0.82rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <aside id="sidebar"></aside>
+
+  <div class="main-wrap">
+
+    <!-- App Navbar -->
+    <header class="app-nav">
+      <div class="app-nav-logo">
+        <div class="app-nav-icon" id="navIcon"><i class="fa-solid fa-lungs"></i></div>
+        <div>
+          <div class="app-nav-title">DAS 2025 <span id="navSubText" style="color:var(--accent);">Pro</span></div>
+          <div class="app-nav-sub">Guía y Simulador de Vía Aérea Difícil</div>
+        </div>
+      </div>
+      <nav class="nav-tabs">
+        <button onclick="navigate('algoritmo')" id="nav-algoritmo" class="nav-tab">
+          <i class="fa-solid fa-code-branch"></i> Algoritmo
+        </button>
+        <button onclick="navigate('simulador')" id="nav-simulador" class="nav-tab">
+          <i class="fa-solid fa-brain"></i> Simulador
+        </button>
+        <button onclick="navigate('quiz')" id="nav-quiz" class="nav-tab">
+          <i class="fa-solid fa-clipboard-question"></i> Quiz
+        </button>
+      </nav>
+    </header>
+
+    <!-- Content -->
+    <main class="app-content">
+
+      <!-- VIEW: ALGORITMO -->
+      <div id="view-algoritmo" class="view">
+        <div class="alg-view-header">
+          <div>
+            <h2 class="alg-view-title">Vía Aérea Difícil</h2>
+            <p class="alg-view-sub">Planes A → D según la Guía DAS 2025</p>
+          </div>
+          <button class="alg-reset-btn" onclick="renderAlgoritmo('plan-a')">
+            <i class="fa-solid fa-rotate-right"></i> Reiniciar
+          </button>
+        </div>
+        <div id="alg-progress" class="plan-progress"></div>
+        <div id="alg-card" class="alg-card"></div>
+      </div>
+
+      <!-- VIEW: SIMULADOR -->
+      <div id="view-simulador" class="view">
+        <div class="sim-header">
+          <div>
+            <h2 class="sim-title"><i class="fa-solid fa-heart-pulse sim-title-icon"></i> Caso Clínico</h2>
+            <p class="sim-subtitle">Actúa bajo presión. Fallar enseña.</p>
+          </div>
+          <button class="sim-reset-btn" onclick="initSimulador()">Reiniciar</button>
+        </div>
+        <div class="sim-container">
+          <div id="sim-chat" class="sim-chat"></div>
+          <div id="sim-choices" class="sim-choices"></div>
+        </div>
+      </div>
+
+      <!-- VIEW: QUIZ -->
+      <div id="view-quiz" class="view">
+        <div class="quiz-view-header">
+          <h2 class="quiz-view-title">Quiz DAS 2025</h2>
+          <p class="quiz-view-sub">Ponte a prueba con preguntas clave de la guía.</p>
+        </div>
+        <div id="quiz-container"></div>
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    function toggleSpec(header) {
+      const list = header.nextElementSibling;
+      const isOpen = list.classList.contains('open');
+      document.querySelectorAll('.topics-list.open').forEach(l => {
+        l.classList.remove('open');
+        l.previousElementSibling.classList.remove('open');
+      });
+      if (!isOpen) { list.classList.add('open'); header.classList.add('open'); }
+    }
+
+    // ── DATA ──────────────────────────────────────────────────────────────────
+    const DAS_ALGORITHM = {
+      'plan-a': {
+        id:'plan-a', plan:'A',
+        title:'Plan A: Intubación Traqueal',
+        description:'Preoxigenar. Minimizar intentos. Videolaringoscopía inicial.',
+        actions:['Máximo 3 intentos (más 1 por un experto).','Usar Videolaringoscopía (VL) como primera línea.','Mantener anestesia y relajante muscular.'],
+        warnings:['Cuidado con desaturación de oxígeno rápida.'],
+        next:[{label:'Intubación Exitosa',id:'success'},{label:'Intubación Fallida',id:'plan-b'}]
+      },
+      'plan-b': {
+        id:'plan-b', plan:'B',
+        title:'Plan B: Inserción de DSG',
+        description:'Inserción de Dispositivo Supraglótico de rescate.',
+        actions:['Insertar DSG (preferiblemente de 2ª generación).','Máximo 2 intentos.','Confirmar ventilación y oxigenación.'],
+        warnings:['Si el paciente no puede oxigenarse con DSG, no pierda tiempo.'],
+        next:[{label:'DSG Exitoso',id:'success'},{label:'DSG Fallido',id:'plan-c'}]
+      },
+      'plan-c': {
+        id:'plan-c', plan:'C',
+        title:'Plan C: Ventilación con Mascarilla',
+        description:'Último recurso de oxigenación transitoria.',
+        actions:['Optimizar técnica a 2 manos con Guedel.','Considerar despertar al paciente si las condiciones lo permiten.'],
+        warnings:['¡Si NO ventila, prepárese de inmediato para la vía quirúrgica!'],
+        next:[{label:'Ventilación Exitosa',id:'success'},{label:'Ventilación Fallida (CICO)',id:'plan-d'}]
+      },
+      'plan-d': {
+        id:'plan-d', plan:'D',
+        title:'Plan D: FONA de Emergencia',
+        description:'Acceso Frontal del Cuello · Escenario C.I.C.O.',
+        actions:['DECLARAR EN VOZ ALTA: "No se puede intubar, No se puede oxigenar".','Técnica Bisturí-Bujía-Tubo (Scalpel-Bougie-Tube).'],
+        warnings:['Emergencia a vida o muerte. Actuar sin dudas.'],
+        isEmergency: true,
+        next:[{label:'Vía Asegurada Exitosamente',id:'success'}]
+      },
+      'success': {
+        id:'success', plan:'SUCCESS',
+        title:'¡Vía Aérea Controlada!',
+        description:'La crisis está temporalmente contenida.',
+        actions:['Confirmar EtCO₂.','Preparar plan post-intubación / post-despertar.','Hacer Debriefing con el equipo.'],
+        next: null
+      }
+    };
+
+    const DAS_QUIZ = [
+      { q:'¿Cuál es el número límite de intentos de intubación en el Plan A?',
+        opts:['2 intentos','3 intentos (+1 experto)','Ilimitados hasta que sature mal','Solo 1 intento'], ans:1,
+        exp:'La DAS recomienda máximo 3 intentos, con posibilidad de que alguien más hábil intente 1 vez más. Repetir intentos deteriora la anatomía.' },
+      { q:'La técnica gold standard de rescate quirúrgico en el Plan D es...',
+        opts:['Cricotiroidotomía con aguja (punzón)','Técnica Bisturí-Bougie-Tubo','Traqueostomía percutánea','Combitubo'], ans:1,
+        exp:'La técnica Scalpel-Bougie-Tube es la recomendada por la DAS por su alta tasa de éxito en simuladores y en contexto de emergencia.' },
+      { q:'Si el paciente no puede intubarse ni oxigenarse, la declaración correcta es...',
+        opts:['¡Llamen a terapia intensiva!','¡Prepárense para despertar!','¡Declaración CICO!','¡Código Azul!'], ans:2,
+        exp:'Declarar CICO (Cannot Intubate, Cannot Oxygenate) transita al equipo al protocolo de rescate agudo (Plan D). El lenguaje claro salva vidas.' }
+    ];
+
+    const DAS_STORY = {
+      start: {
+        text:'<strong>CASO (PLAN A):</strong><br><br>Hombre 45 años, IMC 42, barba y Mallampati IV. Cero visibilidad en inducción con hoja Macintosh.<br>¿Qué haces?',
+        choices:[
+          {label:'A',text:'Probar otras 4 hojas diferentes e insistir hasta entrar.',target:'mistake1'},
+          {label:'B',text:'Asumir vía difícil, limitar intentos y pedir Videolaringoscopía de urgencia.',target:'fase2'}
+        ], error:false
+      },
+      mistake1: {
+        text:'<strong>¡Sangrado! Error.</strong><br>Forzar intubación destruye la anatomía (sangrado, edema), condenando al paciente a que los planes subsiguientes también fallen.',
+        choices:[{label:'↺',text:'Regresar e intentar de nuevo.',target:'start'}], error:true
+      },
+      fase2: {
+        text:'<strong>Correcto (PLAN B):</strong><br>El 2º intento con videolaringoscopía falla por anatomía distorsionada. SpO₂ en 85%.<br>¿Siguiente paso de inmediato?',
+        choices:[
+          {label:'A',text:'Despertar. Administrar sugammadex masivo.',target:'mistake2'},
+          {label:'B',text:'Insertar Dispositivo Supraglótico (DSG) de 2ª generación para recuperar reserva.',target:'fase3'}
+        ], error:false
+      },
+      mistake2: {
+        text:'<strong>Demorado. Error.</strong><br>Un obeso con SpO₂ 85% no oxigenará espontáneamente a tiempo. Debes rescatar el nivel de O₂ insertando el dispositivo supraglótico.',
+        choices:[{label:'↺',text:'Regresar.',target:'fase2'}], error:true
+      },
+      fase3: {
+        text:'<strong>Correcto (PLAN C):</strong><br>El DSG falla. Ventilación imposible. Plan C: Mascarilla facial a 2 manos... ¡Tampoco expande! SpO₂ en 60%.',
+        choices:[
+          {label:'A',text:'🚨 DECLARAR CICO y pedir Bisturí de inmediato.',target:'success'},
+          {label:'B',text:'Tratar de meter un tubo a ciegas rápidamente.',target:'mistake3'}
+        ], error:false
+      },
+      mistake3: {
+        text:'<strong>¡Muerte Inminente! Error.</strong><br>Regresar al Plan A con SpO₂ de 60% es una sentencia. Tienes segundos antes del paro cardíaco.',
+        choices:[{label:'↺',text:'Volver atrás rápido.',target:'fase3'}], error:true
+      },
+      success: {
+        text:'<strong>¡VIDA SALVADA! 🏆</strong><br>Realizaste FONA. Incisión cricotiroidea → guía elástica (bujía) → Tubo 6.0 mm. El paciente ventila. SpO₂ recuperándose.',
+        choices:[{label:'↺',text:'Finalizar.',target:'start'}], error:false, critical:true
+      }
+    };
+
+    // ── STATE ──────────────────────────────────────────────────────────────────
+    let activeTab = 'algoritmo';
+    let simHistory = [];
+    let currNodeId = 'start';
+    let quizIdx = 0, score = 0, isQuizAnswered = false;
+
+    // ── NAVIGATION ──────────────────────────────────────────────────────────────
+    function navigate(tab) {
+      activeTab = tab;
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      document.getElementById(`view-${tab}`).classList.add('active');
+      document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+      document.getElementById(`nav-${tab}`).classList.add('active');
+      document.body.classList.remove('cico-mode');
+      document.getElementById('navIcon').classList.remove('cico-icon');
+      if (tab === 'algoritmo') renderAlgoritmo('plan-a');
+      if (tab === 'simulador') initSimulador();
+      if (tab === 'quiz') renderQuiz();
+    }
+
+    function playWarningAlert(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const msg = new SpeechSynthesisUtterance(text);
+        msg.lang = 'es-MX'; msg.pitch = 0.9;
+        window.speechSynthesis.speak(msg);
+      }
+    }
+
+    // ── ALGORITMO ──────────────────────────────────────────────────────────────
+    function renderAlgoritmo(stepId) {
+      const step = DAS_ALGORITHM[stepId];
+      const em = step.isEmergency;
+
+      if (em) {
+        document.body.classList.add('cico-mode');
+        document.getElementById('navIcon').classList.add('cico-icon');
+        playWarningAlert("Atención. Escenario CICO declarado. Vía aérea quirúrgica requerida inmediatamente.");
+      } else {
+        document.body.classList.remove('cico-mode');
+        document.getElementById('navIcon').classList.remove('cico-icon');
+      }
+
+      // Progress
+      const plans = ['A','B','C','D'];
+      const activeClass = {A:'a-active',B:'b-active',C:'c-active',D:'d-active'};
+      const successClass = 'success-active';
+      let progHtml = plans.map(p => {
+        let cls = 'plan-circle';
+        if (step.plan === p) cls += ' ' + activeClass[p];
+        else if (step.plan === 'SUCCESS') cls += ' ' + successClass;
+        return `<div class="plan-bubble"><div class="${cls}">${p}</div><span class="plan-label">Plan ${p}</span></div>`;
+      }).join('');
+      document.getElementById('alg-progress').innerHTML = progHtml;
+
+      // Actions
+      let actHtml = step.actions.map(a => `
+        <div class="alg-action-item${em?' emergency':''}">
+          <i class="fa-solid fa-${em?'syringe':'check'} alg-action-icon${em?' emergency':''}"></i>
+          <span class="alg-action-text">${a}</span>
+        </div>`).join('');
+
+      // Warning
+      let warnHtml = '';
+      if (step.warnings) {
+        warnHtml = `<div class="alg-warning${em?' emergency':''}">
+          <div class="alg-warning-title"><i class="fa-solid fa-triangle-exclamation"></i> Preste Atención</div>
+          <ul>${step.warnings.map(w=>`<li>${w}</li>`).join('')}</ul>
+        </div>`;
+      }
+
+      // Buttons
+      let btnHtml = '';
+      if (step.next) {
+        btnHtml = '<div class="alg-nav-btns">' + step.next.map(n => {
+          let cls = n.id === 'success' ? 'alg-btn alg-btn-success' :
+                    n.id === 'plan-d'  ? 'alg-btn alg-btn-emergency' :
+                                         'alg-btn alg-btn-next';
+          return `<button onclick="renderAlgoritmo('${n.id}')" class="${cls}">${n.label} →</button>`;
+        }).join('') + '</div>';
+      } else {
+        btnHtml = `<div class="alg-nav-btns"><button onclick="renderAlgoritmo('plan-a')" class="alg-btn alg-btn-reset">← Volver al Inicio</button></div>`;
+      }
+
+      document.getElementById('alg-card').innerHTML = `
+        <div class="alg-card-bar${em?' emergency':''}"></div>
+        <div class="alg-card-body">
+          <div class="alg-plan-badge${em?' emergency':''}">${step.plan === 'SUCCESS' ? 'CASO ESTABLE' : 'PLAN ' + step.plan}</div>
+          <h3 class="alg-title">${step.title}</h3>
+          <p class="alg-desc">${step.description}</p>
+          <div class="alg-actions">${actHtml}</div>
+          ${warnHtml}
+          ${btnHtml}
+        </div>`;
+    }
+
+    // ── SIMULADOR ─────────────────────────────────────────────────────────────
+    function initSimulador() {
+      simHistory = [];
+      currNodeId = 'start';
+      renderSimulatorChat();
+    }
+
+    function scrollToBottom(id) {
+      setTimeout(() => { const el = document.getElementById(id); if(el) el.scrollTop = el.scrollHeight; }, 60);
+    }
+
+    function answerSim(targetId, choiceText) {
+      simHistory.push({ type:'bot', ...DAS_STORY[currNodeId] });
+      simHistory.push({ type:'user', text: choiceText });
+      document.getElementById('sim-choices').innerHTML = '';
+      renderSimulatorChat(true);
+      setTimeout(() => {
+        currNodeId = targetId;
+        if (DAS_STORY[currNodeId].critical) playWarningAlert("FONA de rescate requerido de inmediato.");
+        renderSimulatorChat();
+      }, 800);
+    }
+
+    function renderSimulatorChat(isTyping = false) {
+      const chat = document.getElementById('sim-chat');
+      let html = '';
+
+      simHistory.forEach(msg => {
+        if (msg.type === 'bot') {
+          let bc = msg.critical ? 'sim-bubble bot-msg critical' : msg.error ? 'sim-bubble bot-msg error' : 'sim-bubble bot-msg';
+          html += `<div class="message-row bot">
+            <div class="sim-avatar left"><i class="fa-solid fa-stethoscope"></i></div>
+            <div class="${bc}">${msg.text}</div>
+          </div>`;
+        } else {
+          html += `<div class="message-row user">
+            <div class="sim-bubble user-msg">${msg.text}</div>
+          </div>`;
+        }
+      });
+
+      if (!isTyping) {
+        const cd = DAS_STORY[currNodeId];
+        let bc = cd.critical ? 'sim-bubble bot-msg critical' : cd.error ? 'sim-bubble bot-msg error' : 'sim-bubble bot-msg';
+        html += `<div class="message-row bot">
+          <div class="sim-avatar left current"><i class="fa-solid fa-stethoscope"></i></div>
+          <div class="${bc}">${cd.text}</div>
+        </div>`;
+        document.getElementById('sim-choices').innerHTML = cd.choices.map(ch => `
+          <button onclick="answerSim('${ch.target}', \`${ch.text}\`)" class="sim-choice-btn">
+            <span class="sim-choice-badge">${ch.label}</span>
+            <span>${ch.text}</span>
+          </button>`).join('');
+      } else {
+        html += `<div class="message-row bot">
+          <div class="sim-avatar left"><i class="fa-solid fa-ellipsis"></i></div>
+          <div class="sim-bubble bot-msg"><div class="typing-indicator"><span></span><span></span><span></span></div></div>
+        </div>`;
+      }
+
+      chat.innerHTML = html;
+      scrollToBottom('sim-chat');
+    }
+
+    // ── QUIZ ───────────────────────────────────────────────────────────────────
+    function answerQuiz(idx) {
+      if (isQuizAnswered) return;
+      isQuizAnswered = true;
+      if (idx === DAS_QUIZ[quizIdx].ans) score++;
+      renderQuiz(idx);
+    }
+
+    function nextQuiz() { quizIdx++; isQuizAnswered = false; renderQuiz(); }
+    function resetQuiz() { quizIdx = 0; score = 0; isQuizAnswered = false; renderQuiz(); }
+
+    function renderQuiz(userChoice = null) {
+      const container = document.getElementById('quiz-container');
+      if (quizIdx >= DAS_QUIZ.length) {
+        container.innerHTML = `
+          <div class="quiz-finale">
+            <div style="font-size:3rem;margin-bottom:16px;">🏆</div>
+            <h3 style="font-size:1.6rem;font-weight:800;color:var(--text);margin-bottom:12px;">Quiz Completado</h3>
+            <div class="quiz-score">${score} / ${DAS_QUIZ.length}</div>
+            <div class="quiz-score-label">Aciertos</div>
+            <button onclick="resetQuiz()" class="quiz-replay-btn">Intentar de nuevo</button>
+          </div>`;
+        return;
+      }
+
+      const cq = DAS_QUIZ[quizIdx];
+      const pct = ((quizIdx + 1) / DAS_QUIZ.length) * 100;
+
+      const optsHtml = cq.opts.map((opt, i) => {
+        let extraCls = '';
+        if (isQuizAnswered) {
+          if (i === cq.ans) extraCls = ' correct';
+          else if (i === userChoice) extraCls = ' wrong';
+          else extraCls = ' dimmed';
+        }
+        const letter = String.fromCharCode(65 + i);
+        return `<button onclick="answerQuiz(${i})" class="quiz-opt-btn${extraCls}" ${isQuizAnswered?'disabled':''}>
+          <span class="quiz-opt-letter">${letter}</span>${opt}
+        </button>`;
+      }).join('');
+
+      let expHtml = '';
+      if (isQuizAnswered) {
+        expHtml = `
+          <div class="quiz-explanation">
+            <div class="quiz-exp-title"><i class="fa-solid fa-book-open"></i> Explicación</div>
+            <p class="quiz-exp-text">${cq.exp}</p>
+          </div>
+          <button onclick="nextQuiz()" class="quiz-next-btn">Continuar →</button>`;
+      }
+
+      container.innerHTML = `
+        <div class="quiz-card">
+          <div class="quiz-card-top">
+            <div class="quiz-meta">
+              <span class="quiz-num">Pregunta ${quizIdx+1}</span>
+              <div class="quiz-prog-bar"><div class="quiz-prog-fill" style="width:${pct}%"></div></div>
+            </div>
+            <h3 class="quiz-question">${cq.q}</h3>
+          </div>
+          <div class="quiz-options">${optsHtml}</div>
+          ${expHtml}
+        </div>`;
+    }
+
+    // Init
+    document.addEventListener('DOMContentLoaded', () => { navigate('algoritmo'); });
+  </script>
+  <script src="sidebar.js"></script>
+</body>
+</html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador LAST — ENARM · Anestesiología</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0e1a; --surface: #111827; --surface2: #1a2235; --surface3: #212d45;
+      --border: #2a3a5c; --text: #e8ecf4; --text-dim: #8896b3;
+      --accent: #38bdf8; --accent-glow: rgba(56,189,248,0.15);
+      --correct: #34d399; --correct-bg: rgba(52,211,153,0.1); --correct-border: rgba(52,211,153,0.4);
+      --wrong: #f87171; --wrong-bg: rgba(248,113,113,0.1); --wrong-border: rgba(248,113,113,0.4);
+      --gold: #fbbf24; --purple: #a78bfa; --pink: #f472b6; --teal: #2dd4bf;
+      --sidebar-w: 280px; --radius: 14px;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--text); height:100vh; height:100dvh; display:flex; overflow:hidden; }
+
+    /* ── ENARM Navigation Sidebar (rendered by sidebar.js) ── */
+    #sidebar {
+      width:var(--sidebar-w); min-height:100vh; background:var(--surface);
+      border-right:1px solid var(--border); display:flex; flex-direction:column;
+      position:fixed; left:0; top:0; bottom:0; overflow-y:auto; z-index:100;
+    }
+    .sidebar-logo { padding:24px 20px 16px; border-bottom:1px solid var(--border); }
+    .logo-badge { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,var(--accent),var(--purple)); padding:6px 14px; border-radius:100px; font-size:0.75rem; font-weight:800; color:var(--bg); letter-spacing:0.5px; text-transform:uppercase; margin-bottom:10px; }
+    .sidebar-logo h2 { font-size:1.1rem; font-weight:800; background:linear-gradient(135deg,var(--text),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .sidebar-logo p { font-size:0.72rem; color:var(--text-dim); margin-top:2px; }
+    .back-btn { display:flex; align-items:center; gap:8px; padding:14px 20px; color:var(--text-dim); font-size:0.8rem; text-decoration:none; border-bottom:1px solid var(--border); transition:color 0.2s; }
+    .back-btn:hover { color:var(--accent); }
+    .sidebar-nav { flex:1; padding:12px 0 24px; }
+    .specialty-header { display:flex; align-items:center; justify-content:space-between; padding:10px 16px 10px 20px; cursor:pointer; transition:background 0.2s; user-select:none; }
+    .specialty-header:hover { background:var(--surface2); }
+    .specialty-name { display:flex; align-items:center; gap:10px; font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; }
+    .specialty-icon { width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:0.9rem; flex-shrink:0; }
+    .chevron { font-size:0.65rem; color:var(--text-dim); transition:transform 0.3s; }
+    .specialty-header.open .chevron { transform:rotate(90deg); }
+    .topics-list { display:none; padding:4px 0 8px; }
+    .topics-list.open { display:block; }
+    .topic-link { display:flex; align-items:center; gap:10px; padding:8px 16px 8px 56px; font-size:0.78rem; color:var(--text-dim); text-decoration:none; transition:all 0.2s; border-left:2px solid transparent; line-height:1.4; }
+    .topic-link:hover { color:var(--text); background:var(--surface3); }
+    .topic-link.active { color:#34d399; border-left-color:#34d399; background:rgba(52,211,153,0.12); font-weight:600; }
+    .topic-link.coming-soon { opacity:0.4; cursor:not-allowed; pointer-events:none; }
+    .topic-num { font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--text-dim); min-width:20px; }
+    .badge-soon { margin-left:auto; background:rgba(136,150,179,0.1); color:var(--text-dim); font-size:0.62rem; font-weight:600; padding:2px 7px; border-radius:100px; }
+    .badge-ready { margin-left:auto; background:rgba(52,211,153,0.12); color:#34d399; font-size:0.62rem; font-weight:600; padding:2px 7px; border-radius:100px; }
+
+    /* ── Main App Layout ── */
+    .main-wrap {
+      margin-left: var(--sidebar-w);
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      width: calc(100% - var(--sidebar-w));
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ── ASRA Guide Panel ── */
+    .asra-panel {
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .asra-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--accent);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .guide-card {
+      background: var(--surface2);
+      border-radius: 10px;
+      padding: 13px;
+      border-left: 3px solid var(--accent);
+    }
+    .guide-card.danger { border-left-color: var(--wrong); }
+    .guide-card.success { border-left-color: var(--correct); }
+    .guide-card h3 { margin:0 0 7px; font-size:0.78rem; font-weight:700; color:var(--text); }
+    .guide-card p, .guide-card ul { margin:0; font-size:0.76rem; line-height:1.55; color:var(--text-dim); }
+    .guide-card ul { padding-left:14px; }
+    .guide-card li { margin-bottom:3px; }
+
+    /* ── Chat Area ── */
+    .chat-area {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+    }
+    .chat-header {
+      padding: 18px 24px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .chat-header h2 { font-size:1.05rem; font-weight:800; color:var(--text); }
+    .chat-header p { font-size:0.75rem; color:var(--text-dim); margin-top:3px; }
+
+    .chat-window {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      scroll-behavior: smooth;
+    }
+
+    .message-row { display:flex; width:100%; animation:fadeIn 0.35s ease forwards; }
+    .message-row.bot { justify-content:flex-start; }
+    .message-row.user { justify-content:flex-end; margin-bottom:6px; }
+
+    .bubble {
+      max-width: 78%;
+      padding: 13px 17px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      line-height: 1.65;
+    }
+    .bubble.bot { background:var(--surface2); border:1px solid var(--border); border-bottom-left-radius:3px; }
+    .bubble.bot.error { background:var(--wrong-bg); border-color:var(--wrong-border); }
+    .bubble.user { background:var(--accent-glow); border:1px solid rgba(56,189,248,0.25); border-bottom-right-radius:3px; }
+
+    .bot-icon {
+      align-self: flex-end;
+      margin-right: 9px;
+      background: var(--accent);
+      color: var(--bg);
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem;
+      flex-shrink: 0;
+    }
+    .bot-icon.err { background: var(--wrong); }
+
+    /* Choices */
+    .choices-container {
+      padding: 14px 20px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      flex-shrink: 0;
+    }
+    .choice-btn {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 12px 16px;
+      border-radius: 9px;
+      text-align: left;
+      font-size: 0.82rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .choice-btn:hover { background:var(--surface3); border-color:var(--accent); transform:translateY(-1px); }
+    .choice-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: var(--accent-glow);
+      min-width: 22px; height: 22px;
+      padding: 0 5px;
+      border-radius: 5px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Typing */
+    .typing-indicator { display:inline-flex; gap:4px; padding:10px 13px; background:var(--surface2); border-radius:12px; border-bottom-left-radius:3px; width:fit-content; }
+    .typing-indicator span { width:6px; height:6px; background:var(--text-dim); border-radius:50%; animation:bounce 1.4s infinite ease-in-out both; }
+    .typing-indicator span:nth-child(1) { animation-delay:-0.32s; }
+    .typing-indicator span:nth-child(2) { animation-delay:-0.16s; }
+
+    @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes bounce { 0%,80%,100%{transform:scale(0)} 40%{transform:scale(1)} }
+
+    @media (max-width:900px) {
+      #sidebar { transform:translateX(-100%); }
+      .main-wrap { margin-left:0; width:100%; grid-template-columns:1fr; }
+      .asra-panel { display:none; }
+      .chat-header { padding:14px 16px; }
+      .chat-window { padding:14px 16px; }
+      .choices-container { padding:10px 14px; }
+      .bubble { max-width:88%; font-size:0.82rem; }
+    }
+    @media (max-width:480px) {
+      .chat-header h2 { font-size:0.95rem; }
+      .choice-btn { font-size:0.78rem; padding:10px 13px; }
+    }
+  </style>
+</head>
+<body>
+
+  <aside id="sidebar"></aside>
+
+  <div class="main-wrap">
+
+    <!-- ASRA Guide Panel -->
+    <div class="asra-panel">
+      <div class="asra-title">
+        <i class="fa-solid fa-book-medical"></i> ASRA Checklist LAST
+      </div>
+
+      <div class="guide-card danger">
+        <h3>1. Puntos Finales</h3>
+        <p>Las terapias clave en toxicidad severa: asegurar vía aérea + evitar fármacos dañinos + Emulsión Lipídica (Intralipid 20%).</p>
+      </div>
+
+      <div class="guide-card danger">
+        <h3>2. Evitar / Proscritos</h3>
+        <ul>
+          <li><strong>Propofol:</strong> Depresor CV grave. Carga lipídica ineficaz.</li>
+          <li><strong>Lidocaína / AL:</strong> Para tratar arritmias (empeoran toxicidad).</li>
+          <li><strong>Beta-bloqueadores & Ca-antagonistas:</strong> Empeoran colapso CV.</li>
+          <li><strong>Vasopresina.</strong></li>
+        </ul>
+      </div>
+
+      <div class="guide-card success">
+        <h3>3. Terapia Lipídica (Intralipid 20%)</h3>
+        <ul>
+          <li><strong>Bolo inicial:</strong> 1.5 mL/kg.</li>
+          <li><strong>Infusión:</strong> 0.25 mL/kg/min.</li>
+          <li>Se repite bolo si hay colapso persistente → incrementar infusión a 0.5 mL/kg/min.</li>
+        </ul>
+      </div>
+
+      <div class="guide-card">
+        <h3>4. Paro Cardíaco Prolongado</h3>
+        <p>La RCP puede tardar &gt;60 min. Considera ECMO.<br><br>
+        <strong>Epinefrina:</strong> Preferir dosis &lt;1 mcg/kg para no interferir con el rescate lipídico.</p>
+      </div>
+    </div>
+
+    <!-- Chat Interface -->
+    <div class="chat-area">
+      <div class="chat-header">
+        <h2>Simulador Interactivo LAST</h2>
+        <p>Selecciona la conducta correcta según la Guía ASRA · Intoxicación por Anestésicos Locales</p>
+      </div>
+      <div class="chat-window" id="chatWindow"></div>
+      <div class="choices-container" id="choicesContainer"></div>
+    </div>
+
+  </div>
+
+  <script>
+    function toggleSpec(header) {
+      const list = header.nextElementSibling;
+      const isOpen = list.classList.contains('open');
+      document.querySelectorAll('.topics-list.open').forEach(l => {
+        l.classList.remove('open');
+        l.previousElementSibling.classList.remove('open');
+      });
+      if (!isOpen) { list.classList.add('open'); header.classList.add('open'); }
+    }
+
+    const story = {
+      start: {
+        botText: "<strong>CASO CLÍNICO:</strong><br><br>Paciente masculino de 75 kg (ASA II). Se le realiza un bloqueo supraclavicular guiado por ultrasonido para cirugía de hombro. Se administran 30 mL de Ropivacaína al 0.5%.<br><br>Tres minutos después de retirar la aguja, el paciente refiere: <em>'Doctor, siento un sabor extraño, como a metal en la boca'</em>. Simultáneamente, muestra mioclonías periorales y agitación psicomotriz.<br><br>¿Cuál es tu conducta inicial?",
+        choices: [
+          { label: "A", text: "Administrar 2 mg Midazolam IV y vigilar. Continuar con la cirugía, son efectos por absorción rápida.", target: "q1_midazolam" },
+          { label: "B", text: "Detener infiltración (si siguiera), pedir carro de paro + Emulsión Lipídica, y administrar Oxígeno 100%.", target: "fase2_convulsiones" },
+          { label: "C", text: "Administrar Propofol 50 mg IV de manera urgente para sedarlo mientras pasa el efecto.", target: "q1_propofol" }
+        ],
+        isError: false
+      },
+      q1_midazolam: {
+        botText: "<strong>Error Relativo.</strong><br>Si bien las benzodiacepinas se usan en LAST para tratar convulsiones, subestimar el cuadro y no pedir ayuda es un error crítico. Un sabor a metal y agitación post-bloqueo es signo inequívoco de LAST inminente. Se debe pedir el kit de lípidos inmediatamente y oxigenar al 100% para evitar acidosis (la acidosis empeora la toxicidad).",
+        choices: [{ label: "↺", text: "Comprendido. Volver atrás.", target: "start" }],
+        isError: true
+      },
+      q1_propofol: {
+        botText: "<strong>¡Peligro! — Error Crítico.</strong><br>El Propofol es un grave <strong>depresor cardiovascular</strong>. En un paciente a punto de entrar a falla cardíaca por LAST, el Propofol causará un colapso irreversible. Además, la pequeña cantidad de lípidos en el Propofol NO es una 'terapia lipídica de rescate' eficaz.",
+        choices: [{ label: "↺", text: "Comprendido. Volver atrás.", target: "start" }],
+        isError: true
+      },
+      fase2_convulsiones: {
+        botText: "<strong>¡Excelente!</strong><br>Pides O₂ al 100%, aseguras vía aérea con presión positiva y solicitas la Emulsión Lipídica al 20%.<br><br>A pesar de tus esfuerzos, a los 2 minutos el paciente presenta pérdida súbita de conciencia y movimientos tónico-clónicos generalizados severos (Estado Convulsivo).<br><br>¿Qué fármaco es el ideal para yugular las crisis convulsivas?",
+        choices: [
+          { label: "A", text: "Propofol o Tiopental IV a dosis plena inductora.", target: "q2_tiopental" },
+          { label: "B", text: "Benzodiacepinas (ej. Midazolam 1-2 mg IV).", target: "fase3_paro" },
+          { label: "C", text: "Amiodarona 300 mg rápida.", target: "q2_amiodarona" }
+        ],
+        isError: false
+      },
+      q2_tiopental: {
+        botText: "<strong>Error.</strong><br>Dosis inductivas de tiopental o altas de propofol deprimirán el miocardio. La ASRA indica claramente que se prefieren benzodiacepinas a dosis bajas si se tiene control de la vía aérea.",
+        choices: [{ label: "↺", text: "Comprendido. Intentar de nuevo.", target: "fase2_convulsiones" }],
+        isError: true
+      },
+      q2_amiodarona: {
+        botText: "<strong>Error Médico.</strong><br>La amiodarona es un antiarrítmico de ACLS para arritmias letales, no un anticonvulsivo. Las convulsiones en LAST se manejan con benzodiacepinas.",
+        choices: [{ label: "↺", text: "Volver atrás.", target: "fase2_convulsiones" }],
+        isError: true
+      },
+      fase3_paro: {
+        botText: "<strong>¡Correcto!</strong> El Midazolam aborta exitosamente la convulsión, limitando hipoxia y metabolismo acelerado.<br><br>Sin embargo, el ECG muestra complejos QRS súper anchos que degeneran a <strong>Fibrilación Ventricular. El paciente pierde el pulso. (PARO CARDÍACO POR LAST).</strong><br><br>¡Inicias RCP de alta calidad! Llega la Emulsión Lipídica (Intralipid 20%). Tienes la adrenalina lista.<br><br>¿Cómo reanimas según las modificaciones de la ASRA?",
+        choices: [
+          { label: "A", text: "RCP estándar, Epinefrina 1 mg IV en bolo cada 3 min, NO usar lípidos hasta estabilizar ritmo.", target: "q3_epi_high" },
+          { label: "B", text: "RCP, bolo Intralipid 20% (112.5 mL), lidocaína IV para revertir la TV/FV.", target: "q3_lido" },
+          { label: "C", text: "RCP, bolo rápido de Intralipid 20% 1.5 mL/kg, Epinefrina a MICRO-DOSIS (<1 mcg/kg), y si arritmia persiste, considerar Amiodarona.", target: "success" }
+        ],
+        isError: false
+      },
+      q3_epi_high: {
+        botText: "<strong>Falla Terapéutica.</strong><br>La Epinefrina a dosis típicas de ACLS adulto (>1 mg) es altamente arritmogénica y empeora el metabolismo del lipid rescue. La ASRA exige evitar dosis >1 mcg/kg. La terapia lipídica se infunde <em>durante</em> la RCP, no hay que esperar.",
+        choices: [{ label: "↺", text: "Entendido. Volver atrás.", target: "fase3_paro" }],
+        isError: true
+      },
+      q3_lido: {
+        botText: "<strong>¡Proscrito!</strong><br>Nunca usar lidocaína ni otros anestésicos locales para tratar arritmias por LAST. Esto amplifica el bloqueo de canales de sodio y es letal.",
+        choices: [{ label: "↺", text: "Entendido. Volver atrás.", target: "fase3_paro" }],
+        isError: true
+      },
+      success: {
+        botText: "<strong>¡PACIENTE RECUPERADO! 🏆</strong><br><br>¡Manejo perfecto!<br>Iniciaste Intralipid al 20% (bolo 1.5 mL/kg + infusión 0.25 mL/kg/min). Evitaste medicamentos perjudiciales. Usaste epinefrina a dosis &lt;1 mcg/kg.<br><br>⚠️ El paciente debe ir a la UCI para monitoreo durante al menos 12-24 horas post-incidente.<br><br><strong>¡Felicidades por dominar la guía ASRA de LAST!</strong>",
+        choices: [{ label: "↺", text: "Volver a jugar para repasar", target: "start" }],
+        isError: false
+      }
+    };
+
+    const chatWindow = document.getElementById('chatWindow');
+    const choicesContainer = document.getElementById('choicesContainer');
+    const DELAY = 600;
+
+    function appendBotTypingIndicator() {
+      const row = document.createElement('div');
+      row.className = 'message-row bot';
+      row.id = 'typingRow';
+      row.innerHTML = `
+        <div class="bot-icon"><i class="fa-solid fa-stethoscope"></i></div>
+        <div class="typing-indicator"><span></span><span></span><span></span></div>`;
+      chatWindow.appendChild(row);
+      scrollDown();
+    }
+
+    function removeTypingIndicator() {
+      const el = document.getElementById('typingRow');
+      if (el) el.remove();
+    }
+
+    function appendBotMessage(text, isError) {
+      const row = document.createElement('div');
+      row.className = 'message-row bot';
+      row.innerHTML = `
+        <div class="bot-icon${isError ? ' err' : ''}"><i class="fa-solid fa-${isError ? 'triangle-exclamation' : 'stethoscope'}"></i></div>
+        <div class="bubble bot${isError ? ' error' : ''}">${text}</div>`;
+      chatWindow.appendChild(row);
+      scrollDown();
+    }
+
+    function appendUserMessage(text) {
+      const row = document.createElement('div');
+      row.className = 'message-row user';
+      row.innerHTML = `<div class="bubble user">${text}</div>`;
+      chatWindow.appendChild(row);
+      scrollDown();
+    }
+
+    function renderChoices(arr) {
+      choicesContainer.innerHTML = '';
+      arr.forEach(c => {
+        const btn = document.createElement('button');
+        btn.className = 'choice-btn';
+        btn.innerHTML = `<span class="choice-label">${c.label}</span><span>${c.text}</span>`;
+        btn.onclick = () => handleChoice(c);
+        choicesContainer.appendChild(btn);
+      });
+    }
+
+    function scrollDown() {
+      setTimeout(() => { chatWindow.scrollTop = chatWindow.scrollHeight; }, 50);
+    }
+
+    function handleChoice(c) {
+      choicesContainer.innerHTML = '';
+      appendUserMessage(c.text);
+      setTimeout(() => {
+        appendBotTypingIndicator();
+        setTimeout(() => { removeTypingIndicator(); loadNode(c.target); }, DELAY);
+      }, 400);
+    }
+
+    function loadNode(key) {
+      const node = story[key];
+      appendBotMessage(node.botText, node.isError);
+      setTimeout(() => { renderChoices(node.choices); scrollDown(); }, 250);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      appendBotTypingIndicator();
+      setTimeout(() => { removeTypingIndicator(); loadNode('start'); }, DELAY);
+    });
+  </script>
+  <script src="sidebar.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Glaucoma — ENARM · Oftalmología · Tema 28</title>
+<title>Párpados, Vía Lagrimal y Retina — ENARM · Tema 28</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 
@@ -56,26 +56,28 @@
   .mode-btn.active { background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); }
 
   .header { text-align:center; padding:40px 20px 24px; position:relative; overflow:hidden; }
-  .header::before { content:''; position:absolute; top:-60%; left:50%; transform:translateX(-50%); width:600px; height:600px; background:radial-gradient(circle,rgba(56,189,248,0.08) 0%,transparent 70%); pointer-events:none; }
-  .header-badge { display:inline-flex; align-items:center; gap:8px; background:var(--surface2); border:1px solid var(--border); padding:6px 16px; border-radius:100px; font-size:0.78rem; color:var(--accent); font-weight:600; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:16px; }
-  .header h1 { font-size:clamp(1.6rem,5vw,2.2rem); font-weight:800; background:linear-gradient(135deg,var(--text) 0%,var(--accent) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:8px; }
-  .header p { color:var(--text-dim); font-size:0.95rem; max-width:500px; margin:0 auto; }
+  .header::before { content:''; position:absolute; top:-60%; left:50%; transform:translateX(-50%); width:600px; height:600px; background:radial-gradient(circle,rgba(52,211,153,0.08) 0%,transparent 70%); pointer-events:none; }
+  .header-badge { display:inline-flex; align-items:center; gap:8px; background:var(--surface2); border:1px solid var(--border); padding:6px 16px; border-radius:100px; font-size:0.78rem; color:#34d399; font-weight:600; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:16px; }
+  .header h1 { font-size:clamp(1.6rem,5vw,2.2rem); font-weight:800; background:linear-gradient(135deg,var(--text) 0%,#34d399 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:8px; }
+  .header p { color:var(--text-dim); font-size:0.95rem; max-width:560px; margin:0 auto; }
 
   .progress-wrap { background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:12px 20px; margin:20px 0 28px; display:flex; align-items:center; gap:14px; }
   .progress-bar-bg { flex:1; height:8px; background:var(--surface3); border-radius:100px; overflow:hidden; }
-  .progress-bar-fill { height:100%; width:0%; background:linear-gradient(90deg,var(--accent),var(--purple)); border-radius:100px; transition:width 0.5s ease; }
+  .progress-bar-fill { height:100%; width:0%; background:linear-gradient(90deg,#34d399,var(--accent)); border-radius:100px; transition:width 0.5s ease; }
   .progress-text { font-size:0.82rem; font-weight:600; color:var(--text-dim); white-space:nowrap; font-family:'JetBrains Mono',monospace; }
 
   .question-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:28px 24px; margin-bottom:20px; animation:slideIn 0.4s ease; position:relative; overflow:hidden; }
-  .question-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--gold),var(--accent),var(--purple)); }
+  .question-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,#34d399,var(--accent),var(--purple)); }
   @keyframes slideIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
 
   .q-category { display:inline-flex; align-items:center; gap:6px; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; padding:4px 12px; border-radius:100px; margin-bottom:14px; }
-  .cat-gaa  { background:rgba(52,211,153,0.12);  color:#34d399; }
-  .cat-gac  { background:rgba(251,191,36,0.12);  color:#fbbf24; }
-  .cat-dx   { background:rgba(56,189,248,0.12);  color:#38bdf8; }
-  .cat-tx   { background:rgba(167,139,250,0.12); color:#a78bfa; }
-  .cat-comp { background:rgba(244,114,182,0.12); color:#f472b6; }
+  .cat-vis  { background:rgba(45,212,191,0.12);  color:#2dd4bf; }
+  .cat-blef { background:rgba(251,191,36,0.12);  color:#fbbf24; }
+  .cat-orz  { background:rgba(251,146,60,0.12);  color:#fb923c; }
+  .cat-lag  { background:rgba(244,114,182,0.12); color:#f472b6; }
+  .cat-ret  { background:rgba(167,139,250,0.12); color:#a78bfa; }
+  .cat-rd   { background:rgba(52,211,153,0.12);  color:#34d399; }
+  .cat-ovr  { background:rgba(56,189,248,0.12);  color:#38bdf8; }
 
   .q-number { font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--text-dim); margin-bottom:10px; }
   .q-text { font-size:1.05rem; font-weight:600; line-height:1.55; margin-bottom:20px; color:var(--text); }
@@ -101,22 +103,22 @@
   .feedback .tip strong { color:var(--gold); }
   .feedback .ref { margin-top:8px; font-size:0.75rem; color:var(--text-dim); opacity:0.7; font-style:italic; }
 
-  .next-btn { display:none; margin:20px auto 0; padding:12px 32px; background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:0.92rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
-  .next-btn:hover { transform:scale(1.05); box-shadow:0 4px 24px var(--accent-glow); }
+  .next-btn { display:none; margin:20px auto 0; padding:12px 32px; background:linear-gradient(135deg,#34d399,var(--accent)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:0.92rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+  .next-btn:hover { transform:scale(1.05); box-shadow:0 4px 24px rgba(52,211,153,0.3); }
   .next-btn.show { display:block; }
 
   .results { display:none; animation:slideIn 0.5s ease; }
   .results.show { display:block; }
   .results-header { text-align:center; padding:30px 20px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:20px; position:relative; overflow:hidden; }
-  .results-header::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--correct),var(--accent),var(--purple),var(--pink)); }
-  .score-big { font-size:3.5rem; font-weight:800; background:linear-gradient(135deg,var(--correct),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .results-header::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,#34d399,var(--teal),var(--accent),var(--purple)); }
+  .score-big { font-size:3.5rem; font-weight:800; background:linear-gradient(135deg,#34d399,var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
   .score-label { font-size:1.1rem; color:var(--text-dim); margin-top:4px; }
   .score-msg { margin-top:12px; font-size:0.95rem; color:var(--text); font-weight:500; }
   .chart-section { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px 20px; margin-bottom:20px; }
   .chart-title { font-size:0.95rem; font-weight:700; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
   .bar-chart { display:flex; flex-direction:column; gap:14px; }
   .bar-row { display:flex; align-items:center; gap:12px; }
-  .bar-label { width:130px; font-size:0.78rem; font-weight:600; text-align:right; color:var(--text-dim); flex-shrink:0; }
+  .bar-label { width:160px; font-size:0.75rem; font-weight:600; text-align:right; color:var(--text-dim); flex-shrink:0; }
   .bar-track { flex:1; height:28px; background:var(--surface3); border-radius:8px; overflow:hidden; }
   .bar-fill { height:100%; border-radius:8px; transition:width 1s ease; display:flex; align-items:center; padding-left:10px; font-size:0.75rem; font-weight:700; color:var(--bg); min-width:fit-content; }
   .donut-wrap { display:flex; align-items:center; justify-content:center; gap:30px; flex-wrap:wrap; }
@@ -131,7 +133,7 @@
   .review-answer { font-size:0.82rem; color:var(--text-dim); line-height:1.5; }
   .review-answer strong { color:var(--correct); }
   .review-answer em { color:var(--wrong); font-style:normal; }
-  .retry-btn { display:block; margin:28px auto; padding:14px 40px; background:linear-gradient(135deg,var(--accent),var(--purple)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:1rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+  .retry-btn { display:block; margin:28px auto; padding:14px 40px; background:linear-gradient(135deg,#34d399,var(--accent)); color:var(--bg); border:none; border-radius:100px; font-family:inherit; font-size:1rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
   .retry-btn:hover { transform:scale(1.05); }
   .hamburger { display:none; position:fixed; top:16px; left:16px; z-index:200; background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:10px; cursor:pointer; font-size:1.2rem; }
   .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:90; }
@@ -145,7 +147,7 @@
     .overlay.show { display:block; }
     .container { padding:12px 10px 30px; }
     .question-card { padding:20px 16px; }
-    .bar-label { width:90px; font-size:0.72rem; }
+    .bar-label { width:110px; font-size:0.7rem; }
     .mode-bar { margin:16px auto; }
   }
 </style>
@@ -163,8 +165,8 @@
 
   <div class="header">
     <div class="header-badge"><span>👁️</span> ENARM · Oftalmología · Tema 28</div>
-    <h1>Glaucoma</h1>
-    <p>Glaucoma ángulo abierto · Glaucoma ángulo cerrado · Diagnóstico · Tratamiento</p>
+    <h1>Párpados, Vía Lagrimal y Retina</h1>
+    <p>Detección visual · Blefaritis · Orzuelo / Chalazión · Vía lagrimal · Desprendimiento de retina · Retinopatía diabética · Oclusión venosa</p>
   </div>
 
   <div style="display:flex;justify-content:center;">
@@ -176,7 +178,7 @@
 
   <div class="progress-wrap">
     <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
-    <div class="progress-text" id="progressText">0 / 15</div>
+    <div class="progress-text" id="progressText">1 / 27</div>
   </div>
 
   <div id="quizArea"></div>
@@ -198,145 +200,270 @@ function setMode(mode) {
 }
 
 const questions = [
+  // ── GPC 1: Detección oportuna de alteraciones visuales en el escolar 2016 ──
   {
-    cat:"gaa", catName:"Glaucoma Ángulo Abierto",
-    q:"Paciente masculino de 58 años, asintomático, acude a revisión oftalmológica de rutina. La tonometría de aplanación reporta PIO de 24 mmHg en ambos ojos. La exploración del nervio óptico muestra excavación papilar con relación copa/disco (C/D) de 0.7. La perimetría computarizada revela escotoma arqueado superior. ¿Cuál es el diagnóstico más probable?",
-    opts:["Hipertensión ocular sin glaucoma","Glaucoma primario de ángulo abierto","Glaucoma agudo de ángulo cerrado","Neuropatía óptica isquémica"],
+    cat:"vis", catName:"Detección Visual Escolar",
+    q:"Escolar de 6 años acude a revisión médica de primer nivel. ¿Cuál es el instrumento de tamizaje visual de primera línea recomendado por la GPC para la detección oportuna de alteraciones visuales en el escolar?",
+    opts:["Autorrefractómetro portátil","Cartilla de Snellen o tabla de optotipos a 6 metros","Lámpara de hendidura con biomicroscopía","Tonometría de aplanación de Goldmann"],
     ans:1,
-    exp:"El glaucoma primario de ángulo abierto (GPAA) se caracteriza por la tríada: PIO elevada (>21 mmHg), excavación papilar aumentada (C/D >0.6) y defectos del campo visual (escotomas arqueados, pérdida periférica gradual). La GPC establece que el diagnóstico requiere la presencia de neuropatía óptica glaucomatosa con defecto campimétrico compatible. El GPAA es frecuentemente asintomático en etapas iniciales, lo que retrasa su diagnóstico.",
-    tip:"<strong>Tríada del GPAA:</strong> PIO >21 mmHg + C/D >0.6 + defecto de campo visual. El paciente NO tiene síntomas hasta etapas avanzadas — por eso se llama 'el ladrón silencioso de la visión'. El escotoma arqueado de Bjerrum es el defecto campimétrico más clásico del GPAA.",
-    ref:"GPC: Diagnóstico y tratamiento del glaucoma de ángulo abierto. IMSS-422-11. 2012."
+    exp:"La GPC de Detección oportuna de alteraciones visuales en el escolar (2016) establece la cartilla de Snellen o tablas de optotipos como herramienta de tamizaje de primera línea en el primer nivel de atención. Se aplica a 6 metros de distancia, es reproducible, de bajo costo y permite evaluar la agudeza visual de forma rápida. El tamizaje debe realizarse en todos los escolares a partir de los 3-4 años, idealmente al inicio de cada ciclo escolar.",
+    tip:"<strong>Cartilla de Snellen = tamizaje visual escolar en 1er nivel.</strong> Distancia estándar: 6 metros (20 pies). Normal: 20/20 en ambos ojos. Cada ojo se evalúa por separado — cubrir el ojo que no se evalúa. No uses el autorrefractómetro como tamizaje rutinario en primer nivel: es costoso y requiere equipo especializado.",
+    ref:"GPC: Detección oportuna de alteraciones visuales en el escolar. CENETEC. 2016."
   },
   {
-    cat:"gaa", catName:"Glaucoma Ángulo Abierto",
-    q:"¿Cuál es el principal factor de riesgo modificable para el desarrollo y progresión del glaucoma primario de ángulo abierto (GPAA)?",
-    opts:["Antecedente familiar de glaucoma","Presión intraocular (PIO) >21 mmHg","Miopía de alta graduación","Edad mayor de 60 años"],
+    cat:"vis", catName:"Detección Visual Escolar",
+    q:"En el tamizaje visual de un escolar de 7 años realizado con cartilla de Snellen, ¿cuál es el criterio de referencia a oftalmología según la GPC?",
+    opts:["Agudeza visual (AV) 20/20 en ambos ojos — referir siempre","AV ≤20/30 en cualquier ojo, o diferencia de ≥2 líneas entre ambos ojos","AV 20/25 bilateral — referir para corrección","Solo referir si el niño refiere cefalea o diplopía"],
     ans:1,
-    exp:"La presión intraocular elevada (PIO >21 mmHg) es el principal factor de riesgo modificable para el GPAA y el único sobre el cual se puede intervenir terapéuticamente. La GPC señala que reducir la PIO es el único tratamiento con evidencia para retardar la progresión del daño al nervio óptico. El antecedente familiar, la edad y la miopía son factores de riesgo no modificables.",
-    tip:"<strong>PIO: el único factor modificable.</strong> Los demás factores de riesgo (raza negra, antecedente familiar, edad >60, miopía alta, córnea delgada) son no modificables. Todo el tratamiento médico y quirúrgico del glaucoma se centra en reducir la PIO para frenar el daño axonal del nervio óptico.",
-    ref:"GPC: Diagnóstico y tratamiento del glaucoma de ángulo abierto. IMSS-422-11. 2012."
+    exp:"La GPC establece como criterio de referencia a oftalmología una agudeza visual ≤20/30 (menor agudeza de lo esperado para la edad) en cualquier ojo, o una diferencia de 2 o más líneas entre ambos ojos (asimetría que sugiere ambliopía). En menores de 5 años el criterio es más permisivo (≤20/40). La detección oportuna es crucial: la ambliopía solo puede corregirse efectivamente antes de los 7-9 años mientras el sistema visual aún tiene plasticidad.",
+    tip:"<strong>Criterio de referencia: AV ≤20/30 o diferencia ≥2 líneas entre ojos.</strong> La ambliopía ('ojo perezoso') se desarrolla cuando un ojo no se usa adecuadamente en los primeros años de vida. Ventana terapéutica: antes de los 7-9 años. Después de esa edad, el daño es irreversible. El tamizaje escolar salva la visión de por vida.",
+    ref:"GPC: Detección oportuna de alteraciones visuales en el escolar. CENETEC. 2016."
   },
   {
-    cat:"gaa", catName:"Glaucoma Ángulo Abierto",
-    q:"Paciente con GPAA diagnosticado. La gonioscopía muestra el ángulo iridocorneal completamente abierto con estructuras de la malla trabecular visibles. ¿Qué mecanismo explica la elevación de la PIO en el GPAA?",
-    opts:["Bloqueo pupilar por contacto iris-cristalino","Resistencia aumentada al flujo de salida en la malla trabecular","Producción excesiva de humor acuoso por el cuerpo ciliar","Cierre del ángulo por raíz del iris abombada"],
+    cat:"vis", catName:"Detección Visual Escolar",
+    q:"Durante el tamizaje visual de un preescolar de 4 años, al iluminar los ojos con linterna se observa un reflejo pupilar blanco (leucocoria) en el ojo derecho. ¿Cuál es la conducta correcta según la GPC?",
+    opts:["Tranquilizar a los padres — variante de la normalidad en menores de 5 años","Referencia urgente a oftalmología por sospecha de patología grave (retinoblastoma, catarata congénita, toxocariasis)","Prescribir lentes y citar en 6 meses para control","Registrar el hallazgo y repetir tamizaje al siguiente ciclo escolar"],
     ans:1,
-    exp:"En el GPAA, el ángulo iridocorneal está anatómicamente abierto, pero existe resistencia aumentada al drenaje del humor acuoso a través de la malla trabecular. Esta disfunción trabecular —no un bloqueo mecánico— genera acumulación de humor acuoso y elevación de la PIO. La gonioscopía confirma el ángulo abierto, diferenciándolo del glaucoma de ángulo cerrado donde el drenaje se obstruye mecánicamente.",
-    tip:"<strong>GPAA: ángulo abierto, malla trabecular disfuncional.</strong> La gonioscopía es INDISPENSABLE para clasificar el glaucoma. Ángulo abierto = GPAA (crónico, silencioso). Ángulo cerrado = GAC (agudo, sintomático, urgencia). La malla trabecular es el 'colador' que se obstruye en el GPAA.",
-    ref:"GPC: Diagnóstico y tratamiento del glaucoma de ángulo abierto. IMSS-422-11. 2012."
+    exp:"La leucocoria (reflejo pupilar blanco o 'ojo de gato') es un signo de alarma que NUNCA debe ignorarse. Es el signo más frecuente del retinoblastoma (tumor ocular maligno más común en la infancia), pero también puede indicar catarata congénita, persistencia de vítreo primario hiperplásico, toxocariasis ocular o enfermedad de Coats. La GPC establece referencia URGENTE a oftalmología ante cualquier leucocoria. El retinoblastoma tiene supervivencia >95% si se detecta temprano.",
+    tip:"<strong>Leucocoria = referencia URGENTE a oftalmología.</strong> Mnemotecnia: 'ojo de gato' = alarma roja. Retinoblastoma: tumor ocular maligno más común en niños (pico: 2-3 años), 60% esporádico, 40% hereditario. Si es bilateral = casi siempre hereditario (gen RB1). Pronóstico excelente si se trata temprano; fatal si se retrasa.",
+    ref:"GPC: Detección oportuna de alteraciones visuales en el escolar. CENETEC. 2016."
+  },
+
+  // ── GPC 2: Diagnóstico y tratamiento de la blefaritis 2012 ──
+  {
+    cat:"blef", catName:"Blefaritis",
+    q:"Paciente de 48 años con ardor ocular bilateral crónico de 8 meses, párpados eritematosos, escamas y costras en la base de las pestañas, sensación de 'arenilla' que empeora por las mañanas. Sin secreción purulenta. ¿Cuál es el diagnóstico más probable?",
+    opts:["Conjuntivitis alérgica perenne","Blefaritis crónica anterior","Queratitis herpética recurrente","Síndrome de Sjögren"],
+    ans:1,
+    exp:"La blefaritis crónica anterior (estafilocócica o seborreica) se caracteriza por inflamación crónica del borde libre palpebral con eritema, escamas adheridas a la base de las pestañas (collaretes en blefaritis estafilocócica; escamas grasosas en la seborreica), ardor y sensación de cuerpo extraño. Los síntomas son CRÓNICOS y peores por las mañanas. No es una enfermedad curable — se controla con higiene crónica. La GPC la distingue de la conjuntivitis por la ausencia de secreción purulenta franca y la localización en el borde palpebral.",
+    tip:"<strong>Blefaritis = inflamación crónica del BORDE LIBRE palpebral.</strong> Anterior: base de pestañas (Estafilococo o seborrea). Posterior: glándulas de Meibomio (disfunción meibomiana). Casi siempre bilateral. Síntomas crónicos con exacerbaciones. Diferencia clave con conjuntivitis: en blefaritis el ojo no está rojo de forma difusa — solo el borde del párpado está afectado.",
+    ref:"GPC: Diagnóstico y tratamiento de la blefaritis. CENETEC. 2012."
   },
   {
-    cat:"gaa", catName:"Glaucoma Ángulo Abierto",
-    q:"¿Cuál es el hallazgo clínico que define al glaucoma normotensional y cuál es su importancia pronóstica?",
-    opts:["PIO >21 mmHg con campo visual normal; pronóstico favorable","Daño glaucomatoso típico con PIO siempre normal (<21 mmHg); peor pronóstico por mecanismo vascular","PIO normal con disco óptico sano; no requiere tratamiento","Elevación nocturna de PIO; se corrige con hipotensores nocturnos"],
+    cat:"blef", catName:"Blefaritis",
+    q:"Paciente con blefaritis crónica anterior diagnosticada. ¿Cuál es el tratamiento de primera línea recomendado por la GPC?",
+    opts:["Antibiótico tópico (tobramicina) en monoterapia indefinida","Higiene palpebral con compresas tibias (5-10 min) seguida de limpieza del borde libre palpebral con jabón neutro o champú de bebé diluido","Corticosteroide tópico como prednisolona 1%","Ciclosporina tópica al 0.05%"],
     ans:1,
-    exp:"El glaucoma normotensional (GNT) se define como la presencia de neuropatía óptica glaucomatosa y defectos campimétricos con PIO consistentemente menor a 21 mmHg. Se considera que el mecanismo vascular (insuficiencia de perfusión del nervio óptico) juega un papel primordial. La GPC señala que el GNT tiene peor pronóstico porque el daño progresa incluso con PIO normal, requiriendo metas de reducción de PIO más agresivas (>30% de reducción).",
-    tip:"<strong>Glaucoma normotensional: la trampa diagnóstica.</strong> No descarte glaucoma solo porque la PIO es normal. Si hay excavación papilar sospechosa + defecto de campo: haga el diagnóstico. Requiere reducir la PIO un 30% por debajo de su baseline, aunque sea 'normal'. Busque causas vasculares: hipotensión nocturna, vasoespasmo, apnea del sueño.",
-    ref:"GPC: Diagnóstico y tratamiento del glaucoma de ángulo abierto. IMSS-422-11. 2012."
+    exp:"La higiene palpebral es la piedra angular del tratamiento de la blefaritis crónica. La GPC recomienda: (1) Compresas tibias 5-10 minutos para licuar las secreciones de las glándulas palpebrales; (2) Masaje suave del borde libre palpebral; (3) Limpieza con bastoncillo o gasa con jabón neutro o champú de bebé diluido para retirar escamas y costras. Debe realizarse 2 veces al día durante la fase aguda y reducirse a 1 vez/día en mantenimiento. Es un tratamiento crónico — la enfermedad no se cura, se controla.",
+    tip:"<strong>Higiene palpebral = 1ª línea en blefaritis.</strong> El orden importa: CALOR (compresas tibias) → MASAJE → LIMPIEZA. El calor licua el material sebáceo ocluido. La limpieza remueve las costras y reduce la carga bacteriana. Antibióticos tópicos solo se agregan si hay componente infeccioso activo (secreción purulenta, orzuelos recurrentes).",
+    ref:"GPC: Diagnóstico y tratamiento de la blefaritis. CENETEC. 2012."
   },
   {
-    cat:"gac", catName:"Glaucoma Ángulo Cerrado",
-    q:"Paciente femenino de 65 años acude a urgencias con dolor ocular izquierdo intenso de inicio súbito hace 2 horas, visión borrosa, ojo rojo, náusea y vómito. A la exploración: córnea edematosa con aspecto empañado, pupila midriática fija de 6 mm, PIO de 52 mmHg. ¿Cuál es el diagnóstico y el paso inmediato?",
-    opts:["Conjuntivitis aguda bacteriana; antibiótico tópico","Uveítis anterior aguda; corticosteroide tópico","Crisis aguda de glaucoma de ángulo cerrado; iniciar tratamiento hipotensor urgente","Oclusión de arteria central de retina; oxígeno hiperbárico"],
+    cat:"blef", catName:"Blefaritis",
+    q:"Paciente con blefaritis posterior severa por disfunción de glándulas de Meibomio con ojo seco significativo y pobre respuesta a 3 meses de higiene palpebral intensiva. ¿Qué tratamiento sistémico agrega beneficio según la GPC?",
+    opts:["Amoxicilina-clavulanato 875/125 mg cada 12 horas por 7 días","Doxiciclina oral 50-100 mg/día (o minociclina) por 1-3 meses","Metronidazol oral 500 mg cada 8 horas","Prednisona oral 1 mg/kg/día por 2 semanas"],
+    ans:1,
+    exp:"Las tetraciclinas (doxiciclina, minociclina) tienen propiedades antiinflamatorias más allá de su efecto antibiótico — inhiben las lipasas bacterianas que degradan los lípidos meibomianos y reducen la inflamación palpebral. La GPC avala su uso en blefaritis posterior severa o refractaria a higiene. Dosis habitual: doxiciclina 50-100 mg/día por 1-3 meses. Contraindicadas en embarazo, lactancia y menores de 8 años (depósito en hueso y dientes).",
+    tip:"<strong>Doxiciclina en blefaritis: actúa por efecto antiinflamatorio, no solo antibiótico.</strong> Bloquea las metaloproteinasas y las lipasas bacterianas que dañan la película lagrimal. Recuerda sus contraindicaciones: embarazo, lactancia, niños <8 años. Alternativa: azitromicina oral (dosis pulso: 500 mg/día × 3 días, repetir al mes). Instrucciones: tomar con alimentos y abundante agua para evitar esofagitis.",
+    ref:"GPC: Diagnóstico y tratamiento de la blefaritis. CENETEC. 2012."
+  },
+
+  // ── GPC 3: Diagnóstico y manejo del orzuelo y chalazión 2010 ──
+  {
+    cat:"orz", catName:"Orzuelo / Chalazión",
+    q:"Paciente de 35 años con nódulo palpebral de 4 semanas de evolución, no doloroso, de consistencia firme-quística, sin eritema perilesional ni signos inflamatorios activos. No se modifica con calor ni antibióticos tópicos previos. ¿Cuál es el diagnóstico y la conducta inicial?",
+    opts:["Orzuelo crónico; antibiótico sistémico de inmediato","Chalazión; compresas tibias 2-3 veces al día como primera línea","Carcinoma sebáceo de párpado; biopsia urgente","Xantelasma; referencia a dermatología"],
+    ans:1,
+    exp:"El chalazión es una lipogranuloma estéril del párpado causado por la obstrucción y ruptura de una glándula de Meibomio con inflamación granulomatosa crónica. Se caracteriza por ser un nódulo NO doloroso, de consistencia firme-quística, sin eritema activo y con evolución de semanas. La GPC establece las compresas tibias como primera línea para intentar licuar el material obstruido. Se diferencia del orzuelo en que este es agudo, DOLOROSO y de origen infeccioso.",
+    tip:"<strong>Chalazión vs Orzuelo: la diferencia clave es el DOLOR.</strong> Chalazión = no doloroso, crónico, granulomatoso (glándula de Meibomio). Orzuelo = doloroso, agudo, infeccioso (externo: Zeiss/Moll; interno: Meibomio). Mnemotecnia: ChalAzión = cAliente pero sin Ardor; Orzuelo = purulentO, dOlorOsO.",
+    ref:"GPC: Diagnóstico y manejo del orzuelo y chalazión. CENETEC. 2010."
+  },
+  {
+    cat:"orz", catName:"Orzuelo / Chalazión",
+    q:"Escolar de 9 años con lesión eritematosa, fluctuante y dolorosa en el borde libre externo del párpado superior, con punto amarillento de supuración visible en la base de una pestaña. ¿Cuál es el diagnóstico y qué glándula está afectada?",
+    opts:["Chalazión; glándula de Meibomio (tarsiana)","Orzuelo externo (hordeolum externum); glándula de Zeiss (sebácea) o glándula de Moll (apocrina)","Orzuelo interno (hordeolum internum); glándula de Meibomio","Dacrioadenitis aguda; glándula lagrimal principal"],
+    ans:1,
+    exp:"El orzuelo externo (hordeolum externum) es una infección bacteriana aguda (generalmente por Staphylococcus aureus) de las glándulas de Zeiss (glándulas sebáceas asociadas a los folículos de las pestañas) o de las glándulas de Moll (glándulas apocrinas). Aparece en el borde libre externo del párpado, es doloroso y con punto de supuración visible. El orzuelo INTERNO afecta la glándula de Meibomio (dentro del tarso) y puede apuntar hacia la conjuntiva tarsal.",
+    tip:"<strong>Glándulas del párpado para el ENARM:</strong><br>• Borde libre EXTERNO → Zeiss (sebácea) y Moll (apocrina) → Orzuelo EXTERNO<br>• Dentro del tarso → Meibomio (sebácea modificada) → Orzuelo INTERNO o Chalazión<br>• Cejas → Glándulas de Moll y Zeiss también<br>Truco: Externo = Zeiss/Moll. Interno = Meibomio (mismo que chalazión, pero agudo e infeccioso).",
+    ref:"GPC: Diagnóstico y manejo del orzuelo y chalazión. CENETEC. 2010."
+  },
+  {
+    cat:"orz", catName:"Orzuelo / Chalazión",
+    q:"Paciente con chalazión de 8 semanas de evolución, tamaño 7 mm, sin respuesta a compresas tibias 3 veces al día. ¿Cuál es el siguiente paso en el manejo según la GPC?",
+    opts:["Mantener compresas tibias 3 meses más antes de intervenir","Incisión y curetaje bajo anestesia local, o inyección intralesional de triamcinolona","Antibiótico sistémico (amoxicilina) por 2 semanas","Corticosteroide tópico (dexametasona) en gotas por 4 semanas"],
+    ans:1,
+    exp:"Cuando el chalazión no resuelve con compresas tibias después de 4-6 semanas, la GPC recomienda dos alternativas de segunda línea: (1) Inyección intralesional de acetónido de triamcinolona (0.05-0.2 mL de 10 mg/mL) — efectiva en ~80% de los casos, preferida por algunos en lesiones pequeñas; (2) Incisión y curetaje bajo anestesia local — procedimiento menor de consultorio con excelente resultado. En chalaziones grandes (>5 mm) la cirugía tiene mejor resultado. Los antibióticos NO son efectivos en chalazión (es un proceso estéril-granulomatoso).",
+    tip:"<strong>Chalazión refractario: triamcinolona intralesional O incisión-curetaje.</strong> El chalazión es aséptico — los antibióticos no sirven. La triamcinolona es buena opción en lesiones pequeñas o en pacientes que rechazan cirugía. La incisión se hace desde la conjuntiva (cara interna del párpado) para evitar cicatriz cutánea. Biopsia obligatoria si hay recurrencia en el mismo sitio (descartar carcinoma sebáceo).",
+    ref:"GPC: Diagnóstico y manejo del orzuelo y chalazión. CENETEC. 2010."
+  },
+
+  // ── GPC 4: Diagnóstico y tratamiento de la estenosis congénita de la vía lagrimal 2013 ──
+  {
+    cat:"lag", catName:"Vía Lagrimal",
+    q:"Lactante de 5 semanas con epífora (lagrimeo constante) y secreción mucoide en el ojo derecho desde el nacimiento. Sin ojo rojo, sin edema periorbital, sin fiebre. La presión digital sobre el saco lagrimal produce reflujo de material mucoide. ¿Cuál es el diagnóstico más probable?",
+    opts:["Conjuntivitis neonatal bacteriana (por Neisseria o Chlamydia)","Obstrucción congénita del conducto nasolagrimal (OCNL)","Glaucoma congénito primario","Fístula lagrimal congénita"],
+    ans:1,
+    exp:"La obstrucción congénita del conducto nasolagrimal (OCNL) es la causa más frecuente de epífora en el lactante. Ocurre por persistencia de la membrana de Hasner en el extremo distal del conducto nasolagrimal (unión con el meato nasal inferior). Se caracteriza por: epífora desde el nacimiento, secreción mucosa o mucopurulenta, sin eritema conjuntival significativo y reflujo de material al comprimir el saco lagrimal (signo de Murphy lagrimal). El 96% resuelve espontáneamente antes del año de vida.",
+    tip:"<strong>OCNL: causa más frecuente de epífora en lactantes.</strong> Clave diagnóstica: reflujo al presionar el saco lagrimal. Diferencia con conjuntivitis neonatal: en conjuntivitis hay ojo rojo significativo y la secreción no regresa al comprimir el saco. Glaucoma congénito: buscar córnea grande (buftalmos), fotofobia, lagrimeo — tiene ojo rojo y córnea opaca.",
+    ref:"GPC: Diagnóstico y tratamiento de la estenosis congénita de la vía lagrimal. CENETEC. 2013."
+  },
+  {
+    cat:"lag", catName:"Vía Lagrimal",
+    q:"Lactante de 3 meses con OCNL confirmada. No hay dacriocistitis aguda. ¿Cuál es el tratamiento de primera línea según la GPC?",
+    opts:["Sondaje lagrimal bajo anestesia general de inmediato","Masaje del saco lagrimal (técnica de Crigler) + antibiótico tópico si hay secreción mucopurulenta","Dacriocistorrinostomía endoscópica","Observación sin tratamiento hasta los 12 meses"],
+    ans:1,
+    exp:"La GPC establece el masaje del saco lagrimal (técnica de Crigler) como tratamiento de primera línea en la OCNL del lactante. La técnica consiste en presionar suavemente con el dedo índice sobre el saco lagrimal (entre el ángulo interno del ojo y el ala nasal) y deslizar hacia abajo con presión hidrostática para forzar la apertura de la membrana obstructiva. Se realiza 5-10 veces por sesión, 2-4 veces al día. El antibiótico tópico se agrega solo si hay secreción purulenta activa. El masaje aprovecha que la membrana de Hasner es delgada en los primeros meses.",
+    tip:"<strong>Técnica de Crigler: masaje hidrostático del saco lagrimal.</strong> Cómo hacerlo: punta del dedo índice en el ángulo interno del ojo → presión firme hacia abajo con movimiento de barrido. El mecanismo: aumenta la presión hidrostática en el saco lagrimal y puede romper la membrana obstructiva. Los padres deben aprenderlo — se hace en casa. Resolución espontánea con masaje: ~90% antes del año.",
+    ref:"GPC: Diagnóstico y tratamiento de la estenosis congénita de la vía lagrimal. CENETEC. 2013."
+  },
+  {
+    cat:"lag", catName:"Vía Lagrimal",
+    q:"Lactante de 13 meses con OCNL que no resolvió a pesar de masaje de Crigler correctamente aplicado durante 10 meses. Sin dacriocistitis aguda. ¿Cuál es la conducta indicada según la GPC?",
+    opts:["Esperar hasta los 3 años — la resolución espontánea puede ocurrir hasta esa edad","Sondaje lagrimal bajo anestesia general (edad ideal: 12-18 meses)","Dacriocistorrinostomía de primera intención","Repetir masaje de Crigler con mayor frecuencia por 6 meses más"],
+    ans:1,
+    exp:"Si la OCNL no ha resuelto con masaje al año de vida, la GPC recomienda el sondaje lagrimal bajo anestesia general. La edad ideal es entre 12-18 meses: a esta edad la anatomía es favorable, el procedimiento es técnicamente más fácil y la tasa de éxito es mayor (85-95%). El sondaje consiste en introducir una sonda metálica a través del punto lagrimal para perforar la membrana obstructiva. Después de los 2 años, las tasas de éxito disminuyen y puede requerirse intubación con silicona o dacriocistorrinostomía.",
+    tip:"<strong>Sondaje lagrimal: 12-18 meses es la ventana ideal.</strong> Escalonamiento OCNL: Masaje de Crigler (0-12 meses) → Sondaje lagrimal (12-18 meses) → Sondaje + intubación con silicona (fracaso del primer sondaje) → Dacriocistorrinostomía (casos complejos o después de los 3 años). No esperes a los 3 años — la resolución espontánea después del año es muy rara (<10%).",
+    ref:"GPC: Diagnóstico y tratamiento de la estenosis congénita de la vía lagrimal. CENETEC. 2013."
+  },
+
+  // ── GPC 5: Diagnóstico y tratamiento del desprendimiento de retina regmatógeno no traumático 2010 ──
+  {
+    cat:"ret", catName:"Desp. Retina Regmatógeno",
+    q:"Hombre de 54 años, miope de -9 dioptrías, con inicio súbito hace 6 horas de abundantes 'moscas volantes' nuevas, destellos luminosos (fotopsias) en periferia y ahora refiere una 'cortina oscura' que avanza desde la parte inferior del campo visual. ¿Cuál es el diagnóstico y la urgencia?",
+    opts:["Migraña con aura visual — manejo ambulatorio con analgésicos","Desprendimiento de retina regmatógeno — urgencia oftalmológica que requiere cirugía","Oclusión de rama venosa de retina — referencia diferida a oftalmología","Hemorragia vítrea idiopática — observación 4-6 semanas"],
+    ans:1,
+    exp:"El desprendimiento de retina regmatógeno (DRR) ocurre cuando el vítreo licuefacto pasa a través de una rotura retiniana y separa la retina sensorial del epitelio pigmentario. La tríada clásica de síntomas premonitores es: (1) Fotopsias (destellos: tracción vitreoretiniana), (2) Miodesopsias nuevas y abundantes (hemorragia o pigmento en el vítreo), (3) Defecto de campo visual en 'cortina' (retina desprendida). La GPC lo clasifica como urgencia: cada hora sin tratamiento aumenta el riesgo de comprometer la fóvea y perder visión central de forma irreversible.",
+    tip:"<strong>DRR: TRÍADA = Fotopsias + Moscas volantes abundantes + Cortina de campo visual.</strong> Urgencia: si la mácula aún está aplicada → cirugía en <24h para preservar visión central. Si ya hay desprendimiento macular → menos urgente pero igualmente quirúrgico. Mnemotecnia: 'Las FOtopsias preceden a la FOvea desprendida' — actúa rápido al primer síntoma.",
+    ref:"GPC: Diagnóstico y tratamiento del desprendimiento de retina regmatógeno no traumático. CENETEC. 2010."
+  },
+  {
+    cat:"ret", catName:"Desp. Retina Regmatógeno",
+    q:"¿Cuál es el factor de riesgo más importante para el desprendimiento de retina regmatógeno no traumático, presente en aproximadamente el 40-55% de los casos?",
+    opts:["Diabetes mellitus tipo 2 de larga evolución","Miopía de alta graduación (≥−6 dioptrías)","Hipertensión arterial sistémica","Glaucoma primario de ángulo abierto"],
+    ans:1,
+    exp:"La miopía de alta graduación (≥−6 dioptrías o longitud axial >26 mm) es el factor de riesgo más importante para el DRR. Los pacientes miopes tienen: retina más delgada y periférica, degeneración retiniana periférica (degeneración en empalizada), mayor licuefacción vítrea precoz y desprendimiento vítreo posterior más temprano. El riesgo de DRR es 6-8 veces mayor en miopes altos vs la población general. La GPC identifica también como factores de riesgo: antecedente de DRR en el ojo contralateral, afaquia/pseudofaquia, traumatismo ocular y degeneración retiniana periférica.",
+    tip:"<strong>Miopía alta = principal FR para DRR.</strong> El ojo miope es 'demasiado largo' → retina estirada → más propensa a rasgarse. Degeneración en empalizada: lesión retiniana periférica en miopes que predispone a roturas → tratar con láser profiláctico. Regla práctica: todo miope mayor de -6D debe tener fondo de ojo dilatado anual.",
+    ref:"GPC: Diagnóstico y tratamiento del desprendimiento de retina regmatógeno no traumático. CENETEC. 2010."
+  },
+  {
+    cat:"ret", catName:"Desp. Retina Regmatógeno",
+    q:"Paciente con traumatismo ocular contuso presenta pérdida visual progresiva. A la exploración hay hemorragia vítrea densa que impide la visualización del fondo de ojo. ¿Qué estudio es indispensable para descartar desprendimiento de retina?",
+    opts:["Tomografía de coherencia óptica (OCT) macular","Ultrasonografía ocular modo B (ecografía)","Resonancia magnética de órbitas sin contraste","Angiografía fluoresceínica"],
+    ans:1,
+    exp:"Cuando los medios oculares están opacos (hemorragia vítrea, catarata densa, hifema) y no es posible visualizar el fondo de ojo, la ultrasonografía ocular modo B es el estudio de elección para evaluar la retina. Permite identificar: desprendimiento de retina (membrana hiperecogénica con movimiento lento al mover el ojo), hemorragia vítrea organizada, cuerpos extraños intraoculares y masa coroidea. La GPC la indica de forma mandatoria cuando no es posible el examen fundoscópico directo ante sospecha de DRR.",
+    tip:"<strong>Sin visión del fondo → Ultrasonografía modo B.</strong> El modo B es el 'ultrasonido de la retina'. Identifica el DRR como una membrana ecogénica anclada en disco óptico y ora serrata con movimiento ondulante suave al mover el ojo (diferente a la membrana vítrea que se mueve más libremente). La OCT no puede visualizar retina cuando hay hemorragia vítrea que bloquea la señal.",
+    ref:"GPC: Diagnóstico y tratamiento del desprendimiento de retina regmatógeno no traumático. CENETEC. 2010."
+  },
+
+  // ── GPC 6: Diagnóstico y tratamiento del desprendimiento de retina seroso 2009 ──
+  {
+    cat:"ret", catName:"Desp. Retina Seroso",
+    q:"¿Cuál es la diferencia fisiopatológica fundamental entre el desprendimiento de retina regmatógeno y el seroso (exudativo)?",
+    opts:["El regmatógeno es siempre bilateral; el seroso es unilateral","En el regmatógeno existe una rotura retiniana que permite el paso de líquido vítreo; en el seroso el líquido subretiniano se acumula sin rotura por inflamación, tumor o enfermedad vascular subyacente","El seroso es siempre de origen traumático; el regmatógeno es espontáneo","Ambos tienen el mismo mecanismo, solo difieren en la extensión del desprendimiento"],
+    ans:1,
+    exp:"En el DRR regmatógeno, una rotura (desgarro o agujero) en la retina sensorial permite que el vítreo licuefacto pase al espacio subretiniano. En el DRR seroso o exudativo, NO hay rotura retiniana — el líquido se acumula por filtración desde la coroides o la retina debido a procesos inflamatorios (uveítis, escleritis posterior), vasculares (DMRE exudativa, retinopatía serosa central), infecciosos o tumorales (metástasis coroideas). El tratamiento es completamente diferente: el regmatógeno requiere cirugía; el seroso se trata la causa subyacente.",
+    tip:"<strong>Regmatógeno = ROTURA retiniana. Seroso = sin rotura, exudación subyacente.</strong> Pista diagnóstica: en el DRR seroso el líquido subretiniano se mueve con los cambios de posición ('shifting fluid' en la ecografía). En el regmatógeno el líquido no se desplaza tanto. Busca siempre la causa del seroso: inflamación, tumor o vascular.",
+    ref:"GPC: Diagnóstico y tratamiento del desprendimiento de retina seroso. CENETEC. 2009."
+  },
+  {
+    cat:"ret", catName:"Desp. Retina Seroso",
+    q:"Varón de 36 años, ejecutivo con estrés laboral intenso y uso ocasional de corticoides inhalados, con metamorfopsia y escotoma central en ojo derecho de 3 semanas. La OCT muestra líquido subretiniano en fóvea sin neovascularización coroidea. ¿Cuál es el diagnóstico más probable?",
+    opts:["Degeneración macular relacionada con la edad (DMRE) tipo neovascular","Retinopatía serosa central (RSC o coriorretinopatía serosa central)","Maculopatía diabética con edema macular","Coroiditis multifocal por toxoplasmosis"],
+    ans:1,
+    exp:"La retinopatía serosa central (RSC) es una causa frecuente de desprendimiento seroso foveal en adultos jóvenes de 25-50 años, con predominio masculino (5:1). Se caracteriza por acumulación de líquido bajo la fóvea secundaria a hiperpermeable coroidal. Los factores de riesgo incluyen: estrés, personalidad tipo A, uso de corticosteroides (sistémicos, inhalados, nasales o tópicos) y Helicobacter pylori. La GPC y la OCT muestran desprendimiento seroso foveal sin membrana neovascular, lo que la diferencia de la DMRE exudativa.",
+    tip:"<strong>RSC: hombre joven + estrés + corticoides + liquido subfoveal sin neovasos.</strong> El 80-90% resuelve espontáneamente en 3-4 meses. Tratamiento: suspender corticoides si es posible, reducir estrés. Si persiste >3 meses: fotocoagulación focal o terapia fotodinámica con verteporfino. DMRE neovascular: paciente mayor + neovasos en OCT-A. La clave diferencial es la EDAD y la presencia de neovasos.",
+    ref:"GPC: Diagnóstico y tratamiento del desprendimiento de retina seroso. CENETEC. 2009."
+  },
+  {
+    cat:"ret", catName:"Desp. Retina Seroso",
+    q:"¿Cuál es la causa más frecuente de desprendimiento de retina seroso (exudativo) en pacientes mayores de 60 años?",
+    opts:["Retinopatía serosa central (RSC)","Degeneración macular relacionada con la edad (DMRE) tipo neovascular (húmeda)","Escleritis posterior","Coroiditis tuberculosa"],
+    ans:1,
+    exp:"La DMRE neovascular (húmeda o exudativa) es la causa más frecuente de DRR seroso en mayores de 60 años y la causa más común de ceguera legal en países desarrollados en ese grupo de edad. Ocurre cuando membranas neovasculares coroideas (CNV) crecen bajo la retina y filtran líquido o sangre. El tratamiento con anti-VEGF (bevacizumab, ranibizumab, aflibercept) ha revolucionado el pronóstico. La OCT con angiografía (OCT-A) es el estudio diagnóstico de elección para detectar la membrana neovascular.",
+    tip:"<strong>DMRE neovascular = causa #1 de DRS seroso en >60 años y de ceguera en adultos mayores.</strong> Signos de alarma: metamorfopsia, escotoma central progresivo en paciente mayor. Anti-VEGF: el tratamiento actual (inyecciones intravítreas mensuales o según protocolo). Sin tratamiento → cicatriz disciforme → ceguera central permanente. La DMRE seca (atrófica) también existe pero no produce DRS exudativo.",
+    ref:"GPC: Diagnóstico y tratamiento del desprendimiento de retina seroso. CENETEC. 2009."
+  },
+
+  // ── GPC 7: Diagnóstico y tratamiento de retinopatía diabética 2014 ──
+  {
+    cat:"rd", catName:"Retinopatía Diabética",
+    q:"Diabético tipo 2 de 17 años de evolución con HbA1c de 10.5%. Fondo de ojo: microaneurismas, hemorragias en manchas, exudados duros perifoveales, neovasos en el disco óptico (NVD) y hemorragia prerretiniana en el cuadrante superotemporal. ¿Cuál es el estadio de la retinopatía diabética según la clasificación internacional?",
+    opts:["Retinopatía diabética no proliferativa (RDNP) moderada","Retinopatía diabética no proliferativa severa (regla 4-2-1)","Retinopatía diabética proliferativa (RDP) de alto riesgo","Maculopatía diabética sin retinopatía proliferativa"],
     ans:2,
-    exp:"El glaucoma agudo de ángulo cerrado (GAC) se presenta con la tríada clásica: dolor ocular intenso súbito, ojo rojo y visión borrosa, acompañado de signos patognomónicos: córnea edematosa/empañada, midriasis fija media (5-6 mm) y PIO muy elevada (>40 mmHg). Náuseas y vómitos son frecuentes por el dolor intenso. La GPC establece que es una urgencia oftalmológica que requiere tratamiento inmediato para prevenir daño irreversible del nervio óptico.",
-    tip:"<strong>GAC: urgencia oftalmológica — actuar en minutos.</strong> Córnea empañada + midriasis fija + PIO >40 + dolor intenso + náusea = Crisis de ángulo cerrado. Cada hora sin tratamiento = más daño axonal irreversible. Iniciar: pilocarpina tópica + acetazolamida IV + betabloqueador tópico + referencia urgente a oftalmología.",
-    ref:"GPC: Diagnóstico y tratamiento del glaucoma agudo de ángulo cerrado. SSA 2009."
+    exp:"La presencia de neovasos (neovascularización) define la RETINOPATÍA PROLIFERATIVA. Es de ALTO RIESGO cuando: (1) NVD ≥1/3 del diámetro del disco, (2) cualquier NVD con hemorragia vítrea, (3) NVE ≥1/2 del diámetro del disco con hemorragia vítrea. La GPC clasifica la RDP de alto riesgo como indicación de panfotocoagulación urgente. La regla 4-2-1 identifica la RDNP severa (prerrequisito que puede progresar a proliferativa en 1 año sin tratamiento): hemorragias en los 4 cuadrantes, arrosariamiento venoso en 2 cuadrantes, IRMA en 1 cuadrante.",
+    tip:"<strong>Neovasos = Retinopatía PROLIFERATIVA.</strong> Regla 4-2-1 = RDNP SEVERA (no proliferativa todavía). NVD con hemorragia prerretiniana = RDP ALTO RIESGO → panfotocoagulación urgente. Estadificación ENARM: RDNP leve (solo microaneurismas) → RDNP moderada → RDNP severa (4-2-1) → RDP → RDP alto riesgo.",
+    ref:"GPC: Diagnóstico y tratamiento de la retinopatía diabética. CENETEC. 2014."
   },
   {
-    cat:"gac", catName:"Glaucoma Ángulo Cerrado",
-    q:"En el manejo inicial del glaucoma agudo de ángulo cerrado, ¿qué fármaco se utiliza para provocar miosis y abrir el ángulo iridocorneal?",
-    opts:["Latanoprost (análogo de prostaglandina)","Pilocarpina al 2-4% (agonista muscarínico)","Timolol 0.5% (betabloqueador)","Brimonidina 0.2% (agonista alfa-2)"],
+    cat:"rd", catName:"Retinopatía Diabética",
+    q:"Paciente diabético tipo 2 con edema macular diabético clínicamente significativo (EMCS) que afecta la fóvea, con agudeza visual de 20/100. ¿Cuál es el tratamiento de primera línea actualmente recomendado?",
+    opts:["Fotocoagulación focal macular en rejilla (láser verde)","Inyección intravítrea de anti-VEGF (bevacizumab, ranibizumab o aflibercept)","Vitrectomía pars plana de primera intención","Implante intravítreo de fluocinolona acetonida (corticosteroide)"],
     ans:1,
-    exp:"La pilocarpina es un agonista muscarínico que produce miosis al contraer el músculo constrictor del iris. En el GAC, la miosis aleja la raíz del iris del ángulo iridocorneal, abriendo la vía de drenaje trabecular y reduciendo la PIO. La GPC recomienda pilocarpina al 2-4% como parte del tratamiento inicial del GAC agudo, junto con acetazolamida IV y betabloqueadores tópicos.",
-    tip:"<strong>Pilocarpina = miosis = apertura del ángulo.</strong> En GAC: MIÓTICO para abrir el ángulo. En GPAA: no se usa pilocarpina de rutina (el ángulo ya está abierto). Recuerde: el GAC se produce porque la raíz del iris cierra el ángulo — la pilocarpina contrae el iris y lo aleja del ángulo. Dosis: 1 gota cada 5-15 min inicialmente.",
-    ref:"GPC: Diagnóstico y tratamiento del glaucoma agudo de ángulo cerrado. SSA 2009."
+    exp:"El edema macular diabético (EMD) es la causa más frecuente de pérdida visual en diabéticos. Las inyecciones intravítreas de anti-VEGF han desplazado a la fotocoagulación láser como tratamiento de primera línea para el EMD con afectación central (fóvea). Los anti-VEGF (bevacizumab off-label, ranibizumab y aflibercept aprobados) reducen la permeabilidad vascular al bloquear el factor de crecimiento endotelial vascular. La GPC 2014 y las guías internacionales actuales (AAO, EURETINA) recomiendan anti-VEGF como primera línea en EMD con compromiso visual.",
+    tip:"<strong>Anti-VEGF = 1ª línea para edema macular diabético con afectación central.</strong> Protocolo estándar: inyección mensual × 3-6 meses (fase de carga), luego según respuesta. Bevacizumab (Avastin): más económico, uso off-label. Ranibizumab (Lucentis) y Aflibercept (Eylea): aprobados específicamente. Láser en rejilla: segunda línea o para EMD sin afectación foveal. Vitrectomía: si hay tracción vitreoretiniana.",
+    ref:"GPC: Diagnóstico y tratamiento de la retinopatía diabética. CENETEC. 2014."
   },
   {
-    cat:"gac", catName:"Glaucoma Ángulo Cerrado",
-    q:"Una vez controlada la crisis aguda de glaucoma de ángulo cerrado con tratamiento médico, ¿cuál es el tratamiento definitivo para prevenir recurrencias?",
-    opts:["Tratamiento médico crónico con análogos de prostaglandinas","Iridotomía periférica con láser (YAG) en el ojo afectado Y en el ojo contralateral","Trabeculoplastia láser argón","Trabeculectomía bilateral inmediata"],
+    cat:"rd", catName:"Retinopatía Diabética",
+    q:"¿En qué estadio de la retinopatía diabética está indicada la panfotocoagulación retiniana (PFC) con láser según la GPC?",
+    opts:["En todo diabético independientemente del estadio de RD, como medida preventiva","En RDNP severa (regla 4-2-1) y en toda retinopatía diabética proliferativa (RDP)","Solo cuando ya existe hemorragia vítrea activa con pérdida visual","Únicamente en RDP de alto riesgo, no en RDNP severa"],
     ans:1,
-    exp:"La iridotomía periférica con láser Nd:YAG es el tratamiento definitivo del GAC. Al crear una pequeña apertura en el iris, se establece una comunicación directa entre la cámara posterior y la anterior, eliminando el bloqueo pupilar que causa el cierre angular. La GPC recomienda realizarla en el ojo afectado Y profilácticamente en el ojo contralateral, ya que el 50% de los pacientes desarrollará un episodio en el otro ojo dentro de 5 años.",
-    tip:"<strong>Iridotomía láser: tratar AMBOS ojos.</strong> El ojo contralateral tiene anatomía similar (cámara anterior estrecha, cristalino grande) y alto riesgo de crisis. La iridotomía profiláctica en el ojo sano es estándar de cuidado. La trabeculectomía se reserva para glaucoma refractario o cuando la iridotomía no es suficiente.",
-    ref:"GPC: Diagnóstico y tratamiento del glaucoma agudo de ángulo cerrado. SSA 2009."
+    exp:"La panfotocoagulación retiniana (PFC) consiste en aplicar miles de impactos de láser en la retina periférica para ablacionar tejido hipóxico que libera VEGF (el inductor de neovascularización). La GPC y los criterios del ETDRS (Early Treatment Diabetic Retinopathy Study) indican PFC en: (1) RDP de alto riesgo — indicación urgente; (2) RDP sin criterios de alto riesgo — indicación electiva; (3) RDNP severa con factores de riesgo adicionales (DM1, embarazo, mal control metabólico, inaccesibilidad a seguimiento). No se recomienda en RDNP leve o moderada.",
+    tip:"<strong>PFC = ablación de retina hipóxica que fabrica VEGF.</strong> Indicaciones: RDNP severa + RDP (toda). No confundir con fotocoagulación FOCAL (para EMD). Mecanismo: al destruir fotorreceptores periféricos hipóxicos, se reduce la demanda de O₂ y la producción de VEGF → regresión de neovasos. Efecto secundario importante: pérdida de visión periférica y nocturna — el paciente debe ser informado.",
+    ref:"GPC: Diagnóstico y tratamiento de la retinopatía diabética. CENETEC. 2014."
+  },
+
+  // ── GPC 8: Detección de retinopatía diabética en primer nivel de atención 2009 ──
+  {
+    cat:"rd", catName:"Detección RD Primer Nivel",
+    q:"Paciente de 58 años con diagnóstico reciente de DM tipo 2 en su revisión médica de rutina. Sin síntomas visuales. ¿Cuándo debe realizarse el primer tamizaje de retinopatía diabética según la GPC?",
+    opts:["Al momento del diagnóstico de DM tipo 2 (en la consulta actual)","A los 5 años del diagnóstico, igual que en DM tipo 1","Solo cuando aparezcan síntomas visuales (pérdida de agudeza o distorsión)","A los 10 años del diagnóstico si el control glucémico ha sido adecuado"],
+    ans:0,
+    exp:"La GPC establece una diferencia importante según el tipo de diabetes: en DM tipo 2 el tamizaje debe hacerse AL MOMENTO DEL DIAGNÓSTICO porque muchos pacientes ya llevan años con hiperglucemia asintomática antes del diagnóstico formal. En DM tipo 1, el tamizaje se inicia a los 5 años del diagnóstico (en niños pubescentes) o a los 3-5 años en adultos, ya que la fecha de inicio de la DM1 suele conocerse con precisión. Este punto es importante para el ENARM: DM2 = tamizaje al diagnóstico; DM1 = a los 5 años.",
+    tip:"<strong>DM2: tamizaje de RD AL DIAGNÓSTICO. DM1: a los 5 años.</strong> ¿Por qué al diagnóstico en DM2? Porque la DM2 puede llevar AÑOS sin diagnosticarse — el paciente puede tener ya retinopatía aunque acabe de ser detectado. La DM1 tiene inicio más abrupto y documentado. Esta distinción aparece frecuentemente en el ENARM.",
+    ref:"GPC: Detección de retinopatía diabética en el primer nivel de atención. CENETEC. 2009."
   },
   {
-    cat:"gac", catName:"Glaucoma Ángulo Cerrado",
-    q:"¿Cuál es la diferencia clínica más importante entre el glaucoma primario de ángulo abierto (GPAA) y el glaucoma agudo de ángulo cerrado (GAC)?",
-    opts:["El GPAA afecta solo a jóvenes; el GAC solo a mayores de 70 años","El GPAA es crónico y asintomático hasta etapas avanzadas; el GAC es una urgencia aguda con síntomas dramáticos","El GPAA tiene PIO mayor que el GAC","Ambos son idénticos en presentación, solo difieren en la gonioscopía"],
+    cat:"rd", catName:"Detección RD Primer Nivel",
+    q:"¿Cuál es el método de tamizaje recomendado para la detección de retinopatía diabética en el primer nivel de atención según la GPC?",
+    opts:["Oftalmoscopio directo por el médico de primer nivel sin midriasis","Retinografía no midriática (fotografía digital del fondo de ojo con cámara de campo amplio)","Angiografía con fluoresceína en todos los diabéticos","Tomografía de coherencia óptica (OCT) como tamizaje universal"],
     ans:1,
-    exp:"La diferencia clínica fundamental es la presentación: el GPAA es crónico, bilateral, asintomático (pérdida gradual de campo visual periférico sin dolor) y se detecta en revisiones rutinarias. El GAC es una emergencia aguda con dolor intenso, ojo rojo, visión borrosa súbita, náusea/vómito y PIO >40 mmHg. La GPC resalta que el GPAA puede llevar a ceguera irreversible sin que el paciente note síntomas hasta perder el 40% de las fibras nerviosas.",
-    tip:"<strong>GPAA = 'ladrón silencioso' crónico. GAC = tormenta aguda ruidosa.</strong> GPAA: sin dolor, pérdida lenta de visión periférica, PIO 22-35 mmHg. GAC: dolor brutal, visión borrosa súbita, ojo rojo, midriasis fija, PIO >40 mmHg. El paciente con GAC llega corriendo a urgencias; el paciente con GPAA llega tarde porque no sabía que tenía glaucoma.",
-    ref:"GPC: Diagnóstico y tratamiento del glaucoma de ángulo abierto. IMSS-422-11. 2012."
+    exp:"La retinografía no midriática es el método de tamizaje recomendado en primer nivel por la GPC. Sus ventajas: no requiere dilatación pupilar (útil en primer nivel donde no hay oftalmólogo presente), las imágenes pueden ser enviadas para lectura remota (telemedicina), es reproducible y permite comparar la progresión a lo largo del tiempo. El oftalmoscopio directo tiene baja sensibilidad en manos no especializadas y requiere midriasis para adecuada visualización. La angiografía y OCT son estudios diagnósticos de segundo nivel.",
+    tip:"<strong>Retinografía no midriática = tamizaje de RD en 1er nivel.</strong> Permite diagnóstico remoto (teleretinopatía). Sensibilidad: ~80-90% para RD moderada o severa. Falsos negativos: pequeños microaneurismas o maculopatía temprana. Si la imagen es no interpretable → referir a oftalmología. Ventaja clave: no necesita oftalmólogo presente para tomar la foto.",
+    ref:"GPC: Detección de retinopatía diabética en el primer nivel de atención. CENETEC. 2009."
   },
   {
-    cat:"dx", catName:"Diagnóstico",
-    q:"¿Cuál es el estudio considerado gold standard para la medición de la presión intraocular en el diagnóstico y seguimiento del glaucoma?",
-    opts:["Tonometría de no contacto (aire)","Tonometría de aplanación de Goldmann","Tonometría de Schiotz","Tonometría de rebote (ICare)"],
+    cat:"rd", catName:"Detección RD Primer Nivel",
+    q:"Diabético tipo 2 con tamizaje inicial sin retinopatía y con buen control metabólico (HbA1c 6.9%). ¿Con qué frecuencia debe repetirse el tamizaje de RD según la GPC?",
+    opts:["Cada 3 meses (junto con el control glucémico)","Anualmente","Cada 2 años si el control es óptimo","Cada 5 años si no hay factores de riesgo adicionales"],
     ans:1,
-    exp:"La tonometría de aplanación de Goldmann es el gold standard para la medición de la PIO. Se basa en el principio de Imbert-Fick, midiendo la fuerza necesaria para aplanar una área corneal de 3.06 mm de diámetro. La GPC la establece como referencia para el diagnóstico y seguimiento del glaucoma. Los valores normales son 10-21 mmHg; >21 mmHg se considera hipertensión ocular.",
-    tip:"<strong>Goldmann = gold standard de la tonometría.</strong> La tonometría de no contacto (aire) es útil para tamizaje pero no es suficientemente precisa para el diagnóstico formal. El grosor corneal (paquimetría) afecta la lectura: córnea delgada subestima la PIO real; córnea gruesa la sobreestima. Siempre corrija la PIO según la paquimetría.",
-    ref:"GPC: Diagnóstico y tratamiento del glaucoma de ángulo abierto. IMSS-422-11. 2012."
+    exp:"La GPC recomienda tamizaje anual de RD para todos los diabéticos, independientemente del control glucémico, una vez descartada retinopatía en el tamizaje inicial. La frecuencia puede acortarse (cada 3-6 meses) en diabéticos con factores de riesgo adicionales: mal control glucémico (HbA1c >8%), hipertensión arterial no controlada, nefropatía diabética concomitante, embarazo en diabética o presencia de cualquier estadio de RD. El 'buen control' reduce la progresión pero no elimina el riesgo: el DCCT y el UKPDS demostraron reducción del 76% en progresión con control intensivo, no eliminación.",
+    tip:"<strong>Tamizaje de RD: cada año en todos los diabéticos.</strong> No existe intervalo de 2 o 5 años en las guías mexicanas. Si ya hay RD diagnosticada: seguimiento cada 6-12 meses según el estadio. Embarazada diabética: tamizaje cada trimestre (el embarazo acelera la progresión de la RD). El dato del ENARM: la microalbuminuria y la retinopatía son los primeros signos de daño microvascular en DM.",
+    ref:"GPC: Detección de retinopatía diabética en el primer nivel de atención. CENETEC. 2009."
+  },
+
+  // ── GPC 9: Diagnóstico y tratamiento de la oclusión venosa de retina 2013 ──
+  {
+    cat:"ovr", catName:"Oclusión Venosa de Retina",
+    q:"Paciente de 70 años, hipertenso con mal control, con pérdida visual súbita no dolorosa del ojo derecho desde esta mañana. En el fondo de ojo: hemorragias en llama y en mancha en los 4 cuadrantes retinianos, marcada dilatación y tortuosidad de todas las venas, edema de papila y manchas algodonosas. ¿Cuál es el diagnóstico?",
+    opts:["Desprendimiento de retina regmatógeno con desprendimiento total","Oclusión de vena central de retina (OVCR)","Neuropatía óptica isquémica anterior no arterítica (NOIA-NA)","Oclusión de arteria central de retina (OACR)"],
+    ans:1,
+    exp:"La oclusión de vena central de retina (OVCR) se presenta con pérdida visual súbita no dolorosa y el fondo de ojo característico: hemorragias en llama y en mancha en los 4 cuadrantes (distribución 'tormenta de sangre' o 'fondo en tomate aplastado'), tortuosidad venosa marcada, edema de papila y manchas algodonosas. La pérdida visual es variable según el tipo: isquémica (>10 DD sin perfusión) tiene peor pronóstico. La OACR da fondo pálido con mancha rojo cereza (sin hemorragias). La NOIA da disco pálido edematoso sin hemorragias en los 4 cuadrantes.",
+    tip:"<strong>OVCR = 'tormenta de sangre' en los 4 cuadrantes.</strong> Diferencias clave:<br>• OVCR: hemorragias en 4 cuadrantes + venas tortuosas + edema de disco<br>• OACR: fondo pálido + mancha rojo cereza + sin hemorragias<br>• NOIA: disco pálido con edema segmentario + defecto pupilar aferente<br>• Oclusión de rama venosa (ORVR): hemorragias solo en el cuadrante del vaso ocluido",
+    ref:"GPC: Diagnóstico y tratamiento de la oclusión venosa de retina. CENETEC. 2013."
   },
   {
-    cat:"dx", catName:"Diagnóstico",
-    q:"Un paciente con sospecha de glaucoma tiene PIO de 23 mmHg y excavación papilar C/D de 0.7. ¿Qué estudio funcional es imprescindible para confirmar el diagnóstico y monitorizar la progresión?",
-    opts:["Electrorretinograma (ERG)","Perimetría automatizada computarizada (campo visual)","Angiografía con fluoresceína","Ultrasonografía ocular modo B"],
+    cat:"ovr", catName:"Oclusión Venosa de Retina",
+    q:"¿Cuál es el factor de riesgo sistémico más frecuentemente asociado a la oclusión venosa de retina que debe investigarse y controlarse prioritariamente según la GPC?",
+    opts:["Diabetes mellitus tipo 2","Hipertensión arterial sistémica","Dislipidemia (hipercolesterolemia)","Tabaquismo activo"],
     ans:1,
-    exp:"La perimetría automatizada computarizada (campo visual) es el estudio funcional esencial en el diagnóstico y seguimiento del glaucoma. Detecta los defectos del campo visual causados por la pérdida de fibras nerviosas retinianas. La GPC establece que se requiere confirmación de defecto campimétrico reproducible (en al menos 2 estudios) para el diagnóstico de glaucoma. Los patrones típicos incluyen escotoma arqueado de Bjerrum, escalón nasal y pérdida periférica.",
-    tip:"<strong>Campo visual: el termómetro funcional del glaucoma.</strong> La perimetría detecta daño funcional; la OCT detecta daño estructural. Juntos son más potentes que cada uno por separado. El campo visual se altera cuando ya se han perdido el 25-40% de las fibras — la OCT puede detectar pérdida antes. En seguimiento: campo visual cada 6-12 meses.",
-    ref:"GPC: Diagnóstico y tratamiento del glaucoma de ángulo abierto. IMSS-422-11. 2012."
+    exp:"La hipertensión arterial es el factor de riesgo sistémico más frecuente en la oclusión venosa de retina, presente en el 60-75% de los casos de OVCR y en ~50% de las oclusiones de rama (ORVR). La HTA produce cambios arterioscleróticos en las arterias retinianas que comprimen las venas en los cruces arteriovenosos (signo de Gunn), aumentando la resistencia al flujo venoso y predisponiendo a la trombosis. La GPC recomienda evaluación cardiológica completa en todo paciente con OVR para identificar y tratar factores de riesgo cardiovascular.",
+    tip:"<strong>HTA = principal FR de la oclusión venosa de retina.</strong> Ante todo paciente con OVR: medir presión arterial, solicitar perfil lipídico, glucemia, biometría y coagulación. En jóvenes (<50 años): buscar trombofilia (factor V Leiden, proteína C y S, anticoagulante lúpico). El signo de Gunn (cruce arteriovenoso con compresión venosa) es el mecanismo fisiopatológico de la HTA en la OVR.",
+    ref:"GPC: Diagnóstico y tratamiento de la oclusión venosa de retina. CENETEC. 2013."
   },
   {
-    cat:"dx", catName:"Diagnóstico",
-    q:"La paquimetría corneal reporta un espesor corneal central de 480 µm en un paciente con PIO de 20 mmHg. ¿Cómo modifica este hallazgo la interpretación diagnóstica?",
-    opts:["No modifica nada, la PIO es normal","La córnea delgada subestima la PIO real, por lo que el riesgo de glaucoma es mayor de lo aparente","La córnea delgada sobreestima la PIO, así que el paciente tiene menos riesgo","La paquimetría no tiene relevancia en glaucoma"],
+    cat:"ovr", catName:"Oclusión Venosa de Retina",
+    q:"Paciente con OVCR no isquémica desarrolla edema macular que reduce su agudeza visual de 20/25 a 20/200 en 4 semanas. ¿Cuál es el tratamiento de primera línea para el edema macular secundario a OVCR según la evidencia actual?",
+    opts:["Fotocoagulación retiniana en rejilla (láser) en el área macular","Inyección intravítrea de anti-VEGF (bevacizumab, ranibizumab o aflibercept)","Corticosteroide oral (prednisona 60 mg/día)","Observación por 3 meses — el edema resuelve espontáneamente en la mayoría"],
     ans:1,
-    exp:"La paquimetría corneal mide el grosor de la córnea central. Una córnea delgada (<520 µm) hace que la tonometría de Goldmann subestime la PIO real, ya que la córnea ofrece menor resistencia al aplanamiento. El Ocular Hypertension Treatment Study (OHTS) demostró que una córnea central delgada es un factor de riesgo independiente para el desarrollo de glaucoma. La GPC recomienda realizar paquimetría en todos los pacientes con sospecha de hipertensión ocular o glaucoma.",
-    tip:"<strong>Córnea delgada = riesgo mayor de lo que muestra la PIO.</strong> Regla práctica: por cada 10 µm menor al promedio (545 µm), ajuste la PIO +1 mmHg. Un paciente con PIO 20 mmHg y córnea de 480 µm puede tener PIO real de ~26 mmHg. La paquimetría es obligatoria antes de etiquetar a alguien como 'hipertenso ocular sin glaucoma'.",
-    ref:"GPC: Diagnóstico y tratamiento del glaucoma de ángulo abierto. IMSS-422-11. 2012."
-  },
-  {
-    cat:"tx", catName:"Tratamiento",
-    q:"Un paciente con GPAA recién diagnosticado, PIO de 26 mmHg y sin contraindicaciones. ¿Cuál es el tratamiento médico de primera línea según la GPC?",
-    opts:["Timolol 0.5% (betabloqueador tópico) dos veces al día","Latanoprost 0.005% (análogo de prostaglandina) una vez al día por la noche","Dorzolamida 2% (inhibidor de anhidrasa carbónica) tres veces al día","Brimonidina 0.2% (agonista alfa-2) dos veces al día"],
-    ans:1,
-    exp:"Los análogos de prostaglandinas (latanoprost, travoprost, bimatoprost) son el tratamiento de primera línea para el GPAA según la GPC. Son los hipotensores oculares más potentes (reducen PIO 25-35%), se aplican una vez al día por la noche, tienen excelente tolerancia sistémica y el mejor perfil de adherencia. Su mecanismo es aumentar la salida uveoescleral del humor acuoso.",
-    tip:"<strong>Prostaglandinas: primera línea en GPAA.</strong> Latanoprost 0.005% una gota nocturna. Ventajas: máxima eficacia hipotensora, una sola aplicación diaria, sin efectos cardiovasculares. Desventajas: hiperemia conjuntival, oscurecimiento del iris, hipertricosis. Contraindicados en: inflamación ocular activa, embarazo. Segunda línea: betabloqueadores (timolol) si hay contraindicación a prostaglandinas.",
-    ref:"GPC: Diagnóstico y tratamiento del glaucoma de ángulo abierto. IMSS-422-11. 2012."
-  },
-  {
-    cat:"tx", catName:"Tratamiento",
-    q:"Un paciente con GPAA lleva 6 meses con latanoprost y la PIO se mantiene en 24 mmHg (meta <18 mmHg). No tiene contraindicaciones para betabloqueadores. ¿Cuál es el siguiente paso en el manejo?",
-    opts:["Suspender el latanoprost y cambiar a timolol","Añadir timolol 0.5% al régimen actual (terapia combinada)","Realizar trabeculectomía de inmediato","Aumentar la dosis de latanoprost a dos veces al día"],
-    ans:1,
-    exp:"Cuando la monoterapia es insuficiente para alcanzar la PIO meta, la GPC recomienda agregar un segundo agente hipotensor. El timolol 0.5% (betabloqueador) es la combinación más frecuente con los análogos de prostaglandinas, con efecto aditivo que reduce la PIO un 15-20% adicional. Existen preparaciones combinadas fijas (latanoprost/timolol) que mejoran la adherencia. Solo se escala a cirugía cuando 2-3 medicamentos son insuficientes.",
-    tip:"<strong>Escalonamiento terapéutico en GPAA:</strong> 1ª línea: prostaglandina → 2ª línea: + timolol (o betabloqueador) → 3ª línea: + inhibidor de anhidrasa carbónica o agonista alfa-2 → Cirugía: trabeculoplastia láser o trabeculectomía. Los análogos de PG nunca se doblan en dosis — agregar otro fármaco de distinto mecanismo es más eficaz.",
-    ref:"GPC: Diagnóstico y tratamiento del glaucoma de ángulo abierto. IMSS-422-11. 2012."
-  },
-  {
-    cat:"tx", catName:"Tratamiento",
-    q:"¿Cuál es la indicación de la trabeculoplastia láser argón (o láser selectivo, SLT) en el manejo del glaucoma de ángulo abierto?",
-    opts:["Primera línea en todos los pacientes con GPAA recién diagnosticados","GPAA cuando el tratamiento médico máximo tolerado es insuficiente para alcanzar la PIO meta, antes de la cirugía filtrante","Solo en glaucoma secundario por pseudoexfoliación","Tratamiento definitivo que evita cualquier cirugía futura"],
-    ans:1,
-    exp:"La trabeculoplastia láser (argón o selectiva-SLT) está indicada en el GPAA cuando la medicación hipotensora es insuficiente o no tolerada, como alternativa antes de la cirugía filtrante. El láser actúa sobre la malla trabecular mejorando el drenaje del humor acuoso y reduciendo la PIO un 20-25%. La GPC la ubica como escalón intermedio entre el tratamiento médico y la trabeculectomía. El efecto puede disminuir con el tiempo (3-5 años).",
-    tip:"<strong>Trabeculoplastia = paso intermedio antes de cirugía.</strong> SLT (láser selectivo) es preferida por ser repetible y tener menos daño trabecular que el argón. Eficaz especialmente en glaucoma por pseudoexfoliación. No confundir: trabeculo-PLASTIA (láser trabécular, GPAA) vs iridotomía (láser en iris, GAC). Son indicaciones distintas.",
-    ref:"GPC: Diagnóstico y tratamiento del glaucoma de ángulo abierto. IMSS-422-11. 2012."
-  },
-  {
-    cat:"comp", catName:"Complicaciones",
-    q:"Paciente con GPAA avanzado que no ha tenido seguimiento en 5 años. Al examen: campo visual muestra pérdida casi total, solo queda visión tubular (isla central pequeña). La excavación papilar es de 0.95. ¿Qué término describe este estadio y cuál es el pronóstico visual?",
-    opts:["Glaucoma leve; con tratamiento se recupera el campo perdido","Glaucoma severo con ceguera funcional inminente; el daño de campo visual por glaucoma es irreversible","Hipertensión ocular; iniciar tratamiento y el campo se normalizará","Glaucoma moderado; la cirugía recuperará la visión perdida"],
-    ans:1,
-    exp:"La visión tubular (pérdida de campo visual periférico con conservación de isla central) representa estadio avanzado de GPAA con excavación papilar >0.9, indicando pérdida de más del 90% de las fibras nerviosas retinianas. El daño glaucomatoso al nervio óptico es IRREVERSIBLE — las células ganglionares retinianas muertas no se regeneran. La GPC enfatiza que el objetivo del tratamiento es frenar la progresión, no recuperar la visión perdida.",
-    tip:"<strong>El daño glaucomatoso es irreversible.</strong> A diferencia de la catarata (que se opera y se recupera la visión), el campo visual perdido por glaucoma nunca vuelve. Por eso el diagnóstico temprano y el control estricto de la PIO son cruciales. La visión tubular = alarma roja: el paciente puede quedar ciego si no se controla. Reduzca la PIO agresivamente y refiera a subespecialidad.",
-    ref:"GPC: Diagnóstico y tratamiento del glaucoma de ángulo abierto. IMSS-422-11. 2012."
+    exp:"El edema macular es la principal causa de pérdida visual en la OVCR. Las inyecciones intravítreas de anti-VEGF (especialmente ranibizumab y aflibercept, aprobados por FDA para esta indicación; bevacizumab off-label) son el tratamiento de primera línea actual según la GPC y las guías internacionales. Los estudios CRUISE (ranibizumab) y GALILEO/COPERNICUS (aflibercept) demostraron mejoría significativa de agudeza visual vs observación. El implante intravítreo de dexametasona (Ozurdex) es alternativa eficaz, especialmente en pseudofáquicos. La fotocoagulación en rejilla fue desplazada por los anti-VEGF.",
+    tip:"<strong>Edema macular por OVCR: anti-VEGF = 1ª línea.</strong> Diferencia con OACR: en la oclusión ARTERIAL no hay tratamiento efectivo establecido — es una verdadera urgencia que debe tratarse en minutos (masaje ocular, paracentesis, O₂) pero con resultados decepcionantes. En la VENOSA hay tiempo y el anti-VEGF da buenos resultados. El implante de dexametasona (Ozurdex) es buena opción si anti-VEGF no disponible o en pseudofáquicos.",
+    ref:"GPC: Diagnóstico y tratamiento de la oclusión venosa de retina. CENETEC. 2013."
   }
 ];
 
 let currentQ = 0, score = 0, answers = [];
-let catStats = { gaa:{c:0,t:0}, gac:{c:0,t:0}, dx:{c:0,t:0}, tx:{c:0,t:0}, comp:{c:0,t:0} };
+let catStats = { vis:{c:0,t:0}, blef:{c:0,t:0}, orz:{c:0,t:0}, lag:{c:0,t:0}, ret:{c:0,t:0}, rd:{c:0,t:0}, ovr:{c:0,t:0} };
 
 function shuffle(arr) {
   for (let i=arr.length-1;i>0;i--) {
@@ -349,7 +476,7 @@ function shuffle(arr) {
 function init() {
   shuffle(questions);
   currentQ=0; score=0; answers=[];
-  catStats = { gaa:{c:0,t:0}, gac:{c:0,t:0}, dx:{c:0,t:0}, tx:{c:0,t:0}, comp:{c:0,t:0} };
+  catStats = { vis:{c:0,t:0}, blef:{c:0,t:0}, orz:{c:0,t:0}, lag:{c:0,t:0}, ret:{c:0,t:0}, rd:{c:0,t:0}, ovr:{c:0,t:0} };
   const r=document.getElementById('resultsArea');
   r.classList.remove('show'); r.innerHTML='';
   document.getElementById('nextBtn').classList.remove('show');
@@ -410,13 +537,15 @@ function showResults() {
   document.getElementById('progressBar').style.width='100%';
   document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;
   const pct=Math.round((score/questions.length)*100);
-  const msg=pct>=90?'🏆 ¡Excelente dominio de glaucoma!':pct>=70?'👏 ¡Bien! Repasa los temas con menor puntaje.':pct>=50?'📚 Aceptable, refuerza las áreas débiles.':'⚠️ Revisa las GPC de glaucoma.';
+  const msg=pct>=90?'🏆 ¡Excelente dominio de Oftalmología Parte 1!':pct>=70?'👏 ¡Bien! Repasa las GPCs con menor puntaje.':pct>=50?'📚 Aceptable — refuerza las áreas débiles.':'⚠️ Revisa las GPCs de esta unidad.';
   const cats=[
-    {name:'Glaucoma Ángulo Abierto', key:'gaa', color:'#34d399'},
-    {name:'Glaucoma Ángulo Cerrado', key:'gac', color:'#fbbf24'},
-    {name:'Diagnóstico',             key:'dx',  color:'#38bdf8'},
-    {name:'Tratamiento',             key:'tx',  color:'#a78bfa'},
-    {name:'Complicaciones',          key:'comp',color:'#f472b6'},
+    {name:'Detección Visual Escolar', key:'vis',  color:'#2dd4bf'},
+    {name:'Blefaritis',               key:'blef', color:'#fbbf24'},
+    {name:'Orzuelo / Chalazión',      key:'orz',  color:'#fb923c'},
+    {name:'Vía Lagrimal',             key:'lag',  color:'#f472b6'},
+    {name:'Desp. de Retina',          key:'ret',  color:'#a78bfa'},
+    {name:'Retinopatía Diabética',    key:'rd',   color:'#34d399'},
+    {name:'Oclusión Venosa Retina',   key:'ovr',  color:'#38bdf8'},
   ];
   let html=`<div class="results-header">
     <div class="score-big">${pct}%</div>
@@ -424,7 +553,7 @@ function showResults() {
     <div class="score-msg">${msg}</div>
   </div>
   <div class="chart-section">
-    <div class="chart-title"><span>📊</span> Rendimiento por Categoría</div>
+    <div class="chart-title"><span>📊</span> Rendimiento por GPC</div>
     <div class="bar-chart">`;
   cats.forEach(cat=>{
     const s=catStats[cat.key]||{c:0,t:0};
