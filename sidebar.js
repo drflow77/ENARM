@@ -88,6 +88,8 @@
         { num:'40', label:'Luxaciones y Partes Blandas',      file:'40-luxaciones-partes-blandas.html',       ready:true },
         { num:'41', label:'Tumores óseos benignos',           file:'41-tumores-oseos-benignos.html',          ready:true },
         { num:'42', label:'Tumores óseos malignos',           file:'42-tumores-oseos-malignos.html',          ready:true },
+        { num:'43', label:'Artritis Séptica y Osteomielitis', file:'43-artritis-septica-osteomielitis.html',  ready:true },
+        { num:'44', label:'Columna Vertebral I',              file:'44-columna-vertebral-1.html',             ready:true },
       ]
     },
     {

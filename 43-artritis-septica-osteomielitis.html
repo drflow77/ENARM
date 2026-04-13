@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artritis Séptica y Osteomielitis — ENARM · Traumatología · Tema 43</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --bg:#0a0e1a; --surface:#111827; --surface2:#1a2235; --surface3:#212d45;
+    --border:#2a3a5c; --text:#e8ecf4; --text-dim:#8896b3;
+    --accent:#2dd4bf; --accent-glow:rgba(45,212,191,0.15);
+    --correct:#34d399; --correct-bg:rgba(52,211,153,0.1); --correct-border:rgba(52,211,153,0.4);
+    --wrong:#f87171; --wrong-bg:rgba(248,113,113,0.1); --wrong-border:rgba(248,113,113,0.4);
+    --gold:#fbbf24; --purple:#a78bfa; --pink:#f472b6; --teal:#2dd4bf; --blue:#38bdf8;
+    --sidebar-w:280px; --radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;}
+
+  .sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;overflow-y:auto;z-index:100;transition:transform 0.3s;}
+  .sidebar-logo{padding:24px 20px 16px;border-bottom:1px solid var(--border);}
+  .logo-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--purple));padding:6px 14px;border-radius:100px;font-size:0.75rem;font-weight:800;color:var(--bg);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px;}
+  .sidebar-logo h2{font-size:1.1rem;font-weight:800;background:linear-gradient(135deg,var(--text),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .sidebar-logo p{font-size:0.72rem;color:var(--text-dim);margin-top:2px;}
+  .back-btn{display:flex;align-items:center;gap:8px;padding:14px 20px;color:var(--text-dim);font-size:0.8rem;text-decoration:none;border-bottom:1px solid var(--border);transition:color 0.2s;}
+  .back-btn:hover{color:var(--accent);}
+  .sidebar-nav{flex:1;padding:12px 0 24px;}
+  .specialty-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px 10px 20px;cursor:pointer;transition:background 0.2s;user-select:none;}
+  .specialty-header:hover{background:var(--surface2);}
+  .specialty-name{display:flex;align-items:center;gap:10px;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;}
+  .specialty-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;}
+  .chevron{font-size:0.65rem;color:var(--text-dim);transition:transform 0.3s;}
+  .specialty-header.open .chevron{transform:rotate(90deg);}
+  .topics-list{display:none;padding:4px 0 8px;}
+  .topics-list.open{display:block;}
+  .topic-link{display:flex;align-items:center;gap:10px;padding:8px 16px 8px 56px;font-size:0.78rem;color:var(--text-dim);text-decoration:none;transition:all 0.2s;border-left:2px solid transparent;line-height:1.4;}
+  .topic-link:hover{color:var(--text);background:var(--surface3);}
+  .topic-link.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-glow);font-weight:600;}
+  .topic-link.coming-soon{opacity:0.4;cursor:not-allowed;pointer-events:none;}
+  .topic-num{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--text-dim);min-width:20px;}
+  .badge-soon{margin-left:auto;background:rgba(136,150,179,0.1);color:var(--text-dim);font-size:0.62rem;font-weight:600;padding:2px 7px;border-radius:100px;}
+  .badge-ready{margin-left:auto;background:rgba(52,211,153,0.15);color:var(--correct);font-size:0.62rem;font-weight:600;padding:2px 7px;border-radius:100px;}
+
+  .main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;}
+  .container{max-width:760px;margin:0 auto;padding:20px 16px 40px;width:100%;}
+
+  .mode-bar{display:flex;align-items:center;gap:10px;margin:24px 0 20px;background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:6px;width:fit-content;}
+  .mode-btn{padding:8px 20px;border-radius:100px;border:none;cursor:pointer;font-family:inherit;font-size:0.82rem;font-weight:600;transition:all 0.2s;color:var(--text-dim);background:transparent;}
+  .mode-btn.active{background:linear-gradient(135deg,var(--teal),var(--blue));color:var(--bg);}
+
+  .header{text-align:center;padding:40px 20px 24px;position:relative;overflow:hidden;}
+  .header::before{content:'';position:absolute;top:-60%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(45,212,191,0.08) 0%,transparent 70%);pointer-events:none;}
+  .header-badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);padding:6px 16px;border-radius:100px;font-size:0.78rem;color:var(--teal);font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:16px;}
+  .header h1{font-size:clamp(1.4rem,4.5vw,2.2rem);font-weight:800;background:linear-gradient(135deg,var(--text) 0%,var(--teal) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;line-height:1.2;}
+  .header p{color:var(--text-dim);font-size:0.95rem;max-width:600px;margin:0 auto;line-height:1.4;}
+
+  .progress-wrap{background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:12px 20px;margin:20px 0 28px;display:flex;align-items:center;gap:14px;}
+  .progress-bar-bg{flex:1;height:8px;background:var(--surface3);border-radius:100px;overflow:hidden;}
+  .progress-bar-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--teal),var(--blue));border-radius:100px;transition:width 0.5s ease;}
+  .progress-text{font-size:0.82rem;font-weight:600;color:var(--text-dim);white-space:nowrap;font-family:'JetBrains Mono',monospace;}
+
+  .question-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px;margin-bottom:20px;animation:slideIn 0.4s ease;position:relative;overflow:hidden;}
+  .question-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--teal),var(--blue),var(--purple));}
+  @keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .q-category{display:inline-flex;align-items:center;gap:6px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;padding:4px 12px;border-radius:100px;margin-bottom:14px;}
+  .cat-osteo{background:rgba(45,212,191,0.12);color:#2dd4bf;}
+  .cat-artr{background:rgba(251,191,36,0.12);color:#fbbf24;}
+  .q-number{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--text-dim);margin-bottom:10px;}
+  .q-text{font-size:1.05rem;font-weight:600;line-height:1.55;margin-bottom:20px;color:var(--text);}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .option-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:all 0.2s;text-align:left;font-size:0.92rem;color:var(--text);font-family:inherit;line-height:1.5;width:100%;}
+  .option-btn:hover:not(.disabled){border-color:var(--teal);background:rgba(45,212,191,0.08);transform:translateX(4px);}
+  .option-letter{display:flex;align-items:center;justify-content:center;min-width:30px;height:30px;border-radius:8px;background:var(--surface3);font-weight:700;font-size:0.82rem;color:var(--teal);flex-shrink:0;}
+  .option-btn.correct-answer{border-color:var(--correct-border);background:var(--correct-bg);}
+  .option-btn.correct-answer .option-letter{background:var(--correct);color:var(--bg);}
+  .option-btn.wrong-answer{border-color:var(--wrong-border);background:var(--wrong-bg);}
+  .option-btn.wrong-answer .option-letter{background:var(--wrong);color:var(--bg);}
+  .option-btn.disabled{cursor:default;}
+  .option-btn.disabled:hover{transform:none;}
+
+  .feedback{margin-top:18px;padding:18px;border-radius:12px;font-size:0.88rem;line-height:1.65;animation:fadeIn 0.3s ease;display:none;}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .feedback.show{display:block;}
+  .feedback.correct-fb{background:var(--correct-bg);border:1px solid var(--correct-border);color:var(--correct);}
+  .feedback.wrong-fb{background:var(--wrong-bg);border:1px solid var(--wrong-border);color:#fca5a5;}
+  .feedback-title{font-weight:700;font-size:0.95rem;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+  .feedback .tip{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.08);color:var(--text-dim);font-size:0.82rem;}
+  .feedback .tip strong{color:var(--gold);}
+  .feedback .ref{margin-top:8px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;}
+
+  .next-btn{display:none;margin:20px auto 0;padding:12px 32px;background:linear-gradient(135deg,var(--teal),var(--blue));color:var(--bg);border:none;border-radius:100px;font-family:inherit;font-size:0.92rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+  .next-btn:hover{transform:scale(1.05);}
+  .next-btn.show{display:block;}
+
+  .results{display:none;animation:slideIn 0.5s ease;}
+  .results.show{display:block;}
+  .results-header{text-align:center;padding:30px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;position:relative;overflow:hidden;}
+  .results-header::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--correct),var(--teal),var(--blue));}
+  .score-big{font-family:'JetBrains Mono',monospace;font-size:3.5rem;font-weight:800;color:var(--teal);line-height:1;}
+  .score-label{font-size:1rem;color:var(--text-dim);margin:8px 0;}
+  .score-msg{font-size:1.05rem;font-weight:600;color:var(--text);}
+  .chart-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;}
+  .chart-title{font-size:0.9rem;font-weight:700;color:var(--text-dim);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  .bar-chart{display:flex;flex-direction:column;gap:12px;}
+  .bar-row{display:flex;flex-direction:column;gap:6px;}
+  .bar-label{font-size:0.82rem;font-weight:600;color:var(--text);}
+  .bar-track{height:28px;background:var(--surface3);border-radius:6px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding-left:10px;font-size:0.78rem;font-weight:700;color:var(--bg);min-width:40px;transition:width 0.8s ease;}
+  .donut-wrap{display:flex;align-items:center;gap:24px;flex-wrap:wrap;}
+  .donut-svg{width:100px;height:100px;flex-shrink:0;}
+  .donut-legend{display:flex;flex-direction:column;gap:8px;}
+  .legend-item{display:flex;align-items:center;gap:8px;font-size:0.82rem;color:var(--text-dim);}
+  .legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+  .review-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px;}
+  .review-card.review-correct{border-color:var(--correct-border);}
+  .review-card.review-wrong{border-color:var(--wrong-border);}
+  .review-q{font-size:0.85rem;font-weight:600;color:var(--text);margin-bottom:8px;line-height:1.5;}
+  .review-answer{font-size:0.82rem;line-height:1.5;}
+  .retry-btn{display:block;width:100%;padding:14px;background:linear-gradient(135deg,var(--teal),var(--blue));border:none;border-radius:12px;color:var(--bg);font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;margin-top:20px;transition:all 0.2s;}
+  .retry-btn:hover{filter:brightness(1.1);}
+
+  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90;}
+  .overlay.show{display:block;}
+  .hamburger{display:none;position:fixed;top:14px;left:14px;z-index:200;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:8px 10px;cursor:pointer;font-size:1.1rem;}
+  .footer{text-align:center;padding:16px;font-size:0.72rem;color:var(--text-dim);border-top:1px solid var(--border);opacity:0.6;}
+
+  @media(max-width:900px){
+    .sidebar{transform:translateX(-100%);}
+    .sidebar.open{transform:translateX(0);}
+    .main{margin-left:0;}
+    .hamburger{display:block;}
+    .container{padding-top:60px;}
+  }
+</style>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+<aside class="sidebar" id="sidebar"></aside>
+
+<main class="main">
+<div class="container">
+  <div class="header">
+    <div class="header-badge"><span>🦴</span> ENARM · Traumatología · Tema 43</div>
+    <h1>Artritis Séptica y Osteomielitis</h1>
+    <p>Osteomielitis hematógena aguda · Artritis séptica · Criterios de Kocher · Espondilodiscitis</p>
+  </div>
+
+  <div style="display:flex;justify-content:center;">
+    <div class="mode-bar">
+      <button class="mode-btn active" id="btnRepaso" onclick="setMode('repaso')">📖 Modo Repaso</button>
+      <button class="mode-btn" id="btnExamen" onclick="setMode('examen')">⏱️ Modo Examen</button>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 15</div>
+  </div>
+
+  <div id="quizArea"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+  <div class="results" id="resultsArea"></div>
+</div>
+<div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+</main>
+
+<script src="sidebar.js"></script>
+<script>
+let examMode = false;
+let currentQ = 0, score = 0, answers = [], catStats = {};
+
+function setMode(mode) {
+  examMode = (mode === 'examen');
+  document.getElementById('btnRepaso').classList.toggle('active', !examMode);
+  document.getElementById('btnExamen').classList.toggle('active', examMode);
+  init();
+}
+
+const questions = [
+  {
+    cat:"osteo", catName:"Osteomielitis",
+    q:"Niño de 7 años con fiebre de 39°C de 3 días de evolución, dolor intenso y negativa a apoyar la pierna derecha. Hay calor y eritema sobre la metáfisis proximal de la tibia derecha. Leucocitosis de 18,000. ¿Cuál es el agente etiológico más frecuente?",
+    opts:["Streptococcus pyogenes","Staphylococcus aureus","Pseudomonas aeruginosa","Haemophilus influenzae"],
+    ans:1,
+    exp:"Staphylococcus aureus es responsable del 80-90% de los casos de osteomielitis hematógena aguda en todos los grupos de edad. Su capacidad de producir biofilm y adherirse a la matriz ósea facilita la infección. En neonatos también cobran importancia los estreptococos del grupo B.",
+    tip:"<strong>Regla de oro:</strong> S. aureus = primera causa de osteomielitis en todas las edades. Excepción importante: drepanocitosis → Salmonella spp.",
+    ref:"GPC Prevención, diagnóstico oportuno y tratamiento de la osteomielitis hematógena aguda, IMSS 2014."
+  },
+  {
+    cat:"osteo", catName:"Osteomielitis",
+    q:"En la osteomielitis hematógena aguda pediátrica, ¿cuál es el sitio de localización más frecuente y la razón anatómica?",
+    opts:["Epífisis de huesos largos, por mayor densidad ósea","Metáfisis de huesos largos, por circulación sinusoidal lenta que favorece la colonización bacteriana","Diáfisis humeral, por ser el hueso más largo","Cuerpo vertebral, por su abundante vascularización"],
+    ans:1,
+    exp:"La metáfisis de los huesos largos (fémur distal, tibia proximal, húmero proximal) es el sitio preferente. En esta zona, los capilares hacen asa brusca, la circulación es lenta y sinusoidal, y hay escasa actividad fagocítica, lo que facilita la colonización bacteriana hematógena.",
+    tip:"<strong>Metáfisis</strong> = zona de crecimiento + circulación lenta = sitio favorito de infección en niños. Fémur distal y tibia proximal son los más frecuentes.",
+    ref:"GPC Osteomielitis hematógena aguda, IMSS 2014."
+  },
+  {
+    cat:"osteo", catName:"Osteomielitis",
+    q:"En osteomielitis aguda de 5 días de evolución, ¿cuál es el hallazgo radiológico más temprano esperado?",
+    opts:["Destrucción cortical y reacción perióstica","Secuestro óseo rodeado de involucro","Aumento de partes blandas (edema de tejidos perióseos)","Esclerosis ósea difusa"],
+    ans:2,
+    exp:"Los cambios óseos radiológicos en osteomielitis tardan 10-21 días en aparecer. El hallazgo más temprano es el edema/aumento de partes blandas. La reacción perióstica aparece en 7-10 días, y la destrucción ósea evidente después de 14-21 días.",
+    tip:"<strong>Rx normal los primeros días NO descarta osteomielitis.</strong> RM detecta cambios desde 24-48h (sensibilidad 82-100%).",
+    ref:"GPC Osteomielitis hematógena aguda, IMSS 2014."
+  },
+  {
+    cat:"osteo", catName:"Osteomielitis",
+    q:"Para el diagnóstico temprano de osteomielitis aguda con radiografía normal, ¿cuál es la técnica de imagen de elección?",
+    opts:["Gammagrafía ósea con Tc-99m","Resonancia magnética","Tomografía computada","Ultrasonido musculoesquelético"],
+    ans:1,
+    exp:"La RM tiene sensibilidad del 82-100% y especificidad del 75-99%. Detecta edema medular, absceso subperióstico y extensión a partes blandas desde las primeras 24-48h. La gammagrafía es sensible pero menos específica y no delimita bien la extensión ni es útil en neonatos.",
+    tip:"<strong>RM = gold standard</strong> para osteomielitis temprana. Además permite planear drenaje si hay absceso subperióstico.",
+    ref:"GPC Osteomielitis hematógena aguda, IMSS 2014."
+  },
+  {
+    cat:"osteo", catName:"Osteomielitis",
+    q:"¿En qué grupo de pacientes Salmonella spp. desplaza a S. aureus como causa más frecuente de osteomielitis?",
+    opts:["Diabéticos con pie diabético","Pacientes con anemia de células falciformes (drepanocitosis)","Usuarios de drogas intravenosas","Neonatos prematuros"],
+    ans:1,
+    exp:"En la drepanocitosis, Salmonella spp. es el agente causal más frecuente de osteomielitis (>50% de los casos). Los infartos óseos isquémicos y la disfunción esplénica predisponen a bacteriemia por Salmonella con tropismo óseo. S. aureus sigue siendo el segundo agente más común.",
+    tip:"<strong>Drepanocitosis + osteomielitis = Salmonella.</strong> Todos los demás = S. aureus. Excepción clásica del ENARM.",
+    ref:"GPC Osteomielitis hematógena aguda, IMSS 2014."
+  },
+  {
+    cat:"osteo", catName:"Osteomielitis",
+    q:"La tríada clásica de la osteomielitis crónica está formada por:",
+    opts:["Fiebre alta, bacteriemia y leucocitosis persistente","Dolor crónico, trayecto fistuloso y secuestro óseo","Edema, eritema y limitación funcional","Reacción perióstica, esclerosis y atrofia muscular"],
+    ans:1,
+    exp:"La osteomielitis crónica se caracteriza por: (1) secuestro óseo (fragmento necrótico avascular), (2) involucro (cortical neoformada que rodea el secuestro) y (3) cloaca/fístula (trayecto por donde drena material purulento). El secuestro actúa como cuerpo extraño manteniendo la infección crónica.",
+    tip:"<strong>Crónica = secuestro + involucro + cloaca.</strong> El secuestro es avascular → los antibióticos no llegan → necesita cirugía (sequestrectomía).",
+    ref:"GPC Osteomielitis hematógena aguda, IMSS 2014."
+  },
+  {
+    cat:"osteo", catName:"Osteomielitis",
+    q:"Mujer de 55 años diabética presenta fiebre y dolor lumbar de 2 semanas con elevación de PCR y VSG. RM muestra hiperintensidad en T2 en L3-L4 con colapso discal. ¿Cuál es el diagnóstico y la vía patogénica principal?",
+    opts:["Hernia de disco lumbar L3-L4 por mecanismo degenerativo","Espondilodiscitis bacteriana por diseminación hematógena","Síndrome de cauda equina por compresión tumoral","Artritis psoriásica lumbar por mecanismo autoinmune"],
+    ans:1,
+    exp:"La espondilodiscitis (osteomielitis vertebral) se presenta con dolor lumbar subagudo, fiebre y reactantes de fase aguda elevados. La RM es el gold standard diagnóstico. En adultos la vía hematógena es la más frecuente; la diabetes, inmunosupresión y procedimientos urológicos son los principales factores de riesgo.",
+    tip:"<strong>Adulto + lumbalgia + fiebre + VSG/PCR altos = espondilodiscitis.</strong> S. aureus es el agente más común. Buscar siempre foco primario (endocarditis, ITU).",
+    ref:"GPC Artritis séptica aguda en niños y adultos, IMSS 2016."
+  },
+  {
+    cat:"osteo", catName:"Osteomielitis",
+    q:"Niño de 8 años con osteomielitis hematógena aguda no complicada. Luego de mejoría clínica con IV en 4 días y PCR en descenso. ¿Cuál es el esquema de tratamiento recomendado?",
+    opts:["Solo antibiótico IV durante 6 semanas","Solo antibiótico oral por 2 semanas","Antibiótico IV hasta mejoría clínica y PCR en descenso, luego oral para completar 4-6 semanas totales","Antibiótico IV por 3 semanas seguido de profilaxis oral por 6 meses"],
+    ans:2,
+    exp:"La terapia secuencial (IV→oral) es el estándar actual: antibiótico IV hasta mejoría clínica y PCR normalizada (habitualmente 3-7 días), seguido de antibiótico oral hasta completar 4-6 semanas totales. Esta estrategia evita hospitalizaciones prolongadas con eficacia similar a la terapia IV prolongada.",
+    tip:"<strong>IV hasta mejoría + PCR en descenso → oral hasta completar 4-6 semanas.</strong> No son necesarias 6 semanas de IV.",
+    ref:"GPC Osteomielitis hematógena aguda, IMSS 2014."
+  },
+  {
+    cat:"artr", catName:"Artritis Séptica",
+    q:"Hombre de 35 años con gonorrea reciente presenta artritis migratoria, tenosinovitis y dermatitis pustulosa. Posteriormente desarrolla artritis monoarticular de rodilla con líquido turbio. ¿Cuál es el agente causal más probable?",
+    opts:["Staphylococcus aureus","Streptococcus pyogenes","Neisseria gonorrhoeae","Pseudomonas aeruginosa"],
+    ans:2,
+    exp:"Neisseria gonorrhoeae es la causa más frecuente de artritis séptica en adultos jóvenes sexualmente activos. La artritis gonocócica diseminada tiene dos fases: bacteriémica (artritis migratoria + tenosinovitis + dermatitis) y séptica localizada (monoartritis purulenta, más frecuente en rodilla y muñecas).",
+    tip:"<strong>Joven sexualmente activo + artritis migratoria + tenosinovitis + pústulas = gonocócica.</strong> Tratar con ceftriaxona IV + cobertura para Chlamydia.",
+    ref:"GPC Artritis séptica aguda en niños y adultos, IMSS 2016."
+  },
+  {
+    cat:"artr", catName:"Artritis Séptica",
+    q:"En artritis séptica, ¿qué hallazgo del análisis de líquido sinovial es más característico?",
+    opts:["Glucosa < 50% de glucemia sérica","Leucocitos > 50,000/mm³ con >90% polimorfonucleares","Cultivo positivo en >95% de los casos","Proteínas >3 g/dL con complemento bajo"],
+    ans:1,
+    exp:"En artritis séptica el líquido sinovial tiene leucocitos >50,000/mm³ (puede llegar a 100,000) con >90% de PMN. El cultivo es positivo solo en 70-80% de los casos. El criterio de 50,000 leucocitos distingue artritis séptica de artritis inflamatoria no infecciosa (usualmente <50,000).",
+    tip:"<strong>>50,000 leucocitos + >90% PMN = séptica hasta demostrar lo contrario.</strong> Iniciar antibiótico sin esperar cultivo.",
+    ref:"GPC Artritis séptica aguda en niños y adultos, IMSS 2016."
+  },
+  {
+    cat:"artr", catName:"Artritis Séptica",
+    q:"Niño de 4 años con fiebre de 38.8°C, VSG 45 mm/h, leucocitos 13,000/mm³ y rechazo completo a apoyar la cadera derecha. ¿Cuántos criterios de Kocher cumple y qué implica?",
+    opts:["2 criterios; riesgo de artritis séptica <5%","3 criterios; riesgo intermedio, requiere ecografía únicamente","4 criterios; probabilidad de artritis séptica ~93%, indicación de drenaje urgente","1 criterio; compatible solo con sinovitis transitoria benigna"],
+    ans:2,
+    exp:"Criterios de Kocher: fiebre >38.5°C ✓, VSG >40 mm/h ✓, leucocitos >12,000/mm³ ✓, negativa a apoyar el miembro ✓. Con los 4 criterios la probabilidad de artritis séptica es ~93%, lo que indica artrotomía de urgencia para evitar necrosis avascular de la cabeza femoral.",
+    tip:"<strong>4 criterios de Kocher = artritis séptica hasta demostrar lo contrario.</strong> La ecografía confirma derrame pero no discrimina artritis séptica vs. sinovitis; la decisión es clínica.",
+    ref:"GPC Artritis séptica aguda en niños y adultos, IMSS 2016."
+  },
+  {
+    cat:"artr", catName:"Artritis Séptica",
+    q:"La complicación más grave de artritis séptica de cadera en niños es:",
+    opts:["Artritis crónica con anquilosis fibrosa","Necrosis avascular de la cabeza femoral","Fístula cutánea crónica persistente","Discrepancia de longitud de miembros pélvicos"],
+    ans:1,
+    exp:"La necrosis avascular de la cabeza femoral es la complicación más temida. La acumulación de pus intracapsular eleva la presión articular y comprime la arteria circunfleja femoral medial, causando isquemia y necrosis de la cabeza femoral. Por ello el drenaje quirúrgico debe realizarse en menos de 24 horas.",
+    tip:"<strong>Cadera séptica en niño = EMERGENCIA QUIRÚRGICA <24h.</strong> Si se demora: necrosis avascular = deformidad permanente y cojera crónica.",
+    ref:"GPC Artritis séptica aguda en niños y adultos, IMSS 2016."
+  },
+  {
+    cat:"artr", catName:"Artritis Séptica",
+    q:"Articulación más frecuentemente afectada en artritis séptica hematógena en adultos:",
+    opts:["Cadera","Rodilla","Hombro","Tobillo"],
+    ans:1,
+    exp:"La rodilla es la articulación más frecuente en artritis séptica del adulto (40-50% de los casos), seguida de la cadera. En neonatos y lactantes la cadera tiene mayor prevalencia relativa por la vascularización compartida epifiso-metafisaria que permite la extensión intraarticular de la osteomielitis.",
+    tip:"<strong>Adultos: rodilla (50%) > cadera. Neonatos: cadera tiene prevalencia relativa mayor.</strong> Adultos jóvenes con gonococo: rodillas y muñecas.",
+    ref:"GPC Artritis séptica aguda en niños y adultos, IMSS 2016."
+  },
+  {
+    cat:"artr", catName:"Artritis Séptica",
+    q:"El tratamiento estándar de artritis séptica de rodilla no gonocócica incluye:",
+    opts:["Antibióticos IV únicamente durante 4 semanas sin drenaje","Antibióticos IV + drenaje articular (artrocentesis evacuadora o artroscopia)","AINE + antibiótico oral en manejo ambulatorio","Inmovilización en yeso + antibiótico IV para evitar luxación"],
+    ans:1,
+    exp:"El tratamiento requiere dos pilares: (1) drenaje articular (artrocentesis de evacuación diaria; artroscopia si no hay mejoría en 48-72h) y (2) antibióticos IV empíricos antiestafilocócicos. La cadera siempre requiere artrotomía abierta. La inmovilización prolongada no está indicada; se prefiere movilización precoz.",
+    tip:"<strong>Artritis séptica = drenaje + antibiótico siempre.</strong> Cadera = artrotomía abierta. Rodilla/hombro = artrocentesis primero.",
+    ref:"GPC Artritis séptica aguda en niños y adultos, IMSS 2016."
+  },
+  {
+    cat:"artr", catName:"Artritis Séptica",
+    q:"Tratamiento de primera línea en artritis gonocócica diseminada con monoartritis purulenta de rodilla:",
+    opts:["Penicilina G cristalina IV por 14 días","Ceftriaxona 1 g IV cada 24 horas por 7 días + cobertura para Chlamydia","Ciprofloxacino 500 mg vía oral por 10 días","Azitromicina 1 g dosis única oral"],
+    ans:1,
+    exp:"La artritis gonocócica diseminada se trata con ceftriaxona 1g IV c/24h por 7 días. No se recomiendan fluoroquinolonas por la alta resistencia de N. gonorrhoeae. Se añade azitromicina 1g dosis única o doxiciclina 100mg c/12h por 7 días para cobertura concomitante de Chlamydia trachomatis.",
+    tip:"<strong>Gonococo articular = ceftriaxona IV.</strong> No usar quinolonas (alta resistencia). Cubrir siempre Chlamydia trachomatis.",
+    ref:"GPC Artritis séptica aguda en niños y adultos, IMSS 2016."
+  }
+];
+
+function shuffle(arr) { for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];} }
+
+function init() {
+  shuffle(questions);
+  currentQ=0; score=0; answers=[];
+  catStats={osteo:{c:0,t:0},artr:{c:0,t:0}};
+  const r=document.getElementById('resultsArea');
+  r.classList.remove('show'); r.innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const qa=questions[currentQ];
+  const total=questions.length;
+  document.getElementById('progressBar').style.width=(currentQ/total*100)+'%';
+  document.getElementById('progressText').textContent=`${currentQ+1} / ${total}`;
+  document.getElementById('nextBtn').classList.remove('show');
+  const letters=['A','B','C','D'];
+  let html=`<div class="question-card">
+    <div class="q-category cat-${qa.cat}">${qa.catName}</div>
+    <div class="q-number">Pregunta ${currentQ+1} de ${total}</div>
+    <div class="q-text">${qa.q}</div>
+    <div class="options">`;
+  qa.opts.forEach((opt,i)=>{
+    html+=`<button class="option-btn" onclick="selectAnswer(${i})" data-idx="${i}">
+      <span class="option-letter">${letters[i]}</span><span>${opt}</span></button>`;
+  });
+  html+=`</div><div class="feedback" id="feedback"></div></div>`;
+  document.getElementById('quizArea').innerHTML=html;
+}
+
+function selectAnswer(idx) {
+  const qa=questions[currentQ];
+  const btns=document.querySelectorAll('.option-btn');
+  const fb=document.getElementById('feedback');
+  const isCorrect=idx===qa.ans;
+  btns.forEach((btn,i)=>{
+    btn.classList.add('disabled'); btn.onclick=null;
+    if(i===qa.ans) btn.classList.add('correct-answer');
+    if(i===idx&&!isCorrect) btn.classList.add('wrong-answer');
+  });
+  if(!catStats[qa.cat]) catStats[qa.cat]={c:0,t:0};
+  catStats[qa.cat].t++;
+  if(isCorrect){score++;catStats[qa.cat].c++;}
+  if(!examMode){
+    if(isCorrect){
+      fb.className='feedback correct-fb show';
+      fb.innerHTML=`<div class="feedback-title">✅ ¡Correcto!</div>
+        <div>${qa.exp}</div>
+        <div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div>
+        <div class="ref">📖 ${qa.ref}</div>`;
+    } else {
+      fb.className='feedback wrong-fb show';
+      fb.innerHTML=`<div class="feedback-title">❌ Incorrecto</div>
+        <div><strong>Respuesta correcta:</strong> ${qa.opts[qa.ans]}</div>
+        <div style="margin-top:8px;">${qa.exp}</div>
+        <div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div>
+        <div class="ref">📖 ${qa.ref}</div>`;
+    }
+  }
+  answers.push({q:qa.q,correct:isCorrect,userAns:qa.opts[idx],correctAns:qa.opts[qa.ans],cat:qa.catName,exp:qa.exp,tip:qa.tip,ref:qa.ref});
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion() {
+  currentQ++;
+  if(currentQ>=questions.length) showResults();
+  else renderQuestion();
+}
+
+function showResults() {
+  document.getElementById('quizArea').innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  document.getElementById('progressBar').style.width='100%';
+  document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;
+  const pct=Math.round((score/questions.length)*100);
+  let msg=pct>=90?'🏆 ¡Excelente dominio! Listo para el ENARM.':
+          pct>=70?'👏 ¡Muy bien! Repasa las áreas con menor puntaje.':
+          pct>=50?'📚 Aceptable, hay áreas de oportunidad.':'⚠️ Refuerza este tema. Revisa las GPC correspondientes.';
+  const cats=[
+    {name:'Osteomielitis',key:'osteo',color:'#2dd4bf'},
+    {name:'Artritis Séptica',key:'artr',color:'#fbbf24'},
+  ];
+  let html=`<div class="results-header">
+    <div class="score-big">${pct}%</div>
+    <div class="score-label">${score} de ${questions.length} correctas</div>
+    <div class="score-msg">${msg}</div>
+  </div>
+  <div class="chart-section">
+    <div class="chart-title"><span>📊</span> Rendimiento por Categoría</div>
+    <div class="bar-chart">`;
+  cats.forEach(cat=>{
+    const s=catStats[cat.key]||{c:0,t:0};
+    const p=s.t>0?Math.round((s.c/s.t)*100):0;
+    if(s.t>0) html+=`<div class="bar-row">
+      <div class="bar-label">${cat.name}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${cat.color};">${p}% (${s.c}/${s.t})</div></div>
+    </div>`;
+  });
+  html+=`</div></div>
+  <div class="chart-section">
+    <div class="chart-title"><span>🎯</span> Resumen General</div>
+    <div class="donut-wrap">
+      <svg class="donut-svg" viewBox="0 0 42 42">
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a2235" stroke-width="4"/>
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#34d399" stroke-width="4"
+          stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="25" stroke-linecap="round"/>
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#f87171" stroke-width="4"
+          stroke-dasharray="${100-pct} ${pct}" stroke-dashoffset="${25-pct}" stroke-linecap="round"/>
+        <text x="21" y="22.5" text-anchor="middle" font-size="6" font-weight="700" fill="#e8ecf4" font-family="Plus Jakarta Sans">${pct}%</text>
+      </svg>
+      <div class="donut-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#34d399;"></div>Correctas: ${score}</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Incorrectas: ${questions.length-score}</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#2dd4bf;"></div>Total: ${questions.length}</div>
+      </div>
+    </div>
+  </div>
+  <div class="chart-section">
+    <div class="chart-title"><span>📋</span> Revisión de Respuestas</div>`;
+  answers.forEach((a,i)=>{
+    html+=`<div class="review-card ${a.correct?'review-correct':'review-wrong'}">
+      <div class="review-q">${i+1}. ${a.q} <span style="font-size:0.72rem;color:var(--text-dim);">[${a.cat}]</span></div>
+      <div class="review-answer">${a.correct
+        ?`<strong>✅ ${a.correctAns}</strong>`
+        :`<em>❌ Tu respuesta: ${a.userAns}</em><br><strong>✅ Correcta: ${a.correctAns}</strong>`
+      }</div>
+      <div style="margin-top:8px;font-size:0.8rem;color:var(--text-dim);line-height:1.5;">${a.exp}</div>
+      <div style="margin-top:6px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;">📖 ${a.ref}</div>
+    </div>`;
+  });
+  html+=`</div><button class="retry-btn" onclick="init()">🔄 Reintentar</button>`;
+  const res=document.getElementById('resultsArea');
+  res.innerHTML=html; res.classList.add('show');
+  res.scrollIntoView({behavior:'smooth'});
+}
+
+function toggleSpec(h){h.classList.toggle('open');h.nextElementSibling.classList.toggle('open');}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+
+init();
+</script>
+</body>
+</html>
