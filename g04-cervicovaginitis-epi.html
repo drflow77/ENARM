@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cervicovaginitis / Enfermedad Pélvica Inflamatoria — ENARM · Ginecología · G04</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --bg:#0a0e1a; --surface:#111827; --surface2:#1a2235; --surface3:#212d45;
+    --border:#2a3a5c; --text:#e8ecf4; --text-dim:#8896b3;
+    --accent:#fbbf24; --accent-glow:rgba(251,191,36,0.15);
+    --correct:#34d399; --correct-bg:rgba(52,211,153,0.1); --correct-border:rgba(52,211,153,0.4);
+    --wrong:#f87171; --wrong-bg:rgba(248,113,113,0.1); --wrong-border:rgba(248,113,113,0.4);
+    --gold:#fbbf24; --purple:#a78bfa; --pink:#f472b6; --teal:#2dd4bf; --blue:#38bdf8;
+    --sidebar-w:280px; --radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;}
+
+  .sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;overflow-y:auto;z-index:100;transition:transform 0.3s;}
+  .sidebar-logo{padding:24px 20px 16px;border-bottom:1px solid var(--border);}
+  .logo-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#fbbf24,#f87171);padding:6px 14px;border-radius:100px;font-size:0.75rem;font-weight:800;color:var(--bg);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px;}
+  .sidebar-logo h2{font-size:1.1rem;font-weight:800;background:linear-gradient(135deg,var(--text),#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .sidebar-logo p{font-size:0.72rem;color:var(--text-dim);margin-top:2px;}
+  .back-btn{display:flex;align-items:center;gap:8px;padding:14px 20px;color:var(--text-dim);font-size:0.8rem;text-decoration:none;border-bottom:1px solid var(--border);transition:color 0.2s;}
+  .back-btn:hover{color:#fbbf24;}
+  .sidebar-nav{flex:1;padding:12px 0 24px;}
+  .specialty-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px 10px 20px;cursor:pointer;transition:background 0.2s;user-select:none;}
+  .specialty-header:hover{background:var(--surface2);}
+  .specialty-name{display:flex;align-items:center;gap:10px;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;}
+  .specialty-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;}
+  .chevron{font-size:0.65rem;color:var(--text-dim);transition:transform 0.3s;}
+  .specialty-header.open .chevron{transform:rotate(90deg);}
+  .topics-list{display:none;padding:4px 0 8px;}
+  .topics-list.open{display:block;}
+  .topic-link{display:flex;align-items:center;gap:10px;padding:8px 16px 8px 56px;font-size:0.78rem;color:var(--text-dim);text-decoration:none;transition:all 0.2s;border-left:2px solid transparent;line-height:1.4;}
+  .topic-link:hover{color:var(--text);background:var(--surface3);}
+  .topic-link.active{color:#fbbf24;border-left-color:#fbbf24;background:var(--accent-glow);font-weight:600;}
+  .topic-link.coming-soon{opacity:0.4;cursor:not-allowed;pointer-events:none;}
+  .topic-num{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--text-dim);min-width:20px;}
+  .badge-soon{margin-left:auto;background:rgba(136,150,179,0.1);color:var(--text-dim);font-size:0.62rem;font-weight:600;padding:2px 7px;border-radius:100px;}
+  .badge-ready{margin-left:auto;background:rgba(251,191,36,0.15);color:#fbbf24;font-size:0.62rem;font-weight:600;padding:2px 7px;border-radius:100px;}
+
+  .main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;}
+  .container{max-width:760px;margin:0 auto;padding:20px 16px 40px;width:100%;}
+
+  .mode-bar{display:flex;align-items:center;gap:10px;margin:24px 0 20px;background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:6px;width:fit-content;}
+  .mode-btn{padding:8px 20px;border-radius:100px;border:none;cursor:pointer;font-family:inherit;font-size:0.82rem;font-weight:600;transition:all 0.2s;color:var(--text-dim);background:transparent;}
+  .mode-btn.active{background:linear-gradient(135deg,#fbbf24,#f87171);color:var(--bg);}
+
+  .header{text-align:center;padding:40px 20px 24px;position:relative;overflow:hidden;}
+  .header::before{content:'';position:absolute;top:-60%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(251,191,36,0.08) 0%,transparent 70%);pointer-events:none;}
+  .header-badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);padding:6px 16px;border-radius:100px;font-size:0.78rem;color:#fbbf24;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:16px;}
+  .header h1{font-size:clamp(1.3rem,4vw,2rem);font-weight:800;background:linear-gradient(135deg,var(--text) 0%,#fbbf24 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;line-height:1.2;}
+  .header p{color:var(--text-dim);font-size:0.95rem;max-width:600px;margin:0 auto;line-height:1.4;}
+
+  .progress-wrap{background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:12px 20px;margin:20px 0 28px;display:flex;align-items:center;gap:14px;}
+  .progress-bar-bg{flex:1;height:8px;background:var(--surface3);border-radius:100px;overflow:hidden;}
+  .progress-bar-fill{height:100%;width:0%;background:linear-gradient(90deg,#fbbf24,#f87171);border-radius:100px;transition:width 0.5s ease;}
+  .progress-text{font-size:0.82rem;font-weight:600;color:var(--text-dim);white-space:nowrap;font-family:'JetBrains Mono',monospace;}
+
+  .question-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px;margin-bottom:20px;animation:slideIn 0.4s ease;position:relative;overflow:hidden;}
+  .question-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#fbbf24,#34d399,#f87171);}
+  @keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+  .q-category{display:inline-flex;align-items:center;gap:6px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;padding:4px 12px;border-radius:100px;margin-bottom:14px;}
+  .cat-vag{background:rgba(251,191,36,0.12);color:#fbbf24;}
+  .cat-cand{background:rgba(52,211,153,0.12);color:#34d399;}
+  .cat-epi{background:rgba(248,113,113,0.12);color:#f87171;}
+
+  .q-number{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--text-dim);margin-bottom:10px;}
+  .q-text{font-size:1.05rem;font-weight:600;line-height:1.55;margin-bottom:20px;color:var(--text);}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .option-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:all 0.2s;text-align:left;font-size:0.92rem;color:var(--text);font-family:inherit;line-height:1.5;width:100%;}
+  .option-btn:hover:not(.disabled){border-color:#fbbf24;background:rgba(251,191,36,0.08);transform:translateX(4px);}
+  .option-letter{display:flex;align-items:center;justify-content:center;min-width:30px;height:30px;border-radius:8px;background:var(--surface3);font-weight:700;font-size:0.82rem;color:#fbbf24;flex-shrink:0;}
+  .option-btn.correct-answer{border-color:var(--correct-border);background:var(--correct-bg);}
+  .option-btn.correct-answer .option-letter{background:var(--correct);color:var(--bg);}
+  .option-btn.wrong-answer{border-color:var(--wrong-border);background:var(--wrong-bg);}
+  .option-btn.wrong-answer .option-letter{background:var(--wrong);color:var(--bg);}
+  .option-btn.disabled{cursor:default;}
+  .option-btn.disabled:hover{transform:none;}
+
+  .feedback{margin-top:18px;padding:18px;border-radius:12px;font-size:0.88rem;line-height:1.65;animation:fadeIn 0.3s ease;display:none;}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .feedback.show{display:block;}
+  .feedback.correct-fb{background:var(--correct-bg);border:1px solid var(--correct-border);color:var(--correct);}
+  .feedback.wrong-fb{background:var(--wrong-bg);border:1px solid var(--wrong-border);color:#fca5a5;}
+  .feedback-title{font-weight:700;font-size:0.95rem;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+  .feedback .tip{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.08);color:var(--text-dim);font-size:0.82rem;}
+  .feedback .tip strong{color:var(--gold);}
+  .feedback .ref{margin-top:8px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;}
+
+  .next-btn{display:none;margin:20px auto 0;padding:12px 32px;background:linear-gradient(135deg,#fbbf24,#f87171);color:var(--bg);border:none;border-radius:100px;font-family:inherit;font-size:0.92rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+  .next-btn:hover{transform:scale(1.05);}
+  .next-btn.show{display:block;}
+
+  .results{display:none;animation:slideIn 0.5s ease;}
+  .results.show{display:block;}
+  .results-header{text-align:center;padding:30px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;position:relative;overflow:hidden;}
+  .results-header::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#fbbf24,#34d399,#f87171);}
+  .score-big{font-family:'JetBrains Mono',monospace;font-size:3.5rem;font-weight:800;color:#fbbf24;line-height:1;}
+  .score-label{font-size:1rem;color:var(--text-dim);margin:8px 0;}
+  .score-msg{font-size:1.05rem;font-weight:600;color:var(--text);}
+  .chart-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;}
+  .chart-title{font-size:0.9rem;font-weight:700;color:var(--text-dim);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  .bar-chart{display:flex;flex-direction:column;gap:12px;}
+  .bar-row{display:flex;flex-direction:column;gap:6px;}
+  .bar-label{font-size:0.82rem;font-weight:600;color:var(--text);}
+  .bar-track{height:28px;background:var(--surface3);border-radius:6px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding-left:10px;font-size:0.78rem;font-weight:700;color:var(--bg);min-width:40px;transition:width 0.8s ease;}
+  .donut-wrap{display:flex;align-items:center;gap:24px;flex-wrap:wrap;}
+  .donut-svg{width:100px;height:100px;flex-shrink:0;}
+  .donut-legend{display:flex;flex-direction:column;gap:8px;}
+  .legend-item{display:flex;align-items:center;gap:8px;font-size:0.82rem;color:var(--text-dim);}
+  .legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+  .review-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px;}
+  .review-card.review-correct{border-color:var(--correct-border);}
+  .review-card.review-wrong{border-color:var(--wrong-border);}
+  .review-q{font-size:0.85rem;font-weight:600;color:var(--text);margin-bottom:8px;line-height:1.5;}
+  .review-answer{font-size:0.82rem;line-height:1.5;}
+  .retry-btn{display:block;width:100%;padding:14px;background:linear-gradient(135deg,#fbbf24,#f87171);border:none;border-radius:12px;color:var(--bg);font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;margin-top:20px;transition:all 0.2s;}
+  .retry-btn:hover{filter:brightness(1.1);}
+
+  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90;}
+  .overlay.show{display:block;}
+  .hamburger{display:none;position:fixed;top:14px;left:14px;z-index:200;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:8px 10px;cursor:pointer;font-size:1.1rem;}
+  .footer{text-align:center;padding:16px;font-size:0.72rem;color:var(--text-dim);border-top:1px solid var(--border);opacity:0.6;}
+
+  @media(max-width:900px){
+    .sidebar{transform:translateX(-100%);}
+    .sidebar.open{transform:translateX(0);}
+    .main{margin-left:0;}
+    .hamburger{display:block;}
+    .container{padding-top:60px;}
+  }
+</style>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+<aside class="sidebar" id="sidebar"></aside>
+
+<main class="main">
+<div class="container">
+  <div class="header">
+    <div class="header-badge"><span>🦠</span> ENARM · GINECOLOGÍA · G04</div>
+    <h1>Cervicovaginitis · EPI</h1>
+    <p>Vaginitis infecciosa · Candidiasis vulvovaginal · Enfermedad pélvica inflamatoria</p>
+  </div>
+
+  <div style="display:flex;justify-content:center;">
+    <div class="mode-bar">
+      <button class="mode-btn active" id="btnRepaso" onclick="setMode('repaso')">📖 Modo Repaso</button>
+      <button class="mode-btn" id="btnExamen" onclick="setMode('examen')">⏱️ Modo Examen</button>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 15</div>
+  </div>
+
+  <div id="quizArea"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+  <div class="results" id="resultsArea"></div>
+</div>
+<div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+</main>
+
+<script src="sidebar.js"></script>
+<script>
+let examMode=false, currentQ=0, score=0, answers=[], catStats={};
+
+function setMode(m){
+  examMode=(m==='examen');
+  document.getElementById('btnRepaso').classList.toggle('active',!examMode);
+  document.getElementById('btnExamen').classList.toggle('active',examMode);
+  init();
+}
+
+const questions = [
+  /* ── VAGINITIS ── */
+  {
+    cat:"vag", catName:"Vaginitis",
+    q:"Mujer de 25 años con flujo vaginal gris homogéneo, olor a pescado que empeora post-coito, pH vaginal 5.5 y test de aminas (Whiff) positivo. La microscopía muestra células epiteliales cubiertas de bacterias (células guía). ¿Cuál es el diagnóstico?",
+    opts:["Candidiasis vulvovaginal","Tricomoniasis vaginal","Vaginosis bacteriana","Vaginitis atrófica"],
+    ans:2,
+    exp:"La vaginosis bacteriana (VB) se diagnostica con ≥3 de los 4 criterios de Amsel: flujo gris homogéneo, pH >4.5, test de aminas positivo y células guía en microscopía. Es la causa más frecuente de flujo vaginal en mujeres en edad reproductiva. No es ETS pero el pH alcalino favorece el sobrecrecimiento de Gardnerella y anaerobios.",
+    tip:"<strong>Amsel VB: flujo gris + pH >4.5 + aminas (+) + células guía. 3 de 4 = diagnóstico.</strong>",
+    ref:"GPC Prevención, diagnóstico y tratamiento de la vaginitis infecciosa 2014"
+  },
+  {
+    cat:"vag", catName:"Vaginitis",
+    q:"¿Cuál es el tratamiento de primera línea para la vaginosis bacteriana?",
+    opts:["Fluconazol 150 mg oral dosis única","Metronidazol 500 mg oral cada 12 horas por 7 días","Azitromicina 1 g oral dosis única","Clotrimazol crema vaginal por 7 días"],
+    ans:1,
+    exp:"Metronidazol oral 500 mg c/12h por 7 días es el tratamiento de elección para VB. Alternativas: clindamicina 300 mg c/12h oral, o metronidazol gel 0.75% vaginal. El fluconazol es para candidiasis; la azitromicina para Chlamydia.",
+    tip:"<strong>VB = metronidazol (oral o gel). No confundir con candidiasis (fluconazol) ni tricomoniasis (metronidazol dosis única 2g).</strong>",
+    ref:"GPC Prevención, diagnóstico y tratamiento de la vaginitis infecciosa 2014"
+  },
+  {
+    cat:"vag", catName:"Vaginitis",
+    q:"Mujer de 22 años con flujo vaginal verde-amarillento espumoso, prurito intenso, disuria y pH vaginal de 6.0. La microscopía en fresco muestra microorganismos móviles con flagelos. ¿Cuál es el tratamiento correcto?",
+    opts:["Fluconazol 150 mg oral dosis única","Metronidazol 2 g oral dosis única más tratamiento de la pareja","Metronidazol gel vaginal 0.75% sin tratar la pareja","Clindamicina 300 mg oral cada 12h por 7 días"],
+    ans:1,
+    exp:"Tricomoniasis por Trichomonas vaginalis. El tratamiento es metronidazol 2 g oral en dosis única. Es una ETS, por lo que SIEMPRE debe tratarse a la pareja sexual para evitar reinfección. El metronidazol tópico no alcanza concentraciones terapéuticas en uretra/glándulas periuretrales.",
+    tip:"<strong>Tricomoniasis: metronidazol 2g DU + tratar pareja. Protozoo móvil flagelado en fresco.</strong>",
+    ref:"GPC Prevención, diagnóstico y tratamiento de la vaginitis infecciosa 2014"
+  },
+  {
+    cat:"vag", catName:"Vaginitis",
+    q:"¿Cuál de los siguientes hallazgos NO corresponde a un criterio de Amsel para el diagnóstico de vaginosis bacteriana?",
+    opts:["Flujo vaginal gris homogéneo adherente","pH vaginal mayor de 4.5","Test de aminas (Whiff) positivo con KOH","Hifas o pseudohifas al examen con KOH al 10%"],
+    ans:3,
+    exp:"Los criterios de Amsel son: 1) flujo gris homogéneo, 2) pH >4.5, 3) test de aminas positivo, 4) células guía en microscopía directa. Las hifas/pseudohifas en KOH corresponden a candidiasis vulvovaginal, no a VB.",
+    tip:"<strong>Hifas en KOH = candidiasis. Células guía en microscopía directa = VB.</strong>",
+    ref:"GPC Prevención, diagnóstico y tratamiento de la vaginitis infecciosa 2014"
+  },
+  {
+    cat:"vag", catName:"Vaginitis",
+    q:"Mujer embarazada de 18 semanas con diagnóstico de vaginosis bacteriana asintomática. ¿Por qué es importante tratar la VB durante el embarazo?",
+    opts:["Riesgo de malformaciones fetales si no se trata en el primer trimestre","Riesgo de trabajo de parto pretérmino y ruptura prematura de membranas","La VB en el embarazo es benigna; solo se trata si es sintomática","Riesgo de preeclampsia y restricción del crecimiento fetal"],
+    ans:1,
+    exp:"La VB en el embarazo se asocia con trabajo de parto pretérmino, RPM y corioamnionitis. Se recomienda tratar con metronidazol 500 mg oral c/12h por 7 días (seguro en 2º y 3er trimestre). En el primer trimestre se prefiere clindamicina vaginal para minimizar exposición sistémica al metronidazol.",
+    tip:"<strong>VB embarazo = riesgo de parto pretérmino. Tratar aunque sea asintomática.</strong>",
+    ref:"GPC Prevención, diagnóstico y tratamiento de la vaginitis infecciosa 2014"
+  },
+  /* ── CANDIDIASIS ── */
+  {
+    cat:"cand", catName:"Candidiasis",
+    q:"Mujer de 30 años con prurito vulvovaginal intenso, flujo blanco grumoso \"en requesón\", ardor y pH vaginal de 3.8. ¿Cuál es el tratamiento de primera línea para candidiasis vulvovaginal no complicada?",
+    opts:["Metronidazol 500 mg oral cada 12 horas por 7 días","Fluconazol 150 mg oral dosis única","Azitromicina 1 g oral dosis única","Doxiciclina 100 mg oral cada 12 horas por 7 días"],
+    ans:1,
+    exp:"El fluconazol 150 mg oral en dosis única es el tratamiento de elección para candidiasis vulvovaginal no complicada. Alternativa: clotrimazol crema o óvulo vaginal por 3-7 días. El metronidazol no tiene actividad antifúngica significativa.",
+    tip:"<strong>Candidiasis = fluconazol 150mg DU. Flujo blanco grumoso + pH <4.5 + prurito intenso.</strong>",
+    ref:"GPC Diagnóstico y tratamiento de la candidiasis vulvovaginal en mujeres mayores de 12 años 2019"
+  },
+  {
+    cat:"cand", catName:"Candidiasis",
+    q:"¿Cuál de los siguientes factores predisponentes es el más frecuentemente asociado con candidiasis vulvovaginal recurrente?",
+    opts:["Uso de anticonceptivos de barrera (condón)","Diabetes mellitus mal controlada con hiperglucemia","Actividad física intensa","Dieta baja en carbohidratos"],
+    ans:1,
+    exp:"La diabetes mellitus mal controlada (hiperglucemia) favorece el crecimiento de Candida al proporcionar un medio rico en glucosa. Otros factores predisponentes: uso de antibióticos de amplio espectro (destruyen flora protectora), corticoides sistémicos, inmunosupresión (VIH), embarazo y uso de ropa sintética ajustada.",
+    tip:"<strong>Candidiasis recurrente: buscar DM, inmunosupresión, antibióticos recientes.</strong>",
+    ref:"GPC Diagnóstico y tratamiento de la candidiasis vulvovaginal en mujeres mayores de 12 años 2019"
+  },
+  {
+    cat:"cand", catName:"Candidiasis",
+    q:"Mujer de 35 años con 5 episodios documentados de candidiasis vulvovaginal en los últimos 12 meses. ¿Cómo se define y cuál es el manejo de la candidiasis vulvovaginal recurrente?",
+    opts:["≥2 episodios/año; tratamiento con metronidazol crónico","≥4 episodios/año; fluconazol 150 mg semanal por 6 meses (terapia de mantenimiento)","≥3 episodios/año; cambiar a nistatina tópica indefinidamente","≥4 episodios/año; hospitalización para anfotericina IV"],
+    ans:1,
+    exp:"La candidiasis recurrente se define como ≥4 episodios documentados en 12 meses. El manejo incluye: 1) Tratamiento del episodio agudo con fluconazol 150 mg c/72h por 3 dosis; 2) Mantenimiento con fluconazol 150 mg semanal por 6 meses para reducir recurrencias. Investigar factores predisponentes.",
+    tip:"<strong>Recurrente = ≥4 episodios/año. Mantenimiento: fluconazol 150mg/semana x 6 meses.</strong>",
+    ref:"GPC Diagnóstico y tratamiento de la candidiasis vulvovaginal en mujeres mayores de 12 años 2019"
+  },
+  {
+    cat:"cand", catName:"Candidiasis",
+    q:"Mujer embarazada de 8 semanas con candidiasis vulvovaginal sintomática. ¿Cuál es el tratamiento más adecuado?",
+    opts:["Fluconazol 150 mg oral (seguro en cualquier trimestre)","Metronidazol oral 500 mg cada 12 horas por 7 días","Clotrimazol crema u óvulo vaginal por 7 días","Observación; la candidiasis se resuelve espontáneamente en el embarazo"],
+    ans:2,
+    exp:"En el embarazo (especialmente primer trimestre) el fluconazol oral está contraindicado por posible riesgo teratogénico (defectos del tabique interventricular con exposición prolongada). Se recomiendan azoles tópicos: clotrimazol 100 mg óvulo por 7 días o clotrimazol crema al 1%, que son seguros y efectivos.",
+    tip:"<strong>Embarazo + candidiasis = azoles TÓPICOS (clotrimazol). Fluconazol oral contraindicado en 1er trimestre.</strong>",
+    ref:"GPC Diagnóstico y tratamiento de la candidiasis vulvovaginal en mujeres mayores de 12 años 2019"
+  },
+  {
+    cat:"cand", catName:"Candidiasis",
+    q:"¿Cómo se confirma el diagnóstico de candidiasis vulvovaginal en la práctica clínica de primer nivel cuando la microscopía directa no es concluyente?",
+    opts:["Determinación de pH vaginal >4.5","Examen en fresco con KOH al 10% mostrando hifas o pseudohifas","Cultivo de secreción vaginal en agar Sabouraud","Determinación de IgE específica para Candida"],
+    ans:1,
+    exp:"El examen con KOH al 10% (que lisa las células epiteliales) es el método diagnóstico de primer nivel más útil, mostrando hifas, pseudohifas o levaduras en gemación. El cultivo (Sabouraud) se reserva para candidiasis recurrente o resistente para identificar especies no-albicans (C. glabrata, C. krusei).",
+    tip:"<strong>KOH 10% = hifas/pseudohifas = candidiasis. pH <4.5 apoya el diagnóstico (normal en candidiasis).</strong>",
+    ref:"GPC Diagnóstico y tratamiento de la candidiasis vulvovaginal en mujeres mayores de 12 años 2019"
+  },
+  /* ── EPI ── */
+  {
+    cat:"epi", catName:"EPI",
+    q:"Mujer de 18 años, sexualmente activa, con dolor pélvico bajo de 4 días, temperatura 38.5°C. La exploración revela dolor a la movilización cervical y sensibilidad uterina bilateral. ¿Cuál es el diagnóstico de trabajo y los criterios mínimos para iniciarlo?",
+    opts:["Apendicitis aguda; requiere TAC abdominal para confirmar","Endometriosis; requiere laparoscopia diagnóstica","Enfermedad pélvica inflamatoria; basta con dolor a movilización cervical O sensibilidad uterina/anexial","Quiste ovárico roto; requiere ultrasonido urgente"],
+    ans:2,
+    exp:"Los criterios MÍNIMOS de los CDC para el diagnóstico clínico y tratamiento empírico de EPI son (basta uno): dolor a la movilización cervical, O sensibilidad uterina, O sensibilidad anexial. No se debe esperar confirmación microbiológica para iniciar tratamiento, dado el riesgo de secuelas si se retrasa.",
+    tip:"<strong>EPI: basta UN criterio mínimo (CDC) para tratar empíricamente. No esperar cultivos.</strong>",
+    ref:"GPC Diagnóstico y tratamiento de la enfermedad pélvica inflamatoria 2008"
+  },
+  {
+    cat:"epi", catName:"EPI",
+    q:"¿Cuáles son los microorganismos más frecuentemente implicados en la etiología de la enfermedad pélvica inflamatoria aguda?",
+    opts:["Escherichia coli y Klebsiella pneumoniae","Chlamydia trachomatis y Neisseria gonorrhoeae","Candida albicans y Trichomonas vaginalis","Treponema pallidum y Mycoplasma genitalium"],
+    ans:1,
+    exp:"Chlamydia trachomatis y Neisseria gonorrhoeae son los agentes más frecuentes en EPI, aunque es una infección polimicrobiana que incluye anaerobios (Bacteroides, Prevotella), gramnegativos facultativos y Mycoplasma. Por eso el tratamiento cubre amplio espectro (cefalosporina + doxiciclina ± metronidazol).",
+    tip:"<strong>EPI = Chlamydia + Gonorrea (más frecuentes). Cobertura polimicrobiana en el tratamiento.</strong>",
+    ref:"GPC Diagnóstico y tratamiento de la enfermedad pélvica inflamatoria 2008"
+  },
+  {
+    cat:"epi", catName:"EPI",
+    q:"Paciente con EPI leve sin signos de sepsis ni absceso, que tolera vía oral. ¿Cuál es el esquema de tratamiento ambulatorio recomendado?",
+    opts:["Amoxicilina-clavulanato 875/125 mg cada 12h por 10 días","Ciprofloxacino 500 mg cada 12h por 14 días (monoterapia)","Ceftriaxona 500 mg IM dosis única + doxiciclina 100 mg cada 12h por 14 días ± metronidazol 500 mg cada 12h por 14 días","Azitromicina 1 g oral semanal por 2 semanas"],
+    ans:2,
+    exp:"El esquema ambulatorio de los CDC para EPI leve-moderada incluye: ceftriaxona 500 mg IM dosis única (o cefoxitina 2g IM) para cubrir N. gonorrhoeae, más doxiciclina 100 mg c/12h x 14 días para Chlamydia y otros, con o sin metronidazol para cobertura de anaerobios (especialmente si hay vaginosis concomitante).",
+    tip:"<strong>EPI ambulatoria = ceftriaxona IM DU + doxiciclina 14 días ± metronidazol.</strong>",
+    ref:"GPC Diagnóstico y tratamiento de la enfermedad pélvica inflamatoria 2008"
+  },
+  {
+    cat:"epi", catName:"EPI",
+    q:"Mujer de 19 años con EPI. El ultrasonido transvaginal muestra una colección tubo-ovárica derecha de 6 cm. ¿Cuál es la indicación de hospitalización y el manejo más adecuado?",
+    opts:["Tratamiento ambulatorio es suficiente si tolera la vía oral","Hospitalización para antibióticos intravenosos: clindamicina 900 mg IV c/8h + gentamicina 1.5 mg/kg IV c/8h","Cirugía laparoscópica de urgencia sin antibióticos previos","Punción transvaginal guiada por ultrasonido como primer paso"],
+    ans:1,
+    exp:"El absceso tubo-ovárico (ATO) es indicación de hospitalización y antibióticoterapia IV. Esquema de elección: clindamicina 900 mg IV c/8h + gentamicina (o cefoxitina + doxiciclina IV). Si no hay respuesta en 72h, se considera drenaje quirúrgico laparoscópico. Los ATOs >9 cm o rotos requieren cirugía urgente.",
+    tip:"<strong>ATO = hospitalización + ATB IV. Clindamicina + gentamicina. Cirugía si falla o rotura.</strong>",
+    ref:"GPC Diagnóstico y tratamiento de la enfermedad pélvica inflamatoria 2008"
+  },
+  {
+    cat:"epi", catName:"EPI",
+    q:"¿Cuál es la consecuencia a largo plazo más frecuente de la EPI no tratada o tratada tardíamente, y cuál es su mecanismo?",
+    opts:["Cáncer de ovario por inflamación crónica","Infertilidad tubárica por oclusión fibrosa secundaria a la inflamación","Endometriosis por siembra peritoneal retrograda","Síndrome de ovario poliquístico por alteración hormonal"],
+    ans:1,
+    exp:"La infertilidad tubárica es la secuela más frecuente de EPI. La inflamación repetida genera fibrosis y adherencias que ocluyen las trompas de Falopio. Tras un episodio de EPI el riesgo de infertilidad es ~12%; tras tres episodios supera el 50%. Otras secuelas: embarazo ectópico, dolor pélvico crónico y síndrome de Fitz-Hugh-Curtis (perihepatitis).",
+    tip:"<strong>EPI no tratada → infertilidad tubárica (más frecuente) + embarazo ectópico + dolor crónico.</strong>",
+    ref:"GPC Diagnóstico y tratamiento de la enfermedad pélvica inflamatoria 2008"
+  }
+];
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}}
+
+function init(){
+  shuffle(questions);
+  currentQ=0;score=0;answers=[];
+  catStats={vag:{c:0,t:0},cand:{c:0,t:0},epi:{c:0,t:0}};
+  const r=document.getElementById('resultsArea');
+  r.classList.remove('show');r.innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const qa=questions[currentQ],total=questions.length;
+  document.getElementById('progressBar').style.width=(currentQ/total*100)+'%';
+  document.getElementById('progressText').textContent=`${currentQ+1} / ${total}`;
+  document.getElementById('nextBtn').classList.remove('show');
+  const L=['A','B','C','D'];
+  let h=`<div class="question-card">
+    <div class="q-category cat-${qa.cat}">${qa.catName}</div>
+    <div class="q-number">Pregunta ${currentQ+1} de ${total}</div>
+    <div class="q-text">${qa.q}</div>
+    <div class="options">`;
+  qa.opts.forEach((o,i)=>h+=`<button class="option-btn" onclick="selectAnswer(${i})">
+    <span class="option-letter">${L[i]}</span><span>${o}</span></button>`);
+  h+=`</div><div class="feedback" id="feedback"></div></div>`;
+  document.getElementById('quizArea').innerHTML=h;
+}
+
+function selectAnswer(idx){
+  const qa=questions[currentQ];
+  const btns=document.querySelectorAll('.option-btn');
+  const fb=document.getElementById('feedback');
+  const ok=idx===qa.ans;
+  btns.forEach((b,i)=>{b.classList.add('disabled');b.onclick=null;
+    if(i===qa.ans)b.classList.add('correct-answer');
+    if(i===idx&&!ok)b.classList.add('wrong-answer');});
+  if(!catStats[qa.cat])catStats[qa.cat]={c:0,t:0};
+  catStats[qa.cat].t++;
+  if(ok){score++;catStats[qa.cat].c++;}
+  if(!examMode){
+    fb.className=ok?'feedback correct-fb show':'feedback wrong-fb show';
+    fb.innerHTML=ok
+      ?`<div class="feedback-title">✅ ¡Correcto!</div><div>${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`
+      :`<div class="feedback-title">❌ Incorrecto</div><div><strong>Respuesta correcta:</strong> ${qa.opts[qa.ans]}</div><div style="margin-top:8px;">${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;
+  }
+  answers.push({q:qa.q,correct:ok,userAns:qa.opts[idx],correctAns:qa.opts[qa.ans],cat:qa.catName,exp:qa.exp,tip:qa.tip,ref:qa.ref});
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion(){currentQ++;if(currentQ>=questions.length)showResults();else renderQuestion();}
+
+function showResults(){
+  document.getElementById('quizArea').innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  document.getElementById('progressBar').style.width='100%';
+  document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;
+  const pct=Math.round((score/questions.length)*100);
+  const msg=pct>=90?'🏆 ¡Excelente dominio! Listo para el ENARM.':pct>=70?'👏 ¡Muy bien! Repasa las áreas con menor puntaje.':pct>=50?'📚 Aceptable, hay áreas de oportunidad.':'⚠️ Refuerza este tema. Revisa las GPC correspondientes.';
+  const cats=[{name:'Vaginitis',key:'vag',color:'#fbbf24'},{name:'Candidiasis',key:'cand',color:'#34d399'},{name:'EPI',key:'epi',color:'#f87171'}];
+  let h=`<div class="results-header"><div class="score-big">${pct}%</div><div class="score-label">${score} de ${questions.length} correctas</div><div class="score-msg">${msg}</div></div>
+  <div class="chart-section"><div class="chart-title"><span>📊</span> Rendimiento por Categoría</div><div class="bar-chart">`;
+  cats.forEach(c=>{const s=catStats[c.key]||{c:0,t:0};const p=s.t>0?Math.round((s.c/s.t)*100):0;if(s.t>0)h+=`<div class="bar-row"><div class="bar-label">${c.name}</div><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${c.color};">${p}% (${s.c}/${s.t})</div></div></div>`;});
+  h+=`</div></div><div class="chart-section"><div class="chart-title"><span>🎯</span> Resumen General</div><div class="donut-wrap">
+    <svg class="donut-svg" viewBox="0 0 42 42">
+      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a2235" stroke-width="4"/>
+      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#34d399" stroke-width="4" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="25" stroke-linecap="round"/>
+      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#f87171" stroke-width="4" stroke-dasharray="${100-pct} ${pct}" stroke-dashoffset="${25-pct}" stroke-linecap="round"/>
+      <text x="21" y="22.5" text-anchor="middle" font-size="6" font-weight="700" fill="#e8ecf4" font-family="Plus Jakarta Sans">${pct}%</text>
+    </svg>
+    <div class="donut-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#34d399;"></div>Correctas: ${score}</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Incorrectas: ${questions.length-score}</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#fbbf24;"></div>Total: ${questions.length}</div>
+    </div></div></div>
+  <div class="chart-section"><div class="chart-title"><span>📋</span> Revisión de Respuestas</div>`;
+  answers.forEach((a,i)=>{h+=`<div class="review-card ${a.correct?'review-correct':'review-wrong'}">
+    <div class="review-q">${i+1}. ${a.q} <span style="font-size:0.72rem;color:var(--text-dim);">[${a.cat}]</span></div>
+    <div class="review-answer">${a.correct?`<strong>✅ ${a.correctAns}</strong>`:`<em>❌ Tu respuesta: ${a.userAns}</em><br><strong>✅ Correcta: ${a.correctAns}</strong>`}</div>
+    <div style="margin-top:8px;font-size:0.8rem;color:var(--text-dim);line-height:1.5;">${a.exp}</div>
+    <div style="margin-top:6px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;">📖 ${a.ref}</div>
+  </div>`;});
+  h+=`</div><button class="retry-btn" onclick="init()">🔄 Reintentar</button>`;
+  const r=document.getElementById('resultsArea');r.innerHTML=h;r.classList.add('show');r.scrollIntoView({behavior:'smooth'});
+}
+
+function toggleSpec(h){h.classList.toggle('open');h.nextElementSibling.classList.toggle('open');}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+init();
+</script>
+</body>
+</html>

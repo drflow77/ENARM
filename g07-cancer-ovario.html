@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔥 Cáncer de Ovario — ENARM · Ginecología</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --bg:#0a0e1a; --surface:#111827; --surface2:#1a2235; --surface3:#212d45;
+    --border:#2a3a5c; --text:#e8ecf4; --text-dim:#8896b3;
+    --accent:#a78bfa; --accent-glow:rgba(167,139,250,0.15);
+    --correct:#34d399; --correct-bg:rgba(52,211,153,0.1); --correct-border:rgba(52,211,153,0.4);
+    --wrong:#f87171; --wrong-bg:rgba(248,113,113,0.1); --wrong-border:rgba(248,113,113,0.4);
+    --gold:#fbbf24; --purple:#a78bfa; --pink:#f472b6; --teal:#2dd4bf; --blue:#38bdf8;
+    --sidebar-w:280px; --radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;}
+
+  .sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;overflow-y:auto;z-index:100;transition:transform 0.3s;}
+  .sidebar-logo{padding:24px 20px 16px;border-bottom:1px solid var(--border);}
+  .logo-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#a78bfa,#34d399);padding:6px 14px;border-radius:100px;font-size:0.75rem;font-weight:800;color:var(--bg);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px;}
+  .sidebar-logo h2{font-size:1.1rem;font-weight:800;background:linear-gradient(135deg,var(--text),#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .sidebar-logo p{font-size:0.72rem;color:var(--text-dim);margin-top:2px;}
+  .back-btn{display:flex;align-items:center;gap:8px;padding:14px 20px;color:var(--text-dim);font-size:0.8rem;text-decoration:none;border-bottom:1px solid var(--border);transition:color 0.2s;}
+  .back-btn:hover{color:#a78bfa;}
+  .sidebar-nav{flex:1;padding:12px 0 24px;}
+  .specialty-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px 10px 20px;cursor:pointer;transition:background 0.2s;user-select:none;}
+  .specialty-header:hover{background:var(--surface2);}
+  .specialty-name{display:flex;align-items:center;gap:10px;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;}
+  .specialty-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;}
+  .chevron{font-size:0.65rem;color:var(--text-dim);transition:transform 0.3s;}
+  .specialty-header.open .chevron{transform:rotate(90deg);}
+  .topics-list{display:none;padding:4px 0 8px;}
+  .topics-list.open{display:block;}
+  .topic-link{display:flex;align-items:center;gap:10px;padding:8px 16px 8px 56px;font-size:0.78rem;color:var(--text-dim);text-decoration:none;transition:all 0.2s;border-left:2px solid transparent;line-height:1.4;}
+  .topic-link:hover{color:var(--text);background:var(--surface3);}
+  .topic-link.active{color:#a78bfa;border-left-color:#a78bfa;background:var(--accent-glow);font-weight:600;}
+  .topic-link.coming-soon{opacity:0.4;cursor:not-allowed;pointer-events:none;}
+  .topic-num{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--text-dim);min-width:20px;}
+  .badge-soon{margin-left:auto;background:rgba(136,150,179,0.1);color:var(--text-dim);font-size:0.62rem;font-weight:600;padding:2px 7px;border-radius:100px;}
+  .badge-ready{margin-left:auto;background:rgba(167,139,250,0.15);color:#a78bfa;font-size:0.62rem;font-weight:600;padding:2px 7px;border-radius:100px;}
+
+  .main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;}
+  .container{max-width:760px;margin:0 auto;padding:20px 16px 40px;width:100%;}
+
+  .mode-bar{display:flex;align-items:center;gap:10px;margin:24px 0 20px;background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:6px;width:fit-content;}
+  .mode-btn{padding:8px 20px;border-radius:100px;border:none;cursor:pointer;font-family:inherit;font-size:0.82rem;font-weight:600;transition:all 0.2s;color:var(--text-dim);background:transparent;}
+  .mode-btn.active{background:linear-gradient(135deg,#a78bfa,#34d399);color:var(--bg);}
+
+  .header{text-align:center;padding:40px 20px 24px;position:relative;overflow:hidden;}
+  .header::before{content:'';position:absolute;top:-60%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(167,139,250,0.08) 0%,transparent 70%);pointer-events:none;}
+  .header-badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);padding:6px 16px;border-radius:100px;font-size:0.78rem;color:#a78bfa;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:16px;}
+  .header h1{font-size:clamp(1.3rem,4vw,2rem);font-weight:800;background:linear-gradient(135deg,var(--text) 0%,#a78bfa 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;line-height:1.2;}
+  .header p{color:var(--text-dim);font-size:0.95rem;max-width:600px;margin:0 auto;line-height:1.4;}
+
+  .progress-wrap{background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:12px 20px;margin:20px 0 28px;display:flex;align-items:center;gap:14px;}
+  .progress-bar-bg{flex:1;height:8px;background:var(--surface3);border-radius:100px;overflow:hidden;}
+  .progress-bar-fill{height:100%;width:0%;background:linear-gradient(90deg,#a78bfa,#34d399);border-radius:100px;transition:width 0.5s ease;}
+  .progress-text{font-size:0.82rem;font-weight:600;color:var(--text-dim);white-space:nowrap;font-family:'JetBrains Mono',monospace;}
+
+  .question-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px;margin-bottom:20px;animation:slideIn 0.4s ease;position:relative;overflow:hidden;}
+  .question-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#a78bfa,#34d399,var(--purple));}
+  @keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+  .q-category{display:inline-flex;align-items:center;gap:6px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;padding:4px 12px;border-radius:100px;margin-bottom:14px;}
+  .cat-epitelial{background:rgba(167,139,250,0.12);color:#a78bfa;}
+  .cat-anexial{background:rgba(52,211,153,0.12);color:#34d399;}
+
+  .q-number{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--text-dim);margin-bottom:10px;}
+  .q-text{font-size:1.05rem;font-weight:600;line-height:1.55;margin-bottom:20px;color:var(--text);}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .option-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:all 0.2s;text-align:left;font-size:0.92rem;color:var(--text);font-family:inherit;line-height:1.5;width:100%;}
+  .option-btn:hover:not(.disabled){border-color:#a78bfa;background:rgba(167,139,250,0.08);transform:translateX(4px);}
+  .option-letter{display:flex;align-items:center;justify-content:center;min-width:30px;height:30px;border-radius:8px;background:var(--surface3);font-weight:700;font-size:0.82rem;color:#a78bfa;flex-shrink:0;}
+  .option-btn.correct-answer{border-color:var(--correct-border);background:var(--correct-bg);}
+  .option-btn.correct-answer .option-letter{background:var(--correct);color:var(--bg);}
+  .option-btn.wrong-answer{border-color:var(--wrong-border);background:var(--wrong-bg);}
+  .option-btn.wrong-answer .option-letter{background:var(--wrong);color:var(--bg);}
+  .option-btn.disabled{cursor:default;}
+  .option-btn.disabled:hover{transform:none;}
+
+  .feedback{margin-top:18px;padding:18px;border-radius:12px;font-size:0.88rem;line-height:1.65;animation:fadeIn 0.3s ease;display:none;}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .feedback.show{display:block;}
+  .feedback.correct-fb{background:var(--correct-bg);border:1px solid var(--correct-border);color:var(--correct);}
+  .feedback.wrong-fb{background:var(--wrong-bg);border:1px solid var(--wrong-border);color:#fca5a5;}
+  .feedback-title{font-weight:700;font-size:0.95rem;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+  .feedback .tip{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.08);color:var(--text-dim);font-size:0.82rem;}
+  .feedback .tip strong{color:var(--gold);}
+  .feedback .ref{margin-top:8px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;}
+
+  .next-btn{display:none;margin:20px auto 0;padding:12px 32px;background:linear-gradient(135deg,#a78bfa,#34d399);color:var(--bg);border:none;border-radius:100px;font-family:inherit;font-size:0.92rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+  .next-btn:hover{transform:scale(1.05);}
+  .next-btn.show{display:block;}
+
+  .results{display:none;animation:slideIn 0.5s ease;}
+  .results.show{display:block;}
+  .results-header{text-align:center;padding:30px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;position:relative;overflow:hidden;}
+  .results-header::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#a78bfa,#34d399,var(--purple));}
+  .score-big{font-family:'JetBrains Mono',monospace;font-size:3.5rem;font-weight:800;color:#a78bfa;line-height:1;}
+  .score-label{font-size:1rem;color:var(--text-dim);margin:8px 0;}
+  .score-msg{font-size:1.05rem;font-weight:600;color:var(--text);}
+  .chart-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;}
+  .chart-title{font-size:0.9rem;font-weight:700;color:var(--text-dim);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  .bar-chart{display:flex;flex-direction:column;gap:12px;}
+  .bar-row{display:flex;flex-direction:column;gap:6px;}
+  .bar-label{font-size:0.82rem;font-weight:600;color:var(--text);}
+  .bar-track{height:28px;background:var(--surface3);border-radius:6px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding-left:10px;font-size:0.78rem;font-weight:700;color:var(--bg);min-width:40px;transition:width 0.8s ease;}
+  .donut-wrap{display:flex;align-items:center;gap:24px;flex-wrap:wrap;}
+  .donut-svg{width:100px;height:100px;flex-shrink:0;}
+  .donut-legend{display:flex;flex-direction:column;gap:8px;}
+  .legend-item{display:flex;align-items:center;gap:8px;font-size:0.82rem;color:var(--text-dim);}
+  .legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+  .review-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px;}
+  .review-card.review-correct{border-color:var(--correct-border);}
+  .review-card.review-wrong{border-color:var(--wrong-border);}
+  .review-q{font-size:0.85rem;font-weight:600;color:var(--text);margin-bottom:8px;line-height:1.5;}
+  .review-answer{font-size:0.82rem;line-height:1.5;}
+  .retry-btn{display:block;width:100%;padding:14px;background:linear-gradient(135deg,#a78bfa,#34d399);border:none;border-radius:12px;color:var(--bg);font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;margin-top:20px;transition:all 0.2s;}
+  .retry-btn:hover{filter:brightness(1.1);}
+
+  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90;}
+  .overlay.show{display:block;}
+  .hamburger{display:none;position:fixed;top:14px;left:14px;z-index:200;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:8px 10px;cursor:pointer;font-size:1.1rem;}
+  .footer{text-align:center;padding:16px;font-size:0.72rem;color:var(--text-dim);border-top:1px solid var(--border);opacity:0.6;}
+
+  @media(max-width:900px){
+    .sidebar{transform:translateX(-100%);}
+    .sidebar.open{transform:translateX(0);}
+    .main{margin-left:0;}
+    .hamburger{display:block;}
+    .container{padding-top:60px;}
+  }
+</style>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+<aside class="sidebar" id="sidebar"></aside>
+
+<main class="main">
+<div class="container">
+  <div class="header">
+    <div class="header-badge"><span>🤰</span> ENARM · Ginecología · Alta Frecuencia</div>
+    <h1>🔥 Cáncer de Ovario</h1>
+    <p>Carcinoma epitelial de ovario · Tumores anexiales benignos · Genética y prevención</p>
+  </div>
+
+  <div style="display:flex;justify-content:center;">
+    <div class="mode-bar">
+      <button class="mode-btn active" id="btnRepaso" onclick="setMode('repaso')">📖 Modo Repaso</button>
+      <button class="mode-btn" id="btnExamen" onclick="setMode('examen')">⏱️ Modo Examen</button>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 15</div>
+  </div>
+
+  <div id="quizArea"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+  <div class="results" id="resultsArea"></div>
+</div>
+<div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+</main>
+
+<script src="sidebar.js"></script>
+<script>
+let examMode=false, currentQ=0, score=0, answers=[], catStats={};
+
+function setMode(m){
+  examMode=(m==='examen');
+  document.getElementById('btnRepaso').classList.toggle('active',!examMode);
+  document.getElementById('btnExamen').classList.toggle('active',examMode);
+  init();
+}
+
+const questions = [
+  /* ── CA. EPITELIAL DE OVARIO ── */
+  {
+    cat:"epitelial", catName:"Ca. Epitelial de Ovario",
+    q:"¿Por qué el cáncer de ovario tiene la mayor mortalidad entre los cánceres ginecológicos, a pesar de no ser el más frecuente?",
+    opts:["Porque su incidencia es la más alta de todos los cánceres ginecológicos","Porque se diagnostica en estadio III-IV en el 70-75% de los casos por ausencia de síntomas específicos en etapas tempranas","Porque no responde a ningún esquema de quimioterapia conocido","Porque afecta exclusivamente a mujeres jóvenes en edad reproductiva"],
+    ans:1,
+    exp:"El cáncer de ovario es silencioso: los síntomas (distensión abdominal, saciedad precoz, polaquiuria) son inespecíficos y se atribuyen a causas digestivas. Cuando se diagnostica, 70-75% ya son estadio III-IV con diseminación peritoneal. La supervivencia a 5 años en estadio I es >90%; en estadio IV cae a <30%.",
+    tip:"<strong>Ca ovario = alta mortalidad por diagnóstico tardío (estadio III-IV en 70%).</strong> No porque sea el más frecuente.",
+    ref:"GPC Tratamiento quirúrgico médico del cáncer epitelial de ovario 2014"
+  },
+  {
+    cat:"epitelial", catName:"Ca. Epitelial de Ovario",
+    q:"¿Cuál es el tipo histológico más frecuente del cáncer de ovario maligno?",
+    opts:["Carcinoma mucinoso de bajo potencial maligno","Carcinoma seroso de alto grado (HGSOC)","Tumor de células de la granulosa","Teratoma inmaduro"],
+    ans:1,
+    exp:"El carcinoma seroso de alto grado (HGSOC) representa el 70-80% de todos los cánceres de ovario epiteliales. Se origina frecuentemente en la trompa de Falopio (fimbrias) y tiene una fuerte asociación con mutaciones BRCA1/BRCA2. Es muy quimiosensible (carboplatino+paclitaxel) pero con alta tasa de recurrencia.",
+    tip:"<strong>Ca ovario más frecuente = seroso de ALTO grado (HGSOC).</strong> Origen en fimbrias. BRCA1/2 relacionado.",
+    ref:"GPC Tratamiento quirúrgico médico del cáncer epitelial de ovario 2014"
+  },
+  {
+    cat:"epitelial", catName:"Ca. Epitelial de Ovario",
+    q:"¿Cuál es el marcador tumoral más utilizado en el seguimiento del cáncer de ovario epitelial?",
+    opts:["AFP (alfafetoproteína)","HCG-β (gonadotropina coriónica humana)","CA-125","CA 19-9"],
+    ans:2,
+    exp:"El CA-125 está elevado en el 80% de los cánceres de ovario avanzados. No es suficientemente sensible para tamizaje (baja especificidad: también eleva en endometriosis, miomas, EPI, embarazo). Su utilidad principal es en el seguimiento para detectar recurrencia tras el tratamiento. Una caída del CA-125 >50% tras 2 ciclos de QT indica respuesta.",
+    tip:"<strong>CA-125 = marcador de seguimiento del Ca ovario.</strong> No sirve como tamizaje poblacional (baja especificidad).",
+    ref:"GPC Tratamiento quirúrgico médico del cáncer epitelial de ovario 2014"
+  },
+  {
+    cat:"epitelial", catName:"Ca. Epitelial de Ovario",
+    q:"¿Cuál es el tratamiento estándar del cáncer de ovario epitelial en estadio IIIC?",
+    opts:["Radioterapia pélvica exclusiva sin quimioterapia","Cirugía citorreductora + quimioterapia (carboplatino + paclitaxel) × 6 ciclos","Solo quimioterapia oral con capecitabina","Inmunoterapia con pembrolizumab como primera línea"],
+    ans:1,
+    exp:"El tratamiento estándar es la cirugía citorreductora (reducir tumor residual <1 cm, idealmente 0) seguida de quimioterapia con carboplatino (AUC 5-6) + paclitaxel (175 mg/m²) cada 3 semanas por 6 ciclos. La quimioterapia intraperitoneal puede añadirse en pacientes óptimamente citorreducidas. Los inhibidores PARP (olaparib) son mantenimiento en portadoras BRCA.",
+    tip:"<strong>Ca ovario estadio III-IV = citorreducción + carboplatino+paclitaxel x6.</strong> Citorreducción óptima = residuo <1cm.",
+    ref:"GPC Tratamiento quirúrgico médico del cáncer epitelial de ovario 2014"
+  },
+  {
+    cat:"epitelial", catName:"Ca. Epitelial de Ovario",
+    q:"¿Qué se entiende por \"citorreducción óptima\" en el tratamiento quirúrgico del cáncer de ovario avanzado?",
+    opts:["Extirpación de todos los ganglios linfáticos pélvicos y paraaórticos visibles","Resección de al menos el 50% de la masa tumoral visible","Tumor residual posquirúrgico menor de 1 cm (idealmente residuo 0)","Histerectomía + SOB sin necesidad de omentectomía ni peritonectomía"],
+    ans:2,
+    exp:"La citorreducción óptima se define como tumor residual <1 cm tras la cirugía (algunos grupos exigen residuo 0). Es el factor pronóstico quirúrgico más importante: las pacientes con citorreducción óptima tienen supervivencia media de 36-40 meses vs. 17-20 meses con citorreducción subóptima. Incluye: histerectomía + SOB + omentectomía + linfadenectomía + peritonectomía si necesario.",
+    tip:"<strong>Citorreducción óptima = residuo <1cm (o idealmente 0).</strong> Factor pronóstico quirúrgico más importante en Ca ovario.",
+    ref:"GPC Tratamiento quirúrgico médico del cáncer epitelial de ovario 2014"
+  },
+  {
+    cat:"epitelial", catName:"Ca. Epitelial de Ovario",
+    q:"¿Cuál es el síntoma más frecuente que lleva a las mujeres con cáncer de ovario a consultar, aunque usualmente ya corresponde a enfermedad avanzada?",
+    opts:["Sangrado vaginal posmenopáusico","Dolor pélvico agudo de aparición súbita","Distensión abdominal progresiva y saciedad precoz","Flujo vaginal acuoso abundante y persistente"],
+    ans:2,
+    exp:"La distensión abdominal (por ascitis y masa tumoral) y la saciedad precoz (compresión gástrica) son los síntomas más frecuentes en cáncer de ovario avanzado. La polaquiuria puede aparecer por compresión vesical. Estos síntomas son tan inespecíficos que se atribuyen erróneamente a digestivos, retrasando el diagnóstico.",
+    tip:"<strong>Ca ovario: distensión abdominal + saciedad precoz = síntomas más frecuentes pero inespecíficos</strong> → diagnóstico tardío.",
+    ref:"GPC Tratamiento quirúrgico médico del cáncer epitelial de ovario 2014"
+  },
+  {
+    cat:"epitelial", catName:"Ca. Epitelial de Ovario",
+    q:"Mujer de 38 años portadora de mutación BRCA1 confirmada, sin antecedente de cáncer, paridad satisfecha. ¿Cuál es el riesgo de por vida de cáncer de ovario y la medida preventiva recomendada?",
+    opts:["Riesgo 5-10%; solo vigilancia con Ca-125 anual sin cirugía","Riesgo 39-46%; salpingooforectomía bilateral profiláctica al completar paridad (idealmente 35-40 años)","Riesgo 80-90%; mastectomía y ooforectomía simultáneas antes de los 30 años","Riesgo 12-15%; ninguna intervención preventiva demostrada efectiva"],
+    ans:1,
+    exp:"BRCA1 confiere riesgo de 39-46% de Ca ovario de por vida (BRCA2: 12-20%). La salpingooforectomía bilateral profiláctica reduce el riesgo de Ca ovario en 80-96% y también reduce el riesgo de Ca mama en portadoras premenopáusicas (~50%). Se recomienda idealmente entre 35-40 años (BRCA1) o 40-45 años (BRCA2) al completar la paridad.",
+    tip:"<strong>BRCA1 + Ca ovario = riesgo 39-46%.</strong> SOB profiláctica a los 35-40 años reduce riesgo 80-96%.",
+    ref:"GPC Tratamiento quirúrgico médico del cáncer epitelial de ovario 2014"
+  },
+  {
+    cat:"epitelial", catName:"Ca. Epitelial de Ovario",
+    q:"¿Cuál es el síndrome hereditario más importante relacionado con el carcinoma seroso de alto grado de ovario?",
+    opts:["Síndrome de Lynch (HNPCC): mutaciones en MLH1/MSH2","Síndrome de Peutz-Jeghers: mutación STK11","Síndrome de cáncer de mama y ovario hereditario: mutaciones BRCA1/BRCA2","Síndrome de Li-Fraumeni: mutación TP53"],
+    ans:2,
+    exp:"Las mutaciones en BRCA1/BRCA2 son el factor genético más importante en el carcinoma seroso de ovario de alto grado, presente en el 15-20% de todos los casos (germinal + somático). El síndrome de Lynch también aumenta el riesgo de Ca ovario (10-12% riesgo de por vida), particularmente carcinoma endometrioide y células claras.",
+    tip:"<strong>Ca ovario hereditario = BRCA1/BRCA2 principal (HGSOC).</strong> Lynch también aumenta riesgo (tipos endometrioide/células claras).",
+    ref:"GPC Tratamiento quirúrgico médico del cáncer epitelial de ovario 2014"
+  },
+  /* ── TUMORES ANEXIALES ── */
+  {
+    cat:"anexial", catName:"Tumores Anexiales",
+    q:"Mujer de 22 años con quiste ovárico simple unilocular de 5 cm detectado incidentalmente en ultrasonido, asintomática, ciclos regulares. ¿Cuál es la conducta más adecuada?",
+    opts:["Laparoscopia inmediata por riesgo de torsión","Biopsia por aspiración transvaginal guiada por ultrasonido","Observación con ultrasonido de control en 2-3 ciclos; probable quiste folicular que regresará espontáneamente","Anticonceptivos orales combinados para inducir regresión rápida"],
+    ans:2,
+    exp:"Los quistes foliculares son los más frecuentes en mujeres en edad reproductiva. Son benignos, uniloculares, de contenido anecoico y <8 cm. Regresan espontáneamente en 1-3 ciclos menstruales. Solo se intervienen si persisten, son >8 cm, sintomáticos o tienen características sospechosas de malignidad (tabiques, nódulos, flujo Doppler).",
+    tip:"<strong>Quiste simple unilocular <8cm en reproductiva = probable folicular.</strong> Observar 2-3 ciclos. No cirugía inmediata.",
+    ref:"GPC Diagnóstico y tratamiento de las pacientes con tumores anexiales benignos"
+  },
+  {
+    cat:"anexial", catName:"Tumores Anexiales",
+    q:"Mujer de 24 años con dolor agudo en fosa ilíaca derecha, náuseas y vómito de inicio súbito durante ejercicio físico. USG con Doppler muestra ovario derecho de 8 cm sin flujo vascular detectable. ¿Diagnóstico y manejo?",
+    opts:["Quiste ovárico roto; analgesia y observación expectante","Embarazo ectópico; laparoscopia diagnóstica y salpinguectomía","Torsión ovárica; laparoscopia urgente con destorsión y ooforopexia para preservar el ovario","Endometrioma roto; laparotomía exploradora de urgencia"],
+    ans:2,
+    exp:"La torsión ovárica es una urgencia ginecológica. El ultrasonido con Doppler que muestra ausencia de flujo vascular en el ovario es altamente sugestivo. El manejo es laparoscopia urgente con destorsión del pedículo y ooforopexia para preservar el ovario (incluso si parece de color oscuro/necrótico, puede recuperarse). La ooforectomía solo si hay necrosis irreversible.",
+    tip:"<strong>Torsión ovárica = dolor agudo + Doppler sin flujo = laparoscopia urgente.</strong> Destorsión primero, no ooforectomía inmediata.",
+    ref:"GPC Diagnóstico y tratamiento de las pacientes con tumores anexiales benignos"
+  },
+  {
+    cat:"anexial", catName:"Tumores Anexiales",
+    q:"¿Cuál es el tumor ovárico benigno más frecuente en mujeres en edad reproductiva que puede contener dientes, cabello y tejido sebáceo en su interior?",
+    opts:["Cistoadenoma mucinoso","Fibroma ovárico","Teratoma quístico maduro (quiste dermoide)","Cistoadenoma seroso benigno"],
+    ans:2,
+    exp:"El teratoma quístico maduro (quiste dermoide) es la neoplasia ovárica más frecuente en mujeres jóvenes (20-30 años). Contiene tejidos derivados de las tres capas germinales (ecto, meso y endodermo). En la radiografía simple pueden verse calcificaciones o dientes. El tratamiento es la cistectomía por laparoscopia preservando el ovario.",
+    tip:"<strong>Quiste dermoide = teratoma maduro = más frecuente en jóvenes.</strong> Calcificaciones/dientes en Rx. Cistectomía laparoscópica.",
+    ref:"GPC Diagnóstico y tratamiento de las pacientes con tumores anexiales benignos"
+  },
+  {
+    cat:"anexial", catName:"Tumores Anexiales",
+    q:"Mujer de 35 años con dismenorrea severa y quiste ovárico de 6 cm con contenido ecogénico homogéneo (\"vidrio esmerilado\") en ultrasonido. Ca-125 levemente elevado: 65 U/mL. ¿Diagnóstico más probable?",
+    opts:["Cistoadenoma seroso benigno","Cáncer de ovario estadio temprano","Endometrioma ovárico","Quiste tecalutínico bilateral"],
+    ans:2,
+    exp:"El endometrioma ovárico (\"quiste de chocolate\") presenta imagen en vidrio esmerilado por el contenido hemático degradado. Se asocia a endometriosis pélvica. El Ca-125 puede estar levemente elevado (50-200 U/mL), a diferencia del cáncer avanzado donde suele ser >500 U/mL. El tratamiento incluye cistectomía laparoscópica con preservación de tejido ovárico sano.",
+    tip:"<strong>Endometrioma = vidrio esmerilado en USG + Ca-125 leve + dismenorrea.</strong> Quiste de chocolate por sangre degradada.",
+    ref:"GPC Diagnóstico y tratamiento de las pacientes con tumores anexiales benignos"
+  },
+  {
+    cat:"anexial", catName:"Tumores Anexiales",
+    q:"El índice de malignidad de riesgo (RMI) se utiliza para estratificar el riesgo de malignidad en masas ováricas. ¿Cuáles son sus tres componentes?",
+    opts:["CA-125 × score ultrasonográfico × estado menopáusico","AFP × HCG × LDH sérica","CA-125 × tamaño tumoral (cm) × edad de la paciente","Índice de resistencia Doppler × Ca-125 × CEA"],
+    ans:0,
+    exp:"El RMI = Ca-125 (U/mL) × Score ecográfico (0, 1 o 3 según características) × Estado menopáusico (1 o 3). RMI <25 = bajo riesgo (benigno probable); 25-250 = riesgo moderado; >250 = alto riesgo de malignidad (referir a oncología ginecológica). Es una herramienta de triaje validada para decisión quirúrgica.",
+    tip:"<strong>RMI = Ca-125 × USG score × menopausia.</strong> >250 = alto riesgo malignidad → cirugía por oncólogo ginecólogo.",
+    ref:"GPC Diagnóstico y tratamiento de las pacientes con tumores anexiales benignos"
+  },
+  {
+    cat:"anexial", catName:"Tumores Anexiales",
+    q:"Mujer de 26 años con quiste del cuerpo lúteo hemorrágico de 5 cm que se rompe. Presenta dolor abdominal súbito intenso y signos de irritación peritoneal. TA 90/60 mmHg. ¿Cuál es la complicación principal y su manejo?",
+    opts:["Transformación maligna; biopsia urgente por laparoscopia","Hemoperitoneo con inestabilidad hemodinámica; laparoscopia/laparotomía urgente para hemostasia","Embarazo ectópico secundario; salpinguectomía inmediata","Síndrome de hiperestimulación ovárica; hospitalización para manejo médico"],
+    ans:1,
+    exp:"El quiste del cuerpo lúteo hemorrágico roto puede causar hemoperitoneo significativo. En pacientes hemodinámicamente estables se puede intentar manejo conservador. En inestabilidad hemodinámica (como en este caso: TA 90/60) se requiere intervención quirúrgica urgente (laparoscopia preferida) para hemostasia. Es diagnóstico diferencial de embarazo ectópico roto (siempre verificar β-hCG).",
+    tip:"<strong>Quiste lúteo roto + inestabilidad → hemoperitoneo → cirugía urgente.</strong> Siempre hacer β-hCG para descartar ectópico.",
+    ref:"GPC Diagnóstico y tratamiento de las pacientes con tumores anexiales benignos"
+  },
+  {
+    cat:"anexial", catName:"Tumores Anexiales",
+    q:"¿Cuál es la neoplasia ovárica benigna más frecuente de todas, caracterizada por ser habitualmente unilocular, de pared fina y contenido seroso?",
+    opts:["Teratoma quístico maduro (quiste dermoide)","Endometrioma ovárico","Cistoadenoma seroso benigno","Fibroma ovárico (tumor de Brenner)"],
+    ans:2,
+    exp:"El cistoadenoma seroso benigno es la neoplasia ovárica benigna más frecuente en general (aunque el teratoma maduro es el más frecuente en mujeres jóvenes). Se presenta como quiste unilocular de pared fina con contenido acuoso seroso. Generalmente asintomático. El cistoadenoma mucinoso puede alcanzar tamaños gigantes (>30 cm). Tratamiento: cistectomía o salpingooforectomía según edad y paridad.",
+    tip:"<strong>Cistoadenoma SEROSO = neoplasia ovárica benigna más frecuente en general.</strong> Mucinoso = el que crece más.",
+    ref:"GPC Diagnóstico y tratamiento de las pacientes con tumores anexiales benignos"
+  }
+];
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}}
+
+function init(){
+  shuffle(questions);
+  currentQ=0;score=0;answers=[];
+  catStats={epitelial:{c:0,t:0},anexial:{c:0,t:0}};
+  const r=document.getElementById('resultsArea');
+  r.classList.remove('show');r.innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const qa=questions[currentQ],total=questions.length;
+  document.getElementById('progressBar').style.width=(currentQ/total*100)+'%';
+  document.getElementById('progressText').textContent=`${currentQ+1} / ${total}`;
+  document.getElementById('nextBtn').classList.remove('show');
+  const L=['A','B','C','D'];
+  let h=`<div class="question-card">
+    <div class="q-category cat-${qa.cat}">${qa.catName}</div>
+    <div class="q-number">Pregunta ${currentQ+1} de ${total}</div>
+    <div class="q-text">${qa.q}</div>
+    <div class="options">`;
+  qa.opts.forEach((o,i)=>h+=`<button class="option-btn" onclick="selectAnswer(${i})">
+    <span class="option-letter">${L[i]}</span><span>${o}</span></button>`);
+  h+=`</div><div class="feedback" id="feedback"></div></div>`;
+  document.getElementById('quizArea').innerHTML=h;
+}
+
+function selectAnswer(idx){
+  const qa=questions[currentQ];
+  const btns=document.querySelectorAll('.option-btn');
+  const fb=document.getElementById('feedback');
+  const ok=idx===qa.ans;
+  btns.forEach((b,i)=>{b.classList.add('disabled');b.onclick=null;
+    if(i===qa.ans)b.classList.add('correct-answer');
+    if(i===idx&&!ok)b.classList.add('wrong-answer');});
+  if(!catStats[qa.cat])catStats[qa.cat]={c:0,t:0};
+  catStats[qa.cat].t++;
+  if(ok){score++;catStats[qa.cat].c++;}
+  if(!examMode){
+    fb.className=ok?'feedback correct-fb show':'feedback wrong-fb show';
+    fb.innerHTML=ok
+      ?`<div class="feedback-title">✅ ¡Correcto!</div><div>${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`
+      :`<div class="feedback-title">❌ Incorrecto</div><div><strong>Respuesta correcta:</strong> ${qa.opts[qa.ans]}</div><div style="margin-top:8px;">${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;
+  }
+  answers.push({q:qa.q,correct:ok,userAns:qa.opts[idx],correctAns:qa.opts[qa.ans],cat:qa.catName,exp:qa.exp,tip:qa.tip,ref:qa.ref});
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion(){currentQ++;if(currentQ>=questions.length)showResults();else renderQuestion();}
+
+function showResults(){
+  document.getElementById('quizArea').innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  document.getElementById('progressBar').style.width='100%';
+  document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;
+  const pct=Math.round((score/questions.length)*100);
+  const msg=pct>=90?'🏆 ¡Excelente dominio! Listo para el ENARM.':pct>=70?'👏 ¡Muy bien! Repasa las áreas con menor puntaje.':pct>=50?'📚 Aceptable, hay áreas de oportunidad.':'⚠️ Refuerza este tema. Revisa las GPC correspondientes.';
+  const cats=[
+    {name:'Ca. Epitelial de Ovario',key:'epitelial',color:'#a78bfa'},
+    {name:'Tumores Anexiales',key:'anexial',color:'#34d399'}
+  ];
+  let h=`<div class="results-header"><div class="score-big">${pct}%</div><div class="score-label">${score} de ${questions.length} correctas</div><div class="score-msg">${msg}</div></div>
+  <div class="chart-section"><div class="chart-title"><span>📊</span> Rendimiento por Categoría</div><div class="bar-chart">`;
+  cats.forEach(c=>{const s=catStats[c.key]||{c:0,t:0};const p=s.t>0?Math.round((s.c/s.t)*100):0;if(s.t>0)h+=`<div class="bar-row"><div class="bar-label">${c.name}</div><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${c.color};">${p}% (${s.c}/${s.t})</div></div></div>`;});
+  h+=`</div></div><div class="chart-section"><div class="chart-title"><span>🎯</span> Resumen General</div><div class="donut-wrap">
+    <svg class="donut-svg" viewBox="0 0 42 42">
+      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a2235" stroke-width="4"/>
+      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#34d399" stroke-width="4" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="25" stroke-linecap="round"/>
+      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#a78bfa" stroke-width="4" stroke-dasharray="${100-pct} ${pct}" stroke-dashoffset="${25-pct}" stroke-linecap="round"/>
+      <text x="21" y="22.5" text-anchor="middle" font-size="6" font-weight="700" fill="#e8ecf4" font-family="Plus Jakarta Sans">${pct}%</text>
+    </svg>
+    <div class="donut-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#34d399;"></div>Correctas: ${score}</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#a78bfa;"></div>Incorrectas: ${questions.length-score}</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#a78bfa;"></div>Total: ${questions.length}</div>
+    </div></div></div>
+  <div class="chart-section"><div class="chart-title"><span>📋</span> Revisión de Respuestas</div>`;
+  answers.forEach((a,i)=>{h+=`<div class="review-card ${a.correct?'review-correct':'review-wrong'}">
+    <div class="review-q">${i+1}. ${a.q} <span style="font-size:0.72rem;color:var(--text-dim);">[${a.cat}]</span></div>
+    <div class="review-answer">${a.correct?`<strong>✅ ${a.correctAns}</strong>`:`<em>❌ Tu respuesta: ${a.userAns}</em><br><strong>✅ Correcta: ${a.correctAns}</strong>`}</div>
+    <div style="margin-top:8px;font-size:0.8rem;color:var(--text-dim);line-height:1.5;">${a.exp}</div>
+    <div style="margin-top:6px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;">📖 ${a.ref}</div>
+  </div>`;});
+  h+=`</div><button class="retry-btn" onclick="init()">🔄 Reintentar</button>`;
+  const r=document.getElementById('resultsArea');r.innerHTML=h;r.classList.add('show');r.scrollIntoView({behavior:'smooth'});
+}
+
+function toggleSpec(h){h.classList.toggle('open');h.nextElementSibling.classList.toggle('open');}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+init();
+</script>
+</body>
+</html>

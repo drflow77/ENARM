@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔥 Lesiones Precursoras y CCU — ENARM · Ginecología</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --bg:#0a0e1a; --surface:#111827; --surface2:#1a2235; --surface3:#212d45;
+    --border:#2a3a5c; --text:#e8ecf4; --text-dim:#8896b3;
+    --accent:#34d399; --accent-glow:rgba(52,211,153,0.15);
+    --correct:#34d399; --correct-bg:rgba(52,211,153,0.1); --correct-border:rgba(52,211,153,0.4);
+    --wrong:#f87171; --wrong-bg:rgba(248,113,113,0.1); --wrong-border:rgba(248,113,113,0.4);
+    --gold:#fbbf24; --purple:#a78bfa; --pink:#f472b6; --teal:#2dd4bf; --blue:#38bdf8;
+    --sidebar-w:280px; --radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;}
+
+  .sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;overflow-y:auto;z-index:100;transition:transform 0.3s;}
+  .sidebar-logo{padding:24px 20px 16px;border-bottom:1px solid var(--border);}
+  .logo-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#34d399,#f87171);padding:6px 14px;border-radius:100px;font-size:0.75rem;font-weight:800;color:var(--bg);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px;}
+  .sidebar-logo h2{font-size:1.1rem;font-weight:800;background:linear-gradient(135deg,var(--text),#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .sidebar-logo p{font-size:0.72rem;color:var(--text-dim);margin-top:2px;}
+  .back-btn{display:flex;align-items:center;gap:8px;padding:14px 20px;color:var(--text-dim);font-size:0.8rem;text-decoration:none;border-bottom:1px solid var(--border);transition:color 0.2s;}
+  .back-btn:hover{color:#34d399;}
+  .sidebar-nav{flex:1;padding:12px 0 24px;}
+  .specialty-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px 10px 20px;cursor:pointer;transition:background 0.2s;user-select:none;}
+  .specialty-header:hover{background:var(--surface2);}
+  .specialty-name{display:flex;align-items:center;gap:10px;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;}
+  .specialty-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;}
+  .chevron{font-size:0.65rem;color:var(--text-dim);transition:transform 0.3s;}
+  .specialty-header.open .chevron{transform:rotate(90deg);}
+  .topics-list{display:none;padding:4px 0 8px;}
+  .topics-list.open{display:block;}
+  .topic-link{display:flex;align-items:center;gap:10px;padding:8px 16px 8px 56px;font-size:0.78rem;color:var(--text-dim);text-decoration:none;transition:all 0.2s;border-left:2px solid transparent;line-height:1.4;}
+  .topic-link:hover{color:var(--text);background:var(--surface3);}
+  .topic-link.active{color:#34d399;border-left-color:#34d399;background:var(--accent-glow);font-weight:600;}
+  .topic-link.coming-soon{opacity:0.4;cursor:not-allowed;pointer-events:none;}
+  .topic-num{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--text-dim);min-width:20px;}
+  .badge-soon{margin-left:auto;background:rgba(136,150,179,0.1);color:var(--text-dim);font-size:0.62rem;font-weight:600;padding:2px 7px;border-radius:100px;}
+  .badge-ready{margin-left:auto;background:rgba(52,211,153,0.15);color:#34d399;font-size:0.62rem;font-weight:600;padding:2px 7px;border-radius:100px;}
+
+  .main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;}
+  .container{max-width:760px;margin:0 auto;padding:20px 16px 40px;width:100%;}
+
+  .mode-bar{display:flex;align-items:center;gap:10px;margin:24px 0 20px;background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:6px;width:fit-content;}
+  .mode-btn{padding:8px 20px;border-radius:100px;border:none;cursor:pointer;font-family:inherit;font-size:0.82rem;font-weight:600;transition:all 0.2s;color:var(--text-dim);background:transparent;}
+  .mode-btn.active{background:linear-gradient(135deg,#34d399,#f87171);color:var(--bg);}
+
+  .header{text-align:center;padding:40px 20px 24px;position:relative;overflow:hidden;}
+  .header::before{content:'';position:absolute;top:-60%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(52,211,153,0.08) 0%,transparent 70%);pointer-events:none;}
+  .header-badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);padding:6px 16px;border-radius:100px;font-size:0.78rem;color:#34d399;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:16px;}
+  .header h1{font-size:clamp(1.3rem,4vw,2rem);font-weight:800;background:linear-gradient(135deg,var(--text) 0%,#34d399 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;line-height:1.2;}
+  .header p{color:var(--text-dim);font-size:0.95rem;max-width:600px;margin:0 auto;line-height:1.4;}
+
+  .progress-wrap{background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:12px 20px;margin:20px 0 28px;display:flex;align-items:center;gap:14px;}
+  .progress-bar-bg{flex:1;height:8px;background:var(--surface3);border-radius:100px;overflow:hidden;}
+  .progress-bar-fill{height:100%;width:0%;background:linear-gradient(90deg,#34d399,#f87171);border-radius:100px;transition:width 0.5s ease;}
+  .progress-text{font-size:0.82rem;font-weight:600;color:var(--text-dim);white-space:nowrap;font-family:'JetBrains Mono',monospace;}
+
+  .question-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px;margin-bottom:20px;animation:slideIn 0.4s ease;position:relative;overflow:hidden;}
+  .question-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#34d399,#f87171,var(--purple));}
+  @keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+  .q-category{display:inline-flex;align-items:center;gap:6px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;padding:4px 12px;border-radius:100px;margin-bottom:14px;}
+  .cat-pre{background:rgba(52,211,153,0.12);color:#34d399;}
+  .cat-ccu{background:rgba(248,113,113,0.12);color:#f87171;}
+
+  .q-number{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--text-dim);margin-bottom:10px;}
+  .q-text{font-size:1.05rem;font-weight:600;line-height:1.55;margin-bottom:20px;color:var(--text);}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .option-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:all 0.2s;text-align:left;font-size:0.92rem;color:var(--text);font-family:inherit;line-height:1.5;width:100%;}
+  .option-btn:hover:not(.disabled){border-color:#34d399;background:rgba(52,211,153,0.08);transform:translateX(4px);}
+  .option-letter{display:flex;align-items:center;justify-content:center;min-width:30px;height:30px;border-radius:8px;background:var(--surface3);font-weight:700;font-size:0.82rem;color:#34d399;flex-shrink:0;}
+  .option-btn.correct-answer{border-color:var(--correct-border);background:var(--correct-bg);}
+  .option-btn.correct-answer .option-letter{background:var(--correct);color:var(--bg);}
+  .option-btn.wrong-answer{border-color:var(--wrong-border);background:var(--wrong-bg);}
+  .option-btn.wrong-answer .option-letter{background:var(--wrong);color:var(--bg);}
+  .option-btn.disabled{cursor:default;}
+  .option-btn.disabled:hover{transform:none;}
+
+  .feedback{margin-top:18px;padding:18px;border-radius:12px;font-size:0.88rem;line-height:1.65;animation:fadeIn 0.3s ease;display:none;}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .feedback.show{display:block;}
+  .feedback.correct-fb{background:var(--correct-bg);border:1px solid var(--correct-border);color:var(--correct);}
+  .feedback.wrong-fb{background:var(--wrong-bg);border:1px solid var(--wrong-border);color:#fca5a5;}
+  .feedback-title{font-weight:700;font-size:0.95rem;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+  .feedback .tip{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.08);color:var(--text-dim);font-size:0.82rem;}
+  .feedback .tip strong{color:var(--gold);}
+  .feedback .ref{margin-top:8px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;}
+
+  .next-btn{display:none;margin:20px auto 0;padding:12px 32px;background:linear-gradient(135deg,#34d399,#f87171);color:var(--bg);border:none;border-radius:100px;font-family:inherit;font-size:0.92rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+  .next-btn:hover{transform:scale(1.05);}
+  .next-btn.show{display:block;}
+
+  .results{display:none;animation:slideIn 0.5s ease;}
+  .results.show{display:block;}
+  .results-header{text-align:center;padding:30px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;position:relative;overflow:hidden;}
+  .results-header::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#34d399,#f87171,var(--purple));}
+  .score-big{font-family:'JetBrains Mono',monospace;font-size:3.5rem;font-weight:800;color:#34d399;line-height:1;}
+  .score-label{font-size:1rem;color:var(--text-dim);margin:8px 0;}
+  .score-msg{font-size:1.05rem;font-weight:600;color:var(--text);}
+  .chart-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;}
+  .chart-title{font-size:0.9rem;font-weight:700;color:var(--text-dim);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  .bar-chart{display:flex;flex-direction:column;gap:12px;}
+  .bar-row{display:flex;flex-direction:column;gap:6px;}
+  .bar-label{font-size:0.82rem;font-weight:600;color:var(--text);}
+  .bar-track{height:28px;background:var(--surface3);border-radius:6px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding-left:10px;font-size:0.78rem;font-weight:700;color:var(--bg);min-width:40px;transition:width 0.8s ease;}
+  .donut-wrap{display:flex;align-items:center;gap:24px;flex-wrap:wrap;}
+  .donut-svg{width:100px;height:100px;flex-shrink:0;}
+  .donut-legend{display:flex;flex-direction:column;gap:8px;}
+  .legend-item{display:flex;align-items:center;gap:8px;font-size:0.82rem;color:var(--text-dim);}
+  .legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+  .review-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px;}
+  .review-card.review-correct{border-color:var(--correct-border);}
+  .review-card.review-wrong{border-color:var(--wrong-border);}
+  .review-q{font-size:0.85rem;font-weight:600;color:var(--text);margin-bottom:8px;line-height:1.5;}
+  .review-answer{font-size:0.82rem;line-height:1.5;}
+  .retry-btn{display:block;width:100%;padding:14px;background:linear-gradient(135deg,#34d399,#f87171);border:none;border-radius:12px;color:var(--bg);font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;margin-top:20px;transition:all 0.2s;}
+  .retry-btn:hover{filter:brightness(1.1);}
+
+  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90;}
+  .overlay.show{display:block;}
+  .hamburger{display:none;position:fixed;top:14px;left:14px;z-index:200;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:8px 10px;cursor:pointer;font-size:1.1rem;}
+  .footer{text-align:center;padding:16px;font-size:0.72rem;color:var(--text-dim);border-top:1px solid var(--border);opacity:0.6;}
+
+  @media(max-width:900px){
+    .sidebar{transform:translateX(-100%);}
+    .sidebar.open{transform:translateX(0);}
+    .main{margin-left:0;}
+    .hamburger{display:block;}
+    .container{padding-top:60px;}
+  }
+</style>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+<aside class="sidebar" id="sidebar"></aside>
+
+<main class="main">
+<div class="container">
+  <div class="header">
+    <div class="header-badge"><span>🤰</span> ENARM · Ginecología · Alta Frecuencia</div>
+    <h1>🔥 Lesiones Precursoras y CCU</h1>
+    <p>VPH y neoplasia intraepitelial cervical · Cáncer cervicouterino · Tamizaje y vacunación</p>
+  </div>
+
+  <div style="display:flex;justify-content:center;">
+    <div class="mode-bar">
+      <button class="mode-btn active" id="btnRepaso" onclick="setMode('repaso')">📖 Modo Repaso</button>
+      <button class="mode-btn" id="btnExamen" onclick="setMode('examen')">⏱️ Modo Examen</button>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 15</div>
+  </div>
+
+  <div id="quizArea"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+  <div class="results" id="resultsArea"></div>
+</div>
+<div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+</main>
+
+<script src="sidebar.js"></script>
+<script>
+let examMode=false, currentQ=0, score=0, answers=[], catStats={};
+
+function setMode(m){
+  examMode=(m==='examen');
+  document.getElementById('btnRepaso').classList.toggle('active',!examMode);
+  document.getElementById('btnExamen').classList.toggle('active',examMode);
+  init();
+}
+
+const questions = [
+  /* ── LESIONES PRECURSORAS ── */
+  {
+    cat:"pre", catName:"Lesiones Precursoras",
+    q:"¿Cuáles son los genotipos del VPH de alto riesgo que causan la mayoría de los cánceres cervicouterinos?",
+    opts:["VPH 6 y 11 (responsables del 90% de los condilomas acuminados)","VPH 16 y 18 (causan aproximadamente el 70% de los cánceres cervicouterinos)","VPH 31 y 33 (los más prevalentes en México)","VPH 45 y 52 (afectan exclusivamente a mujeres posmenopáusicas)"],
+    ans:1,
+    exp:"Los genotipos 16 y 18 del VPH causan el 70% de los cánceres cervicouterinos a nivel mundial. El VPH 16 se asocia principalmente con carcinoma epidermoide; el VPH 18 con adenocarcinoma. Los genotipos 6 y 11 son de bajo riesgo y causan condilomas acuminados pero no cáncer. La vacuna nonavalente cubre VPH 6, 11, 16, 18, 31, 33, 45, 52 y 58.",
+    tip:"VPH 16 y 18 = 70% Ca cervical. VPH 16 → epidermoide. VPH 18 → adenocarcinoma. VPH 6/11 → condilomas (bajo riesgo).",
+    ref:"GPC Prevención, detección, diagnóstico, tratamiento y seguimiento de lesiones precursoras de cáncer de cérvix 2014"
+  },
+  {
+    cat:"pre", catName:"Lesiones Precursoras",
+    q:"¿Cuál es el esquema de tamizaje para cáncer cervicouterino recomendado en la GPC para mujeres de 25-65 años en México?",
+    opts:["Papanicolaou anual desde el inicio de la vida sexual","Papanicolaou cada 3 años (25-65 años); o co-test citología+VPH cada 5 años (30-65 años)","Solo prueba molecular de VPH cada 10 años sin citología","Colposcopia anual en toda mujer sexualmente activa >25 años"],
+    ans:1,
+    exp:"El tamizaje cervical se realiza con: (1) citología (PAP) sola cada 3 años en mujeres de 25-65 años, o (2) co-test citología + prueba de VPH cada 5 años en mujeres de 30-65 años. Si ambos son negativos, la mujer puede espaciar el tamizaje 5 años. Una sola citología negativa no es suficiente para dejar de tamizar.",
+    tip:"Tamizaje CCU: PAP cada 3 años (25-65a) o co-test c/5 años (30-65a). Dos PAP negativos consecutivos = espaciar.",
+    ref:"GPC Prevención, detección, diagnóstico, tratamiento y seguimiento de lesiones precursoras de cáncer de cérvix 2014"
+  },
+  {
+    cat:"pre", catName:"Lesiones Precursoras",
+    q:"Resultado de PAP: ASCUS (células escamosas atípicas de significado indeterminado). ¿Cuál es la conducta correcta según la GPC?",
+    opts:["Histerectomía inmediata por alto riesgo de malignidad","Repetir PAP en 6 meses sin prueba adicional de VPH","Prueba refleja de VPH de alto riesgo: si positiva → colposcopia inmediata; si negativa → co-test en 3 años","Tratamiento empírico con crioterapia sin colposcopia previa"],
+    ans:2,
+    exp:"Ante un ASCUS, la GPC recomienda la prueba refleja de VPH de alto riesgo (en la misma muestra si es posible): VPH positivo → colposcopia inmediata para biopsia dirigida; VPH negativo → seguimiento con co-test en 3 años (muy bajo riesgo de NIC de alto grado). El ASCUS no requiere tratamiento inmediato sin confirmación histológica.",
+    tip:"ASCUS → prueba VPH. Positivo → colposcopia. Negativo → co-test en 3 años. No tratar sin biopsia.",
+    ref:"GPC Prevención, detección, diagnóstico, tratamiento y seguimiento de lesiones precursoras de cáncer de cérvix 2014"
+  },
+  {
+    cat:"pre", catName:"Lesiones Precursoras",
+    q:"NIC I (displasia leve/neoplasia intraepitelial cervical grado 1) en biopsia colposcópica de mujer de 28 años, VPH 16 positivo. ¿Cuál es el manejo?",
+    opts:["LEEP inmediato para evitar progresión a NIC III","Conización con márgenes amplios","Observación activa con citología y colposcopia cada 6-12 meses (regresión espontánea 60-70% a 2 años)","Histerectomía si el NIC I persiste más de 6 meses"],
+    ans:2,
+    exp:"El NIC I tiene una tasa de regresión espontánea del 60-70% en 2 años; progresa a NIC III en solo el 1% de los casos. La observación es el estándar: citología + colposcopia cada 6-12 meses por 2 años. Si persiste >2 años o progresa → tratamiento. Incluso con VPH 16 se prefiere observar en NIC I por la alta tasa de regresión.",
+    tip:"NIC I = observar, no tratar. Regresión espontánea 60-70%. Solo tratar si persiste >2 años o progresa.",
+    ref:"GPC Prevención, detección, diagnóstico, tratamiento y seguimiento de lesiones precursoras de cáncer de cérvix 2014"
+  },
+  {
+    cat:"pre", catName:"Lesiones Precursoras",
+    q:"¿Cuál es el tratamiento estándar para NIC II-III (displasia moderada a severa/carcinoma in situ) en una mujer de 30 años con deseo genésico?",
+    opts:["Solo observación por 24 meses antes de cualquier intervención","LEEP/LLETZ (escisión con asa electroquirúrgica): efectivo, preserva fertilidad y permite estudio histológico del espécimen","Histerectomía total como único tratamiento aceptable","Ablación con láser CO₂ sin biopsia de la zona de transformación"],
+    ans:1,
+    exp:"El LEEP (Loop Electrosurgical Excision Procedure) o LLETZ es el tratamiento de elección para NIC II-III. Ventajas: mínimamente invasivo, preserva fertilidad, el espécimen puede analizarse histológicamente (a diferencia de ablación). El margen quirúrgico limpio es el objetivo. La crioterapia y el láser son alternativas ablativas válidas para NIC II en mujeres jóvenes.",
+    tip:"NIC II-III = LEEP primera línea. Escinde, no abla. Permite histología del margen. Preserva fertilidad.",
+    ref:"GPC Prevención, detección, diagnóstico, tratamiento y seguimiento de lesiones precursoras de cáncer de cérvix 2014"
+  },
+  {
+    cat:"pre", catName:"Lesiones Precursoras",
+    q:"¿Cuál es el esquema actual de vacunación contra el VPH recomendado en México?",
+    opts:["3 dosis en todas las mujeres independientemente de la edad","2 dosis en niñas de 9-14 años (meses 0 y 6 meses); 3 dosis si ≥15 años o inmunocomprometidas","Solo 1 dosis de por vida a los 11 años","2 dosis solo en mujeres mayores de 26 años no vacunadas previamente"],
+    ans:1,
+    exp:"El esquema de vacunación VPH actual: 2 dosis en niñas de 9-14 años (meses 0 y 6) porque la respuesta inmune es superior a esta edad con 2 dosis. En mujeres ≥15 años o inmunocomprometidas (VIH, trasplantadas) se requieren 3 dosis (meses 0, 1-2 y 6). La vacuna es preventiva, no terapéutica: no elimina infecciones previas. La vacunación NO elimina la necesidad de tamizaje.",
+    tip:"VPH vacuna: 9-14 años → 2 dosis. ≥15 años → 3 dosis. No elimina tamizaje. Preventiva, no terapéutica.",
+    ref:"GPC Prevención, detección, diagnóstico, tratamiento y seguimiento de lesiones precursoras de cáncer de cérvix 2014"
+  },
+  {
+    cat:"pre", catName:"Lesiones Precursoras",
+    q:"Mujer de 33 años con NIC III en biopsia colposcópica. Se realiza LEEP y el reporte histológico indica margen endocervical comprometido (positivo). ¿Cuál es el siguiente paso?",
+    opts:["Observar con PAP a los 6 meses sin ninguna intervención adicional","Re-excisión (nueva conización) o histerectomía si la paridad está cumplida","Iniciar quimiorradioterapia concurrente de inmediato","Aplicar crioterapia en la zona de transformación residual"],
+    ans:1,
+    exp:"El margen endocervical positivo tras LEEP indica enfermedad residual en el canal cervical, con mayor riesgo de persistencia/recurrencia de NIC. Las opciones son: (1) re-excisión (nueva conización o LEEP más profundo) en mujeres con deseo genésico, o (2) histerectomía simple en mujeres con paridad satisfecha o si técnicamente no es posible nueva excisión. El seguimiento solo no es adecuado.",
+    tip:"LEEP margen positivo → re-excisión (deseo genésico) o histerectomía (paridad cumplida). No solo vigilar.",
+    ref:"GPC Prevención, detección, diagnóstico, tratamiento y seguimiento de lesiones precursoras de cáncer de cérvix 2014"
+  },
+  /* ── CÁNCER CERVICOUTERINO ── */
+  {
+    cat:"ccu", catName:"Cáncer Cervicouterino",
+    q:"¿Cuál es el tipo histológico más frecuente del cáncer cervicouterino en México?",
+    opts:["Adenocarcinoma de células claras (70-80%)","Carcinoma adenoescamoso (50-60%)","Carcinoma epidermoide (escamoso) (70-80%)","Carcinoma neuroendocrino de células pequeñas (50%)"],
+    ans:2,
+    exp:"El carcinoma epidermoide (células escamosas) representa el 70-80% de los cánceres cervicouterinos y se asocia principalmente con VPH 16. El adenocarcinoma representa el 15-20% (VPH 18 el más asociado) y su incidencia relativa ha aumentado por la mayor detección y tratamiento de lesiones escamosas precursoras. El carcinoma neuroendocrino es raro pero muy agresivo.",
+    tip:"CCU tipo histológico: epidermoide (70-80%) = más frecuente. Adenocarcinoma (15-20%). VPH 16 → epidermoide; VPH 18 → adenocarcinoma.",
+    ref:"GPC Tratamiento del cáncer cervicouterino en segundo y tercer nivel de atención 2017"
+  },
+  {
+    cat:"ccu", catName:"Cáncer Cervicouterino",
+    q:"¿Cuál es el síntoma más frecuente y precoz del cáncer cervicouterino invasor?",
+    opts:["Flujo vaginal purulento con olor fétido como primera manifestación","Sangrado vaginal poscoital (metrorragia de contacto)","Dolor pélvico crónico bilateral de inicio insidioso","Sangrado uterino posmenopáusico como presentación exclusiva"],
+    ans:1,
+    exp:"El sangrado poscoital (metrorragia de contacto) es la manifestación más frecuente y precoz del CCU invasor. Ocurre porque el tumor friable sangra al roce durante la relación sexual. En estadios avanzados aparecen: sangrado espontáneo irregular, leucorrea fétida (necrosis tumoral), dolor pélvico (extensión parametrial) y fístulas vesicovaginales o rectovaginales.",
+    tip:"CCU: síntoma precoz = sangrado poscoital. Avanzado = dolor pélvico, fétido, fístulas. La fístula vesicovaginal = estadio IV.",
+    ref:"GPC Tratamiento del cáncer cervicouterino en segundo y tercer nivel de atención 2017"
+  },
+  {
+    cat:"ccu", catName:"Cáncer Cervicouterino",
+    q:"¿Cómo se estadifica el cáncer cervicouterino según la FIGO 2018?",
+    opts:["Estadificación quirúrgica exclusiva, igual que el carcinoma de endometrio","Estadificación clínica; la FIGO 2018 permite incorporar hallazgos de imagen (TAC, RM, PET-CT) y patología ganglionar","Solo por biopsia cervical, sin necesidad de imagen ni cirugía","Estadificación por citología cervical, colposcopia y biopsia sin imagen de extensión"],
+    ans:1,
+    exp:"A diferencia del cáncer de endometrio (estadificación quirúrgica), el CCU se estadifica clínicamente. La revisión FIGO 2018 incorporó los hallazgos de imagen (RM para extensión local, TAC/PET para ganglios) y la evaluación histológica ganglionar para definir el estadio IIIC. Esto permite a los países de bajos recursos estadificar sin cirugía.",
+    tip:"CCU = estadificación CLÍNICA (FIGO 2018 permite imagen). Ca endometrio = estadificación QUIRÚRGICA. Diferencia clave ENARM.",
+    ref:"GPC Tratamiento del cáncer cervicouterino en segundo y tercer nivel de atención 2017"
+  },
+  {
+    cat:"ccu", catName:"Cáncer Cervicouterino",
+    q:"Cáncer cervicouterino estadio IA1 (microinvasión ≤3 mm de profundidad, ≤7 mm de extensión lateral, sin invasión vascular). ¿Cuál es el tratamiento de elección?",
+    opts:["Quimiorradioterapia concurrente con cisplatino","Histerectomía radical (Wertheim-Meigs tipo III) + linfadenectomía","Conización con márgenes negativos (LEEP o cono frío); histerectomía simple si paridad cumplida","Solo colposcopia de seguimiento cada 6 meses sin tratamiento quirúrgico"],
+    ans:2,
+    exp:"El estadio IA1 sin invasión linfovascular es el único estadio de CCU donde el tratamiento conservador preservando fertilidad (conización) es aceptable. Si los márgenes son negativos y no hay invasión linfovascular, la conización es suficiente en mujeres con deseo genésico. En mujeres con paridad cumplida: histerectomía simple (extrafascial, tipo I). NO se requiere histerectomía radical.",
+    tip:"CCU IA1 sin ILV + deseo genésico = conización con márgenes libres. Paridad cumplida = histerectomía simple (no radical).",
+    ref:"GPC Tratamiento del cáncer cervicouterino en segundo y tercer nivel de atención 2017"
+  },
+  {
+    cat:"ccu", catName:"Cáncer Cervicouterino",
+    q:"Cáncer cervicouterino estadio IB2 (tumor >4 cm confinado al cérvix, sin extensión parametrial). ¿Cuál es el tratamiento estándar?",
+    opts:["Solo quimioterapia oral sin cirugía ni radioterapia","Histerectomía radical (Wertheim-Meigs tipo III) + linfadenectomía pélvica bilateral","Conización amplia con márgenes libres","Radioterapia exclusiva sin quimioterapia concomitante"],
+    ans:1,
+    exp:"Los estadios IB2-IIA1 con tumor ≤4 cm pueden tratarse con histerectomía radical (Wertheim-Meigs tipo III, que incluye parametrios y manguito vaginal) + linfadenectomía pélvica, con resultados equivalentes a quimiorradioterapia. Para estadio IB2 (>4 cm) muchos centros prefieren quimiorradioterapia primaria por el menor riesgo de morbilidad combinada (cirugía + RT adyuvante).",
+    tip:"CCU IB1-IIA1 ≤4cm = cirugía radical (Wertheim) O quimiorradioterapia, equivalentes. IB2 >4cm = QRT preferida.",
+    ref:"GPC Tratamiento del cáncer cervicouterino en segundo y tercer nivel de atención 2017"
+  },
+  {
+    cat:"ccu", catName:"Cáncer Cervicouterino",
+    q:"Cáncer cervicouterino estadio IIB (extensión parametrial comprobada, sin llegar a pared pélvica). ¿Cuál es el tratamiento de elección?",
+    opts:["Histerectomía radical ampliada (Wertheim-Meigs)","Solo braquiterapia intracavitaria sin quimioterapia","Quimiorradioterapia concurrente: cisplatino semanal (40 mg/m²) + radioterapia externa + braquiterapia","Quimioterapia neoadyuvante seguida de cirugía siempre"],
+    ans:2,
+    exp:"A partir del estadio IIB (parametrios comprometidos), la cirugía radical no es posible ni recomendable. El tratamiento estándar es quimiorradioterapia concurrente: cisplatino semanal (radiosensibilizador) + radioterapia externa pélvica (45-50 Gy) + braquiterapia intracavitaria de refuerzo. Esto aplica para estadios IIB-IVA.",
+    tip:"CCU IIB-IVA = quimiorradioterapia concurrente (cisplatino + RT + braquiterapia). No cirugía.",
+    ref:"GPC Tratamiento del cáncer cervicouterino en segundo y tercer nivel de atención 2017"
+  },
+  {
+    cat:"ccu", catName:"Cáncer Cervicouterino",
+    q:"¿Cuál es el marcador tumoral más útil para el seguimiento del carcinoma epidermoide de cuello uterino?",
+    opts:["CA-125","AFP (alfafetoproteína)","SCC (antígeno de células escamosas)","CA 19-9"],
+    ans:2,
+    exp:"El SCC (Squamous Cell Carcinoma antigen) es el marcador más específico para el seguimiento del carcinoma epidermoide cervicouterino. Se eleva en el 60-70% de los estadios avanzados. Es útil para detectar recurrencias: una elevación del SCC precede a la recurrencia clínica por 2-3 meses. Para el adenocarcinoma cervical se usa CA-125. El CEA también puede elevarse pero es inespecífico.",
+    tip:"CCU epidermoide: marcador SCC. Adenocarcinoma cervical: CA-125. SCC detecta recurrencia 2-3 meses antes que imagen.",
+    ref:"GPC Tratamiento del cáncer cervicouterino en segundo y tercer nivel de atención 2017"
+  },
+  {
+    cat:"ccu", catName:"Cáncer Cervicouterino",
+    q:"Cáncer cervicouterino estadio IVB (metástasis a distancia: pulmón, hígado, hueso). ¿Cuál es el objetivo y esquema de tratamiento?",
+    opts:["Cirugía citorreductora maximal para mejorar la supervivencia","Radioterapia pélvica exclusiva con intención curativa","Quimioterapia sistémica paliativa: cisplatino + paclitaxel ± bevacizumab","Solo cuidados paliativos; no hay tratamiento activo con evidencia"],
+    ans:2,
+    exp:"En estadio IVB el objetivo es paliativo. El esquema de quimioterapia de primera línea es cisplatino + paclitaxel, con o sin bevacizumab (antiangiogénico). La adición de bevacizumab al doblete de platino aumenta la supervivencia global (17 vs. 13 meses en estudio GOG-240). La inmunoterapia (pembrolizumab) está aprobada en segunda línea para CCU PD-L1 positivo.",
+    tip:"CCU estadio IVB = paliativo. Esquema: cisplatino + paclitaxel ± bevacizumab. Pembrolizumab en 2ª línea.",
+    ref:"GPC Tratamiento del cáncer cervicouterino en segundo y tercer nivel de atención 2017"
+  }
+];
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}}
+
+function init(){
+  shuffle(questions);
+  currentQ=0;score=0;answers=[];
+  catStats={pre:{c:0,t:0},ccu:{c:0,t:0}};
+  const r=document.getElementById('resultsArea');
+  r.classList.remove('show');r.innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const qa=questions[currentQ],total=questions.length;
+  document.getElementById('progressBar').style.width=(currentQ/total*100)+'%';
+  document.getElementById('progressText').textContent=`${currentQ+1} / ${total}`;
+  document.getElementById('nextBtn').classList.remove('show');
+  const L=['A','B','C','D'];
+  let h=`<div class="question-card">
+    <div class="q-category cat-${qa.cat}">${qa.catName}</div>
+    <div class="q-number">Pregunta ${currentQ+1} de ${total}</div>
+    <div class="q-text">${qa.q}</div>
+    <div class="options">`;
+  qa.opts.forEach((o,i)=>h+=`<button class="option-btn" onclick="selectAnswer(${i})">
+    <span class="option-letter">${L[i]}</span><span>${o}</span></button>`);
+  h+=`</div><div class="feedback" id="feedback"></div></div>`;
+  document.getElementById('quizArea').innerHTML=h;
+}
+
+function selectAnswer(idx){
+  const qa=questions[currentQ];
+  const btns=document.querySelectorAll('.option-btn');
+  const fb=document.getElementById('feedback');
+  const ok=idx===qa.ans;
+  btns.forEach((b,i)=>{b.classList.add('disabled');b.onclick=null;
+    if(i===qa.ans)b.classList.add('correct-answer');
+    if(i===idx&&!ok)b.classList.add('wrong-answer');});
+  if(!catStats[qa.cat])catStats[qa.cat]={c:0,t:0};
+  catStats[qa.cat].t++;
+  if(ok){score++;catStats[qa.cat].c++;}
+  if(!examMode){
+    fb.className=ok?'feedback correct-fb show':'feedback wrong-fb show';
+    fb.innerHTML=ok
+      ?`<div class="feedback-title">✅ ¡Correcto!</div><div>${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`
+      :`<div class="feedback-title">❌ Incorrecto</div><div><strong>Respuesta correcta:</strong> ${qa.opts[qa.ans]}</div><div style="margin-top:8px;">${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;
+  }
+  answers.push({q:qa.q,correct:ok,userAns:qa.opts[idx],correctAns:qa.opts[qa.ans],cat:qa.catName,exp:qa.exp,tip:qa.tip,ref:qa.ref});
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion(){currentQ++;if(currentQ>=questions.length)showResults();else renderQuestion();}
+
+function showResults(){
+  document.getElementById('quizArea').innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  document.getElementById('progressBar').style.width='100%';
+  document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;
+  const pct=Math.round((score/questions.length)*100);
+  const msg=pct>=90?'🏆 ¡Excelente dominio! Listo para el ENARM.':pct>=70?'👏 ¡Muy bien! Repasa las áreas con menor puntaje.':pct>=50?'📚 Aceptable, hay áreas de oportunidad.':'⚠️ Refuerza este tema. Revisa las GPC correspondientes.';
+  const cats=[
+    {name:'Lesiones Precursoras',key:'pre',color:'#34d399'},
+    {name:'Cáncer Cervicouterino',key:'ccu',color:'#f87171'}
+  ];
+  let h=`<div class="results-header"><div class="score-big">${pct}%</div><div class="score-label">${score} de ${questions.length} correctas</div><div class="score-msg">${msg}</div></div>
+  <div class="chart-section"><div class="chart-title"><span>📊</span> Rendimiento por Categoría</div><div class="bar-chart">`;
+  cats.forEach(c=>{const s=catStats[c.key]||{c:0,t:0};const p=s.t>0?Math.round((s.c/s.t)*100):0;if(s.t>0)h+=`<div class="bar-row"><div class="bar-label">${c.name}</div><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${c.color};">${p}% (${s.c}/${s.t})</div></div></div>`;});
+  h+=`</div></div><div class="chart-section"><div class="chart-title"><span>🎯</span> Resumen General</div><div class="donut-wrap">
+    <svg class="donut-svg" viewBox="0 0 42 42">
+      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a2235" stroke-width="4"/>
+      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#34d399" stroke-width="4" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="25" stroke-linecap="round"/>
+      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#f87171" stroke-width="4" stroke-dasharray="${100-pct} ${pct}" stroke-dashoffset="${25-pct}" stroke-linecap="round"/>
+      <text x="21" y="22.5" text-anchor="middle" font-size="6" font-weight="700" fill="#e8ecf4" font-family="Plus Jakarta Sans">${pct}%</text>
+    </svg>
+    <div class="donut-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#34d399;"></div>Correctas: ${score}</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Incorrectas: ${questions.length-score}</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Total: ${questions.length}</div>
+    </div></div></div>
+  <div class="chart-section"><div class="chart-title"><span>📋</span> Revisión de Respuestas</div>`;
+  answers.forEach((a,i)=>{h+=`<div class="review-card ${a.correct?'review-correct':'review-wrong'}">
+    <div class="review-q">${i+1}. ${a.q} <span style="font-size:0.72rem;color:var(--text-dim);">[${a.cat}]</span></div>
+    <div class="review-answer">${a.correct?`<strong>✅ ${a.correctAns}</strong>`:`<em>❌ Tu respuesta: ${a.userAns}</em><br><strong>✅ Correcta: ${a.correctAns}</strong>`}</div>
+    <div style="margin-top:8px;font-size:0.8rem;color:var(--text-dim);line-height:1.5;">${a.exp}</div>
+    <div style="margin-top:6px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;">📖 ${a.ref}</div>
+  </div>`;});
+  h+=`</div><button class="retry-btn" onclick="init()">🔄 Reintentar</button>`;
+  const r=document.getElementById('resultsArea');r.innerHTML=h;r.classList.add('show');r.scrollIntoView({behavior:'smooth'});
+}
+
+function toggleSpec(h){h.classList.toggle('open');h.nextElementSibling.classList.toggle('open');}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+init();
+</script>
+</body>
+</html>

@@ -154,6 +154,13 @@
     font-size: 0.62rem; font-weight: 600;
     padding: 2px 7px; border-radius: 100px;
   }
+  .badge-hot {
+    margin-left: auto;
+    background: rgba(251,191,36,0.15);
+    color: #fbbf24;
+    font-size: 0.62rem; font-weight: 600;
+    padding: 2px 7px; border-radius: 100px;
+  }
 
   /* ── MAIN ─────────────────────────────────────────────────── */
   .main {
@@ -323,6 +330,10 @@
         <a href="01-apendicitis.html" class="topic-link active">
           <span class="topic-num">01</span>Abdomen agudo / Apendicitis
           <span class="star-tag">⭐</span>
+        </a>
+        <a href="escala-air-apendicitis.html" class="topic-link">
+          <span class="topic-num">🔢</span>Escala AIR — Apendicitis
+          <span class="badge-ready">Listo</span>
         </a>
         <a href="02-patologia-biliar.html" class="topic-link">
           <span class="topic-num">02</span>Patología biliar
@@ -505,8 +516,28 @@
       </div>
       <div class="topics-list">
         <span class="topic-link coming-soon"><span class="topic-num">—</span>Medicina Interna<span class="badge-soon">Pronto</span></span>
-        <span class="topic-link coming-soon"><span class="topic-num">—</span>Ginecología y Obstetricia<span class="badge-soon">Pronto</span></span>
         <span class="topic-link coming-soon"><span class="topic-num">—</span>Pediatría<span class="badge-soon">Pronto</span></span>
+      </div>
+    </div>
+
+    <!-- GINECOLOGÍA Y OBSTETRICIA -->
+    <div class="specialty-group">
+      <div class="specialty-header" onclick="toggleSpec(this)">
+        <div class="specialty-name">
+          <div class="specialty-icon" style="background:rgba(244,114,182,0.10); color:#f472b6;">🤰</div>
+          Ginecología y Obstetricia
+        </div>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="topics-list">
+        <a href="g01-menopausia-sop-osteoporosis.html" class="topic-link"><span class="topic-num">G01</span>Menopausia / SOP / Osteoporosis<span class="badge-hot">🔥 Frecuente</span></a>
+        <a href="g02-amenorrea-iop.html" class="topic-link"><span class="topic-num">G02</span>Amenorreas e Insuficiencia Ovárica<span class="badge-hot">🔥 Frecuente</span></a>
+        <a href="g03-anticonceptivos-infertilidad.html" class="topic-link"><span class="topic-num">G03</span>Anticonceptivos y Esterilidad<span class="badge-hot">🔥 Frecuente</span></a>
+        <a href="g04-cervicovaginitis-epi.html" class="topic-link"><span class="topic-num">G04</span>Cervicovaginitis / EPI<span class="badge-hot">🔥 Frecuente</span></a>
+        <a href="g05-endometriosis-miomatosis-hiperplasia.html" class="topic-link"><span class="topic-num">G05</span>Endometriosis / Miomatosis<span class="badge-hot">🔥 Frecuente</span></a>
+        <a href="g06-cancer-endometrio.html" class="topic-link"><span class="topic-num">G06</span>Cáncer de Endometrio<span class="badge-hot">🔥 Frecuente</span></a>
+        <a href="g07-cancer-ovario.html" class="topic-link"><span class="topic-num">G07</span>Cáncer de Ovario<span class="badge-hot">🔥 Frecuente</span></a>
+        <a href="g08-lesiones-precursoras-ccu.html" class="topic-link"><span class="topic-num">G08</span>Lesiones Precursoras / CCU<span class="badge-hot">🔥 Frecuente</span></a>
       </div>
     </div>
 
@@ -629,13 +660,14 @@
         </div>
       </div>
 
-      <div class="spec-card coming" style="cursor:default;">
-        <div class="card-icon" style="background:rgba(136,150,179,0.08);">🤰</div>
+      <div class="spec-card" onclick="window.location='g01-menopausia-sop-osteoporosis.html'" style="cursor:pointer; border-color:rgba(244,114,182,0.3);">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#f472b6,#a78bfa);"></div>
+        <div class="card-icon" style="background:rgba(244,114,182,0.10);">🤰</div>
         <div class="card-title">Ginecología y Obstetricia</div>
-        <div class="card-sub">Embarazo, parto, patología ginecológica y urgencias obstétricas.</div>
+        <div class="card-sub">Menopausia, SOP, anticoncepción, endometriosis, cáncer ginecológico y CCU.</div>
         <div class="card-footer">
-          <span class="card-topics">En desarrollo</span>
-          <span class="card-status status-soon">Próximamente</span>
+          <span class="card-topics">8 temas · 120 preguntas</span>
+          <span class="card-status status-active">Activo</span>
         </div>
       </div>
 

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amenorreas e Insuficiencia Ovárica Primaria — ENARM · Ginecología · G02</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --bg:#0a0e1a; --surface:#111827; --surface2:#1a2235; --surface3:#212d45;
+    --border:#2a3a5c; --text:#e8ecf4; --text-dim:#8896b3;
+    --accent:#a78bfa; --accent-glow:rgba(167,139,250,0.15);
+    --correct:#34d399; --correct-bg:rgba(52,211,153,0.1); --correct-border:rgba(52,211,153,0.4);
+    --wrong:#f87171; --wrong-bg:rgba(248,113,113,0.1); --wrong-border:rgba(248,113,113,0.4);
+    --gold:#fbbf24; --purple:#a78bfa; --pink:#f472b6; --teal:#2dd4bf; --blue:#38bdf8;
+    --sidebar-w:280px; --radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;}
+
+  .sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;overflow-y:auto;z-index:100;transition:transform 0.3s;}
+  .sidebar-logo{padding:24px 20px 16px;border-bottom:1px solid var(--border);}
+  .logo-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--purple),var(--pink));padding:6px 14px;border-radius:100px;font-size:0.75rem;font-weight:800;color:var(--bg);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px;}
+  .sidebar-logo h2{font-size:1.1rem;font-weight:800;background:linear-gradient(135deg,var(--text),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .sidebar-logo p{font-size:0.72rem;color:var(--text-dim);margin-top:2px;}
+  .back-btn{display:flex;align-items:center;gap:8px;padding:14px 20px;color:var(--text-dim);font-size:0.8rem;text-decoration:none;border-bottom:1px solid var(--border);transition:color 0.2s;}
+  .back-btn:hover{color:var(--purple);}
+  .sidebar-nav{flex:1;padding:12px 0 24px;}
+  .specialty-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px 10px 20px;cursor:pointer;transition:background 0.2s;user-select:none;}
+  .specialty-header:hover{background:var(--surface2);}
+  .specialty-name{display:flex;align-items:center;gap:10px;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;}
+  .specialty-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;}
+  .chevron{font-size:0.65rem;color:var(--text-dim);transition:transform 0.3s;}
+  .specialty-header.open .chevron{transform:rotate(90deg);}
+  .topics-list{display:none;padding:4px 0 8px;}
+  .topics-list.open{display:block;}
+  .topic-link{display:flex;align-items:center;gap:10px;padding:8px 16px 8px 56px;font-size:0.78rem;color:var(--text-dim);text-decoration:none;transition:all 0.2s;border-left:2px solid transparent;line-height:1.4;}
+  .topic-link:hover{color:var(--text);background:var(--surface3);}
+  .topic-link.active{color:var(--purple);border-left-color:var(--purple);background:var(--accent-glow);font-weight:600;}
+  .topic-link.coming-soon{opacity:0.4;cursor:not-allowed;pointer-events:none;}
+  .topic-num{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--text-dim);min-width:20px;}
+  .badge-soon{margin-left:auto;background:rgba(136,150,179,0.1);color:var(--text-dim);font-size:0.62rem;font-weight:600;padding:2px 7px;border-radius:100px;}
+  .badge-ready{margin-left:auto;background:rgba(167,139,250,0.15);color:var(--purple);font-size:0.62rem;font-weight:600;padding:2px 7px;border-radius:100px;}
+
+  .main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;}
+  .container{max-width:760px;margin:0 auto;padding:20px 16px 40px;width:100%;}
+
+  .mode-bar{display:flex;align-items:center;gap:10px;margin:24px 0 20px;background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:6px;width:fit-content;}
+  .mode-btn{padding:8px 20px;border-radius:100px;border:none;cursor:pointer;font-family:inherit;font-size:0.82rem;font-weight:600;transition:all 0.2s;color:var(--text-dim);background:transparent;}
+  .mode-btn.active{background:linear-gradient(135deg,var(--purple),var(--pink));color:var(--bg);}
+
+  .header{text-align:center;padding:40px 20px 24px;position:relative;overflow:hidden;}
+  .header::before{content:'';position:absolute;top:-60%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(167,139,250,0.08) 0%,transparent 70%);pointer-events:none;}
+  .header-badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);padding:6px 16px;border-radius:100px;font-size:0.78rem;color:var(--purple);font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:16px;}
+  .header h1{font-size:clamp(1.3rem,4vw,2rem);font-weight:800;background:linear-gradient(135deg,var(--text) 0%,var(--purple) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;line-height:1.2;}
+  .header p{color:var(--text-dim);font-size:0.95rem;max-width:600px;margin:0 auto;line-height:1.4;}
+
+  .progress-wrap{background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:12px 20px;margin:20px 0 28px;display:flex;align-items:center;gap:14px;}
+  .progress-bar-bg{flex:1;height:8px;background:var(--surface3);border-radius:100px;overflow:hidden;}
+  .progress-bar-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--purple),var(--pink));border-radius:100px;transition:width 0.5s ease;}
+  .progress-text{font-size:0.82rem;font-weight:600;color:var(--text-dim);white-space:nowrap;font-family:'JetBrains Mono',monospace;}
+
+  .question-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px;margin-bottom:20px;animation:slideIn 0.4s ease;position:relative;overflow:hidden;}
+  .question-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--purple),var(--pink),var(--teal));}
+  @keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+  .q-category{display:inline-flex;align-items:center;gap:6px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;padding:4px 12px;border-radius:100px;margin-bottom:14px;}
+  .cat-pri{background:rgba(244,114,182,0.12);color:#f472b6;}
+  .cat-sec{background:rgba(56,189,248,0.12);color:#38bdf8;}
+  .cat-iop{background:rgba(167,139,250,0.12);color:#a78bfa;}
+
+  .q-number{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--text-dim);margin-bottom:10px;}
+  .q-text{font-size:1.05rem;font-weight:600;line-height:1.55;margin-bottom:20px;color:var(--text);}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .option-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:all 0.2s;text-align:left;font-size:0.92rem;color:var(--text);font-family:inherit;line-height:1.5;width:100%;}
+  .option-btn:hover:not(.disabled){border-color:var(--purple);background:rgba(167,139,250,0.08);transform:translateX(4px);}
+  .option-letter{display:flex;align-items:center;justify-content:center;min-width:30px;height:30px;border-radius:8px;background:var(--surface3);font-weight:700;font-size:0.82rem;color:var(--purple);flex-shrink:0;}
+  .option-btn.correct-answer{border-color:var(--correct-border);background:var(--correct-bg);}
+  .option-btn.correct-answer .option-letter{background:var(--correct);color:var(--bg);}
+  .option-btn.wrong-answer{border-color:var(--wrong-border);background:var(--wrong-bg);}
+  .option-btn.wrong-answer .option-letter{background:var(--wrong);color:var(--bg);}
+  .option-btn.disabled{cursor:default;}
+  .option-btn.disabled:hover{transform:none;}
+
+  .feedback{margin-top:18px;padding:18px;border-radius:12px;font-size:0.88rem;line-height:1.65;animation:fadeIn 0.3s ease;display:none;}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .feedback.show{display:block;}
+  .feedback.correct-fb{background:var(--correct-bg);border:1px solid var(--correct-border);color:var(--correct);}
+  .feedback.wrong-fb{background:var(--wrong-bg);border:1px solid var(--wrong-border);color:#fca5a5;}
+  .feedback-title{font-weight:700;font-size:0.95rem;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+  .feedback .tip{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.08);color:var(--text-dim);font-size:0.82rem;}
+  .feedback .tip strong{color:var(--gold);}
+  .feedback .ref{margin-top:8px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;}
+
+  .next-btn{display:none;margin:20px auto 0;padding:12px 32px;background:linear-gradient(135deg,var(--purple),var(--pink));color:var(--bg);border:none;border-radius:100px;font-family:inherit;font-size:0.92rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+  .next-btn:hover{transform:scale(1.05);}
+  .next-btn.show{display:block;}
+
+  .results{display:none;animation:slideIn 0.5s ease;}
+  .results.show{display:block;}
+  .results-header{text-align:center;padding:30px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;position:relative;overflow:hidden;}
+  .results-header::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--purple),var(--pink),var(--teal));}
+  .score-big{font-family:'JetBrains Mono',monospace;font-size:3.5rem;font-weight:800;color:var(--purple);line-height:1;}
+  .score-label{font-size:1rem;color:var(--text-dim);margin:8px 0;}
+  .score-msg{font-size:1.05rem;font-weight:600;color:var(--text);}
+  .chart-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;}
+  .chart-title{font-size:0.9rem;font-weight:700;color:var(--text-dim);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  .bar-chart{display:flex;flex-direction:column;gap:12px;}
+  .bar-row{display:flex;flex-direction:column;gap:6px;}
+  .bar-label{font-size:0.82rem;font-weight:600;color:var(--text);}
+  .bar-track{height:28px;background:var(--surface3);border-radius:6px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding-left:10px;font-size:0.78rem;font-weight:700;color:var(--bg);min-width:40px;transition:width 0.8s ease;}
+  .donut-wrap{display:flex;align-items:center;gap:24px;flex-wrap:wrap;}
+  .donut-svg{width:100px;height:100px;flex-shrink:0;}
+  .donut-legend{display:flex;flex-direction:column;gap:8px;}
+  .legend-item{display:flex;align-items:center;gap:8px;font-size:0.82rem;color:var(--text-dim);}
+  .legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+  .review-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px;}
+  .review-card.review-correct{border-color:var(--correct-border);}
+  .review-card.review-wrong{border-color:var(--wrong-border);}
+  .review-q{font-size:0.85rem;font-weight:600;color:var(--text);margin-bottom:8px;line-height:1.5;}
+  .review-answer{font-size:0.82rem;line-height:1.5;}
+  .retry-btn{display:block;width:100%;padding:14px;background:linear-gradient(135deg,var(--purple),var(--pink));border:none;border-radius:12px;color:var(--bg);font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;margin-top:20px;transition:all 0.2s;}
+  .retry-btn:hover{filter:brightness(1.1);}
+
+  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90;}
+  .overlay.show{display:block;}
+  .hamburger{display:none;position:fixed;top:14px;left:14px;z-index:200;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:8px 10px;cursor:pointer;font-size:1.1rem;}
+  .footer{text-align:center;padding:16px;font-size:0.72rem;color:var(--text-dim);border-top:1px solid var(--border);opacity:0.6;}
+
+  @media(max-width:900px){
+    .sidebar{transform:translateX(-100%);}
+    .sidebar.open{transform:translateX(0);}
+    .main{margin-left:0;}
+    .hamburger{display:block;}
+    .container{padding-top:60px;}
+  }
+</style>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+<aside class="sidebar" id="sidebar"></aside>
+
+<main class="main">
+<div class="container">
+  <div class="header">
+    <div class="header-badge"><span>🤰</span> ENARM · Ginecología · G02</div>
+    <h1>Amenorreas e Insuficiencia Ovárica Primaria</h1>
+    <p>Amenorrea primaria · Amenorrea secundaria · IOP / Fallo ovárico prematuro</p>
+  </div>
+
+  <div style="display:flex;justify-content:center;">
+    <div class="mode-bar">
+      <button class="mode-btn active" id="btnRepaso" onclick="setMode('repaso')">📖 Modo Repaso</button>
+      <button class="mode-btn" id="btnExamen" onclick="setMode('examen')">⏱️ Modo Examen</button>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 15</div>
+  </div>
+
+  <div id="quizArea"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+  <div class="results" id="resultsArea"></div>
+</div>
+<div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+</main>
+
+<script src="sidebar.js"></script>
+<script>
+let examMode=false, currentQ=0, score=0, answers=[], catStats={};
+
+function setMode(m){
+  examMode=(m==='examen');
+  document.getElementById('btnRepaso').classList.toggle('active',!examMode);
+  document.getElementById('btnExamen').classList.toggle('active',examMode);
+  init();
+}
+
+const questions = [
+  /* ── AMENORREA PRIMARIA ── */
+  {
+    cat:"pri", catName:"Amenorrea Primaria",
+    q:"¿Cuándo debe evaluarse una adolescente por ausencia de menarquia?",
+    opts:["A los 16 años en cualquier caso, o a los 14 años si tampoco hay telarquia","Solo a los 18 años si no ha menstruado","A los 12 años como tamizaje rutinario universal","Cuando cumplan 2 años de ausencia de menstruación tras la telarquia"],
+    ans:0,
+    exp:"La evaluación de amenorrea primaria se indica en dos situaciones: (1) ausencia de menarquia a los 16 años independientemente del desarrollo puberal, o (2) ausencia de menarquia a los 14 años si además no hay desarrollo mamario (telarquia). La ausencia de telarquia a los 13 años también amerita evaluación para descartar hipogonadismo primario o central.",
+    tip:"<strong>Evaluar amenorrea primaria: 16 años siempre, o 14 años si no hay telarquia.</strong> La ausencia de telarquia a los 13 = también estudiar. No esperar hasta los 18.",
+    ref:"GPC Diagnóstico y tratamiento de insuficiencia ovárica primaria, IMSS 2013."
+  },
+  {
+    cat:"pri", catName:"Amenorrea Primaria",
+    q:"Adolescente de 15 años sin desarrollo mamario, talla baja, cuello alado, cúbito valgo y cardiopatía congénita. ¿Cuál es la causa de amenorrea primaria más probable?",
+    opts:["Síndrome de Kallmann (hipogonadismo hipogonadotrópico con anosmia)","Síndrome de Turner (45,X o mosaico 45,X/46,XX)","Síndrome de Mayer-Rokitansky-Küster-Hauser (agenesia mülleriana)","Hipotiroidismo congénito no tratado"],
+    ans:1,
+    exp:"El síndrome de Turner (monosomía 45,X o mosaico) es la causa más frecuente de amenorrea primaria con ausencia de desarrollo mamario. Características: talla baja, cuello alado (pterygium colli), cúbito valgo, linfedema, disgenesia gonadal y cardiopatías congénitas (coartación de aorta, válvula aórtica bicúspide en 15-30% de los casos).",
+    tip:"<strong>Turner = talla baja + cuello alado + amenorrea primaria + sin desarrollo mamario.</strong> Cariotipo 45,X. Cardiopatía más frecuente: coartación aórtica. Siempre ecocardiograma.",
+    ref:"GPC Insuficiencia ovárica primaria, IMSS 2013."
+  },
+  {
+    cat:"pri", catName:"Amenorrea Primaria",
+    q:"Adolescente de 16 años sin menarquia, desarrollo mamario y vello pubiano normales (Tanner V), pero con dolor pélvico cíclico intenso cada mes. ¿Cuál es el diagnóstico?",
+    opts:["Anovulación crónica con ciclos sin menstruación","Hematocolpos por himen imperforado","Insuficiencia ovárica primaria con ciclos anovulatorios","Síndrome de Asherman congénito"],
+    ans:1,
+    exp:"El himen imperforado produce criptomenorrea: el sangrado menstrual se acumula en vagina (hematocolpos), útero (hematómetra) y trompas (hematosálpinx). Se manifiesta como amenorrea primaria con caracteres sexuales secundarios normales (los ovarios y estrógenos funcionan) y dolor pélvico cíclico mensual. A la inspección se observa membrana himeneal abombada violácea. Tratamiento: incisión quirúrgica.",
+    tip:"<strong>Menarquia ausente + desarrollo normal + dolor cíclico = himen imperforado.</strong> Masa pélvica en ECO (hematocolpos). Tratar: himenotomía quirúrgica urgente.",
+    ref:"GPC Insuficiencia ovárica primaria, IMSS 2013."
+  },
+  {
+    cat:"pri", catName:"Amenorrea Primaria",
+    q:"Adolescente de 17 años sin menarquia, desarrollo mamario normal, vello pubiano escaso y vagina corta en fondo de saco. Cariotipo 46,XY. ¿Cuál es el diagnóstico?",
+    opts:["Síndrome de Turner con mosaicismo 46,XY","Síndrome de insensibilidad a los andrógenos (síndrome de Morris)","Síndrome de Mayer-Rokitansky (agenesia mülleriana 46,XX)","Disgenesia gonadal mixta 46,XY con fenotipo femenino"],
+    ans:1,
+    exp:"El síndrome de insensibilidad a los andrógenos (SIA) cursa con: cariotipo 46,XY, fenotipo femenino (los receptores de andrógenos no responden), buen desarrollo mamario (la testosterona se convierte a estrógenos periféricos), vello pubiano y axilar muy escaso (los folículos pilosos no responden a andrógenos) y vagina corta o en fondo de saco. Las gónadas (testículos) son intraabdominales e inguinales con riesgo de malignización (gonadoblastoma ~15%).",
+    tip:"<strong>SIA = 46,XY + fenotipo femenino + mamas normales + vello escaso + vagina corta.</strong> Gónadas intraabdominales = gonadectomía profiláctica tras pubertad. Muy diferente a Turner (45,X).",
+    ref:"GPC Insuficiencia ovárica primaria, IMSS 2013."
+  },
+  {
+    cat:"pri", catName:"Amenorrea Primaria",
+    q:"Mujer de 18 años sin menarquia, desarrollo mamario y vello pubiano normales, útero ausente en imagen, ovarios normales y cariotipo 46,XX. ¿Cuál es el diagnóstico?",
+    opts:["Síndrome de insensibilidad a andrógenos (46,XY)","Síndrome de Mayer-Rokitansky-Küster-Hauser (aplasia mülleriana 46,XX)","Síndrome de Turner 45,X con mosaicismo","Síndrome de Asherman congénito por sinequias uterinas prenatales"],
+    ans:1,
+    exp:"El síndrome de MRKH es la agenesia de estructuras müllerianas (útero y parte superior de vagina) en mujer con cariotipo 46,XX y ovarios funcionales. Los caracteres sexuales secundarios son normales (ovarios intactos producen estrógenos y progesterona). A diferencia del SIA: cariotipo 46,XX, vello pubiano normal, ovarios normales. Gestación posible mediante subrogación.",
+    tip:"<strong>MRKH = 46,XX + sin útero + sin vagina + ovarios normales + caracteres sexuales normales.</strong> Diferencia clave con SIA: cariotipo XX y vello normal. Vagina puede crearse con dilatadores.",
+    ref:"GPC Insuficiencia ovárica primaria, IMSS 2013."
+  },
+  /* ── AMENORREA SECUNDARIA ── */
+  {
+    cat:"sec", catName:"Amenorrea Secundaria",
+    q:"Primera causa de amenorrea secundaria que SIEMPRE debe descartarse antes de cualquier estudio hormonal:",
+    opts:["Hiperprolactinemia por adenoma hipofisario","Embarazo (β-hCG)","Hipotiroidismo primario","Síndrome de Asherman poslegrado"],
+    ans:1,
+    exp:"El embarazo es la primera causa de amenorrea secundaria en mujeres en edad reproductiva y SIEMPRE debe descartarse con β-hCG (orina o suero) antes de cualquier estudio adicional. Es un error común iniciar estudios hormonales (FSH, prolactina, TSH) sin descartar primero el embarazo. Un resultado negativo permite continuar el protocolo diagnóstico.",
+    tip:"<strong>Amenorrea secundaria → primer paso SIEMPRE: β-hCG.</strong> Luego: prolactina → TSH → FSH/LH → estradiol. Nunca saltarse la β-hCG.",
+    ref:"GPC Insuficiencia ovárica primaria, IMSS 2013."
+  },
+  {
+    cat:"sec", catName:"Amenorrea Secundaria",
+    q:"Mujer de 28 años con amenorrea de 4 meses, galactorrea bilateral espontánea y cefalea frontal progresiva. β-hCG negativa. ¿Cuál es el estudio clave y el diagnóstico más probable?",
+    opts:["Ecografía pélvica para descartar SOP; diagnóstico: anovulación","Prolactina sérica; diagnóstico probable: adenoma hipofisario productor de prolactina","TSH y T4L para descartar hipotiroidismo; diagnóstico: hipotiroidismo","LH/FSH en fase folicular; diagnóstico: insuficiencia ovárica primaria"],
+    ans:1,
+    exp:"La tríada amenorrea + galactorrea + síntomas neurológicos (cefalea, hemianopsia bitemporal) orienta a prolactinoma hipofisario. El estudio inicial es prolactina sérica; si >100 ng/mL es altamente sugestivo de macroadenoma → RM de silla turca. La prolactina inhibe la secreción pulsátil de GnRH → amenorrea central. Tratamiento: cabergolina (primera línea) o bromocriptina.",
+    tip:"<strong>Amenorrea + galactorrea = medir prolactina.</strong> >100 ng/mL + síntomas neurológicos → RM para prolactinoma. Cabergolina = tratamiento de elección.",
+    ref:"GPC Insuficiencia ovárica primaria, IMSS 2013."
+  },
+  {
+    cat:"sec", catName:"Amenorrea Secundaria",
+    q:"Mujer atleta de alto rendimiento, IMC 16 kg/m², amenorrea de 8 meses y osteopenia en densitometría. ¿Cuál es el cuadro clínico que presenta?",
+    opts:["Anorexia nerviosa con insuficiencia ovárica secundaria","Tríada de la atleta femenina: déficit energético + disfunción menstrual + baja densidad mineral ósea","Síndrome de ovario resistente con desnutrición severa","Amenorrea hipotalámica por estrés oxidativo muscular"],
+    ans:1,
+    exp:"La Tríada de la Atleta Femenina comprende: (1) déficit energético relativo (con o sin trastorno alimentario), (2) disfunción menstrual (oligomenorrea o amenorrea hipotalámica), y (3) baja densidad mineral ósea. El bajo aporte energético inhibe el pulso de GnRH hipotalámico (amenorrea hipogonadotrópica). Tratamiento: recuperación del peso corporal y reducción de la carga de entrenamiento.",
+    tip:"<strong>Atleta + bajo peso + amenorrea + osteopenia = tríada de la atleta.</strong> No iniciar AOC sin corregir el déficit energético. La corrección del peso restaura los ciclos.",
+    ref:"GPC Insuficiencia ovárica primaria, IMSS 2013."
+  },
+  {
+    cat:"sec", catName:"Amenorrea Secundaria",
+    q:"Mujer de 32 años con amenorrea de 6 meses tras legrado uterino por aborto. β-hCG negativa. La prueba de progesterona no induce sangrado. ¿Diagnóstico y estudio confirmatorio?",
+    opts:["Insuficiencia ovárica primaria posaborto; confirmar con FSH y estradiol","Síndrome de Asherman (sinequias intrauterinas); confirmar con histeroscopia","Hiperprolactinemia por estrés posaborto; confirmar con RM hipofisaria","Hipotiroidismo inducido por trauma emocional; confirmar con TSH"],
+    ans:1,
+    exp:"El síndrome de Asherman (adherencias intrauterinas) es la causa de amenorrea secundaria tras instrumentación uterina (legrado, curetaje, cesárea). La falta de sangrado con prueba de progesterona indica que el endometrio no responde (destruido por las sinequias). La histeroscopia es el gold standard diagnóstico y terapéutico (resección directa de sinequias). La histerosonografía es alternativa diagnóstica.",
+    tip:"<strong>Legrado + amenorrea + sin sangrado con progesterona = Asherman.</strong> Histeroscopia: diagnóstico + tratamiento. Luego TRH para regenerar endometrio.",
+    ref:"GPC Insuficiencia ovárica primaria, IMSS 2013."
+  },
+  {
+    cat:"sec", catName:"Amenorrea Secundaria",
+    q:"Mujer de 30 años con amenorrea secundaria de 5 meses, FSH 62 UI/L y estradiol bajo en dos determinaciones con 4 semanas de diferencia, sin causa secundaria identificada. ¿Diagnóstico?",
+    opts:["Amenorrea hipotalámica funcional (FSH baja o normal)","Insuficiencia ovárica primaria (hipogonadismo hipergonadotrópico <40 años)","Hiperprolactinemia con supresión de FSH","Resistencia a LH con FSH compensatoriamente elevada"],
+    ans:1,
+    exp:"La insuficiencia ovárica primaria (IOP) se define como hipogonadismo hipergonadotrópico en mujer <40 años: FSH >25 UI/L (criterio conservador) o >40 UI/L en dos determinaciones con 4 semanas de diferencia, con estradiol bajo. A diferencia de la amenorrea hipotalámica (FSH baja/normal), en la IOP la FSH está elevada porque el ovario no responde y no inhibe la hipófisis.",
+    tip:"<strong>IOP = FSH alta + estradiol bajo en mujer <40 años.</strong> Hipergonadotrópico (hipófisis normal, ovario falla). 10% puede recuperar ovulación espontánea.",
+    ref:"GPC Insuficiencia ovárica primaria, IMSS 2013."
+  },
+  /* ── INSUFICIENCIA OVÁRICA PRIMARIA ── */
+  {
+    cat:"iop", catName:"Insuficiencia Ovárica Primaria",
+    q:"¿Cuál es la causa cromosómica más frecuente de insuficiencia ovárica primaria?",
+    opts:["Síndrome de Turner (45,X o mosaico)","Premutación del gen FMR1 (síndrome de X frágil)","Translocación equilibrada del cromosoma 3","Deleción del brazo largo del cromosoma X (del Xq)"],
+    ans:0,
+    exp:"El síndrome de Turner (45,X o mosaico 45,X/46,XX) es la causa cromosómica más frecuente de IOP. En mujeres con cariotipo 46,XX, la premutación del gen FMR1 es la causa genética más frecuente (~3-5% de IOP esporádica, ~12% de IOP familiar). Por esto se recomienda estudiar el gen FMR1 en TODAS las pacientes con IOP y cariotipo 46,XX.",
+    tip:"<strong>IOP más frecuente: Turner (45,X).</strong> En 46,XX: buscar FMR1 (X frágil). Siempre hacer cariotipo en IOP <40 años para consejo genético.",
+    ref:"GPC Insuficiencia ovárica primaria, IMSS 2013."
+  },
+  {
+    cat:"iop", catName:"Insuficiencia Ovárica Primaria",
+    q:"¿Por qué es importante buscar la premutación FMR1 en pacientes con IOP 46,XX?",
+    opts:["Para calcular la dosis de TRH necesaria según la variante genética","Porque tiene implicaciones para el consejo genético familiar: los hijos varones de portadoras tienen riesgo de síndrome de X frágil","Para predecir si habrá recuperación espontánea de la función ovárica","Porque la mutación FMR1 aumenta el riesgo de cáncer de ovario en familiares"],
+    ans:1,
+    exp:"La premutación FMR1 (50-200 repeticiones CGG) en mujeres se asocia a IOP. Si la paciente es portadora de la premutación, sus hijos varones pueden heredar la mutación completa (>200 repeticiones) y desarrollar síndrome de X frágil (discapacidad intelectual, la causa genética más frecuente de retraso mental hereditario). El estudio FMR1 tiene importancia reproductiva para la familia.",
+    tip:"<strong>FMR1 en IOP = consejo genético.</strong> Hijos varones de portadoras: riesgo de síndrome X frágil (discapacidad intelectual). Ofrecer diagnóstico prenatal en futuras gestaciones.",
+    ref:"GPC Insuficiencia ovárica primaria, IMSS 2013."
+  },
+  {
+    cat:"iop", catName:"Insuficiencia Ovárica Primaria",
+    q:"Mujer de 34 años con IOP confirmada que desea embarazo. ¿Cuál es la opción reproductiva con mayor tasa de éxito?",
+    opts:["Inducción de ovulación con citrato de clomifeno en ciclos naturales espontáneos","Donación de óvulos (ovodonación) con fertilización in vitro","Gonadotropinas a altas dosis para hipereestimulación ovárica controlada","Esperar recuperación espontánea de la función ovárica (ocurre en 50%)"],
+    ans:1,
+    exp:"En IOP el pool folicular está agotado o muy reducido. La ovodonación (FIV con óvulos de donante) tiene tasas de éxito del 40-60% por ciclo y es la opción reproductiva más eficaz. La estimulación ovárica propia rara vez produce respuesta. Solo el 5-10% de mujeres con IOP logra embarazo espontáneo. Las gonadotropinas a altas dosis no mejoran significativamente la respuesta folicular.",
+    tip:"<strong>IOP + deseo genésico = ovodonación (la más efectiva: 40-60% por ciclo).</strong> Embarazo espontáneo: ~5%. No estimulación propia: pool folicular agotado.",
+    ref:"GPC Insuficiencia ovárica primaria, IMSS 2013."
+  },
+  {
+    cat:"iop", catName:"Insuficiencia Ovárica Primaria",
+    q:"Tratamiento hormonal de reposición indicado en IOP hasta la edad media de menopausia natural (~51 años):",
+    opts:["Solo progesterona cíclica para proteger el endometrio sin estrógenos","TRH con estrógenos + progestágeno (si útero intacto) para prevenir osteoporosis, enfermedad cardiovascular y síntomas vasomotores","Bifosfonatos únicamente para prevenir la pérdida ósea acelerada","DHEA (dehidroepiandrosterona) oral sin estrógenos para mejorar bienestar"],
+    ans:1,
+    exp:"Las mujeres con IOP tienen deficiencia estrogénica prematura con mayor riesgo de osteoporosis, enfermedad cardiovascular, síntomas vasomotores y atrofia genitourinaria. La TRH (estrógenos ± progestágeno si útero intacto) está indicada hasta los 51 años. En IOP, la TRH es REPOSICIÓN de lo que el ovario debería producir, no terapia 'adicional'. El perfil riesgo-beneficio es favorable.",
+    tip:"<strong>IOP = TRH hasta los 51 años (edad natural de menopausia).</strong> Es reposición, no suplementación extra. No tiene el mismo perfil de riesgo que TRH en menopausia tardía.",
+    ref:"GPC Insuficiencia ovárica primaria, IMSS 2013."
+  },
+  {
+    cat:"iop", catName:"Insuficiencia Ovárica Primaria",
+    q:"Comorbilidad autoinmune más frecuentemente asociada a insuficiencia ovárica primaria de causa autoinmune:",
+    opts:["Diabetes mellitus tipo 1 autoinmune","Enfermedad tiroidea autoinmune (tiroiditis de Hashimoto / Graves)","Lupus eritematoso sistémico","Anemia perniciosa por anticuerpos anti-factor intrínseco"],
+    ans:1,
+    exp:"La IOP autoinmune representa ~20-30% de los casos. La enfermedad tiroidea autoinmune (tiroiditis de Hashimoto, enfermedad de Graves) es la comorbilidad más frecuente asociada. También se asocia a insuficiencia suprarrenal autoinmune (buscar siempre Addison), diabetes tipo 1 y miastenia gravis. Se recomiendan tamizajes periódicos de función tiroidea (TSH anual) y suprarrenal (cortisol basal).",
+    tip:"<strong>IOP autoinmune → tamizar tiroides (Hashimoto) y suprarrenal (Addison).</strong> TSH anual. Cortisol basal + ACTH si síntomas. Anticuerpos anti-ovario no tienen utilidad clínica práctica.",
+    ref:"GPC Insuficiencia ovárica primaria, IMSS 2013."
+  }
+];
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}}
+
+function init(){
+  shuffle(questions);
+  currentQ=0;score=0;answers=[];
+  catStats={pri:{c:0,t:0},sec:{c:0,t:0},iop:{c:0,t:0}};
+  const r=document.getElementById('resultsArea');
+  r.classList.remove('show');r.innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const qa=questions[currentQ],total=questions.length;
+  document.getElementById('progressBar').style.width=(currentQ/total*100)+'%';
+  document.getElementById('progressText').textContent=`${currentQ+1} / ${total}`;
+  document.getElementById('nextBtn').classList.remove('show');
+  const L=['A','B','C','D'];
+  let h=`<div class="question-card">
+    <div class="q-category cat-${qa.cat}">${qa.catName}</div>
+    <div class="q-number">Pregunta ${currentQ+1} de ${total}</div>
+    <div class="q-text">${qa.q}</div>
+    <div class="options">`;
+  qa.opts.forEach((o,i)=>h+=`<button class="option-btn" onclick="selectAnswer(${i})">
+    <span class="option-letter">${L[i]}</span><span>${o}</span></button>`);
+  h+=`</div><div class="feedback" id="feedback"></div></div>`;
+  document.getElementById('quizArea').innerHTML=h;
+}
+
+function selectAnswer(idx){
+  const qa=questions[currentQ];
+  const btns=document.querySelectorAll('.option-btn');
+  const fb=document.getElementById('feedback');
+  const ok=idx===qa.ans;
+  btns.forEach((b,i)=>{b.classList.add('disabled');b.onclick=null;
+    if(i===qa.ans)b.classList.add('correct-answer');
+    if(i===idx&&!ok)b.classList.add('wrong-answer');});
+  if(!catStats[qa.cat])catStats[qa.cat]={c:0,t:0};
+  catStats[qa.cat].t++;
+  if(ok){score++;catStats[qa.cat].c++;}
+  if(!examMode){
+    fb.className=ok?'feedback correct-fb show':'feedback wrong-fb show';
+    fb.innerHTML=ok
+      ?`<div class="feedback-title">✅ ¡Correcto!</div><div>${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`
+      :`<div class="feedback-title">❌ Incorrecto</div><div><strong>Respuesta correcta:</strong> ${qa.opts[qa.ans]}</div><div style="margin-top:8px;">${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;
+  }
+  answers.push({q:qa.q,correct:ok,userAns:qa.opts[idx],correctAns:qa.opts[qa.ans],cat:qa.catName,exp:qa.exp,tip:qa.tip,ref:qa.ref});
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion(){currentQ++;if(currentQ>=questions.length)showResults();else renderQuestion();}
+
+function showResults(){
+  document.getElementById('quizArea').innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  document.getElementById('progressBar').style.width='100%';
+  document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;
+  const pct=Math.round((score/questions.length)*100);
+  const msg=pct>=90?'🏆 ¡Excelente dominio! Listo para el ENARM.':pct>=70?'👏 ¡Muy bien! Repasa las áreas con menor puntaje.':pct>=50?'📚 Aceptable, hay áreas de oportunidad.':'⚠️ Refuerza este tema. Revisa las GPC correspondientes.';
+  const cats=[{name:'Amenorrea Primaria',key:'pri',color:'#f472b6'},{name:'Amenorrea Secundaria',key:'sec',color:'#38bdf8'},{name:'Insuficiencia Ovárica Primaria',key:'iop',color:'#a78bfa'}];
+  let h=`<div class="results-header"><div class="score-big">${pct}%</div><div class="score-label">${score} de ${questions.length} correctas</div><div class="score-msg">${msg}</div></div>
+  <div class="chart-section"><div class="chart-title"><span>📊</span> Rendimiento por Categoría</div><div class="bar-chart">`;
+  cats.forEach(c=>{const s=catStats[c.key]||{c:0,t:0};const p=s.t>0?Math.round((s.c/s.t)*100):0;if(s.t>0)h+=`<div class="bar-row"><div class="bar-label">${c.name}</div><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${c.color};">${p}% (${s.c}/${s.t})</div></div></div>`;});
+  h+=`</div></div><div class="chart-section"><div class="chart-title"><span>🎯</span> Resumen General</div><div class="donut-wrap">
+    <svg class="donut-svg" viewBox="0 0 42 42">
+      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a2235" stroke-width="4"/>
+      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#34d399" stroke-width="4" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="25" stroke-linecap="round"/>
+      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#f87171" stroke-width="4" stroke-dasharray="${100-pct} ${pct}" stroke-dashoffset="${25-pct}" stroke-linecap="round"/>
+      <text x="21" y="22.5" text-anchor="middle" font-size="6" font-weight="700" fill="#e8ecf4" font-family="Plus Jakarta Sans">${pct}%</text>
+    </svg>
+    <div class="donut-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#34d399;"></div>Correctas: ${score}</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Incorrectas: ${questions.length-score}</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#a78bfa;"></div>Total: ${questions.length}</div>
+    </div></div></div>
+  <div class="chart-section"><div class="chart-title"><span>📋</span> Revisión de Respuestas</div>`;
+  answers.forEach((a,i)=>{h+=`<div class="review-card ${a.correct?'review-correct':'review-wrong'}">
+    <div class="review-q">${i+1}. ${a.q} <span style="font-size:0.72rem;color:var(--text-dim);">[${a.cat}]</span></div>
+    <div class="review-answer">${a.correct?`<strong>✅ ${a.correctAns}</strong>`:`<em>❌ Tu respuesta: ${a.userAns}</em><br><strong>✅ Correcta: ${a.correctAns}</strong>`}</div>
+    <div style="margin-top:8px;font-size:0.8rem;color:var(--text-dim);line-height:1.5;">${a.exp}</div>
+    <div style="margin-top:6px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;">📖 ${a.ref}</div>
+  </div>`;});
+  h+=`</div><button class="retry-btn" onclick="init()">🔄 Reintentar</button>`;
+  const r=document.getElementById('resultsArea');r.innerHTML=h;r.classList.add('show');r.scrollIntoView({behavior:'smooth'});
+}
+
+function toggleSpec(h){h.classList.toggle('open');h.nextElementSibling.classList.toggle('open');}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+init();
+</script>
+</body>
+</html>

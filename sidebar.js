@@ -16,6 +16,7 @@
       label: 'Cirugía General',
       topics: [
         { num:'01', label:'Abdomen agudo / Apendicitis',  file:'01-apendicitis.html',             ready:true },
+        { num:'🔢', label:'Escala AIR — Apendicitis',    file:'escala-air-apendicitis.html',     ready:true },
         { num:'02', label:'Patología biliar',             file:'02-patologia-biliar.html',         ready:true },
         { num:'03', label:'Enfermedad diverticular',      file:'03-enfermedad-diverticular.html',  ready:true },
         { num:'04', label:'ERGE / Esofagitis',            file:'04-erge-esofagitis-dispepsia.html',ready:true },
@@ -122,11 +123,18 @@
     {
       key: 'gineco',
       icon: '🤰',
-      color: '#8896b3',
-      bg: 'rgba(136,150,179,0.08)',
+      color: '#f472b6',
+      bg: 'rgba(244,114,182,0.10)',
       label: 'Ginecología y Obstetricia',
       topics: [
-        { num:'—', label:'Ginecología y Obstetricia', file:null, ready:false }
+        { num:'G01', label:'Menopausia / SOP / Osteoporosis',       file:'g01-menopausia-sop-osteoporosis.html',          ready:true, hot:true },
+        { num:'G02', label:'Amenorreas e Insuficiencia Ovárica',   file:'g02-amenorrea-iop.html',                        ready:true, hot:true },
+        { num:'G03', label:'Anticonceptivos y Esterilidad',        file:'g03-anticonceptivos-infertilidad.html',          ready:true, hot:true },
+        { num:'G04', label:'Cervicovaginitis / EPI',               file:'g04-cervicovaginitis-epi.html',                  ready:true, hot:true },
+        { num:'G05', label:'Endometriosis / Miomatosis',           file:'g05-endometriosis-miomatosis-hiperplasia.html',  ready:true, hot:true },
+        { num:'G06', label:'Cáncer de Endometrio',                 file:'g06-cancer-endometrio.html',                    ready:true, hot:true },
+        { num:'G07', label:'Cáncer de Ovario',                     file:'g07-cancer-ovario.html',                        ready:true, hot:true },
+        { num:'G08', label:'Lesiones Precursoras / CCU',           file:'g08-lesiones-precursoras-ccu.html',             ready:true, hot:true },
       ]
     },
     {
@@ -199,7 +207,7 @@
           html += `<span class="topic-link coming-soon"><span class="topic-num">${t.num}</span>${t.label}<span class="badge-soon">Pronto</span></span>`;
         } else {
           const activeClass = isActive ? ' active' : '';
-          const badge = t.ready ? `<span class="badge-ready">Listo</span>` : `<span class="badge-soon">Pronto</span>`;
+          const badge = t.hot ? `<span class="badge-hot">🔥 Frecuente</span>` : `<span class="badge-ready">Listo</span>`;
           html += `<a href="${t.file}" class="topic-link${activeClass}"><span class="topic-num">${t.num}</span>${t.label}${badge}</a>`;
         }
       }
@@ -211,10 +219,20 @@
     return html;
   }
 
+  // ── Inyectar estilos extra (badge-hot) ──────────────────────────────────
+  function injectStyles() {
+    if (document.getElementById('sb-hot-style')) return;
+    const s = document.createElement('style');
+    s.id = 'sb-hot-style';
+    s.textContent = '.badge-hot{margin-left:auto;background:rgba(251,191,36,0.15);color:#fbbf24;font-size:0.62rem;font-weight:600;padding:2px 7px;border-radius:100px;}';
+    document.head.appendChild(s);
+  }
+
   // ── Inyectar ─────────────────────────────────────────────────────────────
   function init() {
     const aside = document.getElementById('sidebar');
     if (!aside) return;
+    injectStyles();
     aside.innerHTML = buildSidebar(currentFile());
   }
 
