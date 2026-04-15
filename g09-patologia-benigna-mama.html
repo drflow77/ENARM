@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🩺 Patología Benigna de Mama — ENARM · Ginecología</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --bg:#0a0e1a; --surface:#111827; --surface2:#1a2235; --surface3:#212d45;
+    --border:#2a3a5c; --text:#e8ecf4; --text-dim:#8896b3;
+    --accent:#34d399; --accent-glow:rgba(52,211,153,0.15);
+    --correct:#34d399; --correct-bg:rgba(52,211,153,0.1); --correct-border:rgba(52,211,153,0.4);
+    --wrong:#f87171; --wrong-bg:rgba(248,113,113,0.1); --wrong-border:rgba(248,113,113,0.4);
+    --gold:#fbbf24; --purple:#a78bfa; --pink:#f472b6; --teal:#2dd4bf; --blue:#38bdf8;
+    --sidebar-w:280px; --radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;}
+
+  .sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;overflow-y:auto;z-index:100;transition:transform 0.3s;}
+  .sidebar-logo{padding:24px 20px 16px;border-bottom:1px solid var(--border);}
+  .logo-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#34d399,#f87171);padding:6px 14px;border-radius:100px;font-size:0.75rem;font-weight:800;color:var(--bg);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px;}
+  .sidebar-logo h2{font-size:1.1rem;font-weight:800;background:linear-gradient(135deg,var(--text),#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .sidebar-logo p{font-size:0.72rem;color:var(--text-dim);margin-top:2px;}
+  .back-btn{display:flex;align-items:center;gap:8px;padding:14px 20px;color:var(--text-dim);font-size:0.8rem;text-decoration:none;border-bottom:1px solid var(--border);transition:color 0.2s;}
+  .back-btn:hover{color:#34d399;}
+  .sidebar-nav{flex:1;padding:12px 0 24px;}
+  .specialty-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px 10px 20px;cursor:pointer;transition:background 0.2s;user-select:none;}
+  .specialty-header:hover{background:var(--surface2);}
+  .specialty-name{display:flex;align-items:center;gap:10px;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;}
+  .specialty-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;}
+  .chevron{font-size:0.65rem;color:var(--text-dim);transition:transform 0.3s;}
+  .specialty-header.open .chevron{transform:rotate(90deg);}
+  .topics-list{display:none;padding:4px 0 8px;}
+  .topics-list.open{display:block;}
+  .topic-link{display:flex;align-items:center;gap:10px;padding:8px 16px 8px 56px;font-size:0.78rem;color:var(--text-dim);text-decoration:none;transition:all 0.2s;border-left:2px solid transparent;line-height:1.4;}
+  .topic-link:hover{color:var(--text);background:var(--surface3);}
+  .topic-link.active{color:#34d399;border-left-color:#34d399;background:var(--accent-glow);font-weight:600;}
+  .topic-link.coming-soon{opacity:0.4;cursor:not-allowed;pointer-events:none;}
+  .topic-num{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--text-dim);min-width:20px;}
+  .badge-soon{margin-left:auto;background:rgba(136,150,179,0.1);color:var(--text-dim);font-size:0.62rem;font-weight:600;padding:2px 7px;border-radius:100px;}
+  .badge-ready{margin-left:auto;background:rgba(52,211,153,0.15);color:#34d399;font-size:0.62rem;font-weight:600;padding:2px 7px;border-radius:100px;}
+
+  .main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;}
+  .container{max-width:760px;margin:0 auto;padding:20px 16px 40px;width:100%;}
+
+  .mode-bar{display:flex;align-items:center;gap:10px;margin:24px 0 20px;background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:6px;width:fit-content;}
+  .mode-btn{padding:8px 20px;border-radius:100px;border:none;cursor:pointer;font-family:inherit;font-size:0.82rem;font-weight:600;transition:all 0.2s;color:var(--text-dim);background:transparent;}
+  .mode-btn.active{background:linear-gradient(135deg,#34d399,#f87171);color:var(--bg);}
+
+  .header{text-align:center;padding:40px 20px 24px;position:relative;overflow:hidden;}
+  .header::before{content:'';position:absolute;top:-60%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(52,211,153,0.08) 0%,transparent 70%);pointer-events:none;}
+  .header-badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);padding:6px 16px;border-radius:100px;font-size:0.78rem;color:#34d399;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:16px;}
+  .header h1{font-size:clamp(1.3rem,4vw,2rem);font-weight:800;background:linear-gradient(135deg,var(--text) 0%,#34d399 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;line-height:1.2;}
+  .header p{color:var(--text-dim);font-size:0.95rem;max-width:600px;margin:0 auto;line-height:1.4;}
+
+  .progress-wrap{background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:12px 20px;margin:20px 0 28px;display:flex;align-items:center;gap:14px;}
+  .progress-bar-bg{flex:1;height:8px;background:var(--surface3);border-radius:100px;overflow:hidden;}
+  .progress-bar-fill{height:100%;width:0%;background:linear-gradient(90deg,#34d399,#f87171);border-radius:100px;transition:width 0.5s ease;}
+  .progress-text{font-size:0.82rem;font-weight:600;color:var(--text-dim);white-space:nowrap;font-family:'JetBrains Mono',monospace;}
+
+  .question-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px;margin-bottom:20px;animation:slideIn 0.4s ease;position:relative;overflow:hidden;}
+  .question-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#34d399,#f87171,var(--purple));}
+  @keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+  .q-category{display:inline-flex;align-items:center;gap:6px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;padding:4px 12px;border-radius:100px;margin-bottom:14px;}
+  .cat-ben{background:rgba(52,211,153,0.12);color:#34d399;}
+  .cat-diag{background:rgba(167,139,250,0.12);color:#a78bfa;}
+  .cat-trat{background:rgba(248,113,113,0.12);color:#f87171;}
+
+  .q-number{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--text-dim);margin-bottom:10px;}
+  .q-text{font-size:1.05rem;font-weight:600;line-height:1.55;margin-bottom:20px;color:var(--text);}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .option-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:all 0.2s;text-align:left;font-size:0.92rem;color:var(--text);font-family:inherit;line-height:1.5;width:100%;}
+  .option-btn:hover:not(.disabled){border-color:#34d399;background:rgba(52,211,153,0.08);transform:translateX(4px);}
+  .option-letter{display:flex;align-items:center;justify-content:center;min-width:30px;height:30px;border-radius:8px;background:var(--surface3);font-weight:700;font-size:0.82rem;color:#34d399;flex-shrink:0;}
+  .option-btn.correct-answer{border-color:var(--correct-border);background:var(--correct-bg);}
+  .option-btn.correct-answer .option-letter{background:var(--correct);color:var(--bg);}
+  .option-btn.wrong-answer{border-color:var(--wrong-border);background:var(--wrong-bg);}
+  .option-btn.wrong-answer .option-letter{background:var(--wrong);color:var(--bg);}
+  .option-btn.disabled{cursor:default;}
+  .option-btn.disabled:hover{transform:none;}
+
+  .feedback{margin-top:18px;padding:18px;border-radius:12px;font-size:0.88rem;line-height:1.65;animation:fadeIn 0.3s ease;display:none;}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .feedback.show{display:block;}
+  .feedback.correct-fb{background:var(--correct-bg);border:1px solid var(--correct-border);color:var(--correct);}
+  .feedback.wrong-fb{background:var(--wrong-bg);border:1px solid var(--wrong-border);color:#fca5a5;}
+  .feedback-title{font-weight:700;font-size:0.95rem;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+  .feedback .tip{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.08);color:var(--text-dim);font-size:0.82rem;}
+  .feedback .tip strong{color:var(--gold);}
+  .feedback .ref{margin-top:8px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;}
+
+  .next-btn{display:none;margin:20px auto 0;padding:12px 32px;background:linear-gradient(135deg,#34d399,#f87171);color:var(--bg);border:none;border-radius:100px;font-family:inherit;font-size:0.92rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+  .next-btn:hover{transform:scale(1.05);}
+  .next-btn.show{display:block;}
+
+  .results{display:none;animation:slideIn 0.5s ease;}
+  .results.show{display:block;}
+  .results-header{text-align:center;padding:30px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;position:relative;overflow:hidden;}
+  .results-header::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#34d399,#f87171,var(--purple));}
+  .score-big{font-family:'JetBrains Mono',monospace;font-size:3.5rem;font-weight:800;color:#34d399;line-height:1;}
+  .score-label{font-size:1rem;color:var(--text-dim);margin:8px 0;}
+  .score-msg{font-size:1.05rem;font-weight:600;color:var(--text);}
+  .chart-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;}
+  .chart-title{font-size:0.9rem;font-weight:700;color:var(--text-dim);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  .bar-chart{display:flex;flex-direction:column;gap:12px;}
+  .bar-row{display:flex;flex-direction:column;gap:6px;}
+  .bar-label{font-size:0.82rem;font-weight:600;color:var(--text);}
+  .bar-track{height:28px;background:var(--surface3);border-radius:6px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding-left:10px;font-size:0.78rem;font-weight:700;color:var(--bg);min-width:40px;transition:width 0.8s ease;}
+  .donut-wrap{display:flex;align-items:center;gap:24px;flex-wrap:wrap;}
+  .donut-svg{width:100px;height:100px;flex-shrink:0;}
+  .donut-legend{display:flex;flex-direction:column;gap:8px;}
+  .legend-item{display:flex;align-items:center;gap:8px;font-size:0.82rem;color:var(--text-dim);}
+  .legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+  .review-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px;}
+  .review-card.review-correct{border-color:var(--correct-border);}
+  .review-card.review-wrong{border-color:var(--wrong-border);}
+  .review-q{font-size:0.85rem;font-weight:600;color:var(--text);margin-bottom:8px;line-height:1.5;}
+  .review-answer{font-size:0.82rem;line-height:1.5;}
+  .retry-btn{display:block;width:100%;padding:14px;background:linear-gradient(135deg,#34d399,#f87171);border:none;border-radius:12px;color:var(--bg);font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;margin-top:20px;transition:all 0.2s;}
+  .retry-btn:hover{filter:brightness(1.1);}
+
+  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90;}
+  .overlay.show{display:block;}
+  .hamburger{display:none;position:fixed;top:14px;left:14px;z-index:200;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:8px 10px;cursor:pointer;font-size:1.1rem;}
+  .footer{text-align:center;padding:16px;font-size:0.72rem;color:var(--text-dim);border-top:1px solid var(--border);opacity:0.6;}
+
+  @media(max-width:900px){
+    .sidebar{transform:translateX(-100%);}
+    .sidebar.open{transform:translateX(0);}
+    .main{margin-left:0;}
+    .hamburger{display:block;}
+    .container{padding-top:60px;}
+  }
+</style>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+<aside class="sidebar" id="sidebar"></aside>
+
+<main class="main">
+<div class="container">
+  <div class="header">
+    <div class="header-badge"><span>🩺</span> ENARM · Ginecología · Alta Frecuencia</div>
+    <h1>🩺 Patología Benigna de Mama</h1>
+    <p>Mastalgia · Fibroadenoma · Enfermedad fibroquística · Galactorrea · Absceso mamario</p>
+  </div>
+
+  <div style="display:flex;justify-content:center;">
+    <div class="mode-bar">
+      <button class="mode-btn active" id="btnRepaso" onclick="setMode('repaso')">📖 Modo Repaso</button>
+      <button class="mode-btn" id="btnExamen" onclick="setMode('examen')">⏱️ Modo Examen</button>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 15</div>
+  </div>
+
+  <div id="quizArea"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+  <div class="results" id="resultsArea"></div>
+</div>
+<div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+</main>
+
+<script src="sidebar.js"></script>
+<script>
+let examMode=false, currentQ=0, score=0, answers=[], catStats={};
+
+function setMode(m){
+  examMode=(m==='examen');
+  document.getElementById('btnRepaso').classList.toggle('active',!examMode);
+  document.getElementById('btnExamen').classList.toggle('active',examMode);
+  init();
+}
+
+const questions = [
+  /* ── ENTIDADES BENIGNAS ── */
+  {
+    cat:"ben", catName:"Entidades Benignas",
+    q:"¿Cuál es la patología mamaria benigna más frecuente en mujeres en edad reproductiva?",
+    opts:["Fibroadenoma","Enfermedad fibroquística (mastopatía fibroquística)","Papiloma intraductal","Lipoma mamario"],
+    ans:1,
+    exp:"La enfermedad fibroquística (mastopatía fibroquística) es la patología mamaria benigna más frecuente en mujeres en edad reproductiva, afectando hasta el 50% de las mujeres entre 20 y 50 años. Se caracteriza por la presencia de quistes, fibrosis y adenosis. El fibroadenoma es la neoplasia benigna más frecuente, pero la enfermedad fibroquística es la patología benigna en general más común.",
+    tip:"Más frecuente en general: enfermedad fibroquística. Neoplasia benigna más frecuente: fibroadenoma. Diferencia clave ENARM.",
+    ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"
+  },
+  {
+    cat:"ben", catName:"Entidades Benignas",
+    q:"Mujer de 22 años consulta por nódulo mamario único, bien delimitado, móvil, de consistencia elástica, no doloroso, de 2 cm, sin cambios con el ciclo menstrual. ¿Cuál es el diagnóstico más probable?",
+    opts:["Quiste mamario simple","Fibroadenoma","Absceso mamario crónico","Carcinoma medular de mama"],
+    ans:1,
+    exp:"El fibroadenoma es la neoplasia benigna más frecuente de la mama, típica de mujeres jóvenes (15-35 años). Sus características clásicas son: nódulo único, bien delimitado, móvil ('ratón mamario'), consistencia elástica o gomosa, indoloro y que no cambia con el ciclo menstrual. Histológicamente tiene componentes epitelial y estromal. El diagnóstico se confirma con ultrasonido y biopsia.",
+    tip:"Fibroadenoma = nódulo móvil + bien delimitado + mujer joven + indoloro = 'ratón mamario'. Biopsia confirma. No maligniza significativamente.",
+    ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"
+  },
+  {
+    cat:"ben", catName:"Entidades Benignas",
+    q:"¿Cuál es la causa más frecuente de descarga unilateral por pezón de tipo serosa o hemática en mujeres no embarazadas?",
+    opts:["Carcinoma ductal in situ","Papiloma intraductal","Enfermedad fibroquística con ectasia ductal","Prolactinoma hipofisario"],
+    ans:1,
+    exp:"El papiloma intraductal es la causa más frecuente de descarga serosa o hemática unilateral por pezón en mujeres no embarazadas, especialmente entre los 35-55 años. Se localiza en los conductos galactóforos principales (retroareolares). La descarga es espontánea, unilateral y uniorificial. El diagnóstico se apoya con ductografía o galactografía. Requiere escisión quirúrgica para descartar malignidad asociada.",
+    tip:"Descarga unilateral hemática/serosa por pezón = papiloma intraductal hasta demostrar lo contrario. Galactografía + escisión.",
+    ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"
+  },
+  {
+    cat:"ben", catName:"Entidades Benignas",
+    q:"Mujer de 28 años, lactando, presenta eritema, calor, edema y dolor en cuadrante superoexterno de mama derecha con fiebre de 38.5°C. El cultivo de leche materna reporta Staphylococcus aureus. ¿Cuál es el manejo inicial correcto?",
+    opts:["Suspender la lactancia materna inmediatamente y aplicar vendaje compresivo","Antibiótico (dicloxacilina oral) + continuar lactancia materna + aplicación de calor local","Drenaje quirúrgico inmediato sin antibióticos previos","Solo analgésicos y AINES; la mastitis puerperal es autolimitada"],
+    ans:1,
+    exp:"La mastitis puerperal infecciosa se trata con antibiótico anti-estafilocócico (dicloxacilina 500 mg c/6h por 10-14 días en México) o cefalexina. Es fundamental NO suspender la lactancia materna: el vaciamiento frecuente previene la progresión a absceso. Aplicar calor local favorece el drenaje. Si no hay mejoría en 48-72 horas, sospechar absceso y realizar ultrasonido. S. aureus es el agente más frecuente.",
+    tip:"Mastitis puerperal: dicloxacilina + NO suspender lactancia. Suspender lactancia aumenta riesgo de absceso. S. aureus = agente más frecuente.",
+    ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"
+  },
+  {
+    cat:"ben", catName:"Entidades Benignas",
+    q:"¿Cuál es el manejo del absceso mamario puerperal confirmado por ultrasonido?",
+    opts:["Solo antibióticos IV por 7 días sin drenaje","Drenaje (aspiración con aguja gruesa guiada por ultrasonido o incisión quirúrgica) + antibióticos","Mastectomía simple para eliminar el foco infeccioso","Suspender lactancia + radioterapia paliativa"],
+    ans:1,
+    exp:"El absceso mamario establecido requiere drenaje obligatorio además de antibióticos. El método preferido actualmente es la aspiración percutánea con aguja gruesa (14-16 G) guiada por ultrasonido, que puede repetirse si reaparece el líquido; es menos deformante que la incisión. La incisión y drenaje quirúrgico se reserva para abscesos grandes o con mala respuesta. Los antibióticos solos son insuficientes.",
+    tip:"Absceso mamario = drenaje obligatorio (aspiración ecoguiada de elección) + antibióticos. Solo antibióticos = insuficiente.",
+    ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"
+  },
+  /* ── DIAGNÓSTICO ── */
+  {
+    cat:"diag", catName:"Diagnóstico y Clasificación",
+    q:"¿Cuál es el sistema de clasificación estándar para reportar hallazgos de imagen mamaria y guiar el manejo clínico?",
+    opts:["Sistema TNM oncológico de la AJCC","BIRADS (Breast Imaging Reporting and Data System) del ACR","Clasificación de Nottingham modificada","Sistema BI-CAD de estadificación ecográfica"],
+    ans:1,
+    exp:"El sistema BIRADS (ACR) clasifica los hallazgos mamarios del 0 al 6: BIRADS 0 = estudio incompleto (requiere imágenes adicionales); BIRADS 1 = negativo; BIRADS 2 = hallazgo benigno; BIRADS 3 = probablemente benigno (seguimiento a 6 meses, <2% malignidad); BIRADS 4 = sospechoso (biopsia, 2-95%); BIRADS 5 = altamente sugestivo de malignidad (>95%); BIRADS 6 = malignidad confirmada por biopsia.",
+    tip:"BIRADS 1-2 = benigno/seguimiento. BIRADS 3 = seguimiento 6 meses. BIRADS 4-5 = BIOPSIA. BIRADS 6 = malignidad confirmada.",
+    ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"
+  },
+  {
+    cat:"diag", catName:"Diagnóstico y Clasificación",
+    q:"¿Cuál es el método de imagen de primera elección para el estudio de una masa mamaria en una mujer menor de 35 años?",
+    opts:["Mastografía (mamografía) bilateral","Ultrasonido (ecografía) mamario","Resonancia magnética con gadolinio","Tomosíntesis mamaria digital"],
+    ans:1,
+    exp:"En mujeres menores de 35 años, el ultrasonido mamario es el método de imagen de primera elección debido a que el tejido mamario es denso en este grupo etario, lo que reduce la sensibilidad de la mastografía. El ultrasonido distingue perfectamente lesiones sólidas de quísticas y no emite radiación. La mastografía es de elección en mujeres ≥40 años o como tamizaje. En menores de 35 años con alta sospecha de malignidad, ambos métodos son complementarios.",
+    tip:"< 35 años → USG mamario primero. ≥ 40 años → mastografía. Tejido denso = baja sensibilidad de mamografía en jóvenes.",
+    ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"
+  },
+  {
+    cat:"diag", catName:"Diagnóstico y Clasificación",
+    q:"Mujer de 30 años con nódulo mamario de 1.5 cm, el ultrasonido reporta lesión anecogénica, de paredes lisas, con refuerzo acústico posterior. ¿Cuál es el diagnóstico y manejo?",
+    opts:["Fibroadenoma — biopsia core de inmediato","Quiste simple — BIRADS 2, seguimiento anual sin biopsia","Quiste complicado — BIRADS 4, biopsia obligatoria","Carcinoma mucinoso — estadificación oncológica"],
+    ans:1,
+    exp:"Un quiste simple mamario tiene características ecográficas clásicas: anecogénico (sin ecos internos), paredes lisas y bien definidas, refuerzo acústico posterior (más brillante detrás del quiste). Corresponde a BIRADS 2 (hallazgo benigno) y no requiere biopsia ni seguimiento acortado, solo control anual. Si tiene ecos internos o paredes irregulares = quiste complicado (BIRADS 3) o quiste con masa intraluminal (BIRADS 4).",
+    tip:"Quiste simple: anecogénico + paredes lisas + refuerzo posterior = BIRADS 2 = benigno. No biopsia. Quiste complicado/sólido → BIRADS 3-4.",
+    ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"
+  },
+  {
+    cat:"diag", catName:"Diagnóstico y Clasificación",
+    q:"¿Cuál es la tríada diagnóstica ('triple exploración') para el estudio de una masa mamaria palpable?",
+    opts:["Mastografía + RM + PET-CT","Exploración clínica + imagen (USG/mastografía) + biopsia (BAAF o core)","PAP + colposcopia + biopsia cervical","Exploración clínica + termografía + citología por aspiración"],
+    ans:1,
+    exp:"La tríada diagnóstica o 'triple exploración' para masas mamarias consiste en: (1) Exploración clínica (historia clínica + examen físico), (2) Imagen (ultrasonido en <35 años, mastografía en ≥35-40 años), y (3) Biopsia (BAAF para citología o biopsia con aguja de corte/core biopsy para histología). Los tres elementos son complementarios y su concordancia negativa tiene un valor predictivo negativo >99% para malignidad.",
+    tip:"Triple exploración = clínica + imagen + biopsia. Los tres negativos → VPN >99%. Uno positivo → manejo como maligno.",
+    ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"
+  },
+  {
+    cat:"diag", catName:"Diagnóstico y Clasificación",
+    q:"¿Cuál de las siguientes características en la exploración física de un nódulo mamario es la MÁS sugestiva de malignidad?",
+    opts:["Nódulo móvil, blando, de 1 cm, bien delimitado","Mastalgia cíclica bilateral en cuadrante superoexterno","Nódulo duro, irregular, fijo a planos profundos, con retracción de piel o pezón","Nódulo de consistencia elástica que aumenta de tamaño en la segunda mitad del ciclo"],
+    ans:2,
+    exp:"Los signos de alarma de malignidad mamaria en la exploración física son: dureza pétrea, bordes irregulares, fijación a planos profundos (músculo, piel), retracción o inversión del pezón, retracción de la piel (piel de naranja = edema linfático dérmico), linfadenopatía axilar ipsilateral y ulceración. La movilidad, consistencia elástica y relación con el ciclo menstrual orientan a benignidad.",
+    tip:"MALIGNO: duro + irregular + fijo + retracción piel/pezón. BENIGNO: móvil + elástico + bien delimitado + relación ciclica.",
+    ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"
+  },
+  /* ── TRATAMIENTO ── */
+  {
+    cat:"trat", catName:"Tratamiento y Seguimiento",
+    q:"Mujer de 35 años con mastalgia cíclica bilateral severa (EVA 8/10) que limita actividades. ¿Cuál es el manejo de primera línea?",
+    opts:["Mastectomía profiláctica bilateral","Danazol 200 mg/día como primera opción","Modificaciones en el estilo de vida (reducción de grasas saturadas, cafeína, uso de brasier bien ajustado) + AINES tópicos/orales","Bromocriptina 2.5 mg/día como primera opción"],
+    ans:2,
+    exp:"La mastalgia cíclica (ligada al ciclo menstrual, bilateral, en cuadrantes superiores) es la más frecuente y en la mayoría de casos responde a medidas no farmacológicas: brasier bien ajustado (reduce movimiento), reducción de grasas saturadas, disminución de cafeína y uso de AINES tópicos (diclofenaco gel) u orales. Si no hay respuesta, se puede agregar aceite de onagra (ácido gamma-linolénico). El danazol y bromocriptina son opciones de 2ª línea por sus efectos adversos.",
+    tip:"Mastalgia cíclica leve-moderada = medidas no farmacológicas primero. Severa persistente → danazol o bromocriptina (2ª línea). No mastectomía.",
+    ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"
+  },
+  {
+    cat:"trat", catName:"Tratamiento y Seguimiento",
+    q:"¿Cuál es el manejo recomendado para un fibroadenoma mamario confirmado histológicamente, de 2 cm, en mujer de 24 años sin factores de riesgo para cáncer?",
+    opts:["Mastectomía simple ipsilateral de entrada","Quimioterapia neoadyuvante antes de cualquier cirugía","Seguimiento activo (observación) con ultrasonido semestral; escisión quirúrgica si crece >20% o genera ansiedad significativa","Radioterapia local estereotáxica"],
+    ans:2,
+    exp:"Los fibroadenomas pequeños (<3 cm) histológicamente confirmados en mujeres jóvenes (<35 años) sin historia familiar de cáncer de mama pueden manejarse con seguimiento activo (ecografía cada 6-12 meses). La indicación de cirugía incluye: crecimiento rápido (>20% en 6 meses o >3 cm), fibroadenoma complejo histológico, sospecha de lesión phyllodes, ansiedad de la paciente o deseo de extirpación. El fibroadenoma simple NO maligniza significativamente.",
+    tip:"Fibroadenoma <3 cm, confirmado, sin atipias → seguimiento. Indicación quirúrgica: crecimiento rápido >20%, >3 cm, complejo, o deseo de paciente.",
+    ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"
+  },
+  {
+    cat:"trat", catName:"Tratamiento y Seguimiento",
+    q:"Mujer de 40 años con galactorrea bilateral espontánea sin embarazo ni lactancia, ciclos regulares y sin uso de fármacos. ¿Cuál es el primer estudio a solicitar?",
+    opts:["Mastografía bilateral urgente","Prolactina sérica","Citología de la secreción por pezón","Resonancia magnética de mama con gadolinio"],
+    ans:1,
+    exp:"La galactorrea fuera del puerperio y sin uso de fármacos (antipsicóticos, metoclopramida, antihipertensivos) obliga a descartar hiperprolactinemia. El primer estudio es la prolactina sérica en ayuno. Si está elevada (>25 ng/mL), solicitar RM de hipófisis para descartar prolactinoma. La galactorrea bilateral generalmente NO es de origen mamario sino neuroendocrino. La mastografía es para tamizaje de malignidad, no para galactorrea.",
+    tip:"Galactorrea bilateral espontánea = medir prolactina sérica primero. Elevada → RM hipófisis (prolactinoma). Unilateral hemática → papiloma intraductal.",
+    ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"
+  },
+  {
+    cat:"trat", catName:"Tratamiento y Seguimiento",
+    q:"¿A partir de qué edad y con qué frecuencia se recomienda la mastografía de tamizaje en mujeres de riesgo promedio en México (IMSS/GPC)?",
+    opts:["Anual desde los 30 años en todas las mujeres","Cada 2 años desde los 40 años hasta los 69 años; anual si hay factores de riesgo","Una sola mastografía a los 50 años de por vida","Solo si hay síntomas; no se recomienda tamizaje en asintomáticas"],
+    ans:1,
+    exp:"Según las GPC mexicanas (IMSS/SS), la mastografía de tamizaje se recomienda cada 1-2 años en mujeres de 40-69 años de riesgo promedio. En mujeres con factores de riesgo (historia familiar de primer grado, mutación BRCA, radioterapia torácica previa) puede iniciarse antes y con mayor frecuencia. La exploración clínica mamaria por personal de salud se recomienda cada año desde los 25 años.",
+    tip:"Mastografía tamizaje: 40-69 años cada 1-2 años. Exploración clínica desde 25 años. BRCA/historia familiar → inicio más temprano.",
+    ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"
+  },
+  {
+    cat:"trat", catName:"Tratamiento y Seguimiento",
+    q:"¿Cuál de los siguientes hallazgos histológicos en una biopsia por enfermedad fibroquística se considera un marcador de MAYOR riesgo para desarrollar cáncer de mama?",
+    opts:["Metaplasia apocrina simple sin atipia","Adenosis esclerosante sin atipia","Hiperplasia ductal atípica (HDA) o hiperplasia lobular atípica (HLA)","Quistes simples de cualquier tamaño sin atipia"],
+    ans:2,
+    exp:"En la clasificación de riesgo de la enfermedad fibroquística: (1) Sin riesgo aumentado (riesgo relativo 1x): quistes simples, metaplasia apocrina, adenosis leve, fibroadenoma simple. (2) Riesgo levemente aumentado (RR 1.5-2x): hiperplasia ductal moderada a floreciente sin atipia. (3) Riesgo moderadamente aumentado (RR 4-5x): hiperplasia ductal atípica (HDA) o hiperplasia lobular atípica (HLA). (4) Carcinoma in situ (RR 8-10x).",
+    tip:"HDA/HLA = RR 4-5x para Ca mama (mayor riesgo en benignas). Quistes simples = sin riesgo. HDA + historia familiar = RR hasta 10x.",
+    ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"
+  }
+];
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}}
+
+function init(){
+  shuffle(questions);
+  currentQ=0;score=0;answers=[];
+  catStats={ben:{c:0,t:0},diag:{c:0,t:0},trat:{c:0,t:0}};
+  const r=document.getElementById('resultsArea');
+  r.classList.remove('show');r.innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const qa=questions[currentQ],total=questions.length;
+  document.getElementById('progressBar').style.width=(currentQ/total*100)+'%';
+  document.getElementById('progressText').textContent=`${currentQ+1} / ${total}`;
+  document.getElementById('nextBtn').classList.remove('show');
+  const L=['A','B','C','D'];
+  let h=`<div class="question-card">
+    <div class="q-category cat-${qa.cat}">${qa.catName}</div>
+    <div class="q-number">Pregunta ${currentQ+1} de ${total}</div>
+    <div class="q-text">${qa.q}</div>
+    <div class="options">`;
+  qa.opts.forEach((o,i)=>h+=`<button class="option-btn" onclick="selectAnswer(${i})">
+    <span class="option-letter">${L[i]}</span><span>${o}</span></button>`);
+  h+=`</div><div class="feedback" id="feedback"></div></div>`;
+  document.getElementById('quizArea').innerHTML=h;
+}
+
+function selectAnswer(idx){
+  const qa=questions[currentQ];
+  const btns=document.querySelectorAll('.option-btn');
+  const fb=document.getElementById('feedback');
+  const ok=idx===qa.ans;
+  btns.forEach((b,i)=>{b.classList.add('disabled');b.onclick=null;
+    if(i===qa.ans)b.classList.add('correct-answer');
+    if(i===idx&&!ok)b.classList.add('wrong-answer');});
+  if(!catStats[qa.cat])catStats[qa.cat]={c:0,t:0};
+  catStats[qa.cat].t++;
+  if(ok){score++;catStats[qa.cat].c++;}
+  if(!examMode){
+    fb.className=ok?'feedback correct-fb show':'feedback wrong-fb show';
+    fb.innerHTML=ok
+      ?`<div class="feedback-title">✅ ¡Correcto!</div><div>${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`
+      :`<div class="feedback-title">❌ Incorrecto</div><div><strong>Respuesta correcta:</strong> ${qa.opts[qa.ans]}</div><div style="margin-top:8px;">${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;
+  }
+  answers.push({q:qa.q,correct:ok,userAns:qa.opts[idx],correctAns:qa.opts[qa.ans],cat:qa.catName,exp:qa.exp,tip:qa.tip,ref:qa.ref});
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion(){currentQ++;if(currentQ>=questions.length)showResults();else renderQuestion();}
+
+function showResults(){
+  document.getElementById('quizArea').innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  document.getElementById('progressBar').style.width='100%';
+  document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;
+  const pct=Math.round((score/questions.length)*100);
+  const msg=pct>=90?'🏆 ¡Excelente dominio! Listo para el ENARM.':pct>=70?'👏 ¡Muy bien! Repasa las áreas con menor puntaje.':pct>=50?'📚 Aceptable, hay áreas de oportunidad.':'⚠️ Refuerza este tema. Revisa las GPC correspondientes.';
+  const cats=[
+    {name:'Entidades Benignas',key:'ben',color:'#34d399'},
+    {name:'Diagnóstico y Clasificación',key:'diag',color:'#a78bfa'},
+    {name:'Tratamiento y Seguimiento',key:'trat',color:'#f87171'}
+  ];
+  let h=`<div class="results-header"><div class="score-big">${pct}%</div><div class="score-label">${score} de ${questions.length} correctas</div><div class="score-msg">${msg}</div></div>
+  <div class="chart-section"><div class="chart-title"><span>📊</span> Rendimiento por Categoría</div><div class="bar-chart">`;
+  cats.forEach(c=>{const s=catStats[c.key]||{c:0,t:0};const p=s.t>0?Math.round((s.c/s.t)*100):0;if(s.t>0)h+=`<div class="bar-row"><div class="bar-label">${c.name}</div><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${c.color};">${p}% (${s.c}/${s.t})</div></div></div>`;});
+  h+=`</div></div><div class="chart-section"><div class="chart-title"><span>🎯</span> Resumen General</div><div class="donut-wrap">
+    <svg class="donut-svg" viewBox="0 0 42 42">
+      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a2235" stroke-width="4"/>
+      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#34d399" stroke-width="4" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="25" stroke-linecap="round"/>
+      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#f87171" stroke-width="4" stroke-dasharray="${100-pct} ${pct}" stroke-dashoffset="${25-pct}" stroke-linecap="round"/>
+      <text x="21" y="22.5" text-anchor="middle" font-size="6" font-weight="700" fill="#e8ecf4" font-family="Plus Jakarta Sans">${pct}%</text>
+    </svg>
+    <div class="donut-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#34d399;"></div>Correctas: ${score}</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Incorrectas: ${questions.length-score}</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Total: ${questions.length}</div>
+    </div></div></div>
+  <div class="chart-section"><div class="chart-title"><span>📋</span> Revisión de Respuestas</div>`;
+  answers.forEach((a,i)=>{h+=`<div class="review-card ${a.correct?'review-correct':'review-wrong'}">
+    <div class="review-q">${i+1}. ${a.q} <span style="font-size:0.72rem;color:var(--text-dim);">[${a.cat}]</span></div>
+    <div class="review-answer">${a.correct?`<strong>✅ ${a.correctAns}</strong>`:`<em>❌ Tu respuesta: ${a.userAns}</em><br><strong>✅ Correcta: ${a.correctAns}</strong>`}</div>
+    <div style="margin-top:8px;font-size:0.8rem;color:var(--text-dim);line-height:1.5;">${a.exp}</div>
+    <div style="margin-top:6px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;">📖 ${a.ref}</div>
+  </div>`;});
+  h+=`</div><button class="retry-btn" onclick="init()">🔄 Reintentar</button>`;
+  const r=document.getElementById('resultsArea');r.innerHTML=h;r.classList.add('show');r.scrollIntoView({behavior:'smooth'});
+}
+
+function toggleSpec(h){h.classList.toggle('open');h.nextElementSibling.classList.toggle('open');}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+init();
+</script>
+</body>
+</html>

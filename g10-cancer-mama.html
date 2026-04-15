@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎗️ Cáncer de Mama — ENARM · Ginecología</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --bg:#0a0e1a; --surface:#111827; --surface2:#1a2235; --surface3:#212d45;
+    --border:#2a3a5c; --text:#e8ecf4; --text-dim:#8896b3;
+    --accent:#f472b6; --accent-glow:rgba(244,114,182,0.15);
+    --correct:#34d399; --correct-bg:rgba(52,211,153,0.1); --correct-border:rgba(52,211,153,0.4);
+    --wrong:#f87171; --wrong-bg:rgba(248,113,113,0.1); --wrong-border:rgba(248,113,113,0.4);
+    --gold:#fbbf24; --purple:#a78bfa; --pink:#f472b6; --teal:#2dd4bf; --blue:#38bdf8;
+    --sidebar-w:280px; --radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;}
+
+  .sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;overflow-y:auto;z-index:100;transition:transform 0.3s;}
+  .sidebar-logo{padding:24px 20px 16px;border-bottom:1px solid var(--border);}
+  .logo-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#f472b6,#f87171);padding:6px 14px;border-radius:100px;font-size:0.75rem;font-weight:800;color:var(--bg);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px;}
+  .sidebar-logo h2{font-size:1.1rem;font-weight:800;background:linear-gradient(135deg,var(--text),#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .sidebar-logo p{font-size:0.72rem;color:var(--text-dim);margin-top:2px;}
+  .back-btn{display:flex;align-items:center;gap:8px;padding:14px 20px;color:var(--text-dim);font-size:0.8rem;text-decoration:none;border-bottom:1px solid var(--border);transition:color 0.2s;}
+  .back-btn:hover{color:#f472b6;}
+  .sidebar-nav{flex:1;padding:12px 0 24px;}
+  .specialty-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px 10px 20px;cursor:pointer;transition:background 0.2s;user-select:none;}
+  .specialty-header:hover{background:var(--surface2);}
+  .specialty-name{display:flex;align-items:center;gap:10px;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;}
+  .specialty-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;}
+  .chevron{font-size:0.65rem;color:var(--text-dim);transition:transform 0.3s;}
+  .specialty-header.open .chevron{transform:rotate(90deg);}
+  .topics-list{display:none;padding:4px 0 8px;}
+  .topics-list.open{display:block;}
+  .topic-link{display:flex;align-items:center;gap:10px;padding:8px 16px 8px 56px;font-size:0.78rem;color:var(--text-dim);text-decoration:none;transition:all 0.2s;border-left:2px solid transparent;line-height:1.4;}
+  .topic-link:hover{color:var(--text);background:var(--surface3);}
+  .topic-link.active{color:#f472b6;border-left-color:#f472b6;background:var(--accent-glow);font-weight:600;}
+  .topic-link.coming-soon{opacity:0.4;cursor:not-allowed;pointer-events:none;}
+  .topic-num{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--text-dim);min-width:20px;}
+  .badge-soon{margin-left:auto;background:rgba(136,150,179,0.1);color:var(--text-dim);font-size:0.62rem;font-weight:600;padding:2px 7px;border-radius:100px;}
+  .badge-ready{margin-left:auto;background:rgba(244,114,182,0.15);color:#f472b6;font-size:0.62rem;font-weight:600;padding:2px 7px;border-radius:100px;}
+
+  .main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;}
+  .container{max-width:760px;margin:0 auto;padding:20px 16px 40px;width:100%;}
+
+  .mode-bar{display:flex;align-items:center;gap:10px;margin:24px 0 20px;background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:6px;width:fit-content;}
+  .mode-btn{padding:8px 20px;border-radius:100px;border:none;cursor:pointer;font-family:inherit;font-size:0.82rem;font-weight:600;transition:all 0.2s;color:var(--text-dim);background:transparent;}
+  .mode-btn.active{background:linear-gradient(135deg,#f472b6,#f87171);color:var(--bg);}
+
+  .header{text-align:center;padding:40px 20px 24px;position:relative;overflow:hidden;}
+  .header::before{content:'';position:absolute;top:-60%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(244,114,182,0.08) 0%,transparent 70%);pointer-events:none;}
+  .header-badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);padding:6px 16px;border-radius:100px;font-size:0.78rem;color:#f472b6;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:16px;}
+  .header h1{font-size:clamp(1.3rem,4vw,2rem);font-weight:800;background:linear-gradient(135deg,var(--text) 0%,#f472b6 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;line-height:1.2;}
+  .header p{color:var(--text-dim);font-size:0.95rem;max-width:600px;margin:0 auto;line-height:1.4;}
+
+  .progress-wrap{background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:12px 20px;margin:20px 0 28px;display:flex;align-items:center;gap:14px;}
+  .progress-bar-bg{flex:1;height:8px;background:var(--surface3);border-radius:100px;overflow:hidden;}
+  .progress-bar-fill{height:100%;width:0%;background:linear-gradient(90deg,#f472b6,#f87171);border-radius:100px;transition:width 0.5s ease;}
+  .progress-text{font-size:0.82rem;font-weight:600;color:var(--text-dim);white-space:nowrap;font-family:'JetBrains Mono',monospace;}
+
+  .question-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px;margin-bottom:20px;animation:slideIn 0.4s ease;position:relative;overflow:hidden;}
+  .question-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#f472b6,#f87171,var(--purple));}
+  @keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+  .q-category{display:inline-flex;align-items:center;gap:6px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;padding:4px 12px;border-radius:100px;margin-bottom:14px;}
+  .cat-tam{background:rgba(244,114,182,0.12);color:#f472b6;}
+  .cat-tto{background:rgba(139,92,246,0.12);color:#a78bfa;}
+
+  .q-number{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--text-dim);margin-bottom:10px;}
+  .q-text{font-size:1.05rem;font-weight:600;line-height:1.55;margin-bottom:20px;color:var(--text);}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .option-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:all 0.2s;text-align:left;font-size:0.92rem;color:var(--text);font-family:inherit;line-height:1.5;width:100%;}
+  .option-btn:hover:not(.disabled){border-color:#f472b6;background:rgba(244,114,182,0.08);transform:translateX(4px);}
+  .option-letter{display:flex;align-items:center;justify-content:center;min-width:30px;height:30px;border-radius:8px;background:var(--surface3);font-weight:700;font-size:0.82rem;color:#f472b6;flex-shrink:0;}
+  .option-btn.correct-answer{border-color:var(--correct-border);background:var(--correct-bg);}
+  .option-btn.correct-answer .option-letter{background:var(--correct);color:var(--bg);}
+  .option-btn.wrong-answer{border-color:var(--wrong-border);background:var(--wrong-bg);}
+  .option-btn.wrong-answer .option-letter{background:var(--wrong);color:var(--bg);}
+  .option-btn.disabled{cursor:default;}
+  .option-btn.disabled:hover{transform:none;}
+
+  .feedback{margin-top:18px;padding:18px;border-radius:12px;font-size:0.88rem;line-height:1.65;animation:fadeIn 0.3s ease;display:none;}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .feedback.show{display:block;}
+  .feedback.correct-fb{background:var(--correct-bg);border:1px solid var(--correct-border);color:var(--correct);}
+  .feedback.wrong-fb{background:var(--wrong-bg);border:1px solid var(--wrong-border);color:#fca5a5;}
+  .feedback-title{font-weight:700;font-size:0.95rem;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+  .feedback .tip{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.08);color:var(--text-dim);font-size:0.82rem;}
+  .feedback .tip strong{color:var(--gold);}
+  .feedback .ref{margin-top:8px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;}
+
+  .next-btn{display:none;margin:20px auto 0;padding:12px 32px;background:linear-gradient(135deg,#f472b6,#f87171);color:var(--bg);border:none;border-radius:100px;font-family:inherit;font-size:0.92rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+  .next-btn:hover{transform:scale(1.05);}
+  .next-btn.show{display:block;}
+
+  .results{display:none;animation:slideIn 0.5s ease;}
+  .results.show{display:block;}
+  .results-header{text-align:center;padding:30px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;position:relative;overflow:hidden;}
+  .results-header::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#f472b6,#f87171,var(--purple));}
+  .score-big{font-family:'JetBrains Mono',monospace;font-size:3.5rem;font-weight:800;color:#f472b6;line-height:1;}
+  .score-label{font-size:1rem;color:var(--text-dim);margin:8px 0;}
+  .score-msg{font-size:1.05rem;font-weight:600;color:var(--text);}
+  .chart-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;}
+  .chart-title{font-size:0.9rem;font-weight:700;color:var(--text-dim);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  .bar-chart{display:flex;flex-direction:column;gap:12px;}
+  .bar-row{display:flex;flex-direction:column;gap:6px;}
+  .bar-label{font-size:0.82rem;font-weight:600;color:var(--text);}
+  .bar-track{height:28px;background:var(--surface3);border-radius:6px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding-left:10px;font-size:0.78rem;font-weight:700;color:var(--bg);min-width:40px;transition:width 0.8s ease;}
+  .donut-wrap{display:flex;align-items:center;gap:24px;flex-wrap:wrap;}
+  .donut-svg{width:100px;height:100px;flex-shrink:0;}
+  .donut-legend{display:flex;flex-direction:column;gap:8px;}
+  .legend-item{display:flex;align-items:center;gap:8px;font-size:0.82rem;color:var(--text-dim);}
+  .legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+  .review-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px;}
+  .review-card.review-correct{border-color:var(--correct-border);}
+  .review-card.review-wrong{border-color:var(--wrong-border);}
+  .review-q{font-size:0.85rem;font-weight:600;color:var(--text);margin-bottom:8px;line-height:1.5;}
+  .review-answer{font-size:0.82rem;line-height:1.5;}
+  .retry-btn{display:block;width:100%;padding:14px;background:linear-gradient(135deg,#f472b6,#f87171);border:none;border-radius:12px;color:var(--bg);font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;margin-top:20px;transition:all 0.2s;}
+  .retry-btn:hover{filter:brightness(1.1);}
+
+  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90;}
+  .overlay.show{display:block;}
+  .hamburger{display:none;position:fixed;top:14px;left:14px;z-index:200;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:8px 10px;cursor:pointer;font-size:1.1rem;}
+  .footer{text-align:center;padding:16px;font-size:0.72rem;color:var(--text-dim);border-top:1px solid var(--border);opacity:0.6;}
+
+  @media(max-width:900px){
+    .sidebar{transform:translateX(-100%);}
+    .sidebar.open{transform:translateX(0);}
+    .main{margin-left:0;}
+    .hamburger{display:block;}
+    .container{padding-top:60px;}
+  }
+</style>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+<aside class="sidebar" id="sidebar"></aside>
+
+<main class="main">
+<div class="container">
+  <div class="header">
+    <div class="header-badge"><span>🎗️</span> ENARM · Ginecología · Alta Frecuencia</div>
+    <h1>🎗️ Cáncer de Mama</h1>
+    <p>Tamizaje y referencia oportuna · Tratamiento en segundo y tercer nivel · GPC 2017</p>
+  </div>
+
+  <div style="display:flex;justify-content:center;">
+    <div class="mode-bar">
+      <button class="mode-btn active" id="btnRepaso" onclick="setMode('repaso')">📖 Modo Repaso</button>
+      <button class="mode-btn" id="btnExamen" onclick="setMode('examen')">⏱️ Modo Examen</button>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 16</div>
+  </div>
+
+  <div id="quizArea"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+  <div class="results" id="resultsArea"></div>
+</div>
+<div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+</main>
+
+<script src="sidebar.js"></script>
+<script>
+let examMode=false, currentQ=0, score=0, answers=[], catStats={};
+
+function setMode(m){
+  examMode=(m==='examen');
+  document.getElementById('btnRepaso').classList.toggle('active',!examMode);
+  document.getElementById('btnExamen').classList.toggle('active',examMode);
+  init();
+}
+
+const questions = [
+  /* ══════════════════════════════════════════════
+     GPC 1 — TAMIZAJE Y REFERENCIA OPORTUNA
+     Prevención, tamizaje y referencia oportuna de
+     casos sospechosos de cáncer de mama en el
+     primer nivel de atención 2017
+  ══════════════════════════════════════════════ */
+  {
+    cat:"tam", catName:"Tamizaje y Referencia (1er Nivel)",
+    q:"¿Cuál es el factor de riesgo más importante para desarrollar cáncer de mama según la GPC de tamizaje 2017?",
+    opts:[
+      "Tabaquismo activo mayor de 10 cigarrillos al día por más de 5 años",
+      "Sexo femenino y edad avanzada (la edad es el factor de riesgo más importante después del sexo)",
+      "Uso de anticonceptivos orales combinados por más de 5 años",
+      "Ingesta de alcohol menor a 1 copa diaria"
+    ],
+    ans:1,
+    exp:"El sexo femenino y la edad son los principales factores de riesgo no modificables para cáncer de mama. El riesgo aumenta progresivamente con la edad: el 80% de los casos ocurren después de los 50 años. Otros factores de riesgo relevantes incluyen: antecedente familiar de primer grado (madre/hermana), mutaciones BRCA1/BRCA2, menarquia temprana (<12 años), menopausia tardía (>55 años), nuliparidad, primer embarazo >30 años, y uso prolongado de TRH combinada.",
+    tip:"Cáncer de mama: factores NO modificables principales = sexo femenino + edad. 80% de casos >50 años. BRCA1/2 = riesgo acumulado 50-85% de vida.",
+    ref:"GPC Prevención, tamizaje y referencia oportuna de casos sospechosos de cáncer de mama en el primer nivel de atención 2017"
+  },
+  {
+    cat:"tam", catName:"Tamizaje y Referencia (1er Nivel)",
+    q:"¿Cuál es la estrategia de tamizaje para cáncer de mama recomendada en mujeres de riesgo promedio según la GPC mexicana 2017?",
+    opts:[
+      "Autoexploración mensual como único método de tamizaje en mujeres de 20-40 años",
+      "Mastografía bilateral anual en toda mujer a partir de los 40 años sin límite de edad superior",
+      "Mastografía bilateral cada 1-2 años en mujeres de 40-69 años; exploración clínica anual en primer nivel",
+      "Solo resonancia magnética contrastada de mama a partir de los 30 años"
+    ],
+    ans:2,
+    exp:"La GPC 2017 recomienda: (1) Mastografía de tamizaje cada 1-2 años en mujeres de 40 a 69 años de riesgo promedio; (2) Exploración clínica mamaria anual realizada por personal de salud capacitado en el primer nivel de atención; (3) La autoexploración mamaria se enseña como método complementario de conocimiento corporal, pero no reduce la mortalidad de forma independiente. En mujeres >70 años, la decisión debe individualizarse.",
+    tip:"Tamizaje Ca mama: mastografía c/1-2a en 40-69 años. Exploración clínica anual en 1er nivel. Autoexploración = complementaria, no tamizaje suficiente.",
+    ref:"GPC Prevención, tamizaje y referencia oportuna de casos sospechosos de cáncer de mama en el primer nivel de atención 2017"
+  },
+  {
+    cat:"tam", catName:"Tamizaje y Referencia (1er Nivel)",
+    q:"Mujer de 35 años con madre y hermana con cáncer de mama, sin prueba genética previa. ¿Cuál es la conducta correcta en primer nivel?",
+    opts:[
+      "Iniciar mastografía de tamizaje anual a los 40 años como a cualquier mujer de riesgo promedio",
+      "Referir a oncología/clínica de alto riesgo para asesoramiento genético y considerar mastografía + RMM desde los 25-30 años",
+      "Solicitar mastografía bilateral inmediata y si es normal, no se requiere seguimiento adicional",
+      "Solo recomendar autoexploración mensual y exploración clínica semestral hasta los 40 años"
+    ],
+    ans:1,
+    exp:"La presencia de dos familiares de primer grado con cáncer de mama eleva significativamente el riesgo y califica a esta mujer como 'alto riesgo'. En este escenario, la GPC recomienda: referir a unidad de segundo nivel u oncología para asesoramiento genético (prueba BRCA1/BRCA2 si aplica criterios), inicio de tamizaje con mastografía y/o resonancia magnética de mama antes de los 40 años (generalmente desde los 25-30 años o 10 años antes del diagnóstico del familiar más joven), e intervenciones de reducción de riesgo.",
+    tip:"Alto riesgo Ca mama (2 familiares 1er grado): referir a clínica de alto riesgo + asesoría genética. Inicio tamizaje adelantado (25-30 años). No manejar igual que riesgo promedio.",
+    ref:"GPC Prevención, tamizaje y referencia oportuna de casos sospechosos de cáncer de mama en el primer nivel de atención 2017"
+  },
+  {
+    cat:"tam", catName:"Tamizaje y Referencia (1er Nivel)",
+    q:"¿Cuáles son los criterios de referencia URGENTE desde el primer nivel de atención por sospecha de cáncer de mama?",
+    opts:[
+      "Mastalgia bilateral cíclica en mujer premenopáusica sin nódulo palpable",
+      "Nódulo mamario duro, irregular, fijo, de reciente aparición; piel en cáscara de naranja; retracción del pezón; o descarga hemática unilateral espontánea",
+      "Quiste mamario simple confirmado por ultrasonido en mujer de 45 años asintomática",
+      "Mastografía con hallazgo BIRADS 2 (benigno) en mujer de tamizaje"
+    ],
+    ans:1,
+    exp:"Los criterios de referencia URGENTE (sospecha de malignidad) desde el primer nivel incluyen: nódulo mamario duro, irregular o fijo a planos profundos; cambios en piel (piel de naranja/edema dérmico, eritema, úlcera); retracción o inversión del pezón de reciente aparición; descarga hemática unilateral espontánea por el pezón sin compresión; adenopatía axilar dura o supraclavicular ipsilateral; y mastografía BIRADS 4-5. La referencia debe ser dentro de las 2 semanas siguientes.",
+    tip:"Referencia URGENTE Ca mama: nódulo duro-fijo-irregular, piel naranja, retracción pezón, descarga hemática, BIRADS 4-5. Plazo: <2 semanas.",
+    ref:"GPC Prevención, tamizaje y referencia oportuna de casos sospechosos de cáncer de mama en el primer nivel de atención 2017"
+  },
+  {
+    cat:"tam", catName:"Tamizaje y Referencia (1er Nivel)",
+    q:"¿Qué es la 'triple exploración' o 'triple prueba diagnóstica' en la evaluación de un nódulo mamario y cuál es su importancia?",
+    opts:[
+      "Consiste en autoexploración, exploración clínica y mastografía; si alguna es positiva = referencia urgente",
+      "Consiste en exploración clínica + imagen (mastografía/ultrasonido) + biopsia/citología; si las tres son benignas, la malignidad es <1%",
+      "Consiste en análisis de CA 15-3, CEA y HER2 en sangre como tamizaje inicial",
+      "Consiste en tres mastografías en intervalos de 6 meses para valorar cambios dinámicos"
+    ],
+    ans:1,
+    exp:"La triple prueba diagnóstica es el estándar para evaluar nódulos mamarios: (1) Exploración clínica mamaria, (2) Imagen (mastografía en >35 años, ultrasonido en <35 años o para caracterizar quistes), y (3) Biopsia/citología por aspiración con aguja fina (BAAF) o biopsia con aguja gruesa (BAG) en lesiones sospechosas. Si las tres son concordantemente benignas, el valor predictivo negativo es >99%. Si hay discordancia, se procede a biopsia quirúrgica.",
+    tip:"Triple prueba = clínica + imagen + biopsia/citología. Si las 3 son benignas: riesgo Ca <1%. Discordancia = biopsia quirúrgica obligatoria.",
+    ref:"GPC Prevención, tamizaje y referencia oportuna de casos sospechosos de cáncer de mama en el primer nivel de atención 2017"
+  },
+  {
+    cat:"tam", catName:"Tamizaje y Referencia (1er Nivel)",
+    q:"¿Cuál es la correcta clasificación BIRADS y su conducta en mastografía de tamizaje?",
+    opts:[
+      "BIRADS 3 (probablemente benigno, <2% malignidad): biopsia inmediata con aguja gruesa",
+      "BIRADS 0 (incompleto): requiere imágenes adicionales; BIRADS 4-5 (sospechoso-altamente sospechoso): biopsia; BIRADS 6: malignidad confirmada por histología",
+      "BIRADS 2 (benigno): mastografía de control en 6 meses; BIRADS 3: referencia urgente a oncología",
+      "BIRADS 1 (normal): repetir mastografía en 3 meses para confirmar"
+    ],
+    ans:1,
+    exp:"La clasificación BIRADS (Breast Imaging Reporting and Data System): 0=incompleto (requiere imagen adicional); 1=negativo (tamizaje rutinario); 2=benigno (tamizaje rutinario); 3=probablemente benigno (<2% malignidad, control en 6 meses); 4=sospechoso (2-95% malignidad, biopsia); 5=altamente sospechoso (>95% malignidad, biopsia); 6=malignidad conocida por biopsia previa. BIRADS 4-5 → referencia urgente + biopsia.",
+    tip:"BIRADS: 0=incompleto, 1-2=benigno(control anual), 3=control 6m, 4-5=biopsia URGENTE, 6=Ca confirmado. El 3 no es urgente.",
+    ref:"GPC Prevención, tamizaje y referencia oportuna de casos sospechosos de cáncer de mama en el primer nivel de atención 2017"
+  },
+  {
+    cat:"tam", catName:"Tamizaje y Referencia (1er Nivel)",
+    q:"¿Cuáles son las indicaciones para solicitar prueba genética de BRCA1/BRCA2 en primer nivel?",
+    opts:[
+      "Toda mujer mayor de 45 años que solicite prevención de cáncer de mama",
+      "Solo mujeres con cáncer de mama diagnosticado antes de los 30 años independientemente del antecedente familiar",
+      "Antecedente familiar de Ca mama/ovario en ≥2 familiares de primer grado, Ca mama bilateral, Ca mama en varón, Ca mama triple negativo <60 años, o Ca ovario epitelial",
+      "Mujeres con BIRADS 3 en mastografía de tamizaje como confirmación diagnóstica"
+    ],
+    ans:2,
+    exp:"Las indicaciones para asesoramiento genético y prueba BRCA1/BRCA2 incluyen: ≥2 familiares de primer o segundo grado con Ca mama/ovario; Ca mama en varón en la familia; Ca mama bilateral; Ca mama diagnosticado <35-40 años; Ca mama triple negativo <60 años; Ca ovario/trompa epitelial en cualquier familiar; descendencia judía askenazi con Ca mama/ovario. La referencia a consejería genética debe hacerse antes de la prueba.",
+    tip:"BRCA test: ≥2 familiares Ca mama/ovario OR Ca mama varón OR bilateral OR triple negativo <60a OR Ca ovario. Consejería ANTES de la prueba.",
+    ref:"GPC Prevención, tamizaje y referencia oportuna de casos sospechosos de cáncer de mama en el primer nivel de atención 2017"
+  },
+  {
+    cat:"tam", catName:"Tamizaje y Referencia (1er Nivel)",
+    q:"¿Cuál es la conducta correcta ante una descarga por el pezón unilateral, espontánea, hemática, sin nódulo palpable en mujer de 52 años?",
+    opts:[
+      "Indicarle anticonceptivos orales para regular la descarga y citar en 6 meses",
+      "Tranquilizarla, realizar mastografía de rutina anual y citar en 12 meses",
+      "Referencia urgente (≤2 semanas) a segundo nivel para evaluación con imagen y ductoscopía/biopsia; alta sospecha de papiloma o carcinoma intraductal",
+      "Solo solicitar prolactina sérica; si es normal, alta definitiva sin seguimiento"
+    ],
+    ans:2,
+    exp:"La descarga hemática unilateral espontánea por un solo orificio ductal en mujer posmenopáusica es un signo de alarma de malignidad (carcinoma intraductal, papiloma con transformación maligna). Requiere referencia urgente a segundo nivel donde se realiza: mastografía con magnificación, ultrasonido con exploración de conductos, ductograma o ductoscopía, y biopsia de la lesión identificada. La descarga bilateral verdosa o lechosa suele ser benigna (galactorrea, ectasia ductal).",
+    tip:"Descarga hemática unilateral espontánea = referencia URGENTE. Descartar Ca intraductal. Descarga bilateral/multiductal = benigna (ectasia, galactorrea).",
+    ref:"GPC Prevención, tamizaje y referencia oportuna de casos sospechosos de cáncer de mama en el primer nivel de atención 2017"
+  },
+
+  /* ══════════════════════════════════════════════
+     GPC 2 — TRATAMIENTO
+     Diagnóstico y tratamiento del cáncer de mama
+     en segundo y tercer nivel de atención 2017
+  ══════════════════════════════════════════════ */
+  {
+    cat:"tto", catName:"Diagnóstico y Tratamiento (2°-3er Nivel)",
+    q:"¿Cuál es el tipo histológico más frecuente del cáncer de mama invasor?",
+    opts:[
+      "Carcinoma lobulillar invasor (60-70% de los casos)",
+      "Carcinoma ductal infiltrante (NST: sin tipo especial), representa el 70-80% de los casos",
+      "Carcinoma mucinoso (coloide), frecuente en mujeres postmenopáusicas",
+      "Carcinoma medular, asociado a mutación BRCA1 en el 80% de los casos"
+    ],
+    ans:1,
+    exp:"El carcinoma ductal infiltrante (también denominado 'no de tipo especial' NST o NOS) es el tipo más frecuente representando el 70-80% de los cánceres de mama invasores. El carcinoma lobulillar invasor representa el 10-15% y tiene tendencia a ser bilateral y multifocal. Los tipos especiales (mucinoso, medular, tubular, papilar) tienen en general mejor pronóstico que el ductal NST. El carcinoma ductal in situ (DCIS) es la lesión preinvasora más frecuente.",
+    tip:"Ca mama invasor más frecuente: ductal infiltrante NST (70-80%). Lobulillar (10-15%): bilateral, multifocal. Tipos especiales = mejor pronóstico.",
+    ref:"GPC Diagnóstico y tratamiento del cáncer de mama en segundo y tercer nivel de atención 2017"
+  },
+  {
+    cat:"tto", catName:"Diagnóstico y Tratamiento (2°-3er Nivel)",
+    q:"¿Cuáles son los criterios para realizar cirugía conservadora de mama (tumorectomía/mastectomía parcial) en lugar de mastectomía total?",
+    opts:[
+      "Solo se puede hacer en tumores BIRADS 3 sin confirmación histológica",
+      "Tumor ≤4 cm unifocal, sin microcalcificaciones difusas, con relación tumor/mama favorable, sin contraindicación a radioterapia adyuvante",
+      "Cualquier estadio de cáncer de mama si la paciente prefiere la cirugía conservadora",
+      "Solo en carcinoma in situ (DCIS) con lesión <1 cm, no en carcinoma invasor"
+    ],
+    ans:1,
+    exp:"La cirugía conservadora (tumorectomía + radioterapia adyuvante) tiene resultados equivalentes a la mastectomía en cuanto a supervivencia global en estadios tempranos. Criterios para conservación: tumor unifocal ≤4-5 cm, márgenes quirúrgicos negativos alcanzables, relación tumor/mama favorable estéticamente, ausencia de microcalcificaciones malignas difusas, sin contraindicación absoluta a radioterapia (embarazo, enfermedad del colágeno activa, irradiación previa). La RT posmastectomía siempre va con la conservadora.",
+    tip:"Cirugía conservadora = tumorectomía + RT obligatoria. Criterios: unifocal ≤4 cm, márgenes libres, sin contraindicación a RT. Equivalente en supervivencia a mastectomía.",
+    ref:"GPC Diagnóstico y tratamiento del cáncer de mama en segundo y tercer nivel de atención 2017"
+  },
+  {
+    cat:"tto", catName:"Diagnóstico y Tratamiento (2°-3er Nivel)",
+    q:"¿En qué situación está indicada la biopsia de ganglio centinela (BGC) en cáncer de mama?",
+    opts:[
+      "En todos los casos de cáncer de mama independientemente del estado axilar clínico o por imagen",
+      "Solo en estadio IIB con ganglios axilares clínicamente positivos (N2a) como sustituto de la linfadenectomía",
+      "En cáncer de mama con axila clínica y por imagen negativa (cN0): evita linfadenectomía axilar completa si el centinela es negativo",
+      "Solo como procedimiento diagnóstico antes de la quimioterapia neoadyuvante, nunca en cirugía primaria"
+    ],
+    ans:2,
+    exp:"La biopsia de ganglio centinela (BGC) es el estándar de manejo axilar en cáncer de mama con axila clínicamente negativa (cN0). Permite evaluar el estado ganglionar con mínima morbilidad: si el centinela es negativo, se evita la linfadenectomía axilar completa (y sus complicaciones: linfedema, seroma, limitación funcional). Si el centinela es positivo (1-2 ganglios), en algunos casos seleccionados puede evitarse la linfadenectomía (estudio ACOSOG Z0011). En axila positiva confirmada (N+) se realiza disección axilar.",
+    tip:"BGC = estándar en axila cN0. Centinela negativo → evita disección axilar. Centinela+ (1-2): considerar ACOSOG Z0011. cN+ confirmado → disección axilar.",
+    ref:"GPC Diagnóstico y tratamiento del cáncer de mama en segundo y tercer nivel de atención 2017"
+  },
+  {
+    cat:"tto", catName:"Diagnóstico y Tratamiento (2°-3er Nivel)",
+    q:"¿Cuáles son las indicaciones de quimioterapia neoadyuvante (preoperatoria) en cáncer de mama?",
+    opts:[
+      "Todo cáncer de mama estadio I sin factores de riesgo, como profilaxis de metástasis",
+      "Tumor localmente avanzado (T3-T4 o N2-N3), HER2+ o triple negativo en estadio II-III, o para permitir cirugía conservadora en tumor grande",
+      "Solo en carcinoma lobulillar invasor estadio II como único esquema aceptado",
+      "Mujeres >70 años con receptor estrogénico positivo como alternativa a la cirugía"
+    ],
+    ans:1,
+    exp:"La quimioterapia neoadyuvante (preoperatoria) está indicada en: (1) Tumor localmente avanzado (estadio IIIA-IIIB-IIIC, T4 incluyendo cáncer inflamatorio); (2) Tumores HER2+ o triple negativos en estadio II-III (alta quimiosensibilidad, mayor tasa de respuesta patológica completa); (3) Tumores grandes operable donde se desea downstaging para posibilitar cirugía conservadora; (4) Axila positiva para evaluar respuesta y guiar manejo axilar. La respuesta patológica completa (pCR) es un marcador subrogado de pronóstico favorable.",
+    tip:"QT neoadyuvante: tumor grande (downstaging), localmente avanzado, HER2+, triple negativo. pCR = mejor pronóstico. Permite conservar mama en tumor grande.",
+    ref:"GPC Diagnóstico y tratamiento del cáncer de mama en segundo y tercer nivel de atención 2017"
+  },
+  {
+    cat:"tto", catName:"Diagnóstico y Tratamiento (2°-3er Nivel)",
+    q:"¿Cuál es el tratamiento hormonal estándar para cáncer de mama con receptores de estrógeno positivos (RE+) en mujeres premenopáusicas?",
+    opts:[
+      "Inhibidores de aromatasa (anastrozol, letrozol) como primera línea en premenopáusicas con RE+",
+      "Tamoxifeno 20 mg/día por 5-10 años; o supresión ovárica + inhibidor de aromatasa en alto riesgo",
+      "Progestinas de depósito solas durante 2 años como terapia hormonal adyuvante",
+      "Fulvestrant intramuscular mensual como único agente hormonal en premenopáusicas RE+"
+    ],
+    ans:1,
+    exp:"En mujeres PRE-menopáusicas con Ca mama RE+: (1) Tamoxifeno 20 mg/día por 5 años (estándar histórico); extender a 10 años reduce recurrencia en alto riesgo. (2) En tumores de alto riesgo: supresión ovárica (análogos GnRH) + inhibidor de aromatasa (IA: exemestane, letrozol) o tamoxifeno (estudios SOFT/TEXT). Los IA solos NO se usan en premenopáusicas activas porque no bloquean la esteroidogénesis ovárica. En POST-menopáusicas: IA de primera línea (superan a tamoxifeno). Terapia hormonal reducen 50% el riesgo de recurrencia.",
+    tip:"Pre-menopáusica RE+: TAMOXIFENO 5-10 años. Alto riesgo: supresión ovárica + IA. Post-menopáusica RE+: inhibidor de aromatasa de 1ª línea. NO IA sola en premenopáusica.",
+    ref:"GPC Diagnóstico y tratamiento del cáncer de mama en segundo y tercer nivel de atención 2017"
+  },
+  {
+    cat:"tto", catName:"Diagnóstico y Tratamiento (2°-3er Nivel)",
+    q:"¿Cuál es el tratamiento dirigido estándar para cáncer de mama HER2 sobreexpresado (HER2+)?",
+    opts:[
+      "Tamoxifeno durante 10 años, ya que HER2+ siempre coexpresa receptores hormonales",
+      "Trastuzumab (anticuerpo monoclonal anti-HER2) + quimioterapia por 1 año en estadios II-III y en metástasis",
+      "Bevacizumab (anti-VEGF) como única terapia dirigida aprobada para HER2+ en México",
+      "Inhibidores de CDK4/6 (palbociclib) en combinación con letrozol en HER2+"
+    ],
+    ans:1,
+    exp:"Trastuzumab (Herceptin®) es el anticuerpo monoclonal anti-HER2 estándar en Ca mama HER2+ sobreexpresado. Indicado en: estadios II-III como terapia adyuvante por 1 año (reduce recurrencia ~50%); en neoadyuvancia + quimioterapia; y en enfermedad metastásica. Se administra con quimioterapia basada en taxanos (paclitaxel/docetaxel). En neoadyuvancia también se añade pertuzumab (doble bloqueo). Las cardiotoxicidades del trastuzumab requieren monitoreo de función ventricular. Los inhibidores de CDK4/6 son para RE+/HER2-.",
+    tip:"HER2+ = trastuzumab 1 año + quimioterapia. Neoadyuvante: + pertuzumab (doble bloqueo). Cardiotoxicidad = monitorear FEVI. CDK4/6 = RE+/HER2-.",
+    ref:"GPC Diagnóstico y tratamiento del cáncer de mama en segundo y tercer nivel de atención 2017"
+  },
+  {
+    cat:"tto", catName:"Diagnóstico y Tratamiento (2°-3er Nivel)",
+    q:"¿Cuáles son las indicaciones de radioterapia (RT) postoperatoria en cáncer de mama?",
+    opts:[
+      "Solo se indica RT en cáncer de mama estadio IV con metástasis óseas para manejo del dolor",
+      "RT siempre obligatoria tras mastectomía total, independientemente del tamaño del tumor o estado ganglionar",
+      "RT obligatoria tras cirugía conservadora (tumorectomía); y tras mastectomía si T3-T4, ≥4 ganglios positivos, o margen positivo",
+      "RT solo en Ca mama triple negativo con afección ganglionar masiva; no en HER2+ ni RE+"
+    ],
+    ans:2,
+    exp:"Indicaciones de radioterapia postoperatoria: (1) SIEMPRE tras cirugía conservadora (tumorectomía) para reducir recurrencia local; (2) Tras mastectomía cuando hay: tumor T3 (>5 cm) o T4, ≥4 ganglios axilares positivos, margen quirúrgico positivo (microscópico o macroscópico), o extensión extranodal. En 1-3 ganglios positivos la indicación de RT post-mastectomía es relativa (debe individualizarse). La RT reduce el riesgo de recurrencia local de ~30% a <10% tras tumorectomía.",
+    tip:"RT obligatoria: SIEMPRE con cirugía conservadora. Tras mastectomía: T3-T4, ≥4 ganglios+, margen+. RT reduce recurrencia local 3x tras tumorectomía.",
+    ref:"GPC Diagnóstico y tratamiento del cáncer de mama en segundo y tercer nivel de atención 2017"
+  },
+  {
+    cat:"tto", catName:"Diagnóstico y Tratamiento (2°-3er Nivel)",
+    q:"¿Cuál es el esquema de seguimiento recomendado para pacientes con cáncer de mama tratadas con intención curativa según la GPC?",
+    opts:[
+      "PET-CT cada 3 meses durante 5 años para detección temprana de metástasis asintomáticas",
+      "CA 15-3 y CEA mensuales durante 2 años como marcadores de recurrencia sistémica",
+      "Exploración clínica cada 3-6 meses (años 1-3) y cada 6-12 meses (años 4-5); mastografía anual; sin marcadores tumorales ni imagen sistémica rutinaria en asintomáticas",
+      "Resonancia magnética cerebral semestral en todos los subtipos por riesgo de metástasis cerebrales"
+    ],
+    ans:2,
+    exp:"El seguimiento de Ca mama con intención curativa se basa en: (1) Exploración clínica mamaria cada 3-6 meses durante los primeros 3 años, luego cada 6-12 meses hasta los 5 años, después anual; (2) Mastografía anual de la mama contralateral y de la mama operada (en conservadoras); (3) NO se recomienda de rutina: marcadores tumorales (CA 15-3, CEA), gammagrama óseo, TAC, PET-CT ni RMM en pacientes asintomáticas, ya que no mejoran la supervivencia global. Solo se solicitan estudios ante síntomas específicos de sospecha de recurrencia.",
+    tip:"Seguimiento Ca mama: exploración clínica + mastografía anual. NO marcadores ni imagen sistémica en asintomática. La detección de metástasis asintomáticas no mejora supervivencia.",
+    ref:"GPC Diagnóstico y tratamiento del cáncer de mama en segundo y tercer nivel de atención 2017"
+  }
+];
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}}
+
+function init(){
+  shuffle(questions);
+  currentQ=0;score=0;answers=[];
+  catStats={tam:{c:0,t:0},tto:{c:0,t:0}};
+  const r=document.getElementById('resultsArea');
+  r.classList.remove('show');r.innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const qa=questions[currentQ],total=questions.length;
+  document.getElementById('progressBar').style.width=(currentQ/total*100)+'%';
+  document.getElementById('progressText').textContent=`${currentQ+1} / ${total}`;
+  document.getElementById('nextBtn').classList.remove('show');
+  const L=['A','B','C','D'];
+  let h=`<div class="question-card">
+    <div class="q-category cat-${qa.cat}">${qa.catName}</div>
+    <div class="q-number">Pregunta ${currentQ+1} de ${total}</div>
+    <div class="q-text">${qa.q}</div>
+    <div class="options">`;
+  qa.opts.forEach((o,i)=>h+=`<button class="option-btn" onclick="selectAnswer(${i})">
+    <span class="option-letter">${L[i]}</span><span>${o}</span></button>`);
+  h+=`</div><div class="feedback" id="feedback"></div></div>`;
+  document.getElementById('quizArea').innerHTML=h;
+}
+
+function selectAnswer(idx){
+  const qa=questions[currentQ];
+  const btns=document.querySelectorAll('.option-btn');
+  const fb=document.getElementById('feedback');
+  const ok=idx===qa.ans;
+  btns.forEach((b,i)=>{b.classList.add('disabled');b.onclick=null;
+    if(i===qa.ans)b.classList.add('correct-answer');
+    if(i===idx&&!ok)b.classList.add('wrong-answer');});
+  if(!catStats[qa.cat])catStats[qa.cat]={c:0,t:0};
+  catStats[qa.cat].t++;
+  if(ok){score++;catStats[qa.cat].c++;}
+  if(!examMode){
+    fb.className=ok?'feedback correct-fb show':'feedback wrong-fb show';
+    fb.innerHTML=ok
+      ?`<div class="feedback-title">✅ ¡Correcto!</div><div>${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`
+      :`<div class="feedback-title">❌ Incorrecto</div><div><strong>Respuesta correcta:</strong> ${qa.opts[qa.ans]}</div><div style="margin-top:8px;">${qa.exp}</div><div class="tip"><strong>💡 Tip clínico:</strong> ${qa.tip}</div><div class="ref">📖 ${qa.ref}</div>`;
+  }
+  answers.push({q:qa.q,correct:ok,userAns:qa.opts[idx],correctAns:qa.opts[qa.ans],cat:qa.catName,exp:qa.exp,tip:qa.tip,ref:qa.ref});
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion(){currentQ++;if(currentQ>=questions.length)showResults();else renderQuestion();}
+
+function showResults(){
+  document.getElementById('quizArea').innerHTML='';
+  document.getElementById('nextBtn').classList.remove('show');
+  document.getElementById('progressBar').style.width='100%';
+  document.getElementById('progressText').textContent=`${questions.length} / ${questions.length}`;
+  const pct=Math.round((score/questions.length)*100);
+  const msg=pct>=90?'🏆 ¡Excelente dominio! Listo para el ENARM.':pct>=70?'👏 ¡Muy bien! Repasa las áreas con menor puntaje.':pct>=50?'📚 Aceptable, hay áreas de oportunidad.':'⚠️ Refuerza este tema. Revisa las GPC correspondientes.';
+  const cats=[
+    {name:'Tamizaje y Referencia (1er Nivel)',key:'tam',color:'#f472b6'},
+    {name:'Diagnóstico y Tratamiento (2°-3er Nivel)',key:'tto',color:'#a78bfa'}
+  ];
+  let h=`<div class="results-header"><div class="score-big">${pct}%</div><div class="score-label">${score} de ${questions.length} correctas</div><div class="score-msg">${msg}</div></div>
+  <div class="chart-section"><div class="chart-title"><span>📊</span> Rendimiento por GPC</div><div class="bar-chart">`;
+  cats.forEach(c=>{const s=catStats[c.key]||{c:0,t:0};const p=s.t>0?Math.round((s.c/s.t)*100):0;if(s.t>0)h+=`<div class="bar-row"><div class="bar-label">${c.name}</div><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:${c.color};">${p}% (${s.c}/${s.t})</div></div></div>`;});
+  h+=`</div></div><div class="chart-section"><div class="chart-title"><span>🎯</span> Resumen General</div><div class="donut-wrap">
+    <svg class="donut-svg" viewBox="0 0 42 42">
+      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a2235" stroke-width="4"/>
+      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#f472b6" stroke-width="4" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="25" stroke-linecap="round"/>
+      <circle cx="21" cy="21" r="15.915" fill="none" stroke="#f87171" stroke-width="4" stroke-dasharray="${100-pct} ${pct}" stroke-dashoffset="${25-pct}" stroke-linecap="round"/>
+      <text x="21" y="22.5" text-anchor="middle" font-size="6" font-weight="700" fill="#e8ecf4" font-family="Plus Jakarta Sans">${pct}%</text>
+    </svg>
+    <div class="donut-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#f472b6;"></div>Correctas: ${score}</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div>Incorrectas: ${questions.length-score}</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#8896b3;"></div>Total: ${questions.length}</div>
+    </div></div></div>
+  <div class="chart-section"><div class="chart-title"><span>📋</span> Revisión de Respuestas</div>`;
+  answers.forEach((a,i)=>{h+=`<div class="review-card ${a.correct?'review-correct':'review-wrong'}">
+    <div class="review-q">${i+1}. ${a.q} <span style="font-size:0.72rem;color:var(--text-dim);">[${a.cat}]</span></div>
+    <div class="review-answer">${a.correct?`<strong>✅ ${a.correctAns}</strong>`:`<em>❌ Tu respuesta: ${a.userAns}</em><br><strong>✅ Correcta: ${a.correctAns}</strong>`}</div>
+    <div style="margin-top:8px;font-size:0.8rem;color:var(--text-dim);line-height:1.5;">${a.exp}</div>
+    <div style="margin-top:6px;font-size:0.75rem;color:var(--text-dim);opacity:0.7;font-style:italic;">📖 ${a.ref}</div>
+  </div>`;});
+  h+=`</div><button class="retry-btn" onclick="init()">🔄 Reintentar</button>`;
+  const r=document.getElementById('resultsArea');r.innerHTML=h;r.classList.add('show');r.scrollIntoView({behavior:'smooth'});
+}
+
+function toggleSpec(h){h.classList.toggle('open');h.nextElementSibling.classList.toggle('open');}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+init();
+</script>
+</body>
+</html>
