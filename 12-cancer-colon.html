@@ -200,8 +200,8 @@ const questions = [
   {
     cat:"epi", catName:"Epidemiología / Factores de Riesgo",
     q:"Hombre de 58 años, fumador de 20 años, con ingesta habitual de carne roja (≥5 veces/semana), obesidad y antecedente de colitis ulcerosa de 10 años de evolución. ¿Cuál de los siguientes factores de riesgo confiere el MAYOR riesgo relativo para desarrollar cáncer colorrectal?",
-    opts:["Tabaquismo de 20 años","Dieta alta en carne roja","Colitis ulcerosa de 10 años de evolución","Obesidad mórbida"],
-    ans:2,
+    opts:["Tabaquismo de 20 años","Colitis ulcerosa de 10 años de evolución","Dieta alta en carne roja","Obesidad mórbida"],
+    ans:1,
     exp:"La enfermedad inflamatoria intestinal (EII), particularmente la colitis ulcerosa de larga evolución (>8-10 años), es uno de los factores de riesgo más importantes para cáncer colorrectal, con un riesgo relativo de 5-10 veces mayor que la población general. La GPC de Detección Oportuna establece que pacientes con pancolitis de >8 años requieren colonoscopia de vigilancia cada 1-2 años. La dieta alta en carne roja, tabaco y obesidad también aumentan el riesgo, pero en menor magnitud.",
     tip:"<strong>Riesgo en EII:</strong> Pancolitis &gt;8 años → colonoscopia de vigilancia anual o bianual. Colitis izquierda &gt;15 años → misma vigilancia. El riesgo acumulado a 30 años de pancolitis es de ~18%. La displasia en biopsias de vigilancia es indicación de colectomía total.",
     ref:"GPC: Detección oportuna y diagnóstico de cáncer de colon y recto no hereditario. SSA-IMSS-ISSSTE. 2008."
@@ -227,8 +227,8 @@ const questions = [
   {
     cat:"tam", catName:"Tamizaje",
     q:"Mujer de 51 años, sin antecedentes familiares de cáncer colorrectal ni factores de riesgo personales. ¿Cuál es el esquema de tamizaje recomendado por la GPC para población de riesgo promedio?",
-    opts:["Sangre oculta en heces cada 3 años a partir de los 40 años","Colonoscopia cada 10 años a partir de los 50 años O sangre oculta en heces anual","Sigmoidoscopia flexible cada 5 años a partir de los 45 años","Enema de bario de doble contraste cada 5 años"],
-    ans:1,
+    opts:["Colonoscopia cada 10 años a partir de los 50 años O sangre oculta en heces anual","Sangre oculta en heces cada 3 años a partir de los 40 años","Sigmoidoscopia flexible cada 5 años a partir de los 45 años","Enema de bario de doble contraste cada 5 años"],
+    ans:0,
     exp:"Para población de riesgo promedio, la GPC recomienda iniciar tamizaje a los 50 años con alguna de las siguientes estrategias: colonoscopia cada 10 años (estándar de oro), sangre oculta en heces (SOH) anual con prueba guayaco o FIT (test inmunoquímico fecal), o sigmoidoscopia flexible cada 5 años. La colonoscopia permite detección y resección simultánea de pólipos, siendo el método más completo. Un resultado positivo de SOH obliga a colonoscopia diagnóstica.",
     tip:"<strong>Algoritmo de tamizaje:</strong> Riesgo promedio (sin historia familiar ni EII): colonoscopia c/10 años desde 50 años, o SOH anual. Riesgo alto (1 familiar 1° &gt;60 años o 2 familiares 1°): colonoscopia desde 40 años c/5 años. Riesgo muy alto (FAP, Lynch): inicio más temprano con esquemas específicos.",
     ref:"GPC: Detección oportuna y diagnóstico de cáncer de colon y recto no hereditario. SSA-IMSS-ISSSTE. 2008."
@@ -245,8 +245,8 @@ const questions = [
   {
     cat:"diag", catName:"Diagnóstico / Estadificación",
     q:"Hombre de 62 años con 3 meses de hematoquecia, cambio en el hábito intestinal hacia estreñimiento y pérdida de 8 kg de peso. La colonoscopia revela lesión circunferencial en colon sigmoides. La TC de tórax, abdomen y pelvis muestra engrosamiento parietal del sigmoides sin adenopatías ni metástasis a distancia. La biopsia confirma adenocarcinoma. ¿Cuál es la estadificación TNM/Dukes más probable si el reporte quirúrgico informa tumor que invade la muscular propia sin rebasar la serosa y sin ganglios positivos?",
-    opts:["T1N0M0 — Dukes A","T2N0M0 — Dukes B","T3N1M0 — Dukes C","T4N0M0 — Dukes B"],
-    ans:1,
+    opts:["T1N0M0 — Dukes A","T4N0M0 — Dukes B","T3N1M0 — Dukes C","T2N0M0 — Dukes B"],
+    ans:3,
     exp:"Según la clasificación TNM, T2 indica que el tumor invade la muscular propia (sin rebasar la serosa). N0 indica ausencia de metástasis ganglionares. M0 indica ausencia de metástasis a distancia. Esto corresponde a estadio II (T2N0M0), que en la clasificación de Dukes se denomina Dukes B. Dukes A = T1N0M0 (solo mucosa/submucosa). Dukes C = cualquier T con N positivo. Dukes D = M1.",
     tip:"<strong>Clasificación Dukes simplificada:</strong> A = tumor confinado a pared (T1-T2, N0, M0). B = tumor que atraviesa pared (T3-T4, N0, M0). C = ganglios positivos (cualquier T, N1-N2, M0). D = metástasis a distancia (M1). La sobrevida a 5 años: Dukes A ~90%, B ~70-75%, C ~40-50%, D &lt;10%.",
     ref:"Recomendaciones para diagnóstico y tratamiento del cáncer de colon y recto en México. AMC-AMCE. 2019."
@@ -272,8 +272,8 @@ const questions = [
   {
     cat:"her", catName:"Síndromes Hereditarios",
     q:"Adolescente de 16 años con colonoscopia que muestra más de 200 pólipos adenomatosos distribuidos en todo el colon. Su padre fue colectomizado a los 30 años por la misma causa. ¿Cuál es el diagnóstico, el gen involucrado y el tratamiento definitivo?",
-    opts:["HNPCC/Lynch — gen MLH1 — colonoscopia de vigilancia anual","Poliposis adenomatosa familiar (FAP) — gen APC — colectomía profiláctica total","Poliposis hiperplásica — sin gen específico — observación","Síndrome de Gardner — gen MUTYH — colectomía segmentaria"],
-    ans:1,
+    opts:["HNPCC/Lynch — gen MLH1 — colonoscopia de vigilancia anual","Poliposis hiperplásica — sin gen específico — observación","Poliposis adenomatosa familiar (FAP) — gen APC — colectomía profiláctica total","Síndrome de Gardner — gen MUTYH — colectomía segmentaria"],
+    ans:2,
     exp:"La poliposis adenomatosa familiar (FAP) es causada por mutaciones germinales en el gen APC (cromosoma 5q). Se caracteriza por la aparición de cientos a miles de pólipos adenomatosos en el colon a partir de la adolescencia. Sin tratamiento, prácticamente el 100% desarrolla cáncer colorrectal antes de los 40 años. El tratamiento definitivo es la colectomía total profiláctica (preferentemente proctocolectomía restauradora con bolsa ileal-anal) generalmente indicada entre los 18-25 años o antes si hay displasia severa.",
     tip:"<strong>FAP clásica vs atenuada:</strong> Clásica: &gt;100 pólipos, inicio adolescencia, gen APC. Atenuada (AFAP): 10-100 pólipos, inicio más tardío. Manifestaciones extracolónicas de FAP: osteomas (síndrome de Gardner), tumores desmoides, hipertrofia congénita del epitelio pigmentario retiniano (CHRPE), quistes epidermoides. Sigmoidoscopia anual desde los 10-12 años en portadores del gen APC.",
     ref:"GPC: Detección oportuna y diagnóstico de cáncer de colon y recto no hereditario. SSA-IMSS-ISSSTE. 2008."
@@ -281,8 +281,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento",
     q:"Paciente con adenocarcinoma de colon derecho (ciego) estadio II (T3N0M0). ¿Cuál es el tratamiento quirúrgico de elección?",
-    opts:["Hemicolectomía izquierda con anastomosis colorrectal","Hemicolectomía derecha con anastomosis ileocólica","Colectomía total con ileostomía terminal","Resección segmentaria del ciego con cierre primario"],
-    ans:1,
+    opts:["Hemicolectomía derecha con anastomosis ileocólica","Hemicolectomía izquierda con anastomosis colorrectal","Colectomía total con ileostomía terminal","Resección segmentaria del ciego con cierre primario"],
+    ans:0,
     exp:"Para tumores del colon derecho (ciego, colon ascendente, ángulo hepático y colon transverso proximal), el procedimiento de elección es la hemicolectomía derecha con anastomosis ileocólica. Esta cirugía incluye resección oncológica con márgenes adecuados y linfadenectomía regional. La resección debe incluir al menos 12 ganglios linfáticos para estadificación adecuada según las recomendaciones de 2019.",
     tip:"<strong>Cirugía según localización del tumor:</strong> Ciego/colon ascendente/ángulo hepático → Hemicolectomía derecha. Colon transverso → Colectomía transversa o hemicolectomía ampliada. Ángulo esplénico/colon descendente → Hemicolectomía izquierda. Sigmoides → Sigmoidectomía o hemicolectomía izquierda. La regla es seguir el territorio vascular (arteria ileocólica, cólica derecha, cólica media, cólica izquierda, sigmoideas).",
     ref:"Recomendaciones para diagnóstico y tratamiento del cáncer de colon y recto en México. AMC-AMCE. 2019."
@@ -290,8 +290,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento",
     q:"Mujer de 55 años con adenocarcinoma de recto bajo (a 4 cm del margen anal) estadio III (T3N1M0). ¿Cuál es la estrategia terapéutica recomendada según las guías actuales?",
-    opts:["Amputación abdominoperineal (operación de Miles) directa sin neoadyuvancia","Radioterapia exclusiva sin cirugía","Quimiorradioterapia neoadyuvante seguida de resección anterior ultrabaja o amputación abdominoperineal según respuesta","Hemicolectomía izquierda con anastomosis colorrectal baja"],
-    ans:2,
+    opts:["Amputación abdominoperineal (operación de Miles) directa sin neoadyuvancia","Radioterapia exclusiva sin cirugía","Hemicolectomía izquierda con anastomosis colorrectal baja","Quimiorradioterapia neoadyuvante seguida de resección anterior ultrabaja o amputación abdominoperineal según respuesta"],
+    ans:3,
     exp:"Para cáncer de recto localmente avanzado (estadio II-III), el estándar de tratamiento es quimiorradioterapia (QRT) neoadyuvante (5-fluorouracilo o capecitabina + radioterapia de larga duración), seguida de cirugía 6-8 semanas después. La QRT neoadyuvante reduce el tamaño tumoral, aumenta la tasa de resección R0 y mejora el control local. La cirugía puede ser resección anterior baja (con preservación del esfínter) o amputación abdominoperineal (operación de Miles) si el tumor no permite márgenes adecuados con preservación esfinteriana.",
     tip:"<strong>Cáncer de recto bajo — decisión esfinteriana:</strong> El tumor a &lt;2 cm del borde anal generalmente requiere amputación abdominoperineal (colostomía permanente). Entre 2-5 cm: la QRT neoadyuvante puede permitir resección anterior ultrabaja preservando el esfínter. La escisión mesorrectal total (EMT/TME) es el estándar quirúrgico para cáncer de recto — reduce recurrencia local de 30% a &lt;5%.",
     ref:"Recomendaciones para diagnóstico y tratamiento del cáncer de colon y recto en México. AMC-AMCE. 2019."
@@ -299,8 +299,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento",
     q:"Paciente con cáncer de colon estadio III (T3N2M0) resecado con éxito (R0). ¿Cuál es la quimioterapia adyuvante de elección según las recomendaciones actuales?",
-    opts:["FOLFIRI (5-FU + leucovorín + irinotecán) por 6 meses","FOLFOX (5-FU + leucovorín + oxaliplatino) por 6 meses","Bevacizumab en monoterapia","Capecitabina oral sin oxaliplatino solo en pacientes ancianos"],
-    ans:1,
+    opts:["FOLFIRI (5-FU + leucovorín + irinotecán) por 6 meses","Capecitabina oral sin oxaliplatino solo en pacientes ancianos","Bevacizumab en monoterapia","FOLFOX (5-FU + leucovorín + oxaliplatino) por 6 meses"],
+    ans:3,
     exp:"Para cáncer de colon estadio III operado (R0), el estándar de quimioterapia adyuvante es FOLFOX (5-fluorouracilo en infusión continua + leucovorín + oxaliplatino) por 6 meses, o su equivalente oral CAPOX (capecitabina + oxaliplatino). Los estudios MOSAIC y XELOXA demostraron que la adición de oxaliplatino al 5-FU/leucovorín mejora significativamente la supervivencia libre de enfermedad y global en estadio III.",
     tip:"<strong>Quimioterapia adyuvante en CCR:</strong> Estadio I: no requiere. Estadio II bajo riesgo: observación. Estadio II alto riesgo (T4, perforación, obstrucción, &lt;12 ganglios analizados): considerar quimioterapia. Estadio III: FOLFOX o CAPOX obligatorio. Estadio IV (metastásico): FOLFOX o FOLFIRI ± bevacizumab o cetuximab (según mutación RAS/BRAF).",
     ref:"Recomendaciones para diagnóstico y tratamiento del cáncer de colon y recto en México. AMC-AMCE. 2019."
@@ -308,8 +308,8 @@ const questions = [
   {
     cat:"diag", catName:"Diagnóstico / Estadificación",
     q:"Hombre de 66 años con cáncer de colon sigmoides diagnosticado hace 8 meses y resecado. En seguimiento, la TC de control muestra 2 lesiones hepáticas en lóbulo derecho (segmentos V y VI), hipodensas, de 2 y 3 cm, sin otras metástasis. El CEA ha aumentado de 3 a 18 ng/mL. ¿Cuál es la conducta más adecuada?",
-    opts:["Quimioterapia paliativa exclusiva con FOLFIRI sin intentar resección","Evaluación por equipo multidisciplinario para resección de metástasis hepáticas si son técnicamente resecables","Hepatectomía de urgencia sin quimioterapia previa","Radioembolización con itrio-90 como primera opción sin cirugía"],
-    ans:1,
+    opts:["Evaluación por equipo multidisciplinario para resección de metástasis hepáticas si son técnicamente resecables","Quimioterapia paliativa exclusiva con FOLFIRI sin intentar resección","Hepatectomía de urgencia sin quimioterapia previa","Radioembolización con itrio-90 como primera opción sin cirugía"],
+    ans:0,
     exp:"Las metástasis hepáticas del cáncer colorrectal son potencialmente curables mediante resección quirúrgica si son técnicamente resecables (margen libre posible, remanente hepático adecuado ≥20-30%). La supervivencia a 5 años tras resección de metástasis hepáticas es del 35-58%. La evaluación debe ser por un equipo multidisciplinario (oncología, cirugía hepatobiliar, radiología intervencionista). Si no son resecables de inicio, la quimioterapia de conversión (FOLFOX o FOLFIRI ± bevacizumab) puede hacer resecable hasta 15-30% de los casos.",
     tip:"<strong>Criterios de resecabilidad hepática en CCR:</strong> Margen oncológico posible (R0), remanente hepático funcional ≥20-30% (o ≥40% en hígado esteatósico/cirrótico), ausencia de enfermedad extrahepática no controlable, paciente con condición física adecuada. El número de metástasis no es contraindicación absoluta — la resecabilidad técnica y biológica es lo que importa.",
     ref:"Recomendaciones para diagnóstico y tratamiento del cáncer de colon y recto en México. AMC-AMCE. 2019."
@@ -317,8 +317,8 @@ const questions = [
   {
     cat:"epi", catName:"Epidemiología / Factores de Riesgo",
     q:"¿Cuál de los siguientes patrones clínicos debe alertar al médico sobre la posibilidad de un cáncer de colon derecho vs. colon izquierdo?",
-    opts:["Colon derecho: hematoquecia franca y cambio en calibre de heces; colon izquierdo: anemia ferropénica asintomática","Colon derecho: anemia ferropénica crónica sin sangrado visible y masa palpable en FID; colon izquierdo: hematoquecia, cambio en calibre de heces y síntomas obstructivos","Ambos lados se presentan igual: siempre con hematoquecia y dolor cólico","Colon derecho: ictericia obstructiva; colon izquierdo: ascitis maligna"],
-    ans:1,
+    opts:["Colon derecho: anemia ferropénica crónica sin sangrado visible y masa palpable en FID; colon izquierdo: hematoquecia, cambio en calibre de heces y síntomas obstructivos","Colon derecho: hematoquecia franca y cambio en calibre de heces; colon izquierdo: anemia ferropénica asintomática","Ambos lados se presentan igual: siempre con hematoquecia y dolor cólico","Colon derecho: ictericia obstructiva; colon izquierdo: ascitis maligna"],
+    ans:0,
     exp:"Los tumores del colon derecho tienden a ser lesiones exofíticas en un segmento de gran calibre, por lo que frecuentemente se presentan como anemia ferropénica crónica (sangrado oculto) sin síntomas obstructivos, y en ocasiones como masa palpable en fosa ilíaca derecha. Los tumores del colon izquierdo ocurren en un segmento de menor calibre con heces ya formadas, provocando obstrucción, cambio en el calibre (heces en 'lápiz'), hematoquecia macroscópica y tenesmo. Esta diferencia clínica es crucial para el ENARM.",
     tip:"<strong>Mnemotecnia colon D vs I:</strong> Derecho = 'Dentro' (sangrado oculto, anemia, asintomático hasta tarde). Izquierdo = 'Afuera' (sangre visible, obstrucción, cambio hábito). Anemia ferropénica inexplicable en adulto mayor sin causa evidente = colonoscopia obligatoria para descartar neoplasia de colon derecho.",
     ref:"GPC: Detección oportuna y diagnóstico de cáncer de colon y recto no hereditario. SSA-IMSS-ISSSTE. 2008."
@@ -326,8 +326,8 @@ const questions = [
   {
     cat:"tam", catName:"Tamizaje",
     q:"Se realiza colonoscopia de tamizaje a una mujer de 53 años asintomática. Se encuentran y resecan 3 adenomas tubulares, el mayor de 8 mm, sin displasia de alto grado. ¿Cuándo debe realizarse la próxima colonoscopia de vigilancia?",
-    opts:["En 10 años (igual que tamizaje de riesgo promedio)","En 5 años (adenomas de riesgo intermedio: 3-4 adenomas o adenoma 6-9 mm)","En 1-3 años (adenomas de alto riesgo)","En 6 meses (resección incompleta probable)"],
-    ans:1,
+    opts:["En 10 años (igual que tamizaje de riesgo promedio)","En 1-3 años (adenomas de alto riesgo)","En 5 años (adenomas de riesgo intermedio: 3-4 adenomas o adenoma 6-9 mm)","En 6 meses (resección incompleta probable)"],
+    ans:2,
     exp:"Según las guías de vigilancia post-polipectomía, pacientes con 3-4 adenomas o con un adenoma de 6-9 mm son considerados de riesgo intermedio y deben repetir la colonoscopia en 3-5 años (el intervalo exacto varía según guía, con tendencia actual a 3 años). Alto riesgo (vigilancia en 1-3 años): ≥5 adenomas, o adenoma ≥10 mm, o adenoma velloso/displasia alto grado. Este caso con 3 adenomas y el mayor de 8 mm corresponde a riesgo intermedio → siguiente colonoscopia en 3 años según las recomendaciones más recientes.",
     tip:"<strong>Intervalos de vigilancia post-polipectomía:</strong> Sin pólipos o solo hiperplásicos: repetir en 10 años. 1-2 adenomas tubulares &lt;10 mm bajo grado: 5-10 años. 3-4 adenomas o adenoma 6-9 mm: 3 años. ≥5 adenomas, adenoma ≥10 mm, velloso o alto grado: 1-3 años. Resección fragmentada de adenoma grande: 6 meses para confirmar resección completa.",
     ref:"GPC: Detección oportuna y diagnóstico de cáncer de colon y recto no hereditario. SSA-IMSS-ISSSTE. 2008."

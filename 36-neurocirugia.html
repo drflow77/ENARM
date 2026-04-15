@@ -287,8 +287,8 @@ const questions = [
   {
     cat:"dx", catName:"Diagnóstico",
     q:"Mujer de 55 años que presenta dolor facial intenso y paroxístico ('como toques eléctricos') en la mejilla derecha que dura unos segundos. Los episodios se desencadenan sistemáticamente al lavarse los dientes o masticar. Su exploración neurológica muestra reflejos corneales y sensibilidad facial conservados. ¿Cuál es el diagnóstico clínico más preciso?",
-    opts:["Migraña con aura cerebral","Cefalea en racimos (Cluster)","Neuralgia del trigémino","Arteritis de la temporal"],
-    ans:2,
+    opts:["Neuralgia del trigémino","Cefalea en racimos (Cluster)","Migraña con aura cerebral","Arteritis de la temporal"],
+    ans:0,
     exp:"La neuralgia del trigémino clásica se manifiesta por episodios de dolor facial unilateral intenso, punzante (lancinante o neuropático), de corta duración (fracciones de segundo a minutos), distribuido en ramas del V par. Se desencadena fácilmente al tocar 'zonas gatillo' durante actividades cotidianas (masticar, hablar, aseo bucal). Típicamente no presenta déficit neurológico objetivo a la exploración.",
     tip:"<strong>Perla clínica:</strong> Dolor tipo choque eléctrico unilateral + duración fugaz + Zonas gatillo positivas + Examen neurológico normal = Neuralgia del trigémino inconfundible.",
     ref:"GPC: Tratamiento farmacológico del dolor neuropático en pacientes mayores de 18 años. SS-061-08."
@@ -296,8 +296,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento",
     q:"Basándose en la GPC para el tratamiento del dolor neuropático, ¿cuál es el agente neuromodulador de primera línea de elección establecido expresamente por su alta eficacia para la neuralgia del trigémino?",
-    opts:["Gabapentina","Carbamazepina","Pregabalina","Amitriptilina"],
-    ans:1,
+    opts:["Gabapentina","Pregabalina","Carbamazepina","Amitriptilina"],
+    ans:2,
     exp:"La GPC destaca a la carbamazepina (dosis sugerida 200 a 1200 mg/día) y la oxcarbazepina como los fármacos de primera línea y de mayor efectividad para la neuralgia del trigémino genuina debido al control dramático que logran en los paroxismos de dolor en más del 70% de los casos.",
     tip:"<strong>Manejo:</strong> A diferencia de la neuropatía diabética o postherpética (donde gabapentina o pregabalina son reyes), en Neuralgia del Trigémino el estándar de oro absoluto sigue siendo la Carbamazepina.",
     ref:"GPC: Tratamiento farmacológico del dolor neuropático en pacientes mayores de 18 años. SS-061-08."
@@ -314,8 +314,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento",
     q:"Paciente con neuralgia del trigémino refractaria médicamente a múltiples anticonvulsivantes, apto para cirugía craneal, con RM que demuestra la compresión de la raíz protuberancial por la arteria cerebelosa superior. ¿Qué procedimiento neuroquirúrgico definitivo ha demostrado la principal tasa de eficacia curativa libre de dolor a largo plazo con menores secuelas sensitivas faciales?",
-    opts:["Ablación por radiofrecuencia percutánea","Radiocirugía estereotáctica focal con Gamma-Knife","Descompresión microvascular radicular (técnica de Jannetta)","Rizotomía con inyección retrogasseriana de Glicerol"],
-    ans:2,
+    opts:["Ablación por radiofrecuencia percutánea","Descompresión microvascular radicular (técnica de Jannetta)","Radiocirugía estereotáctica focal con Gamma-Knife","Rizotomía con inyección retrogasseriana de Glicerol"],
+    ans:1,
     exp:"La Descompresión microvascular de Jannetta actúa etiológicamente al separar y aislar el contacto del vaso aberrante con el nervio a la entrada protuberancial, evitando recurrir a la destrucción ablativa de fibras y manteniendo intacta la sensibilidad facial. Es la opción curativa principal en pacientes que toleran intervenciones de fosa posterior y demuestran el conflicto neuro-vascular (asa de vasos).",
     tip:"<strong>Elección Quirúrgica:</strong> Joven y con buen estado cardiorrespiratorio y neurológico = Descompresión Microvascular (Jannetta). Paciente añoso con alto riesgo anestésico y pluripatologías = Procedimientos ablativos dolorosos mínimamente invasivos.",
     ref:"Bases del tratamiento de Neuralgia del trigémino. Neurocirugía Clínica."
@@ -341,8 +341,8 @@ const questions = [
   {
     cat:"dx", catName:"Diagnóstico",
     q:"La Hipertensión intracraneal sostenida de larga duración (> días/semanas) puede provocar un signo funduscópico neuro-oftalmológico invaluable para su identificación inequívoca, se describe visualmente en el fondo de ojo como la presencia borrosa e hiperémica de los bordes del disco óptico acompañado y que resulta de un fracaso en un eficaz drenaje venoso retrógrado por congestión:",
-    opts:["Neuritis óptica anterior dolorosa isquémica","Amaurosis fugax","Papiledema severo","Desprendimiento regmatógeno retiniano inferior"],
-    ans:2,
+    opts:["Papiledema severo","Amaurosis fugax","Neuritis óptica anterior dolorosa isquémica","Desprendimiento regmatógeno retiniano inferior"],
+    ans:0,
     exp:"El papiledema es la inflamación (edema) inespecífico de cabeza y disco del nervio óptico a causa estrictamente anatómica de una elevada presión intracraneal que bloquea el retorno circulatorio del flujo axoplásmico retiniano central. Su ausencia no invalida agudamente el dx, pero que esté presente certifica el problema y avidez si es severo.",
     tip:"<strong>Diagnóstico Semiológico:</strong> HIC Aguda (Horas): no da papiledema. HIC Crónica/Subaguda (Días-Semanas) = Sí produce papiledema bilateral. Es uno de los criterios primordiales para Pseudotumor Cerebri.",
     ref:"Neurooftalmología / Exploración Neurológica."
@@ -350,8 +350,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento",
     q:"El pilar terapéutico estabilizador farmacológico y posicional para las primeras acciones médicas sobre un paciente internado con comprobada y catastrófica crisis hipertensiva intracraneal descompensada abarca inicialmente evitar todos los elementos que exacerban la turgencia, e instituir lo siguiente EXCEPTUANDO:",
-    opts:["Elevación adecuada de respaldo y cabecera de cama unos tranquilos 30° de elevación corporal","Fluidoterapia reanimatoria agresiva mediante bolos rápidos de soluciones hipotónicas seriadas glucosadas","Administración profiláctica terapéutica transitoria intrahospitalaria de agentes diuréticos osmóticos IV en alícuotas (Ej Manitol)","Empleo temporal precavido transitorio de maniobra de hiperventilación leve mediante apoyo mecánico ventilatorio"],
-    ans:1,
+    opts:["Elevación adecuada de respaldo y cabecera de cama unos tranquilos 30° de elevación corporal","Empleo temporal precavido transitorio de maniobra de hiperventilación leve mediante apoyo mecánico ventilatorio","Administración profiláctica terapéutica transitoria intrahospitalaria de agentes diuréticos osmóticos IV en alícuotas (Ej Manitol)","Fluidoterapia reanimatoria agresiva mediante bolos rápidos de soluciones hipotónicas seriadas glucosadas"],
+    ans:3,
     exp:"Nunca, jamás se emplearán soluciones hidratantes hipotónicas libres como agua o las infames Dextrosas 5% para tratar la crisis HIC ni reanimación pues atraviesan incontroladamente barreras e inmediatamente promueve e incha brutalmente el parénquima intracelular agravando el síndrome. Deben reservarse coloides e hidratantes hiper/isosmolares como SS al 0.9% y 3%.",
     tip:"<strong>Evita las glucosadas al 5%:</strong> El agua libre es mortal en edema y choque neurológico.",
     ref:"GPC Tratamiento Integral Intensivo HIC."
@@ -359,8 +359,8 @@ const questions = [
   {
     cat:"dx", catName:"Diagnóstico",
     q:"¿Cuál es la manifestación clínica pivote fundamental que un pediatra clínico deberá vigilar celosamente mensualmente en consulta con su simple estetoscopio y cinta métrica identificando un crecimiento atípicamente acelerado y anormal, permitiendo prediagnosticar una Hidrocefalia adquirida y congénita en neonatos y lactantes?",
-    opts:["Convulsión febril prolongada recidivante y refractariedad motriz","Fontanela posterior amplia mayor 5 centímetros persistente en los 6 meses","El incremento desproporcionado del Perímetro Cefálico brincando curvas de percentilas p95","Estrabismo visual convergente uni/bilateral constante en reposo posicional"],
-    ans:2,
+    opts:["Convulsión febril prolongada recidivante y refractariedad motriz","Fontanela posterior amplia mayor 5 centímetros persistente en los 6 meses","Estrabismo visual convergente uni/bilateral constante en reposo posicional","El incremento desproporcionado del Perímetro Cefálico brincando curvas de percentilas p95"],
+    ans:3,
     exp:"Debido a la disociación anatómica y sutural el cráneo inmaduro absorbe parte de los efectos mecánicos presóricos, el crecimiento rápido patológico y cruce de líneas percentilares de la curva del Perímetro Cefálico (> 2 desviaciones estándar) es el rasgo clave más representativo de la aparición del síndrome compartimental ocupacional de dilatación como ocurre dramáticamente en la hidrocefalia activa infantojuvenil temprano.",
     tip:"<strong>Control Niño Sano:</strong> Toda macrocefalia con fontanela a tensión en el primer año que aumente inmensamente debe obligar protocolización inmediata descartando Hidrocefalia.",
     ref:"GPC: Diagnóstico y manejo de la hidrocefalia congénita y adquirida en menores de 1 año. IMSS-152-08."
@@ -368,8 +368,8 @@ const questions = [
   {
     cat:"lab", catName:"Laboratorio e Imagen",
     q:"Atendiendo a las recomendaciones puntuales expuestas por la GPC mexicana homónima; frente a un lactante femenino asintomático de 4 meses donde se evidenció que durante sus últimas cuantificaciones de seguimiento su perímetro cefálico está > Percentil 97 y tiene un abombamiento en fontanela anterior blando; ¿qué técnica radiográfica imagenológica representa su estudio inicial mandatorio universal por rentabilidad para observar las cavidades de líquido encefaloraquideo considerando la ventana ósea accesible de este paciente pediátrico?",
-    opts:["Tomografía Multicorte Computarizada volumétrica de 64 detectores pediátrica","Ultrasonido Transfontanelar (USG o Ecografía cerebral sectorial) en escala de color grises","Radiografía convencional Anteroposterior y Lateral craneal técnica pediátrica","Resonancia magnética simple encéfalo-medular con mapeo 1.5 y 3 tesla"],
-    ans:1,
+    opts:["Tomografía Multicorte Computarizada volumétrica de 64 detectores pediátrica","Radiografía convencional Anteroposterior y Lateral craneal técnica pediátrica","Ultrasonido Transfontanelar (USG o Ecografía cerebral sectorial) en escala de color grises","Resonancia magnética simple encéfalo-medular con mapeo 1.5 y 3 tesla"],
+    ans:2,
     exp:"El USG transfontanelar se describe como el mejor medio o estudio precoz, sin impacto radio-biológico y alta utilidad sensitiva imagenológica porque atraviesa de forma excelente la amplia e incompletamente osificada fontanela bregmática detectando fehacientemente ventriculomegalia (Aumento ancho asta temporal/índice Evans) sin sedarse el infante. TC/IRM quedan como estudios definidores resolutivos operatorios.",
     tip:"<strong>GPC Tips Infancia:</strong> Fontanela Abierta + Patología encefálica = Ultrasonido al instante. Fácil barato libre de radiación. Resonancia queda como estudio Pre-operatorio.",
     ref:"GPC: Diagnóstico y manejo de la hidrocefalia congénita y adquirida en menores de 1 año. IMSS-152-08."
@@ -377,8 +377,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento",
     q:"La derivación del líquido LCR remanente, ¿qué sitio del cuerpo extra-axial cavitario o destino representa el tratamiento estándar ideal 'gold standard' quirúrgico general internacional para la estabilización universal en hidrocefalia sintomática en recién nacidos de acuerdo a las directrices de cirugía craneal y manual de protocolos actuales neuroquirúrgicos mexicanos pediátricos?",
-    opts:["Atrio auricular venosa central directa","Pleural o en cavidad virtual de espacio pleural peripulmonar","Derivación en la íntima cavidad Peritoneal subfrénica (Válvula DVP)","Región espinal subaracnoidea lumbovertebral de bolsa tecal"],
-    ans:2,
+    opts:["Atrio auricular venosa central directa","Derivación en la íntima cavidad Peritoneal subfrénica (Válvula DVP)","Pleural o en cavidad virtual de espacio pleural peripulmonar","Región espinal subaracnoidea lumbovertebral de bolsa tecal"],
+    ans:1,
     exp:"Ante toda indicación imperiosa, se dictamina para desviar el bloqueo presórico crónico colocar siempre que pueda el cáteter de descarga hacia compartimento cavitario pélvico o abdominal (Derivación ventrículo-peritoneal) esto pues cuenta con alta capacitancia mesotelial linfática de reabsorción y no está expenso a riesgos de morbimortalidad masiva por falla biológica como infecciones sistémicas cardiovasculares e infartos del de opción auricular V-Atrial.",
     tip:"<strong>Peritoneo:</strong> Destino anatómico final de los drenajes terapéuticos de recambio LCR.",
     ref:"GPC: Tratamiento de Hidrocefalia, técnicas y procedimientos de derivación infantil."
@@ -395,8 +395,8 @@ const questions = [
   {
     cat:"dx", catName:"Diagnóstico",
     q:"El signo que define una dilatación brusca del tercer ventrículo desplazando y colapsando progresivamente placas cuádrigeminas cerebrales mesencefálicas (Tectum), obligando neurológicamente mediante la alteración y compresión de fascículos longitudinales del techo visuales del centro periaqueductal de la mirada conjugada a llevar la esclerótica a evidenciarse arriba del globo al desplomar forzosamente el eje visual vertical hacia inferior por los ojos, siendo indicativo claro patognomónico visual semiológico de hipertensión cerebral masiva intracavitraria en hidrocefalia severa; se denomina:",
-    opts:["Signo reflejo del ojo de muñeca (Oculo-Cefálico) o de desviación laberíntica calórica.","Signo del Sol Poniente o Naciente.","Estrabismo del abducens lateral.","Fenómeno o signo patológico de Bell y espasmos fásicos blefaroclonos."],
-    ans:1,
+    opts:["Signo reflejo del ojo de muñeca (Oculo-Cefálico) o de desviación laberíntica calórica.","Fenómeno o signo patológico de Bell y espasmos fásicos blefaroclonos.","Estrabismo del abducens lateral.","Signo del Sol Poniente o Naciente."],
+    ans:3,
     exp:"El daño compresivo periaqueductal pretectal de los colículos superiores condiciona el déficit de supra-gaze manifestando este emblemático síntoma reflejo traccionador vertical y exoftálmico de síndrome de Parinaud o de desplazamiento de descenso de eje llamado el sol en el ocaso/poniente/naciente. Reflejando un riesgo biológico catastrófico cerebral profundo que urge tratamiento intensivo urgente.",
     tip:"<strong>Sol Poniente = Hidrocefalia severa no controlada.</strong> Siempre lo vemos en neuro-evaluaciones en GPC donde hay distensión de pared craneal abombada visible con redes venosas caput medusae externas turgentes.",
     ref:"GPC: Diagnóstico y manejo de la hidrocefalia congénita y adquirida en menores de 1 año. IMSS-152-08."
@@ -404,8 +404,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento",
     q:"Un neonato prematuro extremo sufrió una gran hemorragia de la matriz germinal intraventricular estadio o grado IV que ha provocado fibrosis con obstrucción permanente de las vellosidades de la granulação de Pacchioni y del acueducto de Silvio consecuentemente. Su evolución se encamina tardíamente a complicaciones como:",
-    opts:["Atrofia pan-cortical cerebelo-medular de neuro-pilos difuso simétrico progresivo y parálisis cuadrupolar tardía","Hidrocefalia de presión normal crónica normotensiva (Síndrome o tríada extra de Hakim Adams que remata tardíamente)","Hidrocefalia secundaria adquirida obstructiva post-hemorrágica reactiva progresiva masiva (muy común secuela en UCI-Neonato prematuro crítico con Hiv)","Craneosinostosis multi-sutural generalizada prematura asintomática restrictiva simple."],
-    ans:2,
+    opts:["Atrofia pan-cortical cerebelo-medular de neuro-pilos difuso simétrico progresivo y parálisis cuadrupolar tardía","Hidrocefalia secundaria adquirida obstructiva post-hemorrágica reactiva progresiva masiva (muy común secuela en UCI-Neonato prematuro crítico con Hiv)","Hidrocefalia de presión normal crónica normotensiva (Síndrome o tríada extra de Hakim Adams que remata tardíamente)","Craneosinostosis multi-sutural generalizada prematura asintomática restrictiva simple."],
+    ans:1,
     exp:"La Hemorragia Intracraneal matriz-germinal de la etapa perinatal y posnatal es una gravísima comorbilidad para el encéfalo pre-término, sus coágulos intravasculares tapan anatómicamente acueductos causando Hidrocefalias o impiden en cisterna basal absorción, creando fisiopatológicamente la patología secuelar tardía llamada de la misma forma 'adquirida post hemorrágica' que obliga rutinariamente instalar un tratamiento de valvulación de vida a posterior en UCIN para estos casos específicos.",
     tip:"<strong>Mortal tríada Prematuros:</strong> Hemorragia GM/IVH = Secuela obvia irreversible → Hidrocefalia por taponamiento = Válvula DVP temprana forzosa para salvar vida neonatal cortical superior y prevenir grave R.P.M en meses y pre-escolar.",
     ref:"GPC: Diagnóstico y manejo de la hidrocefalia congénita y adquirida en menores de 1 año. IMSS-152-08."
@@ -413,8 +413,8 @@ const questions = [
   {
     cat:"dx", catName:"Diagnóstico",
     q:"Referente al dolor en la Neuralgia del Trigémino ¿Qué ramas fisiológicamente se reportan como de aparición y envolvimiento preferente estadísticamente mayoritario que presentan hiperestesia, dolor neuropático con mayor intensidad según registros topográficos anatómicos generalizados frente al cuadro de afectación neurológica?",
-    opts:["La rama meníngea o tentorial de inervación aferente o interna sensitiva dural.","La primera división superior nerviosa ocular llamada naso-oftálmico de Willis. (Rama de división tipo: V1).","La gran porción del haz cervical y mandibular externo e inferior perioral de facial motora pura descendiente o marginal temporal del VII de Bell paralítico secundario.","Eminentemente las ramas de división Media-Maxilar Superior (V2) e Inferior-Mandibular (V3) uní-laterales predominantemente derechas."],
-    ans:3,
+    opts:["Eminentemente las ramas de división Media-Maxilar Superior (V2) e Inferior-Mandibular (V3) uní-laterales predominantemente derechas.","La primera división superior nerviosa ocular llamada naso-oftálmico de Willis. (Rama de división tipo: V1).","La gran porción del haz cervical y mandibular externo e inferior perioral de facial motora pura descendiente o marginal temporal del VII de Bell paralítico secundario.","La rama meníngea o tentorial de inervación aferente o interna sensitiva dural."],
+    ans:0,
     exp:"Tanto la GPC así como el acervo literario neurológico internacional definen sólidamente que un 60-70% de las presentacion topográfica son originadas con abrumadora asiduidad a lo largo del trayecto distribucional cutáneo territorial maxilar inferior labial suborbitario temporal inferior de dentición por afectación conjunta nerviosa del ganglio trigeminal en la rama media (V2 o maxilar supradental) y tercera ramificación mandibulolingual (V3). Afectar a V1 aislado (Oftálmico) es tan raro (5%) que obliga perentoriamente excluir otro mal como aneurismas cavernosos o neuralgia herpética orbitaria focal por Herpes tipo Zoster post VZV oftálmico en adultos ancianos con costras ulcerativas vesículares en dermatoma aguzadas dolorosas residual del mismo de la misma y disfunción extraocular. ",
     tip:"<strong>Topo Diagnóstico Trigémino Neural:</strong> Trigémino no ataca ojos comúnmente. Si duele mejillas al hablar lavar cepillarse morder y labios el rayo punzante: Es V2 o V3, bingo Neuralgia del Trigémino clásica de manual en clínica propedéutica neuro Quirúrgica",
     ref:"Tratamiento integral de medicina farmacológica y abordaje Neuropático GPC 2012 / Neuro-anatomia craneana básica de base de cráneo y pares faciales de sensibilidad y función motora maxilar general humana de la cabeza para médicos examinadores neurológicos."

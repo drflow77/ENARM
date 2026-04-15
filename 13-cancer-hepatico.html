@@ -200,8 +200,8 @@ const questions = [
   {
     cat:"hcc", catName:"Hepatocarcinoma",
     q:"Hombre de 58 años con cirrosis hepática por VHC (Child-Pugh A), en vigilancia semestral. El ultrasonido detecta un nódulo hepático de 2.2 cm. La AFP es de 650 ng/mL. ¿Cuál es la conducta diagnóstica correcta según la GPC de hepatocarcinoma?",
-    opts:["Biopsia hepática inmediata para confirmar diagnóstico","El diagnóstico de HCC queda establecido sin necesidad de biopsia","RM hepática dinámica y esperar resultado antes de decidir","Repetir AFP en 3 meses para ver tendencia"],
-    ans:1,
+    opts:["El diagnóstico de HCC queda establecido sin necesidad de biopsia","Biopsia hepática inmediata para confirmar diagnóstico","RM hepática dinámica y esperar resultado antes de decidir","Repetir AFP en 3 meses para ver tendencia"],
+    ans:0,
     exp:"Según la GPC de Diagnóstico y Tratamiento del Hepatocarcinoma (2019), en pacientes cirróticos con nódulo hepático ≥1 cm detectado por imagen, una AFP >400 ng/mL establece el diagnóstico de HCC sin requerir biopsia. Este caso cumple ambos criterios: cirrosis conocida, nódulo >1 cm y AFP >400 ng/mL. La biopsia se reserva para casos donde no se pueden aplicar los criterios no invasivos.",
     tip:"<strong>Diagnóstico no invasivo de HCC:</strong> En cirrótico con nódulo ≥1cm: AFP >400 ng/mL = diagnóstico establecido. Si AFP entre 20-400 ng/mL: imagen dinámica (TC o RM con realce arterial y lavado en fase portal = patrón típico de HCC). Solo se biopsia si imagen y marcadores no son concluyentes.",
     ref:"GPC: Diagnóstico y tratamiento del hepatocarcinoma. SSA. 2019."
@@ -209,8 +209,8 @@ const questions = [
   {
     cat:"hcc", catName:"Hepatocarcinoma",
     q:"¿Cuál de los siguientes factores de riesgo para hepatocarcinoma es INDEPENDIENTE de la cirrosis hepática?",
-    opts:["Cirrosis alcohólica compensada","Infección crónica por VHB activo (HBeAg positivo, carga viral alta)","Cirrosis por NASH estadio F4","Cirrosis por hemocromatosis hereditaria"],
-    ans:1,
+    opts:["Cirrosis alcohólica compensada","Cirrosis por hemocromatosis hereditaria","Cirrosis por NASH estadio F4","Infección crónica por VHB activo (HBeAg positivo, carga viral alta)"],
+    ans:3,
     exp:"La infección crónica por VHB es el único factor de riesgo para HCC que actúa de forma independiente a la cirrosis, ya que el virus puede integrarse directamente al genoma hepatocitario y causar transformación maligna incluso en hígado no cirrótico. La GPC enfatiza que pacientes con VHB activo (HBeAg+, carga viral >2000 UI/mL) deben incluirse en programas de vigilancia aunque no tengan cirrosis. El resto de factores (alcohol, NASH, hemocromatosis) generan HCC principalmente a través de la cirrosis.",
     tip:"<strong>VHB es especial:</strong> Todos los demás factores de riesgo (VHC, alcohol, NASH, hemocromatosis, aflatoxina) requieren cirrosis establecida para causar HCC. El VHB es oncogénico directo — puede causar HCC sin cirrosis. Por eso la vacunación contra VHB es la única prevención primaria real del HCC a nivel poblacional.",
     ref:"GPC: Diagnóstico y tratamiento del hepatocarcinoma. SSA. 2019."
@@ -227,8 +227,8 @@ const questions = [
   {
     cat:"hcc", catName:"Hepatocarcinoma",
     q:"Paciente con HCC único de 4 cm, Child-Pugh A, sin invasión vascular ni metástasis extrahepáticas. ¿En qué estadio BCLC se encuentra y cuál es el tratamiento de elección?",
-    opts:["BCLC B → TACE (quimioembolización transarterial)","BCLC A → resección hepática o trasplante hepático","BCLC C → Sorafenib","BCLC 0 → ablación por radiofrecuencia exclusiva"],
-    ans:1,
+    opts:["BCLC B → TACE (quimioembolización transarterial)","BCLC C → Sorafenib","BCLC A → resección hepática o trasplante hepático","BCLC 0 → ablación por radiofrecuencia exclusiva"],
+    ans:2,
     exp:"El estadio BCLC A incluye: 1 nódulo de cualquier tamaño (o hasta 3 nódulos ≤3 cm cada uno), función hepática conservada (Child-Pugh A-B), PS 0. El tratamiento de primera línea es la resección hepática cuando hay reserva hepática adecuada (volumen remanente suficiente, sin hipertensión portal significativa) o trasplante hepático si cumple criterios de Milán. La GPC indica que BCLC A con función hepática conservada es potencialmente curable con resección o trasplante.",
     tip:"<strong>BCLC resumido:</strong> 0 (muy temprano, ≤2cm) → ablación. A (temprano, 1 nódulo o ≤3 nódulos ≤3cm, Child A-B) → resección/trasplante/ablación. B (intermedio, multinodular, sin invasión) → TACE. C (avanzado, invasión vascular o metástasis) → Sorafenib/Lenvatinib. D (terminal, Child-Pugh C) → Paliativo.",
     ref:"GPC: Diagnóstico y tratamiento del hepatocarcinoma. SSA. 2019."
@@ -236,8 +236,8 @@ const questions = [
   {
     cat:"hcc", catName:"Hepatocarcinoma",
     q:"Un paciente con HCC tiene 2 nódulos: uno de 4.5 cm y otro de 2 cm, sin invasión vascular macroscópica ni metástasis. Su función hepática es Child-Pugh A. ¿Cumple los criterios de Milán para trasplante hepático?",
-    opts:["Sí, cumple los criterios de Milán","No cumple, porque tiene más de 1 nódulo","No cumple, porque el nódulo mayor supera los 3 cm","Sí, si la AFP es menor de 200 ng/mL"],
-    ans:0,
+    opts:["No cumple, porque tiene más de 1 nódulo","Sí, cumple los criterios de Milán","No cumple, porque el nódulo mayor supera los 3 cm","Sí, si la AFP es menor de 200 ng/mL"],
+    ans:1,
     exp:"Los criterios de Milán para trasplante hepático en HCC son: 1 nódulo ≤5 cm, O bien hasta 3 nódulos con ninguno >3 cm, sin invasión vascular macroscópica y sin metástasis extrahepáticas. Este paciente tiene 2 nódulos (≤3 total), el mayor de 4.5 cm (≤5 cm) y el menor de 2 cm (≤3 cm), sin invasión vascular ni metástasis. Por lo tanto SÍ cumple criterios de Milán. La GPC establece que el trasplante dentro de criterios de Milán ofrece supervivencia a 5 años del 70-80%.",
     tip:"<strong>Criterios de Milán (memorizar):</strong> 1 nódulo ≤5 cm, OR ≤3 nódulos todos ≤3 cm. SIN invasión vascular macroscópica. SIN metástasis. El error clásico es confundir: 2 nódulos no es automáticamente exclusión — se evalúa el tamaño de cada nódulo y si el total es ≤3. Los criterios de San Francisco (UCSF) son más amplios pero menos usados en México.",
     ref:"GPC: Diagnóstico y tratamiento del hepatocarcinoma. SSA. 2019."
@@ -245,8 +245,8 @@ const questions = [
   {
     cat:"hcc", catName:"Hepatocarcinoma",
     q:"Paciente con HCC multinodular (4 nódulos, mayor de 3.5 cm), Child-Pugh B7, sin invasión vascular macroscópica y sin metástasis extrahepáticas (BCLC B). ¿Cuál es el tratamiento de primera línea?",
-    opts:["Resección hepática mayor","Sorafenib oral","Quimioembolización transarterial (TACE)","Trasplante hepático urgente"],
-    ans:2,
+    opts:["Resección hepática mayor","Quimioembolización transarterial (TACE)","Sorafenib oral","Trasplante hepático urgente"],
+    ans:1,
     exp:"El estadio BCLC B (intermedio) corresponde a HCC multinodular, sin invasión vascular ni metástasis, con función hepática conservada (Child-Pugh A o B). El tratamiento estándar es la TACE (quimioembolización transarterial), que combina quimioterapia intraarterial con embolización, logrando necrosis tumoral y control de la enfermedad. La GPC establece TACE como primera línea en BCLC B con beneficio en supervivencia. La resección no es factible por multifocalidad y función hepática comprometida; sorafenib es para BCLC C.",
     tip:"<strong>TACE = Quimioembolización:</strong> Se introduce catéter en arteria hepática → se inyecta quimioterapico (doxorubicina o cisplatino) mezclado con lipiodol + partículas embolizantes → doble efecto: citotóxico + isquemia. El HCC es hipervascular (nutricio arterial), por lo que la embolización arterial es muy efectiva. Contraindicaciones: trombosis portal, Child C, fístula arteriovenosa.",
     ref:"GPC: Diagnóstico y tratamiento del hepatocarcinoma. SSA. 2019."
@@ -254,8 +254,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento",
     q:"¿Cuál es el tratamiento sistémico de primera línea aprobado para HCC en estadio BCLC C (avanzado: invasión vascular macroscópica o metástasis extrahepáticas)?",
-    opts:["Gemcitabina + Cisplatino IV","Sorafenib oral (o Lenvatinib como alternativa)","TACE combinada con radioterapia","Interferón alfa + Ribavirina"],
-    ans:1,
+    opts:["Gemcitabina + Cisplatino IV","TACE combinada con radioterapia","Sorafenib oral (o Lenvatinib como alternativa)","Interferón alfa + Ribavirina"],
+    ans:2,
     exp:"Para el HCC en estadio avanzado (BCLC C: invasión vascular portal macroscópica o metástasis extrahepáticas), el tratamiento sistémico de primera línea es Sorafenib (inhibidor multikinasa: VEGFR, PDGFR, RAF), que demuestra beneficio en supervivencia global. Lenvatinib mostró no inferioridad frente a sorafenib y es una alternativa válida. La GPC de HCC 2019 recomienda sorafenib como primera opción aprobada en México para BCLC C con función hepática Child-Pugh A.",
     tip:"<strong>Sorafenib en HCC:</strong> Primer fármaco sistémico con beneficio en supervivencia en HCC (estudios SHARP y Oriental). Dosis: 400 mg VO dos veces al día. Efectos adversos frecuentes: síndrome mano-pie, diarrea, hipertensión, fatiga. Solo indicado en Child-Pugh A (en Child B la toxicidad supera el beneficio). Segunda línea: Regorafenib, Nivolumab, Cabozantinib.",
     ref:"GPC: Diagnóstico y tratamiento del hepatocarcinoma. SSA. 2019."
@@ -263,8 +263,8 @@ const questions = [
   {
     cat:"hb", catName:"Hepatoblastoma",
     q:"Lactante de 18 meses es llevado a consulta por aumento progresivo del abdomen. A la exploración se palpa masa en hipocondrio derecho. La AFP sérica reporta 185,000 ng/mL. La TC abdominal muestra masa hepática sólida única de 8 cm en lóbulo derecho. ¿Cuál es el diagnóstico más probable?",
-    opts:["Neuroblastoma con metástasis hepáticas","Hepatoblastoma","Hepatocarcinoma infantil","Hamartoma mesenquimatoso hepático"],
-    ans:1,
+    opts:["Hepatoblastoma","Neuroblastoma con metástasis hepáticas","Hepatocarcinoma infantil","Hamartoma mesenquimatoso hepático"],
+    ans:0,
     exp:"El hepatoblastoma es el tumor hepático maligno primario más frecuente en la infancia, especialmente en menores de 3 años (pico: 6-18 meses). La GPC de hepatoblastoma 2016 establece que la presentación clásica es: masa abdominal derecha en niño menor de 3 años + AFP extremadamente elevada (frecuentemente >100,000 ng/mL). La AFP es el marcador tumoral más sensible y específico del hepatoblastoma, y sus niveles correlacionan con la respuesta al tratamiento.",
     tip:"<strong>Hepatoblastoma vs HCC en niños:</strong> Hepatoblastoma: <3 años, AFP >100,000 ng/mL, sin cirrosis previa. HCC infantil (raro): >5 años, AFP más variable, puede haber cirrosis o VHB. En un lactante con masa hepática y AFP altísima, pensar siempre hepatoblastoma. El neuroblastoma puede dar masa abdominal pero es retroperitoneal (suprarrenal) y tiene catecolaminas elevadas.",
     ref:"GPC: Diagnóstico y tratamiento del hepatoblastoma. SSA. 2016."
@@ -272,8 +272,8 @@ const questions = [
   {
     cat:"hb", catName:"Hepatoblastoma",
     q:"¿Cuál es la estrategia de tratamiento estándar para el hepatoblastoma de riesgo intermedio según la GPC mexicana 2016?",
-    opts:["Cirugía primaria (hepatectomía) sin quimioterapia previa","Quimioterapia neoadyuvante (cisplatino + doxorubicina) seguida de resección quirúrgica o trasplante","Radioterapia hepática total + quimioterapia de consolidación","Embolización arterial hepática + observación"],
-    ans:1,
+    opts:["Quimioterapia neoadyuvante (cisplatino + doxorubicina) seguida de resección quirúrgica o trasplante","Cirugía primaria (hepatectomía) sin quimioterapia previa","Radioterapia hepática total + quimioterapia de consolidación","Embolización arterial hepática + observación"],
+    ans:0,
     exp:"La GPC de hepatoblastoma 2016 establece que el tratamiento estándar para hepatoblastoma incluye quimioterapia neoadyuvante (preoperatoria) con cisplatino y doxorubicina (esquema PLADO o SIOPEL) seguida de resección quirúrgica. La quimioterapia neoadyuvante reduce el tamaño tumoral, permite una resección más segura (R0) y convierte tumores inicialmente irresecables en resecables. Si el tumor persiste irresecable tras la quimioterapia, se considera trasplante hepático.",
     tip:"<strong>Secuencia en hepatoblastoma:</strong> 1) Diagnóstico + estadificación (PRETEXT). 2) QT neoadyuvante: 4 ciclos de cisplatino + doxorubicina. 3) Reevaluar respuesta (AFP debe bajar significativamente). 4) Cirugía: resección R0 (margen libre) o trasplante si irresecable. 5) QT adyuvante según estadio. La AFP es el mejor marcador de respuesta — debe normalizarse tras resección completa.",
     ref:"GPC: Diagnóstico y tratamiento del hepatoblastoma. SSA. 2016."
@@ -281,8 +281,8 @@ const questions = [
   {
     cat:"meta", catName:"Metástasis Hepáticas",
     q:"Paciente de 62 años con antecedente de adenocarcinoma de colon derecho operado hace 18 meses (pT3N1M0, estadio IIIB). En la vigilancia semestral, la TC detecta 3 lesiones hepáticas hipercaptantes en fase arterial, la mayor de 2.8 cm, sin lesiones extrahepáticas. CEA elevado. ¿Cuál es el tratamiento con intención curativa si las lesiones son resecables técnica y oncológicamente?",
-    opts:["Quimioterapia paliativa con FOLFOX exclusiva","Resección hepática de las metástasis con márgenes libres","TACE de las 3 lesiones","Sorafenib por metástasis hepáticas de CCR"],
-    ans:1,
+    opts:["Quimioterapia paliativa con FOLFOX exclusiva","TACE de las 3 lesiones","Resección hepática de las metástasis con márgenes libres","Sorafenib por metástasis hepáticas de CCR"],
+    ans:2,
     exp:"Las metástasis hepáticas de cáncer colorrectal (CCR) son las más frecuentes y las que con mayor evidencia se benefician de la resección quirúrgica con intención curativa. Los criterios de resecabilidad incluyen: posibilidad de resección R0 (margen ≥1 mm), volumen hepático remanente adecuado (≥20-30%), ausencia de enfermedad extrahepática no controlable, y preferiblemente <4 lesiones. Este paciente tiene 3 lesiones, sin compromiso extrahepático, lo que lo hace candidato a resección con intención curativa.",
     tip:"<strong>Criterios de resecabilidad de metástasis hepáticas de CCR:</strong> Técnica: margen ≥1mm, volumen remanente adecuado, preservar 2 segmentos adyacentes con flujo vascular. Oncológica: <4 lesiones (relativo), sin metástasis extrahepáticas no controlables. Quimioterapia perioperatoria (FOLFOX 6 ciclos antes + 6 después) mejora supervivencia libre de enfermedad. La resección de metástasis hepáticas de CCR tiene supervivencia a 5 años del 30-50%.",
     ref:"GPC: Diagnóstico y tratamiento del hepatocarcinoma. SSA. 2019."
@@ -290,8 +290,8 @@ const questions = [
   {
     cat:"diag", catName:"Diagnóstico/Marcadores",
     q:"¿Cuál es el marcador tumoral más útil para el diagnóstico, seguimiento y evaluación de respuesta al tratamiento en el hepatoblastoma?",
-    opts:["CA 19-9","CEA (antígeno carcinoembrionario)","AFP (alfa-fetoproteína)","LDH (lactato deshidrogenasa)"],
-    ans:2,
+    opts:["CA 19-9","CEA (antígeno carcinoembrionario)","LDH (lactato deshidrogenasa)","AFP (alfa-fetoproteína)"],
+    ans:3,
     exp:"La alfa-fetoproteína (AFP) es el marcador tumoral de elección en hepatoblastoma. La GPC 2016 establece que la AFP está elevada en el 90% de los hepatoblastomas, frecuentemente en valores >100,000 ng/mL (e incluso millones). Su utilidad es triple: diagnóstico inicial, monitoreo de respuesta a la quimioterapia (debe descender significativamente tras cada ciclo) y detección de recurrencia en el seguimiento post-resección. Una AFP que no desciende o vuelve a subir indica enfermedad persistente o recurrente.",
     tip:"<strong>AFP en hepatoblastoma:</strong> Diagnóstico: elevada en >90% (hasta >1,000,000 ng/mL). Respuesta a QT: debe bajar >1 log por ciclo. Post-resección: debe normalizarse completamente. Recurrencia: primer signo es re-elevación de AFP, antes que los cambios de imagen. Paradoja: AFP muy baja en hepatoblastoma anaplásico de células pequeñas (variante de peor pronóstico, AFP normal = mal signo).",
     ref:"GPC: Diagnóstico y tratamiento del hepatoblastoma. SSA. 2016."
@@ -299,8 +299,8 @@ const questions = [
   {
     cat:"diag", catName:"Diagnóstico/Marcadores",
     q:"Mujer de 45 años con ictericia progresiva, pérdida de peso y dolor en hipocondrio derecho. La TC muestra masa en confluencia de conductos hepáticos (hilio hepático) con dilatación de vías biliares intrahepáticas. CA 19-9: 850 U/mL, CEA: 12 ng/mL. ¿Cuál es el diagnóstico más probable y cómo se denomina esta variante anatómica?",
-    opts:["Hepatocarcinoma con invasión biliar (HCC colangiotrópico)","Colangiocarcinoma hiliar (Tumor de Klatskin)","Metástasis hepática de adenocarcinoma páncreas","Adenoma hepático complicado"],
-    ans:1,
+    opts:["Colangiocarcinoma hiliar (Tumor de Klatskin)","Hepatocarcinoma con invasión biliar (HCC colangiotrópico)","Metástasis hepática de adenocarcinoma páncreas","Adenoma hepático complicado"],
+    ans:0,
     exp:"El colangiocarcinoma intrahepático o hiliar (tumor de Klatskin cuando afecta la confluencia de conductos hepáticos) se presenta con ictericia obstructiva progresiva, pérdida de peso y dolor. El CA 19-9 elevado (>37 U/mL es límite, valores >200 tienen alta especificidad) combinado con CEA elevado y la imagen característica de masa hiliar con dilatación intrahepática confirman el diagnóstico. El tumor de Klatskin es el colangiocarcinoma con peor pronóstico por su localización (irresecable en la mayoría de casos al diagnóstico).",
     tip:"<strong>Colangiocarcinoma — clasificación por ubicación:</strong> Intrahepático (periférico): dentro del parénquima, se comporta similar a HCC. Hiliar (Klatskin): en bifurcación de conductos hepáticos — peor pronóstico, clasificación de Bismuth-Corlette. Distal (extrahepático): en colédoco distal — mejor pronóstico, puede resecarse con Whipple. Marcadores: CA19-9 + CEA (ambos elevados = mayor especificidad que uno solo).",
     ref:"GPC: Diagnóstico y tratamiento del hepatocarcinoma. SSA. 2019."
@@ -317,8 +317,8 @@ const questions = [
   {
     cat:"meta", catName:"Metástasis Hepáticas",
     q:"Mujer de 38 años, usuaria crónica de anticonceptivos orales (10 años), acude a urgencias por dolor abdominal agudo en hipocondrio derecho e hipotensión. La TC muestra masa hepática de 6 cm con hemorragia activa intraperitoneal. No hay cirrosis ni antecedentes tumorales. ¿Cuál es el diagnóstico más probable y cuál es el riesgo oncológico principal de esta lesión?",
-    opts:["HCC sobre hígado sano con ruptura espontánea","Adenoma hepático con hemorragia y riesgo de malignización","Quiste hidatídico roto","Metástasis de tumor neuroendocrino roto"],
-    ans:1,
+    opts:["HCC sobre hígado sano con ruptura espontánea","Quiste hidatídico roto","Adenoma hepático con hemorragia y riesgo de malignización","Metástasis de tumor neuroendocrino roto"],
+    ans:2,
     exp:"El adenoma hepático es una lesión benigna fuertemente asociada al uso de anticonceptivos orales (estrógenos). La GPC y la literatura establecen dos complicaciones principales del adenoma hepático: hemorragia (riesgo de rotura espontánea con hemoperitoneo, más frecuente en adenomas >5 cm) y malignización (transformación a HCC, especialmente en adenomas >5 cm, en hombres o en variante con mutación beta-catenina). El tratamiento es la resección quirúrgica en adenomas >5 cm o sintomáticos, y suspensión de ACO en todos los casos.",
     tip:"<strong>Adenoma hepático — regla práctica:</strong> ACO + masa hepática en mujer joven sin cirrosis = adenoma hasta demostrar lo contrario. Riesgos: 1) Hemorragia (más frecuente, especialmente >5 cm). 2) Malignización (riesgo 5-10%, mayor en hombres, >5 cm, mutación beta-catenina). Manejo: suspender ACO (pueden regresar), resección si >5 cm, sintomático, hombre (todos los adenomas en varones se resecan), o embarazo planeado.",
     ref:"GPC: Diagnóstico y tratamiento del hepatocarcinoma. SSA. 2019."

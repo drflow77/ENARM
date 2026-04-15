@@ -200,8 +200,8 @@ const questions = [
   {
     cat:"vppb", catName:"VPPB",
     q:"Mujer de 58 años refiere episodios de vértigo intenso que duran menos de un minuto, desencadenados al girar la cabeza en la cama o al levantarse. Niega hipoacusia y tinnitus. La maniobra de Dix-Hallpike hacia el lado derecho reproduce el vértigo con nistagmo rotatorio con latencia de 10 segundos. ¿Cuál es el diagnóstico más probable?",
-    opts:["Enfermedad de Ménière","Vértigo postural paroxístico benigno (VPPB) del canal posterior derecho","Neuritis vestibular derecha","Vértigo de origen central por AIT"],
-    ans:1,
+    opts:["Enfermedad de Ménière","Neuritis vestibular derecha","Vértigo postural paroxístico benigno (VPPB) del canal posterior derecho","Vértigo de origen central por AIT"],
+    ans:2,
     exp:"El VPPB es la causa más frecuente de vértigo periférico. Se caracteriza por episodios breves de vértigo (segundos a menos de 1 minuto) desencadenados por cambios de posición cefálica. La maniobra de Dix-Hallpike positiva —nistagmo rotatorio hacia el oído afectado con latencia de 5-20 segundos, agotable y sin síntomas auditivos— es diagnóstica del canal semicircular posterior (afectado en el 90% de los casos). La GPC establece que la ausencia de hipoacusia y tinnitus diferencia el VPPB de la enfermedad de Ménière.",
     tip:"<strong>Clave diagnóstica del VPPB:</strong> Vértigo posicional + Dix-Hallpike positivo + Sin hipoacusia = VPPB. La latencia de 5-20 seg y el agotamiento del nistagmo con repetición distinguen el origen periférico (VPPB) del central (central: sin latencia, no se agota). El canal posterior se afecta en ~90% por su posición dependiente.",
     ref:"GPC: Diagnóstico y tratamiento del vértigo postural paroxístico benigno en el adulto. SSA-IMSS-ISSSTE, 2010."
@@ -209,8 +209,8 @@ const questions = [
   {
     cat:"vppb", catName:"VPPB",
     q:"¿Cuál es el tratamiento de elección para el VPPB del canal semicircular posterior según la GPC?",
-    opts:["Dimenhidrinato durante 4 semanas","Maniobra de reposicionamiento de Epley","Betahistina 16 mg cada 8 horas por 3 meses","Rehabilitación vestibular con ejercicios de Brandt-Daroff exclusivamente"],
-    ans:1,
+    opts:["Maniobra de reposicionamiento de Epley","Dimenhidrinato durante 4 semanas","Betahistina 16 mg cada 8 horas por 3 meses","Rehabilitación vestibular con ejercicios de Brandt-Daroff exclusivamente"],
+    ans:0,
     exp:"La maniobra de Epley (maniobra de reposicionamiento de canaliths) es el tratamiento de elección para el VPPB del canal semicircular posterior. La GPC la recomienda con una tasa de éxito del 70-90% en una sola sesión. Consiste en una serie de posicionamientos cefálicos para migrar los otocitos del canal semicircular posterior hacia el utrículo. No requiere farmacoterapia de mantenimiento.",
     tip:"<strong>Epley = curación, no supresión:</strong> La maniobra de Epley trata la causa (reposiciona los canaliths). Los supresores vestibulares (dimenhidrinato, meclizina) solo tratan el síntoma y no deben usarse crónicamente. Si Epley falla: Semont o Brandt-Daroff como segunda línea. Para canal horizontal: maniobra de Barbecue (Lempert).",
     ref:"GPC: Diagnóstico y tratamiento del vértigo postural paroxístico benigno en el adulto. SSA-IMSS-ISSSTE, 2010."
@@ -227,8 +227,8 @@ const questions = [
   {
     cat:"men", catName:"Ménière",
     q:"Hombre de 45 años con episodios recurrentes de vértigo rotatorio intenso que duran entre 2 y 6 horas, acompañados de hipoacusia fluctuante en oído izquierdo, tinnitus grave en el mismo oído y sensación de plenitud aural. La audiometría muestra hipoacusia neurosensorial en frecuencias bajas. ¿Cuál es el diagnóstico?",
-    opts:["Neuritis vestibular recurrente","Enfermedad de Ménière","VPPB bilateral","Vértigo migrañoso"],
-    ans:1,
+    opts:["Enfermedad de Ménière","Neuritis vestibular recurrente","VPPB bilateral","Vértigo migrañoso"],
+    ans:0,
     exp:"La enfermedad de Ménière se diagnostica clínicamente con la tríada clásica: 1) Crisis de vértigo episódico de 20 minutos a 12 horas, 2) Hipoacusia neurosensorial fluctuante (predominio en frecuencias bajas: 250-1000 Hz), 3) Tinnitus o plenitud aural ipsilateral. La GPC establece que se requieren al menos 2 episodios de vértigo de >20 minutos y audiometría confirmatoria. La fisiopatología es el hidrops endolinfático (acumulación de endolinfa en el laberinto membranoso).",
     tip:"<strong>Tríada de Ménière:</strong> Vértigo episódico &gt;20min + Hipoacusia neurosensorial fluctuante (bajas frecuencias) + Tinnitus ipsilateral. La plenitud aural es el 4to síntoma cardinal. La hipoacusia en bajas frecuencias es característica (a diferencia de otras causas que afectan altas frecuencias). Con el tiempo la hipoacusia se vuelve permanente.",
     ref:"GPC: Diagnóstico y tratamiento de la enfermedad de Meniere. SSA-IMSS-ISSSTE, 2013."
@@ -245,8 +245,8 @@ const questions = [
   {
     cat:"men", catName:"Ménière",
     q:"Paciente con enfermedad de Ménière refractaria a tratamiento médico máximo durante 2 años. ¿Cuál de las siguientes opciones quirúrgicas preserva la audición residual?",
-    opts:["Laberintectomía química con gentamicina intratimpánica (ablativa)","Descompresión del saco endolinfático","Neurectomía vestibular transcraneal","Laberintectomía quirúrgica"],
-    ans:1,
+    opts:["Laberintectomía química con gentamicina intratimpánica (ablativa)","Neurectomía vestibular transcraneal","Descompresión del saco endolinfático","Laberintectomía quirúrgica"],
+    ans:2,
     exp:"La descompresión del saco endolinfático es el procedimiento quirúrgico conservador de primera elección en Ménière refractario porque preserva la función auditiva y vestibular residual. A diferencia de la neurectomía vestibular (que también preserva audición pero es más invasiva y requiere craneotomía) o la laberintectomía (destructiva, elimina audición), la descompresión del saco es menos agresiva. La gentamicina intratimpánica es una opción ablativa no quirúrgica pero con riesgo de hipoacusia.",
     tip:"<strong>Escalada terapéutica en Ménière refractario:</strong> 1) Médico (diuréticos + sal + betahistina) → 2) Corticoides intratimpánicos → 3) Gentamicina intratimpánica (ablativa, riesgo auditivo) → 4) Cirugía conservadora (descompresión saco endolinfático) → 5) Neurectomía vestibular → 6) Laberintectomía (último recurso, sordera total). Siempre preservar audición mientras sea posible.",
     ref:"GPC: Diagnóstico y tratamiento de la enfermedad de Meniere. SSA-IMSS-ISSSTE, 2013."
@@ -254,8 +254,8 @@ const questions = [
   {
     cat:"neu", catName:"Neuritis Vestibular",
     q:"Hombre de 38 años, previamente sano, desarrolla de forma súbita vértigo rotatorio intenso, continuo, con náusea y vómito, que empeora con el movimiento de la cabeza. No refiere hipoacusia ni tinnitus. Antecedente de infección respiratoria hace 2 semanas. La exploración muestra nistagmo horizontal hacia el oído sano (izquierdo). La prueba del impulso cefálico (Head Impulse Test) es positiva hacia la derecha. ¿Cuál es el diagnóstico?",
-    opts:["Accidente isquémico cerebeloso","Neuritis vestibular derecha","Laberintitis aguda","Enfermedad de Ménière en primera crisis"],
-    ans:1,
+    opts:["Neuritis vestibular derecha","Accidente isquémico cerebeloso","Laberintitis aguda","Enfermedad de Ménière en primera crisis"],
+    ans:0,
     exp:"La neuritis vestibular es la inflamación (de probable etiología viral, reactivación de virus herpes simple tipo 1) del VIII par craneal que afecta exclusivamente la rama vestibular, SIN afectar la coclear. Por ello NO hay hipoacusia ni tinnitus. Se presenta con vértigo continuo intenso (días a semanas), nistagmo horizontal espontáneo hacia el oído SANO (el oído enfermo no envía señal, el sano 'empuja' los ojos hacia el lado enfermo) y prueba de impulso cefálico positiva hacia el lado afectado (reflejo vestíbulo-ocular disminuido).",
     tip:"<strong>Neuritis vs Laberintitis:</strong> Ambas causan vértigo agudo continuo. Diferencia clave: Neuritis = SIN hipoacusia (solo rama vestibular); Laberintitis = CON hipoacusia (ramas vestibular y coclear). Nistagmo horizontal hacia oído SANO. HIT positivo = reflejo vestíbulo-ocular afectado = origen periférico (si HIT negativo + vértigo agudo → descartar ACV cerebeloso URGENTE).",
     ref:"GPC: Diagnóstico y tratamiento del vértigo postural paroxístico benigno en el adulto. SSA-IMSS-ISSSTE, 2010."
@@ -263,8 +263,8 @@ const questions = [
   {
     cat:"neu", catName:"Neuritis Vestibular",
     q:"¿Cuál es el tratamiento recomendado para la fase aguda de la neuritis vestibular?",
-    opts:["Antibióticos IV de amplio espectro por 10 días","Supresores vestibulares (dimenhidrinato) + corticoides sistémicos en fase aguda, seguido de rehabilitación vestibular","Betahistina por 6 meses como tratamiento único","Reposo absoluto en cama por 4 semanas sin medicamentos"],
-    ans:1,
+    opts:["Antibióticos IV de amplio espectro por 10 días","Betahistina por 6 meses como tratamiento único","Supresores vestibulares (dimenhidrinato) + corticoides sistémicos en fase aguda, seguido de rehabilitación vestibular","Reposo absoluto en cama por 4 semanas sin medicamentos"],
+    ans:2,
     exp:"El manejo de la neuritis vestibular tiene tres componentes: 1) FASE AGUDA (primeros 3-5 días): supresores vestibulares (dimenhidrinato, meclizina) para control sintomático del vértigo y antieméticos. 2) CORTICOIDES: prednisona 1 mg/kg/día en pauta descendente por 3 semanas mejora la recuperación de la función vestibular (evidencia moderada). 3) REHABILITACIÓN VESTIBULAR: inicio temprano (desde la primera semana) con ejercicios de adaptación para promover compensación vestibular central. Los antibióticos no están indicados (etiología viral).",
     tip:"<strong>Protocolo neuritis vestibular:</strong> Agudo: dimenhidrinato + prednisona. Crónico: NO mantener supresores vestibulares (inhiben compensación central). Rehabilitación vestibular temprana = clave para recuperación funcional. El cerebelo 'aprende' a compensar la asimetría vestibular. Mantener supresores crónicamente impide esta compensación.",
     ref:"GPC: Diagnóstico y tratamiento del vértigo postural paroxístico benigno en el adulto. SSA-IMSS-ISSSTE, 2010."
@@ -290,8 +290,8 @@ const questions = [
   {
     cat:"vppb", catName:"VPPB",
     q:"Paciente con VPPB del canal horizontal (cúpulolitiasis) confirmado por la maniobra de rotación supina (nistagmo apogeotrófico persistente). ¿Cuál es la maniobra de elección para este tipo de VPPB?",
-    opts:["Maniobra de Epley","Maniobra de Barbecue (rotación de 360°, maniobra de Lempert)","Maniobra de Semont","Ejercicios de Brandt-Daroff"],
-    ans:1,
+    opts:["Maniobra de Epley","Ejercicios de Brandt-Daroff","Maniobra de Semont","Maniobra de Barbecue (rotación de 360°, maniobra de Lempert)"],
+    ans:3,
     exp:"El VPPB del canal semicircular horizontal representa el 10-15% de los casos. A diferencia del canal posterior, la maniobra de elección para el canal horizontal es la maniobra de Barbecue o de Lempert (rotación de 270-360° en decúbito), que permite migrar los otocitos del canal horizontal hacia el utrículo. La maniobra de Epley es específica para el canal posterior y no es efectiva para el canal horizontal.",
     tip:"<strong>Canal posterior → Epley. Canal horizontal → Barbecue.</strong> El nistagmo del canal horizontal puede ser geotropic (canalolitiasis, más frecuente) o apogeotropic (cupulolitiasis). Geotropic = nistagmo hacia el suelo en ambas posiciones laterales, más intenso hacia el oído afectado. Apogeotropic = nistagmo alejándose del suelo. Ambos se tratan con Barbecue (rotación hacia el oído sano para migrar partículas).",
     ref:"GPC: Diagnóstico y tratamiento del vértigo postural paroxístico benigno en el adulto. SSA-IMSS-ISSSTE, 2010."
@@ -299,8 +299,8 @@ const questions = [
   {
     cat:"men", catName:"Ménière",
     q:"Mujer de 52 años con enfermedad de Ménière conocida en oído derecho presenta crisis de 'caída brusca sin pérdida de conciencia' donde siente que algo la empuja al suelo de forma súbita sin vértigo previo. ¿Cómo se denomina este fenómeno?",
-    opts:["Síncope vasovagal","Crisis otolítica de Tumarkin (drop attacks)","Vértigo postural de inicio abrupto","Epilepsia vestibular"],
-    ans:1,
+    opts:["Síncope vasovagal","Epilepsia vestibular","Vértigo postural de inicio abrupto","Crisis otolítica de Tumarkin (drop attacks)"],
+    ans:3,
     exp:"Las crisis de Tumarkin (otolith crisis o drop attacks) son episodios de caída brusca sin pérdida de conciencia ni vértigo previo, ocurridos en pacientes con enfermedad de Ménière avanzada. Se deben a disfunción súbita de los órganos otolíticos (utrículo y sáculo) que generan una señal postural anormal que provoca la caída. Son potencialmente peligrosas por riesgo de traumatismo. La GPC las reconoce como complicación de la enfermedad de Ménière.",
     tip:"<strong>Crisis de Tumarkin = caída sin vértigo sin inconciencia.</strong> Diferencia con síncope: no hay pérdida de conciencia. Diferencia con vértigo: no hay ilusión de movimiento antes de la caída. Es una urgencia relativa porque indica Ménière avanzado con afección otolítica grave. Puede ser indicación de tratamiento ablativo (gentamicina intratimpánica) si es frecuente y causa lesiones.",
     ref:"GPC: Diagnóstico y tratamiento de la enfermedad de Meniere. SSA-IMSS-ISSSTE, 2013."
@@ -317,8 +317,8 @@ const questions = [
   {
     cat:"neu", catName:"Neuritis Vestibular",
     q:"¿En qué se diferencia clínicamente la laberintitis aguda de la neuritis vestibular?",
-    opts:["La laberintitis es de origen bacteriano mientras que la neuritis vestibular siempre es viral","La laberintitis causa vértigo agudo CON hipoacusia neurosensorial ipsilateral; la neuritis vestibular causa vértigo SIN hipoacusia","La laberintitis afecta el canal semicircular posterior; la neuritis afecta el utrículo","La laberintitis se trata con maniobras de reposicionamiento; la neuritis con corticoides"],
-    ans:1,
+    opts:["La laberintitis causa vértigo agudo CON hipoacusia neurosensorial ipsilateral; la neuritis vestibular causa vértigo SIN hipoacusia","La laberintitis es de origen bacteriano mientras que la neuritis vestibular siempre es viral","La laberintitis afecta el canal semicircular posterior; la neuritis afecta el utrículo","La laberintitis se trata con maniobras de reposicionamiento; la neuritis con corticoides"],
+    ans:0,
     exp:"La diferencia fundamental entre laberintitis y neuritis vestibular es la presencia o ausencia de hipoacusia: La NEURITIS VESTIBULAR afecta exclusivamente la rama vestibular del VIII par, preservando la función coclear → vértigo agudo SIN hipoacusia. La LABERINTITIS afecta tanto la rama vestibular como la coclear → vértigo agudo CON hipoacusia neurosensorial ipsilateral (y generalmente tinnitus). Ambas tienen etiología predominantemente viral y tratamiento similar (corticoides, supresores vestibulares en fase aguda, rehabilitación).",
     tip:"<strong>Diferenciador clave Neuritis vs Laberintitis:</strong> ¿Hay hipoacusia? SÍ = Laberintitis (afecta cóclea + vestíbulo). NO = Neuritis vestibular (solo vestíbulo). Ambas: vértigo continuo agudo + nistagmo horizontal hacia oído sano + HIT positivo. La laberintitis puede ser bacteriana (complicación de otitis media) o viral. La bacteriana requiere antibióticos. La viral solo requiere corticoides + supresores.",
     ref:"GPC: Diagnóstico y tratamiento del vértigo postural paroxístico benigno en el adulto. SSA-IMSS-ISSSTE, 2010."
@@ -326,8 +326,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento",
     q:"Paciente de 55 años con diagnóstico establecido de VPPB, a quien se realizó maniobra de Epley con resolución del nistagmo. Al día siguiente regresa con vértigo residual leve e inestabilidad. ¿Cuál es la conducta más adecuada?",
-    opts:["Repetir la maniobra de Epley inmediatamente y prescribir dimenhidrinato crónico","Verificar recurrencia con nueva Dix-Hallpike; si es negativa, iniciar rehabilitación vestibular con ejercicios de habituación; si es positiva, repetir Epley","TC de cráneo para descartar causa central","Betahistina por 3 meses y reposo en cama"],
-    ans:1,
+    opts:["Repetir la maniobra de Epley inmediatamente y prescribir dimenhidrinato crónico","Betahistina por 3 meses y reposo en cama","TC de cráneo para descartar causa central","Verificar recurrencia con nueva Dix-Hallpike; si es negativa, iniciar rehabilitación vestibular con ejercicios de habituación; si es positiva, repetir Epley"],
+    ans:3,
     exp:"Tras una maniobra de Epley exitosa (resolución del nistagmo), es frecuente que persista vértigo residual leve e inestabilidad por días a semanas. La conducta correcta es: 1) Verificar con nueva maniobra de Dix-Hallpike si existe recurrencia del VPPB; 2) Si Dix-Hallpike es negativa, el VPPB está resuelto → iniciar rehabilitación vestibular (ejercicios de Cawthorne-Cooksey o Brandt-Daroff) para acelerar la compensación del vértigo residual; 3) Si Dix-Hallpike es positiva, repetir maniobra de Epley. Los supresores vestibulares crónicos no están indicados pues impiden la compensación.",
     tip:"<strong>Vértigo residual post-Epley es esperado y normal.</strong> El 30-50% de los pacientes tienen síntomas residuales hasta 4 semanas. La rehabilitación vestibular (ejercicios de movimientos oculares y cefálicos) acelera la compensación central. Indicaciones de neuroimagen post-Epley: síntomas neurológicos, Dix-Hallpike persistentemente atípica, o falta de respuesta tras 3 maniobras correctas.",
     ref:"GPC: Diagnóstico y tratamiento del vértigo postural paroxístico benigno en el adulto. SSA-IMSS-ISSSTE, 2010."

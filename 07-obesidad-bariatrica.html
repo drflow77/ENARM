@@ -200,8 +200,8 @@ const questions = [
   {
     cat:"ob", catName:"Obesidad/IMC",
     q:"Paciente masculino de 38 años con peso de 110 kg y talla de 1.70 m. Su IMC calculado es 38.1 kg/m². Según la clasificación de la OMS adoptada por las GPC mexicanas, ¿en qué categoría de obesidad se encuentra?",
-    opts:["Sobrepeso (IMC 25-29.9)","Obesidad grado I (IMC 30-34.9)","Obesidad grado II (IMC 35-39.9)","Obesidad grado III / mórbida (IMC ≥40)"],
-    ans:2,
+    opts:["Obesidad grado II (IMC 35-39.9)","Obesidad grado I (IMC 30-34.9)","Sobrepeso (IMC 25-29.9)","Obesidad grado III / mórbida (IMC ≥40)"],
+    ans:0,
     exp:"La clasificación de la OMS establece: sobrepeso IMC 25-29.9, obesidad grado I IMC 30-34.9, obesidad grado II IMC 35-39.9 y obesidad grado III o mórbida IMC ≥40. Un IMC de 38.1 corresponde a obesidad grado II. La GPC Tratamiento quirúrgico de la obesidad en el adulto (2018) utiliza esta misma clasificación para estratificar el riesgo y definir indicaciones quirúrgicas.",
     tip:"<strong>Clasificación IMC (OMS):</strong> 18.5-24.9 = Normal | 25-29.9 = Sobrepeso | 30-34.9 = Obesidad I | 35-39.9 = Obesidad II | ≥40 = Obesidad III/Mórbida. Recuerda: la cirugía bariátrica se indica desde grado II (≥35) si hay comorbilidades, o grado III (≥40) sin comorbilidades.",
     ref:"GPC: Tratamiento quirúrgico de la obesidad en el adulto. IMSS-678-13. Actualización 2018."
@@ -209,8 +209,8 @@ const questions = [
   {
     cat:"ind", catName:"Indicaciones/Criterios",
     q:"¿Cuáles son las indicaciones estándar para cirugía bariátrica en el adulto según la GPC mexicana?",
-    opts:["IMC ≥35 sin comorbilidades o IMC ≥30 con DM2","IMC ≥40 sin comorbilidades, o IMC ≥35 con comorbilidades mayores (DM2, HTA, apnea del sueño, dislipidemia)","IMC ≥45 en cualquier caso o IMC ≥40 con comorbilidades","IMC ≥30 con cualquier comorbilidad o IMC ≥35 sin comorbilidades"],
-    ans:1,
+    opts:["IMC ≥35 sin comorbilidades o IMC ≥30 con DM2","IMC ≥30 con cualquier comorbilidad o IMC ≥35 sin comorbilidades","IMC ≥45 en cualquier caso o IMC ≥40 con comorbilidades","IMC ≥40 sin comorbilidades, o IMC ≥35 con comorbilidades mayores (DM2, HTA, apnea del sueño, dislipidemia)"],
+    ans:3,
     exp:"Las indicaciones estándar para cirugía bariátrica según la GPC son: IMC ≥40 kg/m² sin importar comorbilidades, o IMC ≥35 kg/m² con presencia de al menos una comorbilidad mayor relacionada con la obesidad (diabetes mellitus tipo 2, hipertensión arterial, síndrome de apnea obstructiva del sueño, dislipidemia, entre otras). Estos criterios aplican cuando el tratamiento médico previo ha sido insuficiente.",
     tip:"<strong>Regla del 35/40:</strong> IMC ≥40 → indicación absoluta. IMC 35-39.9 → indicación condicional (necesita comorbilidad). Las comorbilidades que califican: DM2, HTA, apnea del sueño, dislipidemia, ERGE severo, esteatohepatitis, artropatía incapacitante. Siempre debe haber fracaso previo de tratamiento médico-nutricional.",
     ref:"GPC: Tratamiento quirúrgico de la obesidad en el adulto. IMSS-678-13. Actualización 2018."
@@ -218,8 +218,8 @@ const questions = [
   {
     cat:"bar", catName:"Procedimientos Bariátricos",
     q:"¿Cuál es el mecanismo de acción principal del bypass gástrico en Y de Roux?",
-    opts:["Restrictivo exclusivo: reduce el volumen gástrico sin alterar la absorción","Restrictivo y malabsortivo: crea un pequeño reservorio gástrico y deriva el intestino delgado proximal","Malabsortivo exclusivo: deriva la mayor parte del intestino delgado","Solo hormonal: aumenta GLP-1 sin componente restrictivo"],
-    ans:1,
+    opts:["Restrictivo exclusivo: reduce el volumen gástrico sin alterar la absorción","Solo hormonal: aumenta GLP-1 sin componente restrictivo","Malabsortivo exclusivo: deriva la mayor parte del intestino delgado","Restrictivo y malabsortivo: crea un pequeño reservorio gástrico y deriva el intestino delgado proximal"],
+    ans:3,
     exp:"El bypass gástrico en Y de Roux (BGYR) combina un mecanismo restrictivo (creación de un pequeño reservorio gástrico de 15-30 mL) con uno malabsortivo (anastomosis gastro-yeyunal que evita el duodeno y yeyuno proximal). Además tiene efectos hormonales importantes: aumenta GLP-1, PYY y disminuye grelina. La GPC lo considera el estándar de oro por su mayor pérdida de peso y remisión de comorbilidades.",
     tip:"<strong>Mecanismos bariátricos:</strong> BYPASS = Restrictivo + Malabsortivo + Hormonal (el más completo). MANGA/SLEEVE = Solo Restrictivo + algo Hormonal (elimina fondo gástrico productor de grelina). BANDA = Solo Restrictivo reversible. A mayor complejidad, mayor pérdida de peso pero más riesgo de deficiencias nutricionales.",
     ref:"GPC: Tratamiento quirúrgico de la obesidad en el adulto. IMSS-678-13. Actualización 2018."
@@ -236,8 +236,8 @@ const questions = [
   {
     cat:"bar", catName:"Procedimientos Bariátricos",
     q:"¿Cuál es la característica que distingue a la banda gástrica ajustable de los otros procedimientos bariátricos?",
-    opts:["Es el procedimiento con mayor pérdida de exceso de peso","Es el único procedimiento reversible y puramente restrictivo sin resección ni derivación intestinal","Produce la mayor remisión de diabetes mellitus tipo 2","Es el procedimiento de elección en adolescentes con obesidad mórbida"],
-    ans:1,
+    opts:["Es el único procedimiento reversible y puramente restrictivo sin resección ni derivación intestinal","Es el procedimiento con mayor pérdida de exceso de peso","Produce la mayor remisión de diabetes mellitus tipo 2","Es el procedimiento de elección en adolescentes con obesidad mórbida"],
+    ans:0,
     exp:"La banda gástrica ajustable es el único procedimiento bariátrico completamente reversible y puramente restrictivo. Consiste en colocar una banda de silicona alrededor del cardias que crea un pequeño reservorio proximal. No implica resección gástrica ni derivación intestinal. Su ajustabilidad permite modificar el grado de restricción. Sin embargo, tiene mayor tasa de reoperación y menor pérdida de peso a largo plazo comparada con el bypass y la manga.",
     tip:"<strong>Banda gástrica:</strong> Ventajas = Reversible, sin resección, menor morbimortalidad operatoria. Desventajas = Menor pérdida de peso (40-50% del exceso), alta tasa de revisión (30-40% a 10 años por deslizamiento, erosión o falla del sistema). Actualmente es la menos utilizada de las tres técnicas principales.",
     ref:"GPC: Tratamiento quirúrgico de la obesidad en el adulto. IMSS-678-13. Actualización 2018."
@@ -245,8 +245,8 @@ const questions = [
   {
     cat:"cx", catName:"Complicaciones",
     q:"Paciente de 45 años, día 3 postoperatorio de bypass gástrico en Y de Roux. Presenta fiebre de 38.8°C, taquicardia de 110 lpm, dolor abdominal y drenaje con aspecto bilioso por el Jackson-Pratt. ¿Cuál es la complicación más grave que se debe descartar primero?",
-    opts:["Íleo paralítico postoperatorio","Fuga anastomótica","Trombosis venosa profunda","Neumonía aspirativa"],
-    ans:1,
+    opts:["Íleo paralítico postoperatorio","Trombosis venosa profunda","Fuga anastomótica","Neumonía aspirativa"],
+    ans:2,
     exp:"La fuga anastomótica (dehiscencia de la anastomosis gastro-yeyunal o yeyuno-yeyunal) es la complicación más grave del bypass gástrico, con mortalidad de 1-5%. Se presenta en los primeros 3-5 días postoperatorios con la tríada de taquicardia, fiebre y dolor abdominal. El drenaje bilioso confirma la sospecha. La GPC establece que ante cualquier signo de alarma se debe realizar tomografía de abdomen con contraste oral o reintervención inmediata.",
     tip:"<strong>Tríada de fuga anastomótica:</strong> Taquicardia + Fiebre + Dolor abdominal = Fuga hasta demostrar lo contrario. La taquicardia >120 lpm en postoperatorio de cirugía bariátrica es SIEMPRE una señal de alarma. La TAC con contraste oral muestra extravasación. Si hay inestabilidad hemodinámica: reintervención de urgencia sin esperar estudios.",
     ref:"GPC: Tratamiento quirúrgico de la obesidad en el adulto. IMSS-678-13. Actualización 2018."
@@ -254,8 +254,8 @@ const questions = [
   {
     cat:"cx", catName:"Complicaciones",
     q:"Paciente postcirugía de bypass gástrico que presenta a los 20-30 minutos después de comer: diaforesis, palpitaciones, náusea, borborigmos y diarrea. ¿Cuál es el diagnóstico y su mecanismo?",
-    opts:["Síndrome de dumping tardío por hipoglucemia reactiva a las 2-3 horas","Síndrome de dumping precoz por vaciamiento rápido de contenido hiperosmolar al intestino delgado","Obstrucción intestinal por brida postoperatoria","Úlcera marginal con sangrado"],
-    ans:1,
+    opts:["Síndrome de dumping precoz por vaciamiento rápido de contenido hiperosmolar al intestino delgado","Síndrome de dumping tardío por hipoglucemia reactiva a las 2-3 horas","Obstrucción intestinal por brida postoperatoria","Úlcera marginal con sangrado"],
+    ans:0,
     exp:"El síndrome de dumping precoz ocurre 15-30 minutos después de la ingesta. Al eliminar el píloro en el bypass gástrico, el contenido hiperosmolar pasa rápidamente al intestino delgado, causando afluencia de líquido al lumen (distensión, borborigmos, diarrea) y liberación de péptidos vasoactivos (palpitaciones, diaforesis, rubor). El dumping tardío ocurre a las 2-3 horas por hipoglucemia reactiva tras el pico de insulina.",
     tip:"<strong>Dumping Precoz vs Tardío:</strong> PRECOZ (30 min): síntomas vasomotores + GI por efecto osmótico → No hipoglucemia. TARDÍO (2-3h): hipoglucemia reactiva por hiperinsulinismo → sudoración fría, confusión, palpitaciones. Tratamiento: comidas pequeñas y frecuentes, evitar azúcares simples, separar líquidos de sólidos. Oclobasa de acarbosa en tardío.",
     ref:"GPC: Tratamiento quirúrgico de la obesidad en el adulto. IMSS-678-13. Actualización 2018."
@@ -263,8 +263,8 @@ const questions = [
   {
     cat:"cx", catName:"Complicaciones",
     q:"¿Cuáles son las deficiencias nutricionales más frecuentes y graves que se deben vigilar y suplementar en pacientes postcirugía de bypass gástrico en Y de Roux?",
-    opts:["Solo vitamina C y zinc","Hierro, vitamina B12, ácido fólico, calcio y vitamina D","Solo proteínas y calorías totales","Únicamente vitaminas liposolubles A, E y K"],
-    ans:1,
+    opts:["Hierro, vitamina B12, ácido fólico, calcio y vitamina D","Solo vitamina C y zinc","Solo proteínas y calorías totales","Únicamente vitaminas liposolubles A, E y K"],
+    ans:0,
     exp:"El bypass gástrico genera múltiples deficiencias nutricionales por exclusión del duodeno y yeyuno proximal (sitio de absorción de hierro, calcio, vitaminas del complejo B) y por reducción de la secreción de factor intrínseco. Las más importantes son: hierro (anemia ferropénica, muy frecuente en mujeres), vitamina B12 (anemia megaloblástica, neuropatía), ácido fólico, calcio y vitamina D (osteoporosis a largo plazo). La GPC obliga a suplementación de por vida.",
     tip:"<strong>Deficiencias post-bypass (orden de frecuencia):</strong> Hierro > B12 > Folato > Calcio/VitD. La manga gástrica tiene MENOS deficiencias porque no hay malabsorción. Suplementar siempre: hierro elemental 150-200mg/día, B12 IM mensual o sublingual diaria, calcio citrato (mejor absorción sin ácido), vitamina D3, multivitamínico. Monitorizar cada 6 meses de por vida.",
     ref:"GPC: Tratamiento quirúrgico de la obesidad en el adulto. IMSS-678-13. Actualización 2018."
@@ -272,8 +272,8 @@ const questions = [
   {
     cat:"met", catName:"Síndrome Metabólico",
     q:"¿Qué tipo de cirugía bariátrica tiene mayor tasa de remisión de diabetes mellitus tipo 2 y por qué?",
-    opts:["Banda gástrica ajustable, porque produce mayor restricción calórica","Bypass gástrico en Y de Roux, porque combina restricción, malabsorción y efectos hormonales incretínicos","Manga gástrica, porque elimina las células productoras de insulina del fondo gástrico","Todas tienen la misma tasa de remisión de DM2"],
-    ans:1,
+    opts:["Banda gástrica ajustable, porque produce mayor restricción calórica","Todas tienen la misma tasa de remisión de DM2","Manga gástrica, porque elimina las células productoras de insulina del fondo gástrico","Bypass gástrico en Y de Roux, porque combina restricción, malabsorción y efectos hormonales incretínicos"],
+    ans:3,
     exp:"El bypass gástrico tiene la mayor tasa de remisión de DM2 (60-80% a 5 años) comparado con la manga (50-60%) y la banda gástrica (40-50%). El mecanismo va más allá de la pérdida de peso: al excluir el duodeno y yeyuno proximal, se producen cambios en la secreción de incretinas (aumento de GLP-1 y GIP), mejora de la sensibilidad a la insulina y cambios en la microbiota intestinal. La remisión puede ocurrir antes de la pérdida de peso significativa.",
     tip:"<strong>Remisión DM2 postcirugía:</strong> BYPASS > SLEEVE > BANDA. La remisión del bypass puede ocurrir días después de la cirugía, antes de la pérdida de peso, lo que evidencia el efecto hormonal-incretínico independiente de la pérdida de peso. Criterio de remisión: HbA1c &lt;6.5% sin medicamentos por ≥1 año. Monitorizar glucosa desde el 1er día postoperatorio por riesgo de hipoglucemia.",
     ref:"GPC: Tratamiento quirúrgico de la obesidad en el adulto. IMSS-678-13. Actualización 2018."
@@ -281,8 +281,8 @@ const questions = [
   {
     cat:"ind", catName:"Indicaciones/Criterios",
     q:"¿Cuáles son las contraindicaciones absolutas para cirugía bariátrica según la GPC?",
-    opts:["Edad >65 años y tabaquismo activo","Psicosis no controlada, alcoholismo activo o drogadicción, e incapacidad para el seguimiento postoperatorio a largo plazo","Hipertensión arterial no controlada e hipotiroidismo","Antecedente de cirugía abdominal previa y ERGE"],
-    ans:1,
+    opts:["Edad >65 años y tabaquismo activo","Hipertensión arterial no controlada e hipotiroidismo","Psicosis no controlada, alcoholismo activo o drogadicción, e incapacidad para el seguimiento postoperatorio a largo plazo","Antecedente de cirugía abdominal previa y ERGE"],
+    ans:2,
     exp:"Las contraindicaciones absolutas para cirugía bariátrica incluyen: trastornos psiquiátricos graves no controlados (psicosis, trastorno bipolar descompensado, depresión mayor severa), alcoholismo activo o drogadicción, incapacidad para cumplir con el seguimiento postoperatorio a largo plazo, enfermedad cardiopulmonar grave con riesgo quirúrgico prohibitivo, y neoplasia maligna activa. El tabaquismo es contraindicación relativa que debe cesar 6 semanas antes.",
     tip:"<strong>Contraindicaciones bariátrica:</strong> Absolutas = Psicosis no controlada + Alcoholismo/drogas activos + No seguimiento. Relativas = Tabaquismo activo, cirrosis hepática descompensada, coagulopatía, obesidad extrema (IMC>60 requiere preparación). La evaluación psicológica preoperatoria es OBLIGATORIA. El seguimiento de por vida no es opcional.",
     ref:"GPC: Tratamiento quirúrgico de la obesidad en el adulto. IMSS-678-13. Actualización 2018."
@@ -299,8 +299,8 @@ const questions = [
   {
     cat:"met", catName:"Síndrome Metabólico",
     q:"¿Cuál es la pérdida de exceso de peso esperada a 1-2 años con el bypass gástrico en Y de Roux según la evidencia citada en las GPC?",
-    opts:["20-30% del exceso de peso","50-70% del exceso de peso","80-90% del exceso de peso","100% del exceso de peso en todos los pacientes"],
-    ans:1,
+    opts:["20-30% del exceso de peso","80-90% del exceso de peso","50-70% del exceso de peso","100% del exceso de peso en todos los pacientes"],
+    ans:2,
     exp:"El bypass gástrico produce una pérdida del 60-80% del exceso de peso a 1-2 años, con un promedio reportado de 50-70% en las GPC mexicanas. La manga gástrica produce pérdida de 50-60% y la banda gástrica 40-50%. Se define exceso de peso como el peso actual menos el peso ideal (IMC 25). El mantenimiento a largo plazo (5-10 años) depende del seguimiento, actividad física y adherencia a cambios de hábitos.",
     tip:"<strong>Pérdida de exceso de peso esperada:</strong> BYPASS: 60-80% | MANGA: 50-65% | BANDA: 40-55%. Ejemplo: paciente con 120 kg y peso ideal 70 kg tiene 50 kg de exceso. Con bypass perderá 30-40 kg (60-80% de 50). El IMC no es el mejor indicador de éxito; usar porcentaje de exceso de peso perdido (%EWL) y porcentaje de peso total perdido (%TWL).",
     ref:"GPC: Tratamiento quirúrgico de la obesidad en el adulto. IMSS-678-13. Actualización 2018."
@@ -308,8 +308,8 @@ const questions = [
   {
     cat:"cx", catName:"Complicaciones",
     q:"Paciente de 50 años, 3 meses postoperatorio de manga gástrica. Refiere disfagia progresiva a sólidos y líquidos, vómito postprandial frecuente y pérdida de peso excesiva. La endoscopia muestra estrechez a nivel del ángulo de His. ¿Cuál es el diagnóstico?",
-    opts:["Recidiva de la obesidad por mala técnica quirúrgica","Estenosis anastomótica de la manga gástrica","Síndrome de dumping tardío severo","Fuga anastomótica tardía"],
-    ans:1,
+    opts:["Recidiva de la obesidad por mala técnica quirúrgica","Síndrome de dumping tardío severo","Estenosis anastomótica de la manga gástrica","Fuga anastomótica tardía"],
+    ans:2,
     exp:"La estenosis de la manga gástrica es una complicación que ocurre en el 0.5-4% de los casos, típicamente a nivel del ángulo de His (unión gastroesofágica) o en la zona de mayor angulación de la manga. Se presenta semanas a meses después con disfagia progresiva, intolerancia alimentaria y vómito. El diagnóstico se confirma con endoscopia o serie esofagogástrica. El tratamiento es dilatación endoscópica con balón (primera línea) o revisión quirúrgica.",
     tip:"<strong>Estenosis de manga gástrica:</strong> Sitio más frecuente = Ángulo de His (unión GE) y zona media. Factores de riesgo: manga muy tubulizada, grapado a tensión, isquemia local. Tratamiento escalonado: 1) Dilatación endoscópica con balón (hasta 3 sesiones). 2) Conversión a bypass si falla dilatación. La calibración con bugie durante la cirugía (32-40 Fr) ayuda a prevenir la estenosis.",
     ref:"GPC: Tratamiento quirúrgico de la obesidad en el adulto. IMSS-678-13. Actualización 2018."

@@ -200,8 +200,8 @@ const questions = [
   {
     cat:"abd", catName:"Trauma Abdominal",
     q:"Paciente masculino de 28 años llega al servicio de urgencias tras accidente vehicular de alta energía. TA 80/50 mmHg, FC 128 lpm, FR 24 rpm. Se realiza FAST que muestra líquido libre en espacio de Morrison y pelvis. ¿Cuál es la conducta inmediata más adecuada?",
-    opts:["Tomografía computarizada de abdomen y pelvis con contraste","Laparotomía exploratoria de urgencia","Lavado peritoneal diagnóstico","Reanimación con cristaloides y repetir FAST en 30 minutos"],
-    ans:1,
+    opts:["Tomografía computarizada de abdomen y pelvis con contraste","Lavado peritoneal diagnóstico","Laparotomía exploratoria de urgencia","Reanimación con cristaloides y repetir FAST en 30 minutos"],
+    ans:2,
     exp:"En un paciente hemodinámicamente inestable (TA <90 mmHg, FC >120 lpm) con FAST positivo (líquido libre intraabdominal), la indicación es laparotomía exploratoria de urgencia inmediata. La TC está contraindicada en inestabilidad hemodinámica porque demora el tratamiento definitivo. El ATLS 10ma edición establece que FAST positivo + inestabilidad hemodinámica = laparotomía sin necesidad de estudios adicionales.",
     tip:"<strong>Regla de oro en trauma abdominal:</strong> FAST (+) + inestabilidad hemodinámica = Laparotomía. FAST (+) + estabilidad hemodinámica = TC de abdomen/pelvis. FAST (-) + inestabilidad = buscar otra fuente de sangrado (pelvis, tórax, retroperitoneo). La TC es para pacientes ESTABLES.",
     ref:"ATLS 10ma edición. American College of Surgeons. 2018. Capítulo 5: Trauma Abdominal."
@@ -209,8 +209,8 @@ const questions = [
   {
     cat:"abd", catName:"Trauma Abdominal",
     q:"¿Cuáles son las 4 ventanas ecográficas que evalúa el examen FAST (Focused Assessment with Sonography for Trauma)?",
-    opts:["Pericárdica, perihepática, perisplécnica y pélvica","Hepática, esplénica, renal bilateral","Pericárdica, aórtica, mesentérica y pélvica","Pleural bilateral, pericárdica y hepática"],
-    ans:0,
+    opts:["Hepática, esplénica, renal bilateral","Pericárdica, perihepática, perisplécnica y pélvica","Pericárdica, aórtica, mesentérica y pélvica","Pleural bilateral, pericárdica y hepática"],
+    ans:1,
     exp:"El examen FAST evalúa 4 ventanas: (1) Pericárdica — subxifoidea o paraesternal, detecta hemopericardio; (2) Perihepática/espacio de Morrison — entre hígado y riñón derecho, el espacio más declive en decúbito supino; (3) Perisplécnica — entre bazo y riñón izquierdo (espacio esplenorrenal); (4) Pélvica/espacio de Douglas — detrás de vejiga y útero. El FAST extendido (eFAST) añade la evaluación pleural bilateral para neumotórax.",
     tip:"<strong>Mnemotecnia FAST:</strong> Pericardio → Morrison → Esplenorrenal → Douglas. El espacio de Morrison (hepatorrenal) es el más sensible para detectar sangrado intraabdominal en decúbito supino — acumula líquido primero. FAST positivo = líquido libre visible en cualquier ventana.",
     ref:"ATLS 10ma edición. American College of Surgeons. 2018. Capítulo 5: Trauma Abdominal."
@@ -218,8 +218,8 @@ const questions = [
   {
     cat:"abd", catName:"Trauma Abdominal",
     q:"En el lavado peritoneal diagnóstico (LPD), ¿cuáles son los valores que definen un resultado positivo para hemorragia intraabdominal?",
-    opts:[">50,000 eritrocitos/mm³ o >250 leucocitos/mm³","&gt;100,000 eritrocitos/mm³ o >500 leucocitos/mm³","&gt;10,000 eritrocitos/mm³ o >100 leucocitos/mm³","&gt;500,000 eritrocitos/mm³ o >1,000 leucocitos/mm³"],
-    ans:1,
+    opts:[">50,000 eritrocitos/mm³ o >250 leucocitos/mm³","&gt;10,000 eritrocitos/mm³ o >100 leucocitos/mm³","&gt;100,000 eritrocitos/mm³ o >500 leucocitos/mm³","&gt;500,000 eritrocitos/mm³ o >1,000 leucocitos/mm³"],
+    ans:2,
     exp:"El LPD se considera positivo con: eritrocitos >100,000/mm³ (indica hemorragia activa significativa), leucocitos >500/mm³ (sugiere perforación visceral con reacción inflamatoria), presencia de bilis, fibras vegetales, bacterias o amilasa elevada en el líquido de lavado. Aunque el LPD ha sido desplazado por el FAST y la TC, sigue siendo útil en centros sin ultrasonido disponible.",
     tip:"<strong>Valores clave LPD:</strong> GR >100,000/mm³ = hemorragia. GB >500/mm³ = perforación visceral. Regla práctica: si el efluente de lavado tiene sangre que impide leer texto a través del tubo, el resultado es positivo (>100,000 GR). LPD es invasivo, el FAST lo ha reemplazado en la mayoría de los centros.",
     ref:"ATLS 10ma edición. American College of Surgeons. 2018. Capítulo 5: Trauma Abdominal."
@@ -236,8 +236,8 @@ const questions = [
   {
     cat:"abd", catName:"Trauma Abdominal",
     q:"¿Cuál de los siguientes NO es una indicación absoluta de laparotomía exploratoria de urgencia en trauma abdominal?",
-    opts:["Trauma penetrante con inestabilidad hemodinámica","Evisceración de asas intestinales","FAST positivo con paciente estable hemodinámicamente","Peritonitis franca a la exploración física"],
-    ans:2,
+    opts:["FAST positivo con paciente estable hemodinámicamente","Evisceración de asas intestinales","Trauma penetrante con inestabilidad hemodinámica","Peritonitis franca a la exploración física"],
+    ans:0,
     exp:"FAST positivo con estabilidad hemodinámica NO es indicación absoluta de laparotomía inmediata — requiere TC de abdomen/pelvis para caracterizar la lesión y planear el abordaje. Las indicaciones absolutas de laparotomía en trauma son: trauma penetrante con inestabilidad hemodinámica, evisceración, peritonitis franca, sangrado evidente de herida abdominal, FAST positivo + inestabilidad, y trauma penetrante con evisceración de omento o vísceras.",
     tip:"<strong>Laparotomía inmediata SÍ:</strong> Penetrante inestable, evisceración, peritonitis, FAST(+) inestable. <strong>TC primero:</strong> FAST(+) estable, mecanismo de alta energía estable. La TC permite planear cirugía o decidir MNO. No se opera un hígado grado II estable solo porque el FAST fue positivo.",
     ref:"ATLS 10ma edición. American College of Surgeons. 2018. Capítulo 5: Trauma Abdominal."
@@ -254,8 +254,8 @@ const questions = [
   {
     cat:"tce", catName:"Trauma Craneoencefálico",
     q:"Paciente de 22 años recibe golpe en región temporal derecha. Pierde conciencia brevemente, luego se recupera y habla con normalidad por 45 minutos. Después presenta deterioro neurológico brusco, midriasis derecha fija y hemiparesia izquierda. TC craneal: imagen hiperdensa biconvexa (lente) temporal derecha. ¿Cuál es el diagnóstico y el tratamiento?",
-    opts:["Hematoma subdural agudo — craneotomía electiva","Hematoma epidural — evacuación quirúrgica urgente","Contusión cerebral — manejo conservador","Hematoma subdural crónico — drenaje ambulatorio"],
-    ans:1,
+    opts:["Hematoma subdural agudo — craneotomía electiva","Contusión cerebral — manejo conservador","Hematoma epidural — evacuación quirúrgica urgente","Hematoma subdural crónico — drenaje ambulatorio"],
+    ans:2,
     exp:"Hematoma epidural agudo: mecanismo golpe en región temporal (arteria meníngea media), intervalo lúcido característico (período de lucidez entre el golpe y el deterioro), imagen en lente biconvexo hiperdensa en TC por la sangre acumulada entre el hueso y la duramadre. La herniación uncal causa midriasis ipsilateral y hemiparesia contralateral. Tratamiento: evacuación quirúrgica URGENTE (craniotomía descompresiva). Sin tratamiento la mortalidad es cercana al 100%.",
     tip:"<strong>Epidural vs Subdural:</strong> Epidural = arteria meníngea media + golpe temporal + lente biconvexo + intervalo lúcido + joven. Subdural = venas puente + imagen en creciente + anciano anticoagulado + deterioro progresivo. Los dos requieren evacuación quirúrgica urgente cuando son sintomáticos.",
     ref:"ATLS 10ma edición. American College of Surgeons. 2018. Capítulo 6: Trauma Craneoencefálico."
@@ -272,8 +272,8 @@ const questions = [
   {
     cat:"col", catName:"Trauma de Columna",
     q:"Paciente de 40 años llega tras caída de altura con dolor cervical. Está alerta, sin déficit neurológico, sin dolor a la palpación de línea media cervical, sin intoxicación y con mecanismo simple. ¿Cuál es el abordaje correcto según los criterios NEXUS?",
-    opts:["Radiografía cervical lateral obligatoria en todo trauma","Retiro del collarín cervical sin necesidad de imagen radiológica","TC cervical de urgencia","RM cervical para descartar lesión ligamentaria"],
-    ans:1,
+    opts:["Retiro del collarín cervical sin necesidad de imagen radiológica","Radiografía cervical lateral obligatoria en todo trauma","TC cervical de urgencia","RM cervical para descartar lesión ligamentaria"],
+    ans:0,
     exp:"Los criterios NEXUS establecen que si un paciente cumple los 5 criterios de bajo riesgo, no necesita imagen radiológica cervical: (1) Sin dolor a la palpación de línea media cervical posterior; (2) Sin déficit neurológico focal; (3) Alerta (GCS 15); (4) Sin intoxicación por alcohol u otras sustancias; (5) Sin lesión distractora dolorosa. Este paciente cumple todos los criterios → retiro del collarín sin imagen.",
     tip:"<strong>Criterios NEXUS (los 5 'no'):</strong> No dolor en línea media, No déficit neurológico, No alteración del nivel de conciencia, No intoxicación, No lesión distractora. Si TODOS son negativos → sin imagen. Si ALGUNO es positivo → Rx cervical (AP, lateral, odontoides). Si Rx dudosa o déficit → TC cervical.",
     ref:"ATLS 10ma edición. American College of Surgeons. 2018. Capítulo 7: Trauma de Columna Vertebral."
@@ -281,8 +281,8 @@ const questions = [
   {
     cat:"col", catName:"Trauma de Columna",
     q:"Paciente con trauma cervical presenta cuadriplejía completa por debajo de C5. En Urgencias, ¿cuál es la medida más importante para el manejo inicial de la columna cervical?",
-    opts:["Administración inmediata de metilprednisolona IV en altas dosis","Inmovilización estricta con collarín cervical rígido + tabla espinal hasta descartar fractura inestable","Tracción craneal con Gardner-Wells de urgencia","Cirugía descompresiva en las primeras 2 horas"],
-    ans:1,
+    opts:["Administración inmediata de metilprednisolona IV en altas dosis","Cirugía descompresiva en las primeras 2 horas","Tracción craneal con Gardner-Wells de urgencia","Inmovilización estricta con collarín cervical rígido + tabla espinal hasta descartar fractura inestable"],
+    ans:3,
     exp:"La inmovilización cervical es la medida prioritaria en todo paciente con sospecha de lesión de columna cervical. Se usa collarín cervical rígido + tabla espinal para el traslado. La metilprednisolona en altas dosis ya NO está recomendada en el ATLS 10ma edición para trauma medular agudo (evidencia insuficiente y efectos adversos significativos como infecciones e hiperglucemia). La cirugía descompresiva se discute según el nivel y tipo de lesión.",
     tip:"<strong>Metilprednisolona en TCM — ya NO:</strong> El ATLS 10ma edición retiró la recomendación de metilprednisolona en trauma medular. Estudios NASCIS II y III mostraron beneficio marginal con alto riesgo de complicaciones. La inmovilización, el manejo del choque neurogénico (norepinefrina + atropina) y la prevención de hipotensión son las prioridades.",
     ref:"ATLS 10ma edición. American College of Surgeons. 2018. Capítulo 7: Trauma de Columna Vertebral."
@@ -290,8 +290,8 @@ const questions = [
   {
     cat:"pel", catName:"Trauma Pélvico/Extremidades",
     q:"Paciente politraumatizado con fractura de pelvis tipo 'libro abierto' (APC-II: rotura de sínfisis púbica + ligamentos sacroilíacos anteriores). TA 70/40 mmHg, FC 140 lpm. ¿Cuál es el primer paso específico para controlar la hemorragia pélvica?",
-    opts:["Angiografía y embolización de urgencia inmediata","Aplicación de faja pélvica o sábana enrollada para cierre de pelvis","Laparotomía exploratoria inmediata","Fijador externo pélvico en quirófano"],
-    ans:1,
+    opts:["Aplicación de faja pélvica o sábana enrollada para cierre de pelvis","Angiografía y embolización de urgencia inmediata","Laparotomía exploratoria inmediata","Fijador externo pélvico en quirófano"],
+    ans:0,
     exp:"La fractura pélvica tipo libro abierto causa hemorragia masiva retroperitoneal (puede perderse >3 L de sangre en el espacio retroperitoneal). La primera maniobra de control de hemorragia es el cierre mecánico de la pelvis con faja pélvica comercial o sábana enrollada a nivel de trocánteres mayores, que reduce el volumen pélvico y tamponada el sangrado venoso. Posterior al cierre pélvico: angioembolización si continúa inestable.",
     tip:"<strong>Algoritmo fractura de pelvis inestable:</strong> Faja pélvica INMEDIATA → reanimación con cristaloides/sangre → si persiste inestable: angioembolización (sangrado arterial) o empaquetamiento pélvico preperitoneal (sangrado venoso). La faja pélvica NO se coloca a nivel de cresta ilíaca (no cierra la pelvis), sino a nivel de trocánteres mayores.",
     ref:"ATLS 10ma edición. American College of Surgeons. 2018. Capítulo 5: Trauma Abdominal y Capítulo 8: Trauma Musculoesquelético."
@@ -299,8 +299,8 @@ const questions = [
   {
     cat:"pel", catName:"Trauma Pélvico/Extremidades",
     q:"Paciente con trauma de extremidad inferior presenta dolor desproporcionado al movimiento pasivo, parestesias, y tensión extrema del compartimento anterior de la pierna. Presión compartimental medida: 38 mmHg con PAD de 60 mmHg. ¿Cuál es el diagnóstico y tratamiento?",
-    opts:["Trombosis venosa profunda — anticoagulación","Síndrome compartimental — fasciotomía urgente","Contusión muscular grave — elevación y hielo","Fractura de estrés — inmovilización con férula"],
-    ans:1,
+    opts:["Trombosis venosa profunda — anticoagulación","Contusión muscular grave — elevación y hielo","Síndrome compartimental — fasciotomía urgente","Fractura de estrés — inmovilización con férula"],
+    ans:2,
     exp:"Síndrome compartimental: la presión compartimental >30 mmHg O dentro de 30 mmHg de la PAD (presión arterial diastólica) es criterio diagnóstico (en este caso 38 mmHg con PAD 60 mmHg: diferencia de 22 mmHg, indica síndrome compartimental). Las 6P: Pain (dolor desproporcionado al movimiento pasivo — signo más temprano y sensible), Pressure (presión aumentada), Paresthesia, Paralysis, Pallor, Pulselessness (tardío). Tratamiento: fasciotomía urgente. Sin tratamiento: necrosis muscular, mioglobinuria, falla renal.",
     tip:"<strong>Criterio diagnóstico SC:</strong> Presión compartimental >30 mmHg o ΔP (PAD - P compartimento) &lt;30 mmHg. El dolor con movimiento pasivo es el signo más temprano y sensible. Pulso ausente es signo TARDÍO — no esperar para fasciotomía. Pierna: 4 compartimentos (anterior, lateral, posterior superficial y profundo) — todos deben abrirse.",
     ref:"ATLS 10ma edición. American College of Surgeons. 2018. Capítulo 8: Trauma Musculoesquelético."
@@ -308,8 +308,8 @@ const questions = [
   {
     cat:"eval", catName:"Evaluación Secundaria",
     q:"En la evaluación secundaria del paciente politraumatizado, ¿qué nemotecnia se utiliza para obtener la historia clínica dirigida y cuáles son sus componentes?",
-    opts:["OPQRST: Onset, Paliation, Quality, Radiation, Severity, Time","AMPLE: Alergias, Medicamentos, Patologías previas, Last meal (última comida), Eventos relacionados","ABCDE: Airway, Breathing, Circulation, Disability, Exposure","SAMPLE: Síntomas, Alergias, Medicamentos, Patologías, Last meal, Eventos"],
-    ans:1,
+    opts:["AMPLE: Alergias, Medicamentos, Patologías previas, Last meal (última comida), Eventos relacionados","OPQRST: Onset, Paliation, Quality, Radiation, Severity, Time","ABCDE: Airway, Breathing, Circulation, Disability, Exposure","SAMPLE: Síntomas, Alergias, Medicamentos, Patologías, Last meal, Eventos"],
+    ans:0,
     exp:"La nemotecnia AMPLE es la recomendada por el ATLS para la historia clínica en la evaluación secundaria: A=Alergias (especialmente medicamentos y látex); M=Medicamentos actuales (anticoagulantes, antiplaquetarios, betabloqueadores afectan respuesta al trauma); P=Patologías previas y cirugías anteriores; L=Last meal (última ingesta, relevante para anestesia); E=Eventos relacionados con el trauma (mecanismo, cinemática). Esta información guía el manejo y alerta sobre complicaciones.",
     tip:"<strong>AMPLE en trauma — puntos clave:</strong> Anticoagulantes = riesgo de sangrado mayor. Betabloqueadores = taquicardia puede estar enmascarada. Diabetes = respuesta inflamatoria alterada. Embarazo = paciente especial (dos vidas). Última comida = esperar para cirugía si es posible o protección de vía aérea. La evaluación secundaria es de cabeza a pies, sistemática.",
     ref:"ATLS 10ma edición. American College of Surgeons. 2018. Capítulo 1: Evaluación Inicial y Manejo."
@@ -317,8 +317,8 @@ const questions = [
   {
     cat:"tce", catName:"Trauma Craneoencefálico",
     q:"Paciente de 65 años anticoagulado con warfarina presenta TCE leve (GCS 14) tras caída. TC craneal muestra imagen hiperdensa en forma de creciente sobre hemisferio izquierdo. ¿Cuál es el diagnóstico?",
-    opts:["Hematoma epidural agudo","Hematoma subdural agudo","Hemorragia subaracnoidea traumática","Contusión cerebral hemorrágica"],
-    ans:1,
+    opts:["Hematoma epidural agudo","Contusión cerebral hemorrágica","Hemorragia subaracnoidea traumática","Hematoma subdural agudo"],
+    ans:3,
     exp:"Hematoma subdural agudo: sangrado entre la duramadre y la aracnoides por ruptura de venas puente, imagen en creciente hiperdensa que sigue el contorno del hemisferio (no respeta suturas, a diferencia del epidural que es biconvexo y sí está limitado por suturas). Más frecuente en ancianos y anticoagulados por mayor fragilidad de las venas puente. El tratamiento depende del grosor y efecto de masa: si >10 mm o desplazamiento de línea media >5 mm → craneotomía; si menor → observación estrecha.",
     tip:"<strong>Subdural vs Epidural — diferencias clave:</strong> Subdural: venas puente, creciente, sigue contorno cerebral, NO respeta suturas, más común en ancianos/anticoagulados, deterioro progresivo o subagudo. Epidural: arteria meníngea media, lente biconvexo, SÍ respeta suturas, jóvenes, intervalo lúcido. Ambos pueden requerir cirugía urgente.",
     ref:"ATLS 10ma edición. American College of Surgeons. 2018. Capítulo 6: Trauma Craneoencefálico."
@@ -326,8 +326,8 @@ const questions = [
   {
     cat:"eval", catName:"Evaluación Secundaria",
     q:"Durante la evaluación secundaria de un paciente politraumatizado estable se detecta sangre en el meato urinario externo, hematoma perineal y próstata 'flotante' al tacto rectal. ¿Qué lesión se debe sospechar y cuál es la conducta correcta antes de colocar sonda urinaria?",
-    opts:["Ruptura vesical intraperitoneal — colocar sonda Foley de inmediato","Ruptura uretral — realizar uretrografía retrógrada antes de intentar sondaje","Contusión renal — TC abdominal con contraste","Lesión de vejiga extraperitoneal — cistografía inmediata"],
-    ans:1,
+    opts:["Ruptura vesical intraperitoneal — colocar sonda Foley de inmediato","Lesión de vejiga extraperitoneal — cistografía inmediata","Contusión renal — TC abdominal con contraste","Ruptura uretral — realizar uretrografía retrógrada antes de intentar sondaje"],
+    ans:3,
     exp:"La triada de sangre en meato urinario + hematoma perineal/escrotal + próstata alta o flotante al tacto rectal es la presentación clásica de ruptura uretral (uretra posterior, asociada a fractura de pelvis). Intentar colocar sonda Foley a ciegas puede convertir una ruptura parcial en completa. La conducta correcta es uretrografía retrógrada para confirmar la lesión y definir el abordaje. Si se confirma ruptura: manejo urológico especializado (catéter suprapúbico o reparación primaria según el caso).",
     tip:"<strong>Ruptura uretral — triada clásica:</strong> Sangre en meato + hematoma perineal/escrotal + próstata flotante. NUNCA sondaje a ciegas. Uretrografía retrógrada primero. Diferencia con ruptura vesical: la ruptura vesical tiene hematuria macroscópica + imposibilidad de orinar + asociada a fractura de pelvis, diagnóstico por cistografía o TC con cistografía.",
     ref:"ATLS 10ma edición. American College of Surgeons. 2018. Capítulo 5: Trauma Abdominal y Genitourinario."

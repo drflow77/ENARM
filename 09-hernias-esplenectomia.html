@@ -200,8 +200,8 @@ const questions = [
   {
     cat:"ing", catName:"Hernia Inguinal",
     q:"¿Cuáles son los límites del triángulo de Hesselbach, cuya debilidad determina la formación de hernia inguinal directa?",
-    opts:["Ligamento inguinal (inf.), vasos epigástricos inferiores (lat.), ligamento de Cooper (sup.)","Ligamento inguinal (inf.), vasos epigástricos inferiores (lat.), borde lateral del recto anterior del abdomen (med.)","Ligamento inguinal (inf.), nervio ilioinguinal (lat.), línea alba (med.)","Arco del transverso (sup.), ligamento de Poupart (inf.), arteria femoral (lat.)"],
-    ans:1,
+    opts:["Ligamento inguinal (inf.), vasos epigástricos inferiores (lat.), ligamento de Cooper (sup.)","Ligamento inguinal (inf.), nervio ilioinguinal (lat.), línea alba (med.)","Ligamento inguinal (inf.), vasos epigástricos inferiores (lat.), borde lateral del recto anterior del abdomen (med.)","Arco del transverso (sup.), ligamento de Poupart (inf.), arteria femoral (lat.)"],
+    ans:2,
     exp:"El triángulo de Hesselbach está delimitado por: inferiormente el ligamento inguinal, lateralmente los vasos epigástricos inferiores (arteria y vena epigástrica inferior), y medialmente el borde lateral del músculo recto anterior del abdomen. La hernia inguinal directa protruye a través de este triángulo, medialmente a los vasos epigástricos inferiores, a diferencia de la indirecta que protruye lateralmente a dichos vasos.",
     tip:"<strong>Mnemotecnia Hesselbach:</strong> 'LER' = Ligamento inguinal + Epigástricos inferiores + Recto del abdomen. La hernia Directa va al triángulo (medial a epigástricos). La hernia inDIRECTA pasa por el anillo inguinal profundo (lateral a epigástricos). D = Directa = Debilidad; I = Indirecta = anillo Interno.",
     ref:"GPC: Diagnóstico y tratamiento de las hernias inguinales y femorales. CENETEC 2012."
@@ -227,8 +227,8 @@ const questions = [
   {
     cat:"ing", catName:"Hernia Inguinal",
     q:"Mujer de 55 años presenta tumoración dolorosa en la región del triángulo de Scarpa, por debajo del ligamento inguinal y medial a la vena femoral. ¿Cuál es el diagnóstico más probable y cuál es su característica clínica más importante?",
-    opts:["Hernia inguinal indirecta; más frecuente en hombres","Hernia femoral; más frecuente en mujeres y con alta tasa de estrangulación","Hernia obturatriz; se palpa en la cara interna del muslo","Adenopatía inguinal; no se reduce con presión"],
-    ans:1,
+    opts:["Hernia inguinal indirecta; más frecuente en hombres","Adenopatía inguinal; no se reduce con presión","Hernia obturatriz; se palpa en la cara interna del muslo","Hernia femoral; más frecuente en mujeres y con alta tasa de estrangulación"],
+    ans:3,
     exp:"La hernia femoral (crural) protruye a través del anillo femoral, por debajo del ligamento inguinal y medial a la vena femoral (dentro del triángulo de Scarpa). Es más frecuente en mujeres (aunque la hernia inguinal sigue siendo más común en mujeres en términos absolutos, la hernia femoral tiene mayor proporción femenina). Su característica más importante es la alta tasa de encarcelación y estrangulación (hasta 40%) por el cuello estrecho del anillo femoral.",
     tip:"<strong>Femoral = Mujer + Estrangulación:</strong> El anillo femoral es pequeño y rígido (ligamento inguinal arriba, Cooper abajo, vena femoral afuera) → cuello muy estrecho → alta tasa de estrangulación (mayor que inguinal). Siempre reparar de forma electiva cuando se diagnostica. Nunca intentar reducción forzada si hay signos de estrangulación.",
     ref:"GPC: Diagnóstico y tratamiento de las hernias inguinales y femorales. CENETEC 2012."
@@ -236,8 +236,8 @@ const questions = [
   {
     cat:"comp", catName:"Complicaciones Hernias",
     q:"Paciente con hernia inguinal de larga evolución presenta aumento súbito del dolor, el abultamiento ya no se reduce y hay eritema local. No se auscultan ruidos hidroaéreos en el saco herniario. ¿Cuál es la complicación y cuál es el tratamiento?",
-    opts:["Encarcelación; reducción manual forzada bajo sedación","Estrangulación; cirugía de urgencia sin intento de reducción","Encarcelación; cirugía electiva en 48 horas","Hernia de Richter; observación y antibióticos"],
-    ans:1,
+    opts:["Estrangulación; cirugía de urgencia sin intento de reducción","Encarcelación; reducción manual forzada bajo sedación","Encarcelación; cirugía electiva en 48 horas","Hernia de Richter; observación y antibióticos"],
+    ans:0,
     exp:"La estrangulación herniaria implica compromiso vascular del contenido del saco (isquemia, necrosis). Se distingue de la encarcelación (irreductibilidad sin isquemia) por la presencia de: dolor intenso, eritema y calor local, ausencia de ruidos en el saco, fiebre y datos de obstrucción intestinal o peritonitis. La estrangulación requiere cirugía de urgencia — nunca intentar reducción forzada porque se puede reducir intestino necrótico al abdomen.",
     tip:"<strong>Encarcelada vs Estrangulada:</strong> Encarcelada = irreductible + sin isquemia (puede tener ruidos, sin eritema, sin fiebre). Estrangulada = irreductible + ISQUEMIA (eritema, calor, sin ruidos, fiebre, leucocitosis). Regla: hernia irreductible sin signos de isquemia → intento de reducción manual suave. Con signos de isquemia → cirugía de urgencia directa.",
     ref:"GPC: Diagnóstico y tratamiento de las hernias inguinales y femorales. CENETEC 2012."
@@ -245,8 +245,8 @@ const questions = [
   {
     cat:"comp", catName:"Complicaciones Hernias",
     q:"¿Qué es la hernia de Richter y por qué es clínicamente importante reconocerla?",
-    opts:["Hernia que contiene el divertículo de Meckel; importante por riesgo de sangrado","Hernia en la que solo se estrangula una pared antimesentérica del intestino, sin obstrucción luminal completa; puede presentarse sin datos clásicos de obstrucción","Hernia deslizada donde el ciego forma parte de la pared del saco; riesgo de lesión al abrir el saco","Hernia bilateral simultánea; riesgo de daño a estructuras del cordón de ambos lados"],
-    ans:1,
+    opts:["Hernia en la que solo se estrangula una pared antimesentérica del intestino, sin obstrucción luminal completa; puede presentarse sin datos clásicos de obstrucción","Hernia que contiene el divertículo de Meckel; importante por riesgo de sangrado","Hernia deslizada donde el ciego forma parte de la pared del saco; riesgo de lesión al abrir el saco","Hernia bilateral simultánea; riesgo de daño a estructuras del cordón de ambos lados"],
+    ans:0,
     exp:"La hernia de Richter es aquella en la que solo se hernia y estrangula una porción de la pared antimesentérica del intestino, sin comprometer toda la circunferencia del lumen. Es clínicamente peligrosa porque puede progresar a necrosis y perforación sin presentar obstrucción intestinal completa (no hay datos claros de obstrucción mecánica), lo que retrasa el diagnóstico. Es más frecuente en hernias femorales y obturadoras por sus cuellos pequeños.",
     tip:"<strong>Richter = Solo una pared:</strong> El intestino no está obstruido (el lumen pasa), pero una parte de la pared está isquémica. Puede perforarse silenciosamente. Alta sospecha en: hernia femoral irreductible con dolor + sin obstrucción clásica. No confundir con hernia de Littre (divertículo de Meckel en el saco herniario).",
     ref:"GPC: Diagnóstico y tratamiento de las hernias inguinales y femorales. CENETEC 2012."
@@ -254,8 +254,8 @@ const questions = [
   {
     cat:"tx", catName:"Técnicas Quirúrgicas",
     q:"¿Cuál es la técnica de reparación herniaria inguinal libre de tensión más utilizada en el mundo y recomendada por las GPC para hernia inguinal del adulto?",
-    opts:["Técnica de Bassini (sutura simple sin malla)","Técnica de Lichtenstein (hernioplastia con malla sin tensión)","Técnica de McVay (sutura al ligamento de Cooper)","Técnica de Shouldice (reparación en cuatro capas)"],
-    ans:1,
+    opts:["Técnica de Bassini (sutura simple sin malla)","Técnica de McVay (sutura al ligamento de Cooper)","Técnica de Lichtenstein (hernioplastia con malla sin tensión)","Técnica de Shouldice (reparación en cuatro capas)"],
+    ans:2,
     exp:"La hernioplastia de Lichtenstein es la reparación libre de tensión estándar: coloca una malla de polipropileno sobre el piso del canal inguinal, cubriendo el triángulo de Hesselbach y el anillo inguinal profundo, sin tensión tisular. La GPC recomienda el uso de malla para todos los adultos con hernia inguinal primaria y en todas las recurrentes. Su tasa de recurrencia es inferior al 1% y es técnicamente más reproducible que las reparaciones tisulares.",
     tip:"<strong>Lichtenstein = Gold Standard abierto:</strong> La clave es 'sin tensión' (tension-free). Las técnicas antiguas sin malla (Bassini, Shouldice, McVay) tienen tasas de recurrencia de 5-15%. Con malla de Lichtenstein: <1%. La GPC 2012 recomienda malla en adultos. En niños NO se usa malla — solo ligadura alta del saco (curación espontánea del defecto).",
     ref:"GPC: Diagnóstico y tratamiento de las hernias inguinales y femorales. CENETEC 2012."
@@ -263,8 +263,8 @@ const questions = [
   {
     cat:"tx", catName:"Técnicas Quirúrgicas",
     q:"Un cirujano planea reparar una hernia inguinal bilateral mediante abordaje laparoscópico totalmente extraperitoneal. ¿A qué técnica se refiere y cuál es su ventaja principal sobre la técnica abierta de Lichtenstein?",
-    opts:["TAPP (transabdominal preperitoneal); acceso directo a la cavidad abdominal para exploración simultánea","TEP (totalmente extraperitoneal); evita entrar a cavidad peritoneal, menor riesgo de lesión visceral y recuperación más rápida","IPOM (intraperitoneal onlay mesh); malla colocada intraperitonealmente sin disección del espacio preperitoneal","Plug and patch; combinación de tapón y malla plana con menor tiempo quirúrgico"],
-    ans:1,
+    opts:["TEP (totalmente extraperitoneal); evita entrar a cavidad peritoneal, menor riesgo de lesión visceral y recuperación más rápida","TAPP (transabdominal preperitoneal); acceso directo a la cavidad abdominal para exploración simultánea","IPOM (intraperitoneal onlay mesh); malla colocada intraperitonealmente sin disección del espacio preperitoneal","Plug and patch; combinación de tapón y malla plana con menor tiempo quirúrgico"],
+    ans:0,
     exp:"La técnica TEP (Totally Extraperitoneal) diseca el espacio preperitoneal de Retzius sin abrir el peritoneo, colocando la malla en posición preperitoneal. Sus ventajas incluyen: menor dolor postoperatorio, recuperación más rápida, menor riesgo de adherencias intraperitoneales y ausencia de entrada a cavidad abdominal. Es especialmente ventajosa en hernias bilaterales (un solo acceso cubre ambos lados) y en pacientes jóvenes activos. TAPP sí entra al peritoneo y tiene mayor riesgo de lesión visceral.",
     tip:"<strong>TEP vs TAPP:</strong> Ambas son laparoscópicas y colocan malla preperitoneal. TEP = No entra a peritoneo (más seguro, más difícil técnicamente). TAPP = Sí entra a peritoneo (mejor visibilidad, riesgo de adherencias). Ambas son superiores a Lichtenstein en recuperación pero requieren curva de aprendizaje. Para bilaterales y recurrencias: laparoscópica de elección.",
     ref:"GPC: Diagnóstico y tratamiento de las hernias inguinales y femorales. CENETEC 2012."
@@ -272,8 +272,8 @@ const questions = [
   {
     cat:"umb", catName:"Hernia Umbilical/Ventral",
     q:"Niño de 2 años con hernia umbilical de 1 cm sin complicaciones. Los padres preguntan cuál es la conducta recomendada. ¿Qué indica la GPC?",
-    opts:["Herniorrafia umbilical inmediata para evitar complicaciones","Observación expectante hasta los 4-5 años, ya que la mayoría cierra espontáneamente","Aplicar faja o moneda para acelerar el cierre","Cirugía laparoscópica electiva antes de los 3 años"],
-    ans:1,
+    opts:["Herniorrafia umbilical inmediata para evitar complicaciones","Aplicar faja o moneda para acelerar el cierre","Observación expectante hasta los 4-5 años, ya que la mayoría cierra espontáneamente","Cirugía laparoscópica electiva antes de los 3 años"],
+    ans:2,
     exp:"La hernia umbilical en lactantes y niños menores tiene alta tasa de cierre espontáneo (hasta el 80-90% cierran antes de los 4-5 años), especialmente si el defecto es menor de 1.5 cm. La GPC recomienda observación expectante sin intervención hasta los 4-5 años. La cirugía está indicada si: persiste después de los 4-5 años, el defecto es mayor de 2 cm, hay complicaciones (encarcelación, estrangulación) o el defecto aumenta de tamaño.",
     tip:"<strong>Hernia umbilical niño vs adulto:</strong> NIÑO → esperar, cierra sola. ADULTO → operar, no cierra. En adultos la hernia umbilical no cierra espontáneamente y el riesgo de complicaciones aumenta con el tiempo (especialmente en obesos y cirróticos con ascitis). Faja/moneda: contraindicada — no ayuda y puede causar complicaciones cutáneas.",
     ref:"GPC: Diagnóstico y reparación de la hernia umbilical. CENETEC 2008."
@@ -281,8 +281,8 @@ const questions = [
   {
     cat:"umb", catName:"Hernia Umbilical/Ventral",
     q:"Mujer de 48 años, obesa (IMC 34), con hernia ventral incisional de 4 cm en cicatriz de laparotomía previa. ¿Cuál es el tratamiento de elección según la GPC?",
-    opts:["Manejo conservador con faja abdominal indefinidamente","Herniorrafia simple con sutura sin malla","Hernioplastia con malla (reparación libre de tensión)","Reducción de peso como único tratamiento antes de cualquier cirugía"],
-    ans:2,
+    opts:["Manejo conservador con faja abdominal indefinidamente","Hernioplastia con malla (reparación libre de tensión)","Herniorrafia simple con sutura sin malla","Reducción de peso como único tratamiento antes de cualquier cirugía"],
+    ans:1,
     exp:"Para hernias ventrales/incisionales en adultos, especialmente con defectos mayores de 2-3 cm, la GPC recomienda hernioplastia con malla (reparación libre de tensión). La reparación primaria con sutura sin malla tiene tasas de recurrencia de 25-63%, mientras que con malla se reduce al 5-10%. La malla puede colocarse en posición onlay (sobre la fascia), sublay (preperitoneal/retromuscular) o intraperitoneal (IPOM) según las características del defecto.",
     tip:"<strong>Malla en hernia ventral:</strong> Siempre preferir malla en adultos con hernia ventral/incisional. La obesidad NO es contraindicación para cirugía (aunque aumenta riesgo de recurrencia y complicaciones). Pérdida de peso preoperatoria mejora resultados pero no debe posponer indefinidamente la cirugía en pacientes sintomáticos. Defecto >10 cm: considerar técnicas de separación de componentes.",
     ref:"GPC: Diagnóstico y tratamiento de la hernia ventral en el adulto. CENETEC 2014."
@@ -290,8 +290,8 @@ const questions = [
   {
     cat:"esp", catName:"Esplenectomía",
     q:"Paciente de 28 años con púrpura trombocitopénica inmune (PTI) refractaria a corticosteroides y rituximab durante 12 meses, con plaquetas persistentemente menores de 20,000/µL y episodios de sangrado mucoso. ¿Cuál es la indicación de esplenectomía?",
-    opts:["PTI de cualquier duración sin respuesta a primera línea","PTI crónica refractaria a segunda línea de tratamiento médico con riesgo hemorrágico","PTI con plaquetas menores de 50,000 en cualquier momento","PTI en paciente mayor de 60 años independientemente del tratamiento previo"],
-    ans:1,
+    opts:["PTI crónica refractaria a segunda línea de tratamiento médico con riesgo hemorrágico","PTI de cualquier duración sin respuesta a primera línea","PTI con plaquetas menores de 50,000 en cualquier momento","PTI en paciente mayor de 60 años independientemente del tratamiento previo"],
+    ans:0,
     exp:"La esplenectomía está indicada en PTI crónica (>12 meses) refractaria al tratamiento de segunda línea (incluyendo rituximab, agonistas TPO u otros agentes de segunda línea), con riesgo hemorrágico significativo (plaquetas <20,000-30,000 o sangrado activo). La GPC de esplenectomía establece que es el tratamiento con mayor tasa de remisión duradera (60-70%) en PTI refractaria. No se realiza como primer tratamiento.",
     tip:"<strong>PTI y esplenectomía:</strong> El bazo produce anticuerpos anti-plaquetarios Y destruye las plaquetas opsonizadas. La esplenectomía elimina ambas funciones. Respuesta: 60-70% remisión completa duradera. Antes de operar: vacunar (neumococo, meningococo, Haemophilus) al menos 2 semanas antes. La corticoterapia preoperatoria puede elevar plaquetas para hacer cirugía más segura.",
     ref:"GPC: Esplenectomía en el adulto. CENETEC 2015."
@@ -299,8 +299,8 @@ const questions = [
   {
     cat:"esp", catName:"Esplenectomía",
     q:"¿Cuáles son las vacunas que DEBEN administrarse antes de una esplenectomía electiva y cuál es el momento óptimo para aplicarlas?",
-    opts:["Solo vacuna antineumocócica, aplicar el día de la cirugía","Neumocócica polisacárida (PPSV23), anti-Haemophilus influenzae tipo b y antimeningocócica; al menos 2 semanas antes de la cirugía","Neumocócica, hepatitis B y varicela; 1 mes antes","Influenza y neumocócica; pueden aplicarse hasta 1 semana después de la cirugía"],
-    ans:1,
+    opts:["Solo vacuna antineumocócica, aplicar el día de la cirugía","Influenza y neumocócica; pueden aplicarse hasta 1 semana después de la cirugía","Neumocócica, hepatitis B y varicela; 1 mes antes","Neumocócica polisacárida (PPSV23), anti-Haemophilus influenzae tipo b y antimeningocócica; al menos 2 semanas antes de la cirugía"],
+    ans:3,
     exp:"Los pacientes sometidos a esplenectomía pierden la inmunidad frente a bacterias encapsuladas. La GPC establece que deben administrarse al menos 2 semanas antes de la cirugía: 1) Vacuna antineumocócica polisacárida 23-valente (PPSV23) o conjugada (PCV13), 2) Vacuna anti-Haemophilus influenzae tipo b (Hib), 3) Vacuna antimeningocócica (conjugada tetravalente ACYW135). Si la cirugía es de urgencia, aplicar las vacunas 2 semanas después del procedimiento.",
     tip:"<strong>Las 3 vacunas del asplenia:</strong> Neumococo + Haemophilus + Meningococo. Estas bacterias encapsuladas son las más peligrosas en asplénicos porque el bazo normalmente las opsoniza. La vacuna antineumocócica es la más importante. Revacunación: PPSV23 cada 5 años. Algunos centros también recomiendan profilaxis antibiótica con penicilina V oral por 2-5 años postesplenectomía.",
     ref:"GPC: Esplenectomía en el adulto. CENETEC 2015."
@@ -308,8 +308,8 @@ const questions = [
   {
     cat:"esp", catName:"Esplenectomía",
     q:"¿Qué es el síndrome OPSS (Overwhelming Post-Splenectomy Sepsis) y cuáles son sus características?",
-    opts:["Infección por hongos oportunistas que aparece años después de la esplenectomía con evolución crónica","Sepsis fulminante causada principalmente por bacterias encapsuladas (Streptococcus pneumoniae principalmente), con mortalidad de 50-70%, que puede presentarse hasta décadas después de la esplenectomía","Trombocitosis grave postesplenectomía que predispone a trombosis","Síndrome de respuesta inflamatoria sistémica limitado a los primeros 30 días postoperatorios"],
-    ans:1,
+    opts:["Infección por hongos oportunistas que aparece años después de la esplenectomía con evolución crónica","Trombocitosis grave postesplenectomía que predispone a trombosis","Sepsis fulminante causada principalmente por bacterias encapsuladas (Streptococcus pneumoniae principalmente), con mortalidad de 50-70%, que puede presentarse hasta décadas después de la esplenectomía","Síndrome de respuesta inflamatoria sistémica limitado a los primeros 30 días postoperatorios"],
+    ans:2,
     exp:"El OPSS (Overwhelming Post-Splenectomy Sepsis) es una sepsis bacteriana fulminante que ocurre en pacientes asplénicos, causada principalmente por Streptococcus pneumoniae (50-90% de casos), seguido de Neisseria meningitidis y Haemophilus influenzae. Se caracteriza por inicio brusco con fiebre, bacteriemia, CID, insuficiencia suprarrenal (síndrome de Waterhouse-Friderichsen) y falla multiorgánica. La mortalidad es del 50-70% y puede ocurrir en cualquier momento de la vida del paciente asplénco, incluso décadas después.",
     tip:"<strong>OPSS = Urgencia absoluta:</strong> El paciente asplénco con fiebre alta de inicio brusco debe recibir antibióticos empíricos de inmediato (amoxicilina-clavulanato o cefotaxima IV) sin esperar resultados de laboratorio. Riesgo de por vida: mayor en los primeros 2 años postesplenectomía pero no desaparece. Educar al paciente: 'tarjeta de asplenia' y consulta inmediata con cualquier fiebre.",
     ref:"GPC: Esplenectomía en el adulto. CENETEC 2015."
@@ -317,8 +317,8 @@ const questions = [
   {
     cat:"esp", catName:"Esplenectomía",
     q:"Paciente con esferocitosis hereditaria severa presenta anemia hemolítica con crisis aplásicas frecuentes y colelitiasis asociada. ¿Cuál es el manejo definitivo recomendado?",
-    opts:["Transfusiones crónicas de glóbulos rojos como única opción","Esplenectomía (preferentemente laparoscópica) + colecistectomía simultánea si hay colelitiasis","Trasplante de médula ósea como primera línea","Ácido fólico de por vida sin cirugía"],
-    ans:1,
+    opts:["Transfusiones crónicas de glóbulos rojos como única opción","Ácido fólico de por vida sin cirugía","Trasplante de médula ósea como primera línea","Esplenectomía (preferentemente laparoscópica) + colecistectomía simultánea si hay colelitiasis"],
+    ans:3,
     exp:"La esferocitosis hereditaria severa con hemólisis significativa, crisis aplásicas frecuentes o complicaciones es indicación de esplenectomía, ya que el bazo es el sitio principal de destrucción de los eritrocitos esferocíticos. La GPC recomienda la esplenectomía laparoscópica por sus ventajas sobre la cirugía abierta. Si hay colelitiasis (muy frecuente en hemólisis crónica por bilirrubina elevada), se realiza colecistectomía simultánea. La esplenectomía no cura la enfermedad pero elimina la hemólisis.",
     tip:"<strong>Esferocitosis + Bazo:</strong> El bazo atrapa y destruye los esferocitos por su rigidez al pasar por los sinusoides. Esplenectomía = elimina hemólisis, pero los esferocitos persisten en sangre periférica. Preferir esplenectomía parcial en niños menores de 6 años para preservar algo de función inmune. Siempre vacunar previamente. Asociación frecuente con colelitiasis pigmentaria (bilirrubinato de calcio).",
     ref:"GPC: Esplenectomía en el adulto. CENETEC 2015."

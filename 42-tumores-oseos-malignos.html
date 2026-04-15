@@ -165,8 +165,8 @@ const questions=[
   {
     cat:"tx",catName:"Osteosarcoma",
     q:"¿Cuál es el tratamiento estándar actual para el osteosarcoma localizado de extremidades?",
-    opts:["Amputación de la extremidad como único tratamiento curativo","Quimioterapia neoadyuvante → cirugía de preservación de extremidad → quimioterapia adyuvante","Radioterapia de haz externo exclusiva","Cirugía inmediata sin quimioterapia perioperatoria"],
-    ans:1,
+    opts:["Quimioterapia neoadyuvante → cirugía de preservación de extremidad → quimioterapia adyuvante","Amputación de la extremidad como único tratamiento curativo","Radioterapia de haz externo exclusiva","Cirugía inmediata sin quimioterapia perioperatoria"],
+    ans:0,
     exp:"El tratamiento estándar es multimodal: quimioterapia neoadyuvante (MAP: metotrexato + adriamicina + cisplatino, 2-3 ciclos) → cirugía de preservación de extremidad (resección en bloque con márgenes amplios + reconstrucción con endoprótesis o aloinjerto) → quimioterapia adyuvante. La respuesta histológica al tratamiento neoadyuvante (>90% necrosis = buena respuesta) es el factor pronóstico más importante. La supervivencia a 5 años es 60-70% en localizado.",
     tip:"<strong>Osteosarcoma - protocolo MAP:</strong> Metotrexato (altas dosis) + Adriamicina (doxorubicina) + cisPlatin. La cirugía de preservación ha reemplazado a la amputación en >85% de casos con igual supervivencia. El osteosarcoma es RADIOrresistente (como el CCR) → RT solo paliativa. Respuesta >90% necrosis = buen pronóstico.",
     ref:"GPC: Diagnóstico y Tratamiento del Osteosarcoma. SSA/CENETEC. 2010."
@@ -174,8 +174,8 @@ const questions=[
   {
     cat:"dx",catName:"Osteosarcoma",
     q:"¿Cuál es el marcador de laboratorio que se eleva en el osteosarcoma y es útil para monitorizar la respuesta al tratamiento?",
-    opts:["AFP (alfa-fetoproteína)","Fosfatasa alcalina (FA) y LDH","PSA (antígeno prostático específico)","CA-125"],
-    ans:1,
+    opts:["AFP (alfa-fetoproteína)","PSA (antígeno prostático específico)","Fosfatasa alcalina (FA) y LDH","CA-125"],
+    ans:2,
     exp:"La fosfatasa alcalina (FA) y la LDH están elevadas en el osteosarcoma y son útiles como marcadores de respuesta: descienden con la quimioterapia efectiva y se elevan en la recidiva. La FA refleja la actividad osteoblástica del tumor. Niveles muy elevados al diagnóstico y persistencia post-QT se asocian a peor pronóstico. No son específicos pero son los más usados clínicamente para seguimiento.",
     tip:"<strong>Marcadores en osteosarcoma:</strong> FA + LDH = marcadores de actividad tumoral. FA muy elevada = tumor muy activo / pobre respuesta. LDH elevada = factor de mal pronóstico independiente. Estos mismos marcadores se elevan en el Sarcoma de Ewing. A diferencia de los tumores de células germinales, no hay marcadores séricos específicos.",
     ref:"GPC: Diagnóstico y Tratamiento del Osteosarcoma. SSA/CENETEC. 2010."
@@ -183,8 +183,8 @@ const questions=[
   {
     cat:"dx",catName:"Sarcoma de Ewing",
     q:"Niño de 10 años con dolor óseo en la diáfisis del fémur izquierdo, fiebre de 38°C y leucocitosis leve. La Rx muestra lesión lítica permeativa diafisaria con reacción perióstica en 'capas de cebolla'. ¿Cuál es el diagnóstico más probable?",
-    opts:["Osteomielitis hematógena aguda","Sarcoma de Ewing","Osteosarcoma telangiectásico","Linfoma óseo primario"],
-    ans:1,
+    opts:["Sarcoma de Ewing","Osteomielitis hematógena aguda","Osteosarcoma telangiectásico","Linfoma óseo primario"],
+    ans:0,
     exp:"El sarcoma de Ewing es el segundo tumor óseo maligno primario más frecuente en niños (después del osteosarcoma). Pico: 5-15 años. Localización: diáfisis de huesos largos (fémur > tibia > húmero) y pelvis. Rx: lesión lítica permeativa con reacción perióstica en 'capas de cebolla' (laminada). Los síntomas sistémicos (fiebre, leucocitosis, VSG elevada) pueden simular osteomielitis, pero la biopsia confirma el diagnóstico.",
     tip:"<strong>Sarcoma de Ewing vs Osteomielitis:</strong> Ambos: fiebre + dolor + masa + leucocitosis + diáfisis. Clave: Ewing tiene masa de partes blandas enorme (desproporcionada para la lesión ósea) y la biopsia muestra células pequeñas redondas azules. Translocación t(11;22) = EWS-FLI1 = diagnóstico molecular del Ewing.",
     ref:"GPC: Diagnóstico y Tratamiento del Sarcoma de Ewing. SSA/CENETEC. 2010."
@@ -201,8 +201,8 @@ const questions=[
   {
     cat:"tx",catName:"Sarcoma de Ewing",
     q:"A diferencia del osteosarcoma, el sarcoma de Ewing es sensible a la radioterapia. ¿Cuál es el papel de la radioterapia en su tratamiento?",
-    opts:["RT exclusiva es el tratamiento de elección en todos los casos","RT como tratamiento local cuando la cirugía no es posible (pelvis, columna) o como adyuvante post-cirugía con márgenes positivos","RT solo para control del dolor en enfermedad metastásica","RT no tiene ningún papel en el Ewing"],
-    ans:1,
+    opts:["RT exclusiva es el tratamiento de elección en todos los casos","RT solo para control del dolor en enfermedad metastásica","RT como tratamiento local cuando la cirugía no es posible (pelvis, columna) o como adyuvante post-cirugía con márgenes positivos","RT no tiene ningún papel en el Ewing"],
+    ans:2,
     exp:"El sarcoma de Ewing es radiosensible, a diferencia del osteosarcoma. La radioterapia tiene un rol como tratamiento local en: (1) tumores irresecables (pelvis, columna vertebral, sacro), (2) márgenes quirúrgicos positivos post-cirugía, (3) control local en combinación con cirugía en sitios de difícil acceso. Sin embargo, la cirugía más quimioterapia sigue siendo preferida cuando es factible, ya que la RT se asocia a mayor tasa de recidiva local que la cirugía.",
     tip:"<strong>Ewing vs Osteosarcoma en radiosensibilidad:</strong> Osteosarcoma = RADIOrresistente (RT no funciona). Sarcoma de Ewing = RADIOsensible (RT tiene papel terapéutico). El protocolo del Ewing incluye: QT de inducción → evaluación → cirugía ± RT → QT de consolidación. QT estándar: VAC/IE (vincristina + actinomicina + ciclofosfamida alternando con ifosfamida + etopósido).",
     ref:"GPC: Diagnóstico y Tratamiento del Sarcoma de Ewing. SSA/CENETEC. 2010."
@@ -228,8 +228,8 @@ const questions=[
   {
     cat:"dx",catName:"Metástasis Óseas",
     q:"Mujer de 65 años con historia de cáncer de mama tratado hace 5 años. Consulta por dolor lumbar intenso. Gammagrafía ósea muestra múltiples focos de hipercaptación. Rx de columna lumbar con lesiones osteoblásticas. ¿Cuál es el diagnóstico más probable?",
-    opts:["Mieloma múltiple","Metástasis óseas de cáncer de mama","Sarcoma de Ewing del adulto","Linfoma de Hodgkin óseo"],
-    ans:1,
+    opts:["Metástasis óseas de cáncer de mama","Mieloma múltiple","Sarcoma de Ewing del adulto","Linfoma de Hodgkin óseo"],
+    ans:0,
     exp:"Las metástasis óseas son los tumores óseos malignos más frecuentes (superan ampliamente a los tumores primarios). El cáncer de mama es uno de los 5 tumores que más frecuentemente metastatiza al hueso (junto con próstata, pulmón, riñón y tiroides). El cáncer de mama puede producir metástasis osteoblásticas (escleróticas), líticas o mixtas. La gammagrafía ósea es el estudio de escrutinio de elección por su alta sensibilidad.",
     tip:"<strong>Tumores que más metastatizan a hueso:</strong> Mama + Pulmón + Próstata + Riñón + Tiroides = 'BLPRiT' o 'BLass PRiTy'. Tipo de lesión: Próstata → BLÁSTICA. Riñón/Tiroides → LÍTICA. Mama/Pulmón → MIXTA. Mieloma → siempre LÍTICA (gammagrafía puede ser FALSA NEGATIVA en mieloma → usar Rx de esqueleto completo).",
     ref:"GPC: Diagnóstico y Tratamiento de Metástasis Óseas. SSA. 2010."
@@ -237,8 +237,8 @@ const questions=[
   {
     cat:"tx",catName:"Metástasis Óseas",
     q:"Paciente con metástasis óseas múltiples de carcinoma de próstata, dolor óseo severo y riesgo de fractura patológica en el fémur proximal. ¿Cuál es el manejo del dolor óseo por metástasis?",
-    opts:["Solo opioides; la RT y cirugía no tienen papel en metástasis","Radioterapia paliativa (8 Gy dosis única o 30 Gy en 10 fracciones) + bifosfonatos/denosumab + analgesia multimodal","Quimioterapia sistémica intensiva como único tratamiento","Amputación de la extremidad para prevenir fractura"],
-    ans:1,
+    opts:["Solo opioides; la RT y cirugía no tienen papel en metástasis","Quimioterapia sistémica intensiva como único tratamiento","Radioterapia paliativa (8 Gy dosis única o 30 Gy en 10 fracciones) + bifosfonatos/denosumab + analgesia multimodal","Amputación de la extremidad para prevenir fractura"],
+    ans:2,
     exp:"El manejo del dolor óseo por metástasis es multimodal: (1) RT paliativa local: reduce el dolor en 60-80% de casos; la dosis única de 8 Gy tiene eficacia equivalente a esquemas fraccionados para paliación. (2) Bifosfonatos (ácido zoledrónico) o denosumab: reducen eventos óseos (fracturas, compresión medular, hipercalcemia). (3) Analgesia escalonada (OMS). (4) Cirugía profiláctica para fracturas inminentes (criterios de Mirels: >8 puntos).",
     tip:"<strong>Criterios de Mirels para fractura inminente:</strong> Sitio (miembro sup=1, inf=2, peritr=3) + Dolor (leve=1, moderado=2, severo=3) + Lesión (blástica=1, mixta=2, lítica=3) + Tamaño (<1/3=1, 1/3-2/3=2, >2/3=3). Score >8 = fijación profiláctica antes de fractura. La RT única 8Gy = tan efectiva como 30Gy en 10fx para paliación.",
     ref:"GPC: Diagnóstico y Tratamiento de Metástasis Óseas. SSA. 2010."
@@ -246,8 +246,8 @@ const questions=[
   {
     cat:"lab",catName:"Diagnóstico",
     q:"¿Cuál es el estudio de imagen de mayor sensibilidad para la detección de metástasis óseas múltiples en la estadificación inicial de un tumor primario?",
-    opts:["Resonancia magnética de cuerpo completo","Gammagrafía ósea con tecnecio-99m (Tc-99m MDP)","Tomografía simple sin contraste","Radiografía de esqueleto completo"],
-    ans:1,
+    opts:["Resonancia magnética de cuerpo completo","Tomografía simple sin contraste","Gammagrafía ósea con tecnecio-99m (Tc-99m MDP)","Radiografía de esqueleto completo"],
+    ans:2,
     exp:"La gammagrafía ósea con Tc-99m MDP es el estudio de escrutinio estándar para detección de metástasis óseas múltiples, con sensibilidad del 80-90%. Detecta cambios en el metabolismo óseo antes que la Rx convencional (que requiere >50% de destrucción mineral para ser visible). Excepción: mieloma múltiple (lesiones líticas puras, sin actividad osteoblástica) → gammagrafía puede ser negativa → usar Rx esqueleto completo o PET-CT con fluoruro.",
     tip:"<strong>Gammagrafía ósea - limitaciones:</strong> Falsos negativos: mieloma (puramente lítico, sin respuesta blástica) + metástasis muy agresivas que crecen más rápido que la respuesta ósea. Falsos positivos: fracturas, artritis, osteomielitis. Para mieloma: Rx esqueleto completo o PET/CT. Para próstata metastásico: gammagrafía + PSMA PET/CT.",
     ref:"GPC: Diagnóstico y Tratamiento de Metástasis Óseas. SSA. 2010."
@@ -255,8 +255,8 @@ const questions=[
   {
     cat:"cx",catName:"Complicaciones",
     q:"Paciente con metástasis óseas vertebrales de cáncer de pulmón presenta dolor lumbar intenso de inicio súbito, debilidad de miembros inferiores y dificultad para orinar. ¿Cuál es la urgencia oncológica a considerar?",
-    opts:["Crisis hipercalcémica por metástasis","Síndrome de compresión medular metastásica","Embolia pulmonar por TVP","Fractura patológica de pelvis"],
-    ans:1,
+    opts:["Crisis hipercalcémica por metástasis","Fractura patológica de pelvis","Embolia pulmonar por TVP","Síndrome de compresión medular metastásica"],
+    ans:3,
     exp:"El síndrome de compresión medular metastásica (SCMM) es una emergencia oncológica. Se produce por compresión del saco tecal por metástasis vertebral o colapso vertebral. Se manifiesta con: dolor de espalda (primer síntoma, 95%), debilidad progresiva de MMII, alteraciones sensitivas y disfunción esfinteriana (tardía). Tratamiento de urgencia: dexametasona IV (10 mg dosis de carga) + RT de urgencia o cirugía descompresiva.",
     tip:"<strong>SCMM = URGENCIA:</strong> Dolor vertebral nuevo en paciente con cáncer + síntomas neurológicos = SCMM hasta demostrar lo contrario. Tratamiento: dexametasona IV inmediata (reduce edema) + RM de columna urgente (toda la columna) + RT vs cirugía descompresiva (en <48h para preservar función). Columna torácica más afectada (70%).",
     ref:"GPC: Diagnóstico y Tratamiento de Metástasis Óseas. SSA. 2010."
@@ -264,8 +264,8 @@ const questions=[
   {
     cat:"cx",catName:"Complicaciones",
     q:"¿Cuál es el tumor primario que con mayor frecuencia causa hipercalcemia maligna por metástasis óseas líticas?",
-    opts:["Cáncer de próstata (lesiones blásticas)","Cáncer de mama y mieloma múltiple","Cáncer colorrectal","Cáncer de cérvix"],
-    ans:1,
+    opts:["Cáncer de próstata (lesiones blásticas)","Cáncer de cérvix","Cáncer colorrectal","Cáncer de mama y mieloma múltiple"],
+    ans:3,
     exp:"La hipercalcemia maligna ocurre en 10-30% de los pacientes oncológicos. Los tumores más frecuentemente asociados son cáncer de mama (40%), mieloma múltiple (20%) y cáncer de pulmón (15%). Mecanismos: (1) Osteólisis local por citocinas tumorales (RANKL, IL-6). (2) PTHrP ectópica (hipercalcemia humoral de la malignidad, sin metástasis óseas). El tratamiento: hidratación IV + bifosfonatos (ácido zoledrónico) + calcitonina en crisis graves.",
     tip:"<strong>Hipercalcemia maligna - tipos:</strong> Con metástasis óseas líticas (mama, mieloma) → osteoclastos activados. Sin metástasis (epidermoide pulmón, CCR) → PTHrP ectópica. Tratamiento urgente: SF 1-2L IV + furosemida solo si sobrecarga hídrica + ácido zoledrónico 4mg IV. Calcitonina para descenso rápido (máximo 48h de efecto).",
     ref:"GPC: Diagnóstico y Tratamiento de Metástasis Óseas. SSA. 2010."
@@ -273,8 +273,8 @@ const questions=[
   {
     cat:"dx",catName:"Diagnóstico Diferencial",
     q:"¿Cuál es la principal diferencia radiológica entre el osteosarcoma y el sarcoma de Ewing?",
-    opts:["El osteosarcoma es siempre lítico; el Ewing es siempre blástico","Osteosarcoma: metáfisis + reacción perióstica en 'sol naciente' + matriz osteóide. Ewing: diáfisis + 'capas de cebolla' + gran masa de partes blandas","El osteosarcoma afecta solo la diáfisis; el Ewing solo la epífisis","No hay diferencias radiológicas entre ambos"],
-    ans:1,
+    opts:["Osteosarcoma: metáfisis + reacción perióstica en 'sol naciente' + matriz osteóide. Ewing: diáfisis + 'capas de cebolla' + gran masa de partes blandas","El osteosarcoma es siempre lítico; el Ewing es siempre blástico","El osteosarcoma afecta solo la diáfisis; el Ewing solo la epífisis","No hay diferencias radiológicas entre ambos"],
+    ans:0,
     exp:"Las diferencias clave entre osteosarcoma y sarcoma de Ewing: LOCALIZACIÓN: osteosarcoma en metáfisis (cerca del cartílago de crecimiento), Ewing en diáfisis. REACCIÓN PERIÓSTICA: osteosarcoma en 'sol naciente' (perpendicular), Ewing en 'capas de cebolla' (paralela/laminar). EDAD: osteosarcoma 10-25 años, Ewing 5-15 años. MASA PARTES BLANDAS: enorme en Ewing, moderada en osteosarcoma. SÍNTOMAS SISTÉMICOS: frecuentes en Ewing (fiebre).",
     tip:"<strong>Osteosarcoma vs Ewing - tabla comparativa:</strong> OS: metáfisis, sol naciente, 15 años, no fiebre, FA/LDH elevadas. Ewing: diáfisis, capas cebolla, 10 años, fiebre/leucocitosis, t(11;22). Truco: Ewing = Diáfisis + cebolla + Diez años + fiebre. Osteosarcoma = metáfisis + Sol + adolescente mayor.",
     ref:"GPC: Diagnóstico y Tratamiento de Tumores Óseos Malignos. SSA. 2010."
@@ -282,8 +282,8 @@ const questions=[
   {
     cat:"tx",catName:"Pronóstico",
     q:"¿Cuál es el factor pronóstico más importante en el osteosarcoma localizado post-tratamiento?",
-    opts:["El tamaño del tumor al diagnóstico","El porcentaje de necrosis tumoral en la pieza quirúrgica tras la quimioterapia neoadyuvante","La edad del paciente al diagnóstico","El nivel de fosfatasa alcalina sérica preoperatoria"],
-    ans:1,
+    opts:["El tamaño del tumor al diagnóstico","El nivel de fosfatasa alcalina sérica preoperatoria","La edad del paciente al diagnóstico","El porcentaje de necrosis tumoral en la pieza quirúrgica tras la quimioterapia neoadyuvante"],
+    ans:3,
     exp:"El porcentaje de necrosis histológica en la pieza quirúrgica (respuesta a la quimioterapia neoadyuvante) es el factor pronóstico más importante en el osteosarcoma: Buena respuesta: ≥90% de necrosis → supervivencia a 5 años ~75-85%. Mala respuesta: <90% de necrosis → supervivencia ~40-50%. Este dato orienta la modificación del esquema de quimioterapia adyuvante. El sistema de Huvos (grados I-IV) cuantifica la respuesta.",
     tip:"<strong>Sistema de Huvos:</strong> Grado I = <50% necrosis (mala respuesta). Grado II = 50-89% necrosis. Grado III = 90-99% necrosis. Grado IV = 100% necrosis (respuesta completa, mejor pronóstico). ≥90% necrosis = buena respuesta. Esta es la única forma de saber si la QT neoadyuvante funcionó, y guía la QT adyuvante.",
     ref:"GPC: Diagnóstico y Tratamiento del Osteosarcoma. SSA/CENETEC. 2010."

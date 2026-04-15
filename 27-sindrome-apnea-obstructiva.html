@@ -200,8 +200,8 @@ const questions = [
   {
     cat:"diag", catName:"Diagnóstico/Criterios",
     q:"¿Cuál es la definición del Síndrome de Apnea Obstructiva del Sueño (SAOS) según la GPC 2021?",
-    opts:["IAH ≥5 eventos/hora con síntomas O IAH ≥15 eventos/hora sin síntomas","IAH ≥10 eventos/hora independientemente de síntomas","IAH ≥5 eventos/hora únicamente si hay somnolencia diurna excesiva","IAH ≥20 eventos/hora con ronquido habitual documentado"],
-    ans:0,
+    opts:["IAH ≥10 eventos/hora independientemente de síntomas","IAH ≥5 eventos/hora con síntomas O IAH ≥15 eventos/hora sin síntomas","IAH ≥5 eventos/hora únicamente si hay somnolencia diurna excesiva","IAH ≥20 eventos/hora con ronquido habitual documentado"],
+    ans:1,
     exp:"La GPC 2021 define el SAOS como IAH ≥5 eventos/hora en presencia de síntomas (somnolencia diurna, ronquido, apneas presenciadas, etc.) O IAH ≥15 eventos/hora aunque el paciente esté asintomático. Esta definición dual es fundamental para el diagnóstico.",
     tip:"<strong>Regla mnemotécnica:</strong> '5 con síntomas, 15 sin síntomas'. La presencia de síntomas reduce el umbral diagnóstico del IAH a la mitad.",
     ref:"GPC: Diagnóstico y tratamiento del SAOS en población pediátrica y adulta. IMSS. 2021."
@@ -209,8 +209,8 @@ const questions = [
   {
     cat:"diag", catName:"Diagnóstico/Criterios",
     q:"Un hombre de 52 años refiere ronquido habitual, apneas presenciadas por su pareja y somnolencia diurna excesiva. ¿Cuál es el estándar de oro para confirmar el diagnóstico de SAOS?",
-    opts:["Poligrafía respiratoria ambulatoria","Polisomnografía nocturna en laboratorio","Oximetría nocturna domiciliaria","Escala de Epworth con puntuación >10"],
-    ans:1,
+    opts:["Poligrafía respiratoria ambulatoria","Escala de Epworth con puntuación >10","Oximetría nocturna domiciliaria","Polisomnografía nocturna en laboratorio"],
+    ans:3,
     exp:"La polisomnografía nocturna en laboratorio (PSG) es el gold standard para el diagnóstico del SAOS. Registra simultáneamente EEG, EOG, EMG, flujo aéreo, esfuerzo respiratorio, saturación de oxígeno, ECG y posición corporal, permitiendo calcular el IAH con máxima precisión.",
     tip:"<strong>Gold standard = Polisomnografía.</strong> La poligrafía respiratoria es una alternativa válida para casos de sospecha moderada-alta SIN comorbilidades importantes, pero NO reemplaza a la PSG en casos complejos.",
     ref:"GPC: Diagnóstico y tratamiento del SAOS en población pediátrica y adulta. IMSS. 2021."
@@ -218,8 +218,8 @@ const questions = [
   {
     cat:"diag", catName:"Diagnóstico/Criterios",
     q:"¿Cuál es la definición técnica de una 'apnea' en el contexto del SAOS?",
-    opts:["Reducción del flujo aéreo ≥30% con duración ≥5 segundos","Cese completo del flujo aéreo (≥90% reducción) con duración ≥10 segundos","Desaturación de oxígeno ≥4% independientemente del flujo aéreo","Reducción del flujo aéreo ≥50% con arousal electroencefalográfico"],
-    ans:1,
+    opts:["Cese completo del flujo aéreo (≥90% reducción) con duración ≥10 segundos","Reducción del flujo aéreo ≥30% con duración ≥5 segundos","Desaturación de oxígeno ≥4% independientemente del flujo aéreo","Reducción del flujo aéreo ≥50% con arousal electroencefalográfico"],
+    ans:0,
     exp:"Una apnea se define como el cese o reducción del flujo aéreo ≥90% con duración ≥10 segundos. Se clasifica en obstructiva (con esfuerzo respiratorio mantenido), central (sin esfuerzo) o mixta (inicia como central y termina como obstructiva).",
     tip:"<strong>Apnea vs Hipopnea:</strong> Apnea = cese ≥90% flujo ≥10 seg. Hipopnea = reducción ≥30% flujo ≥10 seg + desaturación ≥3% O arousal. Ambas cuentan para el IAH.",
     ref:"GPC: Diagnóstico y tratamiento del SAOS en población pediátrica y adulta. IMSS. 2021."
@@ -245,8 +245,8 @@ const questions = [
   {
     cat:"fact", catName:"Factores de Riesgo",
     q:"¿Cuál es el factor de riesgo modificable más importante para el SAOS en adultos?",
-    opts:["Sexo masculino","Consumo de alcohol","Obesidad (IMC >30 kg/m²)","Hipotiroidismo"],
-    ans:2,
+    opts:["Obesidad (IMC >30 kg/m²)","Consumo de alcohol","Sexo masculino","Hipotiroidismo"],
+    ans:0,
     exp:"La obesidad con IMC >30 kg/m² es el principal factor de riesgo modificable del SAOS. El exceso de grasa faríngea reduce el calibre de la vía aérea superior y aumenta su colapsabilidad. La pérdida de peso puede reducir significativamente el IAH.",
     tip:"<strong>Factores de riesgo del SAOS:</strong> Obesidad (IMC>30) #1 modificable, circunferencia cervical >43cm hombre / >38cm mujer, sexo masculino (2-3x más frecuente), edad, alcohol, sedantes/BZD, hipotiroidismo, macroglosia, retrognatia.",
     ref:"GPC: Diagnóstico y tratamiento del SAOS en población pediátrica y adulta. IMSS. 2021."
@@ -263,8 +263,8 @@ const questions = [
   {
     cat:"fact", catName:"Factores de Riesgo",
     q:"Un paciente masculino de 48 años con cuello robusto es evaluado por ronquido. ¿Cuál es el valor de circunferencia cervical que constituye factor de riesgo para SAOS en el hombre?",
-    opts:["Mayor de 38 cm","Mayor de 40 cm","Mayor de 43 cm","Mayor de 46 cm"],
-    ans:2,
+    opts:["Mayor de 38 cm","Mayor de 43 cm","Mayor de 40 cm","Mayor de 46 cm"],
+    ans:1,
     exp:"Una circunferencia cervical >43 cm en el hombre y >38 cm en la mujer es factor de riesgo independiente para SAOS. El aumento del tejido adiposo perivascular faríngeo en personas con cuello grueso reduce la luz de la vía aérea superior facilitando su colapso.",
     tip:"<strong>Circunferencia cervical de riesgo:</strong> Hombre >43 cm, Mujer >38 cm. Fácil de recordar: la mujer tiene el umbral 5 cm menor. Siempre medir junto al IMC en la evaluación inicial del paciente con sospecha de SAOS.",
     ref:"GPC: Diagnóstico y tratamiento del SAOS en población pediátrica y adulta. IMSS. 2021."
@@ -272,8 +272,8 @@ const questions = [
   {
     cat:"cpap", catName:"CPAP/Tratamiento médico",
     q:"¿Cuál es el tratamiento de primera línea para el SAOS moderado-grave en adultos según la GPC 2021?",
-    opts:["Dispositivo de avance mandibular","CPAP (presión positiva continua en la vía aérea)","Uvulopalatofaringoplastia (UPPP)","Pérdida de peso exclusivamente"],
-    ans:1,
+    opts:["Dispositivo de avance mandibular","Uvulopalatofaringoplastia (UPPP)","CPAP (presión positiva continua en la vía aérea)","Pérdida de peso exclusivamente"],
+    ans:2,
     exp:"El CPAP (Continuous Positive Airway Pressure) es el tratamiento de primera línea para el SAOS moderado-grave. Actúa como una 'férula neumática' que mantiene abierta la vía aérea superior mediante presión positiva continua, eliminando las apneas e hipopneas. Mejora la somnolencia, la HTA, la calidad de vida y reduce el riesgo cardiovascular.",
     tip:"<strong>CPAP = Férula neumática.</strong> Indicaciones: SAOS moderado (IAH 15-29) o grave (IAH ≥30), o SAOS leve con síntomas importantes o comorbilidades cardiovasculares. El CPAP NO cura el SAOS; requiere uso crónico.",
     ref:"GPC: Diagnóstico y tratamiento del SAOS en población pediátrica y adulta. IMSS. 2021."
@@ -281,8 +281,8 @@ const questions = [
   {
     cat:"cpap", catName:"CPAP/Tratamiento médico",
     q:"¿Cuál es la definición de adherencia adecuada al CPAP según criterios estándar?",
-    opts:["Uso mínimo de 2 horas/noche en al menos el 50% de las noches","Uso mínimo de 4 horas/noche en al menos el 70% de las noches","Uso mínimo de 6 horas/noche en al menos el 60% de las noches","Uso mínimo de 8 horas/noche en al menos el 80% de las noches"],
-    ans:1,
+    opts:["Uso mínimo de 2 horas/noche en al menos el 50% de las noches","Uso mínimo de 6 horas/noche en al menos el 60% de las noches","Uso mínimo de 4 horas/noche en al menos el 70% de las noches","Uso mínimo de 8 horas/noche en al menos el 80% de las noches"],
+    ans:2,
     exp:"La adherencia adecuada al CPAP se define como su uso ≥4 horas por noche en al menos el 70% de las noches. Los pacientes que no alcanzan este umbral tienen peor control del SAOS y no obtienen los beneficios cardiovasculares del tratamiento. La educación y el seguimiento cercano mejoran la adherencia.",
     tip:"<strong>Adherencia CPAP: 4/70.</strong> Al menos 4 horas por noche, en el 70% de las noches. Los factores que reducen adherencia incluyen: claustrofobia, dermatitis por mascarilla, sequedad nasal, ruido del equipo. Se pueden usar humidificadores y diferentes tipos de interfaces.",
     ref:"GPC: Diagnóstico y tratamiento del SAOS en población pediátrica y adulta. IMSS. 2021."
@@ -290,8 +290,8 @@ const questions = [
   {
     cat:"cpap", catName:"CPAP/Tratamiento médico",
     q:"Un paciente con SAOS leve (IAH 8) y sin comorbilidades cardiovasculares no tolera el CPAP. ¿Cuál es la alternativa más adecuada?",
-    opts:["Uvulopalatofaringoplastia de urgencia","Dispositivo de avance mandibular (DAM)","Traqueotomía","Oxigenoterapia nocturna exclusiva"],
-    ans:1,
+    opts:["Uvulopalatofaringoplastia de urgencia","Oxigenoterapia nocturna exclusiva","Traqueotomía","Dispositivo de avance mandibular (DAM)"],
+    ans:3,
     exp:"Los dispositivos de avance mandibular (DAM) están indicados en SAOS leve a moderado o en pacientes con SAOS moderado-grave que no toleran el CPAP. Funcionan avanzando la mandíbula para aumentar el calibre de la vía aérea superior. Son menos efectivos que el CPAP pero mejoran significativamente los síntomas y el IAH.",
     tip:"<strong>DAM vs CPAP:</strong> CPAP es más eficaz (elimina más apneas), pero la adherencia al DAM suele ser mayor por mayor comodidad. La GPC recomienda CPAP de primera línea en moderado-grave; DAM en leve o como alternativa si hay intolerancia.",
     ref:"GPC: Diagnóstico y tratamiento del SAOS en población pediátrica y adulta. IMSS. 2021."
@@ -299,8 +299,8 @@ const questions = [
   {
     cat:"cx", catName:"Tratamiento Quirúrgico",
     q:"¿Cuál es el procedimiento quirúrgico más utilizado en adultos con SAOS seleccionados que no toleran el CPAP?",
-    opts:["Amigdalectomía aislada","Uvulopalatofaringoplastia (UPPP)","Avance bimaxilar","Turbinectomía inferior bilateral"],
-    ans:1,
+    opts:["Uvulopalatofaringoplastia (UPPP)","Amigdalectomía aislada","Avance bimaxilar","Turbinectomía inferior bilateral"],
+    ans:0,
     exp:"La uvulopalatofaringoplastia (UPPP) es la cirugía más utilizada en adultos con SAOS en casos seleccionados que no toleran o fallan el CPAP. Consiste en resección de úvula, paladar blando redundante y amígdalas palatinas para ampliar la vía aérea retropalatal. Su tasa de éxito es variable (40-60%) y menor que el CPAP.",
     tip:"<strong>UPPP:</strong> Uvulo-Palato-Faringo-Plastia. Se realiza en adultos seleccionados (obesidad no mórbida, obstrucción retropalatal predominante). No indicada de forma universal. El avance bimaxilar es más efectivo pero más invasivo.",
     ref:"GPC: Diagnóstico y tratamiento del SAOS en población pediátrica y adulta. IMSS. 2021."
@@ -308,8 +308,8 @@ const questions = [
   {
     cat:"cx", catName:"Tratamiento Quirúrgico",
     q:"En un niño de 6 años con SAOS, ronquido intenso, hiperactividad, problemas de aprendizaje y enuresis nocturna, la polisomnografía confirma el diagnóstico. ¿Cuál es el tratamiento de primera línea?",
-    opts:["CPAP nocturno con mascarilla pediátrica","Dispositivo de avance mandibular pediátrico","Adenoamigdalectomía","Corticosteroides intranasales exclusivamente"],
-    ans:2,
+    opts:["CPAP nocturno con mascarilla pediátrica","Dispositivo de avance mandibular pediátrico","Corticosteroides intranasales exclusivamente","Adenoamigdalectomía"],
+    ans:3,
     exp:"En niños con SAOS, la hipertrofia adenoamigdalina es la causa principal. El tratamiento de primera línea es la adenoamigdalectomía (adenoidectomía + amigdalectomía), que es curativa en la mayoría de los casos. Los síntomas pediátricos difieren de los adultos: predominan hiperactividad, déficit de atención, problemas de aprendizaje y enuresis sobre la somnolencia.",
     tip:"<strong>SAOS pediátrico vs adulto:</strong> Causa: hipertrofia adenoamigdalina (niños) vs obesidad (adultos). Síntomas: hiperactividad/enuresis/problemas de aprendizaje (niños) vs somnolencia/cefalea matutina (adultos). Tratamiento 1ª línea: adenoamigdalectomía (niños) vs CPAP (adultos).",
     ref:"GPC: Diagnóstico y tratamiento del SAOS en población pediátrica y adulta. IMSS. 2021."
@@ -317,8 +317,8 @@ const questions = [
   {
     cat:"comp", catName:"Complicaciones/Consecuencias",
     q:"Un paciente con SAOS grave no tratado acude por hipertensión arterial resistente a 3 fármacos. ¿Cuál es la relación entre el SAOS no tratado y la hipertensión?",
-    opts:["No existe relación causal demostrada entre SAOS e hipertensión","El SAOS es una causa reconocida de HTA resistente; el CPAP puede reducir la presión arterial","El SAOS solo causa HTA pulmonar, no sistémica","El SAOS produce HTA únicamente en pacientes obesos"],
-    ans:1,
+    opts:["El SAOS es una causa reconocida de HTA resistente; el CPAP puede reducir la presión arterial","No existe relación causal demostrada entre SAOS e hipertensión","El SAOS solo causa HTA pulmonar, no sistémica","El SAOS produce HTA únicamente en pacientes obesos"],
+    ans:0,
     exp:"El SAOS no tratado es una causa reconocida y frecuente de HTA resistente (refractaria a 3 o más fármacos). Los mecanismos incluyen activación del sistema nervioso simpático, estrés oxidativo e inflamación sistémica por las hipoxemias intermitentes. El tratamiento con CPAP puede reducir la presión arterial, especialmente en pacientes con SAOS grave.",
     tip:"<strong>SAOS no tratado → consecuencias cardiovasculares:</strong> HTA resistente, arritmias (FA), IC, EVC/AVC, DM2. Además: accidentes de tráfico (somnolencia), deterioro cognitivo, depresión. El CPAP reduce morbimortalidad cardiovascular.",
     ref:"GPC: Diagnóstico y tratamiento del SAOS en población pediátrica y adulta. IMSS. 2021."

@@ -286,8 +286,8 @@ const questions = [
   {
     cat:"dx", catName:"Diagnóstico",
     q:"Paciente masculino de 22 años con dolor abdominal de 12 horas de evolución, iniciando en epigastrio y migrando a FID, fiebre de 38.2°C, náusea y vómito. A la exploración física presenta dolor a la palpación en FID. ¿Cuál es el diagnóstico más probable?",
-    opts:["Cólico renal derecho","Apendicitis aguda","Enfermedad de Crohn","Hernia inguinal derecha incarcerada"],
-    ans:1,
+    opts:["Cólico renal derecho","Enfermedad de Crohn","Apendicitis aguda","Hernia inguinal derecha incarcerada"],
+    ans:2,
     exp:"La presentación clásica de apendicitis aguda incluye: dolor abdominal que migra de epigastrio a FID (punto de McBurney), fiebre, náusea y vómito. Este patrón migratorio es altamente específico de apendicitis. La GPC señala que la combinación de estos signos orienta fuertemente al diagnóstico.",
     tip:"<strong>Regla nemotécnica:</strong> El dolor de la apendicitis MIGRA (Epigastrio → Periumbilical → FID). El cólico renal no tiene migración, el dolor es tipo cólico con irradiación a genitales. Si el dolor NO migra, replantea el diagnóstico.",
     ref:"GPC: Diagnóstico de apendicitis aguda. IMSS-044-08. 2009."
@@ -295,8 +295,8 @@ const questions = [
   {
     cat:"dx", catName:"Diagnóstico",
     q:"¿Cuál es el signo clínico que se produce al presionar el punto de McBurney y genera dolor en el cuadrante inferior derecho al descomprimir bruscamente?",
-    opts:["Signo de Rovsing","Signo de Blumberg","Signo del Psoas","Signo de Obturador"],
-    ans:1,
+    opts:["Signo de Rovsing","Signo del Psoas","Signo de Blumberg","Signo de Obturador"],
+    ans:2,
     exp:"El signo de Blumberg (rebote) consiste en la descompresión brusca del abdomen generando dolor en FID, indicando irritación peritoneal. La GPC lo describe como uno de los signos exploratorios de mayor especificidad para apendicitis aguda con irritación peritoneal.",
     tip:"<strong>Truco para recordar los signos:</strong> Blumberg = Brusco (descompresión). Rovsing = RID duele al comprimir LID (dolor contralateral). Psoas = Pain al extender cadera (apéndice retrocecal). Obturador = rotación interna de cadera.",
     ref:"GPC: Diagnóstico de apendicitis aguda. IMSS-044-08. 2009."
@@ -304,8 +304,8 @@ const questions = [
   {
     cat:"dx", catName:"Diagnóstico",
     q:"¿Cuál es la escala de puntuación validada para el diagnóstico clínico de apendicitis aguda recomendada por la GPC mexicana?",
-    opts:["Escala de Mannheim","Escala de Alvarado","Escala de APACHE II","Escala de Ranson"],
-    ans:1,
+    opts:["Escala de Alvarado","Escala de Mannheim","Escala de APACHE II","Escala de Ranson"],
+    ans:0,
     exp:"La Escala de Alvarado (MANTRELS) es la herramienta diagnóstica recomendada por la GPC mexicana. Evalúa migración del dolor, anorexia, náusea/vómito, dolor en FID, rebote, temperatura ≥37.3°C, leucocitosis y desviación a la izquierda. Puntaje ≥7 tiene alta probabilidad diagnóstica.",
     tip:"<strong>MANTRELS:</strong> Migración (1), Anorexia (1), Náusea/vómito (1), Sensibilidad FID (2), Rebote (1), Temperatura elevada (1), Leucocitosis (2), Shift a izquierda (1). Total 10 puntos. ≥7 = cirugía. 5-6 = observación.",
     ref:"GPC: Diagnóstico de apendicitis aguda. IMSS-044-08. 2009."
@@ -322,8 +322,8 @@ const questions = [
   {
     cat:"lab", catName:"Laboratorio e Imagen",
     q:"En un paciente con sospecha de apendicitis aguda y duda diagnóstica, ¿cuál es el estudio de imagen de primera elección según la GPC?",
-    opts:["Radiografía simple de abdomen","Tomografía computarizada de abdomen con contraste","Ultrasonido abdominal","Resonancia magnética de abdomen"],
-    ans:2,
+    opts:["Radiografía simple de abdomen","Ultrasonido abdominal","Tomografía computarizada de abdomen con contraste","Resonancia magnética de abdomen"],
+    ans:1,
     exp:"La TC de abdomen con contraste tiene la mayor sensibilidad (94-98%) y especificidad (95%) para el diagnóstico de apendicitis aguda. La GPC la recomienda cuando el diagnóstico clínico es incierto o cuando se sospecha complicación (absceso, perforación). El ultrasonido es primera línea en niños y mujeres en edad fértil.",
     tip:"<strong>Regla de imagen:</strong> USG primero en niños y embarazadas (sin radiación). TC en adultos con duda diagnóstica o sospecha de complicación. La TC puede identificar diagnósticos alternativos que cambian el manejo.",
     ref:"GPC: Diagnóstico de apendicitis aguda. IMSS-044-08. 2009."
@@ -331,8 +331,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento",
     q:"¿Cuál es el tratamiento definitivo de la apendicitis aguda no complicada en adultos?",
-    opts:["Antibióticos IV por 7 días y manejo conservador","Apendicectomía laparoscópica o abierta","Drenaje percutáneo del apéndice","Antibióticos orales ambulatorios"],
-    ans:1,
+    opts:["Apendicectomía laparoscópica o abierta","Antibióticos IV por 7 días y manejo conservador","Drenaje percutáneo del apéndice","Antibióticos orales ambulatorios"],
+    ans:0,
     exp:"La apendicectomía (laparoscópica o abierta) es el tratamiento definitivo y estándar de oro para la apendicitis aguda. La GPC recomienda la intervención quirúrgica una vez establecido el diagnóstico. La vía laparoscópica tiene menor morbilidad, menor dolor postoperatorio y recuperación más rápida.",
     tip:"<strong>Laparoscópica vs Abierta:</strong> La laparoscópica es preferida cuando hay duda diagnóstica (permite exploración completa), obesidad, y en mujeres en edad fértil. La abierta sigue siendo válida, especialmente en recursos limitados o cuando hay complicación con contaminación extensa.",
     ref:"GPC: Tratamiento de apendicitis aguda. IMSS-214-09. 2009."
@@ -340,8 +340,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento",
     q:"¿Cuál es el antibiótico de elección para profilaxis prequirúrgica en apendicectomía no complicada según la GPC?",
-    opts:["Vancomicina IV","Metronidazol + Ciprofloxacino oral","Cefotaxima o Ceftriaxona + Metronidazol IV","Ampicilina/Sulbactam IV"],
-    ans:2,
+    opts:["Cefotaxima o Ceftriaxona + Metronidazol IV","Metronidazol + Ciprofloxacino oral","Vancomicina IV","Ampicilina/Sulbactam IV"],
+    ans:0,
     exp:"La GPC recomienda la combinación de cefalosporina de 3ª generación (ceftriaxona o cefotaxima) más metronidazol como esquema antibiótico perioperatorio. Esto cubre la flora polimicrobiana del colon (gramnegativos aerobios y anaerobios). Se administra 30-60 min antes de la incisión.",
     tip:"<strong>Cobertura dual siempre:</strong> El apéndice contiene flora colónica mixta. Necesitas cobertura para Gram negativos (E. coli, Klebsiella) Y anaerobios (Bacteroides fragilis). Metronidazol cubre anaerobios; cefalosporina 3G cubre Gram negativos.",
     ref:"GPC: Tratamiento de apendicitis aguda. IMSS-214-09. 2009."
@@ -349,8 +349,8 @@ const questions = [
   {
     cat:"cx", catName:"Complicaciones",
     q:"Paciente de 55 años con dolor en FID de 5 días de evolución, fiebre persistente y masa palpable en FID. La TC muestra colección periapendicular. ¿Cuál es el manejo inicial más adecuado?",
-    opts:["Apendicectomía de urgencia inmediata","Antibióticos IV + drenaje percutáneo guiado por imagen","Laparotomía exploradora amplia","Alta con antibióticos orales"],
-    ans:1,
+    opts:["Apendicectomía de urgencia inmediata","Laparotomía exploradora amplia","Antibióticos IV + drenaje percutáneo guiado por imagen","Alta con antibióticos orales"],
+    ans:2,
     exp:"El absceso periapendicular (plastrón apendicular) se maneja inicialmente con antibióticos IV y drenaje percutáneo guiado por imagen cuando es factible. La cirugía inmediata en esta etapa tiene mayor morbilidad. La GPC recomienda apendicectomía diferida (intervalo appendectomy) 6-8 semanas después de la resolución del cuadro.",
     tip:"<strong>Plastrón apendicular:</strong> No operar de urgencia. El plastrón es una respuesta protectora del organismo. Tratar el absceso, enfriar el proceso, y operar en frío 6-8 semanas después. Si empeora o se rompe → cirugía urgente.",
     ref:"GPC: Tratamiento de apendicitis aguda. IMSS-214-09. 2009."
@@ -358,8 +358,8 @@ const questions = [
   {
     cat:"cx", catName:"Complicaciones",
     q:"¿Cuál es la complicación más grave de la apendicitis aguda no tratada?",
-    opts:["Obstrucción intestinal","Peritonitis generalizada por perforación","Absceso hepático","Íleo paralítico"],
-    ans:1,
+    opts:["Peritonitis generalizada por perforación","Obstrucción intestinal","Absceso hepático","Íleo paralítico"],
+    ans:0,
     exp:"La perforación apendicular con peritonitis generalizada es la complicación más grave, con mortalidad significativa especialmente en extremos de la vida. La GPC enfatiza que el diagnóstico temprano y la intervención oportuna son clave para prevenir esta complicación. La perforación ocurre típicamente después de 24-72 horas del inicio de síntomas.",
     tip:"<strong>El tiempo es apéndice:</strong> >24h de evolución = mayor riesgo de perforación. En niños y ancianos el cuadro es más rápido y atípico. En niños: el epiplón es inmaduro → la perforación produce peritonitis difusa más rápido. En ancianos: síntomas enmascarados por menor respuesta inflamatoria.",
     ref:"GPC: Tratamiento de apendicitis aguda. IMSS-214-09. 2009."
@@ -367,8 +367,8 @@ const questions = [
   {
     cat:"dx", catName:"Diagnóstico",
     q:"Mujer de 25 años embarazada (24 SDG) con dolor abdominal. ¿Cuál es la principal dificultad diagnóstica de apendicitis en el embarazo?",
-    opts:["El apéndice migra superolateralmente por el útero grávido","La leucocitosis no ocurre en el embarazo","La fiebre está contraindicada en el embarazo","El ultrasonido está contraindicado"],
-    ans:0,
+    opts:["El ultrasonido está contraindicado","La leucocitosis no ocurre en el embarazo","La fiebre está contraindicada en el embarazo","El apéndice migra superolateralmente por el útero grávido"],
+    ans:3,
     exp:"Durante el embarazo, el útero desplaza el apéndice hacia arriba y lateralmente, modificando la localización del dolor. En el tercer trimestre el dolor puede ser en flanco o incluso hipocondrio derecho en lugar de FID clásico. La GPC y la literatura señalan que esto retrasa el diagnóstico y aumenta el riesgo de perforación.",
     tip:"<strong>Embarazo y apendicitis:</strong> El dolor NO está en FID en etapas avanzadas. USG es primera línea (sin radiación). Si el USG no es diagnóstico → IRM (no TC en embarazo si es posible). El riesgo de pérdida fetal aumenta con la perforación, por lo que operar ante duda es preferible a esperar.",
     ref:"GPC: Diagnóstico y Tratamiento Inicial de las Emergencias Obstétricas. 2019."
@@ -385,8 +385,8 @@ const questions = [
   {
     cat:"lab", catName:"Laboratorio e Imagen",
     q:"¿Cuál es el diámetro apendicular en ultrasonido que sugiere apendicitis aguda?",
-    opts:["≥ 4 mm","≥ 6 mm","≥ 8 mm no compresible","≥ 10 mm"],
-    ans:2,
+    opts:["≥ 4 mm","≥ 6 mm","≥ 10 mm","≥ 8 mm no compresible"],
+    ans:3,
     exp:"En ultrasonido, un apéndice con diámetro ≥ 6 mm no compresible es sugestivo de apendicitis. Algunos autores usan ≥ 8 mm como punto de corte con mayor especificidad. La no compresibilidad y el engrosamiento de la pared son hallazgos clave. La GPC señala que el USG tiene sensibilidad del 75-90% y depende del operador.",
     tip:"<strong>Criterios ecográficos:</strong> Diámetro ≥6mm + no compresible + dolor al comprimir (McBurney ecográfico) = apendicitis. Si ves apendicolito → mayor especificidad. Si no visualizas el apéndice en USG y hay alta sospecha → TC.",
     ref:"GPC: Diagnóstico de apendicitis aguda. IMSS-044-08. 2009."
@@ -394,8 +394,8 @@ const questions = [
   {
     cat:"cx", catName:"Complicaciones",
     q:"Paciente postoperado de apendicectomía laparoscópica que al 5to día presenta fiebre, dolor abdominal difuso y leucocitosis. La TC muestra colección intraabdominal. ¿Cuál es el diagnóstico?",
-    opts:["Íleo postoperatorio normal","Absceso intraabdominal postoperatorio","Fístula enterocutánea","Eventración de herida quirúrgica"],
-    ans:1,
+    opts:["Íleo postoperatorio normal","Eventración de herida quirúrgica","Fístula enterocutánea","Absceso intraabdominal postoperatorio"],
+    ans:3,
     exp:"El absceso intraabdominal postoperatorio es la complicación infecciosa más frecuente después de apendicectomía por apendicitis complicada. Se presenta típicamente entre el 3ro y 7mo día postoperatorio con fiebre, dolor y leucocitosis. El diagnóstico se confirma con TC. El tratamiento es drenaje percutáneo guiado + antibióticos.",
     tip:"<strong>Postop day 5 rule:</strong> Fiebre al 5to día postoperatorio → busca absceso. Las 5 W del postoperatorio: Wind (atelectasia, día 1-2), Water (ITU, día 3-5), Wound (infección de herida, día 5-7), Walking (TVP, día 5+), Wonder drugs (medicamentos).",
     ref:"GPC: Tratamiento de apendicitis aguda. IMSS-214-09. 2009."

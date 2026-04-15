@@ -209,8 +209,8 @@ const questions = [
   {
     cat:"col", catName:"Cólico Renal",
     q:"Paciente con cólico renal agudo diagnosticado por TC. ¿Cuál es el analgésico de primera línea recomendado por la GPC para el manejo del dolor?",
-    opts:["Morfina IV en bolo de 4mg","AINE (ketorolaco o diclofenaco) IV o IM","Espasmolítico tipo butilhioscina oral","Tramadol oral"],
-    ans:1,
+    opts:["AINE (ketorolaco o diclofenaco) IV o IM","Morfina IV en bolo de 4mg","Espasmolítico tipo butilhioscina oral","Tramadol oral"],
+    ans:0,
     exp:"Los AINE (ketorolaco 30mg IV/IM o diclofenaco 75mg IM) son el tratamiento analgésico de primera línea para el cólico renal agudo. La GPC CENETEC establece que los AINE son superiores a los opioides en eficacia analgésica, con menor incidencia de náusea y vómito. Los opioides (morfina, tramadol) se reservan como segunda línea o cuando los AINE están contraindicados (insuficiencia renal, úlcera activa).",
     tip:"<strong>AINE > Opioides en cólico renal:</strong> Los AINE reducen la producción de prostaglandinas que aumentan la presión en la pelvis renal y causan espasmo ureteral. La hidratación IV vigorosa también se recomienda. Evitar AINE en IRC (CrCl &lt;30) o úlcera péptica activa.",
     ref:"GPC: Diagnóstico y tratamiento de la litiasis urinaria en el adulto. CENETEC-2014."
@@ -218,8 +218,8 @@ const questions = [
   {
     cat:"col", catName:"Cólico Renal",
     q:"Paciente con cólico renal que además presenta fiebre de 38.8°C, escalofríos y dolor persistente. El USG muestra hidronefrosis con cálculo ureteral de 8mm y datos de pielonefritis obstructiva. ¿Cuál es la conducta inmediata?",
-    opts:["Antibióticos orales y control en 48 horas","Nefrostomía percutánea urgente + antibióticos IV","LEOC electiva en 2 semanas","Aumento de hidratación y observación hospitalaria"],
-    ans:1,
+    opts:["Antibióticos orales y control en 48 horas","Aumento de hidratación y observación hospitalaria","LEOC electiva en 2 semanas","Nefrostomía percutánea urgente + antibióticos IV"],
+    ans:3,
     exp:"La infección urinaria con obstrucción (pielonefritis obstructiva) es una URGENCIA urológica. La GPC establece que la combinación de obstrucción + infección puede progresar rápidamente a urosepsis y muerte. El tratamiento es descompresión urgente (nefrostomía percutánea o catéter ureteral doble J) más antibióticos IV de amplio espectro. No se debe retrasar la descompresión.",
     tip:"<strong>Obstrucción + Infección = Urgencia:</strong> Fiebre + cálculo obstructivo = pielonefritis obstructiva. La antibioticoterapia sola NO resuelve la infección sin drenaje. Piensa en urosepsis. Orden de manejo: cultivos → antibióticos IV → descompresión urgente (nefrostomía o stent JJ).",
     ref:"GPC: Diagnóstico y tratamiento de la litiasis urinaria en el adulto. CENETEC-2014."
@@ -236,8 +236,8 @@ const questions = [
   {
     cat:"tip", catName:"Tipos de Cálculos",
     q:"Paciente de 55 años con gota e hiperuricemia que presenta un cálculo renal radiolúcido en TC sin contraste. ¿Qué tipo de cálculo es el único que puede tratarse exclusivamente con manejo médico (alcalinización de orina) sin cirugía?",
-    opts:["Oxalato de calcio","Ácido úrico","Estruvita","Fosfato cálcico"],
-    ans:1,
+    opts:["Oxalato de calcio","Estruvita","Ácido úrico","Fosfato cálcico"],
+    ans:2,
     exp:"Los cálculos de ácido úrico son los únicos que pueden disolverse farmacológicamente. Son radiolúcidos (no se ven en Rx simple, solo en TC), representan el 10% de los cálculos y se asocian a gota, hiperuricemia, diabetes mellitus y orina ácida persistente. La GPC establece que la alcalinización de la orina a pH 6.5-7.0 con citrato de potasio o bicarbonato de sodio puede disolver los cálculos existentes y prevenir nuevos.",
     tip:"<strong>Ácido úrico = el único soluble:</strong> Radiolúcido en Rx (invisible) pero visible en TC (densidad 200-400 UH). pH urinario &lt;5.5 favorece su formación. Tratamiento: alcalinizar orina a pH 6.5-7.0 + alopurinol si hiperuricemia. Hidratación abundante. Evitar dieta rica en purinas.",
     ref:"GPC: Diagnóstico y tratamiento de la litiasis urinaria en el adulto. CENETEC-2014."
@@ -245,8 +245,8 @@ const questions = [
   {
     cat:"tip", catName:"Tipos de Cálculos",
     q:"Mujer de 45 años con infecciones urinarias recurrentes por Proteus mirabilis. El USG muestra un cálculo que ocupa toda la pelvis renal y cálices (coraliforme). ¿Qué tipo de cálculo se asocia a esta presentación?",
-    opts:["Cistina","Oxalato de calcio","Estruvita (estruvita/fosfato amónico magnésico)","Ácido úrico"],
-    ans:2,
+    opts:["Estruvita (estruvita/fosfato amónico magnésico)","Oxalato de calcio","Cistina","Ácido úrico"],
+    ans:0,
     exp:"Los cálculos de estruvita (fosfato amónico magnésico) se asocian a infecciones por bacterias ureasa-positivas, principalmente Proteus mirabilis, Klebsiella y Pseudomonas. La ureasa hidroliza la urea produciendo amoniaco, alcaliniza la orina y favorece la precipitación de estruvita. Tienden a crecer rápidamente formando cálculos coraliformes. La GPC establece que requieren tratamiento antibiótico prolongado y generalmente nefrolitotomía percutánea.",
     tip:"<strong>Estruvita = Infección = Coraliforme:</strong> Proteus (ureasa+) → orina alcalina → estruvita → coraliforme. Son radiopacos y de rápido crecimiento. Tratamiento: NLPC (nefrolitotomía percutánea) + antibióticos. La LEOC no es suficiente para cálculos coraliformes grandes. Erradicar la infección es esencial para evitar recurrencia.",
     ref:"GPC: Diagnóstico y tratamiento de la litiasis urinaria en el adulto. CENETEC-2014."
@@ -263,8 +263,8 @@ const questions = [
   {
     cat:"dx", catName:"Diagnóstico por Imagen",
     q:"¿Cuál es el estudio de imagen gold standard para el diagnóstico de litiasis urinaria, con sensibilidad del 95-99% y capacidad de detectar todos los tipos de cálculos?",
-    opts:["Ultrasonido abdominal","TC helicoidal sin contraste (uro-TC)","Radiografía simple de abdomen (KUB)","Urografía excretora con contraste"],
-    ans:1,
+    opts:["Ultrasonido abdominal","Radiografía simple de abdomen (KUB)","TC helicoidal sin contraste (uro-TC)","Urografía excretora con contraste"],
+    ans:2,
     exp:"La TC helicoidal sin contraste (uro-TC) es el gold standard para el diagnóstico de litiasis urinaria, con sensibilidad 95-99% y especificidad 96-100%. La GPC establece que detecta todos los tipos de cálculos (incluido el ácido úrico que es radiolúcido), determina tamaño, localización y densidad Hounsfield (útil para predecir respuesta a LEOC), y puede identificar diagnósticos alternativos. No requiere contraste para la detección de cálculos.",
     tip:"<strong>TC sin contraste = gold standard:</strong> Ventajas: detecta TODOS los tipos de cálculos, mide densidad HU (>1000HU = duro, resistente a LEOC), localiza exactamente el cálculo, sin contraste necesario. Limitación: radiación. En embarazo → USG primero. Densidad HU del cálculo orienta el tipo: ácido úrico 200-400HU, oxalato Ca 800-1200HU.",
     ref:"GPC: Diagnóstico y tratamiento de la litiasis urinaria en el adulto. CENETEC-2014."
@@ -281,8 +281,8 @@ const questions = [
   {
     cat:"dx", catName:"Diagnóstico por Imagen",
     q:"¿Cuál es la principal limitación de la radiografía simple de abdomen (KUB) en el diagnóstico de litiasis renal?",
-    opts:["Es muy costosa y no está disponible","Solo detecta cálculos radiopacos; los de ácido úrico son invisibles (radiolúcidos)","Requiere sedación en todos los pacientes","Está contraindicada en pacientes con dolor agudo"],
-    ans:1,
+    opts:["Solo detecta cálculos radiopacos; los de ácido úrico son invisibles (radiolúcidos)","Es muy costosa y no está disponible","Requiere sedación en todos los pacientes","Está contraindicada en pacientes con dolor agudo"],
+    ans:0,
     exp:"La radiografía simple de abdomen (KUB: riñones, uréteres, vejiga) solo detecta cálculos radiopacos (oxalato de calcio, fosfato cálcico, estruvita). Los cálculos de ácido úrico (10% de los casos) son radiolúcidos e invisibles en Rx simple. Además, la sensibilidad global del KUB para cálculos ureterales es solo del 50-60% por interferencia de asas intestinales y superposición ósea. La GPC indica que el KUB tiene utilidad como seguimiento de cálculos radiopacos conocidos, no como diagnóstico inicial.",
     tip:"<strong>KUB: baja sensibilidad:</strong> Solo detecta radiopacos (calcio y estruvita). Los de ácido úrico son INVISIBLES en Rx. Sensibilidad global ~50-60%. Útil para seguimiento de cálculos radiopacos ya conocidos. No usar como estudio inicial de diagnóstico — usar TC sin contraste. El KUB combinado con USG aumenta la sensibilidad.",
     ref:"GPC: Diagnóstico y tratamiento de la litiasis urinaria en el adulto. CENETEC-2014."
@@ -290,8 +290,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento",
     q:"Paciente con cálculo ureteral de 4mm asintomático sin complicaciones. ¿Cuál es la probabilidad de expulsión espontánea y el manejo recomendado?",
-    opts:["Probabilidad baja (20%), indicar LEOC de inmediato","Probabilidad alta (>90%), manejo expectante con tamsulosina como expulsivo","Probabilidad intermedia (50%), ureteroscopía electiva","Probabilidad alta (>90%), nefrolitotomía percutánea inmediata"],
-    ans:1,
+    opts:["Probabilidad baja (20%), indicar LEOC de inmediato","Probabilidad intermedia (50%), ureteroscopía electiva","Probabilidad alta (>90%), manejo expectante con tamsulosina como expulsivo","Probabilidad alta (>90%), nefrolitotomía percutánea inmediata"],
+    ans:2,
     exp:"Los cálculos de menos de 5mm tienen una tasa de expulsión espontánea mayor al 90-95%. La GPC recomienda manejo expectante (observación activa) por 4-6 semanas con hidratación adecuada y uso de tamsulosina 0.4mg/día como terapia expulsiva (alfa-bloqueador que relaja el músculo liso del uréter distal, facilitando la expulsión). Se debe monitorizar función renal y síntomas. La intervención se reserva para fracaso de expulsión, dolor incontrolable u obstrucción significativa.",
     tip:"<strong>Regla de los tamaños:</strong> &lt;5mm → 90-95% expulsión espontánea (esperar + tamsulosina). 5-10mm → ~50% (considerar tratamiento activo). >10mm → baja probabilidad (tratamiento activo). Tamsulosina = expulsivo: relaja uréter distal, aumenta tasa y velocidad de expulsión. Duración máxima de espera: 4-6 semanas.",
     ref:"GPC: Diagnóstico y tratamiento de la litiasis urinaria en el adulto. CENETEC-2014."
@@ -308,8 +308,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento",
     q:"¿Cuál es la indicación principal de la nefrolitotomía percutánea (NLPC) en el manejo de la litiasis renal?",
-    opts:["Cálculos ureterales distales de 8mm","Cálculos renales mayores de 2cm o cálculos coraliformes","Cualquier cálculo en paciente embarazada","Cálculos de ácido úrico que no responden a alcalinización"],
-    ans:1,
+    opts:["Cálculos ureterales distales de 8mm","Cálculos de ácido úrico que no responden a alcalinización","Cualquier cálculo en paciente embarazada","Cálculos renales mayores de 2cm o cálculos coraliformes"],
+    ans:3,
     exp:"La nefrolitotomía percutánea (NLPC) está indicada para cálculos renales grandes (>2cm), cálculos coraliformes, cálculos en riñón en herradura, fracaso de LEOC, y cálculos en cálices de difícil acceso por ureteroscopía. La GPC establece que la NLPC tiene tasas de éxito superiores al 90% para cálculos grandes. Requiere acceso percutáneo al sistema colector renal bajo guía fluoroscópica o ecográfica.",
     tip:"<strong>Algoritmo de tratamiento por tamaño:</strong> &lt;5mm → esperar + tamsulosina. 5-10mm uréter distal → ureteroscopía. &lt;2cm riñón → LEOC de primera línea. >2cm o coraliforme → NLPC. Uréter medio y distal → ureteroscopía con laser Holmium. La NLPC requiere hospitalización y anestesia general/espinal.",
     ref:"GPC: Diagnóstico y tratamiento de la litiasis urinaria en el adulto. CENETEC-2014."
@@ -317,8 +317,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento",
     q:"Paciente con cálculo de 1.2cm en uréter distal. ¿Cuál es el tratamiento quirúrgico más apropiado?",
-    opts:["LEOC","Nefrolitotomía percutánea","Ureteroscopía rígida o semirrígida con laser Holmium","Nefrostomía percutánea definitiva"],
-    ans:2,
+    opts:["Ureteroscopía rígida o semirrígida con laser Holmium","Nefrolitotomía percutánea","LEOC","Nefrostomía percutánea definitiva"],
+    ans:0,
     exp:"La ureteroscopía (rígida o semirrígida) con fragmentación laser (laser Holmium:YAG) es el tratamiento de elección para cálculos en uréter distal y medio de 1-2cm. La GPC establece que la ureteroscopía tiene tasas de éxito del 90-95% para cálculos ureterales, superior a la LEOC en uréter distal. El laser Holmium puede fragmentar cualquier tipo de cálculo independientemente de su composición. Permite extracción directa de los fragmentos.",
     tip:"<strong>Ureteroscopía para uréter:</strong> Uréter distal y medio → ureteroscopía semirrígida. Uréter proximal y riñón → ureteroscopía flexible. Laser Holmium fragmenta CUALQUIER tipo de cálculo (incluso los más duros como cistina y oxalato monohidrato). Ventaja sobre LEOC en uréter distal: mayor tasa de éxito en un solo procedimiento.",
     ref:"GPC: Diagnóstico y tratamiento de la litiasis urinaria en el adulto. CENETEC-2014."
@@ -326,8 +326,8 @@ const questions = [
   {
     cat:"prev", catName:"Prevención/Metabólico",
     q:"Paciente con litiasis cálcica recurrente (3 episodios en 2 años). ¿Cuál es la medida preventiva más importante y con mayor evidencia para reducir la recurrencia de cálculos renales?",
-    opts:["Restricción severa de calcio en la dieta","Hidratación adecuada para mantener diuresis de 2-3 litros al día","Antibióticos profilácticos diarios","Vitamina D en altas dosis"],
-    ans:1,
+    opts:["Restricción severa de calcio en la dieta","Vitamina D en altas dosis","Antibióticos profilácticos diarios","Hidratación adecuada para mantener diuresis de 2-3 litros al día"],
+    ans:3,
     exp:"La hidratación adecuada para mantener una diuresis de 2-3 litros al día es la medida preventiva más importante y con mayor evidencia para todo tipo de litiasis renal. La GPC establece que diluyendo la orina se reduce la saturación de solutos litogénicos. Adicionalmente se recomienda: restricción de sodio (&lt;5g/día), restricción de proteínas animales, calcio en dieta normal (no restringir — la restricción aumenta oxaluria), y reducir alimentos ricos en oxalato (espinacas, nueces, chocolate).",
     tip:"<strong>Prevención primero: AGUA:</strong> 2-3L de orina/día = la medida con mayor evidencia. Restricción de sodio (hipercalciuria sódica) y proteínas animales (aumentan ácido úrico y calcio urinario). Calcio en dieta NORMAL (no restringir — el calcio intestinal fija el oxalato y reduce su absorción). Evitar vitamina C en exceso (se convierte en oxalato).",
     ref:"GPC: Diagnóstico y tratamiento de la litiasis urinaria en el adulto. CENETEC-2014."
@@ -335,8 +335,8 @@ const questions = [
   {
     cat:"prev", catName:"Prevención/Metabólico",
     q:"Paciente con litiasis cálcica recurrente tiene un estudio metabólico que revela hipocitruria urinaria. ¿Cuál es el tratamiento preventivo de elección?",
-    opts:["Alopurinol 300mg/día","Citrato de potasio oral","Clortalidona (diurético tiazídico)","Metionina para acidificar orina"],
-    ans:1,
+    opts:["Citrato de potasio oral","Alopurinol 300mg/día","Clortalidona (diurético tiazídico)","Metionina para acidificar orina"],
+    ans:0,
     exp:"El citrato de potasio es el tratamiento de elección para la hipocitruria (citrato urinario bajo). El citrato inhibe la cristalización del calcio al formar complejos solubles con el calcio, reduciendo la supersaturación. La GPC establece que el citrato de potasio aumenta el pH urinario y el citrato en orina, reduciendo la recurrencia de cálculos cálcicos y de ácido úrico. La dosis habitual es 30-60 mEq/día en 2-3 tomas.",
     tip:"<strong>Hipocitruria → Citrato de potasio:</strong> El citrato es el inhibidor más importante de la cristalización cálcica. Causas de hipocitruria: acidosis tubular renal, infecciones urinarias crónicas, dieta rica en proteínas, diarrea crónica. Alopurinol se usa en hiperuricosuria o litiasis úrica. Tiazidas en hipercalciuria.",
     ref:"GPC: Diagnóstico y tratamiento de la litiasis urinaria en el adulto. CENETEC-2014."
@@ -344,8 +344,8 @@ const questions = [
   {
     cat:"prev", catName:"Prevención/Metabólico",
     q:"Paciente de 50 años con litiasis cálcica recurrente y niveles de calcio sérico de 11.2 mg/dL, PTH elevada y osteoporosis. ¿Cuál es la causa endocrina más frecuente de litiasis cálcica recurrente que debe descartarse?",
-    opts:["Hipotiroidismo","Hiperparatiroidismo primario","Síndrome de Cushing","Acromegalia"],
-    ans:1,
+    opts:["Hipotiroidismo","Acromegalia","Síndrome de Cushing","Hiperparatiroidismo primario"],
+    ans:3,
     exp:"El hiperparatiroidismo primario es la causa endocrina más frecuente de litiasis cálcica recurrente. El exceso de PTH aumenta la reabsorción ósea de calcio, la reabsorción intestinal de calcio (mediante activación de vitamina D) y la excreción renal de calcio (hipercalciuria), favoreciendo la formación de cálculos. La GPC indica que en todo paciente con litiasis cálcica recurrente se debe medir calcio sérico y PTH para descartar hiperparatiroidismo primario. El tratamiento es la paratiroidectomía.",
     tip:"<strong>Litiasis cálcica recurrente → descartar HPT primario:</strong> Calcio sérico >10.5mg/dL + PTH elevada = hiperparatiroidismo primario. El adenoma paratiroideo único es la causa más frecuente (85%). El síntoma cardinal: 'huesos, piedras, gemidos y gruñidos' (huesos dolorosos, cálculos renales, úlcera péptica, fatiga/depresión). Tratamiento definitivo: paratiroidectomía.",
     ref:"GPC: Diagnóstico y tratamiento de la litiasis urinaria en el adulto. CENETEC-2014."

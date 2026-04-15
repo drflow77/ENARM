@@ -209,8 +209,8 @@ const questions = [
   {
     cat:"ulc", catName:"Úlceras por Presión",
     q:"Una úlcera por presión en talón presenta pérdida total del grosor cutáneo con exposición de hueso calcáneo, tendón de Aquiles y músculo. No hay tejido necrótico que cubra la base. ¿Cuál es la clasificación correcta?",
-    opts:["Estadio II","Estadio III","Estadio IV","No estadificable"],
-    ans:2,
+    opts:["Estadio IV","Estadio III","Estadio II","No estadificable"],
+    ans:0,
     exp:"El Estadio IV se define por pérdida total del grosor cutáneo con exposición de hueso, tendón o músculo. Puede haber esfacelo o escara en partes de la herida. Frecuentemente incluye socavaciones y tunelizaciones. La GPC señala que en el Estadio IV el riesgo de osteomielitis es alto y debe descartarse. Es el estadio más grave con exposición de estructuras profundas.",
     tip:"<strong>Diferencia III vs IV:</strong> Estadio III = subcutáneo visible, hueso/tendón/músculo NO expuesto. Estadio IV = hueso/tendón/músculo EXPUESTO. Regla mnemotécnica: IV = cuatro estructuras posibles expuestas (piel, fascia, músculo, hueso).",
     ref:"GPC: Prevención, diagnóstico y manejo de las úlceras por presión en el adulto. IMSS-2015."
@@ -218,8 +218,8 @@ const questions = [
   {
     cat:"ulc", catName:"Úlceras por Presión",
     q:"La escala de Braden se utiliza para evaluar el riesgo de úlceras por presión. ¿Cuántas subescalas la conforman y cuál es el puntaje que indica alto riesgo?",
-    opts:["4 subescalas; puntaje ≤12 indica alto riesgo","6 subescalas; puntaje ≤12 indica alto riesgo","6 subescalas; puntaje ≤16 indica riesgo y ≤12 alto riesgo","8 subescalas; puntaje ≤10 indica alto riesgo"],
-    ans:2,
+    opts:["4 subescalas; puntaje ≤12 indica alto riesgo","6 subescalas; puntaje ≤16 indica riesgo y ≤12 alto riesgo","6 subescalas; puntaje ≤12 indica alto riesgo","8 subescalas; puntaje ≤10 indica alto riesgo"],
+    ans:1,
     exp:"La escala de Braden consta de 6 subescalas: percepción sensorial, humedad, actividad, movilidad, nutrición y fricción/cizallamiento. El puntaje va de 6 a 23. La GPC establece que un puntaje ≤16 indica riesgo de úlcera por presión y requiere medidas preventivas. Un puntaje ≤12 indica alto riesgo y requiere intervenciones intensivas. A menor puntaje, mayor riesgo.",
     tip:"<strong>Las 6 subescalas de Braden:</strong> Percepción Sensorial, Humedad, Actividad, Movilidad, Nutrición, Fricción/Cizallamiento. Mnemotecnia: P-H-A-M-N-F. Riesgo: ≤16. Alto riesgo: ≤12. El rango normal es 18-23.",
     ref:"GPC: Prevención, diagnóstico y manejo de las úlceras por presión en el adulto. IMSS-2015."
@@ -227,8 +227,8 @@ const questions = [
   {
     cat:"pro", catName:"Profilaxis/Prevención",
     q:"¿Cuál es la medida preventiva más importante y con mayor nivel de evidencia para evitar el desarrollo de úlceras por presión en pacientes encamados?",
-    opts:["Aplicación de ácidos grasos hiperoxigenados cada 12 horas","Cambios posturales cada 2 horas con redistribución de la presión","Uso de colchón de aire de baja presión como única medida","Vendaje de talones con apósitos de hidrogel"],
-    ans:1,
+    opts:["Cambios posturales cada 2 horas con redistribución de la presión","Aplicación de ácidos grasos hiperoxigenados cada 12 horas","Uso de colchón de aire de baja presión como única medida","Vendaje de talones con apósitos de hidrogel"],
+    ans:0,
     exp:"Los cambios posturales cada 2 horas son la medida preventiva de mayor evidencia para redistribuir la presión y prevenir úlceras. La GPC 2015 recomienda que en pacientes de riesgo se realicen cambios de posición cada 2 horas en cama y cada hora en silla de ruedas. Se deben complementar con superficies de redistribución de presión (colchones especiales), mantener la piel hidratada y limpia, y asegurar una nutrición adecuada.",
     tip:"<strong>Las 4 pilares de prevención de úlceras:</strong> 1) Cambios posturales cada 2h, 2) Superficies redistribuidoras de presión, 3) Cuidado de la piel (hidratación, evitar humedad), 4) Nutrición adecuada (proteínas, vitamina C, zinc). Los cambios posturales son el pilar fundamental — sin ellos, las otras medidas son insuficientes.",
     ref:"GPC: Prevención, diagnóstico y manejo de las úlceras por presión en el adulto. IMSS-2015."
@@ -236,8 +236,8 @@ const questions = [
   {
     cat:"isq", catName:"Infección Sitio Quirúrgico",
     q:"Paciente de 55 años sometido a colecistectomía laparoscópica hace 12 días. Acude por eritema, calor y secreción purulenta en uno de los puertos de entrada, sin compromiso de fascia ni cavidad abdominal. ¿Cómo se clasifica esta infección de sitio quirúrgico?",
-    opts:["ISQ profunda de incisión","ISQ superficial de incisión","ISQ de órgano/espacio","No es ISQ porque fue cirugía laparoscópica"],
-    ans:1,
+    opts:["ISQ profunda de incisión","No es ISQ porque fue cirugía laparoscópica","ISQ de órgano/espacio","ISQ superficial de incisión"],
+    ans:3,
     exp:"La ISQ superficial de incisión se define por infección que ocurre dentro de los 30 días posteriores al procedimiento e involucra únicamente piel y tejido subcutáneo. Debe cumplir al menos uno de los siguientes criterios: drenaje purulento, cultivo positivo, signos de infección (dolor, eritema, calor, induración) con apertura deliberada por el cirujano. La GPC 2018 establece este límite temporal de 30 días para cirugías sin implante.",
     tip:"<strong>Clasificación ISQ por planos:</strong> Superficial = piel + tejido subcutáneo (hasta 30 días). Profunda = fascia + músculo (hasta 30 días). Órgano/espacio = cualquier estructura abierta/manipulada (hasta 30 días, o hasta 1 año si hay implante). La profundidad es la clave clasificatoria.",
     ref:"GPC: Prevención y diagnóstico de la infección de sitio quirúrgico. IMSS-2018."
@@ -245,8 +245,8 @@ const questions = [
   {
     cat:"isq", catName:"Infección Sitio Quirúrgico",
     q:"¿Cuál es la clasificación de herida quirúrgica asociada con mayor riesgo de infección de sitio quirúrgico (ISQ > 40%)?",
-    opts:["Herida limpia: cirugía electiva sin apertura de víscera hueca","Herida limpia-contaminada: apertura controlada de víscera hueca","Herida contaminada: derrame gastrointestinal significativo","Herida sucia: infección establecida o perforación visceral previa"],
-    ans:3,
+    opts:["Herida limpia: cirugía electiva sin apertura de víscera hueca","Herida limpia-contaminada: apertura controlada de víscera hueca","Herida sucia: infección establecida o perforación visceral previa","Herida contaminada: derrame gastrointestinal significativo"],
+    ans:2,
     exp:"La herida sucia (clase IV) corresponde a cirugías donde existe infección bacteriana ya establecida o perforación de víscera hueca previamente. Incluye heridas traumáticas antiguas, perforación de colon, abscesos y tejido desvitalizado. La GPC 2018 establece una tasa de ISQ >40% para esta clase. En contraste: limpia <2%, limpia-contaminada <10%, contaminada >10-15%.",
     tip:"<strong>Las 4 clases de heridas y riesgo de ISQ:</strong> Limpia: <2% (cirugía electiva, sin apertura visceral). Limpia-contaminada: <10% (apertura controlada). Contaminada: 10-40% (derrame GI/biliar/urinario). Sucia: >40% (infección establecida/perforación). A mayor contaminación, mayor riesgo.",
     ref:"GPC: Prevención y diagnóstico de la infección de sitio quirúrgico. IMSS-2018."
@@ -263,8 +263,8 @@ const questions = [
   {
     cat:"der", catName:"Derrame Pleural",
     q:"Se realiza toracocentesis diagnóstica a paciente con derrame pleural de causa incierta. Los resultados del líquido pleural son: proteínas líquido/suero = 0.62, LDH líquido/suero = 0.7, LDH líquido = 280 U/L (límite superior normal en suero = 200 U/L). ¿Cómo se clasifica este líquido pleural?",
-    opts:["Trasudado: todos los valores están dentro de límites normales","Exudado: cumple criterios de Light","Trasudado: por la relación de proteínas solamente","Indeterminado: se requieren más estudios"],
-    ans:1,
+    opts:["Trasudado: todos los valores están dentro de límites normales","Indeterminado: se requieren más estudios","Trasudado: por la relación de proteínas solamente","Exudado: cumple criterios de Light"],
+    ans:3,
     exp:"Los criterios de Light para exudado requieren que se cumpla AL MENOS UNO de tres criterios: 1) Proteínas líquido/suero >0.5, 2) LDH líquido/suero >0.6, 3) LDH líquido >2/3 del límite superior normal en suero. En este caso se cumplen los tres criterios: proteínas 0.62 >0.5 (sí), LDH líquido/suero 0.7 >0.6 (sí), LDH 280 > 2/3 de 200 = 133 U/L (sí). Por lo tanto es exudado.",
     tip:"<strong>Criterios de Light (basta uno para exudado):</strong> Proteínas L/S >0.5 — LDH L/S >0.6 — LDH líquido >2/3 LSN suero. Mnemotecnia: 0.5 — 0.6 — 2/3. Trasudado (ninguno cumplido): ICC, cirrosis, síndrome nefrótico. Exudado (≥1 cumplido): neumonía, TB, neoplasia, empiema.",
     ref:"GPC: Diagnóstico y tratamiento del derrame pleural. IMSS-2016."
@@ -290,8 +290,8 @@ const questions = [
   {
     cat:"deh", catName:"Dehiscencia/Complicaciones herida",
     q:"Paciente de 62 años, obeso (IMC 38), diabético mal controlado, que fue sometido a laparotomía exploradora por perforación intestinal. Al 8° día postoperatorio presenta salida de material seroso-sanguinolento por la herida abdominal ('signo del agua de arroz') y se palpa separación de fascia. ¿Cuál es el diagnóstico y la conducta inmediata?",
-    opts:["ISQ superficial: curación con antisépticos y espera","Seroma postquirúrgico: drenaje simple","Dehiscencia completa de herida quirúrgica con evisceración inminente: cirugía urgente","Fístula enterocutánea: manejo conservador"],
-    ans:2,
+    opts:["Dehiscencia completa de herida quirúrgica con evisceración inminente: cirugía urgente","Seroma postquirúrgico: drenaje simple","ISQ superficial: curación con antisépticos y espera","Fístula enterocutánea: manejo conservador"],
+    ans:0,
     exp:"La dehiscencia completa de herida quirúrgica abdominal con evisceración se presenta clásicamente con salida de líquido seroso-sanguinolento ('signo del agua de arroz' o líquido asalmonado) entre el 5° y 10° día postoperatorio, y separación palpable de la fascia. La GPC 2016 establece que ante estos hallazgos se debe cubrir las vísceras con compresas húmedas tibias y llevar al paciente a cirugía urgente para cierre primario. Los factores de riesgo presentes son obesidad, diabetes y cirugía de urgencia por perforación.",
     tip:"<strong>Factores de riesgo de dehiscencia:</strong> Obesidad, diabetes mellitus, desnutrición, infección de herida, tos crónica/EPOC, uso de esteroides, edad avanzada, cirugía de urgencia. El 'agua de arroz' es la señal de alarma — NO es normal, indica separación fascial. Cubrir con gasa húmeda y cirugía urgente.",
     ref:"GPC: Prevención, diagnóstico y tratamiento de dehiscencia completa de herida quirúrgica de abdomen. IMSS-2016."
@@ -299,8 +299,8 @@ const questions = [
   {
     cat:"deh", catName:"Dehiscencia/Complicaciones herida",
     q:"¿Cuál de los siguientes factores de riesgo preoperatorio tiene MENOR asociación con dehiscencia de herida quirúrgica abdominal?",
-    opts:["Desnutrición severa con hipoalbuminemia","Diabetes mellitus con hemoglobina glucosilada >9%","Uso crónico de corticosteroides","Grupo sanguíneo AB positivo"],
-    ans:3,
+    opts:["Grupo sanguíneo AB positivo","Diabetes mellitus con hemoglobina glucosilada >9%","Uso crónico de corticosteroides","Desnutrición severa con hipoalbuminemia"],
+    ans:0,
     exp:"El grupo sanguíneo no es un factor de riesgo reconocido para dehiscencia de herida quirúrgica. Los factores de riesgo establecidos por la GPC 2016 incluyen: desnutrición/hipoalbuminemia (albúmina <3.5 g/dL), diabetes mellitus mal controlada, uso crónico de corticosteroides (inhiben la cicatrización), obesidad, infección de sitio quirúrgico, tos crónica/EPOC, edad avanzada, anemia, cirugía de urgencia y técnica quirúrgica deficiente.",
     tip:"<strong>Factores de riesgo de dehiscencia — mnemotecnia DOSIS:</strong> Diabetes, Obesidad, Sepsis/infección, Inmunosupresión (esteroides), Sutura deficiente. Más: desnutrición, tos crónica, anemia, cirugía de urgencia. La albúmina preoperatoria <3.5 g/dL es predictor independiente de dehiscencia.",
     ref:"GPC: Prevención, diagnóstico y tratamiento de dehiscencia completa de herida quirúrgica de abdomen. IMSS-2016."
@@ -308,8 +308,8 @@ const questions = [
   {
     cat:"ulc", catName:"Úlceras por Presión",
     q:"Una úlcera sacra presenta su base completamente cubierta por tejido necrótico negro (escara dura) sin posibilidad de determinar la profundidad real de la lesión. ¿Cómo se clasifica?",
-    opts:["Estadio III por la localización sacra","Estadio IV por extensión probable","No estadificable: base cubierta por escara/esfacelo que impide valorar profundidad","Estadio II por pérdida cutánea visible"],
-    ans:2,
+    opts:["Estadio III por la localización sacra","No estadificable: base cubierta por escara/esfacelo que impide valorar profundidad","Estadio IV por extensión probable","Estadio II por pérdida cutánea visible"],
+    ans:1,
     exp:"La úlcera no estadificable corresponde a pérdida total del grosor tisular en la que la base de la úlcera está cubierta por esfacelo (amarillo, tostado, gris o verde) y/o escara (café o negro) en el lecho de la herida. La GPC 2015 establece que hasta que no se retire el tejido necrótico suficiente para ver la base de la herida, no es posible determinar la profundidad real y clasificar correctamente. La escara en talón (firme, seca, adherida) puede ser protectora y no debe retirarse sin valoración especializada.",
     tip:"<strong>Clave 'No estadificable':</strong> No puede verse el fondo = no puede clasificarse. El esfacelo (húmedo, blando) o la escara (dura, seca) ocultan la profundidad real. Puede ser Estadio III o IV, pero hasta desbridar no se sabe. Excepción: escara de talón firme y seca = NO desbridar de rutina.",
     ref:"GPC: Prevención, diagnóstico y manejo de las úlceras por presión en el adulto. IMSS-2015."
@@ -326,8 +326,8 @@ const questions = [
   {
     cat:"pro", catName:"Profilaxis/Prevención",
     q:"Durante una colecistectomía laparoscópica que inició a las 8:00 am y lleva 4.5 horas de evolución, el anestesiólogo nota que la pérdida sanguínea acumulada es de 800 mL. Se administró cefazolina 1g a las 7:30 am. ¿Qué conducta es correcta respecto a la profilaxis antibiótica?",
-    opts:["No se requiere dosis adicional; la dosis inicial es suficiente para cirugías <8 horas","Administrar dosis adicional de cefazolina ahora por duración >4 horas de la cirugía","Cambiar a antibiótico de amplio espectro por la duración prolongada","Suspender la profilaxis y iniciar tratamiento antibiótico completo"],
-    ans:1,
+    opts:["No se requiere dosis adicional; la dosis inicial es suficiente para cirugías <8 horas","Suspender la profilaxis y iniciar tratamiento antibiótico completo","Cambiar a antibiótico de amplio espectro por la duración prolongada","Administrar dosis adicional de cefazolina ahora por duración >4 horas de la cirugía"],
+    ans:3,
     exp:"La GPC 2018 indica que se debe administrar una dosis adicional del antibiótico profiláctico cuando la cirugía excede las 4 horas de duración O cuando la pérdida sanguínea supera los 1500 mL (no ambas condiciones simultáneamente — basta una). En este caso, la cirugía lleva 4.5 horas (>4h), por lo que corresponde administrar una dosis adicional de cefazolina. La pérdida de 800 mL no alcanza el umbral de 1500 mL, pero la duración sí lo amerita. La profilaxis se suspende dentro de las primeras 24h postoperatorias.",
     tip:"<strong>Indicaciones de redosis intraoperatoria:</strong> Duración >4 horas (para cefazolina con vida media corta) OR pérdida sanguínea >1500 mL. Basta UNA condición. La cefazolina se redosifica cada 3-4h durante la cirugía si aplica. Post-cirugía: suspender <24h — no hay beneficio en extender y aumenta resistencia.",
     ref:"GPC: Prevención y diagnóstico de la infección de sitio quirúrgico. IMSS-2018."

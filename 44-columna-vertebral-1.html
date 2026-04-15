@@ -188,8 +188,8 @@ const questions = [
   {
     cat:"esgui", catName:"Esguince Cervical",
     q:"Mujer de 34 años involucrada en colisión trasera de tráfico. Presenta cervicalgia con irradiación a hombros, sin déficit neurológico. Rx de columna cervical normal. ¿Cuál es el mecanismo lesional del latigazo cervical (whiplash)?",
-    opts:["Flexión cervical directa por impacto anterior","Hiperextensión seguida de flexión brusca por desaceleración brusca del tronco","Compresión axial por carga vertical","Rotación lateral extrema con distracción unilateral"],
-    ans:1,
+    opts:["Flexión cervical directa por impacto anterior","Compresión axial por carga vertical","Hiperextensión seguida de flexión brusca por desaceleración brusca del tronco","Rotación lateral extrema con distracción unilateral"],
+    ans:2,
     exp:"El latigazo cervical ocurre por desaceleración brusca: el tronco se detiene mientras la cabeza continúa en hiperextensión (segmento inferior), seguido de flexión rebote anterior. Lesiona ligamentos, músculos y discos cervicales sin fractura visible. El mecanismo es característico de colisiones traseras.",
     tip:"<strong>Colisión trasera + cervicalgia + Rx normal = latigazo cervical.</strong> Mecanismo: hiperextensión → flexión. Whiplash injury.",
     ref:"GPC Atención del paciente con esguince cervical en el primer nivel de atención, IMSS 2014."
@@ -197,8 +197,8 @@ const questions = [
   {
     cat:"esgui", catName:"Esguince Cervical",
     q:"Según la clasificación de Quebec Task Force, esguince cervical grado II se define como:",
-    opts:["Dolor cervical o rigidez sin signos físicos objetivos","Dolor cervical + signos musculoesqueléticos (punto doloroso, limitación de rango articular)","Dolor cervical + signos neurológicos (hipoestesia, debilidad, arreflexia)","Fractura o luxación cervical"],
-    ans:1,
+    opts:["Dolor cervical + signos musculoesqueléticos (punto doloroso, limitación de rango articular)","Dolor cervical o rigidez sin signos físicos objetivos","Dolor cervical + signos neurológicos (hipoestesia, debilidad, arreflexia)","Fractura o luxación cervical"],
+    ans:0,
     exp:"Clasificación de Quebec: Grado 0 = sin síntomas; Grado I = síntomas (dolor, rigidez) sin signos objetivos; Grado II = síntomas + signos musculoesqueléticos (rigidez, puntos dolorosos); Grado III = síntomas + signos neurológicos; Grado IV = fractura/luxación. La mayoría de los casos son grado I-II.",
     tip:"<strong>Quebec:</strong> I = solo síntomas; II = +signos musculo; III = +neurológico; IV = fractura. El grado define el tratamiento.",
     ref:"GPC Esguince cervical, IMSS 2014."
@@ -215,8 +215,8 @@ const questions = [
   {
     cat:"esgui", catName:"Esguince Cervical",
     q:"¿Cuáles son los factores de mal pronóstico en esguince cervical por latigazo?",
-    opts:["Edad joven, sexo masculino y mecanismo de baja energía","Alta intensidad inicial del dolor, síntomas neurológicos precoces, litigio legal y edad avanzada","VSG elevada, dolor nocturno y antecedente familiar de cervicalgia","Ausencia de inmovilización inicial y retorno laboral precoz"],
-    ans:1,
+    opts:["Edad joven, sexo masculino y mecanismo de baja energía","Ausencia de inmovilización inicial y retorno laboral precoz","VSG elevada, dolor nocturno y antecedente familiar de cervicalgia","Alta intensidad inicial del dolor, síntomas neurológicos precoces, litigio legal y edad avanzada"],
+    ans:3,
     exp:"Los factores de mal pronóstico incluyen: alta intensidad inicial del dolor (≥5/10 en escala visual), síntomas neurológicos precoces, componente psicológico (catastrofización, kinesofobia), litigio legal o compensación económica y edad avanzada. El sexo femenino también se asocia con peor recuperación.",
     tip:"<strong>Mal pronóstico: dolor intenso + síntomas múltiples + litigio + edad avanzada.</strong> La movilización temprana mejora consistentemente el pronóstico.",
     ref:"GPC Esguince cervical, IMSS 2014."
@@ -225,8 +225,8 @@ const questions = [
   {
     cat:"espo", catName:"Espondilolistesis",
     q:"Adolescente de 16 años, gimnasta, con lumbalgia crónica que se exacerba con extensión lumbar. Rx muestra defecto en la pars interarticularis de L5. ¿Cuál es el tipo y nivel más frecuente de espondilolistesis en adolescentes?",
-    opts:["Degenerativa (tipo III) en L4-L5","Ístmica (tipo II) en L5-S1","Displásica (tipo I) en L3-L4","Traumática (tipo IV) en L1-L2"],
-    ans:1,
+    opts:["Ístmica (tipo II) en L5-S1","Degenerativa (tipo III) en L4-L5","Displásica (tipo I) en L3-L4","Traumática (tipo IV) en L1-L2"],
+    ans:0,
     exp:"La espondilolistesis ístmica (tipo II de Wiltse) es la más frecuente en adolescentes y adultos jóvenes. Se produce por defecto en la pars interarticularis (espondilólisis), más común en L5-S1 (>80%). Las actividades con extensión lumbar repetitiva (gimnasia, futbol americano) son factores predisponentes.",
     tip:"<strong>Adolescente + lumbalgia extensión + defecto pars = espondilolistesis ístmica en L5-S1.</strong> Espondilólisis = defecto pars; espondilolistesis = deslizamiento.",
     ref:"Guía clínica de rehabilitación de espondilolistesis, IMSS."
@@ -234,8 +234,8 @@ const questions = [
   {
     cat:"espo", catName:"Espondilolistesis",
     q:"Clasificación de Meyerding grado III de espondilolistesis corresponde a deslizamiento del:",
-    opts:["<25% del diámetro del cuerpo vertebral","25-50%","50-75%","75-100%"],
-    ans:2,
+    opts:["<25% del diámetro del cuerpo vertebral","50-75%","25-50%","75-100%"],
+    ans:1,
     exp:"Clasificación de Meyerding: Grado I (<25%), Grado II (25-50%), Grado III (50-75%), Grado IV (75-100%), Grado V = espondiloptosis (>100%). Los grados III-IV generalmente requieren tratamiento quirúrgico (artrodesis vertebral). Grados I-II se manejan conservadoramente sin déficit neurológico.",
     tip:"<strong>Meyerding I-II = conservador.</strong> III-IV = cirugía (fusión vertebral). V (espondiloptosis) = cirugía de urgencia.",
     ref:"Guía de rehabilitación de espondilolistesis, IMSS 2020."
@@ -243,8 +243,8 @@ const questions = [
   {
     cat:"espo", catName:"Espondilolistesis",
     q:"Mujer de 45 años con espondilolistesis L5-S1 grado I presenta dolor irradiado a la cara posterior del muslo y pierna derecha con pérdida del reflejo aquíleo ipsilateral. ¿Qué raíz nerviosa está comprometida?",
-    opts:["L4: reflejo rotuliano y cara medial de la pierna","L5: extensores del pie y cara lateral de la pierna","S1: reflejo aquíleo, plantar y cara posterior","S2-S4: función esfinteriana y perineal"],
-    ans:2,
+    opts:["L4: reflejo rotuliano y cara medial de la pierna","L5: extensores del pie y cara lateral de la pierna","S2-S4: función esfinteriana y perineal","S1: reflejo aquíleo, plantar y cara posterior"],
+    ans:3,
     exp:"La raíz S1 es la más frecuentemente comprometida en espondilolistesis L5-S1. Su afectación produce: reflejo aquíleo disminuido o abolido, parestesias en cara posterior de pierna y planta del pie, y debilidad de flexión plantar (puntillas). La raíz L5 se afecta con mayor frecuencia en hernia de disco L4-L5.",
     tip:"<strong>S1 = aquíleo + plantar + cara posterior.</strong> L5 = dorsiflexión + cara lateral pierna + dorso pie. L4 = rotuliano + cara medial.",
     ref:"Guía de rehabilitación de espondilolistesis, IMSS 2020."
@@ -252,8 +252,8 @@ const questions = [
   {
     cat:"espo", catName:"Espondilolistesis",
     q:"Tratamiento de primera línea en espondilolistesis grado I-II sin déficit neurológico:",
-    opts:["Artrodesis vertebral posterior con tornillos pediculares de urgencia","Fisioterapia con fortalecimiento de core, AINE y modificación de actividades","Laminectomía descompresiva por vía posterior","Infiltración intradiscal con corticosteroide + anestésico local"],
-    ans:1,
+    opts:["Artrodesis vertebral posterior con tornillos pediculares de urgencia","Infiltración intradiscal con corticosteroide + anestésico local","Laminectomía descompresiva por vía posterior","Fisioterapia con fortalecimiento de core, AINE y modificación de actividades"],
+    ans:3,
     exp:"Los grados I-II sin déficit neurológico se manejan conservadoramente. El tratamiento incluye: fisioterapia (fortalecimiento de musculatura paravertebral y core), AINE para el dolor, modificación de actividades y ortesis lumbar en casos con dolor intenso. La cirugía se reserva para grado III-IV, déficit neurológico progresivo o fracaso del tratamiento conservador por >6 meses.",
     tip:"<strong>Espondilolistesis I-II = fisioterapia core + AINE.</strong> Cirugía solo si: grado III-IV, déficit neurológico o fracaso conservador >6 meses.",
     ref:"Guía clínica de rehabilitación de espondilolistesis, IMSS."
@@ -262,8 +262,8 @@ const questions = [
   {
     cat:"esco", catName:"Escoliosis Idiopática",
     q:"Adolescente de 14 años con asimetría de hombros y prominencia costal en el test de Adams. Rx de columna total muestra desviación lateral. ¿Qué método estándar se usa para medir la magnitud de la curva?",
-    opts:["Índice de Risser (madurez ósea)","Ángulo de Cobb","Test de Schobers (expansión lumbar)","Índice de Ferguson"],
-    ans:1,
+    opts:["Índice de Risser (madurez ósea)","Test de Schobers (expansión lumbar)","Ángulo de Cobb","Índice de Ferguson"],
+    ans:2,
     exp:"El ángulo de Cobb es el estándar para medir la escoliosis: se trazan líneas perpendiculares a las vértebras límite superior e inferior de la curva y se mide el ángulo entre ellas. >10° define escoliosis. El índice de Risser evalúa madurez ósea (osificación de la apófisis iliaca); ambos juntos definen el tratamiento.",
     tip:"<strong>Medir escoliosis = ángulo de Cobb.</strong> Madurez ósea = Risser 0-5. <10° = no es escoliosis. Los dos datos juntos definen la conducta terapéutica.",
     ref:"GPC Diagnóstico y tratamiento de escoliosis idiopática del adolescente, IMSS."
@@ -280,8 +280,8 @@ const questions = [
   {
     cat:"esco", catName:"Escoliosis Idiopática",
     q:"En escoliosis idiopática del adolescente, una curva torácica izquierda debe hacer sospechar:",
-    opts:["Variante normal de la distribución idiopática","Etiología secundaria: tumor medular, siringomielia o malformación de Chiari","Mayor riesgo de progresión que la torácica derecha habitual","Patrón de doble curva con compensación lumbar derecha"],
-    ans:1,
+    opts:["Variante normal de la distribución idiopática","Patrón de doble curva con compensación lumbar derecha","Mayor riesgo de progresión que la torácica derecha habitual","Etiología secundaria: tumor medular, siringomielia o malformación de Chiari"],
+    ans:3,
     exp:"En escoliosis idiopática del adolescente, la curva torácica es característica y casi siempre convexa hacia la DERECHA. Una curva torácica izquierda es atípica y obliga a buscar causa subyacente: tumor medular (astrocitoma, ependimoma), siringomielia, malformación de Chiari o aracnoiditis. Requiere RM de columna total.",
     tip:"<strong>Torácica derecha = idiopática.</strong> Torácica IZQUIERDA = pedir RM para descartar tumor medular o siringomielia. No asumir idiopática.",
     ref:"GPC Escoliosis idiopática del adolescente, IMSS."
@@ -289,8 +289,8 @@ const questions = [
   {
     cat:"esco", catName:"Escoliosis Idiopática",
     q:"¿Cuál es la indicación quirúrgica en escoliosis idiopática del adolescente?",
-    opts:["Curva >30° en Risser 0, independientemente de síntomas","Curva >45-50° o progresión documentada a pesar del corsé","Cualquier curva visible con gibosidad costal en el test de Adams","Curva >35° en paciente con dolor crónico lumbar"],
-    ans:1,
+    opts:["Curva >45-50° o progresión documentada a pesar del corsé","Curva >30° en Risser 0, independientemente de síntomas","Cualquier curva visible con gibosidad costal en el test de Adams","Curva >35° en paciente con dolor crónico lumbar"],
+    ans:0,
     exp:"La cirugía está indicada cuando la curva supera los 45-50° (riesgo de progresión en la vida adulta, compromiso cardiopulmonar con curvas >60-70°) o con progresión documentada a pesar del corsé. El procedimiento estándar es la artrodesis vertebral posterior con instrumentación (tornillos pediculares).",
     tip:"<strong>>45-50° = cirugía.</strong> Objetivo: corregir, detener la progresión y prevenir compromiso cardiopulmonar. Fusión vertebral definitiva.",
     ref:"GPC Escoliosis idiopática del adolescente, IMSS."
@@ -299,8 +299,8 @@ const questions = [
   {
     cat:"frac", catName:"Síndromes Medulares",
     q:"El síndrome medular anterior se caracteriza clínicamente por pérdida de:",
-    opts:["Propiocepción y vibración bilateral con motor conservado","Función motora y sensibilidad dolorosa/térmica con preservación de tacto fino y propiocepción","Motor ipsilateral y dolor/temperatura contralateral (hemisección)","Función motora bilateral con preservación de sensibilidad sacra"],
-    ans:1,
+    opts:["Función motora y sensibilidad dolorosa/térmica con preservación de tacto fino y propiocepción","Propiocepción y vibración bilateral con motor conservado","Motor ipsilateral y dolor/temperatura contralateral (hemisección)","Función motora bilateral con preservación de sensibilidad sacra"],
+    ans:0,
     exp:"El síndrome medular anterior afecta los cordones anteriores (vía piramidal = motor) y anterolaterales (espinotalámica = dolor/temperatura). Las columnas dorsales (propiocepción, vibración, tacto epicrítico) están preservadas. Es el síndrome más frecuente y el de peor pronóstico funcional.",
     tip:"<strong>Anterior = motor + dolor/temperatura perdidos. Dorsal conservada (propiocepción).</strong> Peor pronóstico. Mecanismo: compresión arteria espinal anterior.",
     ref:"GPC Traumatismo raquimedular / Columna vertebral."
@@ -308,8 +308,8 @@ const questions = [
   {
     cat:"frac", catName:"Síndromes Medulares",
     q:"Síndrome de Brown-Séquard por hemisección medular: ¿qué hallazgos definen el cuadro ipsilateral y contralateral?",
-    opts:["Pérdida bilateral y simétrica de motor y toda la sensibilidad","Ipsilateral: pérdida de motor y propiocepción; Contralateral: pérdida de dolor y temperatura","Ipsilateral: pérdida de dolor; Contralateral: pérdida de motor y propiocepción","Solo pérdida de sensibilidad distal bilateral sin compromiso motor significativo"],
-    ans:1,
+    opts:["Pérdida bilateral y simétrica de motor y toda la sensibilidad","Ipsilateral: pérdida de dolor; Contralateral: pérdida de motor y propiocepción","Ipsilateral: pérdida de motor y propiocepción; Contralateral: pérdida de dolor y temperatura","Solo pérdida de sensibilidad distal bilateral sin compromiso motor significativo"],
+    ans:2,
     exp:"Brown-Séquard (hemisección medular): Ipsilateral = pérdida de motor (vía piramidal directa) y propiocepción/vibración (columnas dorsales). Contralateral = pérdida de dolor y temperatura (vía espinotalámica cruza 1-2 segmentos antes de ascender). Es el síndrome incompleto de mejor pronóstico: >90% recupera la marcha.",
     tip:"<strong>Ipsi = motor + propiocepción. Contra = dolor + temperatura.</strong> Mejor pronóstico de todos los síndromes medulares incompletos.",
     ref:"GPC Traumatismo raquimedular / Columna vertebral."
@@ -317,8 +317,8 @@ const questions = [
   {
     cat:"frac", catName:"Síndromes Medulares",
     q:"Hombre de 70 años cae hacia atrás golpeando la nuca. Presenta debilidad en manos y muñecas (mayor que en piernas), urgencia urinaria y parestesias en ambas extremidades superiores. ¿Cuál es el síndrome más probable?",
-    opts:["Síndrome medular anterior por compresión de la arteria espinal anterior","Síndrome centromedular por hiperextensión cervical sobre estenosis preexistente","Síndrome de Brown-Séquard por hemisección traumática lateral","Síndrome de cauda equina por hernia discal lumbar masiva"],
-    ans:1,
+    opts:["Síndrome medular anterior por compresión de la arteria espinal anterior","Síndrome de Brown-Séquard por hemisección traumática lateral","Síndrome centromedular por hiperextensión cervical sobre estenosis preexistente","Síndrome de cauda equina por hernia discal lumbar masiva"],
+    ans:2,
     exp:"El síndrome centromedular es el más frecuente de los síndromes medulares incompletos. La lesión central afecta preferentemente las fibras corticoespinales cervicales (más mediales), produciendo mayor debilidad en MMSS que MMII. Clásico en adultos mayores: hiperextensión sobre estenosis cervical preexistente, frecuentemente sin fractura.",
     tip:"<strong>Centromedular = MMSS > MMII.</strong> Adulto mayor + hiperextensión + estenosis cervical. Síndrome incompleto más frecuente.",
     ref:"GPC Traumatismo raquimedular / Columna vertebral."
@@ -326,8 +326,8 @@ const questions = [
   {
     cat:"frac", catName:"Síndromes Medulares",
     q:"Escala ASIA grado A en lesión medular traumática indica:",
-    opts:["Función motora y sensitiva completamente normal","Función sensitiva preservada en S4-S5 sin función motora por debajo del nivel","Lesión completa: ausencia de función motora y sensitiva en segmentos sacros S4-S5","Función motora preservada con fuerza >3/5 en al menos 50% de músculos clave"],
-    ans:2,
+    opts:["Función motora y sensitiva completamente normal","Lesión completa: ausencia de función motora y sensitiva en segmentos sacros S4-S5","Función sensitiva preservada en S4-S5 sin función motora por debajo del nivel","Función motora preservada con fuerza >3/5 en al menos 50% de músculos clave"],
+    ans:1,
     exp:"Escala ASIA: A = completa (sin motor ni sensitivo en S4-S5); B = incompleta sensitiva (preserva sensitivo en S4-S5); C = incompleta motora débil (<50% músculos clave ≥grado 3); D = incompleta motora útil (≥50% músculos ≥grado 3); E = normal. La preservación de S4-S5 (zona perianal) define lesión incompleta y mejor pronóstico.",
     tip:"<strong>ASIA A = completa = peor pronóstico. Clave: tacto y sensación en S4-S5 (perianal) define completa vs. incompleta.</strong>",
     ref:"GPC Traumatismo raquimedular / Clasificación ASIA."

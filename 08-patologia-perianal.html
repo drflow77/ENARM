@@ -200,8 +200,8 @@ const questions = [
   {
     cat:"hem", catName:"Hemorroides",
     q:"Paciente masculino de 38 años refiere sangrado rojo brillante al defecar, sin prolapso visible y sin dolor. En la anoscopia se observan hemorroides internas que sangran al contacto pero no prolapsan. ¿Qué grado corresponde a esta clasificación?",
-    opts:["Grado I","Grado II","Grado III","Grado IV"],
-    ans:0,
+    opts:["Grado II","Grado I","Grado III","Grado IV"],
+    ans:1,
     exp:"Las hemorroides internas se clasifican según el grado de prolapso: Grado I: sangran pero no prolapsan. Grado II: prolapsan al pujar y se reducen espontáneamente. Grado III: prolapsan y requieren reducción manual. Grado IV: prolapso irreductible permanente. La GPC de enfermedad hemorroidal (IMSS-2015) establece esta clasificación como base para la toma de decisiones terapéuticas.",
     tip:"<strong>Clasificación hemorroidal interna:</strong> I = sangrado sin prolapso; II = prolapso espontáneamente reducible; III = prolapso reducible manualmente; IV = prolapso permanente irreductible. A mayor grado, más invasivo el tratamiento requerido.",
     ref:"GPC: Diagnóstico y tratamiento de la enfermedad hemorroidal en la adultez. IMSS-555-12. 2015."
@@ -218,8 +218,8 @@ const questions = [
   {
     cat:"hem", catName:"Hemorroides",
     q:"Paciente de 55 años con hemorroides internas grado IV y hemorroides externas trombosadas sintomáticas. Ha fallado múltiples tratamientos conservadores y procedimientos ambulatorios. ¿Cuál es la indicación quirúrgica correcta?",
-    opts:["Continuar con escleroterapia repetida","Hemorroidectomía quirúrgica (técnica de Milligan-Morgan o Ferguson)","Ligadura con banda elástica como último recurso","Colostomía de descarga temporal"],
-    ans:1,
+    opts:["Continuar con escleroterapia repetida","Ligadura con banda elástica como último recurso","Hemorroidectomía quirúrgica (técnica de Milligan-Morgan o Ferguson)","Colostomía de descarga temporal"],
+    ans:2,
     exp:"La hemorroidectomía quirúrgica está indicada en: hemorroides grado IV, grado III con falla de tratamiento ambulatorio, hemorroides internas y externas combinadas, trombosis hemorroidal aguda extensa. Las técnicas más usadas son Milligan-Morgan (abierta) y Ferguson (cerrada). La GPC recomienda la hemorroidectomía como tratamiento definitivo cuando los procedimientos mínimamente invasivos han fallado.",
     tip:"<strong>Indicaciones de hemorroidectomía:</strong> Grado IV (siempre), Grado III resistente a LBE, hemorroides mixtas (internas + externas), trombosis extensa. Milligan-Morgan = heridas abiertas (más riesgo de sangrado, cicatrización más lenta). Ferguson = heridas cerradas (preferida en EUA). Ambas son igualmente efectivas.",
     ref:"GPC: Diagnóstico y tratamiento de la enfermedad hemorroidal en la adultez. IMSS-555-12. 2015."
@@ -227,8 +227,8 @@ const questions = [
   {
     cat:"abs", catName:"Absceso Perianal",
     q:"Paciente masculino de 32 años con dolor perianal intenso, fiebre de 38.8°C y masa fluctuante adyacente al margen anal. ¿Cuál es el tipo de absceso más frecuente en este contexto y su tratamiento inmediato?",
-    opts:["Absceso supraelevador — drenaje por vía abdominal","Absceso perianal — drenaje quirúrgico incisión y drenaje","Absceso interesfintérico — antibioticoterapia exclusiva","Absceso isquiorrectal — observación y calor local"],
-    ans:1,
+    opts:["Absceso supraelevador — drenaje por vía abdominal","Absceso interesfintérico — antibioticoterapia exclusiva","Absceso perianal — drenaje quirúrgico incisión y drenaje","Absceso isquiorrectal — observación y calor local"],
+    ans:2,
     exp:"El absceso perianal es el tipo más frecuente (60-70% de los casos), se localiza en el espacio perianal superficial y se presenta como masa dolorosa y fluctuante adyacente al margen anal. El tratamiento es incisión y drenaje quirúrgico inmediato. La GPC establece que los antibióticos solos no son suficientes — el drenaje es el tratamiento definitivo. Los antibióticos se añaden solo en pacientes inmunocomprometidos, diabéticos o con signos de sepsis.",
     tip:"<strong>Tipos de absceso anorrectal por frecuencia:</strong> 1° Perianal (60%), 2° Isquiorrectal (20%), 3° Interesfintérico (15%), 4° Supraelevador (5%). Regla de oro: todo absceso fluctuante = drenaje quirúrgico. Los antibióticos NO reemplazan el drenaje.",
     ref:"GPC: Diagnóstico y tratamiento del absceso anal en pacientes pediátricos y adultos. IMSS-506-11. 2013."
@@ -245,8 +245,8 @@ const questions = [
   {
     cat:"fis", catName:"Fístula Anal",
     q:"Paciente de 40 años con fístula anal de trayecto posterior. Al aplicar la regla de Goodsall, ¿qué trayecto se espera para una fístula con orificio externo posterior?",
-    opts:["Trayecto rectilíneo directo al conducto anal","Trayecto curvo hacia la línea media posterior (orificio interno en la línea media posterior)","Trayecto rectilíneo hacia el orificio interno anterior","Trayecto ascendente hacia el espacio supraelevador"],
-    ans:1,
+    opts:["Trayecto curvo hacia la línea media posterior (orificio interno en la línea media posterior)","Trayecto rectilíneo directo al conducto anal","Trayecto rectilíneo hacia el orificio interno anterior","Trayecto ascendente hacia el espacio supraelevador"],
+    ans:0,
     exp:"La regla de Goodsall establece: las fístulas con orificio externo posterior a una línea transversa imaginaria que divide el ano tienen un trayecto curvo hacia la línea media posterior. Las fístulas con orificio externo anterior a esa línea tienen trayecto rectilíneo hacia el orificio interno más cercano anterior. La GPC menciona esta regla como guía para predecir la anatomía del trayecto fistuloso antes de la cirugía.",
     tip:"<strong>Regla de Goodsall simplificada:</strong> Posterior = curvo (hacia línea media posterior). Anterior = rectilíneo (directo). Excepción: fístulas anteriores a >3cm del margen anal pueden seguir la regla posterior (curvo). Útil para planear la cirugía y explicar al paciente el abordaje.",
     ref:"GPC: Diagnóstico y tratamiento de la fístula anal en el adulto. IMSS-453-11. 2010."
@@ -254,8 +254,8 @@ const questions = [
   {
     cat:"fis", catName:"Fístula Anal",
     q:"Un cirujano clasifica una fístula anal que cruza la totalidad del esfínter externo. ¿A qué tipo de fístula corresponde según la clasificación de Parks?",
-    opts:["Fístula interesfintérica","Fístula transesfintérica","Fístula supraesfintérica","Fístula extraesfintérica"],
-    ans:1,
+    opts:["Fístula interesfintérica","Fístula extraesfintérica","Fístula supraesfintérica","Fístula transesfintérica"],
+    ans:3,
     exp:"La clasificación de Parks divide las fístulas anales en 4 tipos según la relación con el complejo esfintérico: Interesfintérica (pasa entre esfínter interno y externo, más frecuente 45%), Transesfintérica (cruza el esfínter externo, 30%), Supraesfintérica (rodea por encima de los esfínteres, 20%) y Extraesfintérica (fuera de los esfínteres, 5%). Esta clasificación es fundamental para el planeamiento quirúrgico ya que determina el riesgo de incontinencia.",
     tip:"<strong>Clasificación de Parks (por riesgo de incontinencia):</strong> Interesfintérica (menor riesgo, fistulotomía segura) → Transesfintérica (riesgo moderado) → Supraesfintérica (alto riesgo) → Extraesfintérica (mayor riesgo, técnica más compleja). A mayor cantidad de esfínter comprometido, mayor riesgo de incontinencia.",
     ref:"GPC: Diagnóstico y tratamiento de la fístula anal en el adulto. IMSS-453-11. 2010."
@@ -272,8 +272,8 @@ const questions = [
   {
     cat:"fis", catName:"Fístula Anal",
     q:"Paciente de 35 años con enfermedad de Crohn conocida que desarrolla una fístula anal compleja con múltiples trayectos. ¿Cuál es la consideración especial en el manejo?",
-    opts:["La fistulotomía inmediata es el tratamiento de elección sin importar la enfermedad de Crohn","Tratar primero la actividad luminal de Crohn con biológicos (infliximab) y manejo conservador de la fístula con seton","La colostomía de derivación es el único tratamiento válido","Aplicar escleroterapia intraluminal como primera línea"],
-    ans:1,
+    opts:["La fistulotomía inmediata es el tratamiento de elección sin importar la enfermedad de Crohn","La colostomía de derivación es el único tratamiento válido","Tratar primero la actividad luminal de Crohn con biológicos (infliximab) y manejo conservador de la fístula con seton","Aplicar escleroterapia intraluminal como primera línea"],
+    ans:2,
     exp:"La enfermedad de Crohn afecta hasta el 35% de los pacientes con fístulas anales complejas. La GPC y las guías internacionales recomiendan no realizar cirugía resectiva agresiva en fístulas perianales asociadas a Crohn. El manejo preferido es: control de la actividad inflamatoria luminal con inmunosupresores o biológicos (infliximab tiene evidencia sólida para cierre de fístulas en Crohn) + seton de drenaje para evitar abscesos recurrentes. La cirugía definitiva se considera solo cuando la enfermedad está en remisión.",
     tip:"<strong>Fístula en Crohn = manejo médico primero:</strong> Infliximab (anti-TNF) es el único biológico con aprobación específica para fístulas en Crohn. Seton de drenaje como puente. Evitar fistulotomía agresiva (cicatrización deficiente en Crohn → riesgo de incontinencia y heridas crónicas). Remisión primero, cirugía después.",
     ref:"GPC: Diagnóstico y tratamiento de la fístula anal en el adulto. IMSS-453-11. 2010."
@@ -281,8 +281,8 @@ const questions = [
   {
     cat:"fis2", catName:"Fisura Anal",
     q:"Paciente de 28 años refiere dolor anal intenso durante y después de la defecación, con sangre roja brillante en papel higiénico. El dolor dura 1-2 horas tras defecar. En la exploración se observa una solución de continuidad en la piel del canal anal posterior. ¿Cuál es el diagnóstico?",
-    opts:["Hemorroide externa trombosada","Fisura anal aguda","Absceso interesfintérico","Proctitis ulcerativa"],
-    ans:1,
+    opts:["Fisura anal aguda","Hemorroide externa trombosada","Absceso interesfintérico","Proctitis ulcerativa"],
+    ans:0,
     exp:"La fisura anal aguda se define como una solución de continuidad en la piel del canal anal, generalmente en la línea media posterior (90% de los casos), con menos de 6 semanas de evolución. La tríada clásica es: dolor intenso durante y después de la defecación, sangrado rojo brillante y espasmo del esfínter interno. La localización posterior es característica; las fisuras laterales o anteriores deben hacer sospechar enfermedad de Crohn, sífilis, TBC o trauma.",
     tip:"<strong>Fisura anal: claves diagnósticas:</strong> Dolor + sangrado + espasmo esfínter = fisura. Localización: 90% posterior (línea media posterior), 10% anterior (más frecuente en mujeres postparto). Fisura lateral → siempre descartar Crohn, ITS, inmunosupresión. La hipertonía del esfínter interno perpetúa la isquemia → no cicatrización.",
     ref:"GPC: Diagnóstico y tratamiento de la fisura anal en el adulto. IMSS-556-12. 2015."
@@ -290,8 +290,8 @@ const questions = [
   {
     cat:"fis2", catName:"Fisura Anal",
     q:"Paciente con fisura anal de 3 meses de evolución con bordes indurados, papila hipertrófica proximal y hemorroide centinela distal visible. ¿Cómo se denomina este hallazgo y qué implica?",
-    opts:["Fisura anal aguda — tratamiento médico inmediato suficiente","Fisura anal crónica — mayor probabilidad de requerir tratamiento quirúrgico","Absceso perianal crónico — drenaje urgente","Fístula anal superficial — fistulotomía de elección"],
-    ans:1,
+    opts:["Fisura anal crónica — mayor probabilidad de requerir tratamiento quirúrgico","Fisura anal aguda — tratamiento médico inmediato suficiente","Absceso perianal crónico — drenaje urgente","Fístula anal superficial — fistulotomía de elección"],
+    ans:0,
     exp:"La fisura anal crónica se define por evolución mayor a 6-8 semanas y se caracteriza por: bordes fibróticos indurados, papila anal hipertrófica proximal (polo interno) y hemorroide centinela distal (polo externo). Este 'trío' patognomónico indica que la fisura no ha cicatrizado por isquemia mantenida secundaria a hipertonía del esfínter interno. La GPC establece que la fisura crónica tiene menor tasa de respuesta al tratamiento médico y mayor probabilidad de necesitar intervención quirúrgica.",
     tip:"<strong>Fisura crónica = triada diagnóstica:</strong> Bordes fibrosos + Papila hipertrófica (arriba) + Hemorroide centinela (abajo). La isquemia por hipertonía del esfínter interno impide la cicatrización — de ahí que todos los tratamientos apunten a reducir el tono esfintérico. La crónica responde peor al tratamiento médico (50-60%) vs la aguda (80-90%).",
     ref:"GPC: Diagnóstico y tratamiento de la fisura anal en el adulto. IMSS-556-12. 2015."
@@ -299,8 +299,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento",
     q:"Paciente con fisura anal aguda sin complicaciones. ¿Cuál es el tratamiento de primera línea según la GPC?",
-    opts:["Esfinterotomía lateral interna inmediata","Medidas locales: baños de asiento, fibra dietética, ablandadores de heces y analgésicos tópicos","Toxina botulínica intramuscular en esfínter","Nifedipino oral sistémico como primera opción"],
-    ans:1,
+    opts:["Esfinterotomía lateral interna inmediata","Nifedipino oral sistémico como primera opción","Toxina botulínica intramuscular en esfínter","Medidas locales: baños de asiento, fibra dietética, ablandadores de heces y analgésicos tópicos"],
+    ans:3,
     exp:"El tratamiento inicial de la fisura anal aguda es conservador: baños de asiento tibios (relajan el esfínter por reflejo recto-anal inhibitorio), dieta alta en fibra y abundantes líquidos (para ablandar las heces y reducir el trauma), ablandadores de heces (lactulosa o docusato sódico) y analgésicos tópicos (lidocaína gel). La GPC establece que el 80-90% de las fisuras agudas cicatrizan con este manejo en 4-8 semanas. Si no hay respuesta en 4-6 semanas, se escala a tratamiento farmacológico.",
     tip:"<strong>Escalera terapéutica de fisura anal:</strong> 1° Baños + fibra + ablandadores (fisura aguda). 2° Nifedipino tópico o nitratos tópicos (GTN) — reducen tono esfintérico. 3° Toxina botulínica (si falla tópicos). 4° Esfinterotomía lateral interna (si falla todo lo anterior). Cada escalón tiene mayor eficacia pero mayor riesgo de efectos adversos.",
     ref:"GPC: Diagnóstico y tratamiento de la fisura anal en el adulto. IMSS-556-12. 2015."
@@ -308,8 +308,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento",
     q:"Paciente con fisura anal crónica que no respondió a 6 semanas de tratamiento conservador. Se inicia nifedipino tópico al 0.2%, sin éxito tras 8 semanas adicionales. ¿Cuál es el siguiente paso terapéutico?",
-    opts:["Continuar nifedipino tópico por 6 meses más","Inyección de toxina botulínica en el esfínter interno anal","Esfinterotomía lateral interna inmediata sin más intentos","Alta hospitalaria y derivación a gastroenterología"],
-    ans:1,
+    opts:["Continuar nifedipino tópico por 6 meses más","Alta hospitalaria y derivación a gastroenterología","Esfinterotomía lateral interna inmediata sin más intentos","Inyección de toxina botulínica en el esfínter interno anal"],
+    ans:3,
     exp:"Cuando el tratamiento tópico (nitratos o bloqueadores de calcio) falla, el siguiente escalón terapéutico es la toxina botulínica (BTX-A) inyectada en el esfínter interno anal. La BTX-A inhibe la liberación de acetilcolina en la unión neuromuscular, reduciendo el espasmo del esfínter interno y mejorando la perfusión de la fisura. La GPC recomienda la toxina botulínica antes de la cirugía por su eficacia (60-80%) y menor riesgo de incontinencia comparado con la esfinterotomía.",
     tip:"<strong>Toxina botulínica en fisura:</strong> Inyección de 20-30 UI en el esfínter interno (típicamente en 2 sitios). Efecto temporal (3-4 meses). Tasa de curación 60-80%. Principal ventaja: reversible, sin riesgo de incontinencia permanente. Desventaja: costo y disponibilidad. Si falla la BTX → esfinterotomía lateral interna.",
     ref:"GPC: Diagnóstico y tratamiento de la fisura anal en el adulto. IMSS-556-12. 2015."
@@ -317,8 +317,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento",
     q:"Paciente con fisura anal crónica refractaria a tratamiento médico y toxina botulínica. Se decide esfinterotomía lateral interna (ELI). ¿Cuál es el principal riesgo de este procedimiento que debe discutirse con el paciente?",
-    opts:["Recurrencia de la fisura a largo plazo en el 80% de los casos","Incontinencia fecal (gases, líquidos o sólidos) en un porcentaje de pacientes","Necesidad de colostomía permanente posterior","Perforación rectal intraoperatoria como complicación mayor"],
-    ans:1,
+    opts:["Incontinencia fecal (gases, líquidos o sólidos) en un porcentaje de pacientes","Recurrencia de la fisura a largo plazo en el 80% de los casos","Necesidad de colostomía permanente posterior","Perforación rectal intraoperatoria como complicación mayor"],
+    ans:0,
     exp:"La esfinterotomía lateral interna (ELI) es el tratamiento quirúrgico más efectivo para la fisura anal crónica (tasa de curación >95%). Consiste en la sección de una porción del esfínter interno anal para reducir la hipertonía. El principal riesgo es la incontinencia fecal, que puede ser transitoria o permanente para gases (5-35%), líquidos (0-21%) o sólidos (&lt;1%). La GPC establece que la ELI es la cirugía de elección pero requiere selección cuidadosa del paciente, especialmente en mujeres con partos previos o pacientes con tono basal bajo.",
     tip:"<strong>ELI: procedimiento gold standard para fisura crónica refractaria.</strong> Curación >95% pero riesgo real de incontinencia. Más riesgo en: mujeres multíparas (daño esfinteriano previo por partos), pacientes con tono basal bajo (manometría), edad avanzada. Alternativa en alto riesgo: colgajo de avance o fisurectomía simple.",
     ref:"GPC: Diagnóstico y tratamiento de la fisura anal en el adulto. IMSS-556-12. 2015."

@@ -200,8 +200,8 @@ const questions = [
   {
     cat:"diag", catName:"Diagnóstico/Criterios",
     q:"Paciente masculino de 48 años llega a urgencias con dolor abdominal intenso en epigastrio con irradiación en cinturón hacia la espalda, náusea y vómito de 8 horas de evolución. Tiene antecedente de consumo de alcohol. Amilasa sérica 780 U/L (VN <100) y lipasa sérica 950 U/L (VN <60). ¿Cuántos de los criterios diagnósticos de pancreatitis aguda cumple?",
-    opts:["Solo 1 criterio (solo enzimas elevadas)","2 de 3 criterios (dolor abdominal típico + enzimas ≥3x el límite normal)","Los 3 criterios (dolor + enzimas + imagen confirmatoria en TC)","Ningún criterio; se necesita TC para diagnosticar"],
-    ans:1,
+    opts:["Solo 1 criterio (solo enzimas elevadas)","Los 3 criterios (dolor + enzimas + imagen confirmatoria en TC)","2 de 3 criterios (dolor abdominal típico + enzimas ≥3x el límite normal)","Ningún criterio; se necesita TC para diagnosticar"],
+    ans:2,
     exp:"El diagnóstico de pancreatitis aguda requiere al menos 2 de 3 criterios: (1) dolor abdominal característico en epigastrio con irradiación en cinturón, (2) amilasa o lipasa sérica ≥3 veces el límite superior normal, y (3) hallazgos confirmatorios en imagen (TC o USG). Este paciente cumple los criterios 1 y 2: dolor epigástrico típico con irradiación y lipasa 950 U/L (>3x normal). La TC no es necesaria para el diagnóstico cuando se cumplen los primeros dos criterios.",
     tip:"<strong>Regla del 2 de 3:</strong> Dolor típico + Enzimas ≥3x = Diagnóstico confirmado. No necesitas TC de rutina al ingreso. La TC con contraste se reserva para evaluar complicaciones (necrosis) o cuando el diagnóstico es dudoso. Solicitar TC innecesaria aumenta radiación y costos.",
     ref:"GPC: Diagnóstico y tratamiento de la pancreatitis aguda. IMSS-2022. Actualización en el manejo inicial de la pancreatitis aguda. 2019."
@@ -227,8 +227,8 @@ const questions = [
   {
     cat:"sev", catName:"Severidad/Clasificación",
     q:"Según la Clasificación de Atlanta Revisada 2012, ¿cómo se define la pancreatitis aguda moderadamente grave?",
-    opts:["Falla orgánica persistente >48 horas sin complicaciones locales","Falla orgánica transitoria que se resuelve en <48 horas y/o presencia de complicaciones locales (colección, necrosis)","Ausencia de falla orgánica y ausencia de complicaciones locales o sistémicas","Falla orgánica persistente >48 horas con necrosis infectada"],
-    ans:1,
+    opts:["Falla orgánica transitoria que se resuelve en <48 horas y/o presencia de complicaciones locales (colección, necrosis)","Falla orgánica persistente >48 horas sin complicaciones locales","Ausencia de falla orgánica y ausencia de complicaciones locales o sistémicas","Falla orgánica persistente >48 horas con necrosis infectada"],
+    ans:0,
     exp:"La Clasificación de Atlanta Revisada 2012 define tres grados de severidad: (1) Pancreatitis leve: sin falla orgánica y sin complicaciones locales o sistémicas — mortalidad &lt;1%. (2) Pancreatitis moderadamente grave: falla orgánica transitoria que se resuelve en menos de 48 horas Y/O presencia de complicaciones locales (colección líquida, necrosis) — mortalidad ~8%. (3) Pancreatitis grave: falla orgánica persistente >48 horas — mortalidad 30-50%.",
     tip:"<strong>Atlanta Revisada 2012 — clave el tiempo de 48h:</strong> Falla orgánica &lt;48h = moderadamente grave. Falla orgánica &gt;48h = grave. La falla orgánica se evalúa con el Score de Marshall modificado: cardiovascular (PAM), respiratorio (PaO2/FiO2), renal (creatinina). Score ≥2 en cualquier órgano = falla orgánica. Mortalidad se dispara en falla orgánica persistente.",
     ref:"GPC: Diagnóstico y tratamiento de la pancreatitis aguda. IMSS-2022."
@@ -236,8 +236,8 @@ const questions = [
   {
     cat:"sev", catName:"Severidad/Clasificación",
     q:"Un paciente con pancreatitis aguda tiene al ingreso: edad 60 años, leucocitos 18,000/mm³, glucosa 220 mg/dL, LDH 400 U/L y AST 280 U/L. A las 48 horas: hematócrito disminuyó 12%, BUN aumentó 7 mg/dL, calcio 7.5 mg/dL, PaO2 55 mmHg, secuestro de líquidos 7 litros y déficit de base -5. ¿Cuántos criterios de Ranson tiene y qué indica?",
-    opts:["3 criterios de Ranson — pancreatitis leve","6 criterios de Ranson — pancreatitis grave con alta mortalidad","4 criterios de Ranson — riesgo moderado","2 criterios de Ranson — pronóstico favorable"],
-    ans:1,
+    opts:["3 criterios de Ranson — pancreatitis leve","4 criterios de Ranson — riesgo moderado","6 criterios de Ranson — pancreatitis grave con alta mortalidad","2 criterios de Ranson — pronóstico favorable"],
+    ans:2,
     exp:"Los criterios de Ranson al ingreso son 5: edad >55 años (sí, 60), leucocitos >16,000 (sí, 18,000), glucosa >200 mg/dL (sí, 220), LDH >350 U/L (sí, 400), AST >250 U/L (sí, 280) = 5 criterios al ingreso. A las 48h son 6: hematócrito ↓>10% (sí, 12%), BUN ↑>5 mg/dL (sí, 7 mg/dL), calcio <8 mg/dL (sí, 7.5), PaO2 <60 mmHg (sí, 55), secuestro líquidos >6L (sí, 7L), déficit base >4 (sí, -5) = 6 criterios a las 48h. Total = 11 criterios (≥3 = grave; ≥7 = mortalidad >50%).",
     tip:"<strong>Ranson al ingreso (5):</strong> Edad &gt;55, Leucos &gt;16K, Glucosa &gt;200, LDH &gt;350, AST &gt;250. <strong>A las 48h (6):</strong> Hto ↓&gt;10%, BUN ↑&gt;5, Ca &lt;8, PaO2 &lt;60, Líquidos &gt;6L, Déficit base &gt;4. Ranson ≥3 = grave. Limitación: requiere 48h para calcularse completamente. No sirve para reevaluar pronóstico.",
     ref:"GPC: Diagnóstico y tratamiento de la pancreatitis aguda. IMSS-2022."
@@ -245,8 +245,8 @@ const questions = [
   {
     cat:"sev", catName:"Severidad/Clasificación",
     q:"¿Qué sistema de puntuación de severidad en pancreatitis aguda puede calcularse al ingreso con 5 parámetros simples y se asocia a mayor mortalidad cuando el score es ≥3?",
-    opts:["Score APACHE II","Score BISAP (Bedside Index for Severity in Acute Pancreatitis)","Criterios de Ranson","Score de Balthazar en TC"],
-    ans:1,
+    opts:["Score APACHE II","Criterios de Ranson","Score BISAP (Bedside Index for Severity in Acute Pancreatitis)","Score de Balthazar en TC"],
+    ans:2,
     exp:"El score BISAP (Bedside Index for Severity in Acute Pancreatitis) se calcula al ingreso con 5 parámetros, 1 punto cada uno: BUN >25 mg/dL, alteración del estado mental (Glasgow &lt;15), SIRS (≥2 criterios: FC>90, FR>20, Temp>38 o &lt;36, Leucos>12K o &lt;4K), edad >60 años, derrame pleural en imagen. BISAP ≥3 se asocia con falla orgánica, necrosis pancreática y mortalidad elevada (>20%). Su ventaja es la simplicidad y disponibilidad inmediata.",
     tip:"<strong>BISAP = BUN + Impaired mentation + SIRS + Age &gt;60 + Pleural effusion.</strong> Ventajas: calculable en minutos al ingreso con datos clínicos básicos. Score ≥3 = alto riesgo. Comparado con Ranson: BISAP es más rápido (no requiere 48h) y más sencillo. Comparado con APACHE II: BISAP es mucho más práctico en urgencias.",
     ref:"GPC: Diagnóstico y tratamiento de la pancreatitis aguda. IMSS-2022. Actualización en el manejo inicial de la pancreatitis aguda. 2019."
@@ -254,8 +254,8 @@ const questions = [
   {
     cat:"diag", catName:"Diagnóstico/Criterios",
     q:"Paciente con pancreatitis aguda grave presenta equimosis en flancos bilaterales. ¿Cómo se denomina este signo, qué otro signo cutáneo se asocia a peor pronóstico y qué indica fisiopatológicamente?",
-    opts:["Signo de Murphy (flancos) y signo de Blumberg (periumbilical) — indican peritonitis","Signo de Grey Turner (flancos) y signo de Cullen (periumbilical) — indican necrosis grasa retroperitoneal","Signo de Chvostek (flancos) y signo de Trousseau (periumbilical) — indican hipocalcemia","Signo de Courvoisier (flancos) y signo de Virchow (periumbilical) — indican ictericia obstructiva"],
-    ans:1,
+    opts:["Signo de Grey Turner (flancos) y signo de Cullen (periumbilical) — indican necrosis grasa retroperitoneal","Signo de Murphy (flancos) y signo de Blumberg (periumbilical) — indican peritonitis","Signo de Chvostek (flancos) y signo de Trousseau (periumbilical) — indican hipocalcemia","Signo de Courvoisier (flancos) y signo de Virchow (periumbilical) — indican ictericia obstructiva"],
+    ans:0,
     exp:"El signo de Grey Turner es la equimosis en flancos y el signo de Cullen es la equimosis periumbilical. Ambos aparecen en pancreatitis aguda grave por extravasación de sangre y líquido retroperitoneal con necrosis grasa extensiva. Su aparición es tardía (24-72h) y ambos son indicadores de mal pronóstico, asociándose con necrosis pancreática extensa, hemorragia retroperitoneal y alta mortalidad (>30%). Son signos de necrosis grasa retroperitoneal con disección de sangre a planos fasciales.",
     tip:"<strong>Nemotecnia:</strong> Grey Turner = Flancos (laterales, como 'Turner' suena a 'girar/lateral'). Cullen = periUmbilical (C de Cullen = C de Centro/Ombligo). Ambos = MAL PRONÓSTICO. Fisiopatología: la lipasa activa digiere la grasa retroperitoneal, los vasos se rompen, la sangre diseca los planos fasciales hasta llegar a la piel. Aparición tardía = ya hay necrosis establecida.",
     ref:"GPC: Diagnóstico y tratamiento de la pancreatitis aguda. IMSS-2022."
@@ -263,8 +263,8 @@ const questions = [
   {
     cat:"man", catName:"Manejo/Tratamiento",
     q:"¿Cuál es el pilar fundamental del manejo inicial de la pancreatitis aguda en las primeras 24 horas y cuál es la solución de elección?",
-    opts:["Antibióticos profilácticos de amplio espectro IV para prevenir necrosis infectada","Hidratación agresiva con Ringer lactato 250-500 mL/hora en las primeras 24 horas","Nutrición parenteral total inmediata para reposo pancreático","Inhibidores de la bomba de protones y octreótido para disminuir secreción pancreática"],
-    ans:1,
+    opts:["Antibióticos profilácticos de amplio espectro IV para prevenir necrosis infectada","Inhibidores de la bomba de protones y octreótido para disminuir secreción pancreática","Nutrición parenteral total inmediata para reposo pancreático","Hidratación agresiva con Ringer lactato 250-500 mL/hora en las primeras 24 horas"],
+    ans:3,
     exp:"La hidratación agresiva con cristaloides es el pilar del manejo inicial de la pancreatitis aguda. La solución de elección es el Ringer lactato (vs solución salina 0.9%), ya que múltiples estudios demuestran menor incidencia de síndrome inflamatorio sistémico, menor progresión a necrosis y menor mortalidad. Se administran 250-500 mL/hora en las primeras 24 horas (125-150 mL/h en ancianos o cardiopáticos). La fluidoterapia agresiva mejora la perfusión pancreática y evita la progresión del edema intersticial a necrosis.",
     tip:"<strong>Ringer Lactato &gt; Solución Salina 0.9%:</strong> La solución salina provoca acidosis hiperclorémica y empeora la inflamación. El Ringer lactato tiene pH más fisiológico y contiene lactato (precursor del bicarbonato). Metas de la hidratación: FC &lt;120, PAM 65-85 mmHg, gasto urinario >0.5 mL/kg/h, BUN decreciente. Evitar sobrerehidratación en cardiopátas — aumenta riesgo de SIRS por tercer espacio abdominal.",
     ref:"GPC: Diagnóstico y tratamiento de la pancreatitis aguda. IMSS-2022. Actualización en el manejo inicial de la pancreatitis aguda. 2019."
@@ -272,8 +272,8 @@ const questions = [
   {
     cat:"man", catName:"Manejo/Tratamiento",
     q:"En pancreatitis aguda grave, ¿cuál es la estrategia de soporte nutricional de elección y cuándo debe iniciarse?",
-    opts:["Nutrición parenteral total desde el ingreso para reposo pancreático absoluto","Nutrición enteral por sonda nasoyeyunal iniciando a las 24-48 horas del ingreso","Ayuno total hasta la resolución clínica (normalización de enzimas y dolor)","Dieta oral blanda hipograsa desde las primeras 24 horas si el paciente tolera"],
-    ans:1,
+    opts:["Nutrición enteral por sonda nasoyeyunal iniciando a las 24-48 horas del ingreso","Nutrición parenteral total desde el ingreso para reposo pancreático absoluto","Ayuno total hasta la resolución clínica (normalización de enzimas y dolor)","Dieta oral blanda hipograsa desde las primeras 24 horas si el paciente tolera"],
+    ans:0,
     exp:"En pancreatitis aguda grave, la nutrición enteral por sonda nasoyeyunal es el soporte nutricional de elección, iniciando entre las 24-48 horas del ingreso. La alimentación nasoyeyunal (más allá del ángulo de Treitz) no estimula la secreción pancreática exocrina. La nutrición enteral preserva la barrera intestinal, previene la traslocación bacteriana (mecanismo principal de necrosis infectada) y se asocia a menor mortalidad, menos complicaciones infecciosas y menor estancia hospitalaria que la nutrición parenteral.",
     tip:"<strong>Enteral &gt; Parenteral en pancreatitis grave:</strong> La nutrición parenteral total se asocia a mayor riesgo de infección (catéter venoso central, traslocación bacteriana al no usar el intestino), atrofia de la mucosa intestinal y mayor costo. La sonda nasoyeyunal evita estimular el páncreas (el estímulo pancreático es duodenal). Si no tolera nasoyeyunal, usar nasogástrica puede ser igual de seguro según evidencia reciente.",
     ref:"GPC: Diagnóstico y tratamiento de la pancreatitis aguda. IMSS-2022."
@@ -281,8 +281,8 @@ const questions = [
   {
     cat:"man", catName:"Manejo/Tratamiento",
     q:"¿En cuál de las siguientes situaciones está INDICADA la CPRE urgente en pancreatitis aguda de origen biliar?",
-    opts:["En toda pancreatitis aguda biliar para limpiar el colédoco y prevenir recurrencias","En pancreatitis aguda biliar asociada a colangitis aguda o bilirrubina muy elevada con deterioro clínico progresivo","En pancreatitis leve de origen biliar como parte del protocolo estándar en las primeras 24h","En pancreatitis grave para descomprimir el conducto pancreático principal"],
-    ans:1,
+    opts:["En toda pancreatitis aguda biliar para limpiar el colédoco y prevenir recurrencias","En pancreatitis grave para descomprimir el conducto pancreático principal","En pancreatitis leve de origen biliar como parte del protocolo estándar en las primeras 24h","En pancreatitis aguda biliar asociada a colangitis aguda o bilirrubina muy elevada con deterioro clínico progresivo"],
+    ans:3,
     exp:"La CPRE urgente está indicada en pancreatitis aguda biliar únicamente cuando existe colangitis aguda asociada (fiebre, ictericia, signos de sepsis) o cuando hay obstrucción biliar persistente con bilirrubina muy elevada y deterioro clínico. No se recomienda la CPRE de rutina en pancreatitis biliar sin evidencia de obstrucción persistente o colangitis, ya que no mejora el pronóstico y tiene riesgo de complicaciones (pancreatitis post-CPRE, perforación, hemorragia). En pancreatitis biliar sin colangitis, la colecistectomía laparoscópica electiva es el tratamiento definitivo.",
     tip:"<strong>CPRE urgente = solo con colangitis o ictericia obstructiva persistente:</strong> Si hay colangitis (fiebre + ictericia + dolor = Charcot) → CPRE en &lt;24-72h. Si pancreatitis biliar sin colangitis → manejo conservador → colecistectomía laparoscópica en el mismo ingreso (pancreatitis leve) o diferida 4-6 semanas (grave). La CPRE rutinaria NO reduce complicaciones ni mortalidad en pancreatitis biliar sin colangitis.",
     ref:"GPC: Diagnóstico y tratamiento de la pancreatitis aguda. IMSS-2022. Actualización en el manejo inicial de la pancreatitis aguda. 2019."
@@ -299,8 +299,8 @@ const questions = [
   {
     cat:"comp", catName:"Complicaciones",
     q:"Según la Clasificación de Atlanta Revisada 2012, ¿cuál es la diferencia entre un pseudoquiste pancreático y una necrosis encapsulada (walled-off necrosis)?",
-    opts:["El pseudoquiste contiene material sólido necrótico y la walled-off necrosis es solo líquido; ambas aparecen antes de las 4 semanas","El pseudoquiste es una colección de líquido puro sin material sólido que aparece después de 4 semanas; la walled-off necrosis contiene material sólido y/o semisólido y también aparece después de 4 semanas","El pseudoquiste siempre requiere drenaje quirúrgico y la walled-off necrosis se resuelve espontáneamente","Son la misma entidad con diferentes nombres según el centro médico"],
-    ans:1,
+    opts:["El pseudoquiste contiene material sólido necrótico y la walled-off necrosis es solo líquido; ambas aparecen antes de las 4 semanas","Son la misma entidad con diferentes nombres según el centro médico","El pseudoquiste siempre requiere drenaje quirúrgico y la walled-off necrosis se resuelve espontáneamente","El pseudoquiste es una colección de líquido puro sin material sólido que aparece después de 4 semanas; la walled-off necrosis contiene material sólido y/o semisólido y también aparece después de 4 semanas"],
+    ans:3,
     exp:"Según Atlanta 2012, las colecciones pancreáticas se clasifican según contenido y tiempo de evolución. En pancreatitis intersticial edematosa: colección líquida aguda peripancreática (&lt;4 semanas, sin pared definida, solo líquido) y pseudoquiste pancreático (>4 semanas, pared bien definida, contenido líquido puro). En pancreatitis necrotizante: colección necrótica aguda (&lt;4 semanas, contenido sólido/semisólido, sin pared) y necrosis encapsulada o walled-off necrosis (>4 semanas, pared bien definida, contenido sólido/semisólido/necrótico).",
     tip:"<strong>Clasificación de colecciones (Atlanta 2012):</strong><br>Tiempo: &lt;4 sem = aguda, &gt;4 sem = madura (tiene pared).<br>Contenido: Solo líquido = colección líquida/pseudoquiste. Sólido-necrótico = colección necrótica/walled-off necrosis.<br>La walled-off necrosis es importante porque NO puede drenarse solo con aguja (contenido sólido) — requiere desbridamiento endoscópico, percutáneo o quirúrgico.",
     ref:"GPC: Diagnóstico y tratamiento de la pancreatitis aguda. IMSS-2022."
@@ -308,8 +308,8 @@ const questions = [
   {
     cat:"comp", catName:"Complicaciones",
     q:"Un paciente con pancreatitis aguda grave evoluciona con fiebre persistente a los 12 días, deterioro clínico y la TC muestra burbujas de gas en el área de necrosis pancreática. ¿Cuál es el abordaje terapéutico correcto (step-up approach)?",
-    opts:["Cirugía abierta inmediata con necrosectomía pancreática de urgencia","Drenaje percutáneo o endoscópico como primer paso; escalar a cirugía solo si falla (step-up approach)","Antibióticos solos sin drenaje durante 4-6 semanas y reevaluar","CPRE urgente para drenar el conducto pancreático"],
-    ans:1,
+    opts:["Drenaje percutáneo o endoscópico como primer paso; escalar a cirugía solo si falla (step-up approach)","Cirugía abierta inmediata con necrosectomía pancreática de urgencia","Antibióticos solos sin drenaje durante 4-6 semanas y reevaluar","CPRE urgente para drenar el conducto pancreático"],
+    ans:0,
     exp:"La necrosis infectada se maneja con el 'step-up approach': primero drenaje mínimamente invasivo (percutáneo guiado por TC o drenaje endoscópico transgástrico bajo ecoendoscopia), y escalar a cirugía (necrosectomía) solo si el drenaje mínimamente invasivo falla. Este abordaje escalonado reduce significativamente la mortalidad y morbilidad comparado con la necrosectomía abierta primaria. El gas en la TC es patognomónico de infección por gérmenes productores de gas y puede obviar la necesidad de biopsia. Los antibióticos se inician simultáneamente (carbapenémicos de primera elección por penetración en tejido pancreático).",
     tip:"<strong>Step-up approach = escalar de menor a mayor invasividad:</strong> (1) Antibióticos + drenaje percutáneo/endoscópico → (2) si falla → videoscopía retroperitoneal o desbridamiento endoscópico → (3) si falla → cirugía abierta. Esperar 4+ semanas para intervenir permite que la necrosis se encapsule (walled-off) y facilita el drenaje. Intervención quirúrgica precoz (&lt;14 días) tiene mortalidad muy alta.",
     ref:"GPC: Diagnóstico y tratamiento de la pancreatitis aguda. IMSS-2022."

@@ -200,8 +200,8 @@ const questions = [
   {
     cat:"far", catName:"Faringoamigdalitis",
     q:"Niño de 8 años con odinofagia, fiebre de 38.8°C, exudado amigdalino bilateral y adenopatía cervical anterior dolorosa, sin tos. ¿Cuál es el puntaje de Centor de este paciente?",
-    opts:["1 punto","2 puntos","3 puntos","4 puntos"],
-    ans:3,
+    opts:["1 punto","4 puntos","3 puntos","2 puntos"],
+    ans:1,
     exp:"El score de Centor asigna 1 punto por cada criterio presente: fiebre >38°C (sí), exudado amigdalino (sí), adenopatía cervical anterior dolorosa (sí) y ausencia de tos (sí). Este paciente cumple los 4 criterios = 4 puntos. Con ≥3 puntos se recomienda tratar empíricamente con antibióticos o confirmar con cultivo.",
     tip:"<strong>Centor: 4 criterios = 1 punto c/u:</strong> Fiebre &gt;38°C + Exudado amigdalino + Adenopatía cervical anterior dolorosa + Ausencia de tos. ≥3pts → alta probabilidad estreptocócica → tratar. &lt;2pts → probable viral → no antibiótico. McIsaac suma edad: +1 si 3-14 años, 0 si 15-44 años, -1 si &gt;44 años.",
     ref:"GPC: Diagnóstico y tratamiento de faringoamigdalitis aguda. SSA-IMSS-ISSSTE. 2008."
@@ -209,8 +209,8 @@ const questions = [
   {
     cat:"far", catName:"Faringoamigdalitis",
     q:"¿Cuál es la causa bacteriana más frecuente de faringoamigdalitis aguda y qué porcentaje representan las causas bacterianas en total?",
-    opts:["Staphylococcus aureus; 50% de los casos","Streptococcus pyogenes (grupo A); 20% de los casos","Haemophilus influenzae; 30% de los casos","Streptococcus pneumoniae; 40% de los casos"],
-    ans:1,
+    opts:["Streptococcus pyogenes (grupo A); 20% de los casos","Staphylococcus aureus; 50% de los casos","Haemophilus influenzae; 30% de los casos","Streptococcus pneumoniae; 40% de los casos"],
+    ans:0,
     exp:"El 80% de las faringoamigdalitis agudas son de etiología viral (rinovirus, adenovirus, VEB, etc.). El 20% restante son bacterianas, siendo Streptococcus pyogenes (Streptococcus beta-hemolítico grupo A) la causa bacteriana más frecuente e importante por sus complicaciones (fiebre reumática, glomerulonefritis). La GPC enfatiza esta distinción para el uso racional de antibióticos.",
     tip:"<strong>80% viral vs 20% bacteriana.</strong> Solo la estreptocócica requiere antibiótico (para prevenir fiebre reumática). Las virales NO se tratan con antibióticos. La presencia de rinorrea, tos, aftas o úlceras orales orienta a viral. Mononucleosis (VEB): fatiga prominente + esplenomegalia + adenopatías generalizadas.",
     ref:"GPC: Diagnóstico y tratamiento de faringoamigdalitis aguda. SSA-IMSS-ISSSTE. 2008."
@@ -218,8 +218,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento",
     q:"Adolescente de 15 años con faringoamigdalitis estreptocócica confirmada por cultivo. No tiene alergias conocidas. ¿Cuál es el tratamiento de elección?",
-    opts:["Amoxicilina-clavulanato 875 mg cada 12 horas por 7 días","Penicilina V oral 500 mg cada 12 horas por 10 días","Azitromicina 500 mg por 3 días","Ciprofloxacino 500 mg cada 12 horas por 5 días"],
-    ans:1,
+    opts:["Penicilina V oral 500 mg cada 12 horas por 10 días","Amoxicilina-clavulanato 875 mg cada 12 horas por 7 días","Azitromicina 500 mg por 3 días","Ciprofloxacino 500 mg cada 12 horas por 5 días"],
+    ans:0,
     exp:"La penicilina V oral por 10 días es el tratamiento de primera línea para faringoamigdalitis estreptocócica según la GPC. Streptococcus pyogenes permanece universalmente sensible a penicilina (sin resistencia reportada). La duración de 10 días es indispensable para erradicar el estreptococo y prevenir fiebre reumática. Alternativa de primera línea: amoxicilina por 10 días (mejor palatabilidad en niños).",
     tip:"<strong>Penicilina V 10 días = estándar de oro.</strong> La amoxicilina es equivalente y más fácil de tomar. NUNCA usar quinolonas para estreptococo. Si alérgico a penicilina: azitromicina 5 días o claritromicina 10 días. La duración completa de 10 días previene fiebre reumática — incompleto = riesgo cardíaco.",
     ref:"GPC: Diagnóstico y tratamiento de faringoamigdalitis aguda. SSA-IMSS-ISSSTE. 2008."
@@ -227,8 +227,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento",
     q:"Paciente de 12 años con faringoamigdalitis estreptocócica y alergia conocida a penicilinas. ¿Cuál es el antibiótico de elección?",
-    opts:["Cefalexina 500 mg cada 6 horas por 10 días","Azitromicina 500 mg/día por 5 días","Vancomicina IV 15 mg/kg cada 6 horas","Levofloxacino 500 mg/día por 5 días"],
-    ans:1,
+    opts:["Cefalexina 500 mg cada 6 horas por 10 días","Vancomicina IV 15 mg/kg cada 6 horas","Azitromicina 500 mg/día por 5 días","Levofloxacino 500 mg/día por 5 días"],
+    ans:2,
     exp:"En pacientes con alergia a penicilinas, la GPC recomienda azitromicina 500 mg/día (en adultos) o 12 mg/kg/día (en niños) por 5 días como alternativa de elección. La claritromicina por 10 días es otra opción. Las cefalosporinas pueden usarse si la alergia no es anafiláctica (reactividad cruzada ~1-2%). Las quinolonas no se recomiendan de rutina por espectro innecesariamente amplio.",
     tip:"<strong>Alérgico a penicilina → Azitromicina 5 días.</strong> Ventaja: dosis única diaria, buena adherencia, 5 días suficientes por vida media larga. Desventaja: resistencia macrólidos ~5-10% en S.pyogenes. Claritromicina 10 días = alternativa. Cefalosporina solo si la alergia NO es anafiláctica.",
     ref:"GPC: Diagnóstico y tratamiento de faringoamigdalitis aguda. SSA-IMSS-ISSSTE. 2008."
@@ -236,8 +236,8 @@ const questions = [
   {
     cat:"abs", catName:"Absceso/Complicaciones",
     q:"Joven de 19 años con odinofagia progresiva de 5 días, fiebre de 39.5°C, trismus, voz gangosa ('papa caliente'), úvula desviada hacia la izquierda y abombamiento del pilar amigdalino derecho. ¿Cuál es el diagnóstico?",
-    opts:["Angina de Ludwig","Absceso periamigdalino derecho","Absceso retrofaríngeo","Epiglotitis aguda"],
-    ans:1,
+    opts:["Angina de Ludwig","Epiglotitis aguda","Absceso retrofaríngeo","Absceso periamigdalino derecho"],
+    ans:3,
     exp:"El absceso periamigdalino se caracteriza por la tríada clásica: trismus (contractura del pterigoideo medial por proximidad), voz gangosa o de 'papa caliente' (afectación de musculatura faríngea) y desviación contralateral de la úvula con abombamiento del pilar amigdalino ipsilateral. Es la complicación supurativa más frecuente de la amigdalitis aguda.",
     tip:"<strong>Tríada del absceso periamigdalino:</strong> Trismus + Voz de papa caliente + Úvula desviada al lado CONTRARIO del absceso. El abombamiento está en el pilar IPSILATERAL. Diferenciar de amigdalitis severa: el absceso tiene fluctuación, el paciente no puede abrir la boca y hay desviación uvular. Tratamiento: drenaje quirúrgico + antibióticos IV.",
     ref:"GPC: Diagnóstico y tratamiento del absceso profundo de cuello. SSA. 2011."
@@ -245,8 +245,8 @@ const questions = [
   {
     cat:"abs", catName:"Absceso/Complicaciones",
     q:"¿Cuál es el manejo correcto del absceso periamigdalino?",
-    opts:["Antibióticos IV exclusivamente durante 14 días","Drenaje quirúrgico (aspiración o incisión) + antibióticos IV + amigdalectomía diferida","Amigdalectomía de urgencia inmediata","Alta con antibióticos orales y seguimiento en 72 horas"],
-    ans:1,
+    opts:["Drenaje quirúrgico (aspiración o incisión) + antibióticos IV + amigdalectomía diferida","Antibióticos IV exclusivamente durante 14 días","Amigdalectomía de urgencia inmediata","Alta con antibióticos orales y seguimiento en 72 horas"],
+    ans:0,
     exp:"El tratamiento del absceso periamigdalino requiere drenaje del pus (aspiración con aguja o incisión-drenaje), antibióticos IV de amplio espectro (penicilina + metronidazol o amoxicilina-clavulanato) y amigdalectomía diferida (4-6 semanas después) para prevenir recurrencia. La amigdalectomía de urgencia ('amigdalectomía en caliente') se reserva para casos seleccionados o recurrentes.",
     tip:"<strong>Absceso periamigdalino = DRENAR.</strong> Los antibióticos solos no resuelven el pus. Aspiración con aguja: menos invasiva, 90% éxito. Incisión-drenaje: mayor cantidad de drenaje. Amigdalectomía diferida: recomendada para evitar recidiva (~15% sin ella). Amigdalectomía inmediata: válida en recurrente o con indicación previa.",
     ref:"GPC: Diagnóstico y tratamiento del absceso profundo de cuello. SSA. 2011."
@@ -263,8 +263,8 @@ const questions = [
   {
     cat:"abs", catName:"Absceso/Complicaciones",
     q:"Paciente diabético de 55 años con celulitis bilateral del piso de la boca, submandibular y del cuello, con induración leñosa, fiebre de 40°C y dificultad respiratoria progresiva. ¿Cuál es la prioridad en su manejo?",
-    opts:["Iniciar antibióticos IV de amplio espectro y observar 24 horas","Asegurar la vía aérea de manera urgente como primera medida","TC de cuello para delimitar el absceso antes de cualquier intervención","Drenaje quirúrgico del cuello bajo anestesia local inmediato"],
-    ans:1,
+    opts:["Iniciar antibióticos IV de amplio espectro y observar 24 horas","TC de cuello para delimitar el absceso antes de cualquier intervención","Asegurar la vía aérea de manera urgente como primera medida","Drenaje quirúrgico del cuello bajo anestesia local inmediato"],
+    ans:2,
     exp:"La Angina de Ludwig es una celulitis gangrenosa bilateral del piso de la boca y espacios submandibular, submentoniano y sublingual. La principal amenaza vital es la obstrucción de la vía aérea por desplazamiento de la lengua hacia arriba y atrás. La GPC establece que asegurar la vía aérea (intubación o traqueotomía de urgencia) es la PRIMERA prioridad, antes del drenaje o antibióticos.",
     tip:"<strong>Angina de Ludwig = VÍA AÉREA PRIMERO.</strong> La intubación puede ser imposible por edema → preparar traqueotomía de urgencia. Típico: diabéticos, inmunodeprimidos, infección dental origen (2º molar inferior). Induración 'leñosa' sin fluctuación = celulitis, no absceso. Antibióticos: penicilina + metronidazol o amoxicilina-clavulanato IV.",
     ref:"GPC: Diagnóstico y tratamiento del absceso profundo de cuello. SSA. 2011."
@@ -272,8 +272,8 @@ const questions = [
   {
     cat:"amig", catName:"Amigdalectomía",
     q:"Niño de 7 años con 6 episodios de amigdalitis estreptocócica en el último año documentados. ¿Cumple criterios Paradise para amigdalectomía?",
-    opts:["No, necesita ≥7 episodios en un año","No, se necesitan ≥5 episodios por 2 años consecutivos","Sí, cumple el criterio de ≥5 episodios/año por al menos 2 años","No cumple ningún criterio Paradise"],
-    ans:0,
+    opts:["Sí, cumple el criterio de ≥5 episodios/año por al menos 2 años","No, se necesitan ≥5 episodios por 2 años consecutivos","No, necesita ≥7 episodios en un año","No cumple ningún criterio Paradise"],
+    ans:2,
     exp:"Los criterios de Paradise para amigdalectomía requieren: ≥7 episodios documentados en 1 año, ó ≥5 episodios/año durante 2 años consecutivos, ó ≥3 episodios/año durante 3 años consecutivos. Con 6 episodios en un año, el niño NO cumple el primer criterio (necesita 7). Debe seguirse y si el siguiente año tiene ≥5 episodios, entonces cumplirá el segundo criterio.",
     tip:"<strong>Regla Paradise: 7-5-3:</strong> 7/año × 1 año, ó 5/año × 2 años, ó 3/año × 3 años. Los episodios deben estar DOCUMENTADOS (fiebre, exudado, adenopatía o cultivo positivo). Criterios adicionales: SAOS pediátrico por hipertrofia amigdalina, absceso periamigdalino recurrente, amigdalitis crónica con mal olor persistente.",
     ref:"GPC: Amigdalectomía en niños. SSA. 2012."
@@ -281,8 +281,8 @@ const questions = [
   {
     cat:"amig", catName:"Amigdalectomía",
     q:"¿Cuál de las siguientes es una indicación absoluta de amigdalectomía independientemente del número de episodios infecciosos?",
-    opts:["Ronquido nocturno en niño de 4 años","Síndrome de apnea obstructiva del sueño pediátrico por hipertrofia amigdalina","Faringoamigdalitis viral recurrente (4 episodios/año)","Halitosis crónica sin otros síntomas"],
-    ans:1,
+    opts:["Síndrome de apnea obstructiva del sueño pediátrico por hipertrofia amigdalina","Ronquido nocturno en niño de 4 años","Faringoamigdalitis viral recurrente (4 episodios/año)","Halitosis crónica sin otros síntomas"],
+    ans:0,
     exp:"El Síndrome de Apnea Obstructiva del Sueño (SAOS) pediátrico causado por hipertrofia amigdalina (y/o adenoidea) es una indicación de amigdalectomía independiente de la frecuencia de infecciones. La GPC establece que la amigdalectomía (con frecuencia adenoamigdalectomía) es el tratamiento de primera línea para SAOS pediátrico, con tasas de curación del 75-100% en niños sin obesidad.",
     tip:"<strong>SAOS pediátrico = indicación absoluta.</strong> Sospechar en niño con ronquido habitual + pausas respiratorias nocturnas + enuresis + somnolencia diurna + problemas de conducta o aprendizaje. El absceso periamigdalino recurrente (≥2) también es indicación independiente. La adenoamigdalectomía es preferida sobre amigdalectomía sola en menores de 6 años.",
     ref:"GPC: Amigdalectomía en niños. SSA. 2012."
@@ -308,8 +308,8 @@ const questions = [
   {
     cat:"ca", catName:"Cáncer",
     q:"¿Cuál es el sitio más frecuente de cáncer en la cavidad oral y cuál es el principal factor de riesgo para cáncer de orofaringe en pacientes jóvenes?",
-    opts:["Paladar duro; alcohol","Lengua móvil (borde lateral); Virus del Papiloma Humano (VPH)","Encía; tabaco de mascar","Piso de boca; radiación previa"],
-    ans:1,
+    opts:["Paladar duro; alcohol","Piso de boca; radiación previa","Encía; tabaco de mascar","Lengua móvil (borde lateral); Virus del Papiloma Humano (VPH)"],
+    ans:3,
     exp:"El carcinoma epidermoide de lengua móvil (especialmente el borde lateral) es el más frecuente en cavidad oral. En orofaringe (amígdalas y base de lengua), el VPH-16 es el principal factor de riesgo en pacientes jóvenes sin historia de tabaco/alcohol. Los tumores VPH-positivos tienen mejor pronóstico que los VPH-negativos. La GPC distingue cavidad oral (tabaco+alcohol) de orofaringe (VPH).",
     tip:"<strong>Cavidad oral: tabaco+alcohol → lengua móvil.</strong> Orofaringe: VPH-16 → amígdala palatina y base de lengua. Los tumores VPH+ son más radiosensibles y tienen mejor pronóstico. El cáncer de labio se asocia a exposición solar crónica. Metástasis cervicales: ganglios submentonianos y submandibulares (primeros en afectarse en cáncer de lengua).",
     ref:"GPC: Diagnóstico y tratamiento del cáncer de cavidad oral. SSA. 2011."
@@ -317,8 +317,8 @@ const questions = [
   {
     cat:"ca", catName:"Cáncer",
     q:"Paciente con carcinoma epidermoide de cavidad oral T2N1M0. ¿Cuál es el tratamiento estándar?",
-    opts:["Radioterapia exclusiva como tratamiento primario","Cirugía (resección con márgenes libres) + radioterapia adyuvante","Quimioterapia exclusiva con cisplatino","Inmunoterapia con pembrolizumab como primera línea"],
-    ans:1,
+    opts:["Radioterapia exclusiva como tratamiento primario","Inmunoterapia con pembrolizumab como primera línea","Quimioterapia exclusiva con cisplatino","Cirugía (resección con márgenes libres) + radioterapia adyuvante"],
+    ans:3,
     exp:"El tratamiento estándar del cáncer de cavidad oral es quirúrgico (resección con márgenes libres ≥5mm) seguido de radioterapia adyuvante cuando existen factores de riesgo (márgenes cercanos, invasión perineural, ganglios positivos, extensión extraganglionar). La GPC establece que la cirugía es el pilar del tratamiento, con la RT como complemento. La quimioterapia se añade en enfermedad avanzada o como radio-sensibilizador.",
     tip:"<strong>Cáncer de cavidad oral: cirugía + RT adyuvante.</strong> Márgenes &lt;5mm o positivos: re-resección o RT. Ganglios positivos → disección cervical + RT. En cáncer de orofaringe VPH+: RT ± quimioterapia como opción primaria. Estadio I-II: cirugía o RT sola. Estadio III-IV: cirugía + RT ± quimio. La reconstrucción con colgajos es fundamental para función deglutoria y fonación.",
     ref:"GPC: Diagnóstico y tratamiento del cáncer de cavidad oral. SSA. 2011."

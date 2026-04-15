@@ -204,8 +204,8 @@ const questions = [
   {
     cat:"vis", catName:"Detección Visual Escolar",
     q:"Escolar de 6 años acude a revisión médica de primer nivel. ¿Cuál es el instrumento de tamizaje visual de primera línea recomendado por la GPC para la detección oportuna de alteraciones visuales en el escolar?",
-    opts:["Autorrefractómetro portátil","Cartilla de Snellen o tabla de optotipos a 6 metros","Lámpara de hendidura con biomicroscopía","Tonometría de aplanación de Goldmann"],
-    ans:1,
+    opts:["Autorrefractómetro portátil","Lámpara de hendidura con biomicroscopía","Cartilla de Snellen o tabla de optotipos a 6 metros","Tonometría de aplanación de Goldmann"],
+    ans:2,
     exp:"La GPC de Detección oportuna de alteraciones visuales en el escolar (2016) establece la cartilla de Snellen o tablas de optotipos como herramienta de tamizaje de primera línea en el primer nivel de atención. Se aplica a 6 metros de distancia, es reproducible, de bajo costo y permite evaluar la agudeza visual de forma rápida. El tamizaje debe realizarse en todos los escolares a partir de los 3-4 años, idealmente al inicio de cada ciclo escolar.",
     tip:"<strong>Cartilla de Snellen = tamizaje visual escolar en 1er nivel.</strong> Distancia estándar: 6 metros (20 pies). Normal: 20/20 en ambos ojos. Cada ojo se evalúa por separado — cubrir el ojo que no se evalúa. No uses el autorrefractómetro como tamizaje rutinario en primer nivel: es costoso y requiere equipo especializado.",
     ref:"GPC: Detección oportuna de alteraciones visuales en el escolar. CENETEC. 2016."
@@ -213,8 +213,8 @@ const questions = [
   {
     cat:"vis", catName:"Detección Visual Escolar",
     q:"En el tamizaje visual de un escolar de 7 años realizado con cartilla de Snellen, ¿cuál es el criterio de referencia a oftalmología según la GPC?",
-    opts:["Agudeza visual (AV) 20/20 en ambos ojos — referir siempre","AV ≤20/30 en cualquier ojo, o diferencia de ≥2 líneas entre ambos ojos","AV 20/25 bilateral — referir para corrección","Solo referir si el niño refiere cefalea o diplopía"],
-    ans:1,
+    opts:["AV ≤20/30 en cualquier ojo, o diferencia de ≥2 líneas entre ambos ojos","Agudeza visual (AV) 20/20 en ambos ojos — referir siempre","AV 20/25 bilateral — referir para corrección","Solo referir si el niño refiere cefalea o diplopía"],
+    ans:0,
     exp:"La GPC establece como criterio de referencia a oftalmología una agudeza visual ≤20/30 (menor agudeza de lo esperado para la edad) en cualquier ojo, o una diferencia de 2 o más líneas entre ambos ojos (asimetría que sugiere ambliopía). En menores de 5 años el criterio es más permisivo (≤20/40). La detección oportuna es crucial: la ambliopía solo puede corregirse efectivamente antes de los 7-9 años mientras el sistema visual aún tiene plasticidad.",
     tip:"<strong>Criterio de referencia: AV ≤20/30 o diferencia ≥2 líneas entre ojos.</strong> La ambliopía ('ojo perezoso') se desarrolla cuando un ojo no se usa adecuadamente en los primeros años de vida. Ventana terapéutica: antes de los 7-9 años. Después de esa edad, el daño es irreversible. El tamizaje escolar salva la visión de por vida.",
     ref:"GPC: Detección oportuna de alteraciones visuales en el escolar. CENETEC. 2016."
@@ -222,8 +222,8 @@ const questions = [
   {
     cat:"vis", catName:"Detección Visual Escolar",
     q:"Durante el tamizaje visual de un preescolar de 4 años, al iluminar los ojos con linterna se observa un reflejo pupilar blanco (leucocoria) en el ojo derecho. ¿Cuál es la conducta correcta según la GPC?",
-    opts:["Tranquilizar a los padres — variante de la normalidad en menores de 5 años","Referencia urgente a oftalmología por sospecha de patología grave (retinoblastoma, catarata congénita, toxocariasis)","Prescribir lentes y citar en 6 meses para control","Registrar el hallazgo y repetir tamizaje al siguiente ciclo escolar"],
-    ans:1,
+    opts:["Referencia urgente a oftalmología por sospecha de patología grave (retinoblastoma, catarata congénita, toxocariasis)","Tranquilizar a los padres — variante de la normalidad en menores de 5 años","Prescribir lentes y citar en 6 meses para control","Registrar el hallazgo y repetir tamizaje al siguiente ciclo escolar"],
+    ans:0,
     exp:"La leucocoria (reflejo pupilar blanco o 'ojo de gato') es un signo de alarma que NUNCA debe ignorarse. Es el signo más frecuente del retinoblastoma (tumor ocular maligno más común en la infancia), pero también puede indicar catarata congénita, persistencia de vítreo primario hiperplásico, toxocariasis ocular o enfermedad de Coats. La GPC establece referencia URGENTE a oftalmología ante cualquier leucocoria. El retinoblastoma tiene supervivencia >95% si se detecta temprano.",
     tip:"<strong>Leucocoria = referencia URGENTE a oftalmología.</strong> Mnemotecnia: 'ojo de gato' = alarma roja. Retinoblastoma: tumor ocular maligno más común en niños (pico: 2-3 años), 60% esporádico, 40% hereditario. Si es bilateral = casi siempre hereditario (gen RB1). Pronóstico excelente si se trata temprano; fatal si se retrasa.",
     ref:"GPC: Detección oportuna de alteraciones visuales en el escolar. CENETEC. 2016."
@@ -242,8 +242,8 @@ const questions = [
   {
     cat:"blef", catName:"Blefaritis",
     q:"Paciente con blefaritis crónica anterior diagnosticada. ¿Cuál es el tratamiento de primera línea recomendado por la GPC?",
-    opts:["Antibiótico tópico (tobramicina) en monoterapia indefinida","Higiene palpebral con compresas tibias (5-10 min) seguida de limpieza del borde libre palpebral con jabón neutro o champú de bebé diluido","Corticosteroide tópico como prednisolona 1%","Ciclosporina tópica al 0.05%"],
-    ans:1,
+    opts:["Antibiótico tópico (tobramicina) en monoterapia indefinida","Ciclosporina tópica al 0.05%","Corticosteroide tópico como prednisolona 1%","Higiene palpebral con compresas tibias (5-10 min) seguida de limpieza del borde libre palpebral con jabón neutro o champú de bebé diluido"],
+    ans:3,
     exp:"La higiene palpebral es la piedra angular del tratamiento de la blefaritis crónica. La GPC recomienda: (1) Compresas tibias 5-10 minutos para licuar las secreciones de las glándulas palpebrales; (2) Masaje suave del borde libre palpebral; (3) Limpieza con bastoncillo o gasa con jabón neutro o champú de bebé diluido para retirar escamas y costras. Debe realizarse 2 veces al día durante la fase aguda y reducirse a 1 vez/día en mantenimiento. Es un tratamiento crónico — la enfermedad no se cura, se controla.",
     tip:"<strong>Higiene palpebral = 1ª línea en blefaritis.</strong> El orden importa: CALOR (compresas tibias) → MASAJE → LIMPIEZA. El calor licua el material sebáceo ocluido. La limpieza remueve las costras y reduce la carga bacteriana. Antibióticos tópicos solo se agregan si hay componente infeccioso activo (secreción purulenta, orzuelos recurrentes).",
     ref:"GPC: Diagnóstico y tratamiento de la blefaritis. CENETEC. 2012."
@@ -251,8 +251,8 @@ const questions = [
   {
     cat:"blef", catName:"Blefaritis",
     q:"Paciente con blefaritis posterior severa por disfunción de glándulas de Meibomio con ojo seco significativo y pobre respuesta a 3 meses de higiene palpebral intensiva. ¿Qué tratamiento sistémico agrega beneficio según la GPC?",
-    opts:["Amoxicilina-clavulanato 875/125 mg cada 12 horas por 7 días","Doxiciclina oral 50-100 mg/día (o minociclina) por 1-3 meses","Metronidazol oral 500 mg cada 8 horas","Prednisona oral 1 mg/kg/día por 2 semanas"],
-    ans:1,
+    opts:["Amoxicilina-clavulanato 875/125 mg cada 12 horas por 7 días","Prednisona oral 1 mg/kg/día por 2 semanas","Metronidazol oral 500 mg cada 8 horas","Doxiciclina oral 50-100 mg/día (o minociclina) por 1-3 meses"],
+    ans:3,
     exp:"Las tetraciclinas (doxiciclina, minociclina) tienen propiedades antiinflamatorias más allá de su efecto antibiótico — inhiben las lipasas bacterianas que degradan los lípidos meibomianos y reducen la inflamación palpebral. La GPC avala su uso en blefaritis posterior severa o refractaria a higiene. Dosis habitual: doxiciclina 50-100 mg/día por 1-3 meses. Contraindicadas en embarazo, lactancia y menores de 8 años (depósito en hueso y dientes).",
     tip:"<strong>Doxiciclina en blefaritis: actúa por efecto antiinflamatorio, no solo antibiótico.</strong> Bloquea las metaloproteinasas y las lipasas bacterianas que dañan la película lagrimal. Recuerda sus contraindicaciones: embarazo, lactancia, niños <8 años. Alternativa: azitromicina oral (dosis pulso: 500 mg/día × 3 días, repetir al mes). Instrucciones: tomar con alimentos y abundante agua para evitar esofagitis.",
     ref:"GPC: Diagnóstico y tratamiento de la blefaritis. CENETEC. 2012."
@@ -262,8 +262,8 @@ const questions = [
   {
     cat:"orz", catName:"Orzuelo / Chalazión",
     q:"Paciente de 35 años con nódulo palpebral de 4 semanas de evolución, no doloroso, de consistencia firme-quística, sin eritema perilesional ni signos inflamatorios activos. No se modifica con calor ni antibióticos tópicos previos. ¿Cuál es el diagnóstico y la conducta inicial?",
-    opts:["Orzuelo crónico; antibiótico sistémico de inmediato","Chalazión; compresas tibias 2-3 veces al día como primera línea","Carcinoma sebáceo de párpado; biopsia urgente","Xantelasma; referencia a dermatología"],
-    ans:1,
+    opts:["Orzuelo crónico; antibiótico sistémico de inmediato","Carcinoma sebáceo de párpado; biopsia urgente","Chalazión; compresas tibias 2-3 veces al día como primera línea","Xantelasma; referencia a dermatología"],
+    ans:2,
     exp:"El chalazión es una lipogranuloma estéril del párpado causado por la obstrucción y ruptura de una glándula de Meibomio con inflamación granulomatosa crónica. Se caracteriza por ser un nódulo NO doloroso, de consistencia firme-quística, sin eritema activo y con evolución de semanas. La GPC establece las compresas tibias como primera línea para intentar licuar el material obstruido. Se diferencia del orzuelo en que este es agudo, DOLOROSO y de origen infeccioso.",
     tip:"<strong>Chalazión vs Orzuelo: la diferencia clave es el DOLOR.</strong> Chalazión = no doloroso, crónico, granulomatoso (glándula de Meibomio). Orzuelo = doloroso, agudo, infeccioso (externo: Zeiss/Moll; interno: Meibomio). Mnemotecnia: ChalAzión = cAliente pero sin Ardor; Orzuelo = purulentO, dOlorOsO.",
     ref:"GPC: Diagnóstico y manejo del orzuelo y chalazión. CENETEC. 2010."
@@ -280,8 +280,8 @@ const questions = [
   {
     cat:"orz", catName:"Orzuelo / Chalazión",
     q:"Paciente con chalazión de 8 semanas de evolución, tamaño 7 mm, sin respuesta a compresas tibias 3 veces al día. ¿Cuál es el siguiente paso en el manejo según la GPC?",
-    opts:["Mantener compresas tibias 3 meses más antes de intervenir","Incisión y curetaje bajo anestesia local, o inyección intralesional de triamcinolona","Antibiótico sistémico (amoxicilina) por 2 semanas","Corticosteroide tópico (dexametasona) en gotas por 4 semanas"],
-    ans:1,
+    opts:["Mantener compresas tibias 3 meses más antes de intervenir","Corticosteroide tópico (dexametasona) en gotas por 4 semanas","Antibiótico sistémico (amoxicilina) por 2 semanas","Incisión y curetaje bajo anestesia local, o inyección intralesional de triamcinolona"],
+    ans:3,
     exp:"Cuando el chalazión no resuelve con compresas tibias después de 4-6 semanas, la GPC recomienda dos alternativas de segunda línea: (1) Inyección intralesional de acetónido de triamcinolona (0.05-0.2 mL de 10 mg/mL) — efectiva en ~80% de los casos, preferida por algunos en lesiones pequeñas; (2) Incisión y curetaje bajo anestesia local — procedimiento menor de consultorio con excelente resultado. En chalaziones grandes (>5 mm) la cirugía tiene mejor resultado. Los antibióticos NO son efectivos en chalazión (es un proceso estéril-granulomatoso).",
     tip:"<strong>Chalazión refractario: triamcinolona intralesional O incisión-curetaje.</strong> El chalazión es aséptico — los antibióticos no sirven. La triamcinolona es buena opción en lesiones pequeñas o en pacientes que rechazan cirugía. La incisión se hace desde la conjuntiva (cara interna del párpado) para evitar cicatriz cutánea. Biopsia obligatoria si hay recurrencia en el mismo sitio (descartar carcinoma sebáceo).",
     ref:"GPC: Diagnóstico y manejo del orzuelo y chalazión. CENETEC. 2010."
@@ -291,8 +291,8 @@ const questions = [
   {
     cat:"lag", catName:"Vía Lagrimal",
     q:"Lactante de 5 semanas con epífora (lagrimeo constante) y secreción mucoide en el ojo derecho desde el nacimiento. Sin ojo rojo, sin edema periorbital, sin fiebre. La presión digital sobre el saco lagrimal produce reflujo de material mucoide. ¿Cuál es el diagnóstico más probable?",
-    opts:["Conjuntivitis neonatal bacteriana (por Neisseria o Chlamydia)","Obstrucción congénita del conducto nasolagrimal (OCNL)","Glaucoma congénito primario","Fístula lagrimal congénita"],
-    ans:1,
+    opts:["Conjuntivitis neonatal bacteriana (por Neisseria o Chlamydia)","Glaucoma congénito primario","Obstrucción congénita del conducto nasolagrimal (OCNL)","Fístula lagrimal congénita"],
+    ans:2,
     exp:"La obstrucción congénita del conducto nasolagrimal (OCNL) es la causa más frecuente de epífora en el lactante. Ocurre por persistencia de la membrana de Hasner en el extremo distal del conducto nasolagrimal (unión con el meato nasal inferior). Se caracteriza por: epífora desde el nacimiento, secreción mucosa o mucopurulenta, sin eritema conjuntival significativo y reflujo de material al comprimir el saco lagrimal (signo de Murphy lagrimal). El 96% resuelve espontáneamente antes del año de vida.",
     tip:"<strong>OCNL: causa más frecuente de epífora en lactantes.</strong> Clave diagnóstica: reflujo al presionar el saco lagrimal. Diferencia con conjuntivitis neonatal: en conjuntivitis hay ojo rojo significativo y la secreción no regresa al comprimir el saco. Glaucoma congénito: buscar córnea grande (buftalmos), fotofobia, lagrimeo — tiene ojo rojo y córnea opaca.",
     ref:"GPC: Diagnóstico y tratamiento de la estenosis congénita de la vía lagrimal. CENETEC. 2013."
@@ -300,8 +300,8 @@ const questions = [
   {
     cat:"lag", catName:"Vía Lagrimal",
     q:"Lactante de 3 meses con OCNL confirmada. No hay dacriocistitis aguda. ¿Cuál es el tratamiento de primera línea según la GPC?",
-    opts:["Sondaje lagrimal bajo anestesia general de inmediato","Masaje del saco lagrimal (técnica de Crigler) + antibiótico tópico si hay secreción mucopurulenta","Dacriocistorrinostomía endoscópica","Observación sin tratamiento hasta los 12 meses"],
-    ans:1,
+    opts:["Masaje del saco lagrimal (técnica de Crigler) + antibiótico tópico si hay secreción mucopurulenta","Sondaje lagrimal bajo anestesia general de inmediato","Dacriocistorrinostomía endoscópica","Observación sin tratamiento hasta los 12 meses"],
+    ans:0,
     exp:"La GPC establece el masaje del saco lagrimal (técnica de Crigler) como tratamiento de primera línea en la OCNL del lactante. La técnica consiste en presionar suavemente con el dedo índice sobre el saco lagrimal (entre el ángulo interno del ojo y el ala nasal) y deslizar hacia abajo con presión hidrostática para forzar la apertura de la membrana obstructiva. Se realiza 5-10 veces por sesión, 2-4 veces al día. El antibiótico tópico se agrega solo si hay secreción purulenta activa. El masaje aprovecha que la membrana de Hasner es delgada en los primeros meses.",
     tip:"<strong>Técnica de Crigler: masaje hidrostático del saco lagrimal.</strong> Cómo hacerlo: punta del dedo índice en el ángulo interno del ojo → presión firme hacia abajo con movimiento de barrido. El mecanismo: aumenta la presión hidrostática en el saco lagrimal y puede romper la membrana obstructiva. Los padres deben aprenderlo — se hace en casa. Resolución espontánea con masaje: ~90% antes del año.",
     ref:"GPC: Diagnóstico y tratamiento de la estenosis congénita de la vía lagrimal. CENETEC. 2013."
@@ -309,8 +309,8 @@ const questions = [
   {
     cat:"lag", catName:"Vía Lagrimal",
     q:"Lactante de 13 meses con OCNL que no resolvió a pesar de masaje de Crigler correctamente aplicado durante 10 meses. Sin dacriocistitis aguda. ¿Cuál es la conducta indicada según la GPC?",
-    opts:["Esperar hasta los 3 años — la resolución espontánea puede ocurrir hasta esa edad","Sondaje lagrimal bajo anestesia general (edad ideal: 12-18 meses)","Dacriocistorrinostomía de primera intención","Repetir masaje de Crigler con mayor frecuencia por 6 meses más"],
-    ans:1,
+    opts:["Sondaje lagrimal bajo anestesia general (edad ideal: 12-18 meses)","Esperar hasta los 3 años — la resolución espontánea puede ocurrir hasta esa edad","Dacriocistorrinostomía de primera intención","Repetir masaje de Crigler con mayor frecuencia por 6 meses más"],
+    ans:0,
     exp:"Si la OCNL no ha resuelto con masaje al año de vida, la GPC recomienda el sondaje lagrimal bajo anestesia general. La edad ideal es entre 12-18 meses: a esta edad la anatomía es favorable, el procedimiento es técnicamente más fácil y la tasa de éxito es mayor (85-95%). El sondaje consiste en introducir una sonda metálica a través del punto lagrimal para perforar la membrana obstructiva. Después de los 2 años, las tasas de éxito disminuyen y puede requerirse intubación con silicona o dacriocistorrinostomía.",
     tip:"<strong>Sondaje lagrimal: 12-18 meses es la ventana ideal.</strong> Escalonamiento OCNL: Masaje de Crigler (0-12 meses) → Sondaje lagrimal (12-18 meses) → Sondaje + intubación con silicona (fracaso del primer sondaje) → Dacriocistorrinostomía (casos complejos o después de los 3 años). No esperes a los 3 años — la resolución espontánea después del año es muy rara (<10%).",
     ref:"GPC: Diagnóstico y tratamiento de la estenosis congénita de la vía lagrimal. CENETEC. 2013."
@@ -320,8 +320,8 @@ const questions = [
   {
     cat:"ret", catName:"Desp. Retina Regmatógeno",
     q:"Hombre de 54 años, miope de -9 dioptrías, con inicio súbito hace 6 horas de abundantes 'moscas volantes' nuevas, destellos luminosos (fotopsias) en periferia y ahora refiere una 'cortina oscura' que avanza desde la parte inferior del campo visual. ¿Cuál es el diagnóstico y la urgencia?",
-    opts:["Migraña con aura visual — manejo ambulatorio con analgésicos","Desprendimiento de retina regmatógeno — urgencia oftalmológica que requiere cirugía","Oclusión de rama venosa de retina — referencia diferida a oftalmología","Hemorragia vítrea idiopática — observación 4-6 semanas"],
-    ans:1,
+    opts:["Migraña con aura visual — manejo ambulatorio con analgésicos","Oclusión de rama venosa de retina — referencia diferida a oftalmología","Desprendimiento de retina regmatógeno — urgencia oftalmológica que requiere cirugía","Hemorragia vítrea idiopática — observación 4-6 semanas"],
+    ans:2,
     exp:"El desprendimiento de retina regmatógeno (DRR) ocurre cuando el vítreo licuefacto pasa a través de una rotura retiniana y separa la retina sensorial del epitelio pigmentario. La tríada clásica de síntomas premonitores es: (1) Fotopsias (destellos: tracción vitreoretiniana), (2) Miodesopsias nuevas y abundantes (hemorragia o pigmento en el vítreo), (3) Defecto de campo visual en 'cortina' (retina desprendida). La GPC lo clasifica como urgencia: cada hora sin tratamiento aumenta el riesgo de comprometer la fóvea y perder visión central de forma irreversible.",
     tip:"<strong>DRR: TRÍADA = Fotopsias + Moscas volantes abundantes + Cortina de campo visual.</strong> Urgencia: si la mácula aún está aplicada → cirugía en <24h para preservar visión central. Si ya hay desprendimiento macular → menos urgente pero igualmente quirúrgico. Mnemotecnia: 'Las FOtopsias preceden a la FOvea desprendida' — actúa rápido al primer síntoma.",
     ref:"GPC: Diagnóstico y tratamiento del desprendimiento de retina regmatógeno no traumático. CENETEC. 2010."
@@ -349,8 +349,8 @@ const questions = [
   {
     cat:"ret", catName:"Desp. Retina Seroso",
     q:"¿Cuál es la diferencia fisiopatológica fundamental entre el desprendimiento de retina regmatógeno y el seroso (exudativo)?",
-    opts:["El regmatógeno es siempre bilateral; el seroso es unilateral","En el regmatógeno existe una rotura retiniana que permite el paso de líquido vítreo; en el seroso el líquido subretiniano se acumula sin rotura por inflamación, tumor o enfermedad vascular subyacente","El seroso es siempre de origen traumático; el regmatógeno es espontáneo","Ambos tienen el mismo mecanismo, solo difieren en la extensión del desprendimiento"],
-    ans:1,
+    opts:["El regmatógeno es siempre bilateral; el seroso es unilateral","El seroso es siempre de origen traumático; el regmatógeno es espontáneo","En el regmatógeno existe una rotura retiniana que permite el paso de líquido vítreo; en el seroso el líquido subretiniano se acumula sin rotura por inflamación, tumor o enfermedad vascular subyacente","Ambos tienen el mismo mecanismo, solo difieren en la extensión del desprendimiento"],
+    ans:2,
     exp:"En el DRR regmatógeno, una rotura (desgarro o agujero) en la retina sensorial permite que el vítreo licuefacto pase al espacio subretiniano. En el DRR seroso o exudativo, NO hay rotura retiniana — el líquido se acumula por filtración desde la coroides o la retina debido a procesos inflamatorios (uveítis, escleritis posterior), vasculares (DMRE exudativa, retinopatía serosa central), infecciosos o tumorales (metástasis coroideas). El tratamiento es completamente diferente: el regmatógeno requiere cirugía; el seroso se trata la causa subyacente.",
     tip:"<strong>Regmatógeno = ROTURA retiniana. Seroso = sin rotura, exudación subyacente.</strong> Pista diagnóstica: en el DRR seroso el líquido subretiniano se mueve con los cambios de posición ('shifting fluid' en la ecografía). En el regmatógeno el líquido no se desplaza tanto. Busca siempre la causa del seroso: inflamación, tumor o vascular.",
     ref:"GPC: Diagnóstico y tratamiento del desprendimiento de retina seroso. CENETEC. 2009."
@@ -358,8 +358,8 @@ const questions = [
   {
     cat:"ret", catName:"Desp. Retina Seroso",
     q:"Varón de 36 años, ejecutivo con estrés laboral intenso y uso ocasional de corticoides inhalados, con metamorfopsia y escotoma central en ojo derecho de 3 semanas. La OCT muestra líquido subretiniano en fóvea sin neovascularización coroidea. ¿Cuál es el diagnóstico más probable?",
-    opts:["Degeneración macular relacionada con la edad (DMRE) tipo neovascular","Retinopatía serosa central (RSC o coriorretinopatía serosa central)","Maculopatía diabética con edema macular","Coroiditis multifocal por toxoplasmosis"],
-    ans:1,
+    opts:["Retinopatía serosa central (RSC o coriorretinopatía serosa central)","Degeneración macular relacionada con la edad (DMRE) tipo neovascular","Maculopatía diabética con edema macular","Coroiditis multifocal por toxoplasmosis"],
+    ans:0,
     exp:"La retinopatía serosa central (RSC) es una causa frecuente de desprendimiento seroso foveal en adultos jóvenes de 25-50 años, con predominio masculino (5:1). Se caracteriza por acumulación de líquido bajo la fóvea secundaria a hiperpermeable coroidal. Los factores de riesgo incluyen: estrés, personalidad tipo A, uso de corticosteroides (sistémicos, inhalados, nasales o tópicos) y Helicobacter pylori. La GPC y la OCT muestran desprendimiento seroso foveal sin membrana neovascular, lo que la diferencia de la DMRE exudativa.",
     tip:"<strong>RSC: hombre joven + estrés + corticoides + liquido subfoveal sin neovasos.</strong> El 80-90% resuelve espontáneamente en 3-4 meses. Tratamiento: suspender corticoides si es posible, reducir estrés. Si persiste >3 meses: fotocoagulación focal o terapia fotodinámica con verteporfino. DMRE neovascular: paciente mayor + neovasos en OCT-A. La clave diferencial es la EDAD y la presencia de neovasos.",
     ref:"GPC: Diagnóstico y tratamiento del desprendimiento de retina seroso. CENETEC. 2009."
@@ -367,8 +367,8 @@ const questions = [
   {
     cat:"ret", catName:"Desp. Retina Seroso",
     q:"¿Cuál es la causa más frecuente de desprendimiento de retina seroso (exudativo) en pacientes mayores de 60 años?",
-    opts:["Retinopatía serosa central (RSC)","Degeneración macular relacionada con la edad (DMRE) tipo neovascular (húmeda)","Escleritis posterior","Coroiditis tuberculosa"],
-    ans:1,
+    opts:["Retinopatía serosa central (RSC)","Escleritis posterior","Degeneración macular relacionada con la edad (DMRE) tipo neovascular (húmeda)","Coroiditis tuberculosa"],
+    ans:2,
     exp:"La DMRE neovascular (húmeda o exudativa) es la causa más frecuente de DRR seroso en mayores de 60 años y la causa más común de ceguera legal en países desarrollados en ese grupo de edad. Ocurre cuando membranas neovasculares coroideas (CNV) crecen bajo la retina y filtran líquido o sangre. El tratamiento con anti-VEGF (bevacizumab, ranibizumab, aflibercept) ha revolucionado el pronóstico. La OCT con angiografía (OCT-A) es el estudio diagnóstico de elección para detectar la membrana neovascular.",
     tip:"<strong>DMRE neovascular = causa #1 de DRS seroso en >60 años y de ceguera en adultos mayores.</strong> Signos de alarma: metamorfopsia, escotoma central progresivo en paciente mayor. Anti-VEGF: el tratamiento actual (inyecciones intravítreas mensuales o según protocolo). Sin tratamiento → cicatriz disciforme → ceguera central permanente. La DMRE seca (atrófica) también existe pero no produce DRS exudativo.",
     ref:"GPC: Diagnóstico y tratamiento del desprendimiento de retina seroso. CENETEC. 2009."
@@ -378,8 +378,8 @@ const questions = [
   {
     cat:"rd", catName:"Retinopatía Diabética",
     q:"Diabético tipo 2 de 17 años de evolución con HbA1c de 10.5%. Fondo de ojo: microaneurismas, hemorragias en manchas, exudados duros perifoveales, neovasos en el disco óptico (NVD) y hemorragia prerretiniana en el cuadrante superotemporal. ¿Cuál es el estadio de la retinopatía diabética según la clasificación internacional?",
-    opts:["Retinopatía diabética no proliferativa (RDNP) moderada","Retinopatía diabética no proliferativa severa (regla 4-2-1)","Retinopatía diabética proliferativa (RDP) de alto riesgo","Maculopatía diabética sin retinopatía proliferativa"],
-    ans:2,
+    opts:["Retinopatía diabética no proliferativa (RDNP) moderada","Retinopatía diabética proliferativa (RDP) de alto riesgo","Retinopatía diabética no proliferativa severa (regla 4-2-1)","Maculopatía diabética sin retinopatía proliferativa"],
+    ans:1,
     exp:"La presencia de neovasos (neovascularización) define la RETINOPATÍA PROLIFERATIVA. Es de ALTO RIESGO cuando: (1) NVD ≥1/3 del diámetro del disco, (2) cualquier NVD con hemorragia vítrea, (3) NVE ≥1/2 del diámetro del disco con hemorragia vítrea. La GPC clasifica la RDP de alto riesgo como indicación de panfotocoagulación urgente. La regla 4-2-1 identifica la RDNP severa (prerrequisito que puede progresar a proliferativa en 1 año sin tratamiento): hemorragias en los 4 cuadrantes, arrosariamiento venoso en 2 cuadrantes, IRMA en 1 cuadrante.",
     tip:"<strong>Neovasos = Retinopatía PROLIFERATIVA.</strong> Regla 4-2-1 = RDNP SEVERA (no proliferativa todavía). NVD con hemorragia prerretiniana = RDP ALTO RIESGO → panfotocoagulación urgente. Estadificación ENARM: RDNP leve (solo microaneurismas) → RDNP moderada → RDNP severa (4-2-1) → RDP → RDP alto riesgo.",
     ref:"GPC: Diagnóstico y tratamiento de la retinopatía diabética. CENETEC. 2014."
@@ -396,8 +396,8 @@ const questions = [
   {
     cat:"rd", catName:"Retinopatía Diabética",
     q:"¿En qué estadio de la retinopatía diabética está indicada la panfotocoagulación retiniana (PFC) con láser según la GPC?",
-    opts:["En todo diabético independientemente del estadio de RD, como medida preventiva","En RDNP severa (regla 4-2-1) y en toda retinopatía diabética proliferativa (RDP)","Solo cuando ya existe hemorragia vítrea activa con pérdida visual","Únicamente en RDP de alto riesgo, no en RDNP severa"],
-    ans:1,
+    opts:["En todo diabético independientemente del estadio de RD, como medida preventiva","Únicamente en RDP de alto riesgo, no en RDNP severa","Solo cuando ya existe hemorragia vítrea activa con pérdida visual","En RDNP severa (regla 4-2-1) y en toda retinopatía diabética proliferativa (RDP)"],
+    ans:3,
     exp:"La panfotocoagulación retiniana (PFC) consiste en aplicar miles de impactos de láser en la retina periférica para ablacionar tejido hipóxico que libera VEGF (el inductor de neovascularización). La GPC y los criterios del ETDRS (Early Treatment Diabetic Retinopathy Study) indican PFC en: (1) RDP de alto riesgo — indicación urgente; (2) RDP sin criterios de alto riesgo — indicación electiva; (3) RDNP severa con factores de riesgo adicionales (DM1, embarazo, mal control metabólico, inaccesibilidad a seguimiento). No se recomienda en RDNP leve o moderada.",
     tip:"<strong>PFC = ablación de retina hipóxica que fabrica VEGF.</strong> Indicaciones: RDNP severa + RDP (toda). No confundir con fotocoagulación FOCAL (para EMD). Mecanismo: al destruir fotorreceptores periféricos hipóxicos, se reduce la demanda de O₂ y la producción de VEGF → regresión de neovasos. Efecto secundario importante: pérdida de visión periférica y nocturna — el paciente debe ser informado.",
     ref:"GPC: Diagnóstico y tratamiento de la retinopatía diabética. CENETEC. 2014."
@@ -407,8 +407,8 @@ const questions = [
   {
     cat:"rd", catName:"Detección RD Primer Nivel",
     q:"Paciente de 58 años con diagnóstico reciente de DM tipo 2 en su revisión médica de rutina. Sin síntomas visuales. ¿Cuándo debe realizarse el primer tamizaje de retinopatía diabética según la GPC?",
-    opts:["Al momento del diagnóstico de DM tipo 2 (en la consulta actual)","A los 5 años del diagnóstico, igual que en DM tipo 1","Solo cuando aparezcan síntomas visuales (pérdida de agudeza o distorsión)","A los 10 años del diagnóstico si el control glucémico ha sido adecuado"],
-    ans:0,
+    opts:["A los 5 años del diagnóstico, igual que en DM tipo 1","Al momento del diagnóstico de DM tipo 2 (en la consulta actual)","Solo cuando aparezcan síntomas visuales (pérdida de agudeza o distorsión)","A los 10 años del diagnóstico si el control glucémico ha sido adecuado"],
+    ans:1,
     exp:"La GPC establece una diferencia importante según el tipo de diabetes: en DM tipo 2 el tamizaje debe hacerse AL MOMENTO DEL DIAGNÓSTICO porque muchos pacientes ya llevan años con hiperglucemia asintomática antes del diagnóstico formal. En DM tipo 1, el tamizaje se inicia a los 5 años del diagnóstico (en niños pubescentes) o a los 3-5 años en adultos, ya que la fecha de inicio de la DM1 suele conocerse con precisión. Este punto es importante para el ENARM: DM2 = tamizaje al diagnóstico; DM1 = a los 5 años.",
     tip:"<strong>DM2: tamizaje de RD AL DIAGNÓSTICO. DM1: a los 5 años.</strong> ¿Por qué al diagnóstico en DM2? Porque la DM2 puede llevar AÑOS sin diagnosticarse — el paciente puede tener ya retinopatía aunque acabe de ser detectado. La DM1 tiene inicio más abrupto y documentado. Esta distinción aparece frecuentemente en el ENARM.",
     ref:"GPC: Detección de retinopatía diabética en el primer nivel de atención. CENETEC. 2009."
@@ -416,8 +416,8 @@ const questions = [
   {
     cat:"rd", catName:"Detección RD Primer Nivel",
     q:"¿Cuál es el método de tamizaje recomendado para la detección de retinopatía diabética en el primer nivel de atención según la GPC?",
-    opts:["Oftalmoscopio directo por el médico de primer nivel sin midriasis","Retinografía no midriática (fotografía digital del fondo de ojo con cámara de campo amplio)","Angiografía con fluoresceína en todos los diabéticos","Tomografía de coherencia óptica (OCT) como tamizaje universal"],
-    ans:1,
+    opts:["Oftalmoscopio directo por el médico de primer nivel sin midriasis","Tomografía de coherencia óptica (OCT) como tamizaje universal","Angiografía con fluoresceína en todos los diabéticos","Retinografía no midriática (fotografía digital del fondo de ojo con cámara de campo amplio)"],
+    ans:3,
     exp:"La retinografía no midriática es el método de tamizaje recomendado en primer nivel por la GPC. Sus ventajas: no requiere dilatación pupilar (útil en primer nivel donde no hay oftalmólogo presente), las imágenes pueden ser enviadas para lectura remota (telemedicina), es reproducible y permite comparar la progresión a lo largo del tiempo. El oftalmoscopio directo tiene baja sensibilidad en manos no especializadas y requiere midriasis para adecuada visualización. La angiografía y OCT son estudios diagnósticos de segundo nivel.",
     tip:"<strong>Retinografía no midriática = tamizaje de RD en 1er nivel.</strong> Permite diagnóstico remoto (teleretinopatía). Sensibilidad: ~80-90% para RD moderada o severa. Falsos negativos: pequeños microaneurismas o maculopatía temprana. Si la imagen es no interpretable → referir a oftalmología. Ventaja clave: no necesita oftalmólogo presente para tomar la foto.",
     ref:"GPC: Detección de retinopatía diabética en el primer nivel de atención. CENETEC. 2009."
@@ -425,8 +425,8 @@ const questions = [
   {
     cat:"rd", catName:"Detección RD Primer Nivel",
     q:"Diabético tipo 2 con tamizaje inicial sin retinopatía y con buen control metabólico (HbA1c 6.9%). ¿Con qué frecuencia debe repetirse el tamizaje de RD según la GPC?",
-    opts:["Cada 3 meses (junto con el control glucémico)","Anualmente","Cada 2 años si el control es óptimo","Cada 5 años si no hay factores de riesgo adicionales"],
-    ans:1,
+    opts:["Cada 3 meses (junto con el control glucémico)","Cada 2 años si el control es óptimo","Anualmente","Cada 5 años si no hay factores de riesgo adicionales"],
+    ans:2,
     exp:"La GPC recomienda tamizaje anual de RD para todos los diabéticos, independientemente del control glucémico, una vez descartada retinopatía en el tamizaje inicial. La frecuencia puede acortarse (cada 3-6 meses) en diabéticos con factores de riesgo adicionales: mal control glucémico (HbA1c >8%), hipertensión arterial no controlada, nefropatía diabética concomitante, embarazo en diabética o presencia de cualquier estadio de RD. El 'buen control' reduce la progresión pero no elimina el riesgo: el DCCT y el UKPDS demostraron reducción del 76% en progresión con control intensivo, no eliminación.",
     tip:"<strong>Tamizaje de RD: cada año en todos los diabéticos.</strong> No existe intervalo de 2 o 5 años en las guías mexicanas. Si ya hay RD diagnosticada: seguimiento cada 6-12 meses según el estadio. Embarazada diabética: tamizaje cada trimestre (el embarazo acelera la progresión de la RD). El dato del ENARM: la microalbuminuria y la retinopatía son los primeros signos de daño microvascular en DM.",
     ref:"GPC: Detección de retinopatía diabética en el primer nivel de atención. CENETEC. 2009."
@@ -436,8 +436,8 @@ const questions = [
   {
     cat:"ovr", catName:"Oclusión Venosa de Retina",
     q:"Paciente de 70 años, hipertenso con mal control, con pérdida visual súbita no dolorosa del ojo derecho desde esta mañana. En el fondo de ojo: hemorragias en llama y en mancha en los 4 cuadrantes retinianos, marcada dilatación y tortuosidad de todas las venas, edema de papila y manchas algodonosas. ¿Cuál es el diagnóstico?",
-    opts:["Desprendimiento de retina regmatógeno con desprendimiento total","Oclusión de vena central de retina (OVCR)","Neuropatía óptica isquémica anterior no arterítica (NOIA-NA)","Oclusión de arteria central de retina (OACR)"],
-    ans:1,
+    opts:["Oclusión de vena central de retina (OVCR)","Desprendimiento de retina regmatógeno con desprendimiento total","Neuropatía óptica isquémica anterior no arterítica (NOIA-NA)","Oclusión de arteria central de retina (OACR)"],
+    ans:0,
     exp:"La oclusión de vena central de retina (OVCR) se presenta con pérdida visual súbita no dolorosa y el fondo de ojo característico: hemorragias en llama y en mancha en los 4 cuadrantes (distribución 'tormenta de sangre' o 'fondo en tomate aplastado'), tortuosidad venosa marcada, edema de papila y manchas algodonosas. La pérdida visual es variable según el tipo: isquémica (>10 DD sin perfusión) tiene peor pronóstico. La OACR da fondo pálido con mancha rojo cereza (sin hemorragias). La NOIA da disco pálido edematoso sin hemorragias en los 4 cuadrantes.",
     tip:"<strong>OVCR = 'tormenta de sangre' en los 4 cuadrantes.</strong> Diferencias clave:<br>• OVCR: hemorragias en 4 cuadrantes + venas tortuosas + edema de disco<br>• OACR: fondo pálido + mancha rojo cereza + sin hemorragias<br>• NOIA: disco pálido con edema segmentario + defecto pupilar aferente<br>• Oclusión de rama venosa (ORVR): hemorragias solo en el cuadrante del vaso ocluido",
     ref:"GPC: Diagnóstico y tratamiento de la oclusión venosa de retina. CENETEC. 2013."
@@ -445,8 +445,8 @@ const questions = [
   {
     cat:"ovr", catName:"Oclusión Venosa de Retina",
     q:"¿Cuál es el factor de riesgo sistémico más frecuentemente asociado a la oclusión venosa de retina que debe investigarse y controlarse prioritariamente según la GPC?",
-    opts:["Diabetes mellitus tipo 2","Hipertensión arterial sistémica","Dislipidemia (hipercolesterolemia)","Tabaquismo activo"],
-    ans:1,
+    opts:["Diabetes mellitus tipo 2","Tabaquismo activo","Dislipidemia (hipercolesterolemia)","Hipertensión arterial sistémica"],
+    ans:3,
     exp:"La hipertensión arterial es el factor de riesgo sistémico más frecuente en la oclusión venosa de retina, presente en el 60-75% de los casos de OVCR y en ~50% de las oclusiones de rama (ORVR). La HTA produce cambios arterioscleróticos en las arterias retinianas que comprimen las venas en los cruces arteriovenosos (signo de Gunn), aumentando la resistencia al flujo venoso y predisponiendo a la trombosis. La GPC recomienda evaluación cardiológica completa en todo paciente con OVR para identificar y tratar factores de riesgo cardiovascular.",
     tip:"<strong>HTA = principal FR de la oclusión venosa de retina.</strong> Ante todo paciente con OVR: medir presión arterial, solicitar perfil lipídico, glucemia, biometría y coagulación. En jóvenes (<50 años): buscar trombofilia (factor V Leiden, proteína C y S, anticoagulante lúpico). El signo de Gunn (cruce arteriovenoso con compresión venosa) es el mecanismo fisiopatológico de la HTA en la OVR.",
     ref:"GPC: Diagnóstico y tratamiento de la oclusión venosa de retina. CENETEC. 2013."
@@ -454,8 +454,8 @@ const questions = [
   {
     cat:"ovr", catName:"Oclusión Venosa de Retina",
     q:"Paciente con OVCR no isquémica desarrolla edema macular que reduce su agudeza visual de 20/25 a 20/200 en 4 semanas. ¿Cuál es el tratamiento de primera línea para el edema macular secundario a OVCR según la evidencia actual?",
-    opts:["Fotocoagulación retiniana en rejilla (láser) en el área macular","Inyección intravítrea de anti-VEGF (bevacizumab, ranibizumab o aflibercept)","Corticosteroide oral (prednisona 60 mg/día)","Observación por 3 meses — el edema resuelve espontáneamente en la mayoría"],
-    ans:1,
+    opts:["Inyección intravítrea de anti-VEGF (bevacizumab, ranibizumab o aflibercept)","Fotocoagulación retiniana en rejilla (láser) en el área macular","Corticosteroide oral (prednisona 60 mg/día)","Observación por 3 meses — el edema resuelve espontáneamente en la mayoría"],
+    ans:0,
     exp:"El edema macular es la principal causa de pérdida visual en la OVCR. Las inyecciones intravítreas de anti-VEGF (especialmente ranibizumab y aflibercept, aprobados por FDA para esta indicación; bevacizumab off-label) son el tratamiento de primera línea actual según la GPC y las guías internacionales. Los estudios CRUISE (ranibizumab) y GALILEO/COPERNICUS (aflibercept) demostraron mejoría significativa de agudeza visual vs observación. El implante intravítreo de dexametasona (Ozurdex) es alternativa eficaz, especialmente en pseudofáquicos. La fotocoagulación en rejilla fue desplazada por los anti-VEGF.",
     tip:"<strong>Edema macular por OVCR: anti-VEGF = 1ª línea.</strong> Diferencia con OACR: en la oclusión ARTERIAL no hay tratamiento efectivo establecido — es una verdadera urgencia que debe tratarse en minutos (masaje ocular, paracentesis, O₂) pero con resultados decepcionantes. En la VENOSA hay tiempo y el anti-VEGF da buenos resultados. El implante de dexametasona (Ozurdex) es buena opción si anti-VEGF no disponible o en pseudofáquicos.",
     ref:"GPC: Diagnóstico y tratamiento de la oclusión venosa de retina. CENETEC. 2013."

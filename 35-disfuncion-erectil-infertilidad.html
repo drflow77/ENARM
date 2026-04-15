@@ -189,8 +189,8 @@ const questions = [
   {
     cat:"de", catName:"Disfunción Eréctil",
     q:"Hombre de 55 años con DM tipo 2 de 10 años de evolución, HTA y tabaquismo activo, refiere incapacidad para mantener erecciones suficientes para la relación sexual en los últimos 8 meses. ¿Cuál es la causa más probable de su disfunción eréctil?",
-    opts:["Psicógena por estrés laboral","Orgánica vasculogénica por daño endotelial","Neurógena por neuropatía autonómica aislada","Hormonal por hipogonadismo primario"],
-    ans:1,
+    opts:["Psicógena por estrés laboral","Hormonal por hipogonadismo primario","Neurógena por neuropatía autonómica aislada","Orgánica vasculogénica por daño endotelial"],
+    ans:3,
     exp:"La disfunción eréctil (DE) orgánica vasculogénica es la causa más frecuente en pacientes con factores de riesgo cardiovascular. La DM, HTA y tabaco dañan el endotelio vascular y reducen la producción de óxido nítrico (NO), que es el principal mediador de la relajación del músculo liso cavernoso. La DM además causa neuropatía autonómica que afecta la inervación parasimpática del pene. La presencia de erecciones matutinas preservadas orienta a etiología psicógena; su ausencia sugiere causa orgánica.",
     tip:"<strong>DE orgánica vs psicógena:</strong> Orgánica: inicio gradual, afecta todas las situaciones (masturbación, matutinas, coito), factores de riesgo CV presentes. Psicógena: inicio súbito, situacional (falla con pareja pero erecciones espontáneas presentes), asociada a ansiedad o evento precipitante. La prueba de tumescencia peneana nocturna (RigiScan) diferencia ambas.",
     ref:"GPC: Diagnóstico y tratamiento de disfunción eréctil. CENETEC."
@@ -198,8 +198,8 @@ const questions = [
   {
     cat:"dx_de", catName:"Diagnóstico/FR",
     q:"¿Cuál de los siguientes fármacos es causa reconocida de disfunción eréctil que debe investigarse antes de iniciar tratamiento específico?",
-    opts:["Metformina","Tiazidas / beta-bloqueadores / antidepresivos ISRS","Estatinas","Inhibidores de la ECA"],
-    ans:1,
+    opts:["Metformina","Inhibidores de la ECA","Estatinas","Tiazidas / beta-bloqueadores / antidepresivos ISRS"],
+    ans:3,
     exp:"Varios fármacos de uso frecuente causan DE: diuréticos tiazídicos (espironolactona es el más asociado), beta-bloqueadores no selectivos (disminuyen flujo cavernoso y libido), antidepresivos ISRS (retrasan/inhiben orgasmo y erección), antipsicóticos (hiperprolactinemia), antiandrógenos y finasterida. Antes de iniciar inhibidores de PDE-5, la GPC recomienda revisar la medicación y considerar cambiar fármacos causantes si es posible.",
     tip:"<strong>Fármacos que causan DE — top ENARM:</strong> Espironolactona (antiandrogénico), ISRS (fluoxetina, sertralina), antipsicóticos (risperidona → hiperprolactinemia), beta-bloqueadores (propranolol > cardioselectivos), tiazidas. Los IECA, estatinas y metformina NO causan DE — de hecho mejorar el control metabólico puede mejorar la función eréctil.",
     ref:"GPC: Diagnóstico y tratamiento de disfunción eréctil. CENETEC."
@@ -207,8 +207,8 @@ const questions = [
   {
     cat:"dx_de", catName:"Diagnóstico/FR",
     q:"Hombre de 48 años con DE consulta. Niega factores de riesgo cardiovascular. ¿Qué estudios básicos solicita la GPC en la evaluación inicial?",
-    opts:["Solo testosterona total sérica","Glucosa, perfil lipídico, testosterona total y PSA en >40 años","Biopsia testicular y cariotipo de entrada","Arteriografía peneana como primer estudio"],
-    ans:1,
+    opts:["Glucosa, perfil lipídico, testosterona total y PSA en >40 años","Solo testosterona total sérica","Biopsia testicular y cariotipo de entrada","Arteriografía peneana como primer estudio"],
+    ans:0,
     exp:"La evaluación inicial de la DE según la GPC incluye: glucosa (descartar DM no diagnosticada), perfil lipídico (dislipidemia), testosterona total matutina (hipogonadismo), y en mayores de 40 años PSA antes de iniciar terapia con testosterona. Si la testosterona total es baja (<300 ng/dL), se confirma con segunda determinación y se agregan LH y FSH para clasificar el hipogonadismo. La arteriografía es estudio de tercera línea para casos quirúrgicos.",
     tip:"<strong>Testosterona en DE:</strong> El hipogonadismo causa DE por reducción del deseo y alteración de la síntesis de NO cavernoso. Solicitar testosterona matutina (pico entre 8-10am). Si baja: repetir + LH/FSH. LH/FSH bajas → hipogonadismo hipogonadotrópico (hipofisario). LH/FSH altas → falla testicular primaria (hipergonadotrópico). Prolactina si LH/FSH bajas para descartar prolactinoma.",
     ref:"GPC: Diagnóstico y tratamiento de disfunción eréctil. CENETEC."
@@ -216,8 +216,8 @@ const questions = [
   {
     cat:"tx_de", catName:"Tratamiento DE",
     q:"¿Cuál es el tratamiento farmacológico de primera línea para la disfunción eréctil según la GPC?",
-    opts:["Alprostadil intracavernoso","Inhibidores de fosfodiesterasa tipo 5 (sildenafil, tadalafil, vardenafil)","Testosterona exógena en todos los pacientes","Yohimbina oral"],
-    ans:1,
+    opts:["Alprostadil intracavernoso","Testosterona exógena en todos los pacientes","Inhibidores de fosfodiesterasa tipo 5 (sildenafil, tadalafil, vardenafil)","Yohimbina oral"],
+    ans:2,
     exp:"Los inhibidores de PDE-5 (iPDE-5) son la primera línea de tratamiento para la DE de cualquier etiología. Actúan inhibiendo la degradación del GMPc en el músculo liso cavernoso, potenciando el efecto del NO liberado durante la estimulación sexual. Requieren estimulación sexual para funcionar (no producen erección espontánea). Sildenafil (inicio 30-60 min, duración 4-6h), tadalafil (inicio 30 min, duración hasta 36h — 'fin de semana'), vardenafil y avanafil son las opciones disponibles.",
     tip:"<strong>iPDE-5: contraindicación ABSOLUTA con nitratos.</strong> La combinación produce hipotensión severa potencialmente fatal. Contraindicados también con guanilato ciclasa estimuladores (riociguat). Precaución con alfa-bloqueadores (hipotensión aditiva). El tadalafil diario (5 mg) es útil también para síntomas del tracto urinario inferior por HPB — doble beneficio en el paciente con HPB + DE.",
     ref:"GPC: Diagnóstico y tratamiento de disfunción eréctil. CENETEC."
@@ -225,8 +225,8 @@ const questions = [
   {
     cat:"tx_de", catName:"Tratamiento DE",
     q:"Paciente con DE severa no responde a dosis máxima de sildenafil. ¿Cuál es el siguiente escalón terapéutico según la GPC?",
-    opts:["Cambiar a tadalafil y esperar 6 meses más","Alprostadil intrauretral (MUSE) o inyección intracavernosa","Prótesis peneana inmediata","Psicoterapia exclusiva"],
-    ans:1,
+    opts:["Cambiar a tadalafil y esperar 6 meses más","Prótesis peneana inmediata","Alprostadil intrauretral (MUSE) o inyección intracavernosa","Psicoterapia exclusiva"],
+    ans:2,
     exp:"El manejo escalonado de la DE es: 1ª línea: iPDE-5 + modificación de factores de riesgo + psicosexología. 2ª línea: alprostadil intrauretral (MUSE: 125-1000 mcg) o inyección intracavernosa de alprostadil (prostaglandina E1) o combinaciones (bimix/trimix). 3ª línea: prótesis peneana inflable o malleable (cuando falla la terapia médica). El alprostadil intracavernoso tiene eficacia de 70-80% incluso en pacientes que no responden a iPDE-5.",
     tip:"<strong>Prótesis peneana: última opción pero alta satisfacción.</strong> La prótesis inflable de 3 piezas tiene 90-95% de satisfacción a largo plazo. Indicación: falla de segunda línea O elección del paciente. Contraindicada en infección activa, coagulopatía no controlada. Una vez implantada, el tejido eréctil se fibrosa — no hay retorno a erección natural.",
     ref:"GPC: Diagnóstico y tratamiento de disfunción eréctil. CENETEC."
@@ -234,8 +234,8 @@ const questions = [
   {
     cat:"tx_de", catName:"Tratamiento DE",
     q:"Hombre de 35 años llega a urgencias con erección dolorosa de 5 horas sin estimulación sexual. ¿Cuál es el diagnóstico y el manejo inmediato?",
-    opts:["Priapismo isquémico (bajo flujo): aspiración del cuerpo cavernoso + fenilefrina intracavernosa","Priapismo no isquémico (alto flujo): cirugía inmediata","Parafimosis: reducción manual urgente","Torsión testicular: exploración quirúrgica urgente"],
-    ans:0,
+    opts:["Priapismo no isquémico (alto flujo): cirugía inmediata","Priapismo isquémico (bajo flujo): aspiración del cuerpo cavernoso + fenilefrina intracavernosa","Parafimosis: reducción manual urgente","Torsión testicular: exploración quirúrgica urgente"],
+    ans:1,
     exp:"El priapismo isquémico (bajo flujo, venooclusivo) es una emergencia urológica que ocurre por oclusión del drenaje venoso cavernoso con hipoxia tisular progresiva. Después de 4-6 horas hay daño irreversible del músculo liso cavernoso con riesgo de fibrosis y DE permanente. El tratamiento es aspiración del cuerpo cavernoso seguida de inyección intracavernosa de fenilefrina (alfa-1 agonista que produce vasoconstricción y facilita el drenaje). Si falla: shunt quirúrgico.",
     tip:"<strong>Priapismo isquémico vs no isquémico:</strong> Isquémico (90%): doloroso, sangre oscura en aspirado (pO2 baja), causa: drepanocitosis, fármacos (trazodona, antipsicóticos, alprostadil), idiopático. No isquémico (10%): indoloro, por fístula arteriovenosa post-traumática, sangre roja en aspirado. Tiempo es tejido: cada hora sin tratamiento aumenta el riesgo de DE permanente.",
     ref:"GPC: Diagnóstico y tratamiento de disfunción eréctil. CENETEC."
@@ -243,8 +243,8 @@ const questions = [
   {
     cat:"inf", catName:"Infertilidad Masculina",
     q:"¿Cuál es la definición correcta de infertilidad de pareja según la OMS y cuándo se evalúa al varón?",
-    opts:["Ausencia de embarazo tras 6 meses de RS sin protección; varón se evalúa al año","Ausencia de embarazo tras 12 meses de RS regulares sin protección; varón se evalúa desde el inicio junto con la mujer","Solo se evalúa al varón si la mujer tiene ciclos normales","Ausencia de embarazo tras 24 meses; varón se evalúa si hay azoospermia en espermograma previo"],
-    ans:1,
+    opts:["Ausencia de embarazo tras 12 meses de RS regulares sin protección; varón se evalúa desde el inicio junto con la mujer","Ausencia de embarazo tras 6 meses de RS sin protección; varón se evalúa al año","Solo se evalúa al varón si la mujer tiene ciclos normales","Ausencia de embarazo tras 24 meses; varón se evalúa si hay azoospermia en espermograma previo"],
+    ans:0,
     exp:"La OMS define infertilidad como la incapacidad de lograr embarazo después de 12 meses de relaciones sexuales regulares sin uso de anticonceptivos en parejas en edad reproductiva. El estudio debe ser simultáneo de ambos miembros desde el inicio, ya que el factor masculino contribuye al 40-50% de los casos. En mayores de 35 años (ella) o con factores de riesgo conocidos, la evaluación puede iniciarse a los 6 meses.",
     tip:"<strong>Factor masculino: más frecuente de lo que se cree.</strong> 40% factor masculino exclusivo, 20% factor mixto. El espermograma es el estudio inicial obligatorio del varón — barato, no invasivo y muy informativo. Nunca evaluar solo a la mujer sin estudiar al varón simultáneamente. La GPC enfatiza el enfoque de pareja.",
     ref:"GPC: Diagnóstico y tratamiento de infertilidad masculina. CENETEC."
@@ -261,8 +261,8 @@ const questions = [
   {
     cat:"inf", catName:"Infertilidad Masculina",
     q:"Hombre de 28 años con infertilidad primaria de 2 años. Al examen: testículos pequeños y firmes, ginecomastia. Espermograma: azoospermia. ¿Cuál es el diagnóstico más probable?",
-    opts:["Hipogonadismo hipogonadotrópico (síndrome de Kallmann)","Síndrome de Klinefelter (47,XXY)","Obstrucción bilateral de conductos deferentes","Eyaculación retrógrada"],
-    ans:1,
+    opts:["Síndrome de Klinefelter (47,XXY)","Hipogonadismo hipogonadotrópico (síndrome de Kallmann)","Obstrucción bilateral de conductos deferentes","Eyaculación retrógrada"],
+    ans:0,
     exp:"El síndrome de Klinefelter (47,XXY) es la causa genética más frecuente de azoospermia no obstructiva. Presenta: testículos pequeños y firmes (<4 mL), ginecomastia (por conversión periférica de testosterona a estradiol), azoospermia, testosterona baja, FSH y LH muy elevadas. El diagnóstico se confirma con cariotipo. A pesar de la azoospermia, en algunos casos se pueden recuperar espermatozoides con biopsia testicular (TESE) para FIV/ICSI.",
     tip:"<strong>Klinefelter: la tríada clásica.</strong> Testículos pequeños + ginecomastia + azoospermia = Klinefelter hasta demostrar lo contrario. La FSH muy elevada (>15 UI/L) indica daño testicular primario severo. Riesgo aumentado de: cáncer de mama, osteoporosis, síndrome metabólico. El tratamiento con testosterona mejora síntomas pero no restaura la fertilidad.",
     ref:"GPC: Diagnóstico y tratamiento de infertilidad masculina. CENETEC."
@@ -270,8 +270,8 @@ const questions = [
   {
     cat:"esp", catName:"Espermograma/Causas",
     q:"¿Cuáles son los valores normales del espermograma según los criterios de la OMS 2021?",
-    opts:["Concentración >20 mill/mL, motilidad >50%, morfología >14% (Kruger)","Concentración >15 mill/mL, motilidad progresiva >32%, morfología normal >4% (Kruger estricto)","Concentración >10 mill/mL, motilidad >40%, morfología >10%","Concentración >5 mill/mL, motilidad >25%, morfología >2%"],
-    ans:1,
+    opts:["Concentración >20 mill/mL, motilidad >50%, morfología >14% (Kruger)","Concentración >10 mill/mL, motilidad >40%, morfología >10%","Concentración >15 mill/mL, motilidad progresiva >32%, morfología normal >4% (Kruger estricto)","Concentración >5 mill/mL, motilidad >25%, morfología >2%"],
+    ans:2,
     exp:"Los valores de referencia OMS 2021 (5to percentil) son: volumen >1.4 mL, pH 7.2-8.0, concentración >16 millones/mL, recuento total >39 millones por eyaculado, motilidad progresiva (PR) >30%, motilidad total (PR+NP) >42%, morfología normal >4% (criterio estricto de Kruger), vitalidad >54%. Un espermograma con valores bajo estos límites se denomina según el parámetro alterado: oligospermia, astenospermia, teratospermia, o combinaciones (OAT).",
     tip:"<strong>Terminología del espermograma — ENARM:</strong> Oligo: concentración baja. Asteno: motilidad baja. Terato: morfología anormal. Azoospermia: sin espermatozoides. Criptozoospermia: <1 mill/mL (centrifugar para encontrarlos). OAT síndrome (oligo-asteno-teratozoospermia): combinación de los tres, común en varicocele severo y causa genética.",
     ref:"GPC: Diagnóstico y tratamiento de infertilidad masculina. CENETEC."
@@ -288,8 +288,8 @@ const questions = [
   {
     cat:"esp", catName:"Espermograma/Causas",
     q:"Hombre de 32 años con azoospermia y agenesia bilateral de conductos deferentes (CBAVD). ¿Qué condición sistémica debe descartarse obligatoriamente?",
-    opts:["Diabetes mellitus tipo 1","Fibrosis quística (mutaciones CFTR)","Hipertiroidismo","Enfermedad de Crohn"],
-    ans:1,
+    opts:["Fibrosis quística (mutaciones CFTR)","Diabetes mellitus tipo 1","Hipertiroidismo","Enfermedad de Crohn"],
+    ans:0,
     exp:"La agenesia congénita bilateral de conductos deferentes (CBAVD) es la presentación genitourinaria de la fibrosis quística (FQ). Hasta el 98% de los hombres con FQ tienen CBAVD. Además, 60-70% de hombres con CBAVD aislada (sin FQ clínica) tienen al menos una mutación del gen CFTR. Por esto, todo paciente con CBAVD debe realizarse estudio genético de mutaciones CFTR y evaluación pulmonar. La pareja también debe estudiarse genéticamente antes de técnicas de reproducción asistida.",
     tip:"<strong>CBAVD + CFTR = siempre buscar FQ.</strong> Si el paciente tiene CBAVD y la pareja es portadora de CFTR, el riesgo de FQ en el hijo es 25-50%. En CBAVD: testículos normales, epidididmos palpables, FSH normal, pero ausencia de conductos deferentes al tacto. Los espermatozoides pueden recuperarse del epidídimo (PESA/MESA) para ICSI — tienen función normal.",
     ref:"GPC: Diagnóstico y tratamiento de infertilidad masculina. CENETEC."
@@ -306,8 +306,8 @@ const questions = [
   {
     cat:"inf", catName:"Infertilidad Masculina",
     q:"Hombre de 25 años con anosmia desde la infancia, testículos pequeños y azoospermia. LH=0.5 UI/L, FSH=0.8 UI/L, testosterona=85 ng/dL. ¿Cuál es el diagnóstico y el tratamiento para lograr fertilidad?",
-    opts:["Klinefelter: TESE + ICSI","Síndrome de Kallmann: gonadotrofinas exógenas (hCG + FSH recombinante)","Obstrucción bilateral: vasoepididimostomía","Criptorquidia: orquidopexia tardía"],
-    ans:1,
+    opts:["Klinefelter: TESE + ICSI","Obstrucción bilateral: vasoepididimostomía","Síndrome de Kallmann: gonadotrofinas exógenas (hCG + FSH recombinante)","Criptorquidia: orquidopexia tardía"],
+    ans:2,
     exp:"El síndrome de Kallmann es un hipogonadismo hipogonadotrópico congénito causado por déficit de GnRH con anosmia asociada (falla en la migración neuronal olfatoria y gonadotrópica). Se presenta con: hipogonadismo (LH y FSH bajas), testosterona baja, azoospermia y anosmia (diagnóstico diferencial clave). A diferencia de otros hipogonadismos, la espermatogénesis puede inducirse con gonadotrofinas exógenas: hCG (estimula LH → testosterona) + FSH recombinante (estimula espermatogénesis), logrando espermatozoides y embarazos en 70-80%.",
     tip:"<strong>Kallmann vs Klinefelter — diferencias clave ENARM:</strong> Kallmann: anosmia + LH/FSH bajas + tratable con gonadotrofinas (espermatogénesis inducible). Klinefelter: ginecomastia + LH/FSH MUY altas + cariotipo 47,XXY + no tratable médicamente (TESE si hay focos de espermatogénesis). La anosmia en un hombre joven con hipogonadismo = Kallmann hasta demostrar lo contrario.",
     ref:"GPC: Diagnóstico y tratamiento de infertilidad masculina. CENETEC."
@@ -315,8 +315,8 @@ const questions = [
   {
     cat:"esp", catName:"Espermograma/Causas",
     q:"Pareja con infertilidad de 18 meses. Espermograma: volumen 0.5 mL, pH 6.5, azoospermia. ¿Cuál es la causa más probable?",
-    opts:["Azoospermia no obstructiva por falla testicular primaria","Obstrucción/agenesia de vesículas seminales o conductos eyaculadores","Varicocele bilateral severo","Hipogonadismo hipogonadotrópico"],
-    ans:1,
+    opts:["Azoospermia no obstructiva por falla testicular primaria","Hipogonadismo hipogonadotrópico","Varicocele bilateral severo","Obstrucción/agenesia de vesículas seminales o conductos eyaculadores"],
+    ans:3,
     exp:"El patrón de volumen bajo (<1.5 mL) + pH ácido (<7.2) + azoospermia es clásico de obstrucción o agenesia de las vesículas seminales y/o conductos eyaculadores. Las vesículas seminales contribuyen al 70% del volumen seminal y al pH alcalino (fructosa, prostaglandinas). Si están ausentes/bloqueadas: volumen bajo, pH ácido, ausencia de fructosa en análisis seminal. La agenesia de conductos deferentes (CBAVD) da un patrón similar. USG transrectal confirma la anomalía.",
     tip:"<strong>Volumen seminal bajo: diagnóstico diferencial.</strong> <1.5 mL + pH ácido + azoospermia → problema de vesículas seminales/conductos eyaculadores (congénito o infeccioso). <1.5 mL + pH normal + azoospermia → eyaculación retrógrada (analizar orina post-orgasmo) o hipoandrogenismo. Eyaculación retrógrada: antecedente de RTU-P, DM avanzada, simpaticolíticos — se diagnostica con espermatozoides en orina postorgasmo.",
     ref:"GPC: Diagnóstico y tratamiento de infertilidad masculina. CENETEC."

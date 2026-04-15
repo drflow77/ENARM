@@ -200,8 +200,8 @@ const questions = [
   {
     cat:"panc", catName:"Cáncer de Páncreas",
     q:"Hombre de 62 años presenta ictericia progresiva, indolora y pérdida de peso de 8 kg en 2 meses. A la exploración física se palpa vesícula biliar distendida, no dolorosa. ¿Cómo se denomina este signo y qué localización tumoral sugiere?",
-    opts:["Signo de Murphy → colecistitis aguda","Signo de Courvoisier-Terrier → tumor de cabeza de páncreas","Signo de Blumberg → apendicitis aguda","Signo de Boas → cólico biliar"],
-    ans:1,
+    opts:["Signo de Murphy → colecistitis aguda","Signo de Boas → cólico biliar","Signo de Blumberg → apendicitis aguda","Signo de Courvoisier-Terrier → tumor de cabeza de páncreas"],
+    ans:3,
     exp:"El signo de Courvoisier-Terrier (vesícula biliar palpable, distendida y no dolorosa en contexto de ictericia obstructiva) es altamente sugestivo de obstrucción extrínseca de la vía biliar por tumor, clásicamente adenocarcinoma de cabeza de páncreas. A diferencia de la coledocolitiasis, donde la vesícula está fibrótica y no se palpa (Ley de Courvoisier). El 70% de los adenocarcinomas pancreáticos se originan en la cabeza del páncreas.",
     tip:"<strong>Ley de Courvoisier:</strong> Ictericia + vesícula palpable NO dolorosa = tumor, NO cálculo. En coledocolitiasis la vesícula está fibrosada por inflamación crónica y no se distiende. En tumor: vía biliar obstruida desde afuera → vesícula sana se distiende. Regla mnemotécnica: 'Si duele = cálculo; si no duele y se palpa = tumor'.",
     ref:"GPC: Diagnóstico y tratamiento de adenocarcinoma de páncreas. SSA México, 2009."
@@ -236,8 +236,8 @@ const questions = [
   {
     cat:"cx", catName:"Cirugía Pancreática",
     q:"¿Cuál es la cirugía de elección para el adenocarcinoma de cabeza de páncreas resecable?",
-    opts:["Pancreatectomía total","Pancreatoduodenectomía (operación de Whipple)","Pancreatectomía distal con esplenectomía","Derivación biliodigestiva paliativa"],
-    ans:1,
+    opts:["Pancreatoduodenectomía (operación de Whipple)","Pancreatectomía total","Pancreatectomía distal con esplenectomía","Derivación biliodigestiva paliativa"],
+    ans:0,
     exp:"La pancreatoduodenectomía (operación de Whipple) es la cirugía estándar para tumores de la cabeza del páncreas. Incluye resección de la cabeza pancreática, duodeno completo, primera porción del yeyuno, vesícula biliar, colédoco distal y en ocasiones el antro gástrico (Whipple clásico) o preservación del píloro (pylorus-preserving Whipple). La GPC establece que es el único tratamiento potencialmente curativo con tasa de resección R0 del 80-90% en centros especializados.",
     tip:"<strong>Whipple = cabeza. Distal = cuerpo/cola.</strong> La técnica preservadora de píloro tiene igual resultado oncológico con menor dumping. La mortalidad operatoria en centros de alto volumen (&gt;20 Whipple/año) es &lt;5%. Complicación #1: fístula pancreática (20-30%). El volumen del centro importa: a mayor experiencia, menor mortalidad.",
     ref:"GPC: Diagnóstico y tratamiento de adenocarcinoma de páncreas. SSA México, 2009."
@@ -245,8 +245,8 @@ const questions = [
   {
     cat:"cx", catName:"Cirugía Pancreática",
     q:"Paciente que se somete a pancreatoduodenectomía de Whipple presenta al 5° día postoperatorio drenaje con amilasa >3 veces el límite superior de lo normal. ¿Cuál es el diagnóstico y la complicación más frecuente de esta cirugía?",
-    opts:["Hemorragia postpancreatectomía","Vaciamiento gástrico retardado","Fístula pancreática postoperatoria","Colección intraabdominal infectada"],
-    ans:2,
+    opts:["Hemorragia postpancreatectomía","Fístula pancreática postoperatoria","Vaciamiento gástrico retardado","Colección intraabdominal infectada"],
+    ans:1,
     exp:"La fístula pancreática postoperatoria (FPPO) es la complicación más frecuente y temida de la pancreatoduodenectomía, con incidencia del 15-30%. Se define según el International Study Group on Pancreatic Fistula (ISGPF) como drenaje con amilasa >3 veces el límite superior normal en el día 3 o posterior. Se clasifica en Grado A (bioquímica, sin relevancia clínica), B (requiere cambio de manejo) y C (consecuencias graves, reoperación). El riesgo aumenta con páncreas blando, conducto pequeño y etiología no ductal.",
     tip:"<strong>Factores de riesgo de fístula pancreática:</strong> Páncreas blando (textura suave al tacto = mayor riesgo), conducto de Wirsung delgado (&lt;3mm), patología no ductal (tumor quístico, endocrino). La 'pancreatic fistula risk score' usa estos 4 factores + pérdida de sangre. Tratamiento: octreótide para disminuir secreción pancreática, drenaje percutáneo en Grado B/C.",
     ref:"GPC: Diagnóstico y tratamiento de adenocarcinoma de páncreas. SSA México, 2009."
@@ -254,8 +254,8 @@ const questions = [
   {
     cat:"panc", catName:"Cáncer de Páncreas",
     q:"Mujer de 55 años con diabetes mellitus de nueva aparición en los últimos 3 meses, sin antecedentes familiares de DM, y pérdida de peso de 6 kg. ¿Qué patología debe descartarse de manera prioritaria?",
-    opts:["Diabetes mellitus tipo 2 idiopática","Adenocarcinoma de páncreas","Insulinoma","Síndrome de Cushing"],
-    ans:1,
+    opts:["Diabetes mellitus tipo 2 idiopática","Síndrome de Cushing","Insulinoma","Adenocarcinoma de páncreas"],
+    ans:3,
     exp:"La diabetes mellitus de nueva aparición en mayores de 50 años, especialmente acompañada de pérdida de peso, debe hacer sospechar adenocarcinoma de páncreas. El tumor destruye el parénquima pancreático exocrino y las células beta, o genera resistencia a la insulina por factores paracrinos. Hasta el 80% de los pacientes con cáncer pancreático tienen alteraciones glucémicas. La GPC menciona la DM de nuevo inicio como síntoma paraneoplásico de alerta.",
     tip:"<strong>Signos de alarma del cáncer de páncreas:</strong> Ictericia indolora + vesícula palpable (cabeza), dolor dorsal irradiado a cinturón + pérdida de peso (cuerpo/cola), DM de novo en >50 años, tromboflebitis migratoria (signo de Trousseau), depresión inexplicable. Los tumores de cuerpo/cola son más tardíos porque no obstruyen la vía biliar y se diagnostican en etapas avanzadas.",
     ref:"GPC: Diagnóstico y tratamiento de adenocarcinoma de páncreas. SSA México, 2009."
@@ -263,8 +263,8 @@ const questions = [
   {
     cat:"diag", catName:"Diagnóstico/Estadificación",
     q:"Se detecta en TC abdominal una lesión quística pancreática multilocular en cabeza del páncreas, con contenido mucinoso en CPRE, en mujer de 50 años asintomática. ¿Cuál es el diagnóstico más probable y su potencial maligno?",
-    opts:["Cistoadenoma seroso: lesión benigna, manejo conservador","Cistoadenoma mucinoso: potencial maligno, requiere resección quirúrgica","IPMN de conducto principal: alto riesgo de malignidad, resección obligatoria","Pseudoquiste pancreático: post-inflamatorio, drenaje endoscópico"],
-    ans:1,
+    opts:["Cistoadenoma seroso: lesión benigna, manejo conservador","IPMN de conducto principal: alto riesgo de malignidad, resección obligatoria","Cistoadenoma mucinoso: potencial maligno, requiere resección quirúrgica","Pseudoquiste pancreático: post-inflamatorio, drenaje endoscópico"],
+    ans:2,
     exp:"El cistoadenoma mucinoso (tumor mucinoso quístico o TCM) afecta predominantemente a mujeres de mediana edad, se localiza en cuerpo y cola del páncreas, y tiene potencial de malignización del 15-30%. Se caracteriza por contenido mucinoso y estroma ovárico. La GPC y las guías internacionales (IAP, ACG) recomiendan la resección quirúrgica electiva por su potencial maligno, independientemente del tamaño. A diferencia del cistoadenoma seroso que es benigno y se puede observar.",
     tip:"<strong>Tumores quísticos pancreáticos: clasificación rápida:</strong> Cistoadenoma SEROSO = benigno, aspecto 'panal de abeja', en ancianas, observar. Cistoadenoma MUCINOSO = potencial maligno, mujeres 40-60 años, cuerpo/cola, OPERAR. IPMN conducto principal = alto riesgo malignidad, dilatación del Wirsung, OPERAR siempre. IPMN rama lateral = bajo riesgo, vigilar con criterios de Fukuoka.",
     ref:"GPC: Diagnóstico y tratamiento de adenocarcinoma de páncreas. SSA México, 2009."
@@ -272,8 +272,8 @@ const questions = [
   {
     cat:"tras", catName:"Trasplante Hepático",
     q:"¿Cuál es el score que se utiliza actualmente para priorizar a los pacientes en lista de espera para trasplante hepático por enfermedad crónica hepática?",
-    opts:["Score de Child-Pugh","Score MELD (Model for End-stage Liver Disease)","Score de Glasgow","Score APACHE II"],
-    ans:1,
+    opts:["Score MELD (Model for End-stage Liver Disease)","Score de Child-Pugh","Score de Glasgow","Score APACHE II"],
+    ans:0,
     exp:"El score MELD (Model for End-stage Liver Disease) es el sistema actualmente utilizado para priorizar la asignación de órganos en trasplante hepático. Calcula la probabilidad de mortalidad a 90 días usando creatinina sérica, bilirrubina total e INR. La fórmula es: MELD = 9.57 × ln(creatinina) + 3.78 × ln(bilirrubina) + 11.20 × ln(INR) + 6.43. Un MELD ≥15 es la indicación estándar para trasplante hepático según la GPC.",
     tip:"<strong>MELD vs Child-Pugh:</strong> Child-Pugh (A, B, C) incluye variables subjetivas (ascitis, encefalopatía). MELD es objetivo y predice mejor la mortalidad a corto plazo. MELD &lt;15: mortalidad perioperatoria del trasplante mayor que beneficio de sobrevida → NO trasplantar aún. MELD ≥15: el trasplante mejora la supervivencia. MELD >40: mortalidad muy alta peri-trasplante.",
     ref:"GPC: Tratamiento nutricional del paciente pretrasplante hepático. SSA México, 2013."
@@ -281,8 +281,8 @@ const questions = [
   {
     cat:"tras", catName:"Trasplante Hepático",
     q:"Paciente con cirrosis hepática por VHC presenta nódulo hepático único de 4 cm confirmado como hepatocarcinoma (HCC). ¿Cumple criterios de Milán para trasplante hepático?",
-    opts:["Sí, cualquier HCC en paciente cirrótico es indicación de trasplante","No, los criterios de Milán solo permiten HCC ≤3 cm","No, excede los criterios de Milán (nódulo único ≤5 cm o máximo 3 nódulos ≤3 cm)","Sí, cumple criterios de Milán porque es nódulo único"],
-    ans:2,
+    opts:["No, excede los criterios de Milán (nódulo único ≤5 cm o máximo 3 nódulos ≤3 cm)","No, los criterios de Milán solo permiten HCC ≤3 cm","Sí, cualquier HCC en paciente cirrótico es indicación de trasplante","Sí, cumple criterios de Milán porque es nódulo único"],
+    ans:0,
     exp:"Los criterios de Milán para trasplante hepático en HCC son: 1 nódulo único ≤5 cm, O hasta 3 nódulos con ninguno >3 cm, sin invasión vascular ni metástasis extrahepáticas. Un nódulo de 4 cm EXCEDE el límite de 3 cm para nódulo único, sin embargo SÍ cumple el criterio de 'nódulo único ≤5 cm'. Por lo tanto, un nódulo único de 4 cm SÍ cumple criterios de Milán. Los criterios de Milán tienen supervivencia a 5 años del 70% y recurrencia <15%.",
     tip:"<strong>Criterios de Milán (memorizar exacto):</strong> Nódulo ÚNICO ≤5 cm, O hasta 3 nódulos con el MAYOR ≤3 cm. Sin invasión vascular macroscópica. Sin metástasis extrahepáticas. Si no cumple Milán → se puede considerar criterios de UCSF (nódulo único ≤6.5 cm o múltiples ≤4.5 cm). El downstaging con TACE/ablación puede permitir cumplir criterios.",
     ref:"GPC: Tratamiento nutricional del paciente pretrasplante hepático. SSA México, 2013."
@@ -290,8 +290,8 @@ const questions = [
   {
     cat:"tras", catName:"Trasplante Hepático",
     q:"Paciente trasplantado hepático presenta al día 10 postrasplante fiebre, ictericia y elevación de transaminasas. La biopsia hepática muestra infiltrado linfocitario portal con daño de ductos biliares. ¿Cuál es el diagnóstico?",
-    opts:["Trombosis de la arteria hepática","Rechazo agudo celular (mediado por linfocitos T)","Rechazo hiperagudo mediado por anticuerpos","Colangitis isquémica"],
-    ans:1,
+    opts:["Trombosis de la arteria hepática","Rechazo hiperagudo mediado por anticuerpos","Rechazo agudo celular (mediado por linfocitos T)","Colangitis isquémica"],
+    ans:2,
     exp:"El rechazo agudo celular es la complicación inmunológica más frecuente después del trasplante hepático, ocurriendo en el 20-50% de los casos, típicamente entre los días 5 y 30 postrasplante. Se caracteriza por infiltrado linfocitario portal (linfocitos T CD4+ y CD8+), endotelitis venosa y colangitis. El diagnóstico se confirma por biopsia hepática con score de Banff ≥5 (Rejection Activity Index). El tratamiento son bolos de metilprednisolona IV.",
     tip:"<strong>Tipos de rechazo hepático:</strong> Hiperagudo (horas, anticuerpos preformados, poco frecuente en hígado). Agudo celular (días-semanas, linfocitos T, más común, tratable con esteroides). Crónico (meses-años, ductopenia, 'vanishing bile duct syndrome', difícilmente reversible). El hígado es relativamente privilegiado inmunológicamente vs riñón/corazón.",
     ref:"GPC: Tratamiento nutricional del paciente pretrasplante hepático. SSA México, 2013."
@@ -299,8 +299,8 @@ const questions = [
   {
     cat:"tras", catName:"Trasplante Hepático",
     q:"¿Cuál es el inmunosupresor de elección como base del tratamiento de mantenimiento tras trasplante hepático?",
-    opts:["Ciclosporina A","Tacrolimus (FK506)","Micofenolato mofetilo","Azatioprina"],
-    ans:1,
+    opts:["Tacrolimus (FK506)","Ciclosporina A","Micofenolato mofetilo","Azatioprina"],
+    ans:0,
     exp:"El tacrolimus (FK506) es el inmunosupresor de elección para mantenimiento tras trasplante hepático. Es un inhibidor de la calcineurina que bloquea la activación de linfocitos T al inhibir la producción de IL-2. Múltiples estudios y metaanálisis demuestran su superioridad sobre ciclosporina en términos de menor tasa de rechazo agudo y mejor supervivencia del injerto. La GPC y las guías internacionales (EASL) lo recomiendan como inmunosupresor primario.",
     tip:"<strong>Esquema de inmunosupresión estándar:</strong> Tacrolimus + Micofenolato mofetilo + Prednisona (triple terapia inicial). Se va retirando progresivamente. Efectos adversos del tacrolimus: nefrotoxicidad, neurotoxicidad, DM postrasplante, hipertensión. Niveles séricos objetivo: 10-15 ng/mL en primer mes, 5-10 ng/mL al año. El micofenolato permite reducir dosis de tacrolimus.",
     ref:"GPC: Tratamiento nutricional del paciente pretrasplante hepático. SSA México, 2013."
@@ -308,8 +308,8 @@ const questions = [
   {
     cat:"nut", catName:"Nutrición/Soporte",
     q:"Paciente en lista de espera para trasplante hepático con cirrosis Child B presenta sarcopenia documentada por TAC. ¿Cuál es el suplemento nutricional con mayor evidencia para mejorar la masa muscular en estos pacientes?",
-    opts:["Suplementos de vitamina D y calcio","Aminoácidos de cadena ramificada (AACR: leucina, isoleucina, valina)","Glutamina intravenosa","Omega-3 y ácidos grasos poliinsaturados"],
-    ans:1,
+    opts:["Suplementos de vitamina D y calcio","Omega-3 y ácidos grasos poliinsaturados","Glutamina intravenosa","Aminoácidos de cadena ramificada (AACR: leucina, isoleucina, valina)"],
+    ans:3,
     exp:"Los aminoácidos de cadena ramificada (AACR: leucina, isoleucina y valina) tienen la mayor evidencia en pacientes cirróticos pretrasplante para mejorar la masa muscular, la encefalopatía hepática y la calidad de vida. La GPC de tratamiento nutricional del paciente pretrasplante hepático 2013 recomienda la suplementación con AACR en pacientes con cirrosis avanzada y sarcopenia. Los AACR se metabolizan en músculo (no hígado), por lo que son seguros en hepatopatía.",
     tip:"<strong>Nutrición en pretrasplante: principios clave.</strong> Objetivo: prevenir sarcopenia (predictor independiente de mortalidad postrasplante). Requerimientos: 35-40 kcal/kg/día, 1.2-1.5 g proteína/kg/día (NO restringir proteínas en cirrosis, el dogma está superado). AACR: útiles en encefalopatía hepática crónica. Snack nocturno de carbohidratos complejos reduce catabolismo nocturno. La sarcopenia duplica la mortalidad postrasplante.",
     ref:"GPC: Tratamiento nutricional del paciente pretrasplante hepático. SSA México, 2013."

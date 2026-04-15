@@ -200,8 +200,8 @@ const questions = [
   {
     cat:"cond", catName:"Hipoacusia Conductiva",
     q:"Paciente de 35 años con hipoacusia progresiva unilateral. La prueba de Rinne muestra que el sonido por vía ósea es más intenso que por vía aérea (Rinne negativo). La prueba de Weber lateraliza hacia el oído afectado. ¿Cuál es el tipo de hipoacusia?",
-    opts:["Hipoacusia neurosensorial","Hipoacusia conductiva","Hipoacusia mixta","Presbiacusia"],
-    ans:1,
+    opts:["Hipoacusia neurosensorial","Presbiacusia","Hipoacusia mixta","Hipoacusia conductiva"],
+    ans:3,
     exp:"La hipoacusia conductiva se caracteriza por Rinne negativo (hueso mayor que aire, lo que indica que la conducción ósea supera a la aérea por obstrucción en el oído externo o medio) y Weber que lateraliza hacia el oído ENFERMO. Esto ocurre porque el oído con hipoacusia conductiva percibe mejor el sonido transmitido por el hueso al estar bloqueada la conducción aérea de ruido ambiental.",
     tip:"<strong>Regla de Weber:</strong> Lateraliza hacia el oído ENFERMO en hipoacusia conductiva (el oído enfermo 'escucha' más el hueso porque no tiene ruido de fondo). Lateraliza hacia el oído SANO en hipoacusia neurosensorial (el oído sano aún funciona, el enfermo no detecta nada).",
     ref:"GPC: Hipoacusia en el recién nacido y tamiz neonatal auditivo. SSA-185-09. 2012."
@@ -209,8 +209,8 @@ const questions = [
   {
     cat:"cond", catName:"Hipoacusia Conductiva",
     q:"¿Cuál de los siguientes hallazgos en la audiometría tonal es CARACTERÍSTICO de la hipoacusia conductiva?",
-    opts:["Curva ósea y aérea superpuestas, ambas por debajo del umbral normal","Curva aérea elevada (por encima del umbral normal) con curva ósea normal: GAP aéreo-óseo presente","Curva ósea elevada con curva aérea normal","Ambas curvas superpuestas y elevadas"],
-    ans:1,
+    opts:["Curva aérea elevada (por encima del umbral normal) con curva ósea normal: GAP aéreo-óseo presente","Curva ósea y aérea superpuestas, ambas por debajo del umbral normal","Curva ósea elevada con curva aérea normal","Ambas curvas superpuestas y elevadas"],
+    ans:0,
     exp:"En la hipoacusia conductiva la cóclea y el nervio auditivo son normales, por lo que la curva ósea permanece dentro de límites normales. El problema está en la conducción del sonido (oído externo o medio), lo que eleva el umbral de la vía aérea. Esto genera un GAP aéreo-óseo: diferencia entre la curva aérea (elevada) y la ósea (normal), que define y cuantifica la hipoacusia conductiva.",
     tip:"<strong>GAP aéreo-óseo:</strong> Es la firma audiométrica de hipoacusia conductiva. Un GAP mayor a 15 dB es clínicamente significativo. Causas frecuentes: tapón de cerumen, otitis media con efusión, perforación timpánica, fijación de la cadena osicular (otosclerosis). El GAP indica cuánto puede recuperarse con cirugía.",
     ref:"GPC: Hipoacusia en el recién nacido y tamiz neonatal auditivo. SSA-185-09. 2012."
@@ -218,8 +218,8 @@ const questions = [
   {
     cat:"cond", catName:"Hipoacusia Conductiva",
     q:"Un paciente presenta hipoacusia conductiva. La impedanciometría muestra un timpanograma tipo B (curva plana, sin pico de compliance). ¿Cuál es el diagnóstico más probable?",
-    opts:["Otosclerosis con fijación del estribo","Otitis media con efusión (derrame en oído medio)","Perforación timpánica grande","Disfunción de la trompa de Eustaquio sin derrame"],
-    ans:1,
+    opts:["Otosclerosis con fijación del estribo","Perforación timpánica grande","Otitis media con efusión (derrame en oído medio)","Disfunción de la trompa de Eustaquio sin derrame"],
+    ans:2,
     exp:"El timpanograma tipo B (plano, sin pico de movilidad) indica ausencia de movimiento del tímpano, lo que ocurre cuando el oído medio está lleno de líquido (otitis media con efusión). El líquido amortigua completamente la vibración del sistema tímpano-osicular. El tipo A es normal (pico en presión 0), el tipo C indica presión negativa por disfunción de trompa (pico desplazado hacia presiones negativas), y el tipo As (pico bajo) sugiere fijación osicular.",
     tip:"<strong>Tipos de timpanograma:</strong> A = Normal. As = Rigidez (otosclerosis). Ad = Hipermóvil (luxación osicular). B = Plano = LÍQUIDO en oído medio. C = Pico negativo = Disfunción trompa. Memoriza B = Bloqueado de líquido. Es el más fácil de identificar en el ENARM.",
     ref:"GPC: Hipoacusia en el recién nacido y tamiz neonatal auditivo. SSA-185-09. 2012."
@@ -227,8 +227,8 @@ const questions = [
   {
     cat:"sens", catName:"Hipoacusia Neurosensorial",
     q:"Paciente de 52 años presenta pérdida auditiva súbita unilateral izquierda de 40 dB en 3 frecuencias consecutivas que inició hace 36 horas, acompañada de acúfeno. La prueba de Rinne es positiva bilateralmente y Weber lateraliza al oído derecho. ¿Cuál es el diagnóstico y la urgencia del manejo?",
-    opts:["Otitis media serosa, manejo ambulatorio diferido","Hipoacusia neurosensorial súbita idiopática, EMERGENCIA médica","Neurinoma del acústico, referir a neurocirugía en 30 días","Presbiacusia bilateral, audífono bilateral"],
-    ans:1,
+    opts:["Otitis media serosa, manejo ambulatorio diferido","Presbiacusia bilateral, audífono bilateral","Neurinoma del acústico, referir a neurocirugía en 30 días","Hipoacusia neurosensorial súbita idiopática, EMERGENCIA médica"],
+    ans:3,
     exp:"La hipoacusia neurosensorial súbita idiopática se define como pérdida auditiva de ≥30 dB en ≥3 frecuencias consecutivas que ocurre en menos de 72 horas. Es una emergencia médica porque el tratamiento dentro de las primeras 72 horas con corticoides sistémicos mejora significativamente el pronóstico. El Weber lateraliza al oído SANO (derecho) porque el oído enfermo (izquierdo) ya no detecta el sonido.",
     tip:"<strong>Criterios diagnósticos de hipoacusia súbita:</strong> ≥30 dB en ≥3 frecuencias en &lt;72 horas. EMERGENCIA. El tiempo es cóclea. Tratamiento dentro de las primeras 72h con prednisolona 1 mg/kg/día máximo 60 mg/día por 10 días. Si no hay respuesta a los 2 semanas: corticoides intratimpánicos de rescate.",
     ref:"GPC: Hipoacusia neurosensorial súbita idiopática. SSA-286-10. 2010."
@@ -245,8 +245,8 @@ const questions = [
   {
     cat:"sens", catName:"Hipoacusia Neurosensorial",
     q:"Respecto al tamiz neonatal auditivo, ¿cuál es la secuencia correcta según la GPC mexicana?",
-    opts:["BERA como primera línea en todos los recién nacidos al alta","Emisiones otoacústicas (EOA) como primera línea; BERA confirmatoria si EOA falla","Audiometría conductual a los 6 meses como único tamiz necesario","Impedanciometría al mes de vida como primera línea"],
-    ans:1,
+    opts:["BERA como primera línea en todos los recién nacidos al alta","Audiometría conductual a los 6 meses como único tamiz necesario","Emisiones otoacústicas (EOA) como primera línea; BERA confirmatoria si EOA falla","Impedanciometría al mes de vida como primera línea"],
+    ans:2,
     exp:"La GPC de hipoacusia en el recién nacido establece que el tamiz neonatal auditivo universal debe realizarse con emisiones otoacústicas (EOA) como primera línea por ser rápidas, no invasivas, económicas y aplicables en neonatos. Si las EOA fallan (no pasan), se realiza BERA (Potenciales Evocados Auditivos de Tronco Encefálico) como prueba confirmatoria. El objetivo es diagnóstico antes de los 3 meses de edad y tratamiento antes de los 6 meses.",
     tip:"<strong>Regla 1-3-6:</strong> Tamiz antes del mes de vida, diagnóstico antes de los 3 meses, intervención/tratamiento antes de los 6 meses. Las EOA detectan patología coclear (células ciliadas externas). El BERA evalúa toda la vía auditiva desde cóclea hasta tronco encefálico. Un neonato que no pasa EOA dos veces necesita BERA urgente.",
     ref:"GPC: Hipoacusia en el recién nacido y tamiz neonatal auditivo. SSA-185-09. 2012."
@@ -254,8 +254,8 @@ const questions = [
   {
     cat:"dx", catName:"Diagnóstico/Audiometría",
     q:"¿Cuál es la principal utilidad clínica del BERA (Potenciales Evocados Auditivos de Tronco Encefálico / ABR) en comparación con la audiometría tonal convencional?",
-    opts:["Es más económico y rápido que la audiometría tonal","Permite evaluar la audición en pacientes no colaboradores (neonatos, simuladores) y localizar la lesión en la vía auditiva","Solo sirve para diagnosticar neurinoma del acústico","Evalúa exclusivamente el oído medio"],
-    ans:1,
+    opts:["Es más económico y rápido que la audiometría tonal","Solo sirve para diagnosticar neurinoma del acústico","Permite evaluar la audición en pacientes no colaboradores (neonatos, simuladores) y localizar la lesión en la vía auditiva","Evalúa exclusivamente el oído medio"],
+    ans:2,
     exp:"El BERA/ABR registra los potenciales eléctricos generados desde la cóclea hasta el tronco encefálico en respuesta a estímulos auditivos, sin requerir respuesta voluntaria del paciente. Esto lo hace invaluable en neonatos, lactantes, personas con discapacidad intelectual y simuladores. Además permite localizar topográficamente la lesión en la vía auditiva según las alteraciones de las ondas I-V y sus latencias.",
     tip:"<strong>Ondas del BERA:</strong> Onda I = Nervio auditivo distal. Onda II = Nervio auditivo proximal/núcleo coclear. Onda III = Complejo olivar superior. Onda IV = Lemnisco lateral. Onda V = Colículo inferior. La latencia interpico I-V evalúa la conducción central. Prolongación aislada de ondas → localiza el nivel de la lesión.",
     ref:"GPC: Hipoacusia en el recién nacido y tamiz neonatal auditivo. SSA-185-09. 2012."
@@ -263,8 +263,8 @@ const questions = [
   {
     cat:"bell", catName:"Parálisis de Bell",
     q:"Paciente de 45 años presenta parálisis facial derecha de instauración aguda en 48 horas. A la exploración: no puede cerrar el ojo derecho, caída de la comisura bucal derecha, borramiento del surco nasogeniano derecho y NO puede elevar la ceja derecha (frente afectada). ¿Cuál es el diagnóstico?",
-    opts:["Parálisis facial central por evento vascular cerebral","Parálisis de Bell (parálisis facial periférica idiopática)","Síndrome de Ramsay Hunt","Parálisis facial por otitis media crónica colesteatomatosa"],
-    ans:1,
+    opts:["Parálisis de Bell (parálisis facial periférica idiopática)","Parálisis facial central por evento vascular cerebral","Síndrome de Ramsay Hunt","Parálisis facial por otitis media crónica colesteatomatosa"],
+    ans:0,
     exp:"La parálisis de Bell es una parálisis facial periférica idiopática que afecta TODA la hemicara ipsilateral, incluyendo la frente. Esto la distingue de la parálisis facial central, donde la frente está RESPETADA por la inervación bilateral del córtex motor para los músculos frontales. La afectación de la frente (incapacidad para elevar la ceja) indica lesión del nervio facial periférico (nervio VII par craneal) o del núcleo facial.",
     tip:"<strong>Clave diagnóstica:</strong> ¿Puede elevar la ceja? SI puede = Central (ACV, tumor). NO puede = Periférica (Bell, Ramsay Hunt, otitis). En el ACV, el córtex contralateral sano inerva bilateralmente los músculos frontales, rescatando la función de la frente. En la lesión periférica, el nervio VII está dañado antes de llegar a todos los músculos de la hemicara.",
     ref:"GPC: Diagnóstico y tratamiento del adulto con parálisis de Bell. IMSS-422-11. 2011."
@@ -272,8 +272,8 @@ const questions = [
   {
     cat:"bell", catName:"Parálisis de Bell",
     q:"¿Cuál es el tratamiento farmacológico recomendado por la GPC para la parálisis de Bell en el adulto cuando se inicia dentro de las primeras 72 horas?",
-    opts:["Aciclovir 800 mg 5 veces al día por 7 días como único tratamiento","Prednisolona 60 mg/día por 5 días + reducción gradual, con o sin aciclovir 400 mg 5 veces/día por 10 días","Metilprednisolona IV 1 g/día por 3 días (pulsos)","Solo protección ocular, no hay fármaco efectivo"],
-    ans:1,
+    opts:["Aciclovir 800 mg 5 veces al día por 7 días como único tratamiento","Solo protección ocular, no hay fármaco efectivo","Metilprednisolona IV 1 g/día por 3 días (pulsos)","Prednisolona 60 mg/día por 5 días + reducción gradual, con o sin aciclovir 400 mg 5 veces/día por 10 días"],
+    ans:3,
     exp:"La GPC de parálisis de Bell recomienda prednisolona 60 mg/día por 5 días con reducción gradual durante los siguientes 5 días (total 10 días). La adición de aciclovir (o valaciclovir) se recomienda junto con los corticoides, especialmente en casos severos (escala de House-Brackmann grado IV-VI), ya que VHS-1 y VVZ son posibles etiologías. Los corticoides son el pilar del tratamiento, con mayor evidencia.",
     tip:"<strong>Tratamiento combinado en Bell severo:</strong> Prednisolona 60 mg/día × 5 días → reducir a 50, 40, 30, 20, 10 mg (1 día cada dosis) + Aciclovir 400 mg 5 veces/día × 10 días (o valaciclovir 1 g c/8h × 7 días). Iniciar en las primeras 72 horas. Siempre añadir protección ocular (lágrimas artificiales, parche nocturno, gafas de sol) para prevenir queratopatía por exposición.",
     ref:"GPC: Diagnóstico y tratamiento del adulto con parálisis de Bell. IMSS-422-11. 2011."
@@ -299,8 +299,8 @@ const questions = [
   {
     cat:"frac", catName:"Fracturas",
     q:"En las fracturas mandibulares, ¿cuál es la región anatómica fracturada con MAYOR frecuencia según la literatura?",
-    opts:["Sínfisis mentoniana","Cóndilo mandibular","Ángulo mandibular","Rama mandibular ascendente"],
-    ans:1,
+    opts:["Sínfisis mentoniana","Ángulo mandibular","Cóndilo mandibular","Rama mandibular ascendente"],
+    ans:2,
     exp:"El cóndilo mandibular es la región más frecuentemente fracturada de la mandíbula, representando el 29-36% de todas las fracturas mandibulares. Su alta incidencia se debe a su posición anatómica vulnerable y al mecanismo de transmisión de fuerzas: un golpe en la sínfisis o parasínfisis transmite la energía hacia los cóndilos, fracturándolos. Le siguen en frecuencia el ángulo mandibular y la zona parasinfisaria.",
     tip:"<strong>Frecuencia de fracturas mandibulares:</strong> Cóndilo (29-36%) > Ángulo (25-31%) > Cuerpo (15-22%) > Sínfisis/Parasínfisis (14-22%) > Rama (3-9%) > Proceso coronoides (&lt;1%). En niños, las fracturas condíleas son aún más frecuentes y el tratamiento es preferentemente conservador para no dañar el centro de crecimiento.",
     ref:"GPC: Diagnóstico y tratamiento de fracturas mandibulares. SSA-172-10. 2010."
@@ -308,8 +308,8 @@ const questions = [
   {
     cat:"frac", catName:"Fracturas",
     q:"Paciente de 28 años que sufrió traumatismo mandibular. Presenta maloclusión, dolor a la apertura bucal y desviación de la mandíbula hacia la derecha al abrir la boca. La tomografía muestra fractura condílea derecha sin desplazamiento significativo. ¿Cuál es el tratamiento inicial más apropiado?",
-    opts:["Reducción abierta y fijación interna con placas de titanio de urgencia","Tratamiento conservador: dieta blanda, analgesia, fisioterapia y seguimiento estrecho","Extracción del cóndilo fracturado (condilectomía)","Bloqueo intermaxilar rígido por 6 semanas sin fisioterapia"],
-    ans:1,
+    opts:["Tratamiento conservador: dieta blanda, analgesia, fisioterapia y seguimiento estrecho","Reducción abierta y fijación interna con placas de titanio de urgencia","Extracción del cóndilo fracturado (condilectomía)","Bloqueo intermaxilar rígido por 6 semanas sin fisioterapia"],
+    ans:0,
     exp:"Las fracturas condíleas sin desplazamiento significativo, especialmente en adultos jóvenes, se tratan conservadoramente: dieta blanda, analgesia, antiinflamatorios y fisioterapia precoz para mantener la función articular. El bloqueo intermaxilar prolongado se evita porque causa anquilosis temporomandibular. La GPC indica que la mayoría de las fracturas condíleas no desplazadas o con mínimo desplazamiento tienen excelente pronóstico con manejo conservador.",
     tip:"<strong>Indicaciones de cirugía en fractura condílea:</strong> Desplazamiento severo/luxación condílea hacia la fosa craneal media, incapacidad de lograr oclusión adecuada con manejo conservador, fractura bilateral con pérdida de dimensión vertical. En la mayoría de los casos, el cóndilo remodelará con el tiempo. Fisioterapia mandibular precoz es clave para evitar anquilosis.",
     ref:"GPC: Diagnóstico y tratamiento de fracturas mandibulares. SSA-172-10. 2010."
@@ -317,8 +317,8 @@ const questions = [
   {
     cat:"dx", catName:"Diagnóstico/Audiometría",
     q:"En la prueba de Weber, el sonido del diapasón colocado en el vértice del cráneo lateraliza hacia el oído derecho. ¿Qué diagnósticos son compatibles con este hallazgo?",
-    opts:["Hipoacusia conductiva izquierda OR hipoacusia neurosensorial derecha","Hipoacusia conductiva derecha OR hipoacusia neurosensorial izquierda","Solo hipoacusia neurosensorial bilateral","Solo hipoacusia conductiva bilateral"],
-    ans:1,
+    opts:["Hipoacusia conductiva derecha OR hipoacusia neurosensorial izquierda","Hipoacusia conductiva izquierda OR hipoacusia neurosensorial derecha","Solo hipoacusia neurosensorial bilateral","Solo hipoacusia conductiva bilateral"],
+    ans:0,
     exp:"El Weber lateraliza hacia el oído con MEJOR conducción ósea relativa. En hipoacusia conductiva, el oído enfermo tiene mejor conducción ósea relativa (el ruido ambiental no entra por vía aérea, así que el oído 'escucha' mejor por hueso) → lateraliza al oído ENFERMO/CON HIPOACUSIA CONDUCTIVA. En hipoacusia neurosensorial, el oído enfermo ya no puede detectar el sonido → lateraliza al oído SANO. Entonces: Weber derecho = conductiva derecha O neurosensorial izquierda.",
     tip:"<strong>Regla de oro del Weber:</strong> Lateraliza HACIA → hipoacusia conductiva de ese lado / hipoacusia neurosensorial del lado CONTRARIO. Complementa con Rinne: Rinne negativo (ósea>aérea) = conductiva. Rinne positivo con reducción bilateral = neurosensorial. Rinne positivo normal = sin hipoacusia o neurosensorial compensada.",
     ref:"GPC: Hipoacusia en el recién nacido y tamiz neonatal auditivo. SSA-185-09. 2012."

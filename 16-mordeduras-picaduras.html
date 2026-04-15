@@ -209,8 +209,8 @@ const questions = [
   {
     cat:"ser", catName:"Mordedura de Serpiente",
     q:"Un médico de urgencias rural atiende a un paciente con mordedura de serpiente en antebrazo. Un familiar sugiere hacer un torniquete, succionar el veneno con la boca y hacer una incisión en el sitio de mordida. ¿Cuál es la conducta correcta según las guías de primeros auxilios?",
-    opts:["Aplicar torniquete, succionar y hacer incisión como indica el familiar","Inmovilizar la extremidad a nivel del corazón, NO aplicar torniquete, NO incidir, NO succionar, trasladar urgentemente","Aplicar hielo local, lavar con agua oxigenada y esperar evolución ambulatoria","Aplicar torniquete y trasladar sin otra maniobra"],
-    ans:1,
+    opts:["Inmovilizar la extremidad a nivel del corazón, NO aplicar torniquete, NO incidir, NO succionar, trasladar urgentemente","Aplicar torniquete, succionar y hacer incisión como indica el familiar","Aplicar hielo local, lavar con agua oxigenada y esperar evolución ambulatoria","Aplicar torniquete y trasladar sin otra maniobra"],
+    ans:0,
     exp:"La GPC es muy clara respecto a los primeros auxilios en mordedura de serpiente: 1) Inmovilizar la extremidad afectada manteniéndola al nivel del corazón (no elevar ni bajar). 2) NO aplicar torniquete — incrementa necrosis local y no detiene la absorción del veneno. 3) NO hacer incisiones — no eliminan veneno y aumentan riesgo de infección y daño tisular. 4) NO succionar con boca o dispositivos — ineficaz e introduce gérmenes. 5) Trasladar al hospital de inmediato para valorar antiviperino.",
     tip:"<strong>Las 3 NO y 1 SÍ en mordedura de serpiente:</strong> NO torniquete, NO incisión, NO succión. SÍ inmovilizar y trasladar. El torniquete es especialmente peligroso: concentra el veneno proteolítico y aumenta necrosis distal. Quitar anillos y pulseras antes de que el edema los comprima.",
     ref:"GPC: Diagnóstico y tratamiento de las mordeduras de serpientes venenosas. IMSS-457-10. 2010."
@@ -218,8 +218,8 @@ const questions = [
   {
     cat:"ser", catName:"Mordedura de Serpiente",
     q:"Paciente con mordedura de cascabel presenta edema que abarca toda la extremidad superior, equimosis extensa, ampollas hemorrágicas, hipotensión, TP prolongado y plaquetas de 60,000. Sin falla orgánica. ¿A qué grado de envenenamiento corresponde según la clasificación de gravedad?",
-    opts:["Grado 0 (sin envenenamiento)","Grado I (leve: edema local)","Grado II (moderado: edema moderado ± afección sistémica)","Grado III (severo: edema severo + sistémico con coagulopatía)"],
-    ans:3,
+    opts:["Grado III (severo: edema severo + sistémico con coagulopatía)","Grado I (leve: edema local)","Grado II (moderado: edema moderado ± afección sistémica)","Grado 0 (sin envenenamiento)"],
+    ans:0,
     exp:"La clasificación de gravedad del envenenamiento por víbora de foseta según la GPC: Grado 0 — Mordida seca, sin signos de envenenamiento. Grado I — Leve: edema y dolor local confinados al sitio, sin sistémico. Grado II — Moderado: edema que avanza más allá del sitio, puede haber náusea, manifestaciones sistémicas leves. Grado III — Severo: edema marcado de toda extremidad, ampollas hemorrágicas, coagulopatía (TP prolongado, trombocitopenia), hipotensión, sin falla orgánica establecida. Grado IV — Falla multiorgánica.",
     tip:"<strong>Grados 0-IV para dosificar antiviperino:</strong> Grado 0: observación. Grado I: 3-5 viales. Grado II: 5-10 viales. Grado III: 10-15 viales. Grado IV: >15 viales según respuesta. La coagulopatía (TP prolongado + trombocitopenia) con edema de toda la extremidad = Grado III mínimo.",
     ref:"GPC: Diagnóstico y tratamiento de las mordeduras de serpientes venenosas. IMSS-457-10. 2010."
@@ -227,8 +227,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento/Antiveneno",
     q:"Paciente con mordedura de víbora de cascabel grado III es trasladado al hospital. ¿Cuál es el tratamiento específico de elección y la vía de administración correcta?",
-    opts:["Suero antiviperino intramuscular en dosis única","Faboterápico antiviperino (Fab2) intravenoso, dosis según grado de envenenamiento","Corticoides IV como primer línea para reducir inflamación","Antitetánica IM como único tratamiento urgente"],
-    ans:1,
+    opts:["Suero antiviperino intramuscular en dosis única","Antitetánica IM como único tratamiento urgente","Corticoides IV como primer línea para reducir inflamación","Faboterápico antiviperino (Fab2) intravenoso, dosis según grado de envenenamiento"],
+    ans:3,
     exp:"El tratamiento específico es el faboterápico antiviperino (fragmentos Fab2 purificados de anticuerpos equinos), administrado exclusivamente por vía intravenosa. La GPC establece que la vía IM es incorrecta por absorción errática. La dosis depende del grado: Grado I 3-5 viales, Grado II 5-10, Grado III 10-15, Grado IV >15 viales. Se diluye en 250 mL de solución salina y se pasa en 30-60 minutos. Se puede repetir si no hay respuesta clínica (disminución del edema, mejoría de coagulación).",
     tip:"<strong>Faboterápico IV, nunca IM:</strong> El antiviperino mexicano (Instituto Bioclon) es Fab2, más seguro que el antiveneno equino clásico. Antes de aplicar: prueba de hipersensibilidad cutánea. Tener adrenalina lista. El objetivo es neutralizar el veneno circulante, no el ya fijado en tejidos — la necrosis ya establecida no revierte.",
     ref:"GPC: Diagnóstico y tratamiento de las mordeduras de serpientes venenosas. IMSS-457-10. 2010."
@@ -236,8 +236,8 @@ const questions = [
   {
     cat:"ser", catName:"Mordedura de Serpiente",
     q:"Campesino de 28 años mordido en el dorso de la mano por serpiente de colores rojo, amarillo y negro (patrón anillo-anillo). No hay edema significativo en la mano, pero 4 horas después presenta ptosis palpebral bilateral, disfagia y dificultad respiratoria progresiva. ¿Cuál es el diagnóstico y el mecanismo de toxicidad?",
-    opts:["Coralillo (Micrurus sp.) con efecto neurotóxico por bloqueo neuromuscular postsináptico","Cascabel (Crotalus sp.) con efecto hemotóxico tardío","Reacción alérgica anafiláctica a veneno de víbora de foseta","Histeria colectiva; la serpiente de colores no es venenosa en México"],
-    ans:0,
+    opts:["Reacción alérgica anafiláctica a veneno de víbora de foseta","Cascabel (Crotalus sp.) con efecto hemotóxico tardío","Coralillo (Micrurus sp.) con efecto neurotóxico por bloqueo neuromuscular postsináptico","Histeria colectiva; la serpiente de colores no es venenosa en México"],
+    ans:2,
     exp:"El coralillo (género Micrurus, familia Elapidae) produce envenenamiento neurotóxico. La picadura inicial puede ser prácticamente indolora con escasa reacción local (clave diagnóstica). Las neurotoxinas son principalmente postsinápticas (bloquean receptores de acetilcolina nicotínicos), produciendo parálisis flácida descendente: ptosis → oftalmoplegia → disfagia → insuficiencia respiratoria. La GPC destaca que la poca reacción local + síndrome neurológico = coralillo hasta demostrar lo contrario.",
     tip:"<strong>Regla del coralillo:</strong> Poca reacción LOCAL + mucha afección NEUROLÓGICA = coralillo. En México: 'si te pica el coralillo, llegas al hospital de 'pie' pero sales de 'cabeza' (en camilla)'. Urgencia real: intubación profiláctica anticipada antes de que aparezca la falla respiratoria. El antiveneno específico para coralillo es diferente al antiviperino.",
     ref:"GPC: Diagnóstico y tratamiento de las mordeduras de serpientes venenosas. IMSS-457-10. 2010."
@@ -254,8 +254,8 @@ const questions = [
   {
     cat:"ara", catName:"Mordedura de Araña",
     q:"Niño de 7 años con mordedura de araña violinista en muslo hace 36 horas. Presenta fiebre, ictericia leve, orina color té oscuro y oliguria. Los laboratorios muestran hemoglobina de 8 g/dL, DHL elevada, bilirrubinas indirectas altas y creatinina de 2.1 mg/dL. ¿Cuál es el diagnóstico y por qué es más grave en niños?",
-    opts:["Loxoscelismo cutáneo leve, la orina oscura es por deshidratación","Loxoscelismo sistémico/visceral con hemólisis, ictericia y lesión renal aguda","Reacción alérgica sistémica con hemólisis inmunológica","Infección sobreagregada por Staphylococcus aureus con sepsis"],
-    ans:1,
+    opts:["Loxoscelismo sistémico/visceral con hemólisis, ictericia y lesión renal aguda","Loxoscelismo cutáneo leve, la orina oscura es por deshidratación","Reacción alérgica sistémica con hemólisis inmunológica","Infección sobreagregada por Staphylococcus aureus con sepsis"],
+    ans:0,
     exp:"El loxoscelismo sistémico (visceral o viscerocutáneo) es la forma grave de envenenamiento por Loxosceles. La esfingomielinasa D activa el complemento y produce hemólisis intravascular masiva (hemoglobinuria → orina oscura), ictericia por hiperbilirrubinemia indirecta, y lesión renal aguda por depósito de hemoglobina en túbulos. La GPC señala que los niños menores de 12 años son más susceptibles al loxoscelismo sistémico por mayor actividad del complemento y menor volumen de distribución.",
     tip:"<strong>Loxoscelismo sistémico en niños:</strong> Hemólisis + LRA + Ictericia = urgencia. La tríada de hemólisis intravascular: anemia + DHL elevada + bilirrubina indirecta alta + hemoglobinuria (orina oscura). Tratar con: hidratación vigorosa (forzar diuresis para evitar obstrucción tubular), corticoides (frenar hemólisis), y diálisis si LRA grave. Traslado urgente a hospital con UCI.",
     ref:"GPC: Diagnóstico y tratamiento de mordedura por arañas venenosas en el primer nivel de atención. IMSS-488-11. 2011."
@@ -272,8 +272,8 @@ const questions = [
   {
     cat:"alac", catName:"Picadura de Alacrán",
     q:"Niño de 4 años es picado por alacrán en el pie en zona endémica de Guerrero. Presenta sialorrea profusa, lagrimeo, diaforesis, visión borrosa, taquicardia de 140 lpm, hipertensión y fasciculaciones musculares. ¿Cuál es el mecanismo fisiopatológico del veneno de Centruroides?",
-    opts:["Bloqueo de canales de sodio con efecto exclusivamente neurotóxico central","Activación masiva de canales de sodio voltaje-dependientes produciendo síndrome simpático y parasimpático simultáneo","Efecto hemotóxico con coagulopatía por consumo","Bloqueo neuromuscular postsináptico similar al coralillo"],
-    ans:1,
+    opts:["Bloqueo de canales de sodio con efecto exclusivamente neurotóxico central","Bloqueo neuromuscular postsináptico similar al coralillo","Efecto hemotóxico con coagulopatía por consumo","Activación masiva de canales de sodio voltaje-dependientes produciendo síndrome simpático y parasimpático simultáneo"],
+    ans:3,
     exp:"El veneno del alacrán Centruroides (género predominante en México) actúa sobre los canales de sodio voltaje-dependientes, manteniéndolos abiertos de forma prolongada. Esto produce una tormenta adrenérgica y colinérgica simultánea: Síndrome SIMPÁTICO (taquicardia, hipertensión, diaforesis, midriasis) + Síndrome PARASIMPÁTICO (sialorrea, lagrimeo, bradicardia alternante, vómito, dolor abdominal). La GPC describe este cuadro de activación autonómica dual como característico del envenenamiento por alacrán.",
     tip:"<strong>Centruroides = tormenta autonómica dual:</strong> Simpático (TAHD: Taquicardia, Arritmias, Hipertensión, Diaforesis) + Parasimpático (SLVV: Sialorrea, Lagrimeo, Vómito, Visión borrosa). Los niños &lt;5 años tienen cuadros más graves por mayor toxicidad relativa del veneno. El dolor en sitio de picadura + parestesias es casi universal y orienta al diagnóstico.",
     ref:"GPC: Prevención, diagnóstico, tratamiento y referencia de la intoxicación por picadura de alacrán. IMSS-539-15. 2015."
@@ -281,8 +281,8 @@ const questions = [
   {
     cat:"alac", catName:"Picadura de Alacrán",
     q:"¿Cuál es el tratamiento específico de primera línea para la intoxicación grave por picadura de alacrán en un niño de 5 años con síndrome autonómico severo?",
-    opts:["Atropina IV para bloquear los efectos parasimpáticos exclusivamente","Faboterápico antialacrán (Fab2) IV + benzodiazepinas para control de agitación y convulsiones","Adrenalina subcutánea 1:1000 como en anafilaxia","Carbón activado oral como medida de descontaminación"],
-    ans:1,
+    opts:["Atropina IV para bloquear los efectos parasimpáticos exclusivamente","Carbón activado oral como medida de descontaminación","Adrenalina subcutánea 1:1000 como en anafilaxia","Faboterápico antialacrán (Fab2) IV + benzodiazepinas para control de agitación y convulsiones"],
+    ans:3,
     exp:"El tratamiento específico de la intoxicación grave por alacrán es el faboterápico antialacrán (fragmentos Fab2 purificados, Instituto Bioclon), administrado por vía intravenosa. La GPC establece que debe aplicarse en pacientes con síntomas sistémicos (síndrome autonómico). Además, las benzodiazepinas (diazepam IV) son el tratamiento de las manifestaciones neurológicas como agitación, convulsiones y fasciculaciones. NO se usa atropina de rutina — el cuadro es mixto simpático-parasimpático y la atropina podría agravar la taquicardia.",
     tip:"<strong>Antialacrán IV + BZD para síntomas:</strong> La GPC clasifica la gravedad en leve (solo local) y grave (sistémico). Grave → antialacrán IV. Benzodiazepinas para convulsiones/agitación. Monitoreo cardíaco continuo. Si hay edema pulmonar (por tormenta adrenérgica): manejo con CPAP y diuréticos. NO atropina de primera línea.",
     ref:"GPC: Prevención, diagnóstico, tratamiento y referencia de la intoxicación por picadura de alacrán. IMSS-539-15. 2015."
@@ -299,8 +299,8 @@ const questions = [
   {
     cat:"rab", catName:"Rabia/Mordedura animal",
     q:"Paciente de 45 años que ingresa con hidrofobia, aerofobia, agitación extrema, fiebre y espasmos faríngeos 2 meses después de mordedura de murciélago. ¿Cuál es el pronóstico y por qué?",
-    opts:["Buen pronóstico si se inicia profilaxis post-exposición inmediata","Mortalidad cercana al 100% — la rabia es prácticamente invariablemente mortal una vez que aparecen síntomas","50% de mortalidad con manejo intensivo adecuado","Buena respuesta a aciclovir IV en dosis altas"],
-    ans:1,
+    opts:["Buen pronóstico si se inicia profilaxis post-exposición inmediata","50% de mortalidad con manejo intensivo adecuado","Mortalidad cercana al 100% — la rabia es prácticamente invariablemente mortal una vez que aparecen síntomas","Buena respuesta a aciclovir IV en dosis altas"],
+    ans:2,
     exp:"La rabia, una vez que el paciente presenta síntomas neurológicos (fase prodrómica o encefalítica), es prácticamente invariablemente mortal con mortalidad >99%. El período de incubación habitual es 1-3 meses (rango: días a 1 año), durante el cual el virus viaja por los axones hacia el SNC. La hidrofobia (espasmo faríngeo al ver agua) y aerofobia son patognomónicas de rabia encefalítica. No existe tratamiento antiviral eficaz establecido. El protocolo de Milwaukee (coma inducido) ha tenido resultados anecdóticos con muy pocos sobrevivientes.",
     tip:"<strong>Rabia = prácticamente 100% mortal si sintomática:</strong> La ÚNICA esperanza es la profilaxis POST-exposición ANTES de los síntomas. Los murciélagos son reservorios importantes en México — cualquier contacto con murciélago (incluso sin herida visible) amerita valoración para PPE. La hidrofobia + aerofobia = diagnóstico clínico de rabia.",
     ref:"GPC: Diagnóstico y tratamiento de las mordeduras de serpientes venenosas. IMSS-457-10. 2010. / Lineamientos de rabia SSA México."
@@ -308,8 +308,8 @@ const questions = [
   {
     cat:"rab", catName:"Rabia/Mordedura animal",
     q:"Trabajador de oficina refiere mordedura humana en mano durante una pelea hace 12 horas. La herida tiene bordes irregulares y está contaminada. ¿Cuál es el microorganismo más característico de las mordeduras humanas y el antibiótico de elección?",
-    opts:["Pasteurella multocida; tratamiento con amoxicilina-clavulanato","Eikenella corrodens (+ Streptococcus y anaerobios); tratamiento con amoxicilina-clavulanato","Capnocytophaga canimorsus; tratamiento con metronidazol exclusivo","Solo flora cutánea; no requiere antibióticos si la herida se lava bien"],
-    ans:1,
+    opts:["Pasteurella multocida; tratamiento con amoxicilina-clavulanato","Capnocytophaga canimorsus; tratamiento con metronidazol exclusivo","Eikenella corrodens (+ Streptococcus y anaerobios); tratamiento con amoxicilina-clavulanato","Solo flora cutánea; no requiere antibióticos si la herida se lava bien"],
+    ans:2,
     exp:"Las mordeduras humanas tienen alto riesgo infeccioso por la flora oral humana, que incluye: Eikenella corrodens (microorganismo más característico y de mayor riesgo), Streptococcus viridans, anaerobios orales y Staphylococcus aureus. Las mordeduras humanas en mano son especialmente peligrosas por el riesgo de tenosinovitis y artritis séptica. El antibiótico de elección es amoxicilina-clavulanato (875/125 mg cada 12 horas por 5-7 días) por su cobertura polimicrobiana que incluye anaerobios.",
     tip:"<strong>Mordedura humana = mayor riesgo que animal:</strong> Eikenella es resistente a cefalexina y clindamicina — siempre usar amoxicilina-clavulanato. Las mordeduras en puño cerrado ('fight bite') son las más graves — el tendón flexor puede estar comprometido. Explorar con la mano en posición de puño, no abierta. Valorar profilaxis para VHB y VIH según contexto.",
     ref:"GPC: Diagnóstico y tratamiento de mordedura por arañas venenosas en el primer nivel de atención. IMSS-488-11. 2011."
@@ -326,8 +326,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento/Antiveneno",
     q:"¿Cuál de las siguientes afirmaciones sobre el faboterápico (antiveneno Fab2) utilizado en México es CORRECTA?",
-    opts:["Es un antiveneno equino completo IgG con alta tasa de enfermedad del suero","Son fragmentos Fab2 purificados de anticuerpos equinos, con menor tasa de reacciones adversas que el antiveneno completo, y se administran siempre por vía intravenosa","Se administra por vía intramuscular profunda para absorción lenta y sostenida","Está contraindicado en niños menores de 2 años por toxicidad renal"],
-    ans:1,
+    opts:["Es un antiveneno equino completo IgG con alta tasa de enfermedad del suero","Se administra por vía intramuscular profunda para absorción lenta y sostenida","Son fragmentos Fab2 purificados de anticuerpos equinos, con menor tasa de reacciones adversas que el antiveneno completo, y se administran siempre por vía intravenosa","Está contraindicado en niños menores de 2 años por toxicidad renal"],
+    ans:2,
     exp:"El faboterápico mexicano (producido por el Instituto Bioclon) es un antiveneno de fragmentos Fab2 (F(ab')2) obtenidos por digestión péptica de anticuerpos equinos IgG. A diferencia del antiveneno equino completo IgG, los fragmentos Fab2 tienen menor tamaño molecular, lo que reduce significativamente la tasa de reacciones de hipersensibilidad y enfermedad del suero. La vía de administración es siempre intravenosa (IV), diluidos en solución salina, administrados lentamente. Está disponible para antiviperino, antialacrán y anticoral (coralillo).",
     tip:"<strong>Fab2 vs IgG completa:</strong> Fab2 = más seguro, menos reacciones anafilácticas, eliminación renal más rápida (sin región Fc). Siempre IV, nunca IM. Tener adrenalina 1:1000 lista antes de aplicar. La prueba intradérmica previa no predice confiablemente anafilaxia pero se hace por protocolo en algunos centros. En caso de reacción: detener infusión, adrenalina.",
     ref:"GPC: Diagnóstico y tratamiento de las mordeduras de serpientes venenosas. IMSS-457-10. 2010."

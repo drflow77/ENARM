@@ -200,8 +200,8 @@ const questions = [
   {
     cat:"itu", catName:"ITU No Complicada",
     q:"Mujer de 26 años, previamente sana, sin embarazo, consulta por disuria, polaquiuria y urgencia urinaria de 2 días de evolución, sin fiebre ni dolor lumbar. Tira reactiva: nitritos positivos, leucocitos positivos. ¿Cuál es el diagnóstico y el tratamiento de primera línea según la GPC IMSS?",
-    opts:["Pielonefritis aguda; ciprofloxacino 500 mg c/12h x 14 días","Cistitis no complicada; TMP-SMX 160/800 mg c/12h x 5-7 días","ITU complicada; hospitalización y antibióticos IV","Uretritis; azitromicina 1 g dosis única"],
-    ans:1,
+    opts:["Pielonefritis aguda; ciprofloxacino 500 mg c/12h x 14 días","Uretritis; azitromicina 1 g dosis única","ITU complicada; hospitalización y antibióticos IV","Cistitis no complicada; TMP-SMX 160/800 mg c/12h x 5-7 días"],
+    ans:3,
     exp:"La cistitis no complicada en mujer joven no embarazada se define por la triada de disuria, polaquiuria y urgencia, sin fiebre ni dolor lumbar (lo que descarta pielonefritis). La GPC IMSS-055-08 establece que el diagnóstico es clínico, apoyado por tira reactiva (nitritos + leucocitos). El tratamiento de primera línea es TMP-SMX 160/800 mg c/12h por 5-7 días o nitrofurantoína 100 mg c/12h por 5-7 días. Las fluoroquinolonas se reservan por resistencia creciente.",
     tip:"<strong>Clave diagnóstica de cistitis no complicada:</strong> Disuria + frecuencia + urgencia SIN fiebre SIN dolor lumbar = cistitis. La presencia de fiebre >38°C y/o dolor lumbar cambia el diagnóstico a pielonefritis. No se requiere urocultivo en cistitis no complicada típica.",
     ref:"GPC: Diagnóstico y tratamiento de las infecciones del tracto urinario no complicadas en mujeres. IMSS-055-08. 2009."
@@ -209,8 +209,8 @@ const questions = [
   {
     cat:"itu", catName:"ITU No Complicada",
     q:"En el tratamiento de cistitis no complicada en mujer, ¿por qué las fluoroquinolonas (ciprofloxacino, levofloxacino) NO se recomiendan como primera línea según la GPC?",
-    opts:["Porque no son efectivas contra E. coli","Porque su uso indiscriminado genera resistencia y deben reservarse para infecciones más graves","Porque causan daño renal irreversible","Porque su duración mínima de tratamiento es 21 días"],
-    ans:1,
+    opts:["Porque su uso indiscriminado genera resistencia y deben reservarse para infecciones más graves","Porque no son efectivas contra E. coli","Porque causan daño renal irreversible","Porque su duración mínima de tratamiento es 21 días"],
+    ans:0,
     exp:"Las fluoroquinolonas son altamente efectivas contra E. coli, el principal agente de ITU (80% de los casos). Sin embargo, la GPC IMSS-055-08 recomienda reservarlas para situaciones específicas (pielonefritis, ITU complicada, prostatitis) porque su uso excesivo en infecciones menores acelera el desarrollo de resistencia bacteriana, dejando sin opciones terapéuticas para infecciones más graves. TMP-SMX y nitrofurantoína son igualmente eficaces y más adecuados para cistitis no complicada.",
     tip:"<strong>Antibióticos de primera línea para cistitis no complicada:</strong> TMP-SMX 160/800 mg c/12h x 5-7 días. Nitrofurantoína 100 mg c/12h x 5-7 días. Reservar fluoroquinolonas para: pielonefritis, ITU complicada, prostatitis. La resistencia de E. coli a fluoroquinolonas ya supera el 20% en muchas regiones de México.",
     ref:"GPC: Diagnóstico y tratamiento de las infecciones del tracto urinario no complicadas en mujeres. IMSS-055-08. 2009."
@@ -227,8 +227,8 @@ const questions = [
   {
     cat:"pna", catName:"Pielonefritis Aguda",
     q:"Mujer de 32 años con fiebre de 39°C, escalofríos, dolor lumbar derecho, disuria y polaquiuria de 3 días de evolución. Tira reactiva: nitritos +, leucocitos ++, hematuria +. ¿Cuál es el diagnóstico y el estudio imprescindible para su manejo?",
-    opts:["Cistitis complicada; solo tira reactiva es suficiente","Pielonefritis aguda; urocultivo con antibiograma es obligatorio","Litiasis renal obstructiva; TC de abdomen urgente","Apendicitis; ultrasonido pélvico urgente"],
-    ans:1,
+    opts:["Cistitis complicada; solo tira reactiva es suficiente","Apendicitis; ultrasonido pélvico urgente","Litiasis renal obstructiva; TC de abdomen urgente","Pielonefritis aguda; urocultivo con antibiograma es obligatorio"],
+    ans:3,
     exp:"La pielonefritis aguda (PNA) se diagnostica por la triada: fiebre >38°C + dolor lumbar (puño-percusión positiva) + signos de ITU baja (disuria, polaquiuria), con piuria en el análisis de orina. A diferencia de la cistitis no complicada, en la PNA el urocultivo con antibiograma es OBLIGATORIO porque permite confirmar el agente (E. coli en 85% de los casos), su sensibilidad y guiar la terapia, especialmente si no hay respuesta al tratamiento empírico inicial.",
     tip:"<strong>Triada de pielonefritis aguda:</strong> Fiebre >38°C + Dolor lumbar (Murphy renal / puño-percusión positiva) + Piuria. La cistitis NO tiene fiebre ni dolor lumbar. En PNA siempre: urocultivo + hemocultivos si sepsis + imagen si no mejora en 48-72h.",
     ref:"GPC: Diagnóstico y tratamiento de las infecciones del tracto urinario no complicadas en mujeres. IMSS-055-08. 2009."
@@ -236,8 +236,8 @@ const questions = [
   {
     cat:"pna", catName:"Pielonefritis Aguda",
     q:"Mujer de 28 años con pielonefritis aguda leve-moderada sin vómito, sin sepsis, sin embarazo e inmunocompetente. ¿Cuál es el manejo adecuado?",
-    opts:["Hospitalización obligatoria con antibióticos IV independientemente de la gravedad","Tratamiento ambulatorio con ciprofloxacino 500 mg c/12h x 7-14 días + urocultivo","Solo analgésicos y vigilancia domiciliaria","Alta con nitrofurantoína oral x 3 días"],
-    ans:1,
+    opts:["Hospitalización obligatoria con antibióticos IV independientemente de la gravedad","Alta con nitrofurantoína oral x 3 días","Solo analgésicos y vigilancia domiciliaria","Tratamiento ambulatorio con ciprofloxacino 500 mg c/12h x 7-14 días + urocultivo"],
+    ans:3,
     exp:"La pielonefritis aguda leve-moderada en paciente sin criterios de hospitalización puede manejarse de forma ambulatoria. Los criterios para manejo ambulatorio incluyen: tolerancia oral, ausencia de vómito, sin signos de sepsis, inmunocompetente, no embarazada y sin uropatía obstructiva. El tratamiento de elección es ciprofloxacino 500 mg c/12h por 7-14 días (o levofloxacino 750 mg/día x 5-7 días). Se debe tomar urocultivo antes de iniciar antibiótico. Nitrofurantoína NO sirve para pielonefritis (no alcanza concentraciones tisulares adecuadas).",
     tip:"<strong>Criterios de HOSPITALIZACIÓN en pielonefritis:</strong> Sepsis/choque séptico, vómito que impide tratamiento oral, inmunosupresión, embarazo, anomalía urológica subyacente, falla al tratamiento ambulatorio en 48-72h, hombre con sospecha de prostatitis. Si cumple alguno: hospitalizar y antibióticos IV.",
     ref:"GPC: Diagnóstico y tratamiento de las infecciones del tracto urinario no complicadas en mujeres. IMSS-055-08. 2009."
@@ -245,8 +245,8 @@ const questions = [
   {
     cat:"pna", catName:"Pielonefritis Aguda",
     q:"¿Por qué la nitrofurantoína está CONTRAINDICADA en el tratamiento de pielonefritis aguda?",
-    opts:["Porque causa toxicidad renal grave en ITU alta","Porque no alcanza concentraciones tisulares renales adecuadas (solo actúa en orina)","Porque induce resistencia de E. coli en menos de 48 horas","Porque es nefrotóxica en presencia de fiebre"],
-    ans:1,
+    opts:["Porque causa toxicidad renal grave en ITU alta","Porque induce resistencia de E. coli en menos de 48 horas","Porque no alcanza concentraciones tisulares renales adecuadas (solo actúa en orina)","Porque es nefrotóxica en presencia de fiebre"],
+    ans:2,
     exp:"La nitrofurantoína es excretada rápidamente por vía renal y alcanza concentraciones muy altas en la orina, pero concentraciones tisulares en el parénquima renal insuficientes para erradicar la infección del tejido renal. Por esta razón es eficaz solo para cistitis (infección de mucosa vesical) pero NO para pielonefritis (infección del parénquima renal). Usarla en PNA llevaría a falla terapéutica y riesgo de complicaciones como absceso renal.",
     tip:"<strong>Regla para nitrofurantoína:</strong> Solo para cistitis NO complicada. Jamás en pielonefritis, ITU complicada o cuando se sospecha bacteriemia. También evitar en insuficiencia renal (ClCr <30 mL/min) porque no alcanza concentraciones urinarias eficaces. No usar en 3er trimestre de embarazo (riesgo de hemólisis neonatal).",
     ref:"GPC: Diagnóstico y tratamiento de las infecciones del tracto urinario no complicadas en mujeres. IMSS-055-08. 2009."
@@ -254,8 +254,8 @@ const questions = [
   {
     cat:"comp", catName:"ITU Complicada",
     q:"¿Cuál de los siguientes NO es un factor que clasifica una ITU como complicada?",
-    opts:["Paciente masculino con ITU","Embarazo","Catéter urinario permanente","Mujer joven inmunocompetente con cistitis típica sin comorbilidades"],
-    ans:3,
+    opts:["Paciente masculino con ITU","Mujer joven inmunocompetente con cistitis típica sin comorbilidades","Catéter urinario permanente","Embarazo"],
+    ans:1,
     exp:"Una ITU se considera complicada cuando ocurre en presencia de factores que aumentan el riesgo de falla terapéutica o de infección por microorganismos resistentes: sexo masculino, embarazo, catéter urinario permanente, anomalía anatómica o funcional del tracto urinario, obstrucción urinaria, diabetes mellitus, inmunosupresión, insuficiencia renal, instrumentación urológica reciente, microorganismo resistente. La mujer joven sana con cistitis típica es precisamente el prototipo de ITU NO complicada.",
     tip:"<strong>Mnemotecnia de ITU complicada (CHIOMAD):</strong> Catéter, Hombre, Inmunosupresión/Insuficiencia renal, Obstrucción, Malformación urológica, Anomalía anatómica, Diabetes/Embarazo. Cualquiera de estos = ITU complicada = requiere urocultivo + tratamiento mínimo 7-14 días + seguimiento estrecho.",
     ref:"GPC: Diagnóstico y tratamiento de las infecciones del tracto urinario no complicadas en mujeres. IMSS-055-08. 2009."
@@ -263,8 +263,8 @@ const questions = [
   {
     cat:"comp", catName:"ITU Complicada",
     q:"Paciente masculino de 65 años, diabético, con sonda Foley permanente, presenta fiebre de 38.8°C, disuria y dolor suprapúbico. Urocultivo pendiente. ¿Cuál es la conducta correcta?",
-    opts:["Iniciar TMP-SMX empírico por 3 días y esperar urocultivo","Tomar urocultivo, iniciar antibiótico empírico de amplio espectro y tratar mínimo 7-14 días según cultivo","Solo retirar la sonda Foley y observar 48 horas","Alta con nitrofurantoína sin urocultivo"],
-    ans:1,
+    opts:["Tomar urocultivo, iniciar antibiótico empírico de amplio espectro y tratar mínimo 7-14 días según cultivo","Iniciar TMP-SMX empírico por 3 días y esperar urocultivo","Solo retirar la sonda Foley y observar 48 horas","Alta con nitrofurantoína sin urocultivo"],
+    ans:0,
     exp:"Esta es una ITU complicada (hombre + diabético + catéter urinario). El manejo requiere: (1) Tomar urocultivo ANTES de iniciar antibiótico, (2) Iniciar tratamiento empírico de amplio espectro que cubra gramnegativos incluyendo Pseudomonas (fluoroquinolona o cefalosporina de 3ª-4ª generación o piperacilina/tazobactam según severidad), (3) Duración mínima de 7-14 días, ajustando según el resultado del urocultivo, (4) Identificar y corregir el factor complicante si es posible (cambiar o retirar sonda).",
     tip:"<strong>ITU complicada: reglas de oro:</strong> 1) Siempre urocultivo antes del antibiótico. 2) Cobertura más amplia que en cistitis no complicada. 3) Duración ≥7-14 días. 4) Atacar el factor complicante (retirar catéter, resolver obstrucción, controlar glucemia). 5) Seguimiento con urocultivo de control 5-7 días post-tratamiento.",
     ref:"GPC: Diagnóstico y tratamiento de las infecciones del tracto urinario no complicadas en mujeres. IMSS-055-08. 2009."
@@ -272,8 +272,8 @@ const questions = [
   {
     cat:"comp", catName:"ITU Complicada",
     q:"Una mujer embarazada de 14 semanas se diagnostica con bacteriuria asintomática (urocultivo: E. coli >100,000 UFC/mL sin síntomas). ¿Cuál es la conducta correcta según la GPC?",
-    opts:["No tratar porque es asintomática; repetir urocultivo en 4 semanas","Tratar siempre en embarazada porque tiene 25% de riesgo de desarrollar pielonefritis","Solo vigilancia estrecha con urocultivos mensuales sin antibiótico","Tratar solo si los síntomas aparecen en las siguientes 72 horas"],
-    ans:1,
+    opts:["Tratar siempre en embarazada porque tiene 25% de riesgo de desarrollar pielonefritis","No tratar porque es asintomática; repetir urocultivo en 4 semanas","Solo vigilancia estrecha con urocultivos mensuales sin antibiótico","Tratar solo si los síntomas aparecen en las siguientes 72 horas"],
+    ans:0,
     exp:"La bacteriuria asintomática en embarazadas es una excepción a la regla general de no tratar. Esto se debe a que en el embarazo existe riesgo de progresar a pielonefritis en hasta el 25-40% de los casos no tratados (por inmunosupresión fisiológica, estasis urinaria por compresión uterina y dilatación ureteral). La GPC recomienda tamizaje con urocultivo en la semana 12-16 de gestación y tratamiento obligatorio de toda bacteriuria asintomática en embarazo. Antibióticos seguros: cefalexina, nitrofurantoína (no en 3er trimestre), amoxicilina-clavulanato.",
     tip:"<strong>Bacteriuria asintomática: ¿tratar o no tratar?</strong> NO tratar (población general, ancianos, pacientes con catéter crónico sin cirugía urológica). SÍ tratar SIEMPRE en: embarazo (25% riesgo de PNA) y previo a cirugía urológica/instrumentación. El tamizaje en embarazo es mandatorio entre las semanas 12-16.",
     ref:"GPC: Diagnóstico y tratamiento de las infecciones del tracto urinario no complicadas en mujeres. IMSS-055-08. 2009."
@@ -281,8 +281,8 @@ const questions = [
   {
     cat:"pros", catName:"Prostatitis",
     q:"Hombre de 40 años con fiebre de 39.5°C, escalofríos, dolor perineal intenso, disuria, dificultad para orinar y malestar general de 2 días. Al tacto rectal: próstata edematosa, extremadamente dolorosa y caliente. ¿Cuál es la conducta inicial correcta?",
-    opts:["Masaje prostático para obtener secreción y cultivarla","Diagnóstico clínico de prostatitis aguda bacteriana; urocultivo + antibióticos IV; tacto rectal CONTRAINDICADO en fase aguda","Realizar cistoscopia urgente para descartar tumor","Alta con ciprofloxacino oral y seguimiento en consulta externa"],
-    ans:1,
+    opts:["Masaje prostático para obtener secreción y cultivarla","Realizar cistoscopia urgente para descartar tumor","Diagnóstico clínico de prostatitis aguda bacteriana; urocultivo + antibióticos IV; tacto rectal CONTRAINDICADO en fase aguda","Alta con ciprofloxacino oral y seguimiento en consulta externa"],
+    ans:2,
     exp:"La prostatitis aguda bacteriana se presenta con fiebre alta, escalofríos, dolor perineal/suprapúbico/lumbar, disuria y síntomas obstructivos. El tacto rectal está CONTRAINDICADO en la fase aguda porque puede desencadenar bacteriemia y sepsis al masajear una próstata inflamada con bacteria activa. El diagnóstico es clínico; se toma urocultivo (E. coli en 80% de los casos) y se inicia antibiótico IV (ciprofloxacino o ceftriaxona) hasta mejoría clínica, continuando con fluoroquinolona oral por un total mínimo de 4 semanas.",
     tip:"<strong>Tacto rectal en prostatitis AGUDA = CONTRAINDICADO.</strong> Riesgo de bacteriemia/sepsis. El masaje prostático (test de Meares-Stamey) se reserva para prostatitis CRÓNICA bacteriana cuando ya no hay infección aguda activa. Duración total del tratamiento en prostatitis aguda: mínimo 4 semanas para evitar cronicidad.",
     ref:"GPC: Diagnóstico y tratamiento de la prostatitis. CENETEC."
@@ -299,8 +299,8 @@ const questions = [
   {
     cat:"pros", catName:"Prostatitis",
     q:"¿Cuál es la duración mínima del tratamiento antibiótico en prostatitis aguda bacteriana y por qué es tan prolongada comparada con la cistitis?",
-    opts:["3-5 días, igual que en cistitis no complicada","Mínimo 4 semanas, para erradicar la bacteria del tejido prostático y evitar cronicidad","Solo 7 días con ciprofloxacino IV","2 semanas máximo para evitar efectos adversos de fluoroquinolonas"],
-    ans:1,
+    opts:["3-5 días, igual que en cistitis no complicada","Solo 7 días con ciprofloxacino IV","Mínimo 4 semanas, para erradicar la bacteria del tejido prostático y evitar cronicidad","2 semanas máximo para evitar efectos adversos de fluoroquinolonas"],
+    ans:2,
     exp:"El tratamiento de la prostatitis aguda bacteriana requiere mínimo 4 semanas (algunos autores recomiendan hasta 6 semanas) por varias razones: (1) La barrera hematoprostática limita la penetración de antibióticos al tejido glandular prostático, (2) La próstata inflamada tiene pH alterado que reduce la actividad de algunos antibióticos, (3) Un tratamiento corto deja bacteria residual en el tejido prostático que puede cronificar la infección, llevando a prostatitis crónica bacteriana de muy difícil erradicación. Las fluoroquinolonas son de elección por su excelente penetración en tejido prostático.",
     tip:"<strong>Duración del tratamiento en infecciones urinarias:</strong> Cistitis no complicada: 5-7 días. Pielonefritis aguda ambulatoria: 7-14 días. ITU complicada: 7-14 días. Prostatitis aguda: mínimo 4 semanas. Prostatitis crónica: 6 semanas. La duración corta en prostatitis lleva inevitablemente a recurrencia y cronificación.",
     ref:"GPC: Diagnóstico y tratamiento de la prostatitis. CENETEC."
@@ -308,8 +308,8 @@ const questions = [
   {
     cat:"prev", catName:"Prevención/Seguimiento",
     q:"Mujer de 30 años con 4 episodios de cistitis no complicada en el último año, todos resueltos con antibiótico. ¿Cuál es la estrategia de prevención recomendada por la GPC?",
-    opts:["Antibiótico de amplio espectro en cada episodio y urocultivo mensual","Profilaxis continua con nitrofurantoína 50 mg/noche o TMP-SMX dosis baja, o profilaxis postcoital si hay relación con coito","Cistoscopia para descartar anomalía anatómica en cada recurrencia","Cambio permanente de antibiótico a fluoroquinolonas de por vida"],
-    ans:1,
+    opts:["Antibiótico de amplio espectro en cada episodio y urocultivo mensual","Cistoscopia para descartar anomalía anatómica en cada recurrencia","Profilaxis continua con nitrofurantoína 50 mg/noche o TMP-SMX dosis baja, o profilaxis postcoital si hay relación con coito","Cambio permanente de antibiótico a fluoroquinolonas de por vida"],
+    ans:2,
     exp:"La ITU recurrente se define como ≥3 episodios por año o ≥2 episodios en 6 meses. La GPC IMSS-055-08 recomienda profilaxis antibiótica continua a dosis bajas: nitrofurantoína 50 mg/noche o TMP-SMX 40/200 mg/noche por 6-12 meses. Si los episodios están claramente relacionados con el coito, la alternativa es profilaxis postcoital (dosis única de TMP-SMX o nitrofurantoína después de cada relación sexual). También se recomiendan medidas no farmacológicas: hidratación adecuada, micción postcoital y jugo de arándano (evidencia limitada).",
     tip:"<strong>ITU recurrente: opciones de profilaxis:</strong> (1) Continua nocturna: nitrofurantoína 50 mg/noche o TMP-SMX 40/200 mg/noche x 6-12 meses. (2) Postcoital: dosis única postcoital si relación con coito (muy efectivo, menos antibiótico total). (3) Autotratamiento supervisado: la paciente inicia antibiótico ante primeros síntomas con tira reactiva domiciliaria. No usar fluoroquinolonas como profilaxis.",
     ref:"GPC: Diagnóstico y tratamiento de las infecciones del tracto urinario no complicadas en mujeres. IMSS-055-08. 2009."
@@ -317,8 +317,8 @@ const questions = [
   {
     cat:"prev", catName:"Prevención/Seguimiento",
     q:"¿Cuál de los siguientes antibióticos está CONTRAINDICADO en el embarazo para el tratamiento de ITU, especialmente en el primer trimestre?",
-    opts:["Cefalexina 500 mg c/6h","Nitrofurantoína 100 mg c/12h en tercer trimestre","TMP-SMX en el primer trimestre (antifolato que interfiere con el desarrollo del tubo neural)","Amoxicilina-clavulanato 500/125 mg c/8h"],
-    ans:2,
+    opts:["Cefalexina 500 mg c/6h","TMP-SMX en el primer trimestre (antifolato que interfiere con el desarrollo del tubo neural)","Nitrofurantoína 100 mg c/12h en tercer trimestre","Amoxicilina-clavulanato 500/125 mg c/8h"],
+    ans:1,
     exp:"TMP-SMX (Trimetoprim-Sulfametoxazol) es un antifolato que interfiere con la síntesis de ácido fólico. En el primer trimestre del embarazo, cuando ocurre la organogénesis y el cierre del tubo neural, su uso se asocia a defectos del tubo neural y otras malformaciones congénitas. También debe evitarse en el tercer trimestre por riesgo de hiperbilirrubinemia neonatal. Las fluoroquinolonas también están contraindicadas en el embarazo (daño al cartílago fetal). Antibióticos seguros en embarazo: cefalexina, amoxicilina-clavulanato, nitrofurantoína (excepto tercer trimestre — riesgo de hemólisis neonatal).",
     tip:"<strong>Antibióticos en embarazo para ITU:</strong> SEGUROS: Cefalexina (todo el embarazo), Amoxicilina-clavulanato (todo el embarazo), Nitrofurantoína (1er y 2do trimestre). EVITAR: TMP-SMX en 1er trimestre (antifolato → tubo neural) y en 3er trimestre (hiperbilirrubinemia). Nitrofurantoína en 3er trimestre (hemólisis neonatal). Fluoroquinolonas todo el embarazo (daño cartilaginoso fetal).",
     ref:"GPC: Diagnóstico y tratamiento de las infecciones del tracto urinario no complicadas en mujeres. IMSS-055-08. 2009."
@@ -326,8 +326,8 @@ const questions = [
   {
     cat:"prev", catName:"Prevención/Seguimiento",
     q:"Anciano de 78 años, institucionalizado, con sonda Foley permanente. El urocultivo de rutina reporta E. coli >100,000 UFC/mL. El paciente está afebril, sin disuria (por catéter no refiere disuria), sin dolor suprapúbico y en buen estado general. ¿Cuál es la conducta correcta?",
-    opts:["Iniciar TMP-SMX inmediatamente para evitar pielonefritis","No tratar la bacteriuria asintomática en paciente con catéter crónico; solo vigilancia clínica","Retirar la sonda e iniciar ciprofloxacino IV por 14 días","Cambiar a ampicilina IV de inmediato por riesgo de sepsis"],
-    ans:1,
+    opts:["No tratar la bacteriuria asintomática en paciente con catéter crónico; solo vigilancia clínica","Iniciar TMP-SMX inmediatamente para evitar pielonefritis","Retirar la sonda e iniciar ciprofloxacino IV por 14 días","Cambiar a ampicilina IV de inmediato por riesgo de sepsis"],
+    ans:0,
     exp:"La bacteriuria asintomática en pacientes con catéter urinario permanente NO debe tratarse (excepto si van a someterse a cirugía urológica). Las razones son: (1) El tratamiento no elimina la colonización en presencia del catéter y selecciona microorganismos resistentes, (2) No reduce complicaciones ni mortalidad, (3) Genera resistencia antimicrobiana sin beneficio clínico. Esta recomendación se aplica también a ancianos institucionalizados. Solo se trata la bacteriuria asintomática en embarazadas y en pacientes que van a someterse a instrumentación urológica.",
     tip:"<strong>Bacteriuria asintomática: resumen de manejo:</strong> TRATAR: Embarazo (riesgo PNA 25%), previo a cirugía urológica. NO TRATAR: Adultos mayores no embarazados, pacientes con catéter permanente, diabetes no complicada, pacientes con lesión medular, pacientes institucionalizados. Tratar bacteriuria asintomática en catéter solo aumenta resistencias sin beneficio.",
     ref:"GPC: Diagnóstico y tratamiento de las infecciones del tracto urinario no complicadas en mujeres. IMSS-055-08. 2009."

@@ -200,8 +200,8 @@ const questions = [
   {
     cat:"ca", catName:"Cáncer de Laringe",
     q:"Hombre de 58 años, fumador de 40 años-paquete y consumidor crónico de alcohol, con disfonía persistente de 5 semanas de evolución. La laringoscopía indirecta revela lesión blanquecina en cuerda vocal izquierda. ¿Cuál es el tipo histológico más frecuente de cáncer de laringe?",
-    opts:["Adenocarcinoma","Carcinoma epidermoide (escamoso)","Carcinoma de células pequeñas","Linfoma laríngeo"],
-    ans:1,
+    opts:["Carcinoma epidermoide (escamoso)","Adenocarcinoma","Carcinoma de células pequeñas","Linfoma laríngeo"],
+    ans:0,
     exp:"El carcinoma epidermoide (escamoso) representa el 95% de todos los cánceres de laringe. La GPC de Diagnóstico y tratamiento del cáncer epidermoide de laringe (2011) establece que el tabaco y el alcohol son los principales factores de riesgo, con efecto sinérgico. La disfonía persistente mayor de 3 semanas en fumador debe considerarse cáncer hasta demostrar lo contrario.",
     tip:"<strong>95% epidermoide:</strong> Si una pregunta del ENARM menciona cáncer de laringe sin especificar histología, asume carcinoma epidermoide. Tabaco = factor 1, alcohol = factor 2 con efecto sinérgico multiplicativo. Disfonía >3 semanas en fumador → laringoscopía obligatoria.",
     ref:"GPC: Diagnóstico y tratamiento del cáncer epidermoide de laringe. SSA-237-09. 2011."
@@ -209,8 +209,8 @@ const questions = [
   {
     cat:"ca", catName:"Cáncer de Laringe",
     q:"Respecto a la localización del cáncer de laringe y su pronóstico, ¿cuál de las siguientes afirmaciones es CORRECTA?",
-    opts:["El cáncer supraglótico tiene mejor pronóstico que el glótico por su menor tamaño al diagnóstico","El cáncer glótico tiene mejor pronóstico porque produce disfonía temprana y tiene escasa red linfática","El cáncer subglótico es el más frecuente con 60% de los casos","El cáncer glótico se diagnostica en estadios avanzados por ser asintomático"],
-    ans:1,
+    opts:["El cáncer supraglótico tiene mejor pronóstico que el glótico por su menor tamaño al diagnóstico","El cáncer glótico se diagnostica en estadios avanzados por ser asintomático","El cáncer subglótico es el más frecuente con 60% de los casos","El cáncer glótico tiene mejor pronóstico porque produce disfonía temprana y tiene escasa red linfática"],
+    ans:3,
     exp:"El cáncer glótico (60% de los casos) tiene mejor pronóstico que el supraglótico porque las cuerdas vocales producen disfonía al inicio de la enfermedad (diagnóstico temprano) y tienen escasa red linfática (menor riesgo de metástasis ganglionares). El cáncer supraglótico tiene peor pronóstico: es asintomático hasta estadios avanzados y la región supraglótica tiene rica red linfática bilateral, lo que favorece metástasis cervicales tempranas.",
     tip:"<strong>Glótico = mejor pronóstico:</strong> Disfonía temprana + pocas linfáticas = diagnóstico precoz + menos metástasis. Supraglótico = peor pronóstico: rico en linfáticos bilaterales → ganglios bilaterales → N+ en el 50% al diagnóstico. Subglótico: el más raro (&lt;5%), extensión traqueobronquial.",
     ref:"GPC: Diagnóstico y tratamiento del cáncer epidermoide de laringe. SSA-237-09. 2011."
@@ -218,8 +218,8 @@ const questions = [
   {
     cat:"ca", catName:"Cáncer de Laringe",
     q:"¿Cuál es el síntoma más precoz y característico del cáncer glótico de laringe?",
-    opts:["Disfagia progresiva","Disfonía persistente mayor de 3 semanas","Masa cervical palpable","Hemoptisis recurrente"],
-    ans:1,
+    opts:["Disfagia progresiva","Masa cervical palpable","Disfonía persistente mayor de 3 semanas","Hemoptisis recurrente"],
+    ans:2,
     exp:"La disfonía persistente mayor de 3 semanas es el síntoma cardinal y más temprano del cáncer glótico, ya que las cuerdas vocales son las estructuras fonatorias y cualquier lesión en ellas altera la voz. La GPC establece que toda disfonía persistente >3 semanas en adulto fumador o mayor de 40 años debe estudiarse con laringoscopía. La masa cervical indica metástasis ganglionares (estadio avanzado N+).",
     tip:"<strong>Regla de las 3 semanas:</strong> Disfonía >3 semanas = laringoscopía obligatoria. No tratar con analgésicos o antiácidos sin visualizar la laringe. La disfagia es más característica del cáncer supraglótico (afecta epiglotis/aritenoides). Hemoptisis y disnea = enfermedad avanzada.",
     ref:"GPC: Diagnóstico y tratamiento del cáncer epidermoide de laringe. SSA-237-09. 2011."
@@ -227,8 +227,8 @@ const questions = [
   {
     cat:"ca", catName:"Cáncer de Laringe",
     q:"¿Cuál es el método diagnóstico de confirmación para el cáncer de laringe?",
-    opts:["Tomografía computarizada de cuello con contraste","Laringoscopía directa con biopsia de la lesión","Resonancia magnética de laringe","Citología de esputo en tres muestras"],
-    ans:1,
+    opts:["Laringoscopía directa con biopsia de la lesión","Tomografía computarizada de cuello con contraste","Resonancia magnética de laringe","Citología de esputo en tres muestras"],
+    ans:0,
     exp:"El diagnóstico definitivo de cáncer de laringe se establece mediante laringoscopía directa (con microscopio o endoscopio rígido bajo anestesia general) con toma de biopsia y estudio histopatológico. La laringoscopía indirecta o fibroscopía flexible es el primer paso para visualizar la lesión, pero la biopsia es indispensable para confirmación histológica. La TC es complementaria para estadificación.",
     tip:"<strong>Visualización + biopsia = diagnóstico:</strong> La TC ayuda a estadificar (invasión cartílago, extensión extralaríngea, ganglios) pero no diagnostica. El PET-CT se usa para descartar metástasis a distancia en estadios avanzados. Siempre biopsia antes de cualquier tratamiento.",
     ref:"GPC: Diagnóstico y tratamiento del cáncer epidermoide de laringe. SSA-237-09. 2011."
@@ -236,8 +236,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento",
     q:"Paciente con cáncer glótico estadio T1N0M0 (lesión limitada a una cuerda vocal con movilidad conservada). ¿Cuál es el tratamiento de elección?",
-    opts:["Laringectomía total + radioterapia adyuvante","Radioterapia radical o cordectomía con láser CO2 (preservación laríngea)","Quimioterapia de inducción + cirugía","Laringectomía parcial supraglótica"],
-    ans:1,
+    opts:["Laringectomía total + radioterapia adyuvante","Quimioterapia de inducción + cirugía","Radioterapia radical o cordectomía con láser CO2 (preservación laríngea)","Laringectomía parcial supraglótica"],
+    ans:2,
     exp:"En el cáncer glótico T1N0M0, la GPC recomienda tratamientos con preservación laríngea: radioterapia radical (con tasas de control local >90%) o cordectomía endoscópica con láser CO2. Ambos tienen resultados oncológicos equivalentes. La elección depende de disponibilidad, preferencia del paciente y características de la lesión. La laringectomía total se reserva para estadios avanzados T3-T4 o recurrencia.",
     tip:"<strong>T1-T2 glótico = preservar laringe:</strong> RT radical o láser CO2 tienen control local >85-90% y preservan la voz. Laringectomía total solo en T3-T4, invasión de cartílago, o fallo de tratamiento conservador. El ENARM pregunta mucho sobre preservación de órgano en estadios tempranos.",
     ref:"GPC: Diagnóstico y tratamiento del cáncer epidermoide de laringe. SSA-237-09. 2011."
@@ -245,8 +245,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento",
     q:"Paciente con cáncer de laringe T3N2M0 (parálisis de cuerda vocal, dos ganglios ipsilaterales <6cm). ¿Cuál es el abordaje terapéutico más adecuado?",
-    opts:["Radioterapia paliativa exclusiva","Laringectomía total + vaciamiento ganglionar cervical + radioterapia/quimioterapia adyuvante","Cordectomía láser como único tratamiento","Observación y manejo de síntomas"],
-    ans:1,
+    opts:["Radioterapia paliativa exclusiva","Observación y manejo de síntomas","Cordectomía láser como único tratamiento","Laringectomía total + vaciamiento ganglionar cervical + radioterapia/quimioterapia adyuvante"],
+    ans:3,
     exp:"En el cáncer de laringe localmente avanzado (T3-T4 y/o N+), el tratamiento estándar es la laringectomía total con vaciamiento ganglionar cervical funcional o radical modificado, seguida de radioterapia adyuvante ± quimioterapia (cisplatino) según factores de riesgo patológicos (márgenes positivos, extensión extraganglionar). La GPC indica que la quimiorradioterapia concomitante puede ser alternativa en centros seleccionados para preservación de laringe en T3.",
     tip:"<strong>T3-T4 con ganglios:</strong> Cirugía + RT ± QT. El vaciamiento ganglionar es obligatorio cuando hay N+ clínico. En T3 seleccionado, la quimiorradioterapia con cisplatino puede preservar laringe (protocolo del Veterans Affairs). Pero en T4 con invasión cartilaginosa → laringectomía total obligatoria.",
     ref:"GPC: Diagnóstico y tratamiento del cáncer epidermoide de laringe. SSA-237-09. 2011."
@@ -254,8 +254,8 @@ const questions = [
   {
     cat:"pap", catName:"Papilomatosis",
     q:"Niño de 4 años con estridor inspiratorio progresivo y disfonía de 8 meses de evolución. La laringoscopía muestra múltiples lesiones verrugosas en cuerdas vocales y epiglotis. ¿Cuál es el agente etiológico de la papilomatosis laríngea recurrente?",
-    opts:["Virus de Epstein-Barr (VEB)","Virus del papiloma humano tipos 6 y 11","Virus herpes simple tipo 1","Candida albicans"],
-    ans:1,
+    opts:["Virus del papiloma humano tipos 6 y 11","Virus de Epstein-Barr (VEB)","Virus herpes simple tipo 1","Candida albicans"],
+    ans:0,
     exp:"La papilomatosis laríngea recurrente (PLR) es causada por el Virus del Papiloma Humano (VPH) tipos 6 y 11. La forma juvenil (inicio antes de los 5 años) es más agresiva, requiere más cirugías y tiene mayor riesgo de extensión traqueobronquial. La GPC de Tratamiento quirúrgico de la papilomatosis juvenil (2012) establece que la transmisión ocurre durante el parto por contacto con secreciones genitales maternas infectadas.",
     tip:"<strong>VPH 6 y 11 = papilomatosis:</strong> VPH 6 y 11 son de bajo riesgo oncogénico (benigno en 98%). A diferencia, VPH 16 y 18 causan cáncer de cabeza/cuello y cérvix. La forma juvenil es más agresiva que la del adulto. El estridor inspiratorio en niño + lesiones verrugosas = papilomatosis hasta demostrar lo contrario.",
     ref:"GPC: Tratamiento quirúrgico de la papilomatosis juvenil recurrente de laringe. SSA-2012."
@@ -263,8 +263,8 @@ const questions = [
   {
     cat:"pap", catName:"Papilomatosis",
     q:"Respecto al tratamiento de la papilomatosis laríngea recurrente juvenil, ¿cuál de las siguientes afirmaciones es CORRECTA según la GPC?",
-    opts:["La cirugía con láser CO2 o microdebridador es curativa en el 80% de los casos con una sola intervención","No existe cura definitiva; el tratamiento quirúrgico repetido es la base del manejo para mantener la vía aérea permeable","Los antivirales sistémicos (aciclovir) son el tratamiento de primera línea","La traqueotomía es el tratamiento definitivo de elección en niños"],
-    ans:1,
+    opts:["No existe cura definitiva; el tratamiento quirúrgico repetido es la base del manejo para mantener la vía aérea permeable","La cirugía con láser CO2 o microdebridador es curativa en el 80% de los casos con una sola intervención","Los antivirales sistémicos (aciclovir) son el tratamiento de primera línea","La traqueotomía es el tratamiento definitivo de elección en niños"],
+    ans:0,
     exp:"La GPC establece claramente que la papilomatosis laríngea recurrente NO tiene cura definitiva. El tratamiento consiste en cirugía repetida (láser CO2 o microdebridador endoscópico) para eliminar las lesiones, mantener la vía aérea permeable y preservar la función vocal. El objetivo no es curación sino control de la enfermedad. El cidofovir intralesional es el adyuvante más utilizado para reducir la frecuencia de recurrencias.",
     tip:"<strong>Sin cura, control crónico:</strong> La papilomatosis recurrente puede requerir decenas de cirugías a lo largo de la vida. Cidofovir intralesional = adyuvante más usado (no aprobado por FDA pero ampliamente utilizado). Interferón alfa: adyuvante de segunda línea. Traqueotomía: solo si hay obstrucción grave aguda, NO es tratamiento definitivo (puede diseminar lesiones).",
     ref:"GPC: Tratamiento quirúrgico de la papilomatosis juvenil recurrente de laringe. SSA-2012."
@@ -272,8 +272,8 @@ const questions = [
   {
     cat:"pap", catName:"Papilomatosis",
     q:"¿Cuál de las siguientes complicaciones, aunque rara, puede presentarse en la papilomatosis laríngea recurrente de larga evolución?",
-    opts:["Transformación a carcinoma epidermoide (degeneración maligna)","Laringomalacia secundaria","Parálisis laríngea bilateral espontánea","Granuloma aritenoides por papilomatosis"],
-    ans:0,
+    opts:["Parálisis laríngea bilateral espontánea","Laringomalacia secundaria","Transformación a carcinoma epidermoide (degeneración maligna)","Granuloma aritenoides por papilomatosis"],
+    ans:2,
     exp:"La transformación maligna es una complicación rara (1-3% de los casos) de la papilomatosis laríngea recurrente, especialmente asociada al VPH tipo 11, extensión pulmonar y exposición previa a radioterapia o tabaquismo. La GPC menciona que aunque es infrecuente, los pacientes deben tener seguimiento a largo plazo. El riesgo es mayor en la forma adulta y en pacientes inmunocomprometidos.",
     tip:"<strong>Transformación maligna: rara pero posible:</strong> VPH 11 > VPH 6 en riesgo de malignización. Factores de riesgo adicionales: RT previa, tabaquismo, inmunosupresión, extensión pulmonar. La mayoría de los casos de PLR son benignos de por vida, pero requieren vigilancia. Si hay cambio en el patrón de crecimiento → biopsia.",
     ref:"GPC: Tratamiento quirúrgico de la papilomatosis juvenil recurrente de laringe. SSA-2012."
@@ -299,8 +299,8 @@ const questions = [
   {
     cat:"par", catName:"Parálisis Cuerdas",
     q:"Paciente de 55 años operado de tiroidectomía total hace 2 semanas, refiere voz soplada y bitonal. La laringoscopía muestra cuerda vocal izquierda inmóvil en posición paramediana. ¿Cuál es el diagnóstico y nervio afectado?",
-    opts:["Parálisis del nervio laríngeo superior bilateral","Parálisis unilateral del nervio laríngeo recurrente izquierdo","Parálisis bilateral del nervio laríngeo recurrente","Luxación aritenoides bilateral por intubación"],
-    ans:1,
+    opts:["Parálisis del nervio laríngeo superior bilateral","Luxación aritenoides bilateral por intubación","Parálisis bilateral del nervio laríngeo recurrente","Parálisis unilateral del nervio laríngeo recurrente izquierdo"],
+    ans:3,
     exp:"La parálisis unilateral del nervio laríngeo recurrente (NLR) es la complicación más frecuente de la tiroidectomía total. Se manifiesta con voz soplada, bitonal o ronca, y aspiración leve. La cuerda vocal ipsilateral queda inmóvil en posición paramediana (entre aducción y abducción). La causa más frecuente de parálisis del NLR en general es iatrogénica (tiroidectomía), seguida de neoplasia (pulmón, tiroides, esófago) y aneurisma aórtico (NLR izquierdo más largo).",
     tip:"<strong>Tiroidectomía → NLR:</strong> El NLR izquierdo rodea el cayado aórtico (más largo y vulnerable). El NLR derecho rodea la arteria subclavia derecha. Parálisis UNILATERAL: voz bitonal/soplada, sin disnea grave → manejo expectante 6-12 meses (puede recuperar). Parálisis BILATERAL: disnea grave, estridor → traqueotomía de urgencia.",
     ref:"Patología laríngea. Parálisis de cuerdas vocales. Literatura de referencia ORL ENARM."
@@ -317,8 +317,8 @@ const questions = [
   {
     cat:"par", catName:"Parálisis Cuerdas",
     q:"Neonato de 3 semanas con estridor inspiratorio que empeora en posición supina y mejora en decúbito prono. La laringoscopía muestra colapso de la epiglotis y aritenoides durante la inspiración. ¿Cuál es el diagnóstico y su evolución natural?",
-    opts:["Estenosis subglótica congénita; requiere traqueotomía inmediata","Laringomalacia; causa más frecuente de estridor congénito, resolución espontánea en la mayoría","Parálisis laríngea bilateral congénita; tratamiento quirúrgico urgente","Quiste de vallécula; resección endoscópica urgente"],
-    ans:1,
+    opts:["Estenosis subglótica congénita; requiere traqueotomía inmediata","Parálisis laríngea bilateral congénita; tratamiento quirúrgico urgente","Laringomalacia; causa más frecuente de estridor congénito, resolución espontánea en la mayoría","Quiste de vallécula; resección endoscópica urgente"],
+    ans:2,
     exp:"La laringomalacia es la causa más frecuente de estridor congénito en neonatos y lactantes (60-70% de todos los estridores congénitos). Se debe a la laxitud y flacidez de las estructuras supraglóticas (epiglotis omega, aritenoides redundantes) que colapsan durante la inspiración. El estridor empeora en supino (gravedad), con el llanto, y mejora en prono. La GPC establece que en la gran mayoría de los casos (>90%) se resuelve espontáneamente entre los 12-24 meses. La supraglotoplastia endoscópica se reserva para casos graves con falla de medro o apneas.",
     tip:"<strong>Laringomalacia = estridor congénito más frecuente:</strong> Estridor INSPIRATORIO (glótico) + mejora en PRONO + empeora supino. Resolución espontánea en la mayoría antes de los 2 años. Diferencial: estenosis subglótica (estridor bifásico, post-intubación), traqueomalacia (estridor espiratorio). Solo operar casos graves con hipoxia, apnea o falla de medro.",
     ref:"Patología laríngea pediátrica. Laringomalacia. Literatura de referencia ORL ENARM."

@@ -181,8 +181,8 @@ const questions = [
   {
     cat:"div", catName:"Diverticulosis",
     q:"¿Cuál es la localización más frecuente de los divertículos del colon en la población occidental?",
-    opts:["Colon derecho (ciego y ascendente)","Colon sigmoides","Colon transverso","Recto"],
-    ans:1,
+    opts:["Colon sigmoides","Colon derecho (ciego y ascendente)","Colon transverso","Recto"],
+    ans:0,
     exp:"En la población occidental, el 90-95% de los divertículos colónicos se localizan en el colon sigmoides. Esto se debe a la alta presión intraluminal generada en este segmento por la dieta baja en fibra. En contraste, en Asia los divertículos del colon derecho son más frecuentes. La GPC de Enfermedad Diverticular del Colon 2014 establece esta distribución como base para el manejo.",
     tip:"<strong>Occidente vs Oriente:</strong> En México y países occidentales → sigmoides. En Japón y países asiáticos → colon derecho. Esta diferencia tiene implicación clínica: diverticulitis de colon derecho puede confundirse con apendicitis. Si el paciente asiático tiene 'apendicitis' y el apéndice está normal → busca divertículo de colon derecho.",
     ref:"GPC: Enfermedad diverticular del colon. CENETEC. 2014."
@@ -190,8 +190,8 @@ const questions = [
   {
     cat:"div", catName:"Diverticulosis",
     q:"¿Cuál es el principal factor de riesgo modificable para el desarrollo de diverticulosis del colon?",
-    opts:["Consumo elevado de carne roja","Dieta baja en fibra","Sedentarismo","Infección por H. pylori"],
-    ans:1,
+    opts:["Consumo elevado de carne roja","Sedentarismo","Dieta baja en fibra","Infección por H. pylori"],
+    ans:2,
     exp:"La dieta baja en fibra es el principal factor de riesgo modificable para diverticulosis. La fibra dietética aumenta el bolo fecal, reduce la presión intraluminal y acelera el tránsito intestinal, previniendo la herniación de la mucosa. La GPC recomienda una ingesta de fibra de 25-30g/día como medida preventiva y de control de síntomas en diverticulosis.",
     tip:"<strong>Fisiopatología en 3 pasos:</strong> Poca fibra → heces duras y escasas → alta presión en sigmoides → herniación de mucosa por puntos débiles (donde vasos penetrantes atraviesan la pared muscular). Los divertículos son en realidad pseudodivertículos: solo hernia mucosa y submucosa, no pared muscular completa.",
     ref:"GPC: Enfermedad diverticular del colon. CENETEC. 2014."
@@ -199,8 +199,8 @@ const questions = [
   {
     cat:"div2", catName:"Diverticulitis Aguda",
     q:"Paciente masculino de 58 años con dolor en fosa ilíaca izquierda de 3 días de evolución, fiebre de 38.1°C, cambio en el hábito intestinal y leucocitosis. ¿Cuál es el diagnóstico más probable?",
-    opts:["Síndrome de intestino irritable","Diverticulitis aguda","Cáncer de colon sigmoides","Colitis ulcerativa"],
-    ans:1,
+    opts:["Diverticulitis aguda","Síndrome de intestino irritable","Cáncer de colon sigmoides","Colitis ulcerativa"],
+    ans:0,
     exp:"La diverticulitis aguda se presenta clásicamente con dolor en fosa ilíaca izquierda (el 'lado derecho' de la patología abdominal izquierda), fiebre y leucocitosis. Se considera la 'apendicitis izquierda'. La GPC establece que la combinación de dolor en FII + fiebre + cambios en el hábito intestinal en un paciente mayor de 50 años orienta fuertemente a diverticulitis aguda.",
     tip:"<strong>Regla de los lados:</strong> Apendicitis = FID, Diverticulitis = FII. Edad típica: apendicitis en jóvenes, diverticulitis en mayores de 40-50 años. El cambio en el hábito intestinal (estreñimiento o diarrea) distingue diverticulitis del cólico renal que tiene irradiación a genitales sin cambios en hábito.",
     ref:"GPC: Enfermedad diverticular del colon. CENETEC. 2014."
@@ -235,8 +235,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento",
     q:"¿Cuál es el esquema antibiótico oral de elección para diverticulitis aguda no complicada en manejo ambulatorio?",
-    opts:["Amoxicilina oral monoterapia 500mg c/8h","Ciprofloxacino 500mg c/12h + Metronidazol 500mg c/8h por 7-10 días","Doxiciclina 100mg c/12h","Azitromicina 500mg/día por 5 días"],
-    ans:1,
+    opts:["Ciprofloxacino 500mg c/12h + Metronidazol 500mg c/8h por 7-10 días","Amoxicilina oral monoterapia 500mg c/8h","Doxiciclina 100mg c/12h","Azitromicina 500mg/día por 5 días"],
+    ans:0,
     exp:"La combinación de ciprofloxacino + metronidazol proporciona cobertura para la flora colónica mixta: gramnegativos aerobios (ciprofloxacino) y anaerobios (metronidazol). La GPC recomienda este esquema por 7-10 días en diverticulitis no complicada ambulatoria. Como alternativa: amoxicilina/clavulanato que cubre ambos espectros en un solo fármaco.",
     tip:"<strong>Cobertura dual obligatoria:</strong> La flora del colon incluye E. coli, Klebsiella, Bacteroides fragilis. Siempre necesitas cobertura Gram negativa + anaeróbica. Ciprofloxacino cubre Gram negativos; metronidazol cubre anaerobios. Alternativa práctica: Augmentin (amoxicilina/clavulanato) = cubre ambos en un solo medicamento.",
     ref:"GPC: Enfermedad diverticular del colon. CENETEC. 2014."
@@ -244,8 +244,8 @@ const questions = [
   {
     cat:"cx", catName:"Complicaciones",
     q:"Paciente con diverticulitis aguda complicada con absceso pericólico de 5cm en TC (Hinchey II). ¿Cuál es el manejo de primera línea?",
-    opts:["Cirugía de Hartmann urgente","Antibióticos IV + drenaje percutáneo guiado por imagen","Antibióticos IV solos sin drenaje","Colostomía de derivación inmediata"],
-    ans:1,
+    opts:["Cirugía de Hartmann urgente","Colostomía de derivación inmediata","Antibióticos IV solos sin drenaje","Antibióticos IV + drenaje percutáneo guiado por imagen"],
+    ans:3,
     exp:"Para abscesos pericólicos >3-4cm (Hinchey II), el manejo de elección es antibióticos IV de amplio espectro combinados con drenaje percutáneo guiado por TC o ultrasonido. Este abordaje permite tratar el absceso, estabilizar al paciente y diferir la cirugía electiva (si se necesita) en mejores condiciones. Abscesos <3cm pueden responder solo a antibióticos IV.",
     tip:"<strong>Regla del tamaño:</strong> Absceso &lt;3cm → antibióticos IV solos. Absceso ≥3-4cm → drenaje percutáneo + antibióticos. Absceso no accesible o peritonitis → cirugía. El drenaje percutáneo exitoso permite cirugía electiva posterior (Hartmann o resección primaria con anastomosis) en 6-8 semanas con menor morbimortalidad.",
     ref:"GPC: Enfermedad diverticular del colon. CENETEC. 2014."
@@ -253,8 +253,8 @@ const questions = [
   {
     cat:"cx", catName:"Complicaciones",
     q:"¿Cuál es la complicación de la diverticulitis aguda que más frecuentemente requiere cirugía de urgencia?",
-    opts:["Absceso pericólico","Perforación libre con peritonitis fecaloidea (Hinchey IV)","Fístula colovesical","Obstrucción intestinal parcial"],
-    ans:1,
+    opts:["Absceso pericólico","Fístula colovesical","Perforación libre con peritonitis fecaloidea (Hinchey IV)","Obstrucción intestinal parcial"],
+    ans:2,
     exp:"La perforación libre con peritonitis fecaloidea (Hinchey IV) es la complicación más grave y requiere cirugía de urgencia inmediata. La mortalidad es elevada (10-30%). El procedimiento de elección es la operación de Hartmann (resección del segmento afectado + colostomía terminal + cierre del muñón rectal), aunque en centros especializados puede considerarse resección con anastomosis primaria protegida.",
     tip:"<strong>Operación de Hartmann:</strong> Resección sigmoides + colostomía terminal + cierre de muñón rectal. Es la cirugía más segura en peritonitis fecal. La reconstitución del tránsito (reversa de Hartmann) se realiza 3-6 meses después cuando el paciente está recuperado. El 30-40% de los pacientes nunca se revierte.",
     ref:"GPC: Enfermedad diverticular del colon. CENETEC. 2014."
@@ -271,8 +271,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento Quirúrgico",
     q:"¿Cuántos episodios de diverticulitis aguda no complicada son indicación para considerar cirugía electiva según la GPC?",
-    opts:["Después del primer episodio siempre","Después de 2 episodios en cualquier paciente","La indicación es individualizada; no hay número fijo de episodios","Después de 5 episodios documentados"],
-    ans:2,
+    opts:["Después del primer episodio siempre","La indicación es individualizada; no hay número fijo de episodios","Después de 2 episodios en cualquier paciente","Después de 5 episodios documentados"],
+    ans:1,
     exp:"La GPC y las guías internacionales actuales han abandonado la regla rígida de 'cirugía electiva después de 2 episodios'. Actualmente la indicación quirúrgica electiva es individualizada, considerando: frecuencia e intensidad de episodios, calidad de vida, comorbilidades, edad, complicaciones asociadas y preferencias del paciente. Pacientes con episodios frecuentes o complicados se benefician de cirugía electiva.",
     tip:"<strong>Cambio de paradigma 2014:</strong> Antes: 2 episodios → cirugía. Ahora: decisión individualizada. Factores que favorecen cirugía electiva: episodios frecuentes que afectan calidad de vida, incapacidad de descartar neoplasia, fístula, estenosis, inmunosupresión, episodio complicado previo. La cirugía electiva laparoscópica tiene baja morbimortalidad.",
     ref:"GPC: Enfermedad diverticular del colon. CENETEC. 2014."
@@ -280,8 +280,8 @@ const questions = [
   {
     cat:"div", catName:"Diverticulosis",
     q:"¿Cuál es la complicación más frecuente de la diverticulosis del colon (sin infección)?",
-    opts:["Perforación espontánea","Hemorragia diverticular","Vólvulo sigmoideo","Obstrucción intestinal crónica"],
-    ans:1,
+    opts:["Hemorragia diverticular","Perforación espontánea","Vólvulo sigmoideo","Obstrucción intestinal crónica"],
+    ans:0,
     exp:"La hemorragia diverticular es la complicación más frecuente de la diverticulosis, representando el 30-40% de las hemorragias digestivas bajas graves. Ocurre por erosión de los vasa recta (arterias penetrantes) en el cuello del divertículo. Es típicamente indolora, masiva y autolimitada en el 70-80% de los casos. La GPC señala que el colon derecho es el sitio más frecuente de sangrado aunque los divertículos predominen en sigmoides.",
     tip:"<strong>Hemorragia diverticular:</strong> Indolora + masiva + autolimitada (70-80%). Si no cede → colonoscopia terapéutica (primera línea), angiografía con embolización (segunda línea), cirugía (última opción). Diagnóstico: angiografía-TC o colonoscopia. No confundir con diverticulitis (que tiene dolor e infección).",
     ref:"GPC: Enfermedad diverticular del colon. CENETEC. 2014."
@@ -289,8 +289,8 @@ const questions = [
   {
     cat:"dx", catName:"Diagnóstico",
     q:"¿Por qué está contraindicada la colonoscopia en la fase aguda de la diverticulitis?",
-    opts:["Porque no modifica el manejo en ningún caso","Por riesgo de perforación del segmento inflamado","Porque el preparado intestinal es tóxico en infección","Por riesgo de bacteriemia fatal"],
-    ans:1,
+    opts:["Porque no modifica el manejo en ningún caso","Porque el preparado intestinal es tóxico en infección","Por riesgo de perforación del segmento inflamado","Por riesgo de bacteriemia fatal"],
+    ans:2,
     exp:"La colonoscopia está contraindicada en diverticulitis aguda porque la insuflación de aire y la manipulación del endoscopio sobre el segmento inflamado aumentan significativamente el riesgo de perforación. La GPC establece que la colonoscopia se realiza 6-8 semanas después de la resolución del episodio agudo, principalmente para descartar neoplasia de colon que puede simular diverticulitis.",
     tip:"<strong>Colonoscopia diferida obligatoria:</strong> Todo paciente con diverticulitis aguda debe tener colonoscopia 6-8 semanas después para descartar cáncer de colon. El cáncer puede presentarse exactamente igual que la diverticulitis (dolor en FII, cambios en hábito, leucocitosis) y puede confundirse en la TC. Esta colonoscopia diferida es estándar de atención.",
     ref:"GPC: Enfermedad diverticular del colon. CENETEC. 2014."
@@ -298,8 +298,8 @@ const questions = [
   {
     cat:"div2", catName:"Diverticulitis Aguda",
     q:"Paciente de 45 años inmunosuprimido por trasplante renal presenta diverticulitis aguda en TC. ¿Cómo modifica la inmunosupresión el manejo?",
-    opts:["No cambia el manejo, se trata igual que paciente sano","Requiere hospitalización, antibióticos IV y umbral quirúrgico más bajo","Solo requiere doblar la dosis de antibióticos orales","Contraindicación absoluta para cirugía"],
-    ans:1,
+    opts:["No cambia el manejo, se trata igual que paciente sano","Contraindicación absoluta para cirugía","Solo requiere doblar la dosis de antibióticos orales","Requiere hospitalización, antibióticos IV y umbral quirúrgico más bajo"],
+    ans:3,
     exp:"Los pacientes inmunosuprimidos (trasplantados, con corticosteroides crónicos, quimioterapia, VIH) con diverticulitis aguda tienen presentación clínica atenuada (menos fiebre, dolor leve) pero mayor riesgo de complicaciones y perforación. La GPC establece que en inmunosuprimidos se requiere hospitalización siempre, antibióticos IV y umbral quirúrgico más bajo debido al mayor riesgo de progresión rápida.",
     tip:"<strong>Inmunosupresión = Mayor vigilancia:</strong> Los corticosteroides enmascaran la peritonitis (reducen la respuesta inflamatoria). Un paciente en esteroides puede tener peritonitis franca sin signos peritoneales claros. La diverticulitis en inmunosuprimidos tiene 3 veces más mortalidad. Umbral más bajo para TC y para cirugía.",
     ref:"GPC: Enfermedad diverticular del colon. CENETEC. 2014."

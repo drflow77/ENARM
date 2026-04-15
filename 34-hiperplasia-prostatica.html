@@ -190,8 +190,8 @@ const questions = [
   {
     cat:"dx", catName:"Diagnóstico/Síntomas",
     q:"¿En qué zona anatómica de la próstata se origina la hiperplasia prostática benigna (HPB)?",
-    opts:["Zona periférica posterior","Zona de transición (periuretral)","Zona central periductal","Zona fibromuscular anterior"],
-    ans:1,
+    opts:["Zona periférica posterior","Zona central periductal","Zona de transición (periuretral)","Zona fibromuscular anterior"],
+    ans:2,
     exp:"La HPB se origina exclusivamente en la zona de transición (zona periuretral), que rodea la uretra proximal. Esta zona representa ~5% del volumen prostático en adultos jóvenes pero puede crecer hasta constituir el 80% en hombres mayores con HPB severa. En contraste, el adenocarcinoma prostático se origina en la zona periférica (70-80% de los casos). Esta distinción anatómica explica por qué HPB y cáncer son patologías independientes.",
     tip:"<strong>Zonas de la próstata en el ENARM:</strong> Zona periférica → cáncer. Zona de transición → HPB. El crecimiento de la zona transicional comprime la uretra (síntomas obstructivos) y eleva el cuello vesical (síntomas irritativos por hiperactividad del detrusor). El tacto rectal en HPB muestra próstata aumentada de tamaño, lisa, elástica y sin nódulos.",
     ref:"GPC: Diagnóstico y tratamiento de hiperplasia prostática benigna. CENETEC."
@@ -199,8 +199,8 @@ const questions = [
   {
     cat:"dx", catName:"Diagnóstico/Síntomas",
     q:"Hombre de 67 años refiere dificultad para iniciar la micción, chorro urinario débil, sensación de vaciamiento incompleto y nicturia 3 veces. ¿Cómo se clasifican estos síntomas?",
-    opts:["Síntomas irritativos exclusivamente","Síntomas obstructivos exclusivamente","Síntomas del tracto urinario inferior (STUI): obstructivos e irritativos mixtos","Crisis de retención urinaria aguda"],
-    ans:2,
+    opts:["Síntomas del tracto urinario inferior (STUI): obstructivos e irritativos mixtos","Síntomas obstructivos exclusivamente","Síntomas irritativos exclusivamente","Crisis de retención urinaria aguda"],
+    ans:0,
     exp:"Los síntomas del tracto urinario inferior (STUI) asociados a HPB se clasifican en obstructivos (dificultad para iniciar la micción, chorro débil, intermitencia, pujo, goteo terminal, vaciamiento incompleto) e irritativos (urgencia, frecuencia aumentada, nicturia, urgencia-incontinencia). El paciente presenta ambos tipos: dificultad de inicio y chorro débil (obstructivos) + nicturia (irritativo). La evaluación objetiva se hace con la escala IPSS.",
     tip:"<strong>Regla mnemotécnica STUI:</strong> Obstructivos = problemas con el CHORRO (Chorro débil, Hesitancia, Intermitencia, Goteo terminal). Irritativos = problemas con las GANAS (Ganas urgentes, Aumento de frecuencia, Nocturia frecuente, Asistencia tardía). La nicturia ≥2 veces por noche es clínicamente significativa en HPB.",
     ref:"GPC: Diagnóstico y tratamiento de hiperplasia prostática benigna. CENETEC."
@@ -208,8 +208,8 @@ const questions = [
   {
     cat:"dx", catName:"Diagnóstico/Síntomas",
     q:"¿Cuál es el estudio de imagen de primera línea para evaluar el tracto urinario en HPB y estimar el volumen prostático?",
-    opts:["Tomografía computada de abdomen y pelvis","Resonancia magnética multiparamétrica de próstata","Ultrasonido transabdominal/transrectal de próstata","Urografía excretora"],
-    ans:2,
+    opts:["Tomografía computada de abdomen y pelvis","Ultrasonido transabdominal/transrectal de próstata","Resonancia magnética multiparamétrica de próstata","Urografía excretora"],
+    ans:1,
     exp:"El ultrasonido (USG) es el estudio de imagen de elección en HPB. El USG transabdominal permite estimar el volumen prostático (normal <30 mL), medir el residuo postmiccional y evaluar el tracto urinario superior (dilatación ureteral, hidronefrosis). El USG transrectal (USTR) proporciona mayor precisión en la medición del volumen. La fórmula del volumen prostático es: largo × ancho × altura × 0.52. La TC y RMN no son estudios de primera línea en HPB.",
     tip:"<strong>Residuo postmiccional (RPM) por USG:</strong> Normal <50 mL. 50-300 mL: zona gris, considerar tratamiento. >300 mL: indicación de cirugía (uno de los criterios absolutos). El RPM elevado predispone a ITU recurrente, cálculos vesicales e insuficiencia renal obstructiva.",
     ref:"GPC: Diagnóstico y tratamiento de hiperplasia prostática benigna. CENETEC."
@@ -217,8 +217,8 @@ const questions = [
   {
     cat:"ipss", catName:"Escala IPSS",
     q:"Un paciente con HPB llena el cuestionario IPSS y obtiene una puntuación de 14. ¿Cómo se interpreta y qué manejo inicial corresponde?",
-    opts:["IPSS leve (0-7): observación expectante","IPSS moderado (8-19): tratamiento médico o conducta expectante","IPSS severo (20-35): cirugía de urgencia","IPSS moderado (8-19): cirugía de inmediata"],
-    ans:1,
+    opts:["IPSS leve (0-7): observación expectante","IPSS severo (20-35): cirugía de urgencia","IPSS moderado (8-19): tratamiento médico o conducta expectante","IPSS moderado (8-19): cirugía de inmediata"],
+    ans:2,
     exp:"La escala IPSS (International Prostate Symptom Score) clasifica la severidad de los STUI: leve 0-7 (observación), moderado 8-19 (tratamiento médico, vigilancia), severo 20-35 (tratamiento médico intensificado, considerar cirugía). Un IPSS de 14 cae en el rango moderado. La GPC recomienda iniciar con monoterapia médica (alfa-bloqueadores o inhibidores de 5-alfa-reductasa según tamaño prostático) y reevaluar. La cirugía no está indicada solo por puntaje IPSS moderado sin otras complicaciones.",
     tip:"<strong>IPSS: 7 preguntas + 1 de calidad de vida.</strong> Cada pregunta puntúa 0-5 (frecuencia del síntoma). La pregunta de calidad de vida (0=excelente, 6=terrible) no suma al puntaje pero orienta la tolerancia del paciente al tratamiento. Un IPSS de 20+ con calidad de vida 5-6 refuerza la indicación quirúrgica.",
     ref:"GPC: Diagnóstico y tratamiento de hiperplasia prostática benigna. CENETEC."
@@ -226,8 +226,8 @@ const questions = [
   {
     cat:"ipss", catName:"Escala IPSS",
     q:"¿Cuál es la utilidad principal de la flujometría (uroflujometría) en la evaluación de HPB?",
-    opts:["Medir el volumen prostático con mayor precisión que el USG","Evaluar objetivamente la obstrucción infravesical midiendo el flujo máximo (Q máx)","Determinar la indicación quirúrgica de forma absoluta","Descartar cáncer de próstata"],
-    ans:1,
+    opts:["Medir el volumen prostático con mayor precisión que el USG","Descartar cáncer de próstata","Determinar la indicación quirúrgica de forma absoluta","Evaluar objetivamente la obstrucción infravesical midiendo el flujo máximo (Q máx)"],
+    ans:3,
     exp:"La uroflujometría mide el patrón y velocidad del chorro urinario. El parámetro clave es el flujo máximo (Q máx): normal >15 mL/s, zona indeterminada 10-15 mL/s, sugestivo de obstrucción <10 mL/s. Junto con el residuo postmiccional, proporciona evidencia objetiva de obstrucción infravesical. La GPC recomienda uroflujometría antes de decidir tratamiento quirúrgico. No determina por sí sola la indicación quirúrgica ni diferencia entre obstrucción prostática y vejiga hipoactiva.",
     tip:"<strong>Q máx <10 mL/s + RPM >150 mL = perfil obstructivo claro.</strong> La uroflujometría debe hacerse con volumen vesical adecuado (>150 mL) para ser válida. La curva obstructiva tiene forma de meseta (plateau) en lugar de la curva en campana normal. El estudio urodinámico completo se reserva para casos dudosos antes de cirugía.",
     ref:"GPC: Diagnóstico y tratamiento de hiperplasia prostática benigna. CENETEC."
@@ -235,8 +235,8 @@ const questions = [
   {
     cat:"ipss", catName:"Escala IPSS",
     q:"Hombre de 70 años con HPB e IPSS de 22. Decide no operarse. ¿Qué otros factores deben evaluarse para definir la urgencia de intervención?",
-    opts:["Solo el IPSS es suficiente para tomar la decisión","Residuo postmiccional, función renal, presencia de complicaciones (litiasis, ITU, hematuria)","El deseo del paciente es el único factor relevante","La densidad del PSA determina la urgencia quirúrgica"],
-    ans:1,
+    opts:["Solo el IPSS es suficiente para tomar la decisión","La densidad del PSA determina la urgencia quirúrgica","El deseo del paciente es el único factor relevante","Residuo postmiccional, función renal, presencia de complicaciones (litiasis, ITU, hematuria)"],
+    ans:3,
     exp:"El manejo de la HPB es multiparamétrico. Además del IPSS, deben evaluarse: residuo postmiccional (>300 mL = cirugía), función renal (creatinina elevada por obstrucción = cirugía), presencia de litiasis vesical secundaria, infecciones urinarias recurrentes (≥2 episodios/año), hematuria recurrente refractaria a tratamiento médico, y retención urinaria aguda recurrente. Cualquiera de estas complicaciones es indicación absoluta de cirugía independientemente del IPSS.",
     tip:"<strong>Indicaciones ABSOLUTAS de cirugía en HPB (memorizar las 5):</strong> 1) Retención urinaria aguda recurrente. 2) Infecciones urinarias recurrentes secundarias a HPB. 3) Hematuria macroscópica recurrente. 4) Litiasis vesical secundaria. 5) Insuficiencia renal obstructiva (hidronefrosis). Estas no esperan tratamiento médico.",
     ref:"GPC: Diagnóstico y tratamiento de hiperplasia prostática benigna. CENETEC."
@@ -262,8 +262,8 @@ const questions = [
   {
     cat:"tx_med", catName:"Tratamiento Médico",
     q:"Paciente con HPB sintomática, IPSS 20 y próstata de 55 mL. ¿Cuál es el esquema farmacológico más apropiado según la GPC?",
-    opts:["Alfa-bloqueador en monoterapia","Inhibidor 5-alfa-reductasa en monoterapia","Terapia combinada: alfa-bloqueador + inhibidor de 5-alfa-reductasa","Anticolinérgico en monoterapia"],
-    ans:2,
+    opts:["Terapia combinada: alfa-bloqueador + inhibidor de 5-alfa-reductasa","Inhibidor 5-alfa-reductasa en monoterapia","Alfa-bloqueador en monoterapia","Anticolinérgico en monoterapia"],
+    ans:0,
     exp:"La terapia combinada (alfa-bloqueador + inhibidor de 5-alfa-reductasa) está indicada en pacientes con IPSS moderado-severo Y próstata grande (>40 mL) Y PSA >1.5 ng/mL, que tienen mayor riesgo de progresión. El estudio MTOPS demostró que la combinación reduce el riesgo de progresión clínica 66% vs monoterapia. El alfa-bloqueador proporciona alivio sintomático rápido mientras que el inhibidor modifica la historia natural de la enfermedad a largo plazo.",
     tip:"<strong>Cuándo combinar:</strong> Próstata >40 mL + IPSS ≥8 + PSA >1.5 ng/mL = candidato a terapia combinada. El alfa-bloqueador puede retirarse a los 6-12 meses si el inhibidor logró reducción suficiente del volumen. El uso prolongado de alfa-bloqueadores en monoterapia para próstatas grandes no detiene la progresión.",
     ref:"GPC: Diagnóstico y tratamiento de hiperplasia prostática benigna. CENETEC."
@@ -271,8 +271,8 @@ const questions = [
   {
     cat:"tx_cx", catName:"Tratamiento Quirúrgico",
     q:"¿Cuál es el tratamiento quirúrgico gold standard para HPB con próstata de 40-80 mL?",
-    opts:["Prostatectomía abierta (técnica de Millin o Freyer)","Resección transuretral de próstata (RTU-P)","Vaporización fotoselectiva con láser (PVP)","Implante de stent uretral"],
-    ans:1,
+    opts:["Prostatectomía abierta (técnica de Millin o Freyer)","Vaporización fotoselectiva con láser (PVP)","Resección transuretral de próstata (RTU-P)","Implante de stent uretral"],
+    ans:2,
     exp:"La resección transuretral de próstata (RTU-P) es el gold standard quirúrgico para HPB con próstata de 30-80 mL. Se realiza por vía endoscópica bajo anestesia espinal o general, resecando el tejido prostático con asa de electrocauterio. Mejora el Q máx en 100-150% y reduce el IPSS en 70%. Las complicaciones incluyen sangrado, eyaculación retrógrada (75-90%), incontinencia urinaria de esfuerzo (<1-2%) y síndrome post-RTU-P (hiponatremia dilucional).",
     tip:"<strong>RTU-P vs prostatectomía abierta:</strong> RTU-P para próstata 30-80 mL. Prostatectomía abierta (transvesical o retropúbica) para próstata >80-100 mL — la endoscopia tiene limitaciones técnicas con glándulas muy grandes. Las técnicas con láser (HoLEP, PVP) son alternativas con menor sangrado, especialmente en pacientes anticoagulados.",
     ref:"GPC: Diagnóstico y tratamiento de hiperplasia prostática benigna. CENETEC."
@@ -280,8 +280,8 @@ const questions = [
   {
     cat:"tx_cx", catName:"Tratamiento Quirúrgico",
     q:"Un paciente que acaba de ser sometido a RTU-P desarrolla confusión mental, hiponatremia (Na 118 mEq/L), náuseas y convulsiones en las primeras horas del postoperatorio. ¿Cuál es el diagnóstico?",
-    opts:["Encefalopatía urémica por insuficiencia renal aguda","Síndrome post-RTU-P (hiponatremia dilucional por absorción de líquido de irrigación)","Sepsis urinaria por bacteriemia transoperatoria","Reacción transfusional hemolítica"],
-    ans:1,
+    opts:["Síndrome post-RTU-P (hiponatremia dilucional por absorción de líquido de irrigación)","Encefalopatía urémica por insuficiencia renal aguda","Sepsis urinaria por bacteriemia transoperatoria","Reacción transfusional hemolítica"],
+    ans:0,
     exp:"El síndrome post-RTU-P (síndrome de resección transuretral) ocurre por absorción intravascular de grandes volúmenes del líquido de irrigación hipotónico (glicina o sorbitol) a través de los senos venosos prostáticos abiertos durante la cirugía. Produce hipervolemia, hiponatremia dilucional severa (<125 mEq/L) y encefalopatía hiponatrémica. El manejo incluye solución salina hipertónica (NaCl 3%), diuréticos y monitoreo neurológico. Se previene limitando el tiempo quirúrgico a <60 minutos.",
     tip:"<strong>Síndrome post-RTU-P = hiponatremia dilucional.</strong> La RTU-P bipolar (corriente bipolar con solución salina) prácticamente elimina este riesgo porque usa solución isotónica de irrigación. Por eso los sistemas bipolares han desplazado al sistema monopolar clásico. En el ENARM: confusión + hiponatremia post-RTU = síndrome por absorción de glicina.",
     ref:"GPC: Diagnóstico y tratamiento de hiperplasia prostática benigna. CENETEC."
@@ -289,8 +289,8 @@ const questions = [
   {
     cat:"tx_cx", catName:"Tratamiento Quirúrgico",
     q:"Hombre de 72 años en retención urinaria aguda en urgencias. ¿Cuál es el manejo inmediato más apropiado?",
-    opts:["Iniciar alfa-bloqueador oral y esperar resolución espontánea 24-48 h","Cateterismo uretral vesical de drenaje inmediato","Cistostomía suprapúbica de urgencia como primer paso","Cirugía de RTU-P de emergencia"],
-    ans:1,
+    opts:["Cateterismo uretral vesical de drenaje inmediato","Iniciar alfa-bloqueador oral y esperar resolución espontánea 24-48 h","Cistostomía suprapúbica de urgencia como primer paso","Cirugía de RTU-P de emergencia"],
+    ans:0,
     exp:"La retención urinaria aguda (RUA) es una urgencia urológica que requiere drenaje vesical inmediato para aliviar el dolor y prevenir daño renal. El cateterismo uretral (sonda Foley 16-18 Fr) es el primer paso. Si falla por estenosis o no puede introducirse, se realiza cistostomía suprapúbica. Tras resolver la RUA se inicia alfa-bloqueador (tamsulosina) y se programa valoración urológica para definir cirugía definitiva. El 60% de los pacientes puede intentar retiro del catéter a las 48-72 horas bajo alfa-bloqueador.",
     tip:"<strong>Manejo escalonado de RUA:</strong> 1) Catéter uretral → 2) Si no pasa: cistostomía suprapúbica. Nunca cirugía de próstata en la agudeza — aumenta la morbimortalidad. El alfa-bloqueador previo (prueba de voiding trial) aumenta el éxito del retiro del catéter a las 48-72h del 44% al 62%. RUA recurrente (≥2 episodios) = indicación absoluta de cirugía definitiva.",
     ref:"GPC: Diagnóstico y tratamiento de hiperplasia prostática benigna. CENETEC."
@@ -298,8 +298,8 @@ const questions = [
   {
     cat:"comp", catName:"Complicaciones",
     q:"¿Cuál de las siguientes es una indicación ABSOLUTA de tratamiento quirúrgico en HPB, independientemente del IPSS o respuesta al tratamiento médico?",
-    opts:["IPSS de 18 con respuesta parcial a tamsulosina","Nocturia de 2 veces por noche que afecta la calidad de vida","Hidronefrosis bilateral secundaria a obstrucción infravesical crónica","Próstata de 50 mL por USG sin síntomas"],
-    ans:2,
+    opts:["IPSS de 18 con respuesta parcial a tamsulosina","Nocturia de 2 veces por noche que afecta la calidad de vida","Próstata de 50 mL por USG sin síntomas","Hidronefrosis bilateral secundaria a obstrucción infravesical crónica"],
+    ans:3,
     exp:"La hidronefrosis bilateral (o unilateral) secundaria a HPB con insuficiencia renal obstructiva es una indicación absoluta de cirugía. Las 5 indicaciones absolutas clásicas son: 1) Retención urinaria aguda recurrente, 2) ITU recurrente secundaria a HPB, 3) Hematuria macroscópica recurrente refractaria, 4) Litiasis vesical secundaria a HPB, 5) Insuficiencia renal obstructiva (hidronefrosis). En estas situaciones el tratamiento médico es insuficiente y la demora quirúrgica puede producir daño renal irreversible.",
     tip:"<strong>Mnemotécnica: RRHI-L para indicaciones absolutas de cirugía en HPB:</strong> Retención recurrente, ITU recurrente, Hidronefrosis/IR obstructiva, Litiasis vesical. Cualquiera de estas cancela el intento de tratamiento médico. Si el paciente llega con insuficiencia renal por HPB, primero drenar con catéter (recuperar función renal) y luego operar en condiciones estables.",
     ref:"GPC: Diagnóstico y tratamiento de hiperplasia prostática benigna. CENETEC."

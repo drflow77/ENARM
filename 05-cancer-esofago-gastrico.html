@@ -191,8 +191,8 @@ const questions=[
   {
     cat:"eso", catName:"Cáncer de Esófago",
     q:"Paciente masculino de 60 años, fumador, con disfagia progresiva inicialmente para sólidos y luego para líquidos, pérdida de peso de 10kg en 2 meses y disfonía reciente. ¿Cuál es la conducta diagnóstica prioritaria?",
-    opts:["Prueba terapéutica con IBP por 4 semanas","Esofagograma con bario como único estudio","Endoscopia digestiva alta con biopsia urgente","TC de tórax sin endoscopia previa"],
-    ans:2,
+    opts:["Prueba terapéutica con IBP por 4 semanas","Endoscopia digestiva alta con biopsia urgente","Esofagograma con bario como único estudio","TC de tórax sin endoscopia previa"],
+    ans:1,
     exp:"La disfagia progresiva (sólidos → líquidos) con pérdida de peso y disfonía son síntomas de alarma que obligan a endoscopia con biopsia urgente para descartar cáncer de esófago. La GPC establece que ante síntomas de alarma la endoscopia es el paso diagnóstico prioritario — permite visualización directa, toma de biopsia para diagnóstico histológico y evaluación de extensión luminal. La disfonía sugiere compromiso del nervio laríngeo recurrente.",
     tip:"<strong>Disfonía en cáncer de esófago = mal pronóstico:</strong> Indica invasión o compresión del nervio laríngeo recurrente izquierdo que corre junto al arco aórtico — sugiere tumor mediotorácico con extensión mediastinal. Otros signos de irresecabilidad: síndrome de vena cava superior, fístula traqueoesofágica, metástasis a distancia.",
     ref:"GPC: Oncología de carcinoma esofágico y unión esofagogástrica. CENETEC. 2023."
@@ -200,8 +200,8 @@ const questions=[
   {
     cat:"fx", catName:"Factores de Riesgo",
     q:"¿Cuál es el principal factor de riesgo para adenocarcinoma de esófago?",
-    opts:["Consumo de alcohol crónico","Esófago de Barrett (metaplasia intestinal por ERGE crónica)","Infección por H. pylori","Acalasia de larga evolución"],
-    ans:1,
+    opts:["Consumo de alcohol crónico","Infección por H. pylori","Esófago de Barrett (metaplasia intestinal por ERGE crónica)","Acalasia de larga evolución"],
+    ans:2,
     exp:"El esófago de Barrett es el principal factor de riesgo para adenocarcinoma de esófago, con un riesgo de progresión de 0.1-0.5% por año en Barrett sin displasia y hasta 6-10% por año en displasia de alto grado. La GPC establece la secuencia: ERGE crónica → Barrett → displasia → adenocarcinoma. La vigilancia endoscópica periódica en Barrett busca detectar displasia en etapas tratables.",
     tip:"<strong>Secuencia de Barrett:</strong> ERGE (años) → Metaplasia intestinal (Barrett) → Displasia baja → Displasia alta → Adenocarcinoma. En Barrett con displasia alta: ablación con radiofrecuencia o mucosectomía endoscópica. El riesgo absoluto es bajo (0.5%/año) pero la vigilancia está justificada. La acalasia es FDR para carcinoma EPIDERMOIDE, no adenocarcinoma.",
     ref:"GPC: Oncología de carcinoma esofágico y unión esofagogástrica. CENETEC. 2023."
@@ -209,8 +209,8 @@ const questions=[
   {
     cat:"eso", catName:"Cáncer de Esófago",
     q:"¿Cuál es el tratamiento estándar para cáncer de esófago resecable localmente avanzado (T2-T4a, N+) según las guías oncológicas actuales?",
-    opts:["Cirugía (esofagectomía) inmediata sin terapia neoadyuvante","Quimiorradioterapia neoadyuvante seguida de esofagectomía","Quimioterapia paliativa exclusiva","Radioterapia exclusiva definitiva"],
-    ans:1,
+    opts:["Quimiorradioterapia neoadyuvante seguida de esofagectomía","Cirugía (esofagectomía) inmediata sin terapia neoadyuvante","Quimioterapia paliativa exclusiva","Radioterapia exclusiva definitiva"],
+    ans:0,
     exp:"Para cáncer de esófago localmente avanzado resecable, el estándar actual es la quimiorradioterapia neoadyuvante (protocolo CROSS: carboplatino + paclitaxel + radioterapia) seguida de esofagectomía. Este esquema demostró aumento significativo en sobrevida comparado con cirugía sola. La GPC adopta este abordaje multimodal como tratamiento estándar en candidatos quirúrgicos.",
     tip:"<strong>Protocolo CROSS (referencia clave ENARM):</strong> Carboplatino + Paclitaxel semanal + RT 41.4 Gy → Esofagectomía. Aumentó sobrevida media de 24 a 49 meses vs cirugía sola. Para carcinoma escamoso: la quimiorradioterapia definitiva (sin cirugía) puede ser igualmente efectiva en algunos centros. Conoce el nombre CROSS — aparece en el ENARM.",
     ref:"GPC: Oncología de carcinoma esofágico y unión esofagogástrica. CENETEC. 2023."
@@ -227,8 +227,8 @@ const questions=[
   {
     cat:"gas", catName:"Cáncer Gástrico",
     q:"Paciente de 55 años con pérdida de peso de 12kg, saciedad temprana, masa epigástrica palpable y anemia. Endoscopia muestra úlcera gástrica irregular en curvatura mayor. Biopsia: adenocarcinoma. ¿Cuál es el estudio de estadificación inicial más importante?",
-    opts:["Gammagrafía ósea","TC de tórax, abdomen y pelvis con contraste IV","PET-CT de cuerpo completo","Laparoscopia diagnóstica inmediata"],
-    ans:1,
+    opts:["Gammagrafía ósea","Laparoscopia diagnóstica inmediata","PET-CT de cuerpo completo","TC de tórax, abdomen y pelvis con contraste IV"],
+    ans:3,
     exp:"La TC de tórax, abdomen y pelvis con contraste IV es el estudio de estadificación inicial de elección para cáncer gástrico. Evalúa la extensión local del tumor (T), ganglios linfáticos regionales (N) y metástasis a distancia (M). La GPC establece que la TC es el primer paso de estadificación. El ultrasonido endoscópico (EUS) complementa la evaluación T y N local. La laparoscopia estadificadora se añade para descartar carcinomatosis peritoneal no visible en TC.",
     tip:"<strong>Estadificación cáncer gástrico — secuencia:</strong> 1) TC TAP con contraste (estadificación sistémica). 2) Ultrasonido endoscópico (profundidad de invasión T y ganglios N locales). 3) Laparoscopia diagnóstica (descartar M1 peritoneal). La carcinomatosis peritoneal es la metástasis más frecuente del cáncer gástrico y cambia el manejo a paliativo.",
     ref:"GPC: Diagnóstico y tratamiento del adenocarcinoma gástrico en pacientes adultos. IMSS. 2009."
@@ -236,8 +236,8 @@ const questions=[
   {
     cat:"gas", catName:"Cáncer Gástrico",
     q:"¿Cuál es la cirugía estándar para adenocarcinoma gástrico resecable en tercio distal con intención curativa?",
-    opts:["Gastrectomía total con esofagoyeyunoanastomosis en Y de Roux","Gastrectomía subtotal distal con linfadenectomía D2","Gastrectomía en manga laparoscópica","Resección endoscópica de mucosa (REM) para cualquier estadio"],
-    ans:1,
+    opts:["Gastrectomía subtotal distal con linfadenectomía D2","Gastrectomía total con esofagoyeyunoanastomosis en Y de Roux","Gastrectomía en manga laparoscópica","Resección endoscópica de mucosa (REM) para cualquier estadio"],
+    ans:0,
     exp:"La gastrectomía subtotal distal (resección del 75-80% del estómago) con linfadenectomía D2 (extirpación de ganglios perigástricos y de la segunda estación) es la cirugía estándar para adenocarcinoma gástrico resecable en tercio distal. La GPC establece que la linfadenectomía D2 mejora la estadificación y la sobrevida comparada con D1, y debe realizarse en centros con experiencia.",
     tip:"<strong>D1 vs D2 (punto clave ENARM):</strong> D1 = ganglios perigástricos (1ª estación). D2 = D1 + ganglios del tronco celíaco, arteria hepática, esplénica (2ª estación). D2 es el estándar en Asia y en centros occidentales de alto volumen. D2 sin esplenopancreatectomía (D2 modificada) tiene menor morbilidad y es la técnica actual recomendada.",
     ref:"GPC: Diagnóstico y tratamiento del adenocarcinoma gástrico en pacientes adultos. IMSS. 2009."
@@ -254,8 +254,8 @@ const questions=[
   {
     cat:"gas", catName:"Cáncer Gástrico",
     q:"¿Qué signo clínico se produce por metástasis ganglionar supraclavicular izquierda en cáncer gástrico avanzado?",
-    opts:["Signo de Blumer","Ganglio de Virchow (Troisier)","Signo de la hermana María José","Ganglio de Irish"],
-    ans:1,
+    opts:["Signo de Blumer","Ganglio de Irish","Signo de la hermana María José","Ganglio de Virchow (Troisier)"],
+    ans:3,
     exp:"El ganglio de Virchow (o signo de Troisier) es la adenopatía supraclavicular izquierda palpable por metástasis de tumores del tubo digestivo, especialmente cáncer gástrico. El drenaje linfático del estómago sigue el conducto torácico que desemboca en el ángulo venoso izquierdo, produciendo metástasis en este ganglio centinela. Su presencia indica enfermedad M1 no resecable.",
     tip:"<strong>Signos de metástasis en cáncer gástrico avanzado:</strong> Ganglio de Virchow (supraclavicular izquierdo), Ganglio de Irish (axilar izquierdo), Nódulo de la Hermana María José (umbilical), Tumor de Krukenberg (ovario por metástasis transcelómica), Anaquel de Blumer (metástasis peritoneal en fondo de saco de Douglas, palpable en tacto rectal). Todos indican M1.",
     ref:"GPC: Diagnóstico y tratamiento del adenocarcinoma gástrico en pacientes adultos. IMSS. 2009."
@@ -263,8 +263,8 @@ const questions=[
   {
     cat:"tx", catName:"Tratamiento",
     q:"¿Cuál es el esquema de quimioterapia perioperatoria recomendado para cáncer gástrico resecable localmente avanzado según las guías actuales (protocolo FLOT)?",
-    opts:["FOLFOX exclusivo postoperatorio","5-FU + Leucovorin preoperatorio solamente","Docetaxel + Oxaliplatino + Leucovorin + 5-FU (FLOT) perioperatorio (pre y postoperatorio)","Cisplatino + Capecitabina postoperatorio exclusivo"],
-    ans:2,
+    opts:["Docetaxel + Oxaliplatino + Leucovorin + 5-FU (FLOT) perioperatorio (pre y postoperatorio)","5-FU + Leucovorin preoperatorio solamente","FOLFOX exclusivo postoperatorio","Cisplatino + Capecitabina postoperatorio exclusivo"],
+    ans:0,
     exp:"El esquema FLOT (Docetaxel + Oxaliplatino + Leucovorin + 5-FU) administrado de forma perioperatoria (4 ciclos preoperatorios + cirugía + 4 ciclos postoperatorios) es el estándar actual para cáncer gástrico/unión esofagogástrica resecable localmente avanzado. Superó al esquema ECF en sobrevida global. La GPC adopta el esquema perioperatorio como primera línea en candidatos aptos.",
     tip:"<strong>FLOT vs ECF (evolución del estándar):</strong> Antes: ECF (Epirubicina + Cisplatino + 5-FU). Ahora: FLOT (Docetaxel + Oxaliplatino + Leucovorin + 5-FU). El estudio FLOT4 demostró sobrevida media de 50 vs 35 meses. Perioperatorio = neoadyuvante + adyuvante. La quimioterapia preoperatoria reduce el tumor, trata micrometástasis tempranas y es mejor tolerada que la postoperatoria sola.",
     ref:"GPC: Diagnóstico y tratamiento del adenocarcinoma gástrico en pacientes adultos. IMSS. 2009."
@@ -272,8 +272,8 @@ const questions=[
   {
     cat:"fx", catName:"Factores de Riesgo",
     q:"¿Cuáles son los factores de riesgo dietéticos más importantes para cáncer gástrico tipo intestinal reconocidos por la GPC?",
-    opts:["Dieta alta en fibra y vitamina C","Dieta alta en sal, nitratos y alimentos ahumados, y baja en frutas y verduras","Consumo elevado de grasas saturadas","Dieta cetogénica"],
-    ans:1,
+    opts:["Dieta alta en fibra y vitamina C","Consumo elevado de grasas saturadas","Dieta alta en sal, nitratos y alimentos ahumados, y baja en frutas y verduras","Dieta cetogénica"],
+    ans:2,
     exp:"Los factores dietéticos de riesgo para cáncer gástrico incluyen: dieta alta en sal (daño directo a la mucosa), nitratos y nitritos (se convierten en nitrosaminas carcinogénicas), alimentos ahumados y encurtidos, y dieta baja en frutas y verduras (que son fuente de antioxidantes y vitamina C). La GPC reconoce estos factores como parte de la cadena multifactorial junto con H. pylori.",
     tip:"<strong>Dieta protectora vs de riesgo:</strong> RIESGO: sal, nitratos, ahumados, encurtidos, tabaco, H. pylori. PROTECTORA: frutas frescas (vitamina C inhibe formación de nitrosaminas), verduras, dieta mediterránea. México tiene alta incidencia de cáncer gástrico parcialmente por patrones dietéticos y alta prevalencia de H. pylori (>70% de la población adulta infectada).",
     ref:"GPC: Diagnóstico y tratamiento del adenocarcinoma gástrico en pacientes adultos. IMSS. 2009."
@@ -281,8 +281,8 @@ const questions=[
   {
     cat:"dx", catName:"Diagnóstico / Estadificación",
     q:"¿Para qué sirve la laparoscopia diagnóstica estadificadora en cáncer gástrico antes de decidir cirugía con intención curativa?",
-    opts:["Para realizar biopsia del tumor primario","Para descartar carcinomatosis peritoneal y metástasis hepáticas superficiales no visibles en TC","Para medir el tamaño exacto del tumor","Para realizar la gastrectomía en el mismo acto"],
-    ans:1,
+    opts:["Para descartar carcinomatosis peritoneal y metástasis hepáticas superficiales no visibles en TC","Para realizar biopsia del tumor primario","Para medir el tamaño exacto del tumor","Para realizar la gastrectomía en el mismo acto"],
+    ans:0,
     exp:"La laparoscopia estadificadora se realiza antes de la gastrectomía curativa para descartar carcinomatosis peritoneal y metástasis hepáticas superficiales que no son visibles en la TC (sensibilidad de TC para carcinomatosis ~50%). Hasta el 20-30% de los pacientes con cáncer gástrico aparentemente resecable por TC tienen carcinomatosis peritoneal demostrada en laparoscopia, lo que cambia el manejo a intención paliativa.",
     tip:"<strong>Por qué la laparoscopia cambia todo:</strong> La TC tiene baja sensibilidad para implantes peritoneales pequeños. La laparoscopia + citología del lavado peritoneal detecta M1 oculta. Si hay carcinomatosis → no cirugía resectiva → quimioterapia paliativa. Evita una laparotomía innecesaria con alta morbilidad sin beneficio oncológico. En México se recomienda en tumores T3-T4 o N+.",
     ref:"GPC: Diagnóstico y tratamiento del adenocarcinoma gástrico en pacientes adultos. IMSS. 2009."
@@ -290,8 +290,8 @@ const questions=[
   {
     cat:"eso", catName:"Cáncer de Esófago",
     q:"¿Cuál es la vía de diseminación más frecuente del cáncer de esófago que justifica su mal pronóstico?",
-    opts:["Diseminación hematógena temprana al pulmón","Extensión submucosa longitudinal y metástasis linfáticas tempranas por la rica red linfática esofágica","Invasión directa al pericardio","Diseminación transcelómica al peritoneo"],
-    ans:1,
+    opts:["Diseminación hematógena temprana al pulmón","Invasión directa al pericardio","Extensión submucosa longitudinal y metástasis linfáticas tempranas por la rica red linfática esofágica","Diseminación transcelómica al peritoneo"],
+    ans:2,
     exp:"El esófago carece de serosa y tiene una extensa red linfática submucosa que permite diseminación linfática temprana y extensión submucosa longitudinal (tumor puede extenderse varios centímetros más allá del margen macroscópico visible). Esto explica el mal pronóstico (70-80% de pacientes tienen enfermedad localmente avanzada o metastásica al diagnóstico) y la necesidad de márgenes amplios en la resección quirúrgica.",
     tip:"<strong>Particularidad anatómica del esófago:</strong> Sin serosa → invasión directa a estructuras adyacentes (tráquea, aorta, bronquios) más fácil. Red linfática submucosa longitudinal → skip metástasis (ganglios positivos a distancia del tumor). Por eso los márgenes quirúrgicos deben ser ≥5cm. La ausencia de serosa también explica por qué las anastomosis esofágicas tienen mayor tasa de dehiscencia.",
     ref:"GPC: Oncología de carcinoma esofágico y unión esofagogástrica. CENETEC. 2023."
@@ -299,8 +299,8 @@ const questions=[
   {
     cat:"gas", catName:"Cáncer Gástrico",
     q:"¿Qué porcentaje aproximado de los cánceres gástricos son de tipo adenocarcinoma?",
-    opts:["30-40%","50-60%","90-95%","100%"],
-    ans:2,
+    opts:["30-40%","50-60%","100%","90-95%"],
+    ans:3,
     exp:"El adenocarcinoma representa el 90-95% de todos los cánceres gástricos malignos. El resto incluye linfomas MALT (3-5%, también asociados a H. pylori), tumores del estroma gastrointestinal (GIST, 1-2%) y tumores carcinoides/neuroendocrinos. La GPC se centra en el adenocarcinoma por ser ampliamente el más frecuente. Esta distinción es importante porque el tratamiento y pronóstico difieren significativamente.",
     tip:"<strong>Tipos de tumores gástricos y su asociación:</strong> Adenocarcinoma (90-95%): H. pylori, dieta. Linfoma MALT (3-5%): H. pylori (erradicación puede ser curativa en estadios tempranos). GIST (1-2%): mutación c-KIT, tratamiento con imatinib. Carcinoide/NET: hipergastrinemia crónica (gastritis atrófica, IBP prolongado, síndrome de Zollinger-Ellison).",
     ref:"GPC: Diagnóstico y tratamiento del adenocarcinoma gástrico en pacientes adultos. IMSS. 2009."
@@ -308,8 +308,8 @@ const questions=[
   {
     cat:"tx", catName:"Tratamiento Paliativo",
     q:"Paciente con cáncer gástrico avanzado no resecable con disfagia severa y obstrucción gástrica. ¿Cuál es la medida paliativa más adecuada para restablecer el tránsito?",
-    opts:["Quimioterapia de urgencia para reducir el tumor","Colocación de prótesis metálica autoexpandible (stent) endoscópica o gastroyeyunoanastomosis paliativa","Gastrectomía total paliativa","Nutrición parenteral total como única medida"],
-    ans:1,
+    opts:["Quimioterapia de urgencia para reducir el tumor","Gastrectomía total paliativa","Colocación de prótesis metálica autoexpandible (stent) endoscópica o gastroyeyunoanastomosis paliativa","Nutrición parenteral total como única medida"],
+    ans:2,
     exp:"En cáncer gástrico con obstrucción de la salida gástrica o disfagia severa en paciente con enfermedad no resecable, las opciones paliativas son: stent metálico autoexpandible por vía endoscópica (menos invasivo, recuperación más rápida) o gastroyeyunoanastomosis paliativa laparoscópica/abierta (más duradera). La GPC recomienda la decisión individualizada según estado funcional del paciente y expectativa de vida.",
     tip:"<strong>Stent vs Cirugía paliativa:</strong> Stent: rápido, menos morbilidad, ideal para pacientes frágiles con corta expectativa. Gastroyeyunoanastomosis: más duradera, mejor si expectativa >3-4 meses y buen estado funcional. En cáncer gástrico avanzado, el objetivo es calidad de vida. La quimioterapia paliativa (FOLFOX, XELOX) puede extender la sobrevida 4-6 meses en pacientes seleccionados.",
     ref:"GPC: Diagnóstico y tratamiento del adenocarcinoma gástrico en pacientes adultos. IMSS. 2009."

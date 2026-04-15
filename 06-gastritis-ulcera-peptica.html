@@ -200,8 +200,8 @@ const questions = [
   {
     cat:"gast", catName:"Gastritis",
     q:"Mujer de 35 años con artritis reumatoide en tratamiento crónico con naproxeno 500 mg c/12 h. Acude por epigastralgia intensa de 3 días de evolución, náusea y un episodio de hematemesis de escasa cuantía. La endoscopia muestra múltiples erosiones superficiales en antro y cuerpo gástrico sin úlcera definida. ¿Cuál es el diagnóstico?",
-    opts:["Úlcera gástrica tipo I de Johnson","Gastritis aguda erosiva por AINEs","Síndrome de Zollinger-Ellison","Gastropatía por reflujo biliar"],
-    ans:1,
+    opts:["Úlcera gástrica tipo I de Johnson","Síndrome de Zollinger-Ellison","Gastritis aguda erosiva por AINEs","Gastropatía por reflujo biliar"],
+    ans:2,
     exp:"La gastritis aguda erosiva por AINEs es la causa más frecuente de erosiones gástricas en pacientes con uso crónico de antiinflamatorios. Los AINEs inhiben la COX-1, reduciendo la síntesis de prostaglandinas protectoras (PGE2), lo que disminuye el moco gástrico, el bicarbonato y el flujo sanguíneo de la mucosa. La GPC señala que las erosiones superficiales múltiples en antro y cuerpo sin ulceración profunda son el hallazgo endoscópico típico de gastritis erosiva por AINEs.",
     tip:"<strong>Mecanismo dual de daño por AINEs:</strong> Efecto tópico directo (irritación mucosa) + efecto sistémico (inhibición COX-1 → ↓PGE2 → ↓moco y bicarbonato). Los AINEs selectivos COX-2 (celecoxib) tienen menor riesgo GI pero no lo eliminan. Siempre asociar IBP en uso crónico de AINEs con factores de riesgo.",
     ref:"GPC: Profilaxis, diagnóstico y tratamiento de gastritis aguda (erosiva) en adultos en los tres niveles de atención. SSA/IMSS/ISSSTE."
@@ -209,8 +209,8 @@ const questions = [
   {
     cat:"gast", catName:"Gastritis",
     q:"Paciente masculino de 28 años con ingesta abundante de alcohol etílico (>10 bebidas) la noche anterior. Refiere epigastralgia intensa, náusea y vómito de contenido gástrico sin sangre. A la EF: dolor epigástrico leve a la palpación, sin irritación peritoneal. Amilasa y lipasa normales. ¿Cuál es la causa más probable de su cuadro?",
-    opts:["Pancreatitis aguda leve","Gastritis aguda por alcohol","Úlcera duodenal perforada","Síndrome de Mallory-Weiss"],
-    ans:1,
+    opts:["Pancreatitis aguda leve","Síndrome de Mallory-Weiss","Úlcera duodenal perforada","Gastritis aguda por alcohol"],
+    ans:3,
     exp:"El alcohol produce gastritis aguda por efecto tópico directo: altera la barrera mucosa gástrica al disolver la capa de moco, aumentar la permeabilidad epitelial y estimular la secreción ácida. La GPC establece que en el contexto de ingesta aguda de alcohol, la epigastralgia con náusea y vómito sin fiebre ni datos de irritación peritoneal, con amilasa/lipasa normales, orienta a gastritis aguda por alcohol como diagnóstico de exclusión clínica.",
     tip:"<strong>Gastritis por alcohol vs Pancreatitis:</strong> En gastritis alcohólica: dolor epigástrico que mejora al vomitar, sin irradiación dorsal, amilasa normal. En pancreatitis: dolor intenso con irradiación en cinturón, amilasa/lipasa >3 veces el valor normal, posible íleo. Siempre pedir amilasa/lipasa para diferenciar.",
     ref:"GPC: Profilaxis, diagnóstico y tratamiento de gastritis aguda (erosiva) en adultos en los tres niveles de atención. SSA/IMSS/ISSSTE."
@@ -218,8 +218,8 @@ const questions = [
   {
     cat:"hpyl", catName:"H. pylori",
     q:"Hombre de 45 años con epigastralgia de 6 meses, sin uso de AINEs, sin pérdida de peso. Se le realiza endoscopia que muestra úlcera gástrica de 1 cm en curvatura menor. Las biopsias reportan gastritis crónica activa con presencia de bacilos curvos en la mucosa. ¿Cuál es el método diagnóstico considerado estándar de oro para confirmar H. pylori directamente desde la biopsia?",
-    opts:["Prueba de aliento con urea C13","Antígeno de H. pylori en heces","Prueba rápida de ureasa en biopsia + histología","Serología (IgG anti-H. pylori)"],
-    ans:2,
+    opts:["Prueba rápida de ureasa en biopsia + histología","Antígeno de H. pylori en heces","Prueba de aliento con urea C13","Serología (IgG anti-H. pylori)"],
+    ans:0,
     exp:"El diagnóstico histológico mediante biopsia gástrica (tinción de Giemsa o hematoxilina-eosina) es el estándar de oro para identificar H. pylori directamente en la mucosa, especialmente en pacientes sometidos a endoscopia. La prueba rápida de ureasa en biopsia (CLO test) también es de alta utilidad endoscópica con sensibilidad de 90-95%. La histología identifica además el grado de gastritis, metaplasia intestinal y displasia. La GPC recomienda tomar biopsias de antro y cuerpo para aumentar la sensibilidad diagnóstica.",
     tip:"<strong>Métodos diagnósticos de H. pylori:</strong> Invasivos (requieren endoscopia): histología (oro), CLO test, cultivo. No invasivos: prueba de aliento C13 (mejor para confirmar erradicación), antígeno en heces (útil en seguimiento), serología (no distingue infección activa de pasada). La serología no sirve para confirmar erradicación.",
     ref:"GPC: Manejo de la úlcera péptica en adultos en el primer y segundo niveles de atención. IMSS-DGIS."
@@ -227,8 +227,8 @@ const questions = [
   {
     cat:"hpyl", catName:"H. pylori",
     q:"Paciente de 52 años con diagnóstico de úlcera duodenal activa y confirmación de H. pylori por prueba de aliento positiva. No tiene alergias conocidas. ¿Cuál es el esquema de erradicación de primera línea recomendado por las GPC mexicanas?",
-    opts:["Claritromicina 500 mg c/12h + Amoxicilina 1g c/12h + IBP por 14 días","Metronidazol 500 mg c/8h + Tetraciclina 500 mg c/6h + Bismuto + IBP por 14 días","Levofloxacino 500 mg c/24h + Amoxicilina 1g c/12h + IBP por 10 días","Ciprofloxacino 500 mg c/12h + Claritromicina 500 mg c/12h por 7 días"],
-    ans:0,
+    opts:["Ciprofloxacino 500 mg c/12h + Claritromicina 500 mg c/12h por 7 días","Metronidazol 500 mg c/8h + Tetraciclina 500 mg c/6h + Bismuto + IBP por 14 días","Levofloxacino 500 mg c/24h + Amoxicilina 1g c/12h + IBP por 10 días","Claritromicina 500 mg c/12h + Amoxicilina 1g c/12h + IBP por 14 días"],
+    ans:3,
     exp:"La triple terapia estándar (Claritromicina + Amoxicilina + IBP) por 14 días es el esquema de primera línea recomendado por las GPC mexicanas para erradicación de H. pylori en pacientes sin resistencia conocida a claritromicina. La duración de 14 días ha demostrado tasas de erradicación superiores a los esquemas de 7 días (85-90% vs 75-80%). El IBP se debe administrar 30 minutos antes del desayuno y la cena para maximizar su efecto.",
     tip:"<strong>Triple terapia de 14 días: C-A-I</strong> — Claritromicina + Amoxicilina + IBP. Si alergia a penicilina: sustituir amoxicilina por metronidazol. Si la tasa local de resistencia a claritromicina >15%: usar cuádruple terapia con bismuto de entrada. Confirmar erradicación con prueba de aliento C13 mínimo 4 semanas después de terminar el tratamiento (suspender IBP 2 semanas antes).",
     ref:"GPC: Manejo de la úlcera péptica en adultos en el primer y segundo niveles de atención. IMSS-DGIS."
@@ -254,8 +254,8 @@ const questions = [
   {
     cat:"cx", catName:"Complicaciones",
     q:"Hombre de 60 años con antecedente de úlcera duodenal llega a urgencias con hematemesis masiva y melena. TA 90/60 mmHg, FC 118 lpm. Se estabiliza con 2 litros de cristaloides y transfusión de 2 unidades de paquete globular. La endoscopia urgente muestra úlcera duodenal con vaso visible sin sangrado activo. ¿Cuál es la clasificación endoscópica de Forrest de este hallazgo y cuál es el manejo?",
-    opts:["Forrest Ia (sangrado en chorro activo) → hemostasia endoscópica inmediata","Forrest IIa (vaso visible sin sangrado activo) → hemostasia endoscópica + IBP IV en infusión continua","Forrest IIb (coágulo adherido) → observación con IBP oral","Forrest III (base limpia) → alta con IBP oral, sin intervención endoscópica"],
-    ans:1,
+    opts:["Forrest Ia (sangrado en chorro activo) → hemostasia endoscópica inmediata","Forrest IIb (coágulo adherido) → observación con IBP oral","Forrest IIa (vaso visible sin sangrado activo) → hemostasia endoscópica + IBP IV en infusión continua","Forrest III (base limpia) → alta con IBP oral, sin intervención endoscópica"],
+    ans:2,
     exp:"La clasificación de Forrest IIa (vaso visible no sangrante) tiene un riesgo de resangrado de 43-55%, por lo que requiere hemostasia endoscópica (inyección de epinefrina + coagulación térmica o clips) combinada con IBP en infusión IV continua (omeprazol 80 mg en bolo + 8 mg/h por 72 horas). La GPC establece que los hallazgos Forrest I y IIa-IIb son indicación de tratamiento endoscópico, mientras que Forrest IIc y III pueden manejarse con IBP oral sin intervención endoscópica adicional.",
     tip:"<strong>Clasificación de Forrest y riesgo de resangrado:</strong> Ia (chorro): 90% → endoscopia urgente. Ib (sangrado en napa): 50% → endoscopia. IIa (vaso visible): 43% → endoscopia + IBP IV. IIb (coágulo): 22% → endoscopia discutible + IBP IV. IIc (mancha plana): 7% → IBP oral. III (base limpia): 2% → IBP oral, alta. Mnemotecnia: '≥IIa necesita endoscopia terapéutica'.",
     ref:"GPC: Diagnóstico y tratamiento de úlcera péptica complicada en el adulto. IMSS-275-15. 2015."
@@ -272,8 +272,8 @@ const questions = [
   {
     cat:"ze", catName:"Zollinger-Ellison",
     q:"Hombre de 48 años con úlceras pépticas múltiples en duodeno distal, bulbo y yeyuno proximal, refractarias a tratamiento con IBP a dosis estándar, asociadas a diarrea crónica acuosa y pérdida de peso. Los niveles séricos de gastrina en ayuno son de 1,200 pg/mL (VN &lt;100 pg/mL). ¿Cuál es el diagnóstico?",
-    opts:["Gastritis por H. pylori con hipergastrinemia reactiva","Síndrome de Zollinger-Ellison por gastrinoma","Carcinoide gástrico tipo I asociado a gastritis atrófica","Gastroparesia diabética con reflujo ácido"],
-    ans:1,
+    opts:["Síndrome de Zollinger-Ellison por gastrinoma","Gastritis por H. pylori con hipergastrinemia reactiva","Carcinoide gástrico tipo I asociado a gastritis atrófica","Gastroparesia diabética con reflujo ácido"],
+    ans:0,
     exp:"El síndrome de Zollinger-Ellison (SZE) es causado por un tumor secretor de gastrina (gastrinoma), generalmente localizado en el triángulo del gastrinoma (duodeno, páncreas, nódulos linfáticos peripancreáticos). Se caracteriza por: úlceras múltiples, de localización atípica (duodeno distal, yeyuno), refractarias a tratamiento convencional, diarrea crónica (por hipersecreción ácida que inactiva lipasa pancreática) y gastrina sérica en ayuno >1,000 pg/mL, que es diagnóstica cuando se combina con pH gástrico ácido (&lt;2). La GPC y la literatura establecen este umbral como criterio diagnóstico del SZE.",
     tip:"<strong>Criterios diagnósticos del SZE:</strong> Gastrina basal >1,000 pg/mL + pH gástrico &lt;2 = diagnóstico. Si gastrina 100-1,000 pg/mL → prueba de estimulación con secretina (alza >200 pg/mL = positiva para gastrinoma). 25% se asocian a MEN-1 (buscar hiperparatiroidismo e hiperprolactinemia). Localizar tumor: TC/RMN → octreoscan (receptor de somatostatina).",
     ref:"GPC: Diagnóstico y tratamiento de úlcera péptica complicada en el adulto. IMSS-275-15. 2015."
@@ -281,8 +281,8 @@ const questions = [
   {
     cat:"ze", catName:"Zollinger-Ellison",
     q:"En un paciente con diagnóstico confirmado de síndrome de Zollinger-Ellison sin evidencia de metástasis ni MEN-1, tumor único localizado en la cabeza del páncreas de 2 cm. ¿Cuál es el manejo inicial y el tratamiento definitivo?",
-    opts:["IBP a dosis altas de por vida sin cirugía, ya que los gastrinomas son siempre malignos","IBP a dosis altas para control sintomático + resección quirúrgica del gastrinoma","Quimioterapia con estreptozocina + 5-fluorouracilo como primera línea","Octreótide SC para inhibir la secreción de gastrina sin necesidad de cirugía"],
-    ans:1,
+    opts:["IBP a dosis altas de por vida sin cirugía, ya que los gastrinomas son siempre malignos","Octreótide SC para inhibir la secreción de gastrina sin necesidad de cirugía","Quimioterapia con estreptozocina + 5-fluorouracilo como primera línea","IBP a dosis altas para control sintomático + resección quirúrgica del gastrinoma"],
+    ans:3,
     exp:"El manejo del SZE requiere control de la hipersecreción ácida con IBP a dosis altas (omeprazol 40-80 mg/día o equivalente) como medida inmediata y de mantenimiento. El tratamiento definitivo en gastrinomas esporádicos localizados sin metástasis es la resección quirúrgica, que puede ser curativa en 30-40% de los casos. La GPC establece que la cirugía debe considerarse en todos los pacientes con SZE esporádico sin metástasis hepáticas extensas. En MEN-1, la cirugía es más controvertida por la naturaleza multifocal.",
     tip:"<strong>SZE - Manejo en 2 pasos:</strong> 1) Control ácido: IBP dosis altas (omeprazol 40-80 mg/d) → resuelve síntomas y cicatriza úlceras. 2) Tratar el tumor: cirugía si esporádico y localizable. El 60-70% de gastrinomas son malignos al diagnóstico (metástasis hepáticas). El octreótide es útil para control sintomático en metástasis o como coadyuvante, no como tratamiento definitivo.",
     ref:"GPC: Diagnóstico y tratamiento de úlcera péptica complicada en el adulto. IMSS-275-15. 2015."
@@ -290,8 +290,8 @@ const questions = [
   {
     cat:"ulc", catName:"Úlcera Péptica",
     q:"Paciente de 70 años con osteoartritis que requiere uso crónico de AINEs (diclofenaco 75 mg c/12h). Tiene antecedente de úlcera gástrica hace 2 años (cicatrizada), actualmente asintomático. H. pylori negativo. ¿Cuál es la recomendación de la GPC respecto a la profilaxis gastroprotectora?",
-    opts:["No requiere profilaxis ya que está asintomático y H. pylori es negativo","Agregar IBP (omeprazol 20 mg/día) durante todo el tratamiento con AINEs","Sustituir diclofenaco por AINEs selectivos COX-2 sin necesidad de IBP adicional","Usar antiácidos a demanda y vigilar síntomas"],
-    ans:1,
+    opts:["Agregar IBP (omeprazol 20 mg/día) durante todo el tratamiento con AINEs","No requiere profilaxis ya que está asintomático y H. pylori es negativo","Sustituir diclofenaco por AINEs selectivos COX-2 sin necesidad de IBP adicional","Usar antiácidos a demanda y vigilar síntomas"],
+    ans:0,
     exp:"La GPC de gastritis y la guía de profilaxis GI recomiendan el uso concomitante de IBP en pacientes con AINEs que tienen factores de riesgo gastrointestinal. El antecedente de úlcera péptica previa es el factor de riesgo más importante (riesgo 10-15 veces mayor de complicación GI). Otros factores de riesgo incluyen: edad >65 años, uso de anticoagulantes, corticoesteroides, dosis alta de AINEs y presencia de H. pylori. Este paciente tiene 2 factores (úlcera previa + edad >65) lo que hace mandatorio el IBP.",
     tip:"<strong>Indicaciones absolutas de IBP con AINEs:</strong> Úlcera péptica previa (principal), edad >65 años + dosis alta de AINE, uso simultáneo de anticoagulante o corticoesteroide, H. pylori positivo. Con 1 factor de alto riesgo o 2 de riesgo moderado → IBP obligatorio. El misoprostol es alternativa pero con peor tolerabilidad (diarrea). Los IBP son la profilaxis de elección.",
     ref:"GPC: Profilaxis, diagnóstico y tratamiento de gastritis aguda (erosiva) en adultos en los tres niveles de atención. SSA/IMSS/ISSSTE."
@@ -308,8 +308,8 @@ const questions = [
   {
     cat:"hpyl", catName:"H. pylori",
     q:"Paciente de 50 años recibió triple terapia (claritromicina + amoxicilina + omeprazol) por 14 días para erradicación de H. pylori asociada a úlcera duodenal. Completó el tratamiento hace 6 semanas. ¿Cuál es el método de elección para confirmar la erradicación y cuándo debe realizarse?",
-    opts:["Serología IgG anti-H. pylori a las 4 semanas del tratamiento","Prueba de aliento con urea C13 mínimo 4 semanas después de completar el tratamiento (suspendiendo IBP 2 semanas antes)","Repetir la endoscopia con biopsias para CLO test a las 2 semanas","Antígeno de H. pylori en heces a las 24 horas de terminar el tratamiento"],
-    ans:1,
+    opts:["Prueba de aliento con urea C13 mínimo 4 semanas después de completar el tratamiento (suspendiendo IBP 2 semanas antes)","Serología IgG anti-H. pylori a las 4 semanas del tratamiento","Repetir la endoscopia con biopsias para CLO test a las 2 semanas","Antígeno de H. pylori en heces a las 24 horas de terminar el tratamiento"],
+    ans:0,
     exp:"La prueba de aliento con urea C13 es el método no invasivo de elección para confirmar erradicación de H. pylori por su alta sensibilidad (>95%) y especificidad (>95%), y porque detecta infección activa (a diferencia de la serología que permanece positiva meses-años tras la erradicación). Debe realizarse mínimo 4 semanas después de terminar el tratamiento. La GPC indica suspender IBP al menos 2 semanas antes de la prueba, ya que suprimen H. pylori sin erradicarlo, pudiendo dar falsos negativos.",
     tip:"<strong>Reglas para prueba de aliento C13:</strong> Mínimo 4 semanas post-tratamiento. Suspender IBP 2 semanas antes. Suspender antibióticos 4 semanas antes. El antígeno en heces también es válido para seguimiento (suspender IBP 2 semanas antes igualmente). La serología NO sirve para confirmar erradicación. Si H. pylori persiste → segunda línea: cuádruple terapia con bismuto.",
     ref:"GPC: Manejo de la úlcera péptica en adultos en el primer y segundo niveles de atención. IMSS-DGIS."
@@ -317,8 +317,8 @@ const questions = [
   {
     cat:"cx", catName:"Complicaciones",
     q:"Hombre de 65 años con úlcera duodenal de larga evolución presenta náusea, vómito postprandial tardío (2-4 horas después de comer), saciedad temprana y pérdida de peso de 8 kg en 2 meses. El vómito tiene contenido alimentario sin bilis. La endoscopia muestra deformidad y estenosis del bulbo duodenal. ¿Cuál es la complicación diagnosticada?",
-    opts:["Adenocarcinoma gástrico antral obstructivo","Obstrucción gastroduodenal por úlcera péptica (estenosis pilórica cicatricial)","Síndrome de la arteria mesentérica superior","Gastroparesia diabética"],
-    ans:1,
+    opts:["Adenocarcinoma gástrico antral obstructivo","Síndrome de la arteria mesentérica superior","Obstrucción gastroduodenal por úlcera péptica (estenosis pilórica cicatricial)","Gastroparesia diabética"],
+    ans:2,
     exp:"La obstrucción gastroduodenal (estenosis pilórica cicatricial) es una complicación crónica de la úlcera péptica duodenal o pilórica por cicatrización repetida que estrecha la luz. Se presenta con vómito de contenido alimentario sin bilis (el contenido no ha pasado la obstrucción para recibir bilis), saciedad temprana y pérdida de peso. La GPC establece que la endoscopia con visualización directa de la estenosis y la prueba de retención salina (>200 mL de salina retenida tras 30 minutos) confirman el diagnóstico. El tratamiento incluye corrección hidroelectrolítica, descompresión nasogástrica, IBP y dilatación endoscópica o cirugía.",
     tip:"<strong>Complicaciones de úlcera péptica y su presentación:</strong> Sangrado (más frecuente, 15-20%): hematemesis/melena. Perforación (2ª en frecuencia): abdomen en tabla + neumoperitoneo. Penetración: dolor que cambia de características, irradia al dorso. Obstrucción (menos frecuente): vómito sin bilis + pérdida de peso. Mnemotecnia: 'SPPOE' (Sangrado, Perforación, Penetración, Obstrucción, En ese orden de frecuencia).",
     ref:"GPC: Diagnóstico y tratamiento de úlcera péptica complicada en el adulto. IMSS-275-15. 2015."
@@ -326,8 +326,8 @@ const questions = [
   {
     cat:"ulc", catName:"Úlcera Péptica",
     q:"En el tratamiento quirúrgico de la úlcera duodenal refractaria al tratamiento médico, ¿cuál es la ventaja de la vagotomía supraselectiva (altamente selectiva) sobre la vagotomía troncal + antrectomía?",
-    opts:["Mayor reducción de la secreción ácida y menor tasa de recurrencia de úlcera","Preserva el nervio de Latarjet y el vaciamiento gástrico, con menor morbilidad a largo plazo (sin síndrome de vaciamiento rápido ni diarrea postvagotomía)","Mayor facilidad técnica y menor tiempo quirúrgico","Previene mejor las complicaciones como sangrado y perforación a largo plazo"],
-    ans:1,
+    opts:["Mayor reducción de la secreción ácida y menor tasa de recurrencia de úlcera","Mayor facilidad técnica y menor tiempo quirúrgico","Preserva el nervio de Latarjet y el vaciamiento gástrico, con menor morbilidad a largo plazo (sin síndrome de vaciamiento rápido ni diarrea postvagotomía)","Previene mejor las complicaciones como sangrado y perforación a largo plazo"],
+    ans:2,
     exp:"La vagotomía supraselectiva (o de células parietales) denerva únicamente las células parietales del cuerpo y fondo gástrico, preservando los nervios de Latarjet (inervación del antro y píloro), lo que mantiene el vaciamiento gástrico normal. En contraste, la vagotomía troncal denerva también el antro y los órganos abdominales, requiriendo piloroplastia o antrectomía para el vaciamiento, y se asocia con diarrea postvagotomía (20-30%) y síndrome de vaciamiento rápido (dumping). La GPC señala que la vagotomía supraselectiva tiene menor morbilidad funcional, aunque con mayor tasa de recurrencia (10-15% vs 2-5%).",
     tip:"<strong>Comparación vagotomías para el ENARM:</strong> Vagotomía supraselectiva: sin drenaje gástrico necesario, preserva vaciamiento, menos efectos secundarios, más recurrencia (10-15%). Vagotomía troncal + piloroplastia/antrectomía: máxima reducción ácida, menor recurrencia (&lt;5%), pero diarrea postvagotomía y dumping más frecuentes. En la era del IBP y erradicación de H. pylori, la cirugía electiva es cada vez menos frecuente.",
     ref:"GPC: Diagnóstico y tratamiento de úlcera péptica complicada en el adulto. IMSS-275-15. 2015."

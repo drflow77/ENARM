@@ -175,8 +175,8 @@ const questions = [
   {
     cat:"dx",catName:"Diagnóstico",
     q:"Hombre de 58 años con hematuria macroscópica indolora de 2 semanas, dolor en flanco derecho y masa palpable en fosa lumbar. ¿Cuál es la tríada clásica que sugiere carcinoma de células renales?",
-    opts:["Hematuria + dolor lumbar + masa abdominal","Fiebre + disuria + hematuria","Hematuria + poliuria + hipertensión","Dolor cólico + hematuria + fiebre"],
-    ans:0,
+    opts:["Hematuria + poliuria + hipertensión","Fiebre + disuria + hematuria","Hematuria + dolor lumbar + masa abdominal","Dolor cólico + hematuria + fiebre"],
+    ans:2,
     exp:"La tríada clásica del carcinoma de células renales (CCR) es: hematuria macroscópica (50-60%), dolor en flanco (40%) y masa palpable en fosa renal (30-40%). Sin embargo, esta tríada completa solo se presenta en 10-15% de los casos, frecuentemente indicando enfermedad avanzada. La mayoría de los CCR se descubren incidentalmente.",
     tip:"<strong>Tríada del CCR:</strong> Hematuria + Dolor lumbar + Masa. Pero recuerda: solo 10-15% la presenta completa. Actualmente >50% son hallazgos incidentales en imagen. La tríada completa = enfermedad avanzada.",
     ref:"GPC: Diagnóstico y Tratamiento del Carcinoma de Células Renales. SSA. 2009."
@@ -193,8 +193,8 @@ const questions = [
   {
     cat:"lab",catName:"Imagen y Estadificación",
     q:"Paciente con masa renal sólida de 3.5 cm detectada en ultrasonido. ¿Cuál es el estudio de elección para estadificación y planeación quirúrgica del CCR?",
-    opts:["Resonancia magnética con gadolinio","Tomografía computarizada trifásica de abdomen y pelvis","PET-CT con FDG","Urografía excretora"],
-    ans:1,
+    opts:["Tomografía computarizada trifásica de abdomen y pelvis","Resonancia magnética con gadolinio","PET-CT con FDG","Urografía excretora"],
+    ans:0,
     exp:"La TC trifásica (sin contraste, fase corticomedular y fase excretora) es el estudio de elección para el CCR. Permite: caracterizar la masa (realce >15 UH sugiere malignidad), determinar extensión local, evaluar vena renal y cava, detectar ganglios y metástasis. La sensibilidad para CCR es >90%. La RM se reserva para contraindicación de contraste yodado o trombosis venosa.",
     tip:"<strong>TC trifásica en CCR:</strong> Realce >15 UH = masa sólida con vascularidad = maligna hasta demostrar lo contrario. El CCR es muy vascularizado (hipervascular). Siempre incluir tórax para descartar metástasis pulmonares.",
     ref:"GPC: Diagnóstico y Tratamiento del Carcinoma de Células Renales. SSA. 2009."
@@ -202,8 +202,8 @@ const questions = [
   {
     cat:"lab",catName:"Imagen y Estadificación",
     q:"Un paciente con CCR tiene masa renal de 8 cm confinada al riñón sin extensión a grasa perirrenal ni vena renal. ¿Cuál es el estadio TNM?",
-    opts:["T1b N0 M0","T2a N0 M0","T3a N0 M0","T2b N0 M0"],
-    ans:1,
+    opts:["T2a N0 M0","T1b N0 M0","T3a N0 M0","T2b N0 M0"],
+    ans:0,
     exp:"Según la clasificación TNM del CCR: T1a = tumor ≤4 cm confinado al riñón; T1b = tumor >4 cm y ≤7 cm; T2a = tumor >7 cm y ≤10 cm confinado al riñón; T2b = tumor >10 cm confinado al riñón; T3a = extensión a grasa perirrenal o vena renal. Un tumor de 8 cm sin extensión = T2a N0 M0.",
     tip:"<strong>TNM renal simplificado:</strong> T1a ≤4cm → T1b 4-7cm → T2a 7-10cm → T2b >10cm (todos confinados). T3a = grasa perirrenal o vena renal. T3b = trombo en cava infrarrenal. T3c = trombo suprarrenal o auricular. T4 = Gerota.",
     ref:"GPC: Diagnóstico y Tratamiento del Carcinoma de Células Renales. SSA. 2009."
@@ -211,8 +211,8 @@ const questions = [
   {
     cat:"tx",catName:"Tratamiento Quirúrgico",
     q:"Paciente con CCR de células claras, T1a (2.8 cm), riñón contralateral sano. ¿Cuál es el tratamiento quirúrgico de elección?",
-    opts:["Nefrectomía radical laparoscópica","Nefrectomía parcial (preservadora de nefronas)","Ablación por radiofrecuencia","Observación activa"],
-    ans:1,
+    opts:["Nefrectomía radical laparoscópica","Ablación por radiofrecuencia","Nefrectomía parcial (preservadora de nefronas)","Observación activa"],
+    ans:2,
     exp:"Para tumores T1a (<4 cm) con riñón contralateral funcionante, la nefrectomía parcial (abierta o laparoscópica) es el estándar de oro. Preserva la función renal con resultados oncológicos equivalentes a la nefrectomía radical para tumores pequeños. La GPC recomienda nefrectomía parcial siempre que sea técnicamente factible en T1a.",
     tip:"<strong>Regla del ENARM:</strong> T1a (<4cm) → Nefrectomía PARCIAL de elección. T1b (4-7cm) → parcial si factible, radical si no. T2+ → radical. Preservar nefronas = preservar función renal a largo plazo. Ablación = solo pacientes con alto riesgo quirúrgico.",
     ref:"GPC: Diagnóstico y Tratamiento del Carcinoma de Células Renales. SSA. 2009."
@@ -220,8 +220,8 @@ const questions = [
   {
     cat:"tx",catName:"Tratamiento Quirúrgico",
     q:"¿Cuál es el tratamiento estándar para el CCR localizado estadio T2 (>7 cm, confinado al riñón) sin contraindicación quirúrgica?",
-    opts:["Nefrectomía parcial obligatoria","Nefrectomía radical (abierta o laparoscópica)","Quimioterapia neoadyuvante + cirugía","Radioterapia estereotáctica ablativa"],
-    ans:1,
+    opts:["Nefrectomía parcial obligatoria","Quimioterapia neoadyuvante + cirugía","Nefrectomía radical (abierta o laparoscópica)","Radioterapia estereotáctica ablativa"],
+    ans:2,
     exp:"La nefrectomía radical es el tratamiento estándar para CCR T2. Incluye exéresis del riñón, fascia de Gerota, grasa perirrenal y en algunos casos glándula suprarrenal ipsilateral (si sospecha de invasión). La vía laparoscópica ha demostrado resultados oncológicos equivalentes con menor morbilidad para T1-T2.",
     tip:"<strong>CCR resecable:</strong> T1a → parcial · T1b → parcial (si técnicamente posible) · T2-T3 → radical. La linfadenectomía extendida no mejora supervivencia en CCR localizado (a diferencia de otros tumores urológicos). Se realiza solo con ganglios sospechosos.",
     ref:"GPC: Diagnóstico y Tratamiento del Carcinoma de Células Renales. SSA. 2009."
@@ -229,8 +229,8 @@ const questions = [
   {
     cat:"lab",catName:"Síndromes Paraneoplásicos",
     q:"¿Cuál es el síndrome paraneoplásico más frecuentemente asociado al carcinoma de células renales?",
-    opts:["Síndrome de Cushing por ACTH ectópica","Hipercalcemia por PTHrP","Eritrocitosis por producción de eritropoyetina","Hiponatremia por SIADH"],
-    ans:2,
+    opts:["Síndrome de Cushing por ACTH ectópica","Hipercalcemia por PTHrP","Hiponatremia por SIADH","Eritrocitosis por producción de eritropoyetina"],
+    ans:3,
     exp:"La eritrocitosis (policitemia) es el síndrome paraneoplásico más frecuente del CCR, ocurriendo en 3-10% de los casos, producida por secreción ectópica de eritropoyetina por las células tumorales. El CCR también puede producir: hipercalcemia (por PTHrP o metástasis óseas), hipertensión (renina), síndrome de Stauffer (disfunción hepática no metastásica), y fiebre paraneoplásica.",
     tip:"<strong>Síndromes paraneoplásicos del CCR:</strong> EPO → Eritrocitosis · PTHrP → Hipercalcemia · Renina → HTA · Glucagón → Hiperglucemia · Síndrome Stauffer = ↑ FA + disfunción hepática SIN metástasis (reversible con nefrectomía). Fiebre paraneoplásica es muy sugestiva.",
     ref:"GPC: Diagnóstico y Tratamiento del Carcinoma de Células Renales. SSA. 2009."
@@ -238,8 +238,8 @@ const questions = [
   {
     cat:"dx",catName:"Genética y Factores de Riesgo",
     q:"Paciente de 35 años con CCR de células claras bilateral, hemangioblastomas cerebelosos y angiomas retinianos. ¿Cuál es el síndrome genético más probable?",
-    opts:["Síndrome de Birt-Hogg-Dubé","Esclerosis tuberosa","Enfermedad de Von Hippel-Lindau","Síndrome de Lynch"],
-    ans:2,
+    opts:["Síndrome de Birt-Hogg-Dubé","Esclerosis tuberosa","Síndrome de Lynch","Enfermedad de Von Hippel-Lindau"],
+    ans:3,
     exp:"La enfermedad de Von Hippel-Lindau (VHL) es un síndrome autosómico dominante por mutación del gen VHL en el cromosoma 3p25-26. Se caracteriza por: CCR de células claras bilateral y multifocal (en 25-45% de pacientes), hemangioblastomas del SNC y retina, feocromocitoma, quistes pancreáticos y epididimarios. El CCR en VHL aparece en décadas más jóvenes.",
     tip:"<strong>Tríada VHL:</strong> CCR bilateral/multifocal + Hemangioblastoma SNC + Angioma retiniano. Gen VHL = supresor tumoral → HIF-α acumulado → VEGF/PDGF ↑ → tumor muy vascularizado. Esta es la base de la terapia anti-VEGF en CCR metastásico.",
     ref:"GPC: Diagnóstico y Tratamiento del Carcinoma de Células Renales. SSA. 2009."
@@ -247,8 +247,8 @@ const questions = [
   {
     cat:"tx",catName:"Tratamiento Sistémico",
     q:"Paciente con CCR de células claras metastásico (pulmón y hueso), ECOG 1, nefrectomía citorreductora realizada. ¿Cuál es el tratamiento de primera línea recomendado?",
-    opts:["Quimioterapia con gemcitabina + cisplatino","Sunitinib (inhibidor de tirosina cinasa anti-VEGFR)","Interferón alfa + IL-2","Radioterapia sistémica"],
-    ans:1,
+    opts:["Sunitinib (inhibidor de tirosina cinasa anti-VEGFR)","Quimioterapia con gemcitabina + cisplatino","Interferón alfa + IL-2","Radioterapia sistémica"],
+    ans:0,
     exp:"El sunitinib (inhibidor multitarget de tirosina cinasa: VEGFR1-3, PDGFR, c-Kit) fue el estándar de primera línea para CCR metastásico de células claras de riesgo intermedio/favorable durante años. Actualmente, la combinación nivolumab+ipilimumab (para riesgo intermedio/alto) o pembrolizumab+axitinib son opciones preferidas, pero el sunitinib sigue siendo válido. El CCR es resistente a quimioterapia convencional.",
     tip:"<strong>CCR metastásico - evolución del tratamiento:</strong> Era citocinas (IL-2, IFN-α) → Era TKI (sunitinib, pazopanib) → Era inmunoterapia + TKI (pembro+axitinib, nivo+ipi). CCR es RESISTENTE a quimioterapia clásica. No se da gemcitabina/cisplatino.",
     ref:"GPC: Diagnóstico y Tratamiento del Carcinoma de Células Renales. SSA. 2009."
@@ -256,8 +256,8 @@ const questions = [
   {
     cat:"lab",catName:"Clasificación de Bosniak",
     q:"En la TC de abdomen se encuentra una masa renal quística con septos internos delgados, calcificaciones y leve realce de sus paredes. Según la clasificación de Bosniak, ¿cuál es la categoría y recomendación?",
-    opts:["Bosniak I: quiste simple, no requiere seguimiento","Bosniak IIF: seguimiento con imagen cada 6-12 meses","Bosniak III: resección quirúrgica","Bosniak IV: resección quirúrgica urgente"],
-    ans:1,
+    opts:["Bosniak I: quiste simple, no requiere seguimiento","Bosniak IV: resección quirúrgica urgente","Bosniak III: resección quirúrgica","Bosniak IIF: seguimiento con imagen cada 6-12 meses"],
+    ans:3,
     exp:"La clasificación de Bosniak categoriza las masas quísticas renales: I = quiste simple (0% malignidad), II = quiste con septos delgados o calcificaciones mínimas (<1% malignidad), IIF = septos múltiples + calcificaciones o leve engrosamiento sin realce (5-10%), III = septos gruesos o irregulares con realce (55% malignidad), IV = componente sólido con realce franco (>85% malignidad). Bosniak IIF requiere seguimiento.",
     tip:"<strong>Bosniak resumido:</strong> I-II = observar · IIF = Follow up · III = ¿cirugía? (55% malignos) · IV = Operar. Los septos que realzan con contraste son la clave para subir de categoría. 'F' en IIF = Follow up requerido.",
     ref:"GPC: Diagnóstico y Tratamiento del Carcinoma de Células Renales. SSA. 2009."
@@ -265,8 +265,8 @@ const questions = [
   {
     cat:"dx",catName:"Diagnóstico",
     q:"¿Cuál es el sitio de metástasis a distancia más frecuente del carcinoma de células renales?",
-    opts:["Hígado","Pulmón","Cerebro","Hueso"],
-    ans:1,
+    opts:["Pulmón","Hígado","Cerebro","Hueso"],
+    ans:0,
     exp:"El pulmón es el sitio de metástasis más frecuente del CCR (50-60% de las metástasis a distancia), seguido de hueso (30-35%), hígado (30%), cerebro (5%) y suprarrenales. El CCR se caracteriza por metástasis 'raras' o 'tardías' (puede metastatizar décadas después del diagnóstico inicial). Las metástasis óseas son líticas y pueden causar fracturas patológicas.",
     tip:"<strong>Metástasis del CCR (orden frecuencia):</strong> Pulmón > Hueso > Hígado > Cerebro > Suprarrenal. El CCR tiene la peculiaridad de metástasis tardías (hasta 20 años después). Ante fractura patológica en adulto sin primario conocido, siempre descartar CCR + mama + pulmón + próstata + tiroides.",
     ref:"GPC: Diagnóstico y Tratamiento del Carcinoma de Células Renales. SSA. 2009."

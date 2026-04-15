@@ -200,8 +200,8 @@ const questions = [
   {
     cat:"abc", catName:"Evaluación Primaria ABCDE",
     q:"Paciente masculino de 28 años llega al servicio de urgencias tras accidente automovilístico a alta velocidad. Se encuentra inconsciente (GCS 8), con respiración ruidosa tipo estridor y herida en cuero cabelludo. ¿Cuál es el primer paso en la evaluación primaria ABCDE según el ATLS?",
-    opts:["Solicitar TC craneal de urgencia","Control de vía aérea con inmovilización cervical simultánea","Colocar accesos venosos periféricos y pasar cristaloides","Evaluar pupilas y déficit neurológico"],
-    ans:1,
+    opts:["Solicitar TC craneal de urgencia","Colocar accesos venosos periféricos y pasar cristaloides","Control de vía aérea con inmovilización cervical simultánea","Evaluar pupilas y déficit neurológico"],
+    ans:2,
     exp:"El primer componente de la evaluación primaria es A = Vía Aérea con control de la columna cervical. En todo paciente politraumatizado con mecanismo de lesión de alta energía se asume lesión cervical hasta demostrar lo contrario. La vía aérea permeable es la prioridad absoluta: sin oxigenación adecuada el resto de la evaluación pierde sentido. El estridor indica obstrucción parcial de la vía aérea que requiere intervención inmediata.",
     tip:"<strong>Orden ABCDE es inviolable:</strong> A=Airway+Cervical, B=Breathing, C=Circulation+Hemorragia, D=Disability (neurológico), E=Exposure. No saltes pasos. Una vía aérea no controlada mata en minutos. La inmovilización cervical es simultánea al manejo de la vía aérea, NO después.",
     ref:"ATLS: Soporte Vital Avanzado en Trauma, 10ma edición. American College of Surgeons, 2018."
@@ -209,8 +209,8 @@ const questions = [
   {
     cat:"abc", catName:"Evaluación Primaria ABCDE",
     q:"Durante la evaluación primaria (componente D — Disability), ¿qué parámetros se evalúan según el ATLS 10ma edición?",
-    opts:["Frecuencia cardíaca, presión arterial y temperatura","Glasgow Coma Scale, respuesta pupilar y nivel de glucosa","Saturación de oxígeno, capnografía y gasometría arterial","Escala de dolor, reflejos osteotendinosos y fuerza muscular"],
-    ans:1,
+    opts:["Glasgow Coma Scale, respuesta pupilar y nivel de glucosa","Frecuencia cardíaca, presión arterial y temperatura","Saturación de oxígeno, capnografía y gasometría arterial","Escala de dolor, reflejos osteotendinosos y fuerza muscular"],
+    ans:0,
     exp:"El componente D (Disability/Déficit neurológico) de la evaluación primaria incluye tres elementos: 1) Escala de Coma de Glasgow (GCS) para evaluar el estado de consciencia (apertura ocular + respuesta verbal + respuesta motora, máximo 15 puntos), 2) Evaluación pupilar: tamaño, simetría y reactividad a la luz, 3) Nivel de glucosa (hipoglucemia puede simular trauma craneal). El ATLS también incluye evaluación de lateralización.",
     tip:"<strong>GCS rápido en trauma:</strong> 15=normal, 13-14=leve, 9-12=moderado, ≤8=grave (intuba). Pupila midriática y arreactiva unilateral = herniación uncal (ipsilateral). Bilateral = muerte cerebral o intoxicación. La glucosa capilar siempre en paciente con alteración del estado mental.",
     ref:"ATLS: Soporte Vital Avanzado en Trauma, 10ma edición. American College of Surgeons, 2018."
@@ -227,8 +227,8 @@ const questions = [
   {
     cat:"cho", catName:"Choque Hemorrágico",
     q:"Paciente de 35 años con trauma abdominal cerrado. FC 118 lpm, PA 100/70 mmHg, FR 22 rpm, diuresis 25 mL/h, ansioso y levemente confuso. Se estima pérdida de 1,200 mL de sangre. ¿A qué clase de choque hemorrágico corresponde según ATLS?",
-    opts:["Clase I: pérdida <750 mL","Clase II: pérdida 750–1500 mL","Clase III: pérdida 1500–2000 mL","Clase IV: pérdida >2000 mL"],
-    ans:1,
+    opts:["Clase I: pérdida <750 mL","Clase III: pérdida 1500–2000 mL","Clase II: pérdida 750–1500 mL","Clase IV: pérdida >2000 mL"],
+    ans:2,
     exp:"La Clase II de choque hemorrágico corresponde a pérdida del 15–30% del volumen sanguíneo (750–1500 mL en adulto de 70 kg). Se caracteriza por: FC 100–120 lpm, PA normal o levemente disminuida (la vasoconstricción compensatoria mantiene la TA), FR 20–30 rpm, diuresis 20–30 mL/h, y estado mental ansioso o levemente confuso. Es el primer estadio donde aparecen síntomas sistémicos claramente. La PA aún puede estar normal por compensación simpática.",
     tip:"<strong>Clasificación ATLS del choque hemorrágico (adulto 70 kg):</strong> Clase I &lt;750mL/&lt;15% FC&lt;100 normal; Clase II 750-1500mL/15-30% FC 100-120 PA normal ansioso; Clase III 1500-2000mL/30-40% FC 120-140 PA↓ confuso; Clase IV &gt;2000mL/&gt;40% FC&gt;140 PA↓↓ letárgico. La PA cae tarde (Clase III-IV): no esperes hipotensión para actuar.",
     ref:"ATLS: Soporte Vital Avanzado en Trauma, 10ma edición. American College of Surgeons, 2018."
@@ -236,8 +236,8 @@ const questions = [
   {
     cat:"cho", catName:"Choque Hemorrágico",
     q:"Un paciente con trauma múltiple presenta FC 145 lpm, PA 70/40 mmHg, no responde a estímulos verbales, diuresis nula en 30 minutos. ¿Cuál es la clasificación del choque y qué tratamiento debe iniciarse de inmediato?",
-    opts:["Clase III: cristaloides 2 litros IV en 30 minutos","Clase IV: activar protocolo de transfusión masiva (paquetes globulares + PFC + plaquetas 1:1:1)","Clase II: dopamina en infusión continua","Clase III: adrenalina IV en bolo"],
-    ans:1,
+    opts:["Clase III: cristaloides 2 litros IV en 30 minutos","Clase II: dopamina en infusión continua","Clase IV: activar protocolo de transfusión masiva (paquetes globulares + PFC + plaquetas 1:1:1)","Clase III: adrenalina IV en bolo"],
+    ans:2,
     exp:"Este paciente presenta Clase IV de choque hemorrágico (pérdida >2000 mL / >40% volumen sanguíneo): FC >140, PA profundamente disminuida, estado mental letárgico/inconsciente y anuria. Requiere activación inmediata del protocolo de transfusión masiva con paquetes globulares (PG) + plasma fresco congelado (PFC) + plaquetas en ratio 1:1:1 para reemplazar todos los componentes perdidos y romper la coagulopatía. Los cristaloides solos son insuficientes y pueden empeorar la coagulopatía dilucional.",
     tip:"<strong>Clase IV = Catástrofe hemodinámica:</strong> No pierdas tiempo con cristaloides solos. Activar transfusión masiva: PG:PFC:Plaquetas 1:1:1. Si no hay tipo y pruebas cruzadas → sangre O negativo universal. El ácido tranexámico (1g IV en 10 min) dentro de las primeras 3 horas reduce mortalidad si hay hemorragia activa.",
     ref:"ATLS: Soporte Vital Avanzado en Trauma, 10ma edición. American College of Surgeons, 2018."
@@ -263,8 +263,8 @@ const questions = [
   {
     cat:"tor", catName:"Trauma Torácico",
     q:"Paciente con trauma torácico derecho. Presenta hipotensión (PA 80/50), ingurgitación yugular, ausencia de ruidos respiratorios en hemitórax derecho, desviación traqueal hacia la izquierda y cianosis. ¿Cuál es el diagnóstico y el tratamiento inmediato?",
-    opts:["Hemotórax masivo: toracostomía con sello de agua inmediata","Neumotórax a tensión: descompresión con aguja en 2do EIC línea medioclavicular derecha de inmediato","Taponamiento cardíaco: pericardiocentesis de emergencia","Contusión pulmonar: intubación orotraqueal y ventilación mecánica"],
-    ans:1,
+    opts:["Neumotórax a tensión: descompresión con aguja en 2do EIC línea medioclavicular derecha de inmediato","Hemotórax masivo: toracostomía con sello de agua inmediata","Taponamiento cardíaco: pericardiocentesis de emergencia","Contusión pulmonar: intubación orotraqueal y ventilación mecánica"],
+    ans:0,
     exp:"El neumotórax a tensión es un DIAGNÓSTICO CLÍNICO que no debe esperar confirmación radiológica. Se caracteriza por la pentada: hipotensión + ingurgitación yugular + ausencia de ruidos respiratorios ipsilateral + desviación traqueal CONTRALATERAL + cianosis (o deterioro respiratorio). El mecanismo es la acumulación de aire a presión en la cavidad pleural que comprime el mediastino, desplaza la tráquea y el corazón, obstruye el retorno venoso y produce colapso hemodinámico. Tratamiento INMEDIATO: descompresión con aguja en 2do espacio intercostal línea medioclavicular ipsilateral, seguida de tubo de tórax definitivo.",
     tip:"<strong>Neumotórax a tensión = Emergencia absoluta:</strong> No esperes Rx. Cada segundo sin descomprimir aumenta la mortalidad. Técnica: aguja 14-16G en 2do EIC línea medioclavicular (borde superior de la 3a costilla). Si escuchas rush de aire → confirmado. Luego tubo de tórax en 4to-5to EIC línea axilar media. La tráquea se desvía LEJOS del lado afectado.",
     ref:"ATLS: Soporte Vital Avanzado en Trauma, 10ma edición. American College of Surgeons, 2018."
@@ -272,8 +272,8 @@ const questions = [
   {
     cat:"tor", catName:"Trauma Torácico",
     q:"Paciente con herida por arma de fuego en hemitórax izquierdo. FC 130 lpm, PA 85/60 mmHg, saturación 88%. El drenaje pleural inicial arroja 1,700 mL de sangre de inmediato. ¿Cuál es el diagnóstico y la conducta?",
-    opts:["Neumotórax simple: observación con oxígeno suplementario","Hemotórax masivo: toracostomía con tubo torácico + valorar toracotomía de urgencia","Contusión miocárdica: monitorización electrocardiográfica continua","Hemotórax simple: toracostomía con sello de agua y observación"],
-    ans:1,
+    opts:["Hemotórax masivo: toracostomía con tubo torácico + valorar toracotomía de urgencia","Neumotórax simple: observación con oxígeno suplementario","Contusión miocárdica: monitorización electrocardiográfica continua","Hemotórax simple: toracostomía con sello de agua y observación"],
+    ans:0,
     exp:"El hemotórax masivo se define por la acumulación de >1500 mL de sangre en la cavidad pleural de forma inmediata, o drenaje >200 mL/hora durante 2–4 horas consecutivas. En este caso, el drenaje inicial de 1700 mL confirma el diagnóstico. El tratamiento es: 1) Toracostomía con tubo de tórax (5to EIC línea axilar media) para evacuar la sangre, reexpandir el pulmón y monitorizar el sangrado continuo, 2) Valorar toracotomía de urgencia si el sangrado persiste (>200 mL/h por 2-4h o inestabilidad hemodinámica persistente).",
     tip:"<strong>Hemotórax masivo vs simple:</strong> Masivo &gt;1500mL inicial o &gt;200mL/h por 2-4h → toracotomía. Simple &lt;1500mL → tubo torácico y observación. La indicación de toracotomía es sangrado activo, NO el volumen total evacuado. El hematoma organizado que no drena (hemotórax retenido) requiere VATS (videotoracoscopía) electiva.",
     ref:"ATLS: Soporte Vital Avanzado en Trauma, 10ma edición. American College of Surgeons, 2018."
@@ -281,8 +281,8 @@ const questions = [
   {
     cat:"tor", catName:"Trauma Torácico",
     q:"Un paciente con herida penetrante en tórax de 3 cm presenta dificultad respiratoria grave con ruido de 'succión' en la herida con cada ciclo respiratorio. ¿Cuál es el diagnóstico y el manejo inicial?",
-    opts:["Neumotórax a tensión: descompresión con aguja inmediata","Neumotórax abierto: apósito oclusivo en 3 lados + tubo de tórax en sitio separado","Hemotórax masivo: tubo de tórax a través de la herida","Contusión pulmonar: intubación y ventilación mecánica con PEEP"],
-    ans:1,
+    opts:["Neumotórax a tensión: descompresión con aguja inmediata","Contusión pulmonar: intubación y ventilación mecánica con PEEP","Hemotórax masivo: tubo de tórax a través de la herida","Neumotórax abierto: apósito oclusivo en 3 lados + tubo de tórax en sitio separado"],
+    ans:3,
     exp:"El neumotórax abierto (herida soplante del tórax) ocurre cuando una herida en la pared torácica iguala o supera el 2/3 del diámetro de la tráquea, permitiendo que el aire entre preferentemente por la herida (menor resistencia) en lugar de por la vía aérea. El tratamiento inicial es aplicar un apósito oclusivo en 3 de sus 4 lados para crear un efecto de válvula unidireccional: permite salida de aire pero no entrada. El tubo de tórax definitivo se coloca SIEMPRE en un sitio diferente a la herida.",
     tip:"<strong>Apósito de 3 lados (Asherman):</strong> El cuarto lado libre actúa como válvula — deja salir el aire exhalado pero no lo deja entrar. Si se sella completamente (4 lados) puede convertirse en neumotórax a tensión. El tubo de tórax va en el 4to-5to EIC línea axilar media, NUNCA en la herida. El cierre definitivo de la herida es quirúrgico.",
     ref:"ATLS: Soporte Vital Avanzado en Trauma, 10ma edición. American College of Surgeons, 2018."
@@ -290,8 +290,8 @@ const questions = [
   {
     cat:"tor", catName:"Trauma Torácico",
     q:"Paciente con trauma torácico contuso presenta respiración paradójica visible: la pared torácica izquierda se hunde durante la inspiración y se eleva en la espiración. Tiene saturación de 85% y FR 32 rpm. Radiografía muestra fracturas de costillas 4ª a 7ª en dos sitios cada una. ¿Cuál es el diagnóstico y el manejo?",
-    opts:["Contusión pulmonar simple: oxígeno suplementario por puntas nasales","Tórax inestable (volet costal): ventilación mecánica ante hipoxemia grave","Neumotórax simple: tubo de tórax","Fractura costal múltiple: analgesia intercostal y fisioterapia respiratoria"],
-    ans:1,
+    opts:["Contusión pulmonar simple: oxígeno suplementario por puntas nasales","Neumotórax simple: tubo de tórax","Tórax inestable (volet costal): ventilación mecánica ante hipoxemia grave","Fractura costal múltiple: analgesia intercostal y fisioterapia respiratoria"],
+    ans:2,
     exp:"El tórax inestable o volet costal se produce cuando ≥3 costillas consecutivas están fracturadas en ≥2 sitios, creando un segmento libre de la pared torácica. La respiración paradójica (movimiento opuesto a la pared torácica estable) es el signo clínico característico. La hipoxemia generalmente no es por la paradoja mecánica sino por la contusión pulmonar subyacente. En hipoxemia grave (SatO2 <90%), el tratamiento es la ventilación mecánica con presión positiva (VPPI) que estabiliza internamente el volet y mejora la oxigenación.",
     tip:"<strong>Volet costal = contusión pulmonar subyacente:</strong> El problema real no es el movimiento paradójico sino el daño pulmonar profundo. Si SatO2 &lt;90% o signos de dificultad respiratoria → intubar y ventilar con PEEP. Si SatO2 aceptable → analgesia agresiva (epidural o intercostal), fisioterapia. Nunca inmovilizar el volet con vendaje circular (impide expansión del resto del tórax).",
     ref:"ATLS: Soporte Vital Avanzado en Trauma, 10ma edición. American College of Surgeons, 2018."
@@ -299,8 +299,8 @@ const questions = [
   {
     cat:"tor", catName:"Trauma Torácico",
     q:"Paciente con trauma torácico contuso y deceleración brusca presenta hipotensión, ingurgitación yugular y ruidos cardíacos apagados. FC 125 lpm, PA 75/55 mmHg. En la auscultación no hay alteraciones respiratorias y la tráquea está en línea media. ¿Cuál es el diagnóstico probable y el tratamiento de emergencia?",
-    opts:["Neumotórax a tensión: descompresión con aguja en 2do EIC","Taponamiento cardíaco: pericardiocentesis de Marfan o ventana pericárdica","Hemotórax masivo: tubo torácico izquierdo","Contusión miocárdica: lidocaína IV y monitorización"],
-    ans:1,
+    opts:["Neumotórax a tensión: descompresión con aguja en 2do EIC","Contusión miocárdica: lidocaína IV y monitorización","Hemotórax masivo: tubo torácico izquierdo","Taponamiento cardíaco: pericardiocentesis de Marfan o ventana pericárdica"],
+    ans:3,
     exp:"La tríada de Beck clásica (hipotensión + ingurgitación yugular + ruidos cardíacos apagados) es diagnóstica de taponamiento cardíaco. A diferencia del neumotórax a tensión: la tráquea está en línea media y los ruidos respiratorios son normales bilateralmente. Ocurre por acumulación de sangre en el saco pericárdico que comprime las cavidades cardíacas, especialmente el ventrículo derecho, impidiendo el llenado diastólico. Tratamiento: pericardiocentesis subxifoidea de Marfan (aguja 16-18G con guía ECG o eco) o ventana pericárdica quirúrgica.",
     tip:"<strong>Beck vs Neumotórax a tensión:</strong> Ambos tienen hipotensión + ingurgitación yugular. Diferencia: Neumotórax → tráquea desviada + ausencia de ruidos respiratorios ipsilateral. Taponamiento → tráquea central + ruidos cardíacos apagados + pulso paradójico (caída &gt;10 mmHg PA sistólica en inspiración). El ecocardio FAST confirma líquido pericárdico en 2 minutos.",
     ref:"ATLS: Soporte Vital Avanzado en Trauma, 10ma edición. American College of Surgeons, 2018."
@@ -308,8 +308,8 @@ const questions = [
   {
     cat:"via", catName:"Vía Aérea",
     q:"¿En qué situación clínica está absolutamente indicada la intubación orotraqueal de secuencia rápida (ISR) durante la evaluación primaria de un trauma?",
-    opts:["GCS 13, paciente ansioso pero orientado con vía aérea permeable","GCS ≤8, imposibilidad de mantener vía aérea permeable de forma espontánea","Saturación de 94% con oxígeno por mascarilla con reservorio","Fractura mandibular sin compromiso de vía aérea"],
-    ans:1,
+    opts:["GCS ≤8, imposibilidad de mantener vía aérea permeable de forma espontánea","GCS 13, paciente ansioso pero orientado con vía aérea permeable","Saturación de 94% con oxígeno por mascarilla con reservorio","Fractura mandibular sin compromiso de vía aérea"],
+    ans:0,
     exp:"La intubación orotraqueal está indicada en: 1) GCS ≤8 (incapacidad de proteger la vía aérea), 2) Apnea o respiración agónica, 3) Obstrucción de la vía aérea (edema, hematoma, cuerpo extraño), 4) Quemadura de la vía aérea inhalatoria, 5) Necesidad de ventilación mecánica. El GCS ≤8 es el umbral estándar porque a ese nivel el reflejo nauseoso y la capacidad de deglutir secreciones están comprometidos, con alto riesgo de aspiración y apnea. La intubación de secuencia rápida usa sedación + parálisis neuromuscular para optimizar las condiciones y minimizar el riesgo de aspiración.",
     tip:"<strong>GCS ≤8 = Intubar:</strong> Esta regla es fundamental en ATLS. La ISR usa succinilcolina (1.5 mg/kg IV) + etomidato (0.3 mg/kg) o ketamina (1-2 mg/kg) como secuencia estándar. Siempre inmovilizar la columna cervical durante la laringoscopía en trauma. Si la intubación falla → cricotiroidotomía de urgencia (vía aérea quirúrgica definitiva).",
     ref:"ATLS: Soporte Vital Avanzado en Trauma, 10ma edición. American College of Surgeons, 2018."
@@ -317,8 +317,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento Inmediato",
     q:"Paciente con trauma torácico y radiografía de tórax que muestra ensanchamiento mediastinal de 9 cm, obliteración del botón aórtico y desviación de la sonda nasogástrica hacia la derecha. El mecanismo fue desaceleración brusca a 120 km/h. ¿Cuál es el diagnóstico más probable y el estudio confirmatorio?",
-    opts:["Hemotórax masivo bilateral: tubo torácico bilateral urgente","Lesión traumática de la aorta: angiotomografía computarizada de tórax para confirmación","Contusión miocárdica severa: ecocardiograma transesofágico urgente","Neumotórax a tensión bilateral: descompresión con aguja bilateral"],
-    ans:1,
+    opts:["Hemotórax masivo bilateral: tubo torácico bilateral urgente","Neumotórax a tensión bilateral: descompresión con aguja bilateral","Contusión miocárdica severa: ecocardiograma transesofágico urgente","Lesión traumática de la aorta: angiotomografía computarizada de tórax para confirmación"],
+    ans:3,
     exp:"El ensanchamiento mediastinal en radiografía simple (>8 cm o >25% del diámetro torácico), junto con obliteración del botón aórtico y desviación de la sonda nasogástrica, son signos radiológicos clásicos de lesión traumática de la aorta descendente (típicamente en el istmo aórtico, distal a la arteria subclavia izquierda, punto fijo). El mecanismo de desaceleración brusca genera fuerzas de cizallamiento en ese punto. El estudio confirmatorio de elección es la angiotomografía computarizada de tórax (AngioTC) con alta sensibilidad y especificidad. El tratamiento preferido actualmente es el endovascular (TEVAR).",
     tip:"<strong>Signos radiológicos de lesión aórtica:</strong> Mediastino ensanchado + obliteración botón aórtico + desviación traqueal/sonda NG a derecha + hemotórax izquierdo + fracturas de 1ª-2ª costilla o escápula. Mecanismo: desaceleración brusca (accidente de tráfico, caída >3m). AngioTC confirma. TEVAR (endovascular) reemplaza a la cirugía abierta en la mayoría de centros.",
     ref:"ATLS: Soporte Vital Avanzado en Trauma, 10ma edición. American College of Surgeons, 2018."

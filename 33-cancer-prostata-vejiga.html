@@ -199,8 +199,8 @@ const questions = [
   {
     cat:"pros", catName:"Cáncer Próstata",
     q:"Biopsia de próstata reporta adenocarcinoma con Gleason 4+3=7. Gammagrafía ósea negativa. Estadio T2bN0M0. ¿Cómo se clasifica este tumor?",
-    opts:["Bajo riesgo — vigilancia activa","Riesgo intermedio desfavorable — tratamiento activo indicado","Alto riesgo — castración hormonal inmediata","Muy alto riesgo — quimioterapia de inicio"],
-    ans:1,
+    opts:["Bajo riesgo — vigilancia activa","Muy alto riesgo — quimioterapia de inicio","Alto riesgo — castración hormonal inmediata","Riesgo intermedio desfavorable — tratamiento activo indicado"],
+    ans:3,
     exp:"El sistema de estratificación de riesgo de D'Amico clasifica el cáncer de próstata en bajo riesgo (PSA<10, Gleason≤6, T1-T2a), riesgo intermedio (PSA 10-20 O Gleason 7 O T2b) y alto riesgo (PSA>20 O Gleason 8-10 O T2c-T3). Gleason 4+3=7 con T2b corresponde a riesgo intermedio desfavorable, donde la vigilancia activa no es apropiada y se requiere tratamiento definitivo.",
     tip:"<strong>Gleason 3+4 vs 4+3:</strong> Aunque ambos suman 7, el patrón predominante importa. Gleason 3+4 (predomina patrón 3, menos agresivo) = riesgo intermedio favorable. Gleason 4+3 (predomina patrón 4, más agresivo) = riesgo intermedio desfavorable. El denominador marca la diferencia pronóstica.",
     ref:"GPC: Diagnóstico y tratamiento del cáncer de próstata. IMSS/SSA. CENETEC."
@@ -217,8 +217,8 @@ const questions = [
   {
     cat:"psa", catName:"PSA/Diagnóstico",
     q:"PSA total de 6.8 ng/mL. El médico solicita PSA libre y obtiene PSA libre/total = 8%. ¿Cómo interpreta este resultado?",
-    opts:["PSA libre/total <10% sugiere origen benigno, biopsia no necesaria","PSA libre/total <10% sugiere malignidad, aumenta indicación de biopsia","PSA libre/total <10% es normal, repetir en 1 año","PSA libre/total no es útil cuando el PSA total es <10 ng/mL"],
-    ans:1,
+    opts:["PSA libre/total <10% sugiere malignidad, aumenta indicación de biopsia","PSA libre/total <10% sugiere origen benigno, biopsia no necesaria","PSA libre/total <10% es normal, repetir en 1 año","PSA libre/total no es útil cuando el PSA total es <10 ng/mL"],
+    ans:0,
     exp:"En la zona gris del PSA (4-10 ng/mL), el cociente PSA libre/total ayuda a discriminar entre HPB y cáncer. Un cociente <10% se asocia con alta probabilidad de malignidad (sensibilidad 71%, especificidad 80%), mientras que >25% sugiere origen benigno. La GPC recomienda usar este índice en la zona gris para evitar biopsias innecesarias o para reforzar la indicación.",
     tip:"<strong>Regla del PSA libre:</strong> Libre/Total <10% → cáncer probable (biopsia). Libre/Total >25% → benigno probable (observar). En HPB hay más PSA libre porque la glándula produce más isoformas libres. En cáncer el PSA se une más a proteínas, quedando menos libre.",
     ref:"GPC: Diagnóstico y tratamiento del cáncer de próstata. IMSS/SSA. CENETEC."
@@ -226,8 +226,8 @@ const questions = [
   {
     cat:"psa", catName:"PSA/Diagnóstico",
     q:"¿Cuál de las siguientes situaciones NO eleva el PSA sérico?",
-    opts:["Hiperplasia prostática benigna","Prostatitis aguda bacteriana","Biopsia prostática realizada hace 48 horas","Vasectomía realizada hace 10 años"],
-    ans:3,
+    opts:["Hiperplasia prostática benigna","Prostatitis aguda bacteriana","Vasectomía realizada hace 10 años","Biopsia prostática realizada hace 48 horas"],
+    ans:2,
     exp:"La vasectomía no eleva el PSA. Las causas de elevación del PSA distintas al cáncer incluyen: HPB (eleva levemente por aumento de masa glandular), prostatitis (eleva significativamente por inflamación), biopsia prostática (elevar dramáticamente hasta 4-6 semanas), tacto rectal vigoroso (elevación mínima y transitoria), eyaculación reciente, ejercicio en bicicleta prolongado y cateterismo uretral.",
     tip:"<strong>Antes de medir el PSA:</strong> Evitar biopsia reciente (esperar 6 semanas), prostatitis activa (tratar primero), eyaculación (abstinencia 48h). El tacto rectal tiene efecto mínimo, no es necesario posponerlo. Si PSA elevado por prostatitis: tratar, esperar 6 semanas y repetir.",
     ref:"GPC: Diagnóstico y tratamiento del cáncer de próstata. IMSS/SSA. CENETEC."
@@ -244,8 +244,8 @@ const questions = [
   {
     cat:"vej", catName:"Cáncer Vejiga",
     q:"Hombre de 58 años, fumador de 30 años, con 3 episodios de hematuria macroscópica indolora en los últimos 2 meses. ¿Cuál es la conducta correcta?",
-    opts:["Urocultivo y antibiótico empírico, repetir USG en 3 meses","Cistoscopia con biopsia de urgencia","Citología urinaria como único estudio inicial","TC abdomen con contraste y esperar resultado"],
-    ans:1,
+    opts:["Cistoscopia con biopsia de urgencia","Urocultivo y antibiótico empírico, repetir USG en 3 meses","Citología urinaria como único estudio inicial","TC abdomen con contraste y esperar resultado"],
+    ans:0,
     exp:"Hematuria macroscópica indolora en hombre adulto fumador es cáncer de vejiga hasta demostrar lo contrario. La cistoscopia es el gold standard diagnóstico del cáncer vesical y está indicada de forma urgente. La GPC establece que toda hematuria macroscópica en adulto sin causa evidente (infección, litiasis) debe estudiarse con cistoscopia. No debe tratarse empíricamente como ITU.",
     tip:"<strong>Hematuria + adulto + sin dolor = tumor hasta que se demuestre lo contrario.</strong> La tríada de alarma para cáncer vesical: hematuria indolora + adulto + factores de riesgo (tabaco, anilinas). No esperar una segunda hematuria para hacer cistoscopia. Una sola hematuria macroscópica es indicación.",
     ref:"GPC: Diagnóstico y tratamiento del cáncer de vejiga. CENETEC."
@@ -262,8 +262,8 @@ const questions = [
   {
     cat:"vej", catName:"Cáncer Vejiga",
     q:"Cistoscopia muestra tumor vesical papilar. RTU-V reporta carcinoma urotelial de alto grado que infiltra lámina propia (T1). ¿Cuál es el tratamiento adyuvante recomendado?",
-    opts:["Observación y cistoscopia cada 6 meses","BCG intravesical + cistoscopia de seguimiento cada 3 meses","Cistectomía radical inmediata","Radioterapia externa pélvica"],
-    ans:1,
+    opts:["Observación y cistoscopia cada 6 meses","Cistectomía radical inmediata","BCG intravesical + cistoscopia de seguimiento cada 3 meses","Radioterapia externa pélvica"],
+    ans:2,
     exp:"El carcinoma vesical T1 de alto grado (no músculo-invasivo) tiene alto riesgo de recurrencia (70%) y progresión (30-50%). Tras RTU-V completa, la inmunoterapia intravesical con BCG (Bacilo de Calmette-Guérin) es el tratamiento adyuvante estándar, reduciendo la recurrencia en 30-40% y la progresión en 25-30%. El seguimiento con cistoscopia cada 3 meses el primer año es obligatorio.",
     tip:"<strong>BCG intravesical: mecanismo y contraindicaciones.</strong> BCG activa respuesta inmune local contra células tumorales. Contraindicada en: inmunosupresión (VIH, trasplantados, corticoides), hematuria activa, ITU activa, RTU reciente (<2 semanas por riesgo de absorción sistémica y sepsis por BCG). Alternativa: mitomicina C.",
     ref:"GPC: Diagnóstico y tratamiento del cáncer de vejiga. CENETEC."
@@ -280,8 +280,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento",
     q:"Paciente de 72 años con cáncer de próstata Gleason 6, PSA 8 ng/mL, T1c, sin síntomas. ¿Cuál es la opción de manejo más apropiada según guías actuales?",
-    opts:["Prostatectomía radical de urgencia","Radioterapia externa inmediata","Vigilancia activa con PSA, tacto rectal y biopsia periódica","Castración hormonal con análogos de LHRH"],
-    ans:2,
+    opts:["Vigilancia activa con PSA, tacto rectal y biopsia periódica","Radioterapia externa inmediata","Prostatectomía radical de urgencia","Castración hormonal con análogos de LHRH"],
+    ans:0,
     exp:"El cáncer de próstata de bajo riesgo (Gleason ≤6, PSA <10, T1-T2a) en pacientes mayores o con comorbilidades tiene un curso indolente. La vigilancia activa es una estrategia validada que evita el sobretratamiento y sus efectos adversos (disfunción eréctil, incontinencia urinaria). Incluye PSA cada 3-6 meses, tacto rectal anual y biopsia de confirmación al año. Si progresa a riesgo intermedio, se ofrece tratamiento definitivo.",
     tip:"<strong>Vigilancia activa ≠ watchful waiting:</strong> Vigilancia activa es con intención curativa — monitoriza para tratar si progresa. Watchful waiting es paliativo en pacientes mayores con corta expectativa de vida. La clave del bajo riesgo: Gleason ≤6 + PSA <10 + T1-T2a + <3 cilindros positivos en biopsia + <50% de cada cilindro afectado.",
     ref:"GPC: Diagnóstico y tratamiento del cáncer de próstata. IMSS/SSA. CENETEC."
@@ -289,8 +289,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento",
     q:"Paciente con cáncer de próstata metastásico a hueso, hormono-sensible. ¿Cuál es el tratamiento de primera línea?",
-    opts:["Quimioterapia con docetaxel exclusiva","Castración química con análogos de LHRH + docetaxel o abiraterona","Prostatectomía radical paliativa","Radioterapia ósea exclusiva"],
-    ans:1,
+    opts:["Quimioterapia con docetaxel exclusiva","Radioterapia ósea exclusiva","Prostatectomía radical paliativa","Castración química con análogos de LHRH + docetaxel o abiraterona"],
+    ans:3,
     exp:"El cáncer de próstata metastásico hormono-sensible se trata con privación androgénica (castración química con análogos de LHRH como leuprolide o goserelina, o castración quirúrgica con orquiectomía bilateral) como base. Los estudios CHAARTED y LATITUDE demostraron que añadir docetaxel o abiraterona+prednisona respectivamente a la privación androgénica mejora significativamente la supervivencia global.",
     tip:"<strong>Evolución del manejo del cáncer próstata metastásico:</strong> Antes solo castración → ahora castración + intensificación. El síndrome de flare (exacerbación transitoria por análogos de LHRH al inicio) se previene con antiandrógeno las primeras 2-4 semanas. Orquiectomía: irreversible pero más barata y sin riesgo de flare.",
     ref:"GPC: Diagnóstico y tratamiento del cáncer de próstata. IMSS/SSA. CENETEC."
@@ -298,8 +298,8 @@ const questions = [
   {
     cat:"crib", catName:"Cribado",
     q:"¿Cuál es el estudio de elección para el seguimiento después de RTU-V por cáncer vesical no músculo-invasivo?",
-    opts:["TC abdomen con contraste cada 6 meses","Cistoscopia cada 3 meses el primer año","Citología urinaria mensual","USG vesical cada 6 meses"],
-    ans:1,
+    opts:["Cistoscopia cada 3 meses el primer año","TC abdomen con contraste cada 6 meses","Citología urinaria mensual","USG vesical cada 6 meses"],
+    ans:0,
     exp:"El seguimiento del cáncer vesical no músculo-invasivo tras RTU-V se realiza obligatoriamente con cistoscopia, no con imagen. La GPC establece cistoscopia cada 3 meses el primer año (por alta tasa de recurrencia temprana), luego cada 6 meses el segundo año, y anual a partir del tercero si no hay recurrencia. La citología urinaria complementa para detectar carcinoma in situ de alto grado.",
     tip:"<strong>Cistoscopia es el gold standard de seguimiento:</strong> El USG y la TC no reemplazan la cistoscopia para detectar recurrencia vesical. Los tumores pequeños (<5mm) se pierden con imagen. La cistoscopia flexible bajo anestesia local tolerable es la preferida para seguimiento ambulatorio.",
     ref:"GPC: Diagnóstico y tratamiento del cáncer de vejiga. CENETEC."
@@ -307,8 +307,8 @@ const questions = [
   {
     cat:"crib", catName:"Cribado",
     q:"Un paciente inicia finasterida para HPB. ¿Cómo afecta esto la interpretación del PSA?",
-    opts:["No afecta el PSA","Eleva el PSA artificialmente en 50%","Reduce el PSA en 50% aproximadamente tras 6-12 meses","Solo afecta el PSA libre, no el total"],
-    ans:2,
+    opts:["No afecta el PSA","Eleva el PSA artificialmente en 50%","Solo afecta el PSA libre, no el total","Reduce el PSA en 50% aproximadamente tras 6-12 meses"],
+    ans:3,
     exp:"Los inhibidores de 5-alfa-reductasa (finasterida, dutasterida) reducen el PSA sérico aproximadamente 50% tras 6-12 meses de uso, al disminuir el volumen prostático. Esto puede enmascarar un cáncer de próstata. La GPC recomienda que si el PSA no desciende 50% tras 6 meses de tratamiento, o si hay cualquier elevación del PSA durante el tratamiento, debe sospecharse malignidad y considerar biopsia.",
     tip:"<strong>Regla del PSA con 5-alfa-reductasa:</strong> Duplica el PSA medido para comparar con valores de referencia. PSA=3 ng/mL bajo finasterida equivale a PSA=6 ng/mL. Cualquier elevación bajo tratamiento es sospechosa. Advertir siempre al paciente que está tomando finasterida al solicitar o interpretar el PSA.",
     ref:"GPC: Diagnóstico y tratamiento del cáncer de próstata. IMSS/SSA. CENETEC."
@@ -316,8 +316,8 @@ const questions = [
   {
     cat:"pros", catName:"Cáncer Próstata",
     q:"¿En qué zona de la próstata se origina la mayoría de los adenocarcinomas prostáticos?",
-    opts:["Zona de transición (central)","Zona periférica","Zona fibromuscular anterior","Zona central periductal"],
-    ans:1,
+    opts:["Zona de transición (central)","Zona fibromuscular anterior","Zona periférica","Zona central periductal"],
+    ans:2,
     exp:"El 70-80% de los adenocarcinomas prostáticos se originan en la zona periférica de la próstata, que es la región accesible al tacto rectal (localizada en la cara posterior). Esta es la razón por la que el tacto rectal puede detectar nódulos o induración en cánceres de zona periférica. En contraste, la HPB se origina en la zona de transición (central), que rodea la uretra y causa síntomas obstructivos.",
     tip:"<strong>Zonas de la próstata y patología:</strong> Zona periférica (70% volumen) → cáncer. Zona transicional (30% en adulto mayor) → HPB. El cáncer de zona transicional existe pero es menos frecuente y de mejor pronóstico. Por eso la HPB no predispone al cáncer — son zonas anatómicas diferentes.",
     ref:"GPC: Diagnóstico y tratamiento del cáncer de próstata. IMSS/SSA. CENETEC."

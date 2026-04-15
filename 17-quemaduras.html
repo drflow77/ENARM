@@ -200,8 +200,8 @@ const questions = [
   {
     cat:"clas", catName:"Clasificación/Profundidad",
     q:"Paciente que sufrió quemadura por exposición solar presenta eritema difuso en espalda y brazos, sin formación de ampollas ni pérdida de piel, con dolor intenso al tacto. ¿Cuál es la clasificación correcta de esta quemadura y cómo se considera en el cálculo de la superficie corporal quemada (SCQ)?",
-    opts:["Quemadura de 2° grado superficial; se incluye en el cálculo de SCQ","Quemadura de 1er grado/epidérmica; NO se incluye en el cálculo de SCQ","Quemadura de 2° grado profundo; se incluye en el cálculo de SCQ","Quemadura de 3er grado; siempre se incluye en el cálculo de SCQ"],
-    ans:1,
+    opts:["Quemadura de 1er grado/epidérmica; NO se incluye en el cálculo de SCQ","Quemadura de 2° grado superficial; se incluye en el cálculo de SCQ","Quemadura de 2° grado profundo; se incluye en el cálculo de SCQ","Quemadura de 3er grado; siempre se incluye en el cálculo de SCQ"],
+    ans:0,
     exp:"La quemadura de 1er grado (epidérmica) afecta únicamente la epidermis, se presenta con eritema sin ampollas y es dolorosa. Un ejemplo clásico es la quemadura solar. La GPC establece de forma explícita que las quemaduras de 1er grado NO se incluyen en el cálculo de la SCQ porque no representan pérdida de barrera cutánea significativa ni requieren reposición de líquidos. Solo se suman al cálculo las quemaduras de 2° y 3er grado.",
     tip:"<strong>Regla clave:</strong> 1er grado = eritema sin ampollas = NO cuenta en SCQ. Para el ENARM, si el caso menciona eritema simple (como quemadura solar), descarta esa área del cálculo. Recuerda: la fórmula de Parkland y los criterios de gran quemado usan únicamente la SCQ de 2° y 3er grado.",
     ref:"GPC: Diagnóstico y tratamiento del paciente gran quemado. SSA-046-08. 2009."
@@ -218,8 +218,8 @@ const questions = [
   {
     cat:"clas", catName:"Clasificación/Profundidad",
     q:"Paciente con quemadura que muestra piel blanca/gris de aspecto acartonado, indolora al pinchazo con aguja, sin sangrado al lesionarla. ¿Cuál es el grado de esta quemadura y cuál es su manejo quirúrgico obligado?",
-    opts:["2° grado profundo; puede curar sin injerto con curaciones avanzadas","3er grado / subdérmica; siempre requiere injerto de piel","1er grado; no requiere ningún manejo quirúrgico","2° grado superficial; cura espontáneamente en 21 días"],
-    ans:1,
+    opts:["3er grado / subdérmica; siempre requiere injerto de piel","2° grado profundo; puede curar sin injerto con curaciones avanzadas","1er grado; no requiere ningún manejo quirúrgico","2° grado superficial; cura espontáneamente en 21 días"],
+    ans:0,
     exp:"La quemadura de 3er grado (subdérmica) destruye toda la dermis. Sus hallazgos característicos son: aspecto blanco/gris/negro acartonado (escara), INDOLORA (destrucción de terminaciones nerviosas), no sangra al pinchazo y no blanquea a la presión. La GPC establece que SIEMPRE requiere injerto de piel porque no existe tejido dérmico viable para la reepitelización espontánea.",
     tip:"<strong>Trío diagnóstico de 3er grado:</strong> Acartonada + Indolora + No sangra al pinchazo. La anestesia (ausencia de dolor) es el signo más confiable: el paciente no siente nada porque no hay terminaciones nerviosas. Si el paciente dice que no le duele una quemadura de aspecto grave, sospechar 3er grado. Siempre injerto.",
     ref:"GPC: Diagnóstico y tratamiento del paciente gran quemado. SSA-046-08. 2009."
@@ -227,8 +227,8 @@ const questions = [
   {
     cat:"clas", catName:"Clasificación/Profundidad",
     q:"¿Cuál de las siguientes quemaduras corresponde a una quemadura de 4° grado?",
-    opts:["Quemadura que afecta epidermis y dermis con ampollas dolorosas","Quemadura con escara blanca indolora que destruye toda la dermis","Quemadura que carboniza la piel con exposición de músculo, tendón o hueso","Quemadura epidérmica con eritema sin ampollas"],
-    ans:2,
+    opts:["Quemadura que afecta epidermis y dermis con ampollas dolorosas","Quemadura que carboniza la piel con exposición de músculo, tendón o hueso","Quemadura con escara blanca indolora que destruye toda la dermis","Quemadura epidérmica con eritema sin ampollas"],
+    ans:1,
     exp:"La quemadura de 4° grado implica carbonización de la piel con exposición de estructuras profundas: músculo, tendón, periostio o hueso. Es la forma más grave de quemadura y siempre requiere manejo quirúrgico complejo, que puede incluir amputación. Representan el extremo de las quemaduras subdérmicas.",
     tip:"<strong>Progresión por grados:</strong> 1° = epidermis (eritema), 2° superficial = dermis papilar (ampollas rosadas), 2° profundo = dermis reticular (base pálida), 3° = toda la dermis (escara), 4° = estructuras profundas (carbonización + músculo/hueso expuesto). Para el ENARM, recuerda que 3° y 4° siempre requieren injerto.",
     ref:"GPC: Diagnóstico y tratamiento del paciente gran quemado. SSA-046-08. 2009."
@@ -236,8 +236,8 @@ const questions = [
   {
     cat:"ext", catName:"Extensión/Cálculo SCQ",
     q:"Adulto de 70 kg que sufrió quemaduras de 2° grado en todo el tronco anterior y en ambos brazos completos. Usando la Regla de los 9 de Wallace, ¿cuál es el porcentaje de SCQ para calcular la reposición de líquidos?",
-    opts:["27% de SCQ","36% de SCQ","45% de SCQ","18% de SCQ"],
-    ans:1,
+    opts:["27% de SCQ","18% de SCQ","45% de SCQ","36% de SCQ"],
+    ans:3,
     exp:"Según la Regla de los 9 de Wallace en adultos: tronco anterior = 18%, cada brazo completo = 9% (total dos brazos = 18%). Sumando: 18% (tronco anterior) + 18% (dos brazos) = 36% de SCQ. Esta regla asigna: cabeza y cuello = 9%, cada brazo = 9%, tronco anterior = 18%, tronco posterior = 18%, cada pierna = 18%, genitales = 1% (total = 100%).",
     tip:"<strong>Regla de los 9 en adultos — memorización:</strong> 9% = cabeza, cada brazo. 18% = tronco anterior, tronco posterior, cada pierna. 1% = genitales. Total = 100%. Truco: los brazos y cabeza son 9%, las piernas y tronco son 18% (el doble). En quemaduras irregulares usa la palma del paciente = 1% SCQ.",
     ref:"GPC: Diagnóstico y tratamiento del paciente gran quemado. SSA-046-08. 2009."
@@ -245,8 +245,8 @@ const questions = [
   {
     cat:"ext", catName:"Extensión/Cálculo SCQ",
     q:"Al evaluar a un lactante de 8 meses con quemaduras extensas, ¿por qué NO se utiliza la Regla de los 9 de Wallace y qué herramienta es más adecuada?",
-    opts:["Se usa la Regla de los 9 igual que en adultos; no hay diferencia en menores de 1 año","No se usa la Regla de los 9 porque en niños la cabeza representa hasta el 19% de la SCQ; se usa la Tabla de Lund-Browder","Se usa la fórmula de la palma únicamente, independientemente de la edad","Se usa la Regla de los 9 pero multiplicando por un factor pediátrico de 1.5"],
-    ans:1,
+    opts:["Se usa la Regla de los 9 igual que en adultos; no hay diferencia en menores de 1 año","Se usa la Regla de los 9 pero multiplicando por un factor pediátrico de 1.5","Se usa la fórmula de la palma únicamente, independientemente de la edad","No se usa la Regla de los 9 porque en niños la cabeza representa hasta el 19% de la SCQ; se usa la Tabla de Lund-Browder"],
+    ans:3,
     exp:"En niños, especialmente lactantes, la cabeza y cuello representan una proporción mayor de la SCQ (hasta 19% en recién nacidos) y las extremidades inferiores son proporcionalmente menores. La Regla de los 9 sobreestimaría la SCQ de extremidades y subestimaría la de la cabeza. La Tabla de Lund-Browder corrige estas proporciones según la edad, siendo la herramienta recomendada por la GPC pediátrica para el cálculo preciso de SCQ en niños.",
     tip:"<strong>Adultos vs Niños:</strong> Wallace (Regla de 9) = adultos. Lund-Browder = niños (corrige las proporciones según edad). Dato ENARM: en el recién nacido, la cabeza es el 19% de la SCQ (vs 9% en adulto). Por eso la Regla de los 9 NO aplica en pediatría. Alternativa rápida en cualquier edad: palma del paciente = 1%.",
     ref:"GPC: Evaluación y manejo inicial del niño Gran Quemado. IMSS. 2011."
@@ -263,8 +263,8 @@ const questions = [
   {
     cat:"liq", catName:"Reposición de Líquidos",
     q:"Adulto de 80 kg con quemaduras de 2° y 3er grado que abarcan el 40% de SCQ. ¿Cuál es el volumen total de Ringer lactato a administrar en las primeras 24 horas usando la fórmula de Parkland, y cómo se distribuye?",
-    opts:["6,400 ml: 50% en las primeras 8h y 50% en las siguientes 16h","12,800 ml: 50% en las primeras 12h y 50% en las siguientes 12h","6,400 ml total: se administra de manera uniforme en 24h a 267 ml/h","3,200 ml en las primeras 8h y 3,200 ml en las siguientes 16h"],
-    ans:0,
+    opts:["12,800 ml: 50% en las primeras 12h y 50% en las siguientes 12h","6,400 ml: 50% en las primeras 8h y 50% en las siguientes 16h","6,400 ml total: se administra de manera uniforme en 24h a 267 ml/h","3,200 ml en las primeras 8h y 3,200 ml en las siguientes 16h"],
+    ans:1,
     exp:"La fórmula de Parkland: 4 ml × peso (kg) × %SCQ = 4 × 80 × 40 = 12,800 ml... Espera: 4 × 80 × 40 = 12,800. No: la fórmula da el volumen total. Revisando: 4 ml × 80 kg × 40% SCQ = 12,800 ml en 24h. La distribución es: 50% (6,400 ml) en las primeras 8 horas desde el momento de la quemadura (no desde el ingreso), y 50% (6,400 ml) en las siguientes 16 horas. El líquido de elección es Ringer lactato.",
     tip:"<strong>Fórmula de Parkland:</strong> 4 ml × kg × %SCQ = volumen total en 24h con Ringer lactato. Distribución: 50% primeras 8h + 50% siguientes 16h. CRÍTICO: las 8h se cuentan desde el momento de la quemadura, NO desde la llegada al hospital. Si llegó 2h después, solo tiene 6h para el primer 50%. Meta de diuresis: 0.5 ml/kg/h adultos, 1 ml/kg/h niños.",
     ref:"GPC: Diagnóstico y tratamiento del paciente gran quemado. SSA-046-08. 2009."
@@ -272,8 +272,8 @@ const questions = [
   {
     cat:"liq", catName:"Reposición de Líquidos",
     q:"Al monitorear la reposición hídrica en un gran quemado adulto con la fórmula de Parkland, ¿cuál es la meta de diuresis horaria que indica una adecuada perfusión renal?",
-    opts:["0.1 ml/kg/h (mínimo posible para evitar sobrecarga)","0.5 ml/kg/h en adultos y 1 ml/kg/h en niños","2 ml/kg/h en todos los pacientes quemados","1.5 ml/kg/h solo en pacientes con quemadura eléctrica"],
-    ans:1,
+    opts:["0.5 ml/kg/h en adultos y 1 ml/kg/h en niños","0.1 ml/kg/h (mínimo posible para evitar sobrecarga)","2 ml/kg/h en todos los pacientes quemados","1.5 ml/kg/h solo en pacientes con quemadura eléctrica"],
+    ans:0,
     exp:"La GPC establece como meta de diuresis en el gran quemado: 0.5 ml/kg/hora en adultos y 1 ml/kg/hora en niños. Esta diferencia se debe a la mayor tasa metabólica y mayor superficie corporal relativa en niños. La diuresis es el parámetro más confiable y accesible para guiar la reposición hídrica. Si la diuresis es insuficiente, se aumenta la tasa de infusión; si es excesiva, se reduce para evitar sobrecarga hídrica.",
     tip:"<strong>Meta de diuresis:</strong> 0.5 ml/kg/h adultos, 1 ml/kg/h niños. Excepción: en quemadura eléctrica se busca 1-1.5 ml/kg/h para favorecer la excreción de mioglobina y prevenir insuficiencia renal aguda. La sonda vesical es OBLIGATORIA en el gran quemado para medir diuresis horaria.",
     ref:"GPC: Diagnóstico y tratamiento del paciente gran quemado. SSA-046-08. 2009."
@@ -290,8 +290,8 @@ const questions = [
   {
     cat:"man", catName:"Manejo Inicial",
     q:"¿Cuáles son los criterios establecidos por la GPC para clasificar a un paciente adulto como Gran Quemado y determinar la necesidad de referencia a un centro especializado?",
-    opts:["SCQ >30% de cualquier grado en adultos o >15% en niños","SCQ >20% en adultos o >10% en niños; más de 10% de 3er grado; quemaduras de cara/manos/pies/genitales/periné/articulaciones mayores; quemadura circunferencial; eléctrica; química; o inhalación de humo","Solo quemaduras eléctricas y químicas independientemente del porcentaje","SCQ >10% de 3er grado exclusivamente"],
-    ans:1,
+    opts:["SCQ >30% de cualquier grado en adultos o >15% en niños","Solo quemaduras eléctricas y químicas independientemente del porcentaje","SCQ >20% en adultos o >10% en niños; más de 10% de 3er grado; quemaduras de cara/manos/pies/genitales/periné/articulaciones mayores; quemadura circunferencial; eléctrica; química; o inhalación de humo","SCQ >10% de 3er grado exclusivamente"],
+    ans:2,
     exp:"Los criterios de Gran Quemado según la GPC incluyen: SCQ >20% en adultos o >10% en niños (con quemaduras de 2° y 3er grado); más de 10% de SCQ de 3er grado en cualquier edad; quemaduras en zonas especiales (cara, manos, pies, genitales, periné y articulaciones mayores); quemaduras circunferenciales de extremidades o tórax; quemaduras eléctricas; quemaduras químicas; e inhalación de humo. Cualquiera de estos criterios justifica referencia a unidad de quemados.",
     tip:"<strong>Criterios de Gran Quemado — memorizar lista completa:</strong> >20% adultos / >10% niños (2°+3°), >10% de 3er grado, zonas especiales (cara-manos-pies-genitales-periné-articulaciones), circunferencial, eléctrica, química, inhalación. Para ENARM: las quemaduras de cara, manos y pies son criterio independientemente del porcentaje porque afectan función y tienen alta morbilidad.",
     ref:"GPC: Diagnóstico y tratamiento del paciente gran quemado. SSA-046-08. 2009."
@@ -299,8 +299,8 @@ const questions = [
   {
     cat:"man", catName:"Manejo Inicial",
     q:"Paciente con quemadura circunferencial de 3er grado en el antebrazo derecho presenta ausencia de pulso distal, parestesias y dolor intenso con la extensión pasiva de los dedos. ¿Cuál es el procedimiento de urgencia indicado?",
-    opts:["Fasciotomía de urgencia del compartimento anterior del antebrazo","Escarotomía inmediata para liberar la constricción circunferencial","Elevación del miembro y anticoagulación sistémica con heparina","Amputación de urgencia del antebrazo"],
-    ans:1,
+    opts:["Escarotomía inmediata para liberar la constricción circunferencial","Fasciotomía de urgencia del compartimento anterior del antebrazo","Elevación del miembro y anticoagulación sistémica con heparina","Amputación de urgencia del antebrazo"],
+    ans:0,
     exp:"La escarotomía está indicada en quemaduras circunferenciales de extremidades cuando existe compromiso circulatorio distal: ausencia de pulso, palidez, parestesias y dolor con movimiento pasivo (datos de síndrome compartimental incipiente). La escara de 3er grado es rígida y no se expande con el edema, comprimiendo los vasos y nervios. La escarotomía libera la constricción. Se diferencia de la fasciotomía en que corta solo la escara, no la fascia (aunque a veces se requieren ambas). También aplica para quemaduras circunferenciales de tórax con restricción ventilatoria.",
     tip:"<strong>Escarotomía vs Fasciotomía:</strong> Escarotomía = solo escara (quemadura circunferencial). Fasciotomía = escara + fascia (síndrome compartimental establecido). En quemadura circunferencial de tórax, la escarotomía libera la restricción ventilatoria. Indicaciones: circunferencial + pulso distal ausente o disminuido, o restricción ventilatoria.",
     ref:"GPC: Diagnóstico y tratamiento del paciente gran quemado. SSA-046-08. 2009."
@@ -308,8 +308,8 @@ const questions = [
   {
     cat:"comp", catName:"Complicaciones/Gran quemado",
     q:"¿Cuál es el microorganismo más frecuentemente aislado en infecciones de heridas por quemadura y cuál es el agente tópico de primera línea recomendado?",
-    opts:["Staphylococcus aureus; mupirocina tópica","Pseudomonas aeruginosa; sulfadiazina de plata al 1%","Candida albicans; fluconazol tópico","Streptococcus pyogenes; bacitracina tópica"],
-    ans:1,
+    opts:["Staphylococcus aureus; mupirocina tópica","Candida albicans; fluconazol tópico","Pseudomonas aeruginosa; sulfadiazina de plata al 1%","Streptococcus pyogenes; bacitracina tópica"],
+    ans:2,
     exp:"Pseudomonas aeruginosa es el microorganismo más frecuente en infecciones de heridas por quemadura después de las primeras 48-72 horas. La sulfadiazina de plata al 1% (nitrato de plata + sulfadiazina) es el agente tópico antimicrobiano de primera línea recomendado por la GPC para el manejo local de las quemaduras. Tiene amplio espectro que incluye Pseudomonas, Staphylococcus y hongos. Las primeras 48h predominan los grampositivos (S. aureus); después predominan los gramnegativos (Pseudomonas).",
     tip:"<strong>Infección en quemados:</strong> Primeras 48h → S. aureus predomina. Después de 48-72h → Pseudomonas aeruginosa es el más frecuente. Tratamiento tópico estándar: sulfadiazina de plata 1%. Contraindicada en neonatos y embarazadas (kerníctero). Alternativa: nitrofurazona, mafenida. La infección es la principal causa de muerte tardía en quemados.",
     ref:"GPC: Diagnóstico y tratamiento del paciente gran quemado. SSA-046-08. 2009."
@@ -317,8 +317,8 @@ const questions = [
   {
     cat:"comp", catName:"Complicaciones/Gran quemado",
     q:"El Índice de Baux se utiliza para estimar el pronóstico del gran quemado. ¿Cómo se calcula y qué valor se asocia con una mortalidad mayor al 90%?",
-    opts:["Índice de Baux = Peso (kg) + %SCQ; valor >100 indica mortalidad >90%","Índice de Baux = Edad (años) + %SCQ; valor >120 indica mortalidad >90%","Índice de Baux = Frecuencia cardiaca + %SCQ de 3er grado; valor >150 indica mortalidad >90%","Índice de Baux = Temperatura + %SCQ; valor >140 indica mortalidad >90%"],
-    ans:1,
+    opts:["Índice de Baux = Peso (kg) + %SCQ; valor >100 indica mortalidad >90%","Índice de Baux = Frecuencia cardiaca + %SCQ de 3er grado; valor >150 indica mortalidad >90%","Índice de Baux = Edad (años) + %SCQ; valor >120 indica mortalidad >90%","Índice de Baux = Temperatura + %SCQ; valor >140 indica mortalidad >90%"],
+    ans:2,
     exp:"El Índice de Baux = Edad (en años) + %SCQ (suma de 2° y 3er grado). Es una herramienta pronóstica simple y rápida. Un índice de Baux >120 se asocia con mortalidad superior al 90%. La GPC lo menciona como parámetro de pronóstico. Ejemplo: paciente de 80 años con 50% de SCQ → Baux = 130, pronóstico muy grave. Paciente de 30 años con 60% SCQ → Baux = 90, pronóstico grave pero con mayor posibilidad de supervivencia.",
     tip:"<strong>Índice de Baux = Edad + %SCQ.</strong> >100 = muy grave, >120 = mortalidad >90%. Es una herramienta clínica rápida para tomar decisiones sobre nivel de manejo. El índice de Baux modificado incluye el factor de inhalación de humo (+17 puntos). Para ENARM: si te dan edad y %SCQ, súmalos y clasifica el pronóstico.",
     ref:"GPC: Diagnóstico y tratamiento del paciente gran quemado. SSA-046-08. 2009."
@@ -326,8 +326,8 @@ const questions = [
   {
     cat:"comp", catName:"Complicaciones/Gran quemado",
     q:"Niño de 4 años con quemaduras de 2° grado en el 15% de la SCQ (cara y ambas manos) sin criterios de inhalación. Según la GPC pediátrica, ¿cuál de los siguientes criterios hace que este paciente sea clasificado como gran quemado y requiera manejo en unidad especializada?",
-    opts:["El porcentaje del 15% supera el umbral de 10% en niños para ser gran quemado","Solo la quemadura de cara y manos, independientemente del porcentaje, son criterio de gran quemado en niños","El hecho de ser menor de 5 años con cualquier quemadura de 2° grado es criterio de gran quemado","Solo la SCQ >20% en cualquier niño define gran quemado pediátrico"],
-    ans:1,
+    opts:["El porcentaje del 15% supera el umbral de 10% en niños para ser gran quemado","Solo la SCQ >20% en cualquier niño define gran quemado pediátrico","El hecho de ser menor de 5 años con cualquier quemadura de 2° grado es criterio de gran quemado","Solo la quemadura de cara y manos, independientemente del porcentaje, son criterio de gran quemado en niños"],
+    ans:3,
     exp:"En este caso existen DOS criterios de gran quemado presentes simultáneamente: 1) SCQ >10% en niños (este paciente tiene 15%), y 2) Quemaduras en zonas especiales (cara y manos). Las quemaduras de cara, manos, pies, genitales, periné y articulaciones mayores son criterio de gran quemado independientemente del porcentaje, por el impacto funcional y estético que generan. La GPC pediátrica es explícita en que cualquiera de estos criterios por sí solo justifica referencia a unidad de quemados.",
     tip:"<strong>Gran quemado pediátrico — criterios clave:</strong> SCQ >10% (vs >20% en adultos), >10% de 3er grado, zonas especiales (cara/manos/pies/genitales/periné/articulaciones), circunferencial, eléctrica, química, inhalación. Recuerda: el umbral de SCQ en niños es LA MITAD que en adultos. Cara y manos siempre = gran quemado sin importar el porcentaje.",
     ref:"GPC: Evaluación y manejo inicial del niño Gran Quemado. IMSS. 2011."

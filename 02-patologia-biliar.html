@@ -200,8 +200,8 @@ const questions = [
   {
     cat:"cole", catName:"Colelitiasis",
     q:"Mujer de 42 años, obesa, multípara, con dolor tipo cólico en hipocondrio derecho posprandial de 30 minutos de duración, sin fiebre. Ultrasonido reporta cálculos en vesícula biliar sin engrosamiento de pared. ¿Cuál es el diagnóstico?",
-    opts:["Colecistitis aguda","Cólico biliar simple (colelitiasis sintomática)","Coledocolitiasis","Colangitis aguda"],
-    ans:1,
+    opts:["Colecistitis aguda","Coledocolitiasis","Cólico biliar simple (colelitiasis sintomática)","Colangitis aguda"],
+    ans:2,
     exp:"El cólico biliar es la manifestación más frecuente de la colelitiasis sintomática. Se caracteriza por dolor en hipocondrio derecho o epigastrio, de inicio posprandial, duración menor a 6 horas, sin fiebre ni leucocitosis. La GPC establece que en ausencia de signos inflamatorios (fiebre, Murphy positivo, leucocitosis) se trata de cólico biliar simple, no colecistitis.",
     tip:"<strong>Las 4 F del riesgo de colelitiasis:</strong> Female (mujer), Fat (obesa), Forty (>40 años), Fertile (multípara). La duración del dolor es clave: cólico biliar &lt;6h sin fiebre; colecistitis aguda >6h con fiebre y Murphy positivo.",
     ref:"GPC: Diagnóstico y tratamiento de la colecistitis y colelitiasis. IMSS-197-10. 2009."
@@ -209,8 +209,8 @@ const questions = [
   {
     cat:"cole", catName:"Colelitiasis",
     q:"¿Cuál es el tratamiento definitivo recomendado por la GPC para colelitiasis sintomática sin complicaciones?",
-    opts:["Ácido ursodesoxicólico oral por 2 años","Colecistectomía laparoscópica electiva","Litotripsia extracorpórea","Dieta baja en grasas y observación"],
-    ans:1,
+    opts:["Ácido ursodesoxicólico oral por 2 años","Dieta baja en grasas y observación","Litotripsia extracorpórea","Colecistectomía laparoscópica electiva"],
+    ans:3,
     exp:"La colecistectomía laparoscópica electiva es el tratamiento definitivo y de elección para la colelitiasis sintomática. La GPC recomienda la vía laparoscópica por su menor morbilidad, menor dolor, recuperación más rápida y menor estancia hospitalaria. El ácido ursodesoxicólico se reserva para casos muy seleccionados donde la cirugía está contraindicada.",
     tip:"<strong>Laparoscópica siempre de primera línea.</strong> El ácido ursodesoxicólico solo disuelve cálculos de colesterol puros pequeños (&lt;1cm) en vesícula funcionante — eficacia baja y alta tasa de recurrencia al suspender. No es tratamiento estándar.",
     ref:"GPC: Diagnóstico y tratamiento de la colecistitis y colelitiasis. IMSS-197-10. 2009."
@@ -218,8 +218,8 @@ const questions = [
   {
     cat:"cole2", catName:"Colecistitis Aguda",
     q:"Paciente masculino de 55 años con dolor en hipocondrio derecho de 18 horas, fiebre de 38.5°C, náusea y vómito. A la exploración: Murphy positivo, leucocitosis de 14,000. Ultrasonido: engrosamiento de pared vesicular >4mm, líquido perivesicular y cálculos. ¿Cuál es el diagnóstico?",
-    opts:["Cólico biliar complicado","Colecistitis aguda calculosa","Coledocolitiasis con colangitis","Hepatitis aguda"],
-    ans:1,
+    opts:["Colecistitis aguda calculosa","Cólico biliar complicado","Coledocolitiasis con colangitis","Hepatitis aguda"],
+    ans:0,
     exp:"La colecistitis aguda se diagnostica con los criterios de Tokio: signos locales (Murphy, masa o dolor en HD), signos sistémicos (fiebre, leucocitosis, PCR elevada) y hallazgos de imagen (engrosamiento de pared >4mm, líquido perivesicular, signo de Murphy ecográfico). La presencia de 1 criterio local + 1 sistémico + imagen confirmatoria establece el diagnóstico.",
     tip:"<strong>Criterios de Tokio (TG18) resumidos:</strong> Local + Sistémico + Imagen = Colecistitis. Murphy ecográfico (dolor al comprimir vesícula con el transductor) tiene alta especificidad. Engrosamiento >4mm es significativo. Siempre pide PCR — es el marcador de severidad más útil.",
     ref:"GPC: Diagnóstico y tratamiento de la colecistitis y colelitiasis. IMSS-197-10. 2009."
@@ -227,8 +227,8 @@ const questions = [
   {
     cat:"cole2", catName:"Colecistitis Aguda",
     q:"¿Cuál es el momento óptimo para realizar colecistectomía laparoscópica en colecistitis aguda leve-moderada según las guías actuales?",
-    opts:["Diferida 6-8 semanas después de resolver el cuadro agudo","Inmediata dentro de las primeras 72 horas del inicio de síntomas","Solo cuando hay ictericia asociada","Nunca en fase aguda, siempre diferida"],
-    ans:1,
+    opts:["Inmediata dentro de las primeras 72 horas del inicio de síntomas","Diferida 6-8 semanas después de resolver el cuadro agudo","Solo cuando hay ictericia asociada","Nunca en fase aguda, siempre diferida"],
+    ans:0,
     exp:"La colecistectomía laparoscópica temprana (dentro de las primeras 72 horas, idealmente 24-48h) es el tratamiento recomendado para colecistitis aguda leve y moderada. Múltiples estudios y la GPC demuestran que la cirugía temprana reduce complicaciones, estancia hospitalaria y costos, sin aumentar la morbilidad quirúrgica en manos expertas.",
     tip:"<strong>Cambio de paradigma:</strong> Antes se decía 'enfriar primero, operar después'. Ahora la evidencia es clara: operar temprano es mejor. La cirugía diferida aumenta riesgo de colecistitis recurrente, empiema y perforación mientras el paciente espera. Excepción: colecistitis grave (Grado III de Tokio) — estabilizar primero.",
     ref:"GPC: Diagnóstico y tratamiento de la colecistitis y colelitiasis. IMSS-197-10. 2009."
@@ -236,8 +236,8 @@ const questions = [
   {
     cat:"col", catName:"Coledocolitiasis",
     q:"Paciente con colelitiasis conocida presenta ictericia, coluria, acolia y dolor en hipocondrio derecho. Bilirrubinas totales 8 mg/dL a expensas de directa, FA y GGT elevadas. ¿Cuál es el diagnóstico más probable?",
-    opts:["Hepatitis viral aguda","Coledocolitiasis con ictericia obstructiva","Colangitis autoinmune","Síndrome de Gilbert"],
-    ans:1,
+    opts:["Hepatitis viral aguda","Síndrome de Gilbert","Colangitis autoinmune","Coledocolitiasis con ictericia obstructiva"],
+    ans:3,
     exp:"La coledocolitiasis se presenta con el patrón clásico de ictericia obstructiva: ictericia, coluria (orina oscura) y acolia (heces blancas), con elevación de bilirrubina directa, fosfatasa alcalina y GGT. En el contexto de colelitiasis, la obstrucción por cálculo migrado al colédoco es la causa más probable. La GPC indica que este patrón bioquímico orienta a obstrucción de la vía biliar.",
     tip:"<strong>Patrón colestásico:</strong> Bilirrubina directa alta + FA alta + GGT alta = obstrucción. Diferencia con hepatitis: en hepatitis predomina elevación de transaminasas (ALT/AST). En ictericia obstructiva: FA/GGT predominan. Coluria = bilirrubina directa en orina (soluble en agua).",
     ref:"GPC: Diagnóstico y tratamiento de la colecistitis y colelitiasis. IMSS-197-10. 2009."
@@ -263,8 +263,8 @@ const questions = [
   {
     cat:"cole2", catName:"Colangitis Aguda",
     q:"Paciente de 68 años con ictericia, fiebre de 39°C con escalofríos y dolor en hipocondrio derecho. ¿Cómo se denomina esta triada clásica y qué diagnóstico sugiere?",
-    opts:["Triada de Beck → hemopericardio","Triada de Charcot → colangitis aguda","Triada de Virchow → trombosis venosa","Triada de Reynolds → pancreatitis aguda"],
-    ans:1,
+    opts:["Triada de Beck → hemopericardio","Triada de Virchow → trombosis venosa","Triada de Charcot → colangitis aguda","Triada de Reynolds → pancreatitis aguda"],
+    ans:2,
     exp:"La Triada de Charcot (fiebre con escalofríos + ictericia + dolor en hipocondrio derecho) es la presentación clásica de la colangitis aguda. La GPC establece que esta triada tiene especificidad del 95% para colangitis pero sensibilidad de solo 50-70%, por lo que su ausencia no descarta el diagnóstico. La pentada de Reynolds añade hipotensión y alteración del estado mental (colangitis supurativa grave).",
     tip:"<strong>Charcot = 3, Reynolds = 5:</strong> Triada de Charcot (fiebre + ictericia + dolor HD) → colangitis. Si añades hipotensión + confusión = Pentada de Reynolds → colangitis supurativa grave, mortalidad alta, descompresión urgente. No esperes los 5 para actuar.",
     ref:"GPC: Diagnóstico y tratamiento de la colecistitis y colelitiasis. IMSS-197-10. 2009."
@@ -272,8 +272,8 @@ const questions = [
   {
     cat:"cole2", catName:"Colangitis Aguda",
     q:"¿Cuál es el manejo inicial prioritario en colangitis aguda grave (grado III según Tokio)?",
-    opts:["CPRE inmediata en las primeras 2 horas","Estabilización hemodinámica + antibióticos IV + descompresión biliar urgente en 24-48h","Colecistectomía de urgencia","Alta con antibióticos orales y CPRE ambulatoria"],
-    ans:1,
+    opts:["CPRE inmediata en las primeras 2 horas","Colecistectomía de urgencia","Estabilización hemodinámica + antibióticos IV + descompresión biliar urgente en 24-48h","Alta con antibióticos orales y CPRE ambulatoria"],
+    ans:2,
     exp:"En colangitis aguda grave (Grado III de Tokio: disfunción orgánica), el manejo prioritario es la estabilización hemodinámica con líquidos IV, antibióticos de amplio espectro y descompresión biliar urgente dentro de las primeras 24-48 horas. La descompresión puede ser por CPRE, drenaje percutáneo transhepático o quirúrgico según disponibilidad y estado del paciente.",
     tip:"<strong>ABC primero, CPRE después:</strong> Paciente séptico por colangitis → estabilizar primero (líquidos, antibióticos, UCI si necesario) → descompresión urgente pero no inmediata si el paciente está inestable. La CPRE en paciente en choque tiene alta mortalidad. Estabilizar 2-4 horas y luego descomprimir.",
     ref:"GPC: Diagnóstico y tratamiento de la colecistitis y colelitiasis. IMSS-197-10. 2009."
@@ -281,8 +281,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento Antibiótico",
     q:"¿Cuál es el esquema antibiótico de elección para colecistitis aguda moderada-grave según la GPC?",
-    opts:["Penicilina G IV","Cefalosporina 3ª generación + Metronidazol IV","Vancomicina + Meropenem","Ciprofloxacino oral"],
-    ans:1,
+    opts:["Cefalosporina 3ª generación + Metronidazol IV","Penicilina G IV","Vancomicina + Meropenem","Ciprofloxacino oral"],
+    ans:0,
     exp:"Para colecistitis aguda moderada-grave, la GPC recomienda cobertura para bacterias gramnegativas (enterobacterias) y anaerobios: cefalosporina de 3ª generación (ceftriaxona o cefotaxima) + metronidazol, o ampicilina/sulbactam. En pacientes con riesgo de organismos resistentes o sepsis grave, se escala a piperacilina/tazobactam o carbapenémicos.",
     tip:"<strong>Flora de la vía biliar:</strong> E. coli (más frecuente), Klebsiella, Enterococcus, Bacteroides. La cobertura debe incluir gramnegativos + anaerobios. En paciente alérgico a penicilinas: aztreonam + metronidazol. En sepsis biliar grave: meropenem.",
     ref:"GPC: Diagnóstico y tratamiento de la colecistitis y colelitiasis. IMSS-197-10. 2009."
@@ -299,8 +299,8 @@ const questions = [
   {
     cat:"cx", catName:"Complicaciones",
     q:"Paciente anciana de 75 años con obstrucción intestinal en íleon distal. La Rx muestra aerobilia y cálculo ectópico en FID. ¿Cuál es el diagnóstico?",
-    opts:["Vólvulo de íleon","Íleo biliar","Intususcepción ileocólica","Hernia de Richter incarcerada"],
-    ans:1,
+    opts:["Vólvulo de íleon","Intususcepción ileocólica","Íleo biliar","Hernia de Richter incarcerada"],
+    ans:2,
     exp:"El íleo biliar es una complicación rara pero grave de la colelitiasis. Ocurre cuando un cálculo grande migra a través de una fístula colecistoentérica (más común colecistoduodenal) y obstruye el intestino, típicamente en íleon terminal (válvula ileocecal). La tríada de Rigler en Rx: aerobilia + cálculo ectópico + obstrucción intestinal es diagnóstica.",
     tip:"<strong>Tríada de Rigler:</strong> Aerobilia + Cálculo ectópico + Obstrucción intestinal = Íleo biliar. El cálculo debe ser >2.5cm para obstruir el íleon. Tratamiento: enterolitotomía (extraer cálculo), y en segundo tiempo corrección de la fístula. Afecta principalmente ancianas con colelitiasis de larga evolución.",
     ref:"GPC: Diagnóstico y tratamiento de la colecistitis y colelitiasis. IMSS-197-10. 2009."
@@ -308,8 +308,8 @@ const questions = [
   {
     cat:"cole", catName:"Colelitiasis",
     q:"¿Cuál de los siguientes factores de riesgo NO está asociado con la formación de cálculos de colesterol en la vesícula biliar?",
-    opts:["Embarazo","Uso de anticonceptivos orales","Dieta hipercalórica y baja en fibra","Grupo sanguíneo O negativo"],
-    ans:3,
+    opts:["Embarazo","Grupo sanguíneo O negativo","Dieta hipercalórica y baja en fibra","Uso de anticonceptivos orales"],
+    ans:1,
     exp:"El grupo sanguíneo no es un factor de riesgo reconocido para colelitiasis. Los factores de riesgo establecidos por la GPC incluyen: sexo femenino, obesidad, embarazo, multiparidad, anticonceptivos orales (estrógenos aumentan secreción de colesterol biliar), pérdida de peso rápida, dieta hipercalórica, diabetes mellitus, hipertrigliceridemia y edad >40 años.",
     tip:"<strong>Mnemotecnia de factores de riesgo:</strong> Las 4F + más: Female, Fat, Fertile, Forty + Fasting rápido (pérdida de peso brusca), Fármacos (estrógenos, fibratos, octreótide), Familiar (herencia), enFermedad ileal (malabsorción de sales biliares → cálculos pigmentados).",
     ref:"GPC: Diagnóstico y tratamiento de la colecistitis y colelitiasis. IMSS-197-10. 2009."
@@ -317,8 +317,8 @@ const questions = [
   {
     cat:"tx", catName:"Tratamiento",
     q:"En un paciente con colecistitis aguda grado I (leve) sin comorbilidades significativas, ¿cuál es la conducta quirúrgica recomendada?",
-    opts:["Colecistectomía laparoscópica temprana dentro de las 72h","Manejo conservador exclusivo con antibióticos sin cirugía","Colecistostomía percutánea como tratamiento definitivo","Cirugía abierta de urgencia"],
-    ans:0,
+    opts:["Cirugía abierta de urgencia","Manejo conservador exclusivo con antibióticos sin cirugía","Colecistostomía percutánea como tratamiento definitivo","Colecistectomía laparoscópica temprana dentro de las 72h"],
+    ans:3,
     exp:"En colecistitis aguda leve (Grado I de Tokio), la colecistectomía laparoscópica temprana dentro de las primeras 72 horas es el tratamiento recomendado. La GPC y múltiples ensayos clínicos demuestran que la cirugía temprana tiene menor tasa de complicaciones, conversión a cirugía abierta y estancia hospitalaria comparada con la cirugía diferida.",
     tip:"<strong>Grados de Tokio y manejo:</strong> Grado I (leve, sin disfunción orgánica) → Colecistectomía temprana. Grado II (moderado, sin disfunción orgánica pero con inflamación local severa) → Colecistectomía temprana o diferida según centro. Grado III (grave, disfunción orgánica) → Estabilizar + drenaje urgente, colecistectomía diferida.",
     ref:"GPC: Diagnóstico y tratamiento de la colecistitis y colelitiasis. IMSS-197-10. 2009."
@@ -326,8 +326,8 @@ const questions = [
   {
     cat:"col", catName:"Coledocolitiasis",
     q:"¿Cuál es el valor de bilirrubina total que, combinado con dilatación del colédoco en USG, tiene alta probabilidad predictiva de coledocolitiasis según los criterios de la ASGE?",
-    opts:["Bilirrubina total > 1.5 mg/dL","Bilirrubina total > 4 mg/dL","Bilirrubina total > 8 mg/dL","Cualquier valor de bilirrubina con colédoco >5mm"],
-    ans:1,
+    opts:["Bilirrubina total > 4 mg/dL","Bilirrubina total > 1.5 mg/dL","Bilirrubina total > 8 mg/dL","Cualquier valor de bilirrubina con colédoco >5mm"],
+    ans:0,
     exp:"Según los criterios de la ASGE (Sociedad Americana de Endoscopia Gastrointestinal), bilirrubina total >4 mg/dL es un predictor fuerte de coledocolitiasis. Combinado con dilatación del colédoco >6mm en USG, tiene alto valor predictivo positivo. La GPC mexicana adopta estos criterios para estratificar el riesgo y decidir el abordaje (directo a CPRE vs CPRM previa).",
     tip:"<strong>Criterios ASGE de riesgo para coledocolitiasis:</strong> Alto riesgo (ir directo a CPRE): cálculo en colédoco por USG, bilirrubina >4mg/dL + colédoco dilatado, colangitis aguda. Riesgo intermedio (hacer CPRM primero): bilirrubina 1.8-4mg/dL, colédoco 6-8mm, pancreatitis biliar. Bajo riesgo: ninguno de los anteriores.",
     ref:"GPC: Diagnóstico y tratamiento de la colecistitis y colelitiasis. IMSS-197-10. 2009."

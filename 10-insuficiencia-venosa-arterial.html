@@ -209,8 +209,8 @@ const questions = [
   {
     cat:"ven", catName:"Insuficiencia Venosa",
     q:"Paciente con insuficiencia venosa crónica CEAP C6 presenta úlcera en el maléolo medial del tobillo, de bordes irregulares, base granulomatosa, eritema perilesional y exudado moderado. ¿Cuál es la característica diferencial más importante de la úlcera venosa respecto a la arterial?",
-    opts:["Localización en el talón y zonas de presión","Localización supramaleolar medial, bordes irregulares y dolor leve que mejora con elevación","Bordes necróticos, ausencia de pulsos y dolor intenso en reposo","Fondo pálido, atrófico y sin sangrado al desbridar"],
-    ans:1,
+    opts:["Localización en el talón y zonas de presión","Bordes necróticos, ausencia de pulsos y dolor intenso en reposo","Localización supramaleolar medial, bordes irregulares y dolor leve que mejora con elevación","Fondo pálido, atrófico y sin sangrado al desbridar"],
+    ans:2,
     exp:"Las úlceras venosas se localizan clásicamente en el área supramaleolar medial (gaiter area), tienen bordes irregulares pero bien definidos, base granulomatosa rojiza, exudado moderado-abundante y dolor leve que mejora al elevar el miembro. Las úlceras arteriales, por el contrario, se localizan en zonas distales (dedos, talón), tienen bordes bien definidos, fondo pálido/necrótico, son extremadamente dolorosas y el dolor empeora con la elevación.",
     tip:"<strong>Venosa vs Arterial — clave diferencial:</strong> Venosa: maléolo medial, bordes irregulares, base roja, dolor leve, mejora elevando. Arterial: dedos/talón, bordes nítidos, fondo pálido/necrótico, dolor severo en reposo, empeora elevando. El ITB diferencia ambas: venosa ITB normal (&gt;0.9), arterial ITB bajo (&lt;0.9).",
     ref:"GPC: Prevención, diagnóstico y tratamiento de la insuficiencia venosa crónica. IMSS. 2009."
@@ -218,8 +218,8 @@ const questions = [
   {
     cat:"ven", catName:"Insuficiencia Venosa",
     q:"¿Cuál es el tratamiento de primera línea recomendado por la GPC para la insuficiencia venosa crónica sintomática CEAP C2–C3 (várices con edema)?",
-    opts:["Safenectomía de urgencia","Terapia de compresión elástica con medias de 20–30 mmHg + medidas higienodiéteticas","Anticoagulación oral indefinida","AINES y reposo absoluto"],
-    ans:1,
+    opts:["Terapia de compresión elástica con medias de 20–30 mmHg + medidas higienodiéteticas","Safenectomía de urgencia","Anticoagulación oral indefinida","AINES y reposo absoluto"],
+    ans:0,
     exp:"La GPC establece que el tratamiento de primera línea para IVC sintomática es la terapia compresiva con medias de compresión graduada (20–30 mmHg para C2–C3; 30–40 mmHg para C4–C6), combinada con medidas higienodiéteticas: elevación del miembro, ejercicio físico (caminar), control de peso y evitar bipedestación prolongada. La cirugía se reserva para casos con fracaso de tratamiento conservador o complicaciones.",
     tip:"<strong>Compresión graduada: principio clave:</strong> La presión es mayor en tobillo y disminuye hacia la rodilla/muslo, favoreciendo el retorno venoso. Contraindicada si ITB &lt;0.6 (isquemia). Clases: I=15–20mmHg (profilaxis), II=20–30mmHg (IVC leve-moderada), III=30–40mmHg (IVC severa/úlceras), IV=&gt;40mmHg (linfedema).",
     ref:"GPC: Prevención, diagnóstico y tratamiento de la insuficiencia venosa crónica. IMSS. 2009."
@@ -227,8 +227,8 @@ const questions = [
   {
     cat:"ven", catName:"Insuficiencia Venosa",
     q:"¿Cuál es el tratamiento indicado para várices tronculares de la safena mayor sintomáticas (CEAP C2S) con reflujo confirmado por eco Doppler, en paciente sin contraindicaciones quirúrgicas?",
-    opts:["Medias de compresión de por vida como único tratamiento","Escleroterapia con espuma en todas las várices tronculares","Safenectomía (stripping) de la vena safena mayor o ablación endovascular (láser/radiofrecuencia)","Anticoagulación profiláctica y observación"],
-    ans:2,
+    opts:["Safenectomía (stripping) de la vena safena mayor o ablación endovascular (láser/radiofrecuencia)","Escleroterapia con espuma en todas las várices tronculares","Medias de compresión de por vida como único tratamiento","Anticoagulación profiláctica y observación"],
+    ans:0,
     exp:"Para várices tronculares de la safena mayor (CEAP C2) con insuficiencia valvular confirmada, el tratamiento definitivo es la safenectomía (stripping) o la ablación endovascular (láser endovenoso o radiofrecuencia). La GPC recomienda la cirugía cuando el tratamiento conservador no controla los síntomas o existe reflujo safeno-femoral. La ablación endovascular tiene resultados comparables con menor morbilidad y recuperación más rápida. La escleroterapia con espuma se reserva para recidivas o várices no tronculares.",
     tip:"<strong>Algoritmo de tratamiento de várices:</strong> Telangiectasias/reticulares → escleroterapia o láser cutáneo. Várices tronculares (safena incompetente) → ablación endovascular (primera línea) o safenectomía. Recidivas posquirúrgicas → escleroterapia con espuma. La ligadura de la unión safeno-femoral sin stripping tiene alta tasa de recidiva.",
     ref:"GPC: Prevención, diagnóstico y tratamiento de la insuficiencia venosa crónica. IMSS. 2009."
@@ -236,8 +236,8 @@ const questions = [
   {
     cat:"art", catName:"Insuficiencia Arterial",
     q:"Hombre de 65 años, diabético y fumador, refiere dolor en pantorrilla al caminar 200 metros que cede con el reposo. No hay dolor en reposo ni úlceras. El índice tobillo-brazo (ITB) es de 0.65. ¿Cuál es el diagnóstico y estadio según la clasificación de Fontaine?",
-    opts:["Fontaine I — enfermedad asintomática, ITB normal","Fontaine IIa — claudicación leve (>200m)","Fontaine IIb — claudicación moderada-grave (&lt;200m)","Fontaine III — dolor en reposo"],
-    ans:2,
+    opts:["Fontaine I — enfermedad asintomática, ITB normal","Fontaine IIa — claudicación leve (>200m)","Fontaine III — dolor en reposo","Fontaine IIb — claudicación moderada-grave (&lt;200m)"],
+    ans:3,
     exp:"La clasificación de Fontaine estadifica la insuficiencia arterial periférica: I=asintomático (ITB 0.7–0.9), IIa=claudicación &gt;200m, IIb=claudicación &lt;200m, III=dolor en reposo (ITB &lt;0.5), IV=úlceras o gangrena (isquemia crítica). El ITB de 0.65 confirma enfermedad arterial periférica moderada. La claudicación a 200m corresponde a Fontaine IIb (claudicación moderada-grave), ya que el límite entre IIa y IIb es exactamente 200 metros.",
     tip:"<strong>Clasificación de Fontaine resumida:</strong> I: ITB 0.7–0.9, asintomático. IIa: claudicación &gt;200m. IIb: claudicación &lt;200m. III: dolor reposo, ITB &lt;0.5. IV: necrosis/gangrena. El ITB es la herramienta diagnóstica más importante: normal &gt;0.9, claudicación 0.5–0.9, isquemia crítica &lt;0.5, falsamente elevado &gt;1.3 en calcificación arterial (diabéticos).",
     ref:"GPC: Diagnóstico y tratamiento de la enfermedad arterial periférica de miembros inferiores. IMSS. 2017."
@@ -245,8 +245,8 @@ const questions = [
   {
     cat:"art", catName:"Insuficiencia Arterial",
     q:"¿Cuál es el valor del índice tobillo-brazo (ITB) que define isquemia crítica de miembro (estadio Fontaine III–IV)?",
-    opts:["ITB &lt; 0.9","ITB &lt; 0.7","ITB &lt; 0.5","ITB &lt; 0.3"],
-    ans:2,
+    opts:["ITB &lt; 0.5","ITB &lt; 0.7","ITB &lt; 0.9","ITB &lt; 0.3"],
+    ans:0,
     exp:"El ITB &lt;0.5 se asocia con isquemia crítica de miembro (ICM), que incluye dolor en reposo (Fontaine III) y lesiones tróficas como úlceras y gangrena (Fontaine IV). La GPC establece los siguientes puntos de corte: &gt;0.9 normal; 0.7–0.9 enfermedad leve (puede ser asintomática); 0.5–0.69 claudicación moderada; 0.3–0.49 isquemia crítica; &lt;0.3 isquemia severa con riesgo de amputación. Un ITB &gt;1.3 indica calcificación arterial (diabetes, IRC) y requiere presión en el dedo del pie.",
     tip:"<strong>Puntos de corte del ITB — memorizar:</strong> &gt;1.3 = calcificado (falso elevado). 0.9–1.3 = normal. 0.7–0.89 = leve. 0.5–0.69 = moderado (claudicación). &lt;0.5 = crítico (dolor reposo, úlceras). La técnica: TA sistólica en tobillo (tibial posterior o pedia) dividida entre TA sistólica braquial mayor. Se usa Doppler continuo.",
     ref:"GPC: Diagnóstico y tratamiento de la enfermedad arterial periférica de miembros inferiores. IMSS. 2017."
@@ -254,8 +254,8 @@ const questions = [
   {
     cat:"art", catName:"Insuficiencia Arterial",
     q:"Paciente con isquemia crítica de miembro inferior: dolor en reposo que mejora al colgar la pierna, pie pálido y frío con ITB de 0.35. ¿Cuál es el manejo indicado según la GPC?",
-    opts:["Medias de compresión elástica y ejercicio supervisado","Angiografía diagnóstica y revascularización urgente (endovascular o quirúrgica) + antiagregación","Amputación primaria sin intento de revascularización","Anticoagulación oral y observación ambulatoria"],
-    ans:1,
+    opts:["Angiografía diagnóstica y revascularización urgente (endovascular o quirúrgica) + antiagregación","Medias de compresión elástica y ejercicio supervisado","Amputación primaria sin intento de revascularización","Anticoagulación oral y observación ambulatoria"],
+    ans:0,
     exp:"La isquemia crítica de miembro (Fontaine III–IV, ITB &lt;0.5) requiere revascularización urgente para preservar el miembro. La GPC recomienda: angiografía (angioTC o arteriografía) para planear la revascularización, seguida de revascularización endovascular (angioplastia/stent) o quirúrgica (bypass) según anatomía vascular. Se añade antiagregación (AAS), estatinas y control de factores de riesgo. La amputación es el último recurso cuando la revascularización falla o no es factible.",
     tip:"<strong>Isquemia crítica = urgencia vascular:</strong> Tiempo de viabilidad del miembro sin flujo: 6 horas (similar al cerebro). Las 6 'P' de isquemia aguda: Pain, Pallor, Pulselessness, Paresthesias, Paralysis, Poikilothermia. Si hay parálisis/anestesia → emergencia, revascularizar en &lt;6h o amputar. El dolor que mejora al declinar (colgar) la pierna es característico de isquemia crítica.",
     ref:"GPC: Diagnóstico y tratamiento de la enfermedad arterial periférica de miembros inferiores. IMSS. 2017."
@@ -263,8 +263,8 @@ const questions = [
   {
     cat:"art", catName:"Insuficiencia Arterial",
     q:"¿Cuál es el tratamiento de primera línea para claudicación intermitente estable (Fontaine IIa–IIb) con ITB 0.6–0.8?",
-    opts:["Bypass femoro-poplíteo inmediato","Programa de ejercicio supervisado (caminata terapéutica) + modificación de factores de riesgo cardiovascular + antiagregación","Reposo absoluto y anticoagulación","Simpatectomía lumbar"],
-    ans:1,
+    opts:["Bypass femoro-poplíteo inmediato","Simpatectomía lumbar","Reposo absoluto y anticoagulación","Programa de ejercicio supervisado (caminata terapéutica) + modificación de factores de riesgo cardiovascular + antiagregación"],
+    ans:3,
     exp:"Para claudicación intermitente estable, el tratamiento de primera línea es conservador: programa de ejercicio supervisado (caminata al umbral del dolor, 30–60 min, 3 veces/semana por al menos 3 meses), control de factores de riesgo (dejar de fumar, control de DM, HTA, dislipidemia), antiagregación (AAS 100mg/día o clopidogrel) y estatinas. La GPC establece que el ejercicio supervisado mejora la distancia de marcha en 150–200%. La revascularización se reserva para fracaso del tratamiento conservador o progresión a isquemia crítica.",
     tip:"<strong>Ejercicio = primera línea en claudicación:</strong> El mecanismo: estimula neovascularización colateral, mejora función endotelial y metabolismo muscular. Cilostazol (inhibidor PDE3) puede añadirse si el ejercicio no es suficiente — contraindicado en ICC. Pentoxifilina tiene evidencia débil. Dejar de fumar es la medida más importante para detener la progresión.",
     ref:"GPC: Diagnóstico y tratamiento de la enfermedad arterial periférica de miembros inferiores. IMSS. 2017."
@@ -272,8 +272,8 @@ const questions = [
   {
     cat:"tve", catName:"Trombosis Venosa",
     q:"Paciente de 58 años, postoperado de cirugía de cadera hace 5 días, presenta edema unilateral, dolor y calor en miembro inferior izquierdo. El signo de Homans es positivo. ¿Cuál es el diagnóstico más probable y el estudio de elección para confirmarlo?",
-    opts:["Tromboflebitis superficial — diagnóstico clínico sin estudios adicionales","Trombosis venosa profunda (TVP) — eco Doppler venoso compresivo","Celulitis — cultivo y hemocultivo","Insuficiencia venosa crónica — flebografía de contraste"],
-    ans:1,
+    opts:["Tromboflebitis superficial — diagnóstico clínico sin estudios adicionales","Celulitis — cultivo y hemocultivo","Trombosis venosa profunda (TVP) — eco Doppler venoso compresivo","Insuficiencia venosa crónica — flebografía de contraste"],
+    ans:2,
     exp:"La TVP se presenta con la tríada de edema unilateral + dolor + calor en miembro inferior, en contexto de factores de riesgo (cirugía reciente, inmovilización). El signo de Homans (dolor a la dorsiflexión del pie) tiene baja sensibilidad (33%) y especificidad (baja), por lo que NO se usa para diagnóstico definitivo. El estudio de elección es el eco Doppler venoso compresivo (ultrasonografía de compresión), con sensibilidad >95% para TVP proximal. La flebografía de contraste es el estándar de oro pero se usa raramente por su invasividad.",
     tip:"<strong>Signo de Homans: trampa frecuente en ENARM:</strong> Aunque es 'clásico', tiene sensibilidad de solo 33% — NO descarta TVP. El eco Doppler es el gold standard no invasivo. En TVP distal (pantorrilla), el Doppler tiene menor sensibilidad → repetir en 5–7 días si hay sospecha. El dímero-D tiene alto valor predictivo negativo pero baja especificidad.",
     ref:"GPC: Prevención, diagnóstico y tratamiento de la insuficiencia venosa crónica. IMSS. 2009."
@@ -281,8 +281,8 @@ const questions = [
   {
     cat:"tve", catName:"Trombosis Venosa",
     q:"¿Cuál de los siguientes elementos NO forma parte de la tríada de Virchow para la trombogénesis venosa?",
-    opts:["Estasis venosa","Hipercoagulabilidad","Lesión o disfunción endotelial","Hiperviscosidad sanguínea secundaria a poliglobulia"],
-    ans:3,
+    opts:["Estasis venosa","Hiperviscosidad sanguínea secundaria a poliglobulia","Lesión o disfunción endotelial","Hipercoagulabilidad"],
+    ans:1,
     exp:"La tríada de Virchow describe los tres mecanismos principales de la trombogénesis: 1) Estasis venosa (inmovilización, insuficiencia venosa, compresión extrínseca), 2) Hipercoagulabilidad (trombofilias, ACO, embarazo, cáncer, estados inflamatorios), 3) Lesión endotelial (trauma, cirugía, catéteres, vasculitis). La hiperviscosidad por poliglobulia puede contribuir a la trombosis pero NO forma parte de la tríada clásica de Virchow descrita originalmente.",
     tip:"<strong>Tríada de Virchow — esencial para TVP:</strong> Estasis + Hipercoagulabilidad + Lesión endotelial. Factores de riesgo quirúrgicos que la activan: inmovilización (estasis), trauma tisular (lesión endotelial), respuesta inflamatoria posquirúrgica (hipercoagulabilidad). La cirugía ortopédica mayor (cadera, rodilla) tiene el mayor riesgo de TVP.",
     ref:"GPC: Prevención, diagnóstico y tratamiento de la insuficiencia venosa crónica. IMSS. 2009."
@@ -290,8 +290,8 @@ const questions = [
   {
     cat:"tve", catName:"Trombosis Venosa",
     q:"¿Cuál es el tratamiento anticoagulante de elección para TVP proximal aguda confirmada en paciente sin contraindicaciones?",
-    opts:["Aspirina 300 mg/día por 3 meses","Heparina de bajo peso molecular (HBPM) subcutánea seguida de anticoagulación oral (ACO) por al menos 3 meses","Trombolisis sistémica con alteplase en todos los casos","Filtro de vena cava inferior como único tratamiento"],
-    ans:1,
+    opts:["Aspirina 300 mg/día por 3 meses","Trombolisis sistémica con alteplase en todos los casos","Heparina de bajo peso molecular (HBPM) subcutánea seguida de anticoagulación oral (ACO) por al menos 3 meses","Filtro de vena cava inferior como único tratamiento"],
+    ans:2,
     exp:"El tratamiento estándar para TVP aguda proximal es: anticoagulación inicial con HBPM (enoxaparina 1 mg/kg c/12h) o heparina no fraccionada IV, seguida de anticoagulación oral con warfarina (INR 2–3) o anticoagulantes directos (rivaroxabán, apixabán) por al menos 3 meses. La GPC recomienda HBPM como anticoagulante inicial por su comodidad y menor riesgo de trombocitopenia inducida por heparina (TIH). La trombolisis se reserva para casos seleccionados (flegmasía cerúlea dolens, contraindicación de anticoagulación).",
     tip:"<strong>Duración de anticoagulación en TVP:</strong> TVP proximal primer episodio con factor de riesgo transitorio (cirugía) → 3 meses. TVP idiopática → 3–6 meses, evaluar indefinido. TVP recurrente → indefinida. Cáncer + TVP → HBPM preferida sobre warfarina (evidencia CLOT). Embarazo + TVP → HBPM (warfarina teratogénica).",
     ref:"GPC: Prevención, diagnóstico y tratamiento de la insuficiencia venosa crónica. IMSS. 2009."
@@ -299,8 +299,8 @@ const questions = [
   {
     cat:"tve", catName:"Trombosis Venosa",
     q:"¿Cuál es la profilaxis antitrombótica recomendada en cirugía de reemplazo total de cadera (alto riesgo de TVP)?",
-    opts:["Sin profilaxis si el paciente es joven y sin comorbilidades","Solo medias de compresión neumática intermitente sin anticoagulación","HBPM (enoxaparina) iniciada 12 horas antes o después de la cirugía por 35 días + medidas mecánicas","Antiagregación con aspirina como único método farmacológico"],
-    ans:2,
+    opts:["Sin profilaxis si el paciente es joven y sin comorbilidades","HBPM (enoxaparina) iniciada 12 horas antes o después de la cirugía por 35 días + medidas mecánicas","Solo medias de compresión neumática intermitente sin anticoagulación","Antiagregación con aspirina como único método farmacológico"],
+    ans:1,
     exp:"La cirugía de reemplazo total de cadera es el procedimiento con mayor riesgo de TVP/TEP sin profilaxis (50–60% incidencia de TVP sin profilaxis). La GPC recomienda: HBPM (enoxaparina 40mg/día) iniciada 12h preoperatorio o 12–24h postoperatorio, extendida por 35 días (alta evidencia), combinada con métodos mecánicos (medias de compresión, dispositivos de compresión neumática intermitente). Alternativas: fondaparinux, rivaroxabán, apixabán. La aspirina sola es insuficiente para este nivel de riesgo.",
     tip:"<strong>Estratificación de riesgo para profilaxis TVP:</strong> Bajo riesgo (cirugía menor en jóvenes): deambulación temprana. Moderado (cirugía abdominal mayor): HBPM 7–10 días. Alto riesgo (cadera/rodilla): HBPM 35 días + mecánico. Muy alto (cáncer + cirugía): HBPM extendida. Recordar: la profilaxis mecánica siempre se combina con la farmacológica en alto riesgo.",
     ref:"GPC: Prevención, diagnóstico y tratamiento de la insuficiencia venosa crónica. IMSS. 2009."
@@ -308,8 +308,8 @@ const questions = [
   {
     cat:"isq", catName:"Isquemia Crítica",
     q:"Paciente de 72 años, diabético, presenta dolor quemante en reposo en pie derecho que mejora al declinar la extremidad, pie cianótico con ulceración en primer dedo y gangrena seca en el talón. ITB = 0.28. ¿Cuál es el diagnóstico y la clasificación correcta?",
-    opts:["Insuficiencia venosa crónica CEAP C6","Isquemia crítica de miembro — Fontaine IV (necrosis/gangrena)","Neuropatía diabética sin componente isquémico","Trombosis venosa profunda complicada"],
-    ans:1,
+    opts:["Insuficiencia venosa crónica CEAP C6","Neuropatía diabética sin componente isquémico","Isquemia crítica de miembro — Fontaine IV (necrosis/gangrena)","Trombosis venosa profunda complicada"],
+    ans:2,
     exp:"La isquemia crítica de miembro (ICM) se define por: dolor en reposo persistente (&gt;2 semanas) que requiere analgesia, úlceras o gangrena, con ITB &lt;0.5 (en este caso 0.28) o presión en dedo &lt;30 mmHg. Corresponde a Fontaine IV (necrosis/gangrena). El dolor mejora al declinar la extremidad porque aumenta la presión de perfusión por gravedad — signo clásico de isquemia crítica. La gangrena seca indica isquemia sin infección sobreagregada.",
     tip:"<strong>Isquemia crítica vs neuropatía diabética:</strong> Isquémica: dolor en reposo que mejora al declinar (gravitacional), ausencia de pulsos, ITB &lt;0.5, pie frío y pálido/cianótico, úlceras en zonas de presión o distales. Neuropática: úlcera en zonas de carga (talón, metatarsos), pie caliente, pulsos presentes, insensibilidad, piel seca con fisuras. Frecuentemente coexisten (pie diabético mixto).",
     ref:"GPC: Diagnóstico y tratamiento de la enfermedad arterial periférica de miembros inferiores. IMSS. 2017."
@@ -317,8 +317,8 @@ const questions = [
   {
     cat:"tve", catName:"Trombosis Venosa",
     q:"Paciente con antecedente de TVP hace 2 años, ahora presenta edema crónico, hiperpigmentación y lipodermatoesclerosis en tercio inferior de pierna izquierda, sin úlcera activa. ¿Cuál es el diagnóstico?",
-    opts:["Recurrencia aguda de TVP — indicación de trombolisis","Síndrome postrombótico (SPT) — CEAP C4b","Insuficiencia arterial periférica Fontaine II","Linfedema primario"],
-    ans:1,
+    opts:["Recurrencia aguda de TVP — indicación de trombolisis","Linfedema primario","Insuficiencia arterial periférica Fontaine II","Síndrome postrombótico (SPT) — CEAP C4b"],
+    ans:3,
     exp:"El síndrome postrombótico (SPT) es la complicación crónica más frecuente de la TVP, presente en 20–50% de los casos. Se produce por daño valvular venoso e hipertensión venosa crónica secundaria. Se manifiesta como: edema crónico, hiperpigmentación (hemosiderina), lipodermatoesclerosis (induración y fibrosis subcutánea), eccema varicoso y úlceras (CEAP C4b–C6). La lipodermatoesclerosis sin úlcera activa corresponde a CEAP C4b. El tratamiento es la terapia compresiva mantenida.",
     tip:"<strong>Prevención del SPT:</strong> La anticoagulación adecuada en la fase aguda de TVP es la mejor prevención del SPT. Las medias de compresión graduada (30–40 mmHg) iniciadas en las primeras 2 semanas y mantenidas 2 años reducen la incidencia de SPT en 50%. El SPT severo con úlceras recurrentes puede requerir cirugía venosa reconstructiva.",
     ref:"GPC: Prevención, diagnóstico y tratamiento de la insuficiencia venosa crónica. IMSS. 2009."
