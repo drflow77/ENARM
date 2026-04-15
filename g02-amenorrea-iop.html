@@ -195,8 +195,8 @@ const questions = [
   {
     cat:"pri", catName:"Amenorrea Primaria",
     q:"Adolescente de 15 años sin desarrollo mamario, talla baja, cuello alado, cúbito valgo y cardiopatía congénita. ¿Cuál es la causa de amenorrea primaria más probable?",
-    opts:["Síndrome de Kallmann (hipogonadismo hipogonadotrópico con anosmia)","Síndrome de Turner (45,X o mosaico 45,X/46,XX)","Síndrome de Mayer-Rokitansky-Küster-Hauser (agenesia mülleriana)","Hipotiroidismo congénito no tratado"],
-    ans:1,
+    opts:["Síndrome de Kallmann (hipogonadismo hipogonadotrópico con anosmia)","Síndrome de Mayer-Rokitansky-Küster-Hauser (agenesia mülleriana)","Síndrome de Turner (45,X o mosaico 45,X/46,XX)","Hipotiroidismo congénito no tratado"],
+    ans:2,
     exp:"El síndrome de Turner (monosomía 45,X o mosaico) es la causa más frecuente de amenorrea primaria con ausencia de desarrollo mamario. Características: talla baja, cuello alado (pterygium colli), cúbito valgo, linfedema, disgenesia gonadal y cardiopatías congénitas (coartación de aorta, válvula aórtica bicúspide en 15-30% de los casos).",
     tip:"<strong>Turner = talla baja + cuello alado + amenorrea primaria + sin desarrollo mamario.</strong> Cariotipo 45,X. Cardiopatía más frecuente: coartación aórtica. Siempre ecocardiograma.",
     ref:"GPC Insuficiencia ovárica primaria, IMSS 2013."
@@ -204,8 +204,8 @@ const questions = [
   {
     cat:"pri", catName:"Amenorrea Primaria",
     q:"Adolescente de 16 años sin menarquia, desarrollo mamario y vello pubiano normales (Tanner V), pero con dolor pélvico cíclico intenso cada mes. ¿Cuál es el diagnóstico?",
-    opts:["Anovulación crónica con ciclos sin menstruación","Hematocolpos por himen imperforado","Insuficiencia ovárica primaria con ciclos anovulatorios","Síndrome de Asherman congénito"],
-    ans:1,
+    opts:["Hematocolpos por himen imperforado","Anovulación crónica con ciclos sin menstruación","Insuficiencia ovárica primaria con ciclos anovulatorios","Síndrome de Asherman congénito"],
+    ans:0,
     exp:"El himen imperforado produce criptomenorrea: el sangrado menstrual se acumula en vagina (hematocolpos), útero (hematómetra) y trompas (hematosálpinx). Se manifiesta como amenorrea primaria con caracteres sexuales secundarios normales (los ovarios y estrógenos funcionan) y dolor pélvico cíclico mensual. A la inspección se observa membrana himeneal abombada violácea. Tratamiento: incisión quirúrgica.",
     tip:"<strong>Menarquia ausente + desarrollo normal + dolor cíclico = himen imperforado.</strong> Masa pélvica en ECO (hematocolpos). Tratar: himenotomía quirúrgica urgente.",
     ref:"GPC Insuficiencia ovárica primaria, IMSS 2013."
@@ -213,8 +213,8 @@ const questions = [
   {
     cat:"pri", catName:"Amenorrea Primaria",
     q:"Adolescente de 17 años sin menarquia, desarrollo mamario normal, vello pubiano escaso y vagina corta en fondo de saco. Cariotipo 46,XY. ¿Cuál es el diagnóstico?",
-    opts:["Síndrome de Turner con mosaicismo 46,XY","Síndrome de insensibilidad a los andrógenos (síndrome de Morris)","Síndrome de Mayer-Rokitansky (agenesia mülleriana 46,XX)","Disgenesia gonadal mixta 46,XY con fenotipo femenino"],
-    ans:1,
+    opts:["Síndrome de Turner con mosaicismo 46,XY","Disgenesia gonadal mixta 46,XY con fenotipo femenino","Síndrome de Mayer-Rokitansky (agenesia mülleriana 46,XX)","Síndrome de insensibilidad a los andrógenos (síndrome de Morris)"],
+    ans:3,
     exp:"El síndrome de insensibilidad a los andrógenos (SIA) cursa con: cariotipo 46,XY, fenotipo femenino (los receptores de andrógenos no responden), buen desarrollo mamario (la testosterona se convierte a estrógenos periféricos), vello pubiano y axilar muy escaso (los folículos pilosos no responden a andrógenos) y vagina corta o en fondo de saco. Las gónadas (testículos) son intraabdominales e inguinales con riesgo de malignización (gonadoblastoma ~15%).",
     tip:"<strong>SIA = 46,XY + fenotipo femenino + mamas normales + vello escaso + vagina corta.</strong> Gónadas intraabdominales = gonadectomía profiláctica tras pubertad. Muy diferente a Turner (45,X).",
     ref:"GPC Insuficiencia ovárica primaria, IMSS 2013."
@@ -222,8 +222,8 @@ const questions = [
   {
     cat:"pri", catName:"Amenorrea Primaria",
     q:"Mujer de 18 años sin menarquia, desarrollo mamario y vello pubiano normales, útero ausente en imagen, ovarios normales y cariotipo 46,XX. ¿Cuál es el diagnóstico?",
-    opts:["Síndrome de insensibilidad a andrógenos (46,XY)","Síndrome de Mayer-Rokitansky-Küster-Hauser (aplasia mülleriana 46,XX)","Síndrome de Turner 45,X con mosaicismo","Síndrome de Asherman congénito por sinequias uterinas prenatales"],
-    ans:1,
+    opts:["Síndrome de Mayer-Rokitansky-Küster-Hauser (aplasia mülleriana 46,XX)","Síndrome de insensibilidad a andrógenos (46,XY)","Síndrome de Turner 45,X con mosaicismo","Síndrome de Asherman congénito por sinequias uterinas prenatales"],
+    ans:0,
     exp:"El síndrome de MRKH es la agenesia de estructuras müllerianas (útero y parte superior de vagina) en mujer con cariotipo 46,XX y ovarios funcionales. Los caracteres sexuales secundarios son normales (ovarios intactos producen estrógenos y progesterona). A diferencia del SIA: cariotipo 46,XX, vello pubiano normal, ovarios normales. Gestación posible mediante subrogación.",
     tip:"<strong>MRKH = 46,XX + sin útero + sin vagina + ovarios normales + caracteres sexuales normales.</strong> Diferencia clave con SIA: cariotipo XX y vello normal. Vagina puede crearse con dilatadores.",
     ref:"GPC Insuficiencia ovárica primaria, IMSS 2013."
@@ -241,8 +241,8 @@ const questions = [
   {
     cat:"sec", catName:"Amenorrea Secundaria",
     q:"Mujer de 28 años con amenorrea de 4 meses, galactorrea bilateral espontánea y cefalea frontal progresiva. β-hCG negativa. ¿Cuál es el estudio clave y el diagnóstico más probable?",
-    opts:["Ecografía pélvica para descartar SOP; diagnóstico: anovulación","Prolactina sérica; diagnóstico probable: adenoma hipofisario productor de prolactina","TSH y T4L para descartar hipotiroidismo; diagnóstico: hipotiroidismo","LH/FSH en fase folicular; diagnóstico: insuficiencia ovárica primaria"],
-    ans:1,
+    opts:["Prolactina sérica; diagnóstico probable: adenoma hipofisario productor de prolactina","Ecografía pélvica para descartar SOP; diagnóstico: anovulación","TSH y T4L para descartar hipotiroidismo; diagnóstico: hipotiroidismo","LH/FSH en fase folicular; diagnóstico: insuficiencia ovárica primaria"],
+    ans:0,
     exp:"La tríada amenorrea + galactorrea + síntomas neurológicos (cefalea, hemianopsia bitemporal) orienta a prolactinoma hipofisario. El estudio inicial es prolactina sérica; si >100 ng/mL es altamente sugestivo de macroadenoma → RM de silla turca. La prolactina inhibe la secreción pulsátil de GnRH → amenorrea central. Tratamiento: cabergolina (primera línea) o bromocriptina.",
     tip:"<strong>Amenorrea + galactorrea = medir prolactina.</strong> >100 ng/mL + síntomas neurológicos → RM para prolactinoma. Cabergolina = tratamiento de elección.",
     ref:"GPC Insuficiencia ovárica primaria, IMSS 2013."
@@ -259,8 +259,8 @@ const questions = [
   {
     cat:"sec", catName:"Amenorrea Secundaria",
     q:"Mujer de 32 años con amenorrea de 6 meses tras legrado uterino por aborto. β-hCG negativa. La prueba de progesterona no induce sangrado. ¿Diagnóstico y estudio confirmatorio?",
-    opts:["Insuficiencia ovárica primaria posaborto; confirmar con FSH y estradiol","Síndrome de Asherman (sinequias intrauterinas); confirmar con histeroscopia","Hiperprolactinemia por estrés posaborto; confirmar con RM hipofisaria","Hipotiroidismo inducido por trauma emocional; confirmar con TSH"],
-    ans:1,
+    opts:["Insuficiencia ovárica primaria posaborto; confirmar con FSH y estradiol","Hiperprolactinemia por estrés posaborto; confirmar con RM hipofisaria","Síndrome de Asherman (sinequias intrauterinas); confirmar con histeroscopia","Hipotiroidismo inducido por trauma emocional; confirmar con TSH"],
+    ans:2,
     exp:"El síndrome de Asherman (adherencias intrauterinas) es la causa de amenorrea secundaria tras instrumentación uterina (legrado, curetaje, cesárea). La falta de sangrado con prueba de progesterona indica que el endometrio no responde (destruido por las sinequias). La histeroscopia es el gold standard diagnóstico y terapéutico (resección directa de sinequias). La histerosonografía es alternativa diagnóstica.",
     tip:"<strong>Legrado + amenorrea + sin sangrado con progesterona = Asherman.</strong> Histeroscopia: diagnóstico + tratamiento. Luego TRH para regenerar endometrio.",
     ref:"GPC Insuficiencia ovárica primaria, IMSS 2013."
@@ -278,8 +278,8 @@ const questions = [
   {
     cat:"iop", catName:"Insuficiencia Ovárica Primaria",
     q:"¿Cuál es la causa cromosómica más frecuente de insuficiencia ovárica primaria?",
-    opts:["Síndrome de Turner (45,X o mosaico)","Premutación del gen FMR1 (síndrome de X frágil)","Translocación equilibrada del cromosoma 3","Deleción del brazo largo del cromosoma X (del Xq)"],
-    ans:0,
+    opts:["Premutación del gen FMR1 (síndrome de X frágil)","Síndrome de Turner (45,X o mosaico)","Translocación equilibrada del cromosoma 3","Deleción del brazo largo del cromosoma X (del Xq)"],
+    ans:1,
     exp:"El síndrome de Turner (45,X o mosaico 45,X/46,XX) es la causa cromosómica más frecuente de IOP. En mujeres con cariotipo 46,XX, la premutación del gen FMR1 es la causa genética más frecuente (~3-5% de IOP esporádica, ~12% de IOP familiar). Por esto se recomienda estudiar el gen FMR1 en TODAS las pacientes con IOP y cariotipo 46,XX.",
     tip:"<strong>IOP más frecuente: Turner (45,X).</strong> En 46,XX: buscar FMR1 (X frágil). Siempre hacer cariotipo en IOP <40 años para consejo genético.",
     ref:"GPC Insuficiencia ovárica primaria, IMSS 2013."
@@ -287,8 +287,8 @@ const questions = [
   {
     cat:"iop", catName:"Insuficiencia Ovárica Primaria",
     q:"¿Por qué es importante buscar la premutación FMR1 en pacientes con IOP 46,XX?",
-    opts:["Para calcular la dosis de TRH necesaria según la variante genética","Porque tiene implicaciones para el consejo genético familiar: los hijos varones de portadoras tienen riesgo de síndrome de X frágil","Para predecir si habrá recuperación espontánea de la función ovárica","Porque la mutación FMR1 aumenta el riesgo de cáncer de ovario en familiares"],
-    ans:1,
+    opts:["Para calcular la dosis de TRH necesaria según la variante genética","Porque la mutación FMR1 aumenta el riesgo de cáncer de ovario en familiares","Para predecir si habrá recuperación espontánea de la función ovárica","Porque tiene implicaciones para el consejo genético familiar: los hijos varones de portadoras tienen riesgo de síndrome de X frágil"],
+    ans:3,
     exp:"La premutación FMR1 (50-200 repeticiones CGG) en mujeres se asocia a IOP. Si la paciente es portadora de la premutación, sus hijos varones pueden heredar la mutación completa (>200 repeticiones) y desarrollar síndrome de X frágil (discapacidad intelectual, la causa genética más frecuente de retraso mental hereditario). El estudio FMR1 tiene importancia reproductiva para la familia.",
     tip:"<strong>FMR1 en IOP = consejo genético.</strong> Hijos varones de portadoras: riesgo de síndrome X frágil (discapacidad intelectual). Ofrecer diagnóstico prenatal en futuras gestaciones.",
     ref:"GPC Insuficiencia ovárica primaria, IMSS 2013."
@@ -296,8 +296,8 @@ const questions = [
   {
     cat:"iop", catName:"Insuficiencia Ovárica Primaria",
     q:"Mujer de 34 años con IOP confirmada que desea embarazo. ¿Cuál es la opción reproductiva con mayor tasa de éxito?",
-    opts:["Inducción de ovulación con citrato de clomifeno en ciclos naturales espontáneos","Donación de óvulos (ovodonación) con fertilización in vitro","Gonadotropinas a altas dosis para hipereestimulación ovárica controlada","Esperar recuperación espontánea de la función ovárica (ocurre en 50%)"],
-    ans:1,
+    opts:["Inducción de ovulación con citrato de clomifeno en ciclos naturales espontáneos","Esperar recuperación espontánea de la función ovárica (ocurre en 50%)","Gonadotropinas a altas dosis para hipereestimulación ovárica controlada","Donación de óvulos (ovodonación) con fertilización in vitro"],
+    ans:3,
     exp:"En IOP el pool folicular está agotado o muy reducido. La ovodonación (FIV con óvulos de donante) tiene tasas de éxito del 40-60% por ciclo y es la opción reproductiva más eficaz. La estimulación ovárica propia rara vez produce respuesta. Solo el 5-10% de mujeres con IOP logra embarazo espontáneo. Las gonadotropinas a altas dosis no mejoran significativamente la respuesta folicular.",
     tip:"<strong>IOP + deseo genésico = ovodonación (la más efectiva: 40-60% por ciclo).</strong> Embarazo espontáneo: ~5%. No estimulación propia: pool folicular agotado.",
     ref:"GPC Insuficiencia ovárica primaria, IMSS 2013."
@@ -305,8 +305,8 @@ const questions = [
   {
     cat:"iop", catName:"Insuficiencia Ovárica Primaria",
     q:"Tratamiento hormonal de reposición indicado en IOP hasta la edad media de menopausia natural (~51 años):",
-    opts:["Solo progesterona cíclica para proteger el endometrio sin estrógenos","TRH con estrógenos + progestágeno (si útero intacto) para prevenir osteoporosis, enfermedad cardiovascular y síntomas vasomotores","Bifosfonatos únicamente para prevenir la pérdida ósea acelerada","DHEA (dehidroepiandrosterona) oral sin estrógenos para mejorar bienestar"],
-    ans:1,
+    opts:["Solo progesterona cíclica para proteger el endometrio sin estrógenos","Bifosfonatos únicamente para prevenir la pérdida ósea acelerada","TRH con estrógenos + progestágeno (si útero intacto) para prevenir osteoporosis, enfermedad cardiovascular y síntomas vasomotores","DHEA (dehidroepiandrosterona) oral sin estrógenos para mejorar bienestar"],
+    ans:2,
     exp:"Las mujeres con IOP tienen deficiencia estrogénica prematura con mayor riesgo de osteoporosis, enfermedad cardiovascular, síntomas vasomotores y atrofia genitourinaria. La TRH (estrógenos ± progestágeno si útero intacto) está indicada hasta los 51 años. En IOP, la TRH es REPOSICIÓN de lo que el ovario debería producir, no terapia 'adicional'. El perfil riesgo-beneficio es favorable.",
     tip:"<strong>IOP = TRH hasta los 51 años (edad natural de menopausia).</strong> Es reposición, no suplementación extra. No tiene el mismo perfil de riesgo que TRH en menopausia tardía.",
     ref:"GPC Insuficiencia ovárica primaria, IMSS 2013."
@@ -314,8 +314,8 @@ const questions = [
   {
     cat:"iop", catName:"Insuficiencia Ovárica Primaria",
     q:"Comorbilidad autoinmune más frecuentemente asociada a insuficiencia ovárica primaria de causa autoinmune:",
-    opts:["Diabetes mellitus tipo 1 autoinmune","Enfermedad tiroidea autoinmune (tiroiditis de Hashimoto / Graves)","Lupus eritematoso sistémico","Anemia perniciosa por anticuerpos anti-factor intrínseco"],
-    ans:1,
+    opts:["Diabetes mellitus tipo 1 autoinmune","Lupus eritematoso sistémico","Enfermedad tiroidea autoinmune (tiroiditis de Hashimoto / Graves)","Anemia perniciosa por anticuerpos anti-factor intrínseco"],
+    ans:2,
     exp:"La IOP autoinmune representa ~20-30% de los casos. La enfermedad tiroidea autoinmune (tiroiditis de Hashimoto, enfermedad de Graves) es la comorbilidad más frecuente asociada. También se asocia a insuficiencia suprarrenal autoinmune (buscar siempre Addison), diabetes tipo 1 y miastenia gravis. Se recomiendan tamizajes periódicos de función tiroidea (TSH anual) y suprarrenal (cortisol basal).",
     tip:"<strong>IOP autoinmune → tamizar tiroides (Hashimoto) y suprarrenal (Addison).</strong> TSH anual. Cortisol basal + ACTH si síntomas. Anticuerpos anti-ovario no tienen utilidad clínica práctica.",
     ref:"GPC Insuficiencia ovárica primaria, IMSS 2013."

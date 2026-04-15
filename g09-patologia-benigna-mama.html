@@ -186,8 +186,8 @@ const questions = [
   {
     cat:"ben", catName:"Entidades Benignas",
     q:"¿Cuál es la patología mamaria benigna más frecuente en mujeres en edad reproductiva?",
-    opts:["Fibroadenoma","Enfermedad fibroquística (mastopatía fibroquística)","Papiloma intraductal","Lipoma mamario"],
-    ans:1,
+    opts:["Fibroadenoma","Papiloma intraductal","Enfermedad fibroquística (mastopatía fibroquística)","Lipoma mamario"],
+    ans:2,
     exp:"La enfermedad fibroquística (mastopatía fibroquística) es la patología mamaria benigna más frecuente en mujeres en edad reproductiva, afectando hasta el 50% de las mujeres entre 20 y 50 años. Se caracteriza por la presencia de quistes, fibrosis y adenosis. El fibroadenoma es la neoplasia benigna más frecuente, pero la enfermedad fibroquística es la patología benigna en general más común.",
     tip:"Más frecuente en general: enfermedad fibroquística. Neoplasia benigna más frecuente: fibroadenoma. Diferencia clave ENARM.",
     ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"
@@ -195,8 +195,8 @@ const questions = [
   {
     cat:"ben", catName:"Entidades Benignas",
     q:"Mujer de 22 años consulta por nódulo mamario único, bien delimitado, móvil, de consistencia elástica, no doloroso, de 2 cm, sin cambios con el ciclo menstrual. ¿Cuál es el diagnóstico más probable?",
-    opts:["Quiste mamario simple","Fibroadenoma","Absceso mamario crónico","Carcinoma medular de mama"],
-    ans:1,
+    opts:["Quiste mamario simple","Carcinoma medular de mama","Absceso mamario crónico","Fibroadenoma"],
+    ans:3,
     exp:"El fibroadenoma es la neoplasia benigna más frecuente de la mama, típica de mujeres jóvenes (15-35 años). Sus características clásicas son: nódulo único, bien delimitado, móvil ('ratón mamario'), consistencia elástica o gomosa, indoloro y que no cambia con el ciclo menstrual. Histológicamente tiene componentes epitelial y estromal. El diagnóstico se confirma con ultrasonido y biopsia.",
     tip:"Fibroadenoma = nódulo móvil + bien delimitado + mujer joven + indoloro = 'ratón mamario'. Biopsia confirma. No maligniza significativamente.",
     ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"
@@ -213,8 +213,8 @@ const questions = [
   {
     cat:"ben", catName:"Entidades Benignas",
     q:"Mujer de 28 años, lactando, presenta eritema, calor, edema y dolor en cuadrante superoexterno de mama derecha con fiebre de 38.5°C. El cultivo de leche materna reporta Staphylococcus aureus. ¿Cuál es el manejo inicial correcto?",
-    opts:["Suspender la lactancia materna inmediatamente y aplicar vendaje compresivo","Antibiótico (dicloxacilina oral) + continuar lactancia materna + aplicación de calor local","Drenaje quirúrgico inmediato sin antibióticos previos","Solo analgésicos y AINES; la mastitis puerperal es autolimitada"],
-    ans:1,
+    opts:["Suspender la lactancia materna inmediatamente y aplicar vendaje compresivo","Drenaje quirúrgico inmediato sin antibióticos previos","Antibiótico (dicloxacilina oral) + continuar lactancia materna + aplicación de calor local","Solo analgésicos y AINES; la mastitis puerperal es autolimitada"],
+    ans:2,
     exp:"La mastitis puerperal infecciosa se trata con antibiótico anti-estafilocócico (dicloxacilina 500 mg c/6h por 10-14 días en México) o cefalexina. Es fundamental NO suspender la lactancia materna: el vaciamiento frecuente previene la progresión a absceso. Aplicar calor local favorece el drenaje. Si no hay mejoría en 48-72 horas, sospechar absceso y realizar ultrasonido. S. aureus es el agente más frecuente.",
     tip:"Mastitis puerperal: dicloxacilina + NO suspender lactancia. Suspender lactancia aumenta riesgo de absceso. S. aureus = agente más frecuente.",
     ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"
@@ -232,8 +232,8 @@ const questions = [
   {
     cat:"diag", catName:"Diagnóstico y Clasificación",
     q:"¿Cuál es el sistema de clasificación estándar para reportar hallazgos de imagen mamaria y guiar el manejo clínico?",
-    opts:["Sistema TNM oncológico de la AJCC","BIRADS (Breast Imaging Reporting and Data System) del ACR","Clasificación de Nottingham modificada","Sistema BI-CAD de estadificación ecográfica"],
-    ans:1,
+    opts:["Sistema TNM oncológico de la AJCC","Sistema BI-CAD de estadificación ecográfica","Clasificación de Nottingham modificada","BIRADS (Breast Imaging Reporting and Data System) del ACR"],
+    ans:3,
     exp:"El sistema BIRADS (ACR) clasifica los hallazgos mamarios del 0 al 6: BIRADS 0 = estudio incompleto (requiere imágenes adicionales); BIRADS 1 = negativo; BIRADS 2 = hallazgo benigno; BIRADS 3 = probablemente benigno (seguimiento a 6 meses, <2% malignidad); BIRADS 4 = sospechoso (biopsia, 2-95%); BIRADS 5 = altamente sugestivo de malignidad (>95%); BIRADS 6 = malignidad confirmada por biopsia.",
     tip:"BIRADS 1-2 = benigno/seguimiento. BIRADS 3 = seguimiento 6 meses. BIRADS 4-5 = BIOPSIA. BIRADS 6 = malignidad confirmada.",
     ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"
@@ -241,8 +241,8 @@ const questions = [
   {
     cat:"diag", catName:"Diagnóstico y Clasificación",
     q:"¿Cuál es el método de imagen de primera elección para el estudio de una masa mamaria en una mujer menor de 35 años?",
-    opts:["Mastografía (mamografía) bilateral","Ultrasonido (ecografía) mamario","Resonancia magnética con gadolinio","Tomosíntesis mamaria digital"],
-    ans:1,
+    opts:["Ultrasonido (ecografía) mamario","Mastografía (mamografía) bilateral","Resonancia magnética con gadolinio","Tomosíntesis mamaria digital"],
+    ans:0,
     exp:"En mujeres menores de 35 años, el ultrasonido mamario es el método de imagen de primera elección debido a que el tejido mamario es denso en este grupo etario, lo que reduce la sensibilidad de la mastografía. El ultrasonido distingue perfectamente lesiones sólidas de quísticas y no emite radiación. La mastografía es de elección en mujeres ≥40 años o como tamizaje. En menores de 35 años con alta sospecha de malignidad, ambos métodos son complementarios.",
     tip:"< 35 años → USG mamario primero. ≥ 40 años → mastografía. Tejido denso = baja sensibilidad de mamografía en jóvenes.",
     ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"
@@ -250,8 +250,8 @@ const questions = [
   {
     cat:"diag", catName:"Diagnóstico y Clasificación",
     q:"Mujer de 30 años con nódulo mamario de 1.5 cm, el ultrasonido reporta lesión anecogénica, de paredes lisas, con refuerzo acústico posterior. ¿Cuál es el diagnóstico y manejo?",
-    opts:["Fibroadenoma — biopsia core de inmediato","Quiste simple — BIRADS 2, seguimiento anual sin biopsia","Quiste complicado — BIRADS 4, biopsia obligatoria","Carcinoma mucinoso — estadificación oncológica"],
-    ans:1,
+    opts:["Quiste simple — BIRADS 2, seguimiento anual sin biopsia","Fibroadenoma — biopsia core de inmediato","Quiste complicado — BIRADS 4, biopsia obligatoria","Carcinoma mucinoso — estadificación oncológica"],
+    ans:0,
     exp:"Un quiste simple mamario tiene características ecográficas clásicas: anecogénico (sin ecos internos), paredes lisas y bien definidas, refuerzo acústico posterior (más brillante detrás del quiste). Corresponde a BIRADS 2 (hallazgo benigno) y no requiere biopsia ni seguimiento acortado, solo control anual. Si tiene ecos internos o paredes irregulares = quiste complicado (BIRADS 3) o quiste con masa intraluminal (BIRADS 4).",
     tip:"Quiste simple: anecogénico + paredes lisas + refuerzo posterior = BIRADS 2 = benigno. No biopsia. Quiste complicado/sólido → BIRADS 3-4.",
     ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"
@@ -259,8 +259,8 @@ const questions = [
   {
     cat:"diag", catName:"Diagnóstico y Clasificación",
     q:"¿Cuál es la tríada diagnóstica ('triple exploración') para el estudio de una masa mamaria palpable?",
-    opts:["Mastografía + RM + PET-CT","Exploración clínica + imagen (USG/mastografía) + biopsia (BAAF o core)","PAP + colposcopia + biopsia cervical","Exploración clínica + termografía + citología por aspiración"],
-    ans:1,
+    opts:["Mastografía + RM + PET-CT","PAP + colposcopia + biopsia cervical","Exploración clínica + imagen (USG/mastografía) + biopsia (BAAF o core)","Exploración clínica + termografía + citología por aspiración"],
+    ans:2,
     exp:"La tríada diagnóstica o 'triple exploración' para masas mamarias consiste en: (1) Exploración clínica (historia clínica + examen físico), (2) Imagen (ultrasonido en <35 años, mastografía en ≥35-40 años), y (3) Biopsia (BAAF para citología o biopsia con aguja de corte/core biopsy para histología). Los tres elementos son complementarios y su concordancia negativa tiene un valor predictivo negativo >99% para malignidad.",
     tip:"Triple exploración = clínica + imagen + biopsia. Los tres negativos → VPN >99%. Uno positivo → manejo como maligno.",
     ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"
@@ -268,8 +268,8 @@ const questions = [
   {
     cat:"diag", catName:"Diagnóstico y Clasificación",
     q:"¿Cuál de las siguientes características en la exploración física de un nódulo mamario es la MÁS sugestiva de malignidad?",
-    opts:["Nódulo móvil, blando, de 1 cm, bien delimitado","Mastalgia cíclica bilateral en cuadrante superoexterno","Nódulo duro, irregular, fijo a planos profundos, con retracción de piel o pezón","Nódulo de consistencia elástica que aumenta de tamaño en la segunda mitad del ciclo"],
-    ans:2,
+    opts:["Nódulo móvil, blando, de 1 cm, bien delimitado","Nódulo duro, irregular, fijo a planos profundos, con retracción de piel o pezón","Mastalgia cíclica bilateral en cuadrante superoexterno","Nódulo de consistencia elástica que aumenta de tamaño en la segunda mitad del ciclo"],
+    ans:1,
     exp:"Los signos de alarma de malignidad mamaria en la exploración física son: dureza pétrea, bordes irregulares, fijación a planos profundos (músculo, piel), retracción o inversión del pezón, retracción de la piel (piel de naranja = edema linfático dérmico), linfadenopatía axilar ipsilateral y ulceración. La movilidad, consistencia elástica y relación con el ciclo menstrual orientan a benignidad.",
     tip:"MALIGNO: duro + irregular + fijo + retracción piel/pezón. BENIGNO: móvil + elástico + bien delimitado + relación ciclica.",
     ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"
@@ -278,8 +278,8 @@ const questions = [
   {
     cat:"trat", catName:"Tratamiento y Seguimiento",
     q:"Mujer de 35 años con mastalgia cíclica bilateral severa (EVA 8/10) que limita actividades. ¿Cuál es el manejo de primera línea?",
-    opts:["Mastectomía profiláctica bilateral","Danazol 200 mg/día como primera opción","Modificaciones en el estilo de vida (reducción de grasas saturadas, cafeína, uso de brasier bien ajustado) + AINES tópicos/orales","Bromocriptina 2.5 mg/día como primera opción"],
-    ans:2,
+    opts:["Mastectomía profiláctica bilateral","Modificaciones en el estilo de vida (reducción de grasas saturadas, cafeína, uso de brasier bien ajustado) + AINES tópicos/orales","Danazol 200 mg/día como primera opción","Bromocriptina 2.5 mg/día como primera opción"],
+    ans:1,
     exp:"La mastalgia cíclica (ligada al ciclo menstrual, bilateral, en cuadrantes superiores) es la más frecuente y en la mayoría de casos responde a medidas no farmacológicas: brasier bien ajustado (reduce movimiento), reducción de grasas saturadas, disminución de cafeína y uso de AINES tópicos (diclofenaco gel) u orales. Si no hay respuesta, se puede agregar aceite de onagra (ácido gamma-linolénico). El danazol y bromocriptina son opciones de 2ª línea por sus efectos adversos.",
     tip:"Mastalgia cíclica leve-moderada = medidas no farmacológicas primero. Severa persistente → danazol o bromocriptina (2ª línea). No mastectomía.",
     ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"
@@ -287,8 +287,8 @@ const questions = [
   {
     cat:"trat", catName:"Tratamiento y Seguimiento",
     q:"¿Cuál es el manejo recomendado para un fibroadenoma mamario confirmado histológicamente, de 2 cm, en mujer de 24 años sin factores de riesgo para cáncer?",
-    opts:["Mastectomía simple ipsilateral de entrada","Quimioterapia neoadyuvante antes de cualquier cirugía","Seguimiento activo (observación) con ultrasonido semestral; escisión quirúrgica si crece >20% o genera ansiedad significativa","Radioterapia local estereotáxica"],
-    ans:2,
+    opts:["Mastectomía simple ipsilateral de entrada","Quimioterapia neoadyuvante antes de cualquier cirugía","Radioterapia local estereotáxica","Seguimiento activo (observación) con ultrasonido semestral; escisión quirúrgica si crece >20% o genera ansiedad significativa"],
+    ans:3,
     exp:"Los fibroadenomas pequeños (<3 cm) histológicamente confirmados en mujeres jóvenes (<35 años) sin historia familiar de cáncer de mama pueden manejarse con seguimiento activo (ecografía cada 6-12 meses). La indicación de cirugía incluye: crecimiento rápido (>20% en 6 meses o >3 cm), fibroadenoma complejo histológico, sospecha de lesión phyllodes, ansiedad de la paciente o deseo de extirpación. El fibroadenoma simple NO maligniza significativamente.",
     tip:"Fibroadenoma <3 cm, confirmado, sin atipias → seguimiento. Indicación quirúrgica: crecimiento rápido >20%, >3 cm, complejo, o deseo de paciente.",
     ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"
@@ -296,8 +296,8 @@ const questions = [
   {
     cat:"trat", catName:"Tratamiento y Seguimiento",
     q:"Mujer de 40 años con galactorrea bilateral espontánea sin embarazo ni lactancia, ciclos regulares y sin uso de fármacos. ¿Cuál es el primer estudio a solicitar?",
-    opts:["Mastografía bilateral urgente","Prolactina sérica","Citología de la secreción por pezón","Resonancia magnética de mama con gadolinio"],
-    ans:1,
+    opts:["Prolactina sérica","Mastografía bilateral urgente","Citología de la secreción por pezón","Resonancia magnética de mama con gadolinio"],
+    ans:0,
     exp:"La galactorrea fuera del puerperio y sin uso de fármacos (antipsicóticos, metoclopramida, antihipertensivos) obliga a descartar hiperprolactinemia. El primer estudio es la prolactina sérica en ayuno. Si está elevada (>25 ng/mL), solicitar RM de hipófisis para descartar prolactinoma. La galactorrea bilateral generalmente NO es de origen mamario sino neuroendocrino. La mastografía es para tamizaje de malignidad, no para galactorrea.",
     tip:"Galactorrea bilateral espontánea = medir prolactina sérica primero. Elevada → RM hipófisis (prolactinoma). Unilateral hemática → papiloma intraductal.",
     ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"
@@ -305,8 +305,8 @@ const questions = [
   {
     cat:"trat", catName:"Tratamiento y Seguimiento",
     q:"¿A partir de qué edad y con qué frecuencia se recomienda la mastografía de tamizaje en mujeres de riesgo promedio en México (IMSS/GPC)?",
-    opts:["Anual desde los 30 años en todas las mujeres","Cada 2 años desde los 40 años hasta los 69 años; anual si hay factores de riesgo","Una sola mastografía a los 50 años de por vida","Solo si hay síntomas; no se recomienda tamizaje en asintomáticas"],
-    ans:1,
+    opts:["Anual desde los 30 años en todas las mujeres","Una sola mastografía a los 50 años de por vida","Cada 2 años desde los 40 años hasta los 69 años; anual si hay factores de riesgo","Solo si hay síntomas; no se recomienda tamizaje en asintomáticas"],
+    ans:2,
     exp:"Según las GPC mexicanas (IMSS/SS), la mastografía de tamizaje se recomienda cada 1-2 años en mujeres de 40-69 años de riesgo promedio. En mujeres con factores de riesgo (historia familiar de primer grado, mutación BRCA, radioterapia torácica previa) puede iniciarse antes y con mayor frecuencia. La exploración clínica mamaria por personal de salud se recomienda cada año desde los 25 años.",
     tip:"Mastografía tamizaje: 40-69 años cada 1-2 años. Exploración clínica desde 25 años. BRCA/historia familiar → inicio más temprano.",
     ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"
@@ -314,8 +314,8 @@ const questions = [
   {
     cat:"trat", catName:"Tratamiento y Seguimiento",
     q:"¿Cuál de los siguientes hallazgos histológicos en una biopsia por enfermedad fibroquística se considera un marcador de MAYOR riesgo para desarrollar cáncer de mama?",
-    opts:["Metaplasia apocrina simple sin atipia","Adenosis esclerosante sin atipia","Hiperplasia ductal atípica (HDA) o hiperplasia lobular atípica (HLA)","Quistes simples de cualquier tamaño sin atipia"],
-    ans:2,
+    opts:["Hiperplasia ductal atípica (HDA) o hiperplasia lobular atípica (HLA)","Adenosis esclerosante sin atipia","Metaplasia apocrina simple sin atipia","Quistes simples de cualquier tamaño sin atipia"],
+    ans:0,
     exp:"En la clasificación de riesgo de la enfermedad fibroquística: (1) Sin riesgo aumentado (riesgo relativo 1x): quistes simples, metaplasia apocrina, adenosis leve, fibroadenoma simple. (2) Riesgo levemente aumentado (RR 1.5-2x): hiperplasia ductal moderada a floreciente sin atipia. (3) Riesgo moderadamente aumentado (RR 4-5x): hiperplasia ductal atípica (HDA) o hiperplasia lobular atípica (HLA). (4) Carcinoma in situ (RR 8-10x).",
     tip:"HDA/HLA = RR 4-5x para Ca mama (mayor riesgo en benignas). Quistes simples = sin riesgo. HDA + historia familiar = RR hasta 10x.",
     ref:"GPC Patología mamaria benigna en primer y segundo nivel de atención 2009"

@@ -198,8 +198,8 @@ const questions = [
   {
     cat:"ctrl", catName:"Control Prenatal",
     q:"Según la NOM-007-SSA2-2016, ¿cuántas consultas prenatales mínimas se recomiendan para una embarazada de bajo riesgo?",
-    opts:["3 consultas (primer, segundo y tercer trimestre)","5 consultas mínimas distribuidas durante el embarazo","Al menos 8 consultas prenatales (esquema OMS 2016 adoptado por la NOM)","Solo 1 consulta de detección en el primer trimestre"],
-    ans:2,
+    opts:["3 consultas (primer, segundo y tercer trimestre)","Al menos 8 consultas prenatales (esquema OMS 2016 adoptado por la NOM)","5 consultas mínimas distribuidas durante el embarazo","Solo 1 consulta de detección en el primer trimestre"],
+    ans:1,
     exp:"La NOM-007-SSA2-2016 adoptó el modelo ampliado de la OMS (2016) de al menos 8 consultas prenatales para el embarazo de bajo riesgo: 1ª antes de las 12 SDG, 2ª a las 20 SDG, 3ª a las 26 SDG, 4ª a las 30 SDG, 5ª a las 34 SDG, 6ª a las 36 SDG, 7ª a las 38 SDG, y 8ª a las 40 SDG. Esto reemplazó el esquema anterior de 5 consultas mínimas. La primera consulta idealmente antes de las 12 semanas.",
     tip:"NOM-007 → mínimo 8 consultas prenatales (esquema OMS 2016). Antes: 5. Primera consulta ideal < 12 SDG.",
     ref:"NOM-007-SSA2-2016 para la atención de la mujer durante el embarazo, parto y puerperio"
@@ -207,8 +207,8 @@ const questions = [
   {
     cat:"ctrl", catName:"Control Prenatal",
     q:"¿Cuál es el contenido obligatorio de la primera consulta prenatal según la NOM-007-SSA2-2016?",
-    opts:["Solo toma de signos vitales y peso","Historia clínica completa, examen físico, cálculo de edad gestacional, solicitud de laboratorios (BH, GS, Rh, EGO, VIH, VDRL, glucosa), suplementación con ácido fólico y hierro","Solo ultrasonido obstétrico de primer trimestre","Amniocentesis para cariotipo fetal de rutina"],
-    ans:1,
+    opts:["Solo toma de signos vitales y peso","Amniocentesis para cariotipo fetal de rutina","Solo ultrasonido obstétrico de primer trimestre","Historia clínica completa, examen físico, cálculo de edad gestacional, solicitud de laboratorios (BH, GS, Rh, EGO, VIH, VDRL, glucosa), suplementación con ácido fólico y hierro"],
+    ans:3,
     exp:"La primera consulta prenatal debe incluir: historia clínica completa (antecedentes heredofamiliares, personales patológicos, obstétricos), examen físico completo con toma de peso/talla/TA, cálculo de FPP por FUM o USG, laboratorios básicos (BH, grupo y Rh, EGO, glucosa, VIH, VDRL/RPR, urocultivo, Papanicolaou si no reciente), suplementación con ácido fólico 0.4-1 mg/día y sulfato ferroso 60 mg/día, y orientación/consejería.",
     tip:"1ª consulta: historia + físico + laboratorios (BH/Rh/VIH/VDRL/glucosa/EGO) + ácido fólico + hierro. VIH en todo embarazo = obligatorio.",
     ref:"NOM-007-SSA2-2016 para la atención de la mujer durante el embarazo, parto y puerperio"
@@ -216,8 +216,8 @@ const questions = [
   {
     cat:"ctrl", catName:"Control Prenatal",
     q:"¿A qué edad gestacional debe realizarse el tamizaje de diabetes gestacional (prueba de O'Sullivan o curva de tolerancia a la glucosa) en embarazadas sin factores de riesgo?",
-    opts:["Antes de las 12 semanas en toda embarazada","Entre las 24-28 semanas de gestación","En el tercer trimestre, entre las 32-34 semanas","Solo si hay glucosuria en el examen general de orina"],
-    ans:1,
+    opts:["Entre las 24-28 semanas de gestación","Antes de las 12 semanas en toda embarazada","En el tercer trimestre, entre las 32-34 semanas","Solo si hay glucosuria en el examen general de orina"],
+    ans:0,
     exp:"El tamizaje universal de diabetes gestacional se realiza entre las 24-28 semanas de gestación en todas las embarazadas. Se inicia con la prueba de O'Sullivan (carga de 50 g de glucosa sin ayuno, glucemia a la hora). Si ≥140 mg/dL → se confirma con curva de tolerancia a la glucosa con 100 g (Carpenter-Coustan o NDDG). En embarazadas con factores de riesgo (obesidad, antecedente de DG, macrosomia previa) se puede hacer tamizaje en la primera consulta.",
     tip:"Tamizaje DG: 24-28 SDG en todas. O'Sullivan ≥140 mg/dL → CTOG con 100 g. Alto riesgo → tamizaje desde 1ª consulta.",
     ref:"GPC Atención y cuidados multidisciplinarios en el embarazo 2022"
@@ -234,8 +234,8 @@ const questions = [
   {
     cat:"nom", catName:"NOM-007 · Normas Esenciales",
     q:"Según la NOM-007-SSA2-2016, ¿cuál es la definición de trabajo de parto activo?",
-    opts:["Presencia de cualquier contracción uterina independientemente de la dilatación","Dilatación cervical ≥4 cm con borramiento ≥80% y contracciones regulares de ≥3 en 10 min","Rotura espontánea de membranas independientemente de la dilatación","Inicio de pujos voluntarios con dilatación de 5 cm"],
-    ans:1,
+    opts:["Dilatación cervical ≥4 cm con borramiento ≥80% y contracciones regulares de ≥3 en 10 min","Presencia de cualquier contracción uterina independientemente de la dilatación","Rotura espontánea de membranas independientemente de la dilatación","Inicio de pujos voluntarios con dilatación de 5 cm"],
+    ans:0,
     exp:"La NOM-007-SSA2-2016 define el trabajo de parto activo como: dilatación cervical ≥4 cm con borramiento cervical ≥80%, acompañados de actividad uterina regular (3 o más contracciones en 10 minutos, de duración ≥30-40 segundos). La fase latente se define como el periodo de contracciones irregulares con dilatación <4 cm. La definición de trabajo de parto activo es fundamental para el manejo del partograma.",
     tip:"Trabajo de parto activo (NOM-007): dilatación ≥4 cm + borramiento ≥80% + ≥3 contracciones en 10 min. Latente: <4 cm.",
     ref:"NOM-007-SSA2-2016 para la atención de la mujer durante el embarazo, parto y puerperio"
@@ -243,8 +243,8 @@ const questions = [
   {
     cat:"nom", catName:"NOM-007 · Normas Esenciales",
     q:"¿Qué establece la NOM-007-SSA2-2016 sobre la episiotomía de rutina durante el parto?",
-    opts:["Debe realizarse en todas las primigestas para prevenir desgarros perineales","Debe realizarse en todos los partos con uso de fórceps o vacuum","Está contraindicada como práctica rutinaria; se recomienda solo de manera selectiva (restringida) cuando hay indicación específica","Es obligatoria en partos vaginales después de cesárea anterior"],
-    ans:2,
+    opts:["Está contraindicada como práctica rutinaria; se recomienda solo de manera selectiva (restringida) cuando hay indicación específica","Debe realizarse en todos los partos con uso de fórceps o vacuum","Debe realizarse en todas las primigestas para prevenir desgarros perineales","Es obligatoria en partos vaginales después de cesárea anterior"],
+    ans:0,
     exp:"La NOM-007-SSA2-2016, siguiendo las recomendaciones de la OMS, establece explícitamente que la episiotomía de rutina está contraindicada y debe realizarse solo de manera selectiva (restringida) cuando hay indicación específica: sufrimiento fetal que requiere acelerar el parto, uso de fórceps, presentación de hombros o periné muy rígido que no cede. La episiotomía selectiva reduce las complicaciones perineales en comparación con la práctica rutinaria.",
     tip:"NOM-007: episiotomía NO rutinaria. Solo selectiva con indicación específica. Práctica de humanización del parto.",
     ref:"NOM-007-SSA2-2016 para la atención de la mujer durante el embarazo, parto y puerperio"
@@ -252,8 +252,8 @@ const questions = [
   {
     cat:"nom", catName:"NOM-007 · Normas Esenciales",
     q:"Según la NOM-007-SSA2-2016, ¿cuál es el manejo activo del tercer período del trabajo de parto (alumbramiento)?",
-    opts:["Tracción enérgica del cordón umbilical inmediatamente tras el parto sin oxitocina","Administración de oxitocina 10 UI IM en el minuto 1 tras el nacimiento + tracción controlada del cordón + masaje uterino","Ergometrina 0.5 mg IV como primer uterotónico de elección","Esperar el alumbramiento espontáneo sin ninguna intervención activa"],
-    ans:1,
+    opts:["Tracción enérgica del cordón umbilical inmediatamente tras el parto sin oxitocina","Ergometrina 0.5 mg IV como primer uterotónico de elección","Administración de oxitocina 10 UI IM en el minuto 1 tras el nacimiento + tracción controlada del cordón + masaje uterino","Esperar el alumbramiento espontáneo sin ninguna intervención activa"],
+    ans:2,
     exp:"El manejo activo del tercer período (MATP) según la NOM-007 consiste en: (1) Oxitocina 10 UI IM inmediatamente después del nacimiento del bebé (en el primer minuto); (2) Tracción controlada del cordón umbilical con contratracción uterina; (3) Masaje uterino tras la expulsión de la placenta. Este manejo reduce en 60% la hemorragia postparto. La oxitocina es el uterotónico de primera elección.",
     tip:"MATP: Oxitocina 10 UI IM + tracción controlada de cordón + masaje uterino post-alumbramiento. Reduce HPP 60%. Estándar NOM-007.",
     ref:"NOM-007-SSA2-2016 para la atención de la mujer durante el embarazo, parto y puerperio"
@@ -261,8 +261,8 @@ const questions = [
   {
     cat:"nom", catName:"NOM-007 · Normas Esenciales",
     q:"¿Cuándo debe realizarse el pinzamiento del cordón umbilical según las recomendaciones de la NOM-007-SSA2-2016?",
-    opts:["Inmediatamente al nacer el bebé (primeros 10 segundos)","Pinzamiento tardío: entre 1-3 minutos después del nacimiento, o cuando deja de pulsar","A los 5 minutos del nacimiento obligatoriamente","Solo cuando el neonato ya fue evaluado con el APGAR de 5 minutos"],
-    ans:1,
+    opts:["Inmediatamente al nacer el bebé (primeros 10 segundos)","A los 5 minutos del nacimiento obligatoriamente","Pinzamiento tardío: entre 1-3 minutos después del nacimiento, o cuando deja de pulsar","Solo cuando el neonato ya fue evaluado con el APGAR de 5 minutos"],
+    ans:2,
     exp:"La NOM-007-SSA2-2016 adoptó la recomendación OMS del pinzamiento tardío del cordón: entre 1-3 minutos después del nacimiento, o cuando el cordón deja de pulsar. Esto permite la transfusión placentaria al neonato, aportando 80-100 mL de sangre rica en hierro, lo que reduce la anemia en la infancia. Está contraindicado solo si el neonato requiere reanimación inmediata o hay incompatibilidad Rh severa.",
     tip:"Pinzamiento tardío: 1-3 minutos post-nacimiento. Beneficio: transfusión placentaria → previene anemia neonatal. Contraindicado: reanimación inmediata.",
     ref:"NOM-007-SSA2-2016 para la atención de la mujer durante el embarazo, parto y puerperio"
@@ -271,8 +271,8 @@ const questions = [
   {
     cat:"comp", catName:"Complicaciones y Vigilancia",
     q:"Embarazada de 32 semanas, TA 158/105 mmHg en dos ocasiones con 4 horas de diferencia, proteinuria en orina de 24 horas de 350 mg. ¿Cuál es el diagnóstico?",
-    opts:["Hipertensión gestacional (sin proteinuria)","Preeclampsia sin datos de severidad","Preeclampsia con datos de severidad","Hipertensión crónica preexistente"],
-    ans:1,
+    opts:["Hipertensión gestacional (sin proteinuria)","Hipertensión crónica preexistente","Preeclampsia con datos de severidad","Preeclampsia sin datos de severidad"],
+    ans:3,
     exp:"La preeclampsia se define como TA ≥140/90 mmHg en dos tomas con 4 horas de diferencia, con proteinuria ≥300 mg/24h (o cociente proteína/creatinina ≥0.3), en embarazo ≥20 SDG. En este caso hay TA 158/105 (elevada pero <160/110) y proteinuria 350 mg → preeclampsia SIN datos de severidad. Los datos de severidad incluyen: TA ≥160/110, creatinina ≥1.1, plaquetas <100,000, LDH >600, ALT/AST >2x normal, síntomas cerebrales/visuales, edema pulmonar.",
     tip:"Preeclampsia sin severidad: TA ≥140/90 + proteinuria ≥300 mg/24h. Con severidad: TA ≥160/110 o criterios adicionales (plaquetas, renal, hepático, neuro).",
     ref:"GPC Atención y cuidados multidisciplinarios en el embarazo 2022"
@@ -289,8 +289,8 @@ const questions = [
   {
     cat:"comp", catName:"Complicaciones y Vigilancia",
     q:"¿Cuál es la frecuencia cardiaca fetal normal durante el trabajo de parto y cuál es la definición de bradicardia fetal según la NOM-007?",
-    opts:["Normal: 100-140 lpm; bradicardia: <100 lpm","Normal: 110-160 lpm; bradicardia: <110 lpm sostenida >10 minutos","Normal: 120-180 lpm; bradicardia: <120 lpm","Normal: 140-180 lpm; bradicardia: <140 lpm"],
-    ans:1,
+    opts:["Normal: 100-140 lpm; bradicardia: <100 lpm","Normal: 120-180 lpm; bradicardia: <120 lpm","Normal: 110-160 lpm; bradicardia: <110 lpm sostenida >10 minutos","Normal: 140-180 lpm; bradicardia: <140 lpm"],
+    ans:2,
     exp:"La frecuencia cardiaca fetal (FCF) normal es 110-160 lpm. La bradicardia fetal se define como FCF <110 lpm sostenida por más de 10 minutos. La taquicardia fetal es FCF >160 lpm por más de 10 minutos. La variabilidad normal de la FCF es 6-25 lpm. La ausencia de variabilidad + desaceleraciones tardías o variables severas indica acidosis fetal y requiere resolución urgente del embarazo.",
     tip:"FCF normal: 110-160 lpm. Bradicardia: <110 lpm ×10 min. Taquicardia: >160 lpm ×10 min. Variabilidad normal: 6-25 lpm.",
     ref:"NOM-007-SSA2-2016 para la atención de la mujer durante el embarazo, parto y puerperio"
@@ -308,8 +308,8 @@ const questions = [
   {
     cat:"pre", catName:"Puerperio y Recién Nacido",
     q:"Según la NOM-007-SSA2-2016, ¿cuáles son los cuidados inmediatos obligatorios del recién nacido en sala de partos?",
-    opts:["Solo peso y talla; el resto en cunero","Secado, evaluación de la respiración, contacto piel a piel inmediato, Apgar al 1 y 5 min, pinzamiento tardío, profilaxis ocular (vitamina K y vacunas en UCIN)","Aspiración gástrica rutinaria y sondeo vesical","Baño inmediato con agua templada en los primeros 5 minutos"],
-    ans:1,
+    opts:["Solo peso y talla; el resto en cunero","Baño inmediato con agua templada en los primeros 5 minutos","Aspiración gástrica rutinaria y sondeo vesical","Secado, evaluación de la respiración, contacto piel a piel inmediato, Apgar al 1 y 5 min, pinzamiento tardío, profilaxis ocular (vitamina K y vacunas en UCIN)"],
+    ans:3,
     exp:"Los cuidados inmediatos del RN según NOM-007 incluyen: secado vigoroso y estimulación, evaluación de la respiración/FC (decisión de reanimación), contacto piel a piel inmediato (mínimo 1 hora si el binomio está estable), Apgar al minuto 1 y 5, pinzamiento tardío del cordón (1-3 min), profilaxis ocular (eritromicina o tetraciclina tópica), vitamina K 1 mg IM (previene enfermedad hemorrágica del RN), vacunas (BCG + Hepatitis B) antes del egreso. El baño se difiere ≥6 horas.",
     tip:"RN inmediato: secar + Apgar + piel a piel + pinzamiento tardío + vitamina K 1 mg IM + profilaxis ocular + BCG + HepB. Baño difiere ≥6 h.",
     ref:"NOM-007-SSA2-2016 para la atención de la mujer durante el embarazo, parto y puerperio"
@@ -317,8 +317,8 @@ const questions = [
   {
     cat:"pre", catName:"Puerperio y Recién Nacido",
     q:"¿Cuánto tiempo dura el puerperio y cómo se divide según la NOM-007-SSA2-2016?",
-    opts:["Solo 10 días postparto; después es periodo de lactancia","40 días (6 semanas): puerperio inmediato (primeras 24 h), mediato (días 2-7) y tardío (días 8-42)","Solo los primeros 7 días tras el parto","3 meses postparto incluyendo la lactancia"],
-    ans:1,
+    opts:["Solo 10 días postparto; después es periodo de lactancia","Solo los primeros 7 días tras el parto","40 días (6 semanas): puerperio inmediato (primeras 24 h), mediato (días 2-7) y tardío (días 8-42)","3 meses postparto incluyendo la lactancia"],
+    ans:2,
     exp:"El puerperio dura 40 días (aproximadamente 6 semanas) y se divide en: (1) Puerperio inmediato: primeras 24 horas — mayor riesgo de HPP, vigilancia estrecha de signos vitales, involución uterina y sangrado; (2) Puerperio mediato: días 2-7 — establecimiento de la lactancia, involución uterina progresiva, alta hospitalaria; (3) Puerperio tardío: días 8-42 — recuperación y retorno de funciones reproductivas. La primera consulta postparto se recomienda en la primera semana.",
     tip:"Puerperio: 40 días. Inmediato (0-24h): mayor riesgo HPP. Mediato (2-7d): lactancia. Tardío (8-42d): recuperación.",
     ref:"NOM-007-SSA2-2016 para la atención de la mujer durante el embarazo, parto y puerperio"
@@ -326,8 +326,8 @@ const questions = [
   {
     cat:"pre", catName:"Puerperio y Recién Nacido",
     q:"¿Cuál es la recomendación de la NOM-007-SSA2-2016 y la GPC 2022 respecto a la lactancia materna exclusiva?",
-    opts:["Lactancia materna exclusiva durante 3 meses, luego combinar con fórmula","Lactancia materna exclusiva durante los primeros 6 meses de vida, con inicio en la primera hora postparto; continuar con alimentación complementaria hasta los 2 años","Solo en madres sin VIH ni tuberculosis activa; en el resto se prefiere fórmula","Lactancia materna exclusiva solo si el neonato es <2500 g (bajo peso al nacer)"],
-    ans:1,
+    opts:["Lactancia materna exclusiva durante los primeros 6 meses de vida, con inicio en la primera hora postparto; continuar con alimentación complementaria hasta los 2 años","Lactancia materna exclusiva durante 3 meses, luego combinar con fórmula","Solo en madres sin VIH ni tuberculosis activa; en el resto se prefiere fórmula","Lactancia materna exclusiva solo si el neonato es <2500 g (bajo peso al nacer)"],
+    ans:0,
     exp:"La NOM-007-SSA2-2016 y la GPC 2022 establecen que la lactancia materna exclusiva debe iniciarse en la primera hora de vida (contacto piel a piel y succión precoz) y mantenerse durante los primeros 6 meses de vida, con continuación de la lactancia junto a alimentación complementaria adecuada hasta los 2 años o más. La lactancia materna aporta protección inmunológica, reduce la mortalidad infantil, disminuye riesgo de diabetes y obesidad en el niño, y ofrece beneficios para la madre (involución uterina, reduce riesgo de cáncer de mama y ovario).",
     tip:"Lactancia exclusiva: 6 meses. Inicio: primera hora de vida. Continuar con complementaria hasta 2 años. NOM-007 lo establece como obligación de las unidades de salud.",
     ref:"NOM-007-SSA2-2016 para la atención de la mujer durante el embarazo, parto y puerperio"

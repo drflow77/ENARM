@@ -207,11 +207,11 @@ const questions = [
     q:"¿Cuál es la definición y los criterios ultrasonográficos de ABORTO DIFERIDO (o retenido) según la GPC?",
     opts:[
       "Expulsión espontánea completa del producto antes de la semana 20, con cuello cerrado y sin hemorragia activa",
-      "Embrión con longitud cráneo-caudal (LCC) ≥7 mm sin actividad cardíaca, O saco gestacional con diámetro medio ≥25 mm sin embrión visible (saco vacío), confirmado por ultrasonido transvaginal",
       "Cualquier sangrado vaginal en el primer trimestre con cuello uterino cerrado y embrión vivo por ultrasonido",
+      "Embrión con longitud cráneo-caudal (LCC) ≥7 mm sin actividad cardíaca, O saco gestacional con diámetro medio ≥25 mm sin embrión visible (saco vacío), confirmado por ultrasonido transvaginal",
       "Dilatación cervical >2 cm con dolor tipo cólico en embarazo de menos de 12 semanas"
     ],
-    ans:1,
+    ans:2,
     exp:"El aborto diferido (retenido o missed abortion) se diagnostica por criterios ultrasonográficos estrictos (RCOG/NICE 2019, GPC 2020): (1) Embrión con LCC ≥7 mm sin actividad cardíaca = aborto diferido definitivo; (2) Saco gestacional con diámetro medio ≥25 mm sin embrión visible = aborto anembrionado definitivo. Si el embrión tiene LCC <7 mm sin latido OR saco <25 mm sin embrión → repetir USG en 7-14 días antes de concluir pérdida. La escasa o nula sintomatología clínica lo diferencia del aborto incompleto o inevitable.",
     tip:"Aborto diferido USG: LCC ≥7mm SIN latido OR saco ≥25mm SIN embrión. LCC <7mm sin latido → repetir en 7-14 días. Asintomático o con sangrado escaso.",
     ref:"GPC Prevención, diagnóstico, tratamiento y referencia de la paciente con amenaza de aborto en el primer y segundo nivel de atención 2020"
@@ -220,12 +220,12 @@ const questions = [
     cat:"ame", catName:"GPC1 · Amenaza de Aborto",
     q:"Embarazada de 9 semanas con sangrado vaginal escaso, dolor tipo cólico leve, cuello uterino cerrado y embrión vivo por USG transvaginal con LCC 22 mm y FCF de 160 lpm. ¿Cuál es el diagnóstico y manejo?",
     opts:[
-      "Aborto inevitable; referencia urgente a segundo nivel para AMEU de emergencia",
       "Amenaza de aborto; reposo relativo, evitar actividad sexual, progesterona vaginal o IM si hay déficit comprobado o si la paciente tiene antecedentes de aborto recurrente; control USG en 1-2 semanas",
+      "Aborto inevitable; referencia urgente a segundo nivel para AMEU de emergencia",
       "Embarazo normal; alta con indicaciones de alarma sin ningún tratamiento adicional",
       "Aborto diferido; aplicar misoprostol 800 mcg vaginal de inmediato para inducir expulsión"
     ],
-    ans:1,
+    ans:0,
     exp:"Con cuello cerrado + embrión vivo por USG = amenaza de aborto (no aborto consumado). Manejo: (1) Reposo relativo (evidencia limitada pero recomendado por la GPC); (2) Abstinencia sexual; (3) Progesterona: vaginal (200-400 mg/día) o IM (17-OHP caproato) especialmente en: aborto recurrente con progesterona baja, subgrupo con sangrado + latido + LCC adecuado para EG (estudios PROMISE/PRISM muestran beneficio en sangrado intermenstrual con embarazo vivo); (4) USG de seguimiento en 1-2 semanas. La progesterona NO se indica rutinariamente en amenaza de aborto espontáneo sin antecedentes.",
     tip:"Amenaza de aborto: cuello cerrado + embrión vivo. Manejo: reposo + abstinencia + progesterona (si aborto recurrente o sangrado con embrión vivo). Control USG en 1-2 sem.",
     ref:"GPC Prevención, diagnóstico, tratamiento y referencia de la paciente con amenaza de aborto en el primer y segundo nivel de atención 2020"
@@ -254,12 +254,12 @@ const questions = [
     cat:"esp", catName:"GPC2 · Aborto Espontáneo y Recurrente",
     q:"¿Cuál es la clasificación clínica del aborto y sus características clave?",
     opts:[
-      "Completo (expulsión total), incompleto (expulsión parcial), inevitable (cuello dilatado + membranas íntegras), diferido (muerte embrionaria sin expulsión), séptico (infección sobreagregada)",
+      "Aborto electivo y aborto espontáneo como únicas categorías reconocidas por las GPC mexicanas",
       "Solo dos tipos: aborto temprano (<8 semanas) y aborto tardío (8-20 semanas), sin otras subdivisiones clínicas",
       "Solo aborto completo e incompleto; el diferido y el inevitable no existen como categorías diagnósticas",
-      "Aborto electivo y aborto espontáneo como únicas categorías reconocidas por las GPC mexicanas"
+      "Completo (expulsión total), incompleto (expulsión parcial), inevitable (cuello dilatado + membranas íntegras), diferido (muerte embrionaria sin expulsión), séptico (infección sobreagregada)"
     ],
-    ans:0,
+    ans:3,
     exp:"Clasificación del aborto espontáneo: (1) Amenaza de aborto: sangrado + cuello cerrado + embrión vivo; (2) Inevitable: cuello dilatado ± rotura de membranas, sin expulsión completa; (3) Incompleto: expulsión parcial de productos, cuello puede estar abierto o cerrado; (4) Completo: expulsión de todo el contenido uterino, útero contraído y cuello cerrado; (5) Diferido (retenido): muerte embrionaria/fetal sin expulsión; (6) Séptico: cualquiera de los anteriores con signos de infección. El recurrente es ≥2 pérdidas consecutivas documentadas.",
     tip:"Clasificación aborto: amenaza (cuello cerrado + vivo) → inevitable (cuello abierto) → incompleto (expulsión parcial) → completo → diferido (muerte sin expulsión) → séptico.",
     ref:"GPC Diagnóstico y tratamiento del aborto espontáneo y manejo inicial del aborto recurrente 2018"
@@ -268,12 +268,12 @@ const questions = [
     cat:"esp", catName:"GPC2 · Aborto Espontáneo y Recurrente",
     q:"¿Cuál es el tratamiento de elección para el aborto incompleto en primer trimestre según la GPC 2018?",
     opts:[
-      "Legrado uterino instrumental (LUI) bajo anestesia general como única técnica segura y efectiva",
-      "Manejo expectante en todos los casos, sin medicamentos ni procedimientos",
       "AMEU (Aspiración Manual Endouterina) para EG ≤12 semanas: tan efectiva como el legrado, menos complicaciones, puede hacerse con anestesia local; misoprostol 800 mcg vaginal como alternativa médica efectiva (85-90% de éxito)",
+      "Manejo expectante en todos los casos, sin medicamentos ni procedimientos",
+      "Legrado uterino instrumental (LUI) bajo anestesia general como única técnica segura y efectiva",
       "Oxitocina IV en infusión continua por 24 horas como primera línea farmacológica"
     ],
-    ans:2,
+    ans:0,
     exp:"Para el aborto incompleto en primer trimestre (<12 semanas), la GPC recomienda: (1) AMEU (Aspiración Manual Endouterina): técnica de elección, tan efectiva como el LUI (legrado), con menos pérdida sanguínea, menos perforaciones, posible con anestesia local en primer nivel. Es el procedimiento CLAVE del ENARM. (2) Misoprostol 800 mcg vaginal: opción médica con 85-90% de éxito (puede necesitar dosis adicional a las 24-48h). (3) Manejo expectante (esperar la expulsión espontánea): 2-6 semanas, útil si la paciente está estable y lo prefiere. El LUI sigue siendo alternativa pero no es de primera línea.",
     tip:"Aborto incompleto 1er trimestre: AMEU = primera línea (ambulatorio, anestesia local) > misoprostol 800 mcg vaginal > expectante. LUI = alternativa, más complicaciones.",
     ref:"GPC Diagnóstico y tratamiento del aborto espontáneo y manejo inicial del aborto recurrente 2018"
@@ -283,11 +283,11 @@ const questions = [
     q:"¿Cuál es la definición actual de aborto recurrente y cuáles son sus causas más frecuentes?",
     opts:[
       "Tres o más abortos consecutivos documentados; causas: siempre infecciosas (Listeria, Toxoplasma)",
-      "Dos o más pérdidas gestacionales documentadas (consecutivas o no). Causas: cromosómicas (50%), anatómicas uterinas (15%), síndrome antifosfolipídico (15%), trombofilia hereditaria, endocrinas (hipotiroidismo, SOP), factores inmunológicos; en el 50% no se encuentra causa",
       "Un aborto con cariotipo fetal anormal seguido de cualquier nueva pérdida, independientemente del tiempo",
+      "Dos o más pérdidas gestacionales documentadas (consecutivas o no). Causas: cromosómicas (50%), anatómicas uterinas (15%), síndrome antifosfolipídico (15%), trombofilia hereditaria, endocrinas (hipotiroidismo, SOP), factores inmunológicos; en el 50% no se encuentra causa",
       "Solo tres o más abortos en el primer trimestre; los del segundo trimestre no se cuentan como recurrentes"
     ],
-    ans:1,
+    ans:2,
     exp:"El aborto recurrente (AR) se define como ≥2 pérdidas gestacionales documentadas (ESHRE 2017, adoptado en GPC mexicana 2018; anteriormente se requería ≥3). Las causas incluyen: (1) Cromosómicas fetales: 50% de las pérdidas (trisomías, monosomía X); (2) Anatómicas uterinas: tabique uterino, miomas submucosos, síndrome de Asherman (15%); (3) Síndrome antifosfolipídico (SAF): causa tratable más importante, 15%; (4) Trombofilia hereditaria; (5) Endocrinas: hipotiroidismo, DM no controlada, SOP; (6) Idiopático: 50%. El SAF es la causa tratable de mayor impacto.",
     tip:"Aborto recurrente: ≥2 pérdidas (ya no se requieren 3). Causa tratable más importante: SAF (anticoagulación + AAS mejora pronóstico). Idiopático = 50%. Estudiar: cariotipo, útero, SAF, trombofilia, tiroides.",
     ref:"GPC Diagnóstico y tratamiento del aborto espontáneo y manejo inicial del aborto recurrente 2018"
@@ -315,11 +315,11 @@ const questions = [
     q:"¿Cuál es el tratamiento antibiótico de primera línea para el aborto séptico sin criterios de sepsis severa, según la GPC?",
     opts:[
       "Penicilina G cristalina sola IV por 10 días como único esquema de primera línea recomendado",
-      "Clindamicina 900 mg IV c/8h + gentamicina 5 mg/kg/día IV (o 1.5 mg/kg c/8h): cobertura de anaerobios + gram negativos; alternativa: ampicilina-sulbactam + metronidazol",
       "Ciprofloxacino oral 500 mg c/12h por 7 días como esquema ambulatorio de primera línea",
+      "Clindamicina 900 mg IV c/8h + gentamicina 5 mg/kg/día IV (o 1.5 mg/kg c/8h): cobertura de anaerobios + gram negativos; alternativa: ampicilina-sulbactam + metronidazol",
       "Amoxicilina 500 mg VO c/8h + ibuprofeno 600 mg c/8h por 5 días en aborto séptico leve"
     ],
-    ans:1,
+    ans:2,
     exp:"El esquema antibiótico estándar para aborto séptico (sin criterios de sepsis severa) es: Clindamicina 900 mg IV c/8h + Gentamicina 5 mg/kg/24h IV (o 1.5 mg/kg c/8h). Este esquema cubre anaerobios (clindamicina) y bacilos gram negativos (gentamicina), los gérmenes más frecuentes (polimicrobiana: E. coli, Bacteroides spp, Peptostreptococcus). Alternativas: Ampicilina-sulbactam 3g IV c/6h + metronidazol 500 mg IV c/8h. En sepsis severa o choque: agregar ampicilina para estreptococos. SIEMPRE asociar vaciamiento uterino (AMEU o LUI) una vez iniciados antibióticos.",
     tip:"Aborto séptico: Clindamicina + Gentamicina IV (1ª línea). Alternativa: ampicilina-sulbactam + metronidazol. SIEMPRE vaciar el útero una vez con antibióticos iniciados.",
     ref:"GPC Diagnóstico y tratamiento del aborto séptico en primer y segundo nivel terciario 2009"
@@ -329,11 +329,11 @@ const questions = [
     q:"¿Cuáles son las indicaciones de histerectomía en el aborto séptico?",
     opts:[
       "En todo aborto séptico como medida preventiva para evitar recurrencia de infección futura",
-      "Falta de respuesta al tratamiento médico en 48-72h (sepsis persistente), perforación uterina con lesión de víscera, mionecrosis (gangrena uterina), absceso tubo-ovárico roto, o choque séptico refractario",
       "Solo en mujeres con paridad satisfecha mayor de 40 años, independientemente de la respuesta al tratamiento",
+      "Falta de respuesta al tratamiento médico en 48-72h (sepsis persistente), perforación uterina con lesión de víscera, mionecrosis (gangrena uterina), absceso tubo-ovárico roto, o choque séptico refractario",
       "Diagnóstico de aborto séptico con Clostridium perfringens siempre requiere histerectomía en las primeras 2 horas"
     ],
-    ans:1,
+    ans:2,
     exp:"La histerectomía en aborto séptico se reserva para: (1) Falla al tratamiento médico en 48-72h (fiebre persistente, deterioro clínico a pesar de antibióticos adecuados + vaciamiento uterino); (2) Perforación uterina con lesión de asas intestinales u otros órganos; (3) Mionecrosis o gangrena uterina (útero sin respuesta, friable, necrosis extensa); (4) Absceso pélvico/tubo-ovárico roto refractario; (5) Clostridium perfringens con deterioro rápido (hemólisis, falla renal). La histerectomía no siempre es conservación de fertilidad, pero salva la vida.",
     tip:"Histerectomía en aborto séptico: fracaso médico 48-72h, perforación con lesión visceral, mionecrosis, absceso roto, choque refractario. Clostridium = deterioro rápido → cirugía temprana.",
     ref:"GPC Diagnóstico y tratamiento del aborto séptico en primer y segundo nivel terciario 2009"
@@ -362,11 +362,11 @@ const questions = [
     q:"¿Cuál es la triada clásica, el abordaje diagnóstico y el nivel discriminatorio de βhCG en embarazo ectópico?",
     opts:[
       "Triada: fiebre + flujo purulento + dolor bilateral; diagnóstico: solo con cultivo positivo para Chlamydia",
-      "Triada: amenorrea + dolor pélvico + sangrado vaginal anormal. Diagnóstico: βhCG sérica cuantitativa + USG transvaginal. Nivel discriminatorio: si βhCG ≥1,500-2,000 mUI/mL y NO se visualiza saco gestacional intrauterino = presunción de EE hasta demostrar lo contrario",
+      "Solo el USG abdominal con saco extrauterino visible es suficiente para el diagnóstico definitivo",
       "Triada: sangrado + fiebre + vómito; diagnóstico confirmatorio: laparotomía exploratoria sin estudios previos",
-      "Solo el USG abdominal con saco extrauterino visible es suficiente para el diagnóstico definitivo"
+      "Triada: amenorrea + dolor pélvico + sangrado vaginal anormal. Diagnóstico: βhCG sérica cuantitativa + USG transvaginal. Nivel discriminatorio: si βhCG ≥1,500-2,000 mUI/mL y NO se visualiza saco gestacional intrauterino = presunción de EE hasta demostrar lo contrario"
     ],
-    ans:1,
+    ans:3,
     exp:"Triada clásica del EE: amenorrea (4-8 semanas) + dolor pélvico unilateral ± peritonismo + sangrado vaginal anormal (escaso). En EE roto: dolor súbito intenso + hemoperitonio → choque. Diagnóstico: βhCG cuantitativa sérica + USG transvaginal. Nivel discriminatorio: βhCG ≥1,500-2,000 mUI/mL sin saco intrauterino en USG TV = sospecha de EE (no descarta por debajo). La curva de βhCG es útil: en embarazo intrauterino viable la βhCG dobla cada 48h; en EE sube <66% en 48h o desciende sin expulsar. USG TV es el pilar diagnóstico.",
     tip:"EE triada: amenorrea + dolor + sangrado. Nivel discriminatorio: βhCG ≥1,500-2,000 sin saco intrauterino en USG TV = EE hasta probar lo contrario. βhCG no dobla en 48h → EE o aborto.",
     ref:"GPC Diagnóstico y Tratamiento del Embarazo Ectópico en mujeres en edad reproductiva en el segundo y tercer nivel de atención 2009"
@@ -393,12 +393,12 @@ const questions = [
     cat:"tro", catName:"GPC5 · Enfermedad Trofoblástica Gestacional",
     q:"¿Cuáles son las diferencias clave entre mola hidatiforme completa y mola hidatiforme parcial?",
     opts:[
-      "No hay diferencias clínicas ni ultrasonográficas; se distinguen únicamente por cariotipo",
       "Mola completa: cariotipo 46XX (diploidía androginética, sin feto ni cordón), mayor riesgo de NTG (15-20%); mola parcial: triploide (69XXY/XXX), puede haber tejido fetal, menor riesgo de NTG (1-5%); ambas: útero >EG, βhCG muy elevada, imagen en 'copos de nieve' en USG",
+      "No hay diferencias clínicas ni ultrasonográficas; se distinguen únicamente por cariotipo",
       "Mola completa: siempre presenta feto vivo hasta la semana 16; mola parcial: feto siempre muerto al diagnóstico",
       "Solo se diferencia por el color del tejido trofoblástico: rojizo (completa) vs amarillo (parcial)"
     ],
-    ans:1,
+    ans:0,
     exp:"Mola completa: diploide androgenética (46XX, 90% o 46XY), sin tejido fetal ni cordón, vellosidades coriales aumentadas en su totalidad, βhCG muy elevada (>100,000), riesgo de neoplasia trofoblástica gestacional (NTG) = 15-20%. Mola parcial: triploide (69XXY más frecuente), puede haber tejido fetal rudimentario, vellosidades parcialmente afectadas, βhCG menos elevada, riesgo NTG = 1-5%. El USG clásico muestra imagen en 'copos de nieve' en la completa; en la parcial puede verse feto con cambios quísticos focales.",
     tip:"Mola completa: 46XX, sin feto, riesgo NTG 15-20%, βhCG muy alta. Mola parcial: triploide 69XXY, puede haber tejido fetal, riesgo NTG 1-5%. Ambas: imagen copos de nieve USG.",
     ref:"GPC Diagnóstico y tratamiento de la enfermedad trofoblástica gestacional 2011"
@@ -407,12 +407,12 @@ const questions = [
     cat:"tro", catName:"GPC5 · Enfermedad Trofoblástica Gestacional",
     q:"¿Cuál es el tratamiento inicial de la mola hidatiforme y el seguimiento postevacuación con βhCG?",
     opts:[
-      "Histerectomía total inmediata en todos los casos de mola hidatiforme, incluyendo mujeres jóvenes con deseo genésico",
       "Evacuación uterina por AMEU o LUI bajo anestesia + oxitocina después de iniciado el procedimiento; seguimiento con βhCG semanal hasta negativización, luego mensual por 6-12 meses; anticoncepción efectiva durante todo el seguimiento",
+      "Histerectomía total inmediata en todos los casos de mola hidatiforme, incluyendo mujeres jóvenes con deseo genésico",
       "Metotrexato profiláctico antes de la evacuación en todos los casos de mola completa",
       "Solo seguimiento clínico con USG mensual sin βhCG; no se requieren controles de laboratorio"
     ],
-    ans:1,
+    ans:0,
     exp:"Tratamiento de la mola hidatiforme: (1) Evacuación uterina: AMEU preferentemente (o LUI); oxitocina DESPUÉS de iniciada la aspiración (no antes, para no diseminar trofoblasto); (2) En mujeres con paridad cumplida: histerectomía es opción que elimina riesgo local de NTG pero no sistémico; (3) Seguimiento con βhCG: semanal hasta negativización (valores no detectables), luego quincenal/mensual por 6 meses (mola parcial) o 12 meses (mola completa); (4) Anticoncepción hormonal durante todo el seguimiento (evitar embarazo que confundirá la βhCG); (5) La βhCG no debe elevarse durante el seguimiento (criterio de NTG).",
     tip:"Mola: evacuar con AMEU + oxitocina DESPUÉS de iniciar aspiración. βhCG semanal hasta negativizar, luego mensual × 6-12 meses. Anticonceptivos durante TODO el seguimiento.",
     ref:"GPC Diagnóstico y tratamiento de la enfermedad trofoblástica gestacional 2011"
@@ -422,11 +422,11 @@ const questions = [
     q:"¿Cuáles son los criterios de neoplasia trofoblástica gestacional (NTG) postmolar que requieren quimioterapia?",
     opts:[
       "Solo si hay metástasis pulmonares visibles en radiografía de tórax como único criterio diagnóstico",
-      "βhCG en meseta (variación <10% en 3 determinaciones semanales en 2 semanas), βhCG en ascenso (>10% en 2 determinaciones en 2 semanas), βhCG detectable por >6 meses posmola, diagnóstico histológico de coriocarcinoma/mola invasora, o metástasis documentadas",
+      "Solo cuando hay sangrado uterino anormal refractario a oxitocina postevacuación",
       "Cualquier valor detectable de βhCG 4 semanas después de la evacuación, independientemente de la tendencia",
-      "Solo cuando hay sangrado uterino anormal refractario a oxitocina postevacuación"
+      "βhCG en meseta (variación <10% en 3 determinaciones semanales en 2 semanas), βhCG en ascenso (>10% en 2 determinaciones en 2 semanas), βhCG detectable por >6 meses posmola, diagnóstico histológico de coriocarcinoma/mola invasora, o metástasis documentadas"
     ],
-    ans:1,
+    ans:3,
     exp:"Criterios de la FIGO 2000 para diagnóstico de NTG postmolar (cualquiera de los siguientes): (1) Meseta de βhCG: <10% de variación en 4 determinaciones en 3 semanas (días 1, 7, 14, 21); (2) Ascenso de βhCG: >10% en 3 determinaciones en 2 semanas (días 1, 7, 14); (3) βhCG detectable >6 meses post-evacuación; (4) Diagnóstico histológico de coriocarcinoma, mola invasora o tumor del sitio placentario. Tratamiento: metotrexato (bajo riesgo FIGO 0-6 puntos) o actinomicina D; alto riesgo (>7 puntos): quimioterapia combinada (EMA-CO: etopósido, MTX, actinomicina-D, ciclofosfamida, vincristina).",
     tip:"NTG criterios: βhCG meseta (×4 en 3 sem) O ascenso (×3 en 2 sem) O detectable >6 meses. Bajo riesgo: MTX. Alto riesgo: EMA-CO. La NTG es uno de los tumores más quimiosensibles.",
     ref:"GPC Diagnóstico y tratamiento de la enfermedad trofoblástica gestacional 2011"

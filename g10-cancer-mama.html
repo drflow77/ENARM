@@ -192,11 +192,11 @@ const questions = [
     q:"¿Cuál es el factor de riesgo más importante para desarrollar cáncer de mama según la GPC de tamizaje 2017?",
     opts:[
       "Tabaquismo activo mayor de 10 cigarrillos al día por más de 5 años",
-      "Sexo femenino y edad avanzada (la edad es el factor de riesgo más importante después del sexo)",
+      "Ingesta de alcohol menor a 1 copa diaria",
       "Uso de anticonceptivos orales combinados por más de 5 años",
-      "Ingesta de alcohol menor a 1 copa diaria"
+      "Sexo femenino y edad avanzada (la edad es el factor de riesgo más importante después del sexo)"
     ],
-    ans:1,
+    ans:3,
     exp:"El sexo femenino y la edad son los principales factores de riesgo no modificables para cáncer de mama. El riesgo aumenta progresivamente con la edad: el 80% de los casos ocurren después de los 50 años. Otros factores de riesgo relevantes incluyen: antecedente familiar de primer grado (madre/hermana), mutaciones BRCA1/BRCA2, menarquia temprana (<12 años), menopausia tardía (>55 años), nuliparidad, primer embarazo >30 años, y uso prolongado de TRH combinada.",
     tip:"Cáncer de mama: factores NO modificables principales = sexo femenino + edad. 80% de casos >50 años. BRCA1/2 = riesgo acumulado 50-85% de vida.",
     ref:"GPC Prevención, tamizaje y referencia oportuna de casos sospechosos de cáncer de mama en el primer nivel de atención 2017"
@@ -247,12 +247,12 @@ const questions = [
     cat:"tam", catName:"Tamizaje y Referencia (1er Nivel)",
     q:"¿Qué es la 'triple exploración' o 'triple prueba diagnóstica' en la evaluación de un nódulo mamario y cuál es su importancia?",
     opts:[
-      "Consiste en autoexploración, exploración clínica y mastografía; si alguna es positiva = referencia urgente",
       "Consiste en exploración clínica + imagen (mastografía/ultrasonido) + biopsia/citología; si las tres son benignas, la malignidad es <1%",
+      "Consiste en autoexploración, exploración clínica y mastografía; si alguna es positiva = referencia urgente",
       "Consiste en análisis de CA 15-3, CEA y HER2 en sangre como tamizaje inicial",
       "Consiste en tres mastografías en intervalos de 6 meses para valorar cambios dinámicos"
     ],
-    ans:1,
+    ans:0,
     exp:"La triple prueba diagnóstica es el estándar para evaluar nódulos mamarios: (1) Exploración clínica mamaria, (2) Imagen (mastografía en >35 años, ultrasonido en <35 años o para caracterizar quistes), y (3) Biopsia/citología por aspiración con aguja fina (BAAF) o biopsia con aguja gruesa (BAG) en lesiones sospechosas. Si las tres son concordantemente benignas, el valor predictivo negativo es >99%. Si hay discordancia, se procede a biopsia quirúrgica.",
     tip:"Triple prueba = clínica + imagen + biopsia/citología. Si las 3 son benignas: riesgo Ca <1%. Discordancia = biopsia quirúrgica obligatoria.",
     ref:"GPC Prevención, tamizaje y referencia oportuna de casos sospechosos de cáncer de mama en el primer nivel de atención 2017"
@@ -275,12 +275,12 @@ const questions = [
     cat:"tam", catName:"Tamizaje y Referencia (1er Nivel)",
     q:"¿Cuáles son las indicaciones para solicitar prueba genética de BRCA1/BRCA2 en primer nivel?",
     opts:[
-      "Toda mujer mayor de 45 años que solicite prevención de cáncer de mama",
-      "Solo mujeres con cáncer de mama diagnosticado antes de los 30 años independientemente del antecedente familiar",
       "Antecedente familiar de Ca mama/ovario en ≥2 familiares de primer grado, Ca mama bilateral, Ca mama en varón, Ca mama triple negativo <60 años, o Ca ovario epitelial",
+      "Solo mujeres con cáncer de mama diagnosticado antes de los 30 años independientemente del antecedente familiar",
+      "Toda mujer mayor de 45 años que solicite prevención de cáncer de mama",
       "Mujeres con BIRADS 3 en mastografía de tamizaje como confirmación diagnóstica"
     ],
-    ans:2,
+    ans:0,
     exp:"Las indicaciones para asesoramiento genético y prueba BRCA1/BRCA2 incluyen: ≥2 familiares de primer o segundo grado con Ca mama/ovario; Ca mama en varón en la familia; Ca mama bilateral; Ca mama diagnosticado <35-40 años; Ca mama triple negativo <60 años; Ca ovario/trompa epitelial en cualquier familiar; descendencia judía askenazi con Ca mama/ovario. La referencia a consejería genética debe hacerse antes de la prueba.",
     tip:"BRCA test: ≥2 familiares Ca mama/ovario OR Ca mama varón OR bilateral OR triple negativo <60a OR Ca ovario. Consejería ANTES de la prueba.",
     ref:"GPC Prevención, tamizaje y referencia oportuna de casos sospechosos de cáncer de mama en el primer nivel de atención 2017"
@@ -289,12 +289,12 @@ const questions = [
     cat:"tam", catName:"Tamizaje y Referencia (1er Nivel)",
     q:"¿Cuál es la conducta correcta ante una descarga por el pezón unilateral, espontánea, hemática, sin nódulo palpable en mujer de 52 años?",
     opts:[
-      "Indicarle anticonceptivos orales para regular la descarga y citar en 6 meses",
-      "Tranquilizarla, realizar mastografía de rutina anual y citar en 12 meses",
       "Referencia urgente (≤2 semanas) a segundo nivel para evaluación con imagen y ductoscopía/biopsia; alta sospecha de papiloma o carcinoma intraductal",
+      "Tranquilizarla, realizar mastografía de rutina anual y citar en 12 meses",
+      "Indicarle anticonceptivos orales para regular la descarga y citar en 6 meses",
       "Solo solicitar prolactina sérica; si es normal, alta definitiva sin seguimiento"
     ],
-    ans:2,
+    ans:0,
     exp:"La descarga hemática unilateral espontánea por un solo orificio ductal en mujer posmenopáusica es un signo de alarma de malignidad (carcinoma intraductal, papiloma con transformación maligna). Requiere referencia urgente a segundo nivel donde se realiza: mastografía con magnificación, ultrasonido con exploración de conductos, ductograma o ductoscopía, y biopsia de la lesión identificada. La descarga bilateral verdosa o lechosa suele ser benigna (galactorrea, ectasia ductal).",
     tip:"Descarga hemática unilateral espontánea = referencia URGENTE. Descartar Ca intraductal. Descarga bilateral/multiductal = benigna (ectasia, galactorrea).",
     ref:"GPC Prevención, tamizaje y referencia oportuna de casos sospechosos de cáncer de mama en el primer nivel de atención 2017"
@@ -310,11 +310,11 @@ const questions = [
     q:"¿Cuál es el tipo histológico más frecuente del cáncer de mama invasor?",
     opts:[
       "Carcinoma lobulillar invasor (60-70% de los casos)",
-      "Carcinoma ductal infiltrante (NST: sin tipo especial), representa el 70-80% de los casos",
       "Carcinoma mucinoso (coloide), frecuente en mujeres postmenopáusicas",
+      "Carcinoma ductal infiltrante (NST: sin tipo especial), representa el 70-80% de los casos",
       "Carcinoma medular, asociado a mutación BRCA1 en el 80% de los casos"
     ],
-    ans:1,
+    ans:2,
     exp:"El carcinoma ductal infiltrante (también denominado 'no de tipo especial' NST o NOS) es el tipo más frecuente representando el 70-80% de los cánceres de mama invasores. El carcinoma lobulillar invasor representa el 10-15% y tiene tendencia a ser bilateral y multifocal. Los tipos especiales (mucinoso, medular, tubular, papilar) tienen en general mejor pronóstico que el ductal NST. El carcinoma ductal in situ (DCIS) es la lesión preinvasora más frecuente.",
     tip:"Ca mama invasor más frecuente: ductal infiltrante NST (70-80%). Lobulillar (10-15%): bilateral, multifocal. Tipos especiales = mejor pronóstico.",
     ref:"GPC Diagnóstico y tratamiento del cáncer de mama en segundo y tercer nivel de atención 2017"
@@ -324,11 +324,11 @@ const questions = [
     q:"¿Cuáles son los criterios para realizar cirugía conservadora de mama (tumorectomía/mastectomía parcial) en lugar de mastectomía total?",
     opts:[
       "Solo se puede hacer en tumores BIRADS 3 sin confirmación histológica",
-      "Tumor ≤4 cm unifocal, sin microcalcificaciones difusas, con relación tumor/mama favorable, sin contraindicación a radioterapia adyuvante",
+      "Solo en carcinoma in situ (DCIS) con lesión <1 cm, no en carcinoma invasor",
       "Cualquier estadio de cáncer de mama si la paciente prefiere la cirugía conservadora",
-      "Solo en carcinoma in situ (DCIS) con lesión <1 cm, no en carcinoma invasor"
+      "Tumor ≤4 cm unifocal, sin microcalcificaciones difusas, con relación tumor/mama favorable, sin contraindicación a radioterapia adyuvante"
     ],
-    ans:1,
+    ans:3,
     exp:"La cirugía conservadora (tumorectomía + radioterapia adyuvante) tiene resultados equivalentes a la mastectomía en cuanto a supervivencia global en estadios tempranos. Criterios para conservación: tumor unifocal ≤4-5 cm, márgenes quirúrgicos negativos alcanzables, relación tumor/mama favorable estéticamente, ausencia de microcalcificaciones malignas difusas, sin contraindicación absoluta a radioterapia (embarazo, enfermedad del colágeno activa, irradiación previa). La RT posmastectomía siempre va con la conservadora.",
     tip:"Cirugía conservadora = tumorectomía + RT obligatoria. Criterios: unifocal ≤4 cm, márgenes libres, sin contraindicación a RT. Equivalente en supervivencia a mastectomía.",
     ref:"GPC Diagnóstico y tratamiento del cáncer de mama en segundo y tercer nivel de atención 2017"
@@ -338,11 +338,11 @@ const questions = [
     q:"¿En qué situación está indicada la biopsia de ganglio centinela (BGC) en cáncer de mama?",
     opts:[
       "En todos los casos de cáncer de mama independientemente del estado axilar clínico o por imagen",
-      "Solo en estadio IIB con ganglios axilares clínicamente positivos (N2a) como sustituto de la linfadenectomía",
       "En cáncer de mama con axila clínica y por imagen negativa (cN0): evita linfadenectomía axilar completa si el centinela es negativo",
+      "Solo en estadio IIB con ganglios axilares clínicamente positivos (N2a) como sustituto de la linfadenectomía",
       "Solo como procedimiento diagnóstico antes de la quimioterapia neoadyuvante, nunca en cirugía primaria"
     ],
-    ans:2,
+    ans:1,
     exp:"La biopsia de ganglio centinela (BGC) es el estándar de manejo axilar en cáncer de mama con axila clínicamente negativa (cN0). Permite evaluar el estado ganglionar con mínima morbilidad: si el centinela es negativo, se evita la linfadenectomía axilar completa (y sus complicaciones: linfedema, seroma, limitación funcional). Si el centinela es positivo (1-2 ganglios), en algunos casos seleccionados puede evitarse la linfadenectomía (estudio ACOSOG Z0011). En axila positiva confirmada (N+) se realiza disección axilar.",
     tip:"BGC = estándar en axila cN0. Centinela negativo → evita disección axilar. Centinela+ (1-2): considerar ACOSOG Z0011. cN+ confirmado → disección axilar.",
     ref:"GPC Diagnóstico y tratamiento del cáncer de mama en segundo y tercer nivel de atención 2017"
@@ -352,11 +352,11 @@ const questions = [
     q:"¿Cuáles son las indicaciones de quimioterapia neoadyuvante (preoperatoria) en cáncer de mama?",
     opts:[
       "Todo cáncer de mama estadio I sin factores de riesgo, como profilaxis de metástasis",
-      "Tumor localmente avanzado (T3-T4 o N2-N3), HER2+ o triple negativo en estadio II-III, o para permitir cirugía conservadora en tumor grande",
+      "Mujeres >70 años con receptor estrogénico positivo como alternativa a la cirugía",
       "Solo en carcinoma lobulillar invasor estadio II como único esquema aceptado",
-      "Mujeres >70 años con receptor estrogénico positivo como alternativa a la cirugía"
+      "Tumor localmente avanzado (T3-T4 o N2-N3), HER2+ o triple negativo en estadio II-III, o para permitir cirugía conservadora en tumor grande"
     ],
-    ans:1,
+    ans:3,
     exp:"La quimioterapia neoadyuvante (preoperatoria) está indicada en: (1) Tumor localmente avanzado (estadio IIIA-IIIB-IIIC, T4 incluyendo cáncer inflamatorio); (2) Tumores HER2+ o triple negativos en estadio II-III (alta quimiosensibilidad, mayor tasa de respuesta patológica completa); (3) Tumores grandes operable donde se desea downstaging para posibilitar cirugía conservadora; (4) Axila positiva para evaluar respuesta y guiar manejo axilar. La respuesta patológica completa (pCR) es un marcador subrogado de pronóstico favorable.",
     tip:"QT neoadyuvante: tumor grande (downstaging), localmente avanzado, HER2+, triple negativo. pCR = mejor pronóstico. Permite conservar mama en tumor grande.",
     ref:"GPC Diagnóstico y tratamiento del cáncer de mama en segundo y tercer nivel de atención 2017"
@@ -365,12 +365,12 @@ const questions = [
     cat:"tto", catName:"Diagnóstico y Tratamiento (2°-3er Nivel)",
     q:"¿Cuál es el tratamiento hormonal estándar para cáncer de mama con receptores de estrógeno positivos (RE+) en mujeres premenopáusicas?",
     opts:[
-      "Inhibidores de aromatasa (anastrozol, letrozol) como primera línea en premenopáusicas con RE+",
       "Tamoxifeno 20 mg/día por 5-10 años; o supresión ovárica + inhibidor de aromatasa en alto riesgo",
+      "Inhibidores de aromatasa (anastrozol, letrozol) como primera línea en premenopáusicas con RE+",
       "Progestinas de depósito solas durante 2 años como terapia hormonal adyuvante",
       "Fulvestrant intramuscular mensual como único agente hormonal en premenopáusicas RE+"
     ],
-    ans:1,
+    ans:0,
     exp:"En mujeres PRE-menopáusicas con Ca mama RE+: (1) Tamoxifeno 20 mg/día por 5 años (estándar histórico); extender a 10 años reduce recurrencia en alto riesgo. (2) En tumores de alto riesgo: supresión ovárica (análogos GnRH) + inhibidor de aromatasa (IA: exemestane, letrozol) o tamoxifeno (estudios SOFT/TEXT). Los IA solos NO se usan en premenopáusicas activas porque no bloquean la esteroidogénesis ovárica. En POST-menopáusicas: IA de primera línea (superan a tamoxifeno). Terapia hormonal reducen 50% el riesgo de recurrencia.",
     tip:"Pre-menopáusica RE+: TAMOXIFENO 5-10 años. Alto riesgo: supresión ovárica + IA. Post-menopáusica RE+: inhibidor de aromatasa de 1ª línea. NO IA sola en premenopáusica.",
     ref:"GPC Diagnóstico y tratamiento del cáncer de mama en segundo y tercer nivel de atención 2017"
@@ -380,11 +380,11 @@ const questions = [
     q:"¿Cuál es el tratamiento dirigido estándar para cáncer de mama HER2 sobreexpresado (HER2+)?",
     opts:[
       "Tamoxifeno durante 10 años, ya que HER2+ siempre coexpresa receptores hormonales",
-      "Trastuzumab (anticuerpo monoclonal anti-HER2) + quimioterapia por 1 año en estadios II-III y en metástasis",
       "Bevacizumab (anti-VEGF) como única terapia dirigida aprobada para HER2+ en México",
+      "Trastuzumab (anticuerpo monoclonal anti-HER2) + quimioterapia por 1 año en estadios II-III y en metástasis",
       "Inhibidores de CDK4/6 (palbociclib) en combinación con letrozol en HER2+"
     ],
-    ans:1,
+    ans:2,
     exp:"Trastuzumab (Herceptin®) es el anticuerpo monoclonal anti-HER2 estándar en Ca mama HER2+ sobreexpresado. Indicado en: estadios II-III como terapia adyuvante por 1 año (reduce recurrencia ~50%); en neoadyuvancia + quimioterapia; y en enfermedad metastásica. Se administra con quimioterapia basada en taxanos (paclitaxel/docetaxel). En neoadyuvancia también se añade pertuzumab (doble bloqueo). Las cardiotoxicidades del trastuzumab requieren monitoreo de función ventricular. Los inhibidores de CDK4/6 son para RE+/HER2-.",
     tip:"HER2+ = trastuzumab 1 año + quimioterapia. Neoadyuvante: + pertuzumab (doble bloqueo). Cardiotoxicidad = monitorear FEVI. CDK4/6 = RE+/HER2-.",
     ref:"GPC Diagnóstico y tratamiento del cáncer de mama en segundo y tercer nivel de atención 2017"
@@ -409,10 +409,10 @@ const questions = [
     opts:[
       "PET-CT cada 3 meses durante 5 años para detección temprana de metástasis asintomáticas",
       "CA 15-3 y CEA mensuales durante 2 años como marcadores de recurrencia sistémica",
-      "Exploración clínica cada 3-6 meses (años 1-3) y cada 6-12 meses (años 4-5); mastografía anual; sin marcadores tumorales ni imagen sistémica rutinaria en asintomáticas",
-      "Resonancia magnética cerebral semestral en todos los subtipos por riesgo de metástasis cerebrales"
+      "Resonancia magnética cerebral semestral en todos los subtipos por riesgo de metástasis cerebrales",
+      "Exploración clínica cada 3-6 meses (años 1-3) y cada 6-12 meses (años 4-5); mastografía anual; sin marcadores tumorales ni imagen sistémica rutinaria en asintomáticas"
     ],
-    ans:2,
+    ans:3,
     exp:"El seguimiento de Ca mama con intención curativa se basa en: (1) Exploración clínica mamaria cada 3-6 meses durante los primeros 3 años, luego cada 6-12 meses hasta los 5 años, después anual; (2) Mastografía anual de la mama contralateral y de la mama operada (en conservadoras); (3) NO se recomienda de rutina: marcadores tumorales (CA 15-3, CEA), gammagrama óseo, TAC, PET-CT ni RMM en pacientes asintomáticas, ya que no mejoran la supervivencia global. Solo se solicitan estudios ante síntomas específicos de sospecha de recurrencia.",
     tip:"Seguimiento Ca mama: exploración clínica + mastografía anual. NO marcadores ni imagen sistémica en asintomática. La detección de metástasis asintomáticas no mejora supervivencia.",
     ref:"GPC Diagnóstico y tratamiento del cáncer de mama en segundo y tercer nivel de atención 2017"

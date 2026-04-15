@@ -185,8 +185,8 @@ const questions = [
   {
     cat:"epitelial", catName:"Ca. Epitelial de Ovario",
     q:"¿Por qué el cáncer de ovario tiene la mayor mortalidad entre los cánceres ginecológicos, a pesar de no ser el más frecuente?",
-    opts:["Porque su incidencia es la más alta de todos los cánceres ginecológicos","Porque se diagnostica en estadio III-IV en el 70-75% de los casos por ausencia de síntomas específicos en etapas tempranas","Porque no responde a ningún esquema de quimioterapia conocido","Porque afecta exclusivamente a mujeres jóvenes en edad reproductiva"],
-    ans:1,
+    opts:["Porque su incidencia es la más alta de todos los cánceres ginecológicos","Porque afecta exclusivamente a mujeres jóvenes en edad reproductiva","Porque no responde a ningún esquema de quimioterapia conocido","Porque se diagnostica en estadio III-IV en el 70-75% de los casos por ausencia de síntomas específicos en etapas tempranas"],
+    ans:3,
     exp:"El cáncer de ovario es silencioso: los síntomas (distensión abdominal, saciedad precoz, polaquiuria) son inespecíficos y se atribuyen a causas digestivas. Cuando se diagnostica, 70-75% ya son estadio III-IV con diseminación peritoneal. La supervivencia a 5 años en estadio I es >90%; en estadio IV cae a <30%.",
     tip:"<strong>Ca ovario = alta mortalidad por diagnóstico tardío (estadio III-IV en 70%).</strong> No porque sea el más frecuente.",
     ref:"GPC Tratamiento quirúrgico médico del cáncer epitelial de ovario 2014"
@@ -203,8 +203,8 @@ const questions = [
   {
     cat:"epitelial", catName:"Ca. Epitelial de Ovario",
     q:"¿Cuál es el marcador tumoral más utilizado en el seguimiento del cáncer de ovario epitelial?",
-    opts:["AFP (alfafetoproteína)","HCG-β (gonadotropina coriónica humana)","CA-125","CA 19-9"],
-    ans:2,
+    opts:["CA-125","HCG-β (gonadotropina coriónica humana)","AFP (alfafetoproteína)","CA 19-9"],
+    ans:0,
     exp:"El CA-125 está elevado en el 80% de los cánceres de ovario avanzados. No es suficientemente sensible para tamizaje (baja especificidad: también eleva en endometriosis, miomas, EPI, embarazo). Su utilidad principal es en el seguimiento para detectar recurrencia tras el tratamiento. Una caída del CA-125 >50% tras 2 ciclos de QT indica respuesta.",
     tip:"<strong>CA-125 = marcador de seguimiento del Ca ovario.</strong> No sirve como tamizaje poblacional (baja especificidad).",
     ref:"GPC Tratamiento quirúrgico médico del cáncer epitelial de ovario 2014"
@@ -221,8 +221,8 @@ const questions = [
   {
     cat:"epitelial", catName:"Ca. Epitelial de Ovario",
     q:"¿Qué se entiende por \"citorreducción óptima\" en el tratamiento quirúrgico del cáncer de ovario avanzado?",
-    opts:["Extirpación de todos los ganglios linfáticos pélvicos y paraaórticos visibles","Resección de al menos el 50% de la masa tumoral visible","Tumor residual posquirúrgico menor de 1 cm (idealmente residuo 0)","Histerectomía + SOB sin necesidad de omentectomía ni peritonectomía"],
-    ans:2,
+    opts:["Extirpación de todos los ganglios linfáticos pélvicos y paraaórticos visibles","Tumor residual posquirúrgico menor de 1 cm (idealmente residuo 0)","Resección de al menos el 50% de la masa tumoral visible","Histerectomía + SOB sin necesidad de omentectomía ni peritonectomía"],
+    ans:1,
     exp:"La citorreducción óptima se define como tumor residual <1 cm tras la cirugía (algunos grupos exigen residuo 0). Es el factor pronóstico quirúrgico más importante: las pacientes con citorreducción óptima tienen supervivencia media de 36-40 meses vs. 17-20 meses con citorreducción subóptima. Incluye: histerectomía + SOB + omentectomía + linfadenectomía + peritonectomía si necesario.",
     tip:"<strong>Citorreducción óptima = residuo <1cm (o idealmente 0).</strong> Factor pronóstico quirúrgico más importante en Ca ovario.",
     ref:"GPC Tratamiento quirúrgico médico del cáncer epitelial de ovario 2014"
@@ -230,8 +230,8 @@ const questions = [
   {
     cat:"epitelial", catName:"Ca. Epitelial de Ovario",
     q:"¿Cuál es el síntoma más frecuente que lleva a las mujeres con cáncer de ovario a consultar, aunque usualmente ya corresponde a enfermedad avanzada?",
-    opts:["Sangrado vaginal posmenopáusico","Dolor pélvico agudo de aparición súbita","Distensión abdominal progresiva y saciedad precoz","Flujo vaginal acuoso abundante y persistente"],
-    ans:2,
+    opts:["Sangrado vaginal posmenopáusico","Dolor pélvico agudo de aparición súbita","Flujo vaginal acuoso abundante y persistente","Distensión abdominal progresiva y saciedad precoz"],
+    ans:3,
     exp:"La distensión abdominal (por ascitis y masa tumoral) y la saciedad precoz (compresión gástrica) son los síntomas más frecuentes en cáncer de ovario avanzado. La polaquiuria puede aparecer por compresión vesical. Estos síntomas son tan inespecíficos que se atribuyen erróneamente a digestivos, retrasando el diagnóstico.",
     tip:"<strong>Ca ovario: distensión abdominal + saciedad precoz = síntomas más frecuentes pero inespecíficos</strong> → diagnóstico tardío.",
     ref:"GPC Tratamiento quirúrgico médico del cáncer epitelial de ovario 2014"
@@ -239,8 +239,8 @@ const questions = [
   {
     cat:"epitelial", catName:"Ca. Epitelial de Ovario",
     q:"Mujer de 38 años portadora de mutación BRCA1 confirmada, sin antecedente de cáncer, paridad satisfecha. ¿Cuál es el riesgo de por vida de cáncer de ovario y la medida preventiva recomendada?",
-    opts:["Riesgo 5-10%; solo vigilancia con Ca-125 anual sin cirugía","Riesgo 39-46%; salpingooforectomía bilateral profiláctica al completar paridad (idealmente 35-40 años)","Riesgo 80-90%; mastectomía y ooforectomía simultáneas antes de los 30 años","Riesgo 12-15%; ninguna intervención preventiva demostrada efectiva"],
-    ans:1,
+    opts:["Riesgo 5-10%; solo vigilancia con Ca-125 anual sin cirugía","Riesgo 80-90%; mastectomía y ooforectomía simultáneas antes de los 30 años","Riesgo 39-46%; salpingooforectomía bilateral profiláctica al completar paridad (idealmente 35-40 años)","Riesgo 12-15%; ninguna intervención preventiva demostrada efectiva"],
+    ans:2,
     exp:"BRCA1 confiere riesgo de 39-46% de Ca ovario de por vida (BRCA2: 12-20%). La salpingooforectomía bilateral profiláctica reduce el riesgo de Ca ovario en 80-96% y también reduce el riesgo de Ca mama en portadoras premenopáusicas (~50%). Se recomienda idealmente entre 35-40 años (BRCA1) o 40-45 años (BRCA2) al completar la paridad.",
     tip:"<strong>BRCA1 + Ca ovario = riesgo 39-46%.</strong> SOB profiláctica a los 35-40 años reduce riesgo 80-96%.",
     ref:"GPC Tratamiento quirúrgico médico del cáncer epitelial de ovario 2014"
@@ -258,8 +258,8 @@ const questions = [
   {
     cat:"anexial", catName:"Tumores Anexiales",
     q:"Mujer de 22 años con quiste ovárico simple unilocular de 5 cm detectado incidentalmente en ultrasonido, asintomática, ciclos regulares. ¿Cuál es la conducta más adecuada?",
-    opts:["Laparoscopia inmediata por riesgo de torsión","Biopsia por aspiración transvaginal guiada por ultrasonido","Observación con ultrasonido de control en 2-3 ciclos; probable quiste folicular que regresará espontáneamente","Anticonceptivos orales combinados para inducir regresión rápida"],
-    ans:2,
+    opts:["Observación con ultrasonido de control en 2-3 ciclos; probable quiste folicular que regresará espontáneamente","Biopsia por aspiración transvaginal guiada por ultrasonido","Laparoscopia inmediata por riesgo de torsión","Anticonceptivos orales combinados para inducir regresión rápida"],
+    ans:0,
     exp:"Los quistes foliculares son los más frecuentes en mujeres en edad reproductiva. Son benignos, uniloculares, de contenido anecoico y <8 cm. Regresan espontáneamente en 1-3 ciclos menstruales. Solo se intervienen si persisten, son >8 cm, sintomáticos o tienen características sospechosas de malignidad (tabiques, nódulos, flujo Doppler).",
     tip:"<strong>Quiste simple unilocular <8cm en reproductiva = probable folicular.</strong> Observar 2-3 ciclos. No cirugía inmediata.",
     ref:"GPC Diagnóstico y tratamiento de las pacientes con tumores anexiales benignos"
@@ -267,8 +267,8 @@ const questions = [
   {
     cat:"anexial", catName:"Tumores Anexiales",
     q:"Mujer de 24 años con dolor agudo en fosa ilíaca derecha, náuseas y vómito de inicio súbito durante ejercicio físico. USG con Doppler muestra ovario derecho de 8 cm sin flujo vascular detectable. ¿Diagnóstico y manejo?",
-    opts:["Quiste ovárico roto; analgesia y observación expectante","Embarazo ectópico; laparoscopia diagnóstica y salpinguectomía","Torsión ovárica; laparoscopia urgente con destorsión y ooforopexia para preservar el ovario","Endometrioma roto; laparotomía exploradora de urgencia"],
-    ans:2,
+    opts:["Quiste ovárico roto; analgesia y observación expectante","Embarazo ectópico; laparoscopia diagnóstica y salpinguectomía","Endometrioma roto; laparotomía exploradora de urgencia","Torsión ovárica; laparoscopia urgente con destorsión y ooforopexia para preservar el ovario"],
+    ans:3,
     exp:"La torsión ovárica es una urgencia ginecológica. El ultrasonido con Doppler que muestra ausencia de flujo vascular en el ovario es altamente sugestivo. El manejo es laparoscopia urgente con destorsión del pedículo y ooforopexia para preservar el ovario (incluso si parece de color oscuro/necrótico, puede recuperarse). La ooforectomía solo si hay necrosis irreversible.",
     tip:"<strong>Torsión ovárica = dolor agudo + Doppler sin flujo = laparoscopia urgente.</strong> Destorsión primero, no ooforectomía inmediata.",
     ref:"GPC Diagnóstico y tratamiento de las pacientes con tumores anexiales benignos"
@@ -276,8 +276,8 @@ const questions = [
   {
     cat:"anexial", catName:"Tumores Anexiales",
     q:"¿Cuál es el tumor ovárico benigno más frecuente en mujeres en edad reproductiva que puede contener dientes, cabello y tejido sebáceo en su interior?",
-    opts:["Cistoadenoma mucinoso","Fibroma ovárico","Teratoma quístico maduro (quiste dermoide)","Cistoadenoma seroso benigno"],
-    ans:2,
+    opts:["Teratoma quístico maduro (quiste dermoide)","Fibroma ovárico","Cistoadenoma mucinoso","Cistoadenoma seroso benigno"],
+    ans:0,
     exp:"El teratoma quístico maduro (quiste dermoide) es la neoplasia ovárica más frecuente en mujeres jóvenes (20-30 años). Contiene tejidos derivados de las tres capas germinales (ecto, meso y endodermo). En la radiografía simple pueden verse calcificaciones o dientes. El tratamiento es la cistectomía por laparoscopia preservando el ovario.",
     tip:"<strong>Quiste dermoide = teratoma maduro = más frecuente en jóvenes.</strong> Calcificaciones/dientes en Rx. Cistectomía laparoscópica.",
     ref:"GPC Diagnóstico y tratamiento de las pacientes con tumores anexiales benignos"
@@ -294,8 +294,8 @@ const questions = [
   {
     cat:"anexial", catName:"Tumores Anexiales",
     q:"El índice de malignidad de riesgo (RMI) se utiliza para estratificar el riesgo de malignidad en masas ováricas. ¿Cuáles son sus tres componentes?",
-    opts:["CA-125 × score ultrasonográfico × estado menopáusico","AFP × HCG × LDH sérica","CA-125 × tamaño tumoral (cm) × edad de la paciente","Índice de resistencia Doppler × Ca-125 × CEA"],
-    ans:0,
+    opts:["CA-125 × tamaño tumoral (cm) × edad de la paciente","AFP × HCG × LDH sérica","CA-125 × score ultrasonográfico × estado menopáusico","Índice de resistencia Doppler × Ca-125 × CEA"],
+    ans:2,
     exp:"El RMI = Ca-125 (U/mL) × Score ecográfico (0, 1 o 3 según características) × Estado menopáusico (1 o 3). RMI <25 = bajo riesgo (benigno probable); 25-250 = riesgo moderado; >250 = alto riesgo de malignidad (referir a oncología ginecológica). Es una herramienta de triaje validada para decisión quirúrgica.",
     tip:"<strong>RMI = Ca-125 × USG score × menopausia.</strong> >250 = alto riesgo malignidad → cirugía por oncólogo ginecólogo.",
     ref:"GPC Diagnóstico y tratamiento de las pacientes con tumores anexiales benignos"
@@ -312,8 +312,8 @@ const questions = [
   {
     cat:"anexial", catName:"Tumores Anexiales",
     q:"¿Cuál es la neoplasia ovárica benigna más frecuente de todas, caracterizada por ser habitualmente unilocular, de pared fina y contenido seroso?",
-    opts:["Teratoma quístico maduro (quiste dermoide)","Endometrioma ovárico","Cistoadenoma seroso benigno","Fibroma ovárico (tumor de Brenner)"],
-    ans:2,
+    opts:["Cistoadenoma seroso benigno","Endometrioma ovárico","Teratoma quístico maduro (quiste dermoide)","Fibroma ovárico (tumor de Brenner)"],
+    ans:0,
     exp:"El cistoadenoma seroso benigno es la neoplasia ovárica benigna más frecuente en general (aunque el teratoma maduro es el más frecuente en mujeres jóvenes). Se presenta como quiste unilocular de pared fina con contenido acuoso seroso. Generalmente asintomático. El cistoadenoma mucinoso puede alcanzar tamaños gigantes (>30 cm). Tratamiento: cistectomía o salpingooforectomía según edad y paridad.",
     tip:"<strong>Cistoadenoma SEROSO = neoplasia ovárica benigna más frecuente en general.</strong> Mucinoso = el que crece más.",
     ref:"GPC Diagnóstico y tratamiento de las pacientes con tumores anexiales benignos"

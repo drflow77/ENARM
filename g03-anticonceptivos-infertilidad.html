@@ -186,8 +186,8 @@ const questions = [
   {
     cat:"anticon", catName:"Anticonceptivos",
     q:"Mujer de 28 años con migraña con aura desde los 20 años desea iniciar anticoncepción hormonal. ¿Cuál es la contraindicación absoluta en este caso?",
-    opts:["Anticonceptivos orales combinados (AOC) con estrógeno","Progestina sola (minipíldora de desogestrel)","DIU de levonorgestrel","DIU de cobre"],
-    ans:0,
+    opts:["DIU de levonorgestrel","Progestina sola (minipíldora de desogestrel)","Anticonceptivos orales combinados (AOC) con estrógeno","DIU de cobre"],
+    ans:2,
     exp:"La migraña con aura es una contraindicación ABSOLUTA (OMS categoría 4) para estrógenos exógenos por el riesgo aumentado de ictus isquémico. Las alternativas seguras son métodos sin estrógenos: progestina sola, DIU hormonal o DIU de cobre.",
     tip:"<strong>Migraña CON aura + estrógenos = alto riesgo de AVC.</strong> Usar solo métodos sin estrógenos.",
     ref:"GPC Promoción, prescripción y aplicación de métodos anticonceptivos 2022"
@@ -195,8 +195,8 @@ const questions = [
   {
     cat:"anticon", catName:"Anticonceptivos",
     q:"Mujer de 24 años que tuvo relación sexual sin protección hace 56 horas y desea anticoncepción de emergencia. ¿Cuál es el método de elección y su ventana de eficacia?",
-    opts:["Levonorgestrel 1.5 mg, hasta 72 horas post-coito","Ulipristal acetato 30 mg, hasta 120 horas post-coito","DIU de cobre, hasta 5 días post-coito","Levonorgestrel 1.5 mg, hasta 5 días post-coito"],
-    ans:1,
+    opts:["Ulipristal acetato 30 mg, hasta 120 horas post-coito","Levonorgestrel 1.5 mg, hasta 72 horas post-coito","DIU de cobre, hasta 5 días post-coito","Levonorgestrel 1.5 mg, hasta 5 días post-coito"],
+    ans:0,
     exp:"A las 56 horas el levonorgestrel ya perdió eficacia óptima (ventana 72h). Ulipristal acetato mantiene eficacia hasta 120 horas (5 días). El DIU de cobre también es efectivo hasta 5 días y es la opción más eficaz, pero ulipristal es la AE hormonal de elección en esta ventana.",
     tip:"<strong>LNG: hasta 72h. Ulipristal: hasta 120h. DIU Cu: hasta 120h (más efectivo de todos).</strong>",
     ref:"GPC Promoción, prescripción y aplicación de métodos anticonceptivos 2022"
@@ -213,8 +213,8 @@ const questions = [
   {
     cat:"anticon", catName:"Anticonceptivos",
     q:"¿Cuál de los siguientes métodos anticonceptivos de larga duración reversible (LARC) tiene la MAYOR eficacia con índice de Pearl aproximado de 0.05 por 100 mujeres-año?",
-    opts:["DIU de cobre T380A","DIU de levonorgestrel 52 mg","Implante subdérmico de etonogestrel","Inyectable trimestral de AMPD"],
-    ans:2,
+    opts:["Implante subdérmico de etonogestrel","DIU de levonorgestrel 52 mg","DIU de cobre T380A","Inyectable trimestral de AMPD"],
+    ans:0,
     exp:"El implante subdérmico de etonogestrel tiene un índice de Pearl ~0.05, el más bajo de todos los métodos reversibles. El DIU LNG tiene ~0.2 y el DIU Cu ~0.8. Los LARC en conjunto son más efectivos que los métodos de uso típico como AOC (índice de Pearl típico ~7-9).",
     tip:"<strong>Eficacia LARC: implante (0.05) > DIU-LNG (0.2) > DIU-Cu (0.8) > inyectable (0.3-3).</strong>",
     ref:"GPC Promoción, prescripción y aplicación de métodos anticonceptivos 2022"
@@ -222,8 +222,8 @@ const questions = [
   {
     cat:"anticon", catName:"Anticonceptivos",
     q:"Mujer de 38 años, fumadora activa de 20 cigarrillos/día, desea anticoncepción. ¿Cuál es la conducta correcta respecto a los AOC?",
-    opts:["Los AOC son seguros en menores de 40 años independientemente del tabaquismo","Contraindicación relativa; pueden usarse con vigilancia estrecha","Contraindicación absoluta (OMS categoría 4) para AOC en >35 años fumadoras","Solo se contraindican si fuma más de 30 cigarrillos/día"],
-    ans:2,
+    opts:["Los AOC son seguros en menores de 40 años independientemente del tabaquismo","Contraindicación absoluta (OMS categoría 4) para AOC en >35 años fumadoras","Contraindicación relativa; pueden usarse con vigilancia estrecha","Solo se contraindican si fuma más de 30 cigarrillos/día"],
+    ans:1,
     exp:"Tabaquismo + edad >35 años es contraindicación ABSOLUTA (OMS cat 4) para estrógenos combinados por el riesgo multiplicado de tromboembolismo y cardiopatía isquémica. Se recomienda cambiar a métodos sin estrógenos: progestina sola, DIU hormonal o de cobre.",
     tip:"<strong>35 años + tabaco = NO estrógenos.</strong> El riesgo de IAM y TEP se multiplica significativamente.",
     ref:"GPC Promoción, prescripción y aplicación de métodos anticonceptivos 2022"
@@ -250,8 +250,8 @@ const questions = [
   {
     cat:"infert", catName:"Infertilidad",
     q:"Estudio de infertilidad en pareja de 1 año de evolución. Ciclos regulares, temperatura basal bifásica. Se sospecha factor tubárico. ¿Cuál es el estudio de primera elección para evaluar la permeabilidad tubárica?",
-    opts:["Laparoscopia diagnóstica","Histerosalpingografía (HSG)","Histerosonografía con solución salina","Resonancia magnética pélvica"],
-    ans:1,
+    opts:["Laparoscopia diagnóstica","Resonancia magnética pélvica","Histerosonografía con solución salina","Histerosalpingografía (HSG)"],
+    ans:3,
     exp:"La HSG es el estudio inicial de elección para evaluar la permeabilidad tubárica y la morfología de la cavidad uterina. Es menos invasiva que la laparoscopia, tiene alta sensibilidad para detectar obstrucción tubárica y permite identificar patología intracavitaria simultáneamente.",
     tip:"<strong>Permeabilidad tubárica = HSG primera línea.</strong> Laparoscopia si HSG es anormal o no concluyente.",
     ref:"GPC Abordaje diagnóstico de la infertilidad 2013"
@@ -259,8 +259,8 @@ const questions = [
   {
     cat:"infert", catName:"Infertilidad",
     q:"Al iniciar el estudio de infertilidad de la pareja, ¿cuál es la primera prueba que debe solicitarse al varón?",
-    opts:["Biopsia testicular","FSH y LH séricos","Espermatograma (análisis de semen)","Cariotipo"],
-    ans:2,
+    opts:["Biopsia testicular","Espermatograma (análisis de semen)","FSH y LH séricos","Cariotipo"],
+    ans:1,
     exp:"El espermatograma es la prueba inicial indispensable en el estudio del factor masculino. Es accesible, no invasiva y aporta información sobre concentración, motilidad y morfología espermática. El factor masculino está implicado en 30-40% de los casos de infertilidad.",
     tip:"<strong>Factor masculino → primer estudio = espermatograma.</strong> Siempre incluir al varón desde el inicio.",
     ref:"GPC Abordaje diagnóstico de la infertilidad 2013"
@@ -268,8 +268,8 @@ const questions = [
   {
     cat:"infert", catName:"Infertilidad",
     q:"Mujer de 29 años con SOP e infertilidad por anovulación confirmada, que desea embarazo. FSH y LH normales, reserva ovárica adecuada. ¿Cuál es el tratamiento de primera línea para inducción de ovulación?",
-    opts:["Gonadotropinas exógenas (FSH recombinante)","Metformina sola sin inductores de ovulación","Citrato de clomifeno 50 mg del día 3 al 7 del ciclo","Letrozol 5 mg del día 3 al 7 del ciclo"],
-    ans:2,
+    opts:["Gonadotropinas exógenas (FSH recombinante)","Metformina sola sin inductores de ovulación","Letrozol 5 mg del día 3 al 7 del ciclo","Citrato de clomifeno 50 mg del día 3 al 7 del ciclo"],
+    ans:3,
     exp:"El citrato de clomifeno es el inductor de ovulación de primera línea en la GPC mexicana para pacientes con SOP. Es antiestrogénico hipotalámico que incrementa la secreción de GnRH. El letrozol se ha posicionado como alternativa (mayor tasa ovulación en SOP) pero la GPC nacional mantiene clomifeno como primera línea.",
     tip:"<strong>SOP + deseo genésico + anovulación → primera línea: citrato de clomifeno.</strong>",
     ref:"GPC Abordaje diagnóstico de la infertilidad 2013"
@@ -287,8 +287,8 @@ const questions = [
   {
     cat:"esteril", catName:"Esterilidad / Técnicas",
     q:"¿Cuál es la principal indicación de la inseminación intrauterina (IIU) como técnica de reproducción asistida de baja complejidad?",
-    opts:["Factor masculino severo (oligozoospermia grave <1 millón/mL)","Obstrucción tubárica bilateral","Factor masculino leve-moderado y factor cervical hostil","Insuficiencia ovárica primaria"],
-    ans:2,
+    opts:["Factor masculino leve-moderado y factor cervical hostil","Obstrucción tubárica bilateral","Factor masculino severo (oligozoospermia grave <1 millón/mL)","Insuficiencia ovárica primaria"],
+    ans:0,
     exp:"La IIU está indicada en factor masculino leve-moderado (donde la capacitación espermática mejora los parámetros), factor cervical hostil (moco cervical espeso), y anovulación respondedora a inducción. Para factor masculino severo se requiere FIV con ICSI.",
     tip:"<strong>IIU: factor leve, cérvico-uterino, anovulación.</strong> Factor severo → FIV/ICSI.",
     ref:"GPC Diagnóstico de la pareja infértil y tratamiento con técnicas de baja complejidad"
@@ -296,8 +296,8 @@ const questions = [
   {
     cat:"esteril", catName:"Esterilidad / Técnicas",
     q:"Mujer de 30 años en protocolo de estimulación ovárica con gonadotropinas para IIU. A los 8 días desarrolla distensión abdominal progresiva, náuseas y disnea. USG muestra ovarios de 9 cm con múltiples folículos y ascitis. ¿Cuál es el diagnóstico?",
-    opts:["Embarazo ectópico","Torsión ovárica bilateral","Síndrome de hiperestimulación ovárica (SHO)","Quiste folicular simple roto"],
-    ans:2,
+    opts:["Embarazo ectópico","Torsión ovárica bilateral","Quiste folicular simple roto","Síndrome de hiperestimulación ovárica (SHO)"],
+    ans:3,
     exp:"El SHO es la complicación más importante de la estimulación ovárica controlada. Se caracteriza por ovarios aumentados (>8-10 cm en forma grave), ascitis por aumento de permeabilidad vascular, y manifestaciones sistémicas. Factores de riesgo: SOP, niveles altos de estradiol, edad joven, IMC bajo.",
     tip:"<strong>Estimulación ovárica + ascitis + ovarios grandes = SHO.</strong> Suspender gonadotropinas y soporte.",
     ref:"GPC Diagnóstico de la pareja infértil y tratamiento con técnicas de baja complejidad"
@@ -314,8 +314,8 @@ const questions = [
   {
     cat:"esteril", catName:"Esterilidad / Técnicas",
     q:"Pareja que desea anticoncepción permanente. La mujer tiene 35 años y 3 hijos. ¿Cuál es el método de esterilización femenina tubo-ovárica más utilizado en México y cuál es su mecanismo?",
-    opts:["Histerectomía total abdominal","Oclusión histeroscópica (método Essure)","Salpingoclasia (ligadura, sección y electrocoagulación tubaria)","Ooforectomía bilateral"],
-    ans:2,
+    opts:["Salpingoclasia (ligadura, sección y electrocoagulación tubaria)","Oclusión histeroscópica (método Essure)","Histerectomía total abdominal","Ooforectomía bilateral"],
+    ans:0,
     exp:"La salpingoclasia (OTB: oclusión tubárica bilateral) por vía laparoscópica o minilaparotomía posoperatoria es el método de esterilización femenina más utilizado en México. Actúa occluyendo la trompa, impidiendo la fecundación. Es un método permanente con tasa de fallo <1%.",
     tip:"<strong>OTB = salpingoclasia = método permanente #1 en México.</strong> Vasectomía es más segura y efectiva en varones.",
     ref:"GPC Promoción, prescripción y aplicación de métodos anticonceptivos 2022"

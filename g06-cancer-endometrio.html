@@ -186,8 +186,8 @@ const questions = [
   {
     cat:"riesgo", catName:"Factores de Riesgo",
     q:"Mujer de 63 años obesa (IMC 38), con HTA y DM2. Consulta por sangrado vaginal posmenopáusico de 3 semanas. ¿Cuál es el factor de riesgo MÁS importante para cáncer de endometrio en esta paciente?",
-    opts:["Hipertensión arterial sistémica","Diabetes mellitus tipo 2","Obesidad (hiperestrogenismo por aromatización periférica)","Edad mayor de 60 años"],
-    ans:2,
+    opts:["Obesidad (hiperestrogenismo por aromatización periférica)","Diabetes mellitus tipo 2","Hipertensión arterial sistémica","Edad mayor de 60 años"],
+    ans:0,
     exp:"La obesidad es el factor de riesgo modificable más importante para el cáncer de endometrio. El tejido adiposo convierte andrógenos suprarrenales en estrona mediante aromatización periférica, generando hiperestrogenismo sin oposición de progesterona que estimula la proliferación endometrial. Las mujeres con IMC >30 tienen riesgo 2-4 veces mayor; con IMC >40, riesgo 6 veces mayor.",
     tip:"<strong>Obesidad = factor de riesgo #1 Ca endometrio.</strong> Aromatización periférica → estrógenos sin progesterona → proliferación endometrial → hiperplasia → cáncer.",
     ref:"GPC Diagnóstico y tratamiento del Cáncer de endometrio 2015."
@@ -195,8 +195,8 @@ const questions = [
   {
     cat:"riesgo", catName:"Factores de Riesgo",
     q:"El cáncer de endometrio se clasifica en Tipo I y Tipo II. ¿Cuál de los siguientes describe CORRECTAMENTE al Tipo I?",
-    opts:["Carcinoma seroso papilar o células claras, no hormonodependiente, peor pronóstico","Adenocarcinoma endometrioide, estrógeno-dependiente, bajo grado, mejor pronóstico","Mutación en TP53, frecuente en mujeres posmenopáusicas delgadas sin factores hormonales","Representa solo el 10-15% de todos los cánceres de endometrio"],
-    ans:1,
+    opts:["Adenocarcinoma endometrioide, estrógeno-dependiente, bajo grado, mejor pronóstico","Carcinoma seroso papilar o células claras, no hormonodependiente, peor pronóstico","Mutación en TP53, frecuente en mujeres posmenopáusicas delgadas sin factores hormonales","Representa solo el 10-15% de todos los cánceres de endometrio"],
+    ans:0,
     exp:"El Tipo I (75-80% de los casos) es el adenocarcinoma endometrioide, bien diferenciado, estrógeno-dependiente, que se origina sobre hiperplasia con atipia. Afecta a mujeres perimenopaúsicas con factores de riesgo hormonales y tiene buen pronóstico (supervivencia >85% en estadio I). El Tipo II incluye seroso papilar y células claras, con mutación TP53, agresivo y peor pronóstico.",
     tip:"<strong>Tipo I = endometrioide + estrógenos + buen pronóstico (75-80%).</strong> Tipo II = seroso/células claras + TP53 + agresivo (peor pronóstico, sin relación hormonal).",
     ref:"GPC Diagnóstico y tratamiento del Cáncer de endometrio 2015."
@@ -213,8 +213,8 @@ const questions = [
   {
     cat:"riesgo", catName:"Factores de Riesgo",
     q:"Mujer en tratamiento con tamoxifeno por cáncer de mama durante 5 años. ¿Por qué el tamoxifeno se asocia con mayor riesgo de cáncer de endometrio?",
-    opts:["El tamoxifeno actúa como agonista estrogénico en el endometrio (efecto paradójico)","El tamoxifeno suprime la progesterona endógena favoreciendo hiperestrogenismo directo","El tamoxifeno produce mutaciones directas en el ADN del endometrio","El tamoxifeno aumenta el peso corporal y por ende la aromatización periférica"],
-    ans:0,
+    opts:["El tamoxifeno aumenta el peso corporal y por ende la aromatización periférica","El tamoxifeno suprime la progesterona endógena favoreciendo hiperestrogenismo directo","El tamoxifeno produce mutaciones directas en el ADN del endometrio","El tamoxifeno actúa como agonista estrogénico en el endometrio (efecto paradójico)"],
+    ans:3,
     exp:"El tamoxifeno actúa como antagonista estrogénico en la mama (efecto terapéutico buscado), pero como AGONISTA parcial en el endometrio, estimulando la proliferación endometrial. Las mujeres bajo tamoxifeno tienen 2-3 veces mayor riesgo de cáncer de endometrio. Deben ser vigiladas con ultrasonido transvaginal y biopsia ante cualquier sangrado anormal.",
     tip:"<strong>Tamoxifeno = antiestrogénico en mama pero ESTROGÉNICO en endometrio.</strong> Vigilar sangrado en posmenopáusicas bajo tamoxifeno. Biopsiar ante cualquier hemorragia.",
     ref:"GPC Diagnóstico y tratamiento del Cáncer de endometrio 2015."
@@ -222,8 +222,8 @@ const questions = [
   {
     cat:"riesgo", catName:"Factores de Riesgo",
     q:"¿Cuál es la mutación genética somática más frecuente en el cáncer de endometrio Tipo I (endometrioide)?",
-    opts:["TP53 (gen supresor tumoral)","BRCA1/BRCA2","KRAS (protooncogén)","PTEN (gen supresor tumoral en cromosoma 10q23)"],
-    ans:3,
+    opts:["PTEN (gen supresor tumoral en cromosoma 10q23)","BRCA1/BRCA2","KRAS (protooncogén)","TP53 (gen supresor tumoral)"],
+    ans:0,
     exp:"Las mutaciones en PTEN (fosfatasa y homólogo de tensina) son las más frecuentes en el adenocarcinoma endometrioide (40-80% de los casos). PTEN regula negativamente la vía PI3K/AKT; su pérdida provoca proliferación celular descontrolada. Las mutaciones en TP53 son características del Tipo II (seroso). BRCA se asocia principalmente con cáncer de mama y ovario.",
     tip:"<strong>Ca endometrio Tipo I = mutación PTEN (más frecuente, 40-80%).</strong> Tipo II = TP53. BRCA → mama/ovario, no endometrio principalmente.",
     ref:"GPC Diagnóstico y tratamiento del Cáncer de endometrio 2015."
@@ -232,8 +232,8 @@ const questions = [
   {
     cat:"diag", catName:"Diagnóstico y Estadificación",
     q:"Mujer posmenopáusica de 67 años sin TRH con sangrado vaginal de 2 semanas. ¿Cuál es la conducta correcta ante el sangrado uterino posmenopáusico?",
-    opts:["Es casi siempre benigno (atrofia); solo observar y repetir ultrasonido en 6 meses","Siempre debe evaluarse; realizar ultrasonido transvaginal y biopsia si endometrio ≥4 mm","Solo se biopsian mujeres con factores de riesgo adicionales (obesidad, DM, Lynch)","Es indicación directa de histerectomía sin biopsia previa"],
-    ans:1,
+    opts:["Es casi siempre benigno (atrofia); solo observar y repetir ultrasonido en 6 meses","Solo se biopsian mujeres con factores de riesgo adicionales (obesidad, DM, Lynch)","Siempre debe evaluarse; realizar ultrasonido transvaginal y biopsia si endometrio ≥4 mm","Es indicación directa de histerectomía sin biopsia previa"],
+    ans:2,
     exp:"El sangrado uterino posmenopáusico es el síntoma cardinal del cáncer de endometrio (presente en 75-90% de los casos en estadio temprano) y SIEMPRE debe evaluarse. El protocolo estándar es: ultrasonido transvaginal primero; si el endometrio es ≥4 mm (posmenopáusica sin TRH) → biopsia endometrial obligatoria. Un endometrio ≤4 mm tiene VPN >99% para excluir cáncer.",
     tip:"<strong>Sangrado posmenopáusico = siempre evaluar.</strong> USG TV: endometrio ≥4mm → biopsia. VPN endometrio ≤4mm es >99% para Ca endometrio.",
     ref:"GPC Diagnóstico y tratamiento del Cáncer de endometrio 2015."
@@ -241,8 +241,8 @@ const questions = [
   {
     cat:"diag", catName:"Diagnóstico y Estadificación",
     q:"Ultrasonido transvaginal en mujer posmenopáusica sin TRH muestra endometrio de 6 mm. ¿Cuál es el valor de corte de grosor endometrial que obliga a realizar biopsia?",
-    opts:[">2 mm",">4 mm",">8 mm",">12 mm"],
-    ans:1,
+    opts:[">2 mm",">12 mm",">8 mm",">4 mm"],
+    ans:3,
     exp:"En mujeres posmenopáusicas SIN TRH, el valor de corte es un grosor endometrial >4 mm por ultrasonido transvaginal. Con TRH combinada el corte se eleva a >5 mm. Esta paciente tiene 6 mm (>4 mm), por lo que requiere biopsia endometrial. El VPN de un endometrio ≤4 mm para cáncer de endometrio en posmenopáusica con sangrado supera el 99%.",
     tip:"<strong>Posmenopáusica sin TRH: endometrio >4mm → biopsia obligatoria.</strong> Con TRH → corte >5mm. VPN de endometrio ≤4mm es >99%.",
     ref:"GPC Diagnóstico y tratamiento del Cáncer de endometrio 2015."
@@ -259,8 +259,8 @@ const questions = [
   {
     cat:"diag", catName:"Diagnóstico y Estadificación",
     q:"¿Cuál es el estadio FIGO cuando el adenocarcinoma endometrioide invade ≥50% del grosor miometrial pero está confinado al cuerpo uterino, sin afectación cervical ni extrauterina?",
-    opts:["Estadio IA (invasión miometrial <50%)","Estadio IB (invasión miometrial ≥50%, confinado al útero)","Estadio II (extensión al estroma cervical)","Estadio IIIA (extensión a serosa o anejos)"],
-    ans:1,
+    opts:["Estadio IA (invasión miometrial <50%)","Estadio II (extensión al estroma cervical)","Estadio IB (invasión miometrial ≥50%, confinado al útero)","Estadio IIIA (extensión a serosa o anejos)"],
+    ans:2,
     exp:"Estadificación FIGO del cáncer de endometrio: Estadio IA = invasión miometrial <50%; Estadio IB = invasión ≥50% sin rebasar el útero; Estadio II = extensión al estroma cervical; Estadio IIIA = serosa o anejos; Estadio IIIB = vagina o parametrios; Estadio IIIC1 = ganglios pélvicos; Estadio IIIC2 = ganglios paraaórticos; Estadio IVA = vejiga/recto; Estadio IVB = metástasis a distancia.",
     tip:"<strong>IB = invasión ≥50% miometrio, confinado al útero.</strong> Mayor riesgo de recurrencia que IA → evaluar adyuvante. IA bajo grado: solo cirugía.",
     ref:"GPC Diagnóstico y tratamiento del Cáncer de endometrio 2015."
@@ -268,8 +268,8 @@ const questions = [
   {
     cat:"diag", catName:"Diagnóstico y Estadificación",
     q:"¿Cuál es el marcador tumoral con mayor utilidad en el seguimiento del cáncer de endometrio en estadios avanzados?",
-    opts:["AFP (alfafetoproteína)","CEA (antígeno carcinoembrionario)","CA-125","HCG-β (gonadotropina coriónica)"],
-    ans:2,
+    opts:["AFP (alfafetoproteína)","CA-125","CEA (antígeno carcinoembrionario)","HCG-β (gonadotropina coriónica)"],
+    ans:1,
     exp:"El CA-125 está elevado en el 20-25% de los cánceres de endometrio en estadio I y en hasta el 80% en estadios avanzados o recurrentes. No es suficientemente sensible ni específico para diagnóstico o tamizaje inicial, pero es útil para el seguimiento de pacientes con enfermedad avanzada, monitorear respuesta al tratamiento y detectar recurrencia precozmente.",
     tip:"<strong>Ca endometrio avanzado: CA-125 útil para seguimiento y detección de recurrencia.</strong> No es marcador de tamizaje (baja sensibilidad en estadios tempranos).",
     ref:"GPC Diagnóstico y tratamiento del Cáncer de endometrio 2015."
@@ -278,8 +278,8 @@ const questions = [
   {
     cat:"trat", catName:"Tratamiento",
     q:"Mujer de 61 años con adenocarcinoma endometrioide estadio IA grado 1 (invasión <50% miometrio, sin factores de alto riesgo). ¿Cuál es el tratamiento estándar?",
-    opts:["Radioterapia pélvica externa exclusiva sin cirugía","Histerectomía total + salpingooforectomía bilateral (sin radioterapia adyuvante de rutina)","Quimioterapia con carboplatino + paclitaxel sin cirugía","Progestágenos orales por 12 meses como tratamiento definitivo"],
-    ans:1,
+    opts:["Radioterapia pélvica externa exclusiva sin cirugía","Quimioterapia con carboplatino + paclitaxel sin cirugía","Histerectomía total + salpingooforectomía bilateral (sin radioterapia adyuvante de rutina)","Progestágenos orales por 12 meses como tratamiento definitivo"],
+    ans:2,
     exp:"El tratamiento estándar del cáncer de endometrio estadio I de bajo riesgo es la histerectomía total abdominal (o laparoscópica) + salpingooforectomía bilateral. En estadio IA grado 1 de bajo riesgo, la radioterapia adyuvante no mejora la supervivencia global y no está indicada de rutina. La supervivencia a 5 años supera el 90-95%.",
     tip:"<strong>Estadio IA bajo riesgo = HT + SOB. Sin adyuvante.</strong> Supervivencia >90-95%. La RT adyuvante no mejora la SG en bajo riesgo.",
     ref:"GPC Diagnóstico y tratamiento del Cáncer de endometrio 2015."
@@ -287,8 +287,8 @@ const questions = [
   {
     cat:"trat", catName:"Tratamiento",
     q:"Mujer de 34 años con adenocarcinoma endometrioide estadio IA grado 1, sin invasión miometrial (confinado al endometrio), que desea conservar fertilidad. ¿Cuál es la opción de tratamiento conservador?",
-    opts:["No existe tratamiento conservador; la histerectomía es siempre obligatoria","Radioterapia braquivaginal exclusiva sin cirugía","Progestágenos en altas dosis (AMP 160-200 mg/día o DIU-LNG) con histeroscopia de control cada 3 meses","Quimioterapia neoadyuvante seguida de cirugía conservadora del útero"],
-    ans:2,
+    opts:["No existe tratamiento conservador; la histerectomía es siempre obligatoria","Radioterapia braquivaginal exclusiva sin cirugía","Quimioterapia neoadyuvante seguida de cirugía conservadora del útero","Progestágenos en altas dosis (AMP 160-200 mg/día o DIU-LNG) con histeroscopia de control cada 3 meses"],
+    ans:3,
     exp:"En casos muy seleccionados (estadio IA grado 1, sin invasión miometrial, sin contraindicaciones para la fertilidad) se puede ofrecer tratamiento conservador con progestágenos en altas dosis. Se requiere consentimiento informado (riesgo de progresión), control histeroscópico + biopsia cada 3 meses, y histerectomía definitiva tras lograr el embarazo o ante cualquier falta de respuesta.",
     tip:"<strong>Ca endometrio IA G1 + deseo genésico = progestágenos altas dosis + control estricto.</strong> Es transitorio: histerectomía definitiva después del embarazo o si no responde.",
     ref:"GPC Diagnóstico y tratamiento del Cáncer de endometrio 2015."
@@ -314,8 +314,8 @@ const questions = [
   {
     cat:"trat", catName:"Tratamiento",
     q:"Mujer joven portadora de síndrome de Lynch (mutación MSH2) que ya completó su paridad y no desea más hijos. ¿Cuál es la conducta preventiva recomendada?",
-    opts:["Solo vigilancia anual con biopsia endometrial ambulatoria indefinidamente","Histerectomía profiláctica total + salpingooforectomía bilateral","Tamoxifeno como quimioprevención por 5 años","Progestágenos cíclicos indefinidamente para inducir sangrado regular"],
-    ans:1,
+    opts:["Histerectomía profiláctica total + salpingooforectomía bilateral","Solo vigilancia anual con biopsia endometrial ambulatoria indefinidamente","Tamoxifeno como quimioprevención por 5 años","Progestágenos cíclicos indefinidamente para inducir sangrado regular"],
+    ans:0,
     exp:"Las portadoras de síndrome de Lynch con paridad satisfecha deben ser informadas del riesgo de cáncer de endometrio (40-60%) y de ovario. La histerectomía total + salpingooforectomía bilateral profiláctica reduce drásticamente el riesgo de ambas neoplasias ginecológicas. Es la opción recomendada una vez cumplida la paridad. La vigilancia (biopsia endometrial anual + ultrasonido) es alternativa válida si la paciente no desea cirugía.",
     tip:"<strong>Lynch + paridad cumplida = histerectomía + SOB profiláctica.</strong> Previene Ca endometrio (40-60%) y Ca ovario. Alternativa: vigilancia anual si rechaza cirugía.",
     ref:"GPC Diagnóstico y tratamiento del Cáncer de endometrio 2015."
