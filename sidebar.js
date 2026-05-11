@@ -1,245 +1,78 @@
 /**
- * ENARM · Sidebar compartido
+ * AnesthTR · Sidebar compartido
  * Detecta el archivo activo, abre la especialidad correcta y marca el link activo.
- * Incluir con: <script src="sidebar.js"></script>
- * El aside#sidebar debe existir vacío en el HTML.
  */
 (function () {
 
-  // ── Datos de navegación ──────────────────────────────────────────────────
   const NAV = [
-    {
-      key: 'cirugia',
-      icon: '🔪',
-      color: '#38bdf8',
-      bg: 'rgba(56,189,248,0.12)',
-      label: 'Cirugía General',
-      topics: [
-        { num:'01', label:'Abdomen agudo / Apendicitis',  file:'01-apendicitis.html',             ready:true },
-        { num:'🔢', label:'Escala AIR — Apendicitis',    file:'escala-air-apendicitis.html',     ready:true },
-        { num:'02', label:'Patología biliar',             file:'02-patologia-biliar.html',         ready:true },
-        { num:'03', label:'Enfermedad diverticular',      file:'03-enfermedad-diverticular.html',  ready:true },
-        { num:'04', label:'ERGE / Esofagitis',            file:'04-erge-esofagitis-dispepsia.html',ready:true },
-        { num:'05', label:'Cáncer esófago / gástrico',    file:'05-cancer-esofago-gastrico.html',  ready:true },
-        { num:'06', label:'Gastritis / Úlcera péptica',   file:'06-gastritis-ulcera-peptica.html', ready:true },
-        { num:'07', label:'Obesidad / Bariátrica',        file:'07-obesidad-bariatrica.html',      ready:true },
-        { num:'08', label:'Patología perianal',           file:'08-patologia-perianal.html',       ready:true },
-        { num:'09', label:'Hernias / Esplenectomía',      file:'09-hernias-esplenectomia.html',    ready:true },
-        { num:'10', label:'Insuf. venosa y arterial',     file:'10-insuficiencia-venosa-arterial.html', ready:true },
-        { num:'11', label:'Oclusión / Vólvulos',          file:'11-oclusion-volvulos-isquemia.html',ready:true },
-        { num:'12', label:'Cáncer de colon',              file:'12-cancer-colon.html',             ready:true },
-        { num:'13', label:'Cáncer hepático',              file:'13-cancer-hepatico.html',          ready:true },
-        { num:'14', label:'Cáncer páncreas',              file:'14-cancer-pancreas-trasplante.html',ready:true },
-        { num:'15', label:'Pancreatitis',                 file:'15-pancreatitis.html',             ready:true },
-        { num:'16', label:'Mordeduras / Picaduras',       file:'16-mordeduras-picaduras.html',     ready:true },
-        { num:'17', label:'Quemaduras',                   file:'17-quemaduras.html',               ready:true },
-        { num:'18', label:'ATLS 1',                       file:'18-atls1.html',                    ready:true },
-        { num:'19', label:'ATLS 2',                       file:'19-atls2.html',                    ready:true },
-        { num:'20', label:'Patología quirúrgica',         file:'20-patologia-quirurgica.html',     ready:true },
-      ]
-    },
-    {
-      key: 'orl',
-      icon: '👂',
-      color: '#a78bfa',
-      bg: 'rgba(167,139,250,0.12)',
-      label: 'Otorrinolaringología',
-      topics: [
-        { num:'21', label:'Vértigo',                      file:'21-vertigo.html',                         ready:true },
-        { num:'22', label:'Hipoacusias / Parálisis facial',file:'22-hipoacusias-paralisis-facial.html',   ready:true },
-        { num:'23', label:'Rinología',                    file:'23-rinologia.html',                       ready:true },
-        { num:'24', label:'Patología de faringe',         file:'24-patologia-faringe.html',               ready:true },
-        { num:'25', label:'Patología de laringe',         file:'25-patologia-laringe.html',               ready:true },
-        { num:'26', label:'Otología',                     file:'26-otologia.html',                        ready:true },
-        { num:'27', label:'Síndrome apnea obstructiva',   file:'27-sindrome-apnea-obstructiva.html',      ready:true },
-      ]
-    },
-    {
-      key: 'oftalmo',
-      icon: '👁️',
-      color: '#34d399',
-      bg: 'rgba(52,211,153,0.12)',
-      label: 'Oftalmología',
-      topics: [
-        { num:'28', label:'Párpados, Vía Lagrimal y Retina', file:'28-glaucoma.html',                        ready:true },
-        { num:'29', label:'Glaucoma, Cataratas y Estrabismo', file:'29-retinopatia-diabetica.html',        ready:true },
-        { num:'30', label:'Superficie Ocular y Urgencias',    file:'30-urgencias-oftalmologicas.html',     ready:true },
-      ]
-    },
-    {
-      key: 'neurocirugia',
-      icon: '🧠',
-      color: '#f472b6',
-      bg: 'rgba(244,114,182,0.12)',
-      label: 'Neurocirugía',
-      topics: [
-        { num:'36', label:'Neuralgia / HIC / Hidrocefalia', file:'36-neurocirugia.html', ready:true },
-        { num:'37', label:'Abscesos y Tumores Cerebrales', file:'37-abscesos-tumores-cerebrales.html', ready:true },
-      ]
-    },
-    {
-      key: 'traumatologia',
-      icon: '🦴',
-      color: '#2dd4bf',
-      bg: 'rgba(45,212,191,0.12)',
-      label: 'Traumatología y Ortopedia',
-      topics: [
-        { num:'38', label:'Fracturas miembro superior',       file:'38-fracturas-miembro-superior.html',      ready:true },
-        { num:'39', label:'Fracturas miembro inferior',       file:'39-fracturas-miembro-inferior.html',      ready:true },
-        { num:'40', label:'Luxaciones y Partes Blandas',      file:'40-luxaciones-partes-blandas.html',       ready:true },
-        { num:'41', label:'Tumores óseos benignos',           file:'41-tumores-oseos-benignos.html',          ready:true },
-        { num:'42', label:'Tumores óseos malignos',           file:'42-tumores-oseos-malignos.html',          ready:true },
-        { num:'43', label:'Artritis Séptica y Osteomielitis', file:'43-artritis-septica-osteomielitis.html',  ready:true },
-        { num:'44', label:'Columna Vertebral I',              file:'44-columna-vertebral-1.html',             ready:true },
-      ]
-    },
-    {
-      key: 'uro',
-      icon: '🫘',
-      color: '#fbbf24',
-      bg: 'rgba(251,191,36,0.12)',
-      label: 'Urología',
-      topics: [
-        { num:'31', label:'Infecciones urinarias',             file:'31-infecciones-urinarias.html',           ready:true },
-        { num:'32', label:'Litiasis renal',                    file:'32-litiasis-renal.html',                  ready:true },
-        { num:'33', label:'Cáncer próstata / vejiga',          file:'33-cancer-prostata-vejiga.html',          ready:true },
-        { num:'34', label:'Hiperplasia prostática',            file:'34-hiperplasia-prostatica.html',          ready:true },
-        { num:'35', label:'Disfunción eréctil / Infertilidad', file:'35-disfuncion-erectil-infertilidad.html', ready:true },
-        { num:'Uro', label:'Cáncer renal',                    file:'cancer-renal.html',                       ready:true },
-        { num:'Uro', label:'Tumores testiculares',             file:'tumores-testiculares.html',               ready:true },
-      ]
-    },
-    // ── Próximas especialidades ─────────────────────────────────────────
-    {
-      key: 'interna',
-      icon: '🫀',
-      color: '#8896b3',
-      bg: 'rgba(136,150,179,0.08)',
-      label: 'Medicina Interna',
-      topics: [
-        { num:'—', label:'Medicina Interna', file:null, ready:false }
-      ]
-    },
-    {
-      key: 'gineco',
-      icon: '🤰',
-      color: '#f472b6',
-      bg: 'rgba(244,114,182,0.10)',
-      label: 'Ginecología y Obstetricia',
-      topics: [
-        { num:'G01', label:'Menopausia / SOP / Osteoporosis',       file:'g01-menopausia-sop-osteoporosis.html',          ready:true, hot:true },
-        { num:'G02', label:'Amenorreas e Insuficiencia Ovárica',   file:'g02-amenorrea-iop.html',                        ready:true, hot:true },
-        { num:'G03', label:'Anticonceptivos y Esterilidad',        file:'g03-anticonceptivos-infertilidad.html',          ready:true, hot:true },
-        { num:'G04', label:'Cervicovaginitis / EPI',               file:'g04-cervicovaginitis-epi.html',                  ready:true, hot:true },
-        { num:'G05', label:'Endometriosis / Miomatosis',           file:'g05-endometriosis-miomatosis-hiperplasia.html',  ready:true, hot:true },
-        { num:'G06', label:'Cáncer de Endometrio',                 file:'g06-cancer-endometrio.html',                    ready:true, hot:true },
-        { num:'G07', label:'Cáncer de Ovario',                     file:'g07-cancer-ovario.html',                        ready:true, hot:true },
-        { num:'G08', label:'Lesiones Precursoras / CCU',           file:'g08-lesiones-precursoras-ccu.html',             ready:true, hot:true },
-      ]
-    },
-    {
-      key: 'pediatria',
-      icon: '👶',
-      color: '#8896b3',
-      bg: 'rgba(136,150,179,0.08)',
-      label: 'Pediatría',
-      topics: [
-        { num:'—', label:'Pediatría', file:null, ready:false }
-      ]
-    },
     {
       key: 'anestesia',
       icon: '💉',
       color: '#38bdf8',
-      bg: 'rgba(56,189,248,0.10)',
+      bg: 'rgba(56,189,248,0.12)',
       label: 'Anestesiología',
       topics: [
-        { num:'Sim', label:'Simulador LAST — Intoxicación por AL', file:'40-intoxicacion-last-simulador.html', ready:true },
-        { num:'Sim', label:'DAS 2025 · Vía Aérea Difícil',        file:'das-anestesia.html',                  ready:true },
-        { num:'Sim', label:'Plexo Braquial — EcoEstudio',           file:'plexo-braquial.html',                ready:true },
+        { num:'01', label:'Bloqueos Regionales',          file:'bloqueos-regionales.html',       ready:true },
+        { num:'02', label:'DAS 2025 · Vía Aérea Difícil', file:'das-anestesia.html',             ready:true },
+        { num:'03', label:'Escala AIR — Apendicitis',     file:'escala-air-apendicitis.html',    ready:true },
       ]
-    },
+    }
   ];
 
-  // ── Detectar página actual ───────────────────────────────────────────────
-  function currentFile() {
-    return window.location.pathname.split('/').pop() || 'index.html';
-  }
+  // ── Build HTML ──────────────────────────────────────────────────────────
+  const sidebar = document.getElementById('sidebar');
+  if (!sidebar) return;
 
-  function findActiveSpec(file) {
-    for (const spec of NAV) {
-      if (spec.topics.some(t => t.file === file)) return spec.key;
-    }
-    return null;
-  }
+  let html = `
+    <div class="sidebar-logo">
+      <div class="logo-badge">💉 AnesthTR</div>
+      <h2>Simuladores · Anestesiología</h2>
+      <p>MediCode Solutions</p>
+    </div>
+    <nav class="sidebar-nav">`;
 
-  // ── Construir HTML ───────────────────────────────────────────────────────
-  function buildSidebar(file) {
-    const activeSpec = findActiveSpec(file);
+  const current = location.pathname.split('/').pop() || 'index.html';
 
-    let html = `
-      <div class="sidebar-logo">
-        <div class="logo-badge">🩺 MCS</div>
-        <h2>ENARM · Banco de Preguntas</h2>
-        <p>2025–2026</p>
-      </div>
-      <a href="index.html" class="back-btn">← Volver al inicio</a>
-      <nav class="sidebar-nav">`;
-
-    for (const spec of NAV) {
-      const isOpen = spec.key === activeSpec;
-      const allSoon = spec.topics.every(t => !t.file);
-
-      html += `
-        <div class="specialty-group">
-          <div class="specialty-header${isOpen ? ' open' : ''}" onclick="toggleSpec(this)">
-            <div class="specialty-name">
-              <div class="specialty-icon" style="background:${spec.bg};color:${spec.color};">${spec.icon}</div>
-              ${spec.label}
-            </div>
-            <span class="chevron">▶</span>
+  NAV.forEach(spec => {
+    const isOpen = spec.topics.some(t => t.file === current);
+    html += `
+      <div class="specialty-group">
+        <div class="specialty-header ${isOpen ? 'open' : ''}" onclick="toggleSpec(this)">
+          <div class="specialty-name">
+            <div class="specialty-icon" style="background:${spec.bg};color:${spec.color};">${spec.icon}</div>
+            ${spec.label}
           </div>
-          <div class="topics-list${isOpen ? ' open' : ''}">`;
+          <span class="chevron">▶</span>
+        </div>
+        <div class="topics-list ${isOpen ? 'open' : ''}">`;
 
-      for (const t of spec.topics) {
-        const isActive = t.file === file;
-        if (!t.file || !t.ready) {
-          html += `<span class="topic-link coming-soon"><span class="topic-num">${t.num}</span>${t.label}<span class="badge-soon">Pronto</span></span>`;
-        } else {
-          const activeClass = isActive ? ' active' : '';
-          const badge = t.hot ? `<span class="badge-hot">🔥 Frecuente</span>` : `<span class="badge-ready">Listo</span>`;
-          html += `<a href="${t.file}" class="topic-link${activeClass}"><span class="topic-num">${t.num}</span>${t.label}${badge}</a>`;
-        }
-      }
+    spec.topics.forEach(t => {
+      const active = t.file === current ? ' active' : '';
+      html += `
+          <a href="${t.file}" class="topic-link${active}">
+            <span class="topic-num">${t.num}</span>${t.label}
+            <span class="badge-ready">Listo</span>
+          </a>`;
+    });
 
-      html += `</div></div>`;
-    }
+    html += `
+        </div>
+      </div>`;
+  });
 
-    html += `</nav>`;
-    return html;
-  }
+  html += `</nav>`;
+  sidebar.innerHTML = html;
 
-  // ── Inyectar estilos extra (badge-hot) ──────────────────────────────────
-  function injectStyles() {
-    if (document.getElementById('sb-hot-style')) return;
-    const s = document.createElement('style');
-    s.id = 'sb-hot-style';
-    s.textContent = '.badge-hot{margin-left:auto;background:rgba(251,191,36,0.15);color:#fbbf24;font-size:0.62rem;font-weight:600;padding:2px 7px;border-radius:100px;}';
-    document.head.appendChild(s);
-  }
+  // ── Toggle logic ────────────────────────────────────────────────────────
+  window.toggleSpec = function (header) {
+    header.classList.toggle('open');
+    const list = header.nextElementSibling;
+    list.classList.toggle('open');
+  };
 
-  // ── Inyectar ─────────────────────────────────────────────────────────────
-  function init() {
-    const aside = document.getElementById('sidebar');
-    if (!aside) return;
-    injectStyles();
-    aside.innerHTML = buildSidebar(currentFile());
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
+  window.toggleSidebar = function () {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('overlay').classList.toggle('show');
+  };
 
 })();

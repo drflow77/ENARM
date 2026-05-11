@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ENARM · MediCode Solutions</title>
+<title>AnesthTR · Simuladores de Anestesiología</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 
@@ -21,7 +21,6 @@
     --gold: #fbbf24;
     --purple: #a78bfa;
     --pink: #f472b6;
-    --orange: #fb923c;
     --teal: #2dd4bf;
     --sidebar-w: 280px;
     --radius: 14px;
@@ -37,7 +36,7 @@
     display: flex;
   }
 
-  /* ── SIDEBAR ──────────────────────────────────────────────── */
+  /* ── SIDEBAR ── */
   .sidebar {
     width: var(--sidebar-w);
     min-height: 100vh;
@@ -69,9 +68,7 @@
     background: linear-gradient(135deg, var(--text), var(--accent));
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   }
-  .sidebar-logo p {
-    font-size: 0.72rem; color: var(--text-dim); margin-top: 2px;
-  }
+  .sidebar-logo p { font-size: 0.72rem; color: var(--text-dim); margin-top: 2px; }
 
   .sidebar-nav { flex: 1; padding: 12px 0 24px; }
 
@@ -82,11 +79,10 @@
     padding: 10px 16px 10px 20px;
     cursor: pointer;
     transition: background 0.2s;
-    border-radius: 0;
     user-select: none;
   }
   .specialty-header:hover { background: var(--surface2); }
-  .specialty-header.active { background: var(--surface2); }
+  .specialty-header.open { background: var(--surface2); }
 
   .specialty-name {
     display: flex; align-items: center; gap: 10px;
@@ -98,15 +94,10 @@
     display: flex; align-items: center; justify-content: center;
     font-size: 0.9rem; flex-shrink: 0;
   }
-  .chevron {
-    font-size: 0.65rem; color: var(--text-dim);
-    transition: transform 0.3s;
-  }
+  .chevron { font-size: 0.65rem; color: var(--text-dim); transition: transform 0.3s; }
   .specialty-header.open .chevron { transform: rotate(90deg); }
 
-  .topics-list {
-    display: none; padding: 4px 0 8px 0;
-  }
+  .topics-list { display: none; padding: 4px 0 8px 0; }
   .topics-list.open { display: block; }
 
   .topic-link {
@@ -118,26 +109,16 @@
     border-left: 2px solid transparent;
     line-height: 1.4;
   }
-  .topic-link:hover {
-    color: var(--text);
-    background: var(--surface3);
-  }
+  .topic-link:hover { color: var(--text); background: var(--surface3); }
   .topic-link.active {
     color: var(--accent);
     border-left-color: var(--accent);
     background: var(--accent-glow);
     font-weight: 600;
   }
-  .topic-link.coming-soon {
-    opacity: 0.4; cursor: not-allowed; pointer-events: none;
-  }
   .topic-num {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.68rem; color: var(--text-dim);
-    min-width: 20px;
-  }
-  .star-tag {
-    margin-left: auto; font-size: 0.7rem;
+    font-size: 0.68rem; color: var(--text-dim); min-width: 20px;
   }
   .badge-ready {
     margin-left: auto;
@@ -147,45 +128,11 @@
     padding: 2px 7px; border-radius: 100px;
     text-transform: uppercase; letter-spacing: 0.4px;
   }
-  .badge-soon {
-    margin-left: auto;
-    background: rgba(136,150,179,0.1);
-    color: var(--text-dim);
-    font-size: 0.62rem; font-weight: 600;
-    padding: 2px 7px; border-radius: 100px;
-  }
-  .badge-hot {
-    margin-left: auto;
-    background: rgba(251,191,36,0.15);
-    color: #fbbf24;
-    font-size: 0.62rem; font-weight: 600;
-    padding: 2px 7px; border-radius: 100px;
-  }
-  .badge-fire {
-    margin-left: auto;
-    background: linear-gradient(135deg, rgba(255,107,53,0.18), rgba(251,191,36,0.18));
-    color: #fbbf24;
-    font-size: 0.62rem; font-weight: 700;
-    padding: 2px 8px; border-radius: 100px;
-    border: 1px solid rgba(255,107,53,0.45);
-    animation: firePulse 2s ease-in-out infinite alternate;
-    white-space: nowrap;
-  }
-  @keyframes firePulse {
-    from { box-shadow: 0 0 4px rgba(255,107,53,0.25); }
-    to   { box-shadow: 0 0 12px rgba(255,107,53,0.7), 0 0 22px rgba(251,191,36,0.3); }
-  }
 
-  /* ── MAIN ─────────────────────────────────────────────────── */
-  .main {
-    margin-left: var(--sidebar-w);
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
+  /* ── MAIN ── */
+  .main { margin-left: var(--sidebar-w); flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
 
-  /* ── HERO ─────────────────────────────────────────────────── */
+  /* ── HERO ── */
   .hero {
     padding: 60px 48px 48px;
     position: relative; overflow: hidden;
@@ -211,17 +158,12 @@
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     line-height: 1.15; margin-bottom: 14px; max-width: 600px;
   }
-  .hero p {
-    color: var(--text-dim); font-size: 1rem; max-width: 520px; line-height: 1.65;
-    margin-bottom: 32px;
-  }
-  .hero-stats {
-    display: flex; gap: 24px; flex-wrap: wrap;
-  }
+  .hero p { color: var(--text-dim); font-size: 1rem; max-width: 520px; line-height: 1.65; margin-bottom: 32px; }
+
+  .hero-stats { display: flex; gap: 24px; flex-wrap: wrap; }
   .stat-card {
     background: var(--surface2); border: 1px solid var(--border);
-    border-radius: 12px; padding: 16px 20px;
-    min-width: 130px;
+    border-radius: 12px; padding: 16px 20px; min-width: 130px;
   }
   .stat-num {
     font-size: 1.8rem; font-weight: 800;
@@ -231,16 +173,14 @@
   }
   .stat-label { font-size: 0.75rem; color: var(--text-dim); margin-top: 2px; font-weight: 600; }
 
-  /* ── SPECIALTY CARDS GRID ─────────────────────────────────── */
+  /* ── CARDS ── */
   .content { padding: 40px 48px; }
   .section-title {
     font-size: 0.8rem; font-weight: 700; text-transform: uppercase;
     letter-spacing: 0.8px; color: var(--text-dim); margin-bottom: 20px;
     display: flex; align-items: center; gap: 10px;
   }
-  .section-title::after {
-    content: ''; flex: 1; height: 1px; background: var(--border);
-  }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
   .cards-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -252,23 +192,21 @@
     border-radius: var(--radius); padding: 24px;
     text-decoration: none; color: var(--text);
     transition: all 0.25s; position: relative; overflow: hidden;
-    cursor: pointer;
+    cursor: pointer; display: block;
   }
   .spec-card::before {
     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--purple));
     opacity: 0; transition: opacity 0.3s;
   }
   .spec-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
   .spec-card:hover::before { opacity: 1; }
 
-  .spec-card.cirugia::before { background: linear-gradient(90deg, var(--accent), var(--teal)); }
-  .spec-card.otorrino::before { background: linear-gradient(90deg, var(--purple), var(--pink)); }
-  .spec-card.coming::before { background: linear-gradient(90deg, var(--text-dim), var(--border)); }
-
   .card-icon {
     width: 44px; height: 44px; border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
     font-size: 1.4rem; margin-bottom: 14px;
+    background: rgba(56,189,248,0.12);
   }
   .card-title { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
   .card-sub { font-size: 0.78rem; color: var(--text-dim); line-height: 1.5; }
@@ -280,12 +218,10 @@
   .card-status {
     font-size: 0.68rem; font-weight: 700; padding: 3px 10px;
     border-radius: 100px; text-transform: uppercase; letter-spacing: 0.4px;
+    background: rgba(52,211,153,0.12); color: var(--correct);
   }
-  .status-active { background: rgba(52,211,153,0.12); color: var(--correct); }
-  .status-partial { background: rgba(251,191,36,0.12); color: var(--gold); }
-  .status-soon { background: rgba(136,150,179,0.1); color: var(--text-dim); }
 
-  /* ── MOBILE ───────────────────────────────────────────────── */
+  /* ── MOBILE ── */
   .hamburger {
     display: none; position: fixed; top: 16px; left: 16px; z-index: 200;
     background: var(--surface2); border: 1px solid var(--border);
@@ -307,7 +243,7 @@
     .hero-stats { gap: 12px; }
   }
 
-  /* ── FOOTER ───────────────────────────────────────────────── */
+  /* ── FOOTER ── */
   .footer {
     margin-top: auto; padding: 20px 48px;
     border-top: 1px solid var(--border);
@@ -321,280 +257,48 @@
 <button class="hamburger" onclick="toggleSidebar()">☰</button>
 <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
-<!-- ── SIDEBAR ── -->
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-logo">
-    <div class="logo-badge">🩺 MCS</div>
-    <h2>ENARM · Banco de Preguntas</h2>
-    <p>2025–2026</p>
+    <div class="logo-badge">💉 AnesthTR</div>
+    <h2>Simuladores · Anestesiología</h2>
+    <p>MediCode Solutions</p>
   </div>
-
   <nav class="sidebar-nav">
-
-    <!-- CIRUGÍA GENERAL -->
     <div class="specialty-group">
       <div class="specialty-header open" onclick="toggleSpec(this)">
         <div class="specialty-name">
-          <div class="specialty-icon" style="background:rgba(56,189,248,0.12); color:#38bdf8;">🔪</div>
-          Cirugía General
-        </div>
-        <span class="chevron">▶</span>
-      </div>
-      <div class="topics-list open">
-        <a href="01-apendicitis.html" class="topic-link active">
-          <span class="topic-num">01</span>Abdomen agudo / Apendicitis
-          <span class="star-tag">⭐</span>
-        </a>
-        <a href="escala-air-apendicitis.html" class="topic-link">
-          <span class="topic-num">🔢</span>Escala AIR — Apendicitis
-          <span class="badge-ready">Listo</span>
-        </a>
-        <a href="02-patologia-biliar.html" class="topic-link">
-          <span class="topic-num">02</span>Patología biliar
-          <span class="badge-ready">Listo</span>
-        </a>
-        <a href="03-enfermedad-diverticular.html" class="topic-link">
-          <span class="topic-num">03</span>Enfermedad diverticular
-          <span class="badge-ready">Listo</span>
-        </a>
-        <a href="04-erge-esofagitis-dispepsia.html" class="topic-link">
-          <span class="topic-num">04</span>ERGE / Esofagitis / Dispepsia
-          <span class="badge-ready">Listo</span>
-        </a>
-        <a href="05-cancer-esofago-gastrico.html" class="topic-link">
-          <span class="topic-num">05</span>Cáncer esófago / gástrico
-          <span class="badge-ready">Listo</span>
-        </a>
-        <a href="06-gastritis-ulcera-peptica.html" class="topic-link">
-          <span class="topic-num">06</span>Gastritis / Úlcera péptica
-          <span class="badge-ready">Listo</span>
-        </a>
-        <a href="07-obesidad-bariatrica.html" class="topic-link">
-          <span class="topic-num">07</span>Obesidad / Cirugía bariátrica
-          <span class="badge-ready">Listo</span>
-        </a>
-        <a href="08-patologia-perianal.html" class="topic-link">
-          <span class="topic-num">08</span>Patología perianal
-          <span class="badge-ready">Listo</span>
-        </a>
-        <a href="09-hernias-esplenectomia.html" class="topic-link">
-          <span class="topic-num">09</span>Hernias / Esplenectomía
-          <span class="badge-ready">Listo</span>
-        </a>
-        <a href="10-insuficiencia-venosa-arterial.html" class="topic-link">
-          <span class="topic-num">10</span>Insuf. venosa y arterial
-          <span class="badge-ready">Listo</span>
-        </a>
-        <a href="11-oclusion-volvulos-isquemia.html" class="topic-link">
-          <span class="topic-num">11</span>Oclusión / Vólvulos / Isquemia
-          <span class="badge-ready">Listo</span>
-        </a>
-        <a href="12-cancer-colon.html" class="topic-link">
-          <span class="topic-num">12</span>Cáncer de colon
-          <span class="badge-ready">Listo</span>
-        </a>
-        <a href="13-cancer-hepatico.html" class="topic-link">
-          <span class="topic-num">13</span>Cáncer hepático
-          <span class="badge-ready">Listo</span>
-        </a>
-        <a href="14-cancer-pancreas-trasplante.html" class="topic-link">
-          <span class="topic-num">14</span>Cáncer páncreas / Trasplante
-          <span class="badge-ready">Listo</span>
-        </a>
-        <a href="15-pancreatitis.html" class="topic-link">
-          <span class="topic-num">15</span>Pancreatitis
-          <span class="badge-ready">Listo</span>
-        </a>
-        <a href="16-mordeduras-picaduras.html" class="topic-link">
-          <span class="topic-num">16</span>Mordeduras / Picaduras
-          <span class="badge-ready">Listo</span>
-        </a>
-        <a href="17-quemaduras.html" class="topic-link">
-          <span class="topic-num">17</span>Quemaduras
-          <span class="badge-ready">Listo</span>
-        </a>
-        <a href="18-atls1.html" class="topic-link">
-          <span class="topic-num">18</span>ATLS 1
-          <span class="badge-ready">Listo</span>
-        </a>
-        <a href="19-atls2.html" class="topic-link">
-          <span class="topic-num">19</span>ATLS 2
-          <span class="badge-ready">Listo</span>
-        </a>
-        <a href="20-patologia-quirurgica.html" class="topic-link">
-          <span class="topic-num">20</span>Patología quirúrgica
-          <span class="badge-ready">Listo</span>
-        </a>
-      </div>
-    </div>
-
-    <!-- OTORRINOLARINGOLOGÍA -->
-    <div class="specialty-group">
-      <div class="specialty-header" onclick="toggleSpec(this)">
-        <div class="specialty-name">
-          <div class="specialty-icon" style="background:rgba(167,139,250,0.12); color:#a78bfa;">👂</div>
-          Otorrinolaringología
-        </div>
-        <span class="chevron">▶</span>
-      </div>
-      <div class="topics-list">
-        <a href="21-vertigo.html" class="topic-link"><span class="topic-num">21</span>Vértigo<span class="badge-ready">Listo</span></a>
-        <a href="22-hipoacusias-paralisis-facial.html" class="topic-link"><span class="topic-num">22</span>Hipoacusias / Parálisis facial<span class="badge-ready">Listo</span></a>
-        <a href="23-rinologia.html" class="topic-link"><span class="topic-num">23</span>Rinología<span class="badge-ready">Listo</span></a>
-        <a href="24-patologia-faringe.html" class="topic-link"><span class="topic-num">24</span>Patología de faringe<span class="badge-ready">Listo</span></a>
-        <a href="25-patologia-laringe.html" class="topic-link"><span class="topic-num">25</span>Patología de laringe<span class="badge-ready">Listo</span></a>
-        <a href="26-otologia.html" class="topic-link"><span class="topic-num">26</span>Otología<span class="badge-ready">Listo</span></a>
-        <a href="27-sindrome-apnea-obstructiva.html" class="topic-link"><span class="topic-num">27</span>Síndrome apnea obstructiva<span class="badge-ready">Listo</span></a>
-      </div>
-    </div>
-
-    <!-- OFTALMOLOGÍA -->
-    <div class="specialty-group">
-      <div class="specialty-header" onclick="toggleSpec(this)">
-        <div class="specialty-name">
-          <div class="specialty-icon" style="background:rgba(52,211,153,0.12); color:#34d399;">👁️</div>
-          Oftalmología
-        </div>
-        <span class="chevron">▶</span>
-      </div>
-      <div class="topics-list">
-        <a href="28-glaucoma.html" class="topic-link"><span class="topic-num">28</span>Párpados, Vía Lagrimal y Retina<span class="badge-ready">Listo</span></a>
-        <a href="29-retinopatia-diabetica.html" class="topic-link"><span class="topic-num">29</span>Glaucoma, Cataratas y Estrabismo<span class="badge-ready">Listo</span></a>
-        <a href="30-urgencias-oftalmologicas.html" class="topic-link"><span class="topic-num">30</span>Superficie Ocular y Urgencias<span class="badge-ready">Listo</span></a>
-      </div>
-    </div>
-
-    <!-- UROLOGÍA -->
-    <div class="specialty-group">
-      <div class="specialty-header" onclick="toggleSpec(this)">
-        <div class="specialty-name">
-          <div class="specialty-icon" style="background:rgba(251,191,36,0.12); color:#fbbf24;">🫘</div>
-          Urología
-        </div>
-        <span class="chevron">▶</span>
-      </div>
-      <div class="topics-list">
-        <a href="31-infecciones-urinarias.html" class="topic-link"><span class="topic-num">31</span>Infecciones urinarias<span class="badge-ready">Listo</span></a>
-        <a href="32-litiasis-renal.html" class="topic-link"><span class="topic-num">32</span>Litiasis renal<span class="badge-ready">Listo</span></a>
-        <a href="33-cancer-prostata-vejiga.html" class="topic-link"><span class="topic-num">33</span>Cáncer próstata / vejiga<span class="badge-ready">Listo</span></a>
-        <a href="34-hiperplasia-prostatica.html" class="topic-link"><span class="topic-num">34</span>Hiperplasia prostática<span class="badge-ready">Listo</span></a>
-        <a href="35-disfuncion-erectil-infertilidad.html" class="topic-link"><span class="topic-num">35</span>Disfunción eréctil / Infertilidad<span class="badge-ready">Listo</span></a>
-        <a href="cancer-renal.html" class="topic-link"><span class="topic-num">Uro</span>Cáncer renal<span class="badge-ready">Listo</span></a>
-        <a href="tumores-testiculares.html" class="topic-link"><span class="topic-num">Uro</span>Tumores testiculares<span class="badge-ready">Listo</span></a>
-      </div>
-    </div>
-
-    <!-- NEUROCIRUGÍA -->
-    <div class="specialty-group">
-      <div class="specialty-header" onclick="toggleSpec(this)">
-        <div class="specialty-name">
-          <div class="specialty-icon" style="background:rgba(244,114,182,0.12); color:#f472b6;">🧠</div>
-          Neurocirugía
-        </div>
-        <span class="chevron">▶</span>
-      </div>
-      <div class="topics-list">
-        <a href="36-neurocirugia.html" class="topic-link"><span class="topic-num">36</span>Neuralgia / HIC / Hidrocefalia<span class="badge-ready">Listo</span></a>
-        <a href="37-abscesos-tumores-cerebrales.html" class="topic-link"><span class="topic-num">37</span>Abscesos y Tumores Cerebrales<span class="badge-ready">Listo</span></a>
-      </div>
-    </div>
-
-    <!-- TRAUMATOLOGÍA -->
-    <div class="specialty-group">
-      <div class="specialty-header" onclick="toggleSpec(this)">
-        <div class="specialty-name">
-          <div class="specialty-icon" style="background:rgba(45,212,191,0.12); color:#2dd4bf;">🦴</div>
-          Traumatología y Ortopedia
-        </div>
-        <span class="chevron">▶</span>
-      </div>
-      <div class="topics-list">
-        <a href="38-fracturas-miembro-superior.html" class="topic-link"><span class="topic-num">38</span>Fracturas miembro superior<span class="badge-ready">Listo</span></a>
-        <a href="39-fracturas-miembro-inferior.html" class="topic-link"><span class="topic-num">39</span>Fracturas miembro inferior<span class="badge-ready">Listo</span></a>
-        <a href="40-luxaciones-partes-blandas.html" class="topic-link"><span class="topic-num">40</span>Luxaciones y Partes Blandas<span class="badge-ready">Listo</span></a>
-        <a href="41-tumores-oseos-benignos.html" class="topic-link"><span class="topic-num">41</span>Tumores óseos benignos<span class="badge-ready">Listo</span></a>
-        <a href="42-tumores-oseos-malignos.html" class="topic-link"><span class="topic-num">42</span>Tumores óseos malignos<span class="badge-ready">Listo</span></a>
-        <a href="43-artritis-septica-osteomielitis.html" class="topic-link"><span class="topic-num">43</span>Artritis Séptica y Osteomielitis<span class="badge-ready">Listo</span></a>
-        <a href="44-columna-vertebral-1.html" class="topic-link"><span class="topic-num">44</span>Columna Vertebral I<span class="badge-ready">Listo</span></a>
-      </div>
-    </div>
-
-    <!-- PRÓXIMAS -->
-    <div class="specialty-group">
-      <div class="specialty-header" onclick="toggleSpec(this)">
-        <div class="specialty-name">
-          <div class="specialty-icon" style="background:rgba(251,191,36,0.12); color:#fbbf24;">📚</div>
-          Más especialidades
-        </div>
-        <span class="chevron">▶</span>
-      </div>
-      <div class="topics-list">
-        <span class="topic-link coming-soon"><span class="topic-num">—</span>Medicina Interna<span class="badge-soon">Pronto</span></span>
-        <span class="topic-link coming-soon"><span class="topic-num">—</span>Pediatría<span class="badge-soon">Pronto</span></span>
-      </div>
-    </div>
-
-    <!-- GINECOLOGÍA Y OBSTETRICIA -->
-    <div class="specialty-group">
-      <div class="specialty-header" onclick="toggleSpec(this)">
-        <div class="specialty-name">
-          <div class="specialty-icon" style="background:rgba(244,114,182,0.10); color:#f472b6;">🤰</div>
-          Ginecología y Obstetricia
-        </div>
-        <span class="chevron">▶</span>
-      </div>
-      <div class="topics-list">
-        <a href="g01-menopausia-sop-osteoporosis.html" class="topic-link"><span class="topic-num">G01</span>Menopausia / SOP / Osteoporosis<span class="badge-hot">🔥 Frecuente</span></a>
-        <a href="g02-amenorrea-iop.html" class="topic-link"><span class="topic-num">G02</span>Amenorreas e Insuficiencia Ovárica<span class="badge-hot">🔥 Frecuente</span></a>
-        <a href="g03-anticonceptivos-infertilidad.html" class="topic-link"><span class="topic-num">G03</span>Anticonceptivos y Esterilidad<span class="badge-hot">🔥 Frecuente</span></a>
-        <a href="g04-cervicovaginitis-epi.html" class="topic-link"><span class="topic-num">G04</span>Cervicovaginitis / EPI<span class="badge-hot">🔥 Frecuente</span></a>
-        <a href="g05-endometriosis-miomatosis-hiperplasia.html" class="topic-link"><span class="topic-num">G05</span>Endometriosis / Miomatosis<span class="badge-hot">🔥 Frecuente</span></a>
-        <a href="g06-cancer-endometrio.html" class="topic-link"><span class="topic-num">G06</span>Cáncer de Endometrio<span class="badge-hot">🔥 Frecuente</span></a>
-        <a href="g07-cancer-ovario.html" class="topic-link"><span class="topic-num">G07</span>Cáncer de Ovario<span class="badge-hot">🔥 Frecuente</span></a>
-        <a href="g08-lesiones-precursoras-ccu.html" class="topic-link"><span class="topic-num">G08</span>Lesiones Precursoras / CCU<span class="badge-hot">🔥 Frecuente</span></a>
-        <a href="g09-patologia-benigna-mama.html" class="topic-link"><span class="topic-num">G09</span>Patología Benigna de Mama<span class="badge-ready">Listo</span></a>
-        <a href="g10-cancer-mama.html" class="topic-link"><span class="topic-num">G10</span>Cáncer de Mama<span class="badge-hot">🔥 Frecuente</span></a>
-        <a href="g11-violencia-contra-mujer.html" class="topic-link"><span class="topic-num">G11</span>Violencia contra la Mujer<span class="badge-ready">Listo</span></a>
-        <a href="g12-atencion-embarazo.html" class="topic-link"><span class="topic-num">G12</span>Atención del Embarazo<span class="badge-ready">Listo</span></a>
-        <a href="g12-atencion-multidisciplinaria-embarazo.html" class="topic-link"><span class="topic-num">G12+</span>Embarazo Multidisciplinario<span class="badge-fire">🔥 TOP ENARM</span></a>
-        <a href="g13-hemorragias-primer-trimestre.html" class="topic-link"><span class="topic-num">G13</span>Hemorragias 1er Trimestre<span class="badge-hot">🔥 Frecuente</span></a>
-        <a href="g14-hemorragias-tercer-trimestre.html" class="topic-link"><span class="topic-num">G14</span>Hemorragias 3er Trimestre<span class="badge-fire">🔥 TOP ENARM</span></a>
-      </div>
-    </div>
-
-    <!-- ANESTESIOLOGÍA -->
-    <div class="specialty-group">
-      <div class="specialty-header" onclick="toggleSpec(this)">
-        <div class="specialty-name">
-          <div class="specialty-icon" style="background:rgba(56,189,248,0.10); color:#38bdf8;">💉</div>
+          <div class="specialty-icon" style="background:rgba(56,189,248,0.12);color:#38bdf8;">💉</div>
           Anestesiología
         </div>
         <span class="chevron">▶</span>
       </div>
-      <div class="topics-list">
-        <a href="40-intoxicacion-last-simulador.html" class="topic-link"><span class="topic-num">Sim</span>Simulador LAST — Intoxicación por AL<span class="badge-ready">Listo</span></a>
-        <a href="das-anestesia.html" class="topic-link"><span class="topic-num">Sim</span>DAS 2025 · Vía Aérea Difícil<span class="badge-ready">Listo</span></a>
-        <a href="plexo-braquial.html" class="topic-link"><span class="topic-num">Sim</span>Plexo Braquial — EcoEstudio<span class="badge-ready">Listo</span></a>
+      <div class="topics-list open">
+        <a href="bloqueos-regionales.html" class="topic-link">
+          <span class="topic-num">01</span>Bloqueos Regionales
+          <span class="badge-ready">Listo</span>
+        </a>
+        <a href="das-anestesia.html" class="topic-link">
+          <span class="topic-num">02</span>DAS 2025 · Vía Aérea Difícil
+          <span class="badge-ready">Listo</span>
+        </a>
+        <a href="escala-air-apendicitis.html" class="topic-link">
+          <span class="topic-num">03</span>Escala AIR — Apendicitis
+          <span class="badge-ready">Listo</span>
+        </a>
       </div>
     </div>
-
   </nav>
 </aside>
 
-<!-- ── MAIN ── -->
 <main class="main">
   <section class="hero">
-    <div class="hero-badge">🎯 MediCode Solutions · ENARM 2025–2026</div>
-    <h1>Banco de Preguntas ENARM</h1>
-    <p>Preguntas basadas en Guías de Práctica Clínica oficiales. Con retroalimentación, tip clínico y referencia bibliográfica. Modo repaso y modo examen.</p>
+    <div class="hero-badge">💉 MediCode Solutions · Anestesiología</div>
+    <h1>Simuladores de Anestesiología</h1>
+    <p>Herramientas interactivas de evaluación clínica para residentes de anestesiología. Basadas en guías y algoritmos vigentes.</p>
     <div class="hero-stats">
       <div class="stat-card">
-        <div class="stat-num">15+</div>
-        <div class="stat-label">Preguntas / tema</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">42+</div>
-        <div class="stat-label">Temas activos</div>
+        <div class="stat-num">3</div>
+        <div class="stat-label">Módulos activos</div>
       </div>
       <div class="stat-card">
         <div class="stat-num">GPC</div>
@@ -604,155 +308,54 @@
   </section>
 
   <section class="content">
-    <div class="section-title">Especialidades disponibles</div>
+    <div class="section-title">Módulos disponibles</div>
     <div class="cards-grid">
 
-      <div class="spec-card cirugia" onclick="window.location='01-apendicitis.html'">
-        <div class="card-icon" style="background:rgba(56,189,248,0.12);">🔪</div>
-        <div class="card-title">Cirugía General</div>
-        <div class="card-sub">Abdomen agudo, patología biliar, cáncer GI, trauma, ATLS y más.</div>
+      <a href="bloqueos-regionales.html" class="spec-card">
+        <div class="card-icon">🫀</div>
+        <div class="card-title">Bloqueos Regionales</div>
+        <div class="card-sub">Anatomía, técnica guiada por ultrasonido y farmacología de los principales bloqueos de nervio periférico.</div>
         <div class="card-footer">
-          <span class="card-topics">20 temas · 300 preguntas</span>
-          <span class="card-status status-active">Completo</span>
+          <span class="card-topics">Simulador interactivo</span>
+          <span class="card-status">Listo</span>
         </div>
-      </div>
+      </a>
 
-      <div class="spec-card otorrino" onclick="window.location='21-vertigo.html'">
-        <div class="card-icon" style="background:rgba(167,139,250,0.12);">👂</div>
-        <div class="card-title">Otorrinolaringología</div>
-        <div class="card-sub">Vértigo, rinología, patología de faringe, otología y más.</div>
+      <a href="das-anestesia.html" class="spec-card">
+        <div class="card-icon">🫁</div>
+        <div class="card-title">DAS 2025 · Vía Aérea Difícil</div>
+        <div class="card-sub">Algoritmo de manejo de vía aérea difícil. Guía de la Difficult Airway Society 2025.</div>
         <div class="card-footer">
-          <span class="card-topics">7 temas · 105 preguntas</span>
-          <span class="card-status status-active">Completo</span>
+          <span class="card-topics">Simulador interactivo</span>
+          <span class="card-status">Listo</span>
         </div>
-      </div>
+      </a>
 
-      <div class="spec-card" onclick="window.location='28-glaucoma.html'" style="cursor:pointer; border-color:rgba(52,211,153,0.3);">
-        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#34d399,#38bdf8);"></div>
-        <div class="card-icon" style="background:rgba(52,211,153,0.12);">👁️</div>
-        <div class="card-title">Oftalmología</div>
-        <div class="card-sub">Párpados, vía lagrimal, glaucoma, cataratas, superficie ocular y urgencias.</div>
+      <a href="escala-air-apendicitis.html" class="spec-card">
+        <div class="card-icon">🔢</div>
+        <div class="card-title">Escala AIR — Apendicitis</div>
+        <div class="card-sub">Calculadora clínica de la Appendicitis Inflammatory Response score para estratificación de riesgo.</div>
         <div class="card-footer">
-          <span class="card-topics">3 temas · 84 preguntas</span>
-          <span class="card-status status-active">Completo</span>
+          <span class="card-topics">Calculadora clínica</span>
+          <span class="card-status">Listo</span>
         </div>
-      </div>
+      </a>
 
-      <div class="spec-card" onclick="window.location='31-infecciones-urinarias.html'" style="cursor:pointer; border-color:rgba(251,191,36,0.3);">
-        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#fbbf24,#f472b6);"></div>
-        <div class="card-icon" style="background:rgba(251,191,36,0.12);">🫘</div>
-        <div class="card-title">Urología</div>
-        <div class="card-sub">Infecciones urinarias, litiasis, cáncer próstata/vejiga, HPB, disfunción eréctil, cáncer renal, tumores testiculares.</div>
-        <div class="card-footer">
-          <span class="card-topics">7 temas · 105 preguntas</span>
-          <span class="card-status status-active">Completo</span>
-        </div>
-      </div>
-
-      <div class="spec-card" onclick="window.location='36-neurocirugia.html'" style="cursor:pointer; border-color:rgba(244,114,182,0.3);">
-        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#f472b6,#a78bfa);"></div>
-        <div class="card-icon" style="background:rgba(244,114,182,0.12);">🧠</div>
-        <div class="card-title">Neurocirugía</div>
-        <div class="card-sub">Neuralgia, HIC, hidrocefalia, abscesos y tumores cerebrales.</div>
-        <div class="card-footer">
-          <span class="card-topics">2 temas · 30 preguntas</span>
-          <span class="card-status status-active">Completo</span>
-        </div>
-      </div>
-
-      <div class="spec-card" onclick="window.location='38-fracturas-miembro-superior.html'" style="cursor:pointer; border-color:rgba(45,212,191,0.3);">
-        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#2dd4bf,#38bdf8);"></div>
-        <div class="card-icon" style="background:rgba(45,212,191,0.12);">🦴</div>
-        <div class="card-title">Traumatología y Ortopedia</div>
-        <div class="card-sub">Fracturas, luxaciones, manguito rotador, rodilla, tumores óseos benignos y malignos.</div>
-        <div class="card-footer">
-          <span class="card-topics">5 temas · 84 preguntas</span>
-          <span class="card-status status-active">Completo</span>
-        </div>
-      </div>
-
-      <div class="spec-card coming" style="cursor:default;">
-        <div class="card-icon" style="background:rgba(136,150,179,0.08);">🫀</div>
-        <div class="card-title">Medicina Interna</div>
-        <div class="card-sub">Cardiología, neumología, nefrología, endocrinología y más.</div>
-        <div class="card-footer">
-          <span class="card-topics">En desarrollo</span>
-          <span class="card-status status-soon">Próximamente</span>
-        </div>
-      </div>
-
-      <div class="spec-card" onclick="window.location='g01-menopausia-sop-osteoporosis.html'" style="cursor:pointer; border-color:rgba(244,114,182,0.3);">
-        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#f472b6,#a78bfa);"></div>
-        <div class="card-icon" style="background:rgba(244,114,182,0.10);">🤰</div>
-        <div class="card-title">Ginecología y Obstetricia</div>
-        <div class="card-sub">Menopausia, SOP, anticoncepción, endometriosis, cáncer ginecológico, mama, embarazo y hemorragias obstétricas.</div>
-        <div class="card-footer">
-          <span class="card-topics">15 temas · 225 preguntas</span>
-          <span class="card-status status-active">Activo</span>
-        </div>
-      </div>
-
-      <div class="spec-card coming" style="cursor:default;">
-        <div class="card-icon" style="background:rgba(136,150,179,0.08);">👶</div>
-        <div class="card-title">Pediatría</div>
-        <div class="card-sub">Neonatología, enfermedades infecciosas, urgencias pediátricas.</div>
-        <div class="card-footer">
-          <span class="card-topics">En desarrollo</span>
-          <span class="card-status status-soon">Próximamente</span>
-        </div>
-      </div>
-
-      <div class="spec-card" onclick="window.location='40-intoxicacion-last-simulador.html'" style="cursor:pointer; border-color:rgba(56,189,248,0.3);">
-        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#38bdf8,#a78bfa);"></div>
-        <div class="card-icon" style="background:rgba(56,189,248,0.10);">💉</div>
-        <div class="card-title">Anestesiología</div>
-        <div class="card-sub">Simulador LAST, guía DAS 2025 vía aérea difícil y Plexo Braquial EcoEstudio.</div>
-        <div class="card-footer">
-          <span class="card-topics">3 simuladores</span>
-          <span class="card-status status-active">Activo</span>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="section-title">Cómo usar el banco</div>
-    <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px;">
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;">
-        <div style="font-size:1.5rem;margin-bottom:10px;">📖</div>
-        <div style="font-weight:700;font-size:0.9rem;margin-bottom:6px;">Modo Repaso</div>
-        <div style="font-size:0.78rem;color:var(--text-dim);line-height:1.5;">Ve la retroalimentación inmediatamente después de cada respuesta con explicación y tip clínico.</div>
-      </div>
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;">
-        <div style="font-size:1.5rem;margin-bottom:10px;">⏱️</div>
-        <div style="font-weight:700;font-size:0.9rem;margin-bottom:6px;">Modo Examen</div>
-        <div style="font-size:0.78rem;color:var(--text-dim);line-height:1.5;">Simula el ENARM real. Sin retroalimentación hasta terminar. Calificación al final.</div>
-      </div>
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;">
-        <div style="font-size:1.5rem;margin-bottom:10px;">📊</div>
-        <div style="font-weight:700;font-size:0.9rem;margin-bottom:6px;">Resultados detallados</div>
-        <div style="font-size:0.78rem;color:var(--text-dim);line-height:1.5;">Gráfica por categoría, donut de aciertos y revisión completa de respuestas.</div>
-      </div>
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;">
-        <div style="font-size:1.5rem;margin-bottom:10px;">📖</div>
-        <div style="font-weight:700;font-size:0.9rem;margin-bottom:6px;">Base en GPC</div>
-        <div style="font-size:0.78rem;color:var(--text-dim);line-height:1.5;">Cada pregunta referencia la Guía de Práctica Clínica oficial IMSS/SSA correspondiente.</div>
-      </div>
     </div>
   </section>
 
-  <div class="footer">MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026 · ⚠️ Fines exclusivamente educativos</div>
+  <footer class="footer">MediCode Solutions · AnesthTR · 2025–2026</footer>
 </main>
 
 <script>
-function toggleSpec(header) {
-  header.classList.toggle('open');
-  const list = header.nextElementSibling;
-  list.classList.toggle('open');
-}
-function toggleSidebar() {
-  document.getElementById('sidebar').classList.toggle('open');
-  document.getElementById('overlay').classList.toggle('show');
-}
+  function toggleSpec(header) {
+    header.classList.toggle('open');
+    header.nextElementSibling.classList.toggle('open');
+  }
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('overlay').classList.toggle('show');
+  }
 </script>
 </body>
 </html>
