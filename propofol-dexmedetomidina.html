@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Propofol &amp; Dexmedetomidina · ENARM · Farmacología Anestésica</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0a0e1a; --surface:#111827; --surface2:#1a2235; --surface3:#212d45;
+      --border:#2a3a5c; --text:#e8ecf4; --text-dim:#8896b3;
+      --accent:#38bdf8; --accent-glow:rgba(56,189,248,0.15);
+      --correct:#34d399; --correct-bg:rgba(52,211,153,0.1); --correct-border:rgba(52,211,153,0.4);
+      --wrong:#f87171; --wrong-bg:rgba(248,113,113,0.1); --wrong-border:rgba(248,113,113,0.4);
+      --gold:#fbbf24; --purple:#a78bfa; --pink:#f472b6; --teal:#2dd4bf;
+      --prop:#2dd4bf; --prop-bg:rgba(45,212,191,0.12);
+      --dex:#a78bfa; --dex-bg:rgba(167,139,250,0.12);
+      --radius:14px;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+
+    .app-nav {
+      position:sticky; top:0; z-index:50; background:var(--surface);
+      border-bottom:1px solid var(--border); padding:0 28px;
+      display:flex; align-items:center; justify-content:space-between; height:64px;
+    }
+    .app-nav-logo { display:flex; align-items:center; gap:12px; }
+    .app-nav-icon { width:38px; height:38px; border-radius:11px; background:linear-gradient(135deg,var(--prop),var(--dex)); display:flex; align-items:center; justify-content:center; color:var(--bg); font-size:1rem; }
+    .app-nav-title { font-size:1.02rem; font-weight:800; }
+    .app-nav-sub { font-size:0.72rem; color:var(--text-dim); margin-top:1px; }
+    .biblio-btn { padding:8px 15px; background:var(--surface2); border:1px solid var(--border); border-radius:9px; color:var(--text-dim); font-family:inherit; font-size:0.78rem; font-weight:600; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; gap:7px; }
+    .biblio-btn:hover { color:var(--accent); border-color:var(--accent); }
+
+    .app-content { max-width:860px; margin:0 auto; width:100%; padding:28px; }
+
+    /* ── Intro / setup ── */
+    .intro { text-align:center; animation:fadeIn 0.4s ease; }
+    .intro-badge { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,var(--prop),var(--dex)); padding:6px 16px; border-radius:100px; font-size:0.72rem; font-weight:800; color:var(--bg); letter-spacing:0.5px; text-transform:uppercase; margin-bottom:18px; }
+    .intro h1 { font-size:2rem; font-weight:800; margin-bottom:8px; }
+    .intro h1 .amp { background:linear-gradient(135deg,var(--prop),var(--dex)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .intro p.lead { color:var(--text-dim); font-size:0.92rem; max-width:560px; margin:0 auto 28px; line-height:1.6; }
+
+    .setup-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:22px; }
+    .setup-card { background:var(--surface2); border:1px solid var(--border); border-radius:var(--radius); padding:18px; text-align:left; }
+    .setup-card h3 { font-size:0.74rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim); margin-bottom:12px; font-weight:700; }
+    .opt-row { display:flex; gap:8px; }
+    .pill { flex:1; padding:11px 8px; background:var(--surface3); border:2px solid var(--border); border-radius:10px; color:var(--text-dim); font-family:inherit; font-size:0.82rem; font-weight:600; cursor:pointer; transition:all 0.2s; text-align:center; }
+    .pill:hover { border-color:var(--accent); color:var(--text); }
+    .pill.active { background:var(--accent-glow); border-color:var(--accent); color:var(--accent); }
+    .pill small { display:block; font-weight:500; font-size:0.68rem; opacity:0.8; margin-top:2px; }
+    .start-btn { width:100%; padding:16px; background:linear-gradient(135deg,var(--prop),var(--dex)); border:none; border-radius:12px; color:var(--bg); font-family:inherit; font-size:0.95rem; font-weight:800; cursor:pointer; transition:all 0.2s; }
+    .start-btn:hover { filter:brightness(1.08); transform:translateY(-1px); }
+
+    .topic-counts { display:flex; justify-content:center; gap:18px; margin-top:20px; font-size:0.78rem; color:var(--text-dim); }
+    .topic-counts span { display:inline-flex; align-items:center; gap:6px; }
+    .dot { width:9px; height:9px; border-radius:50%; }
+    .dot.p { background:var(--prop); } .dot.d { background:var(--dex); }
+
+    /* ── Quiz ── */
+    #quizView { display:none; animation:fadeIn 0.4s ease; }
+    .quiz-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+    .quiz-meta-left { display:flex; align-items:center; gap:10px; }
+    .chip { padding:4px 11px; border-radius:100px; font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; }
+    .chip.prop { background:var(--prop-bg); color:var(--prop); }
+    .chip.dex { background:var(--dex-bg); color:var(--dex); }
+    .chip.tema { background:var(--surface3); color:var(--text-dim); }
+    .quiz-count { font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--text-dim); }
+    .quiz-abandon { background:none; border:none; color:var(--text-dim); font-size:0.76rem; cursor:pointer; font-family:inherit; }
+    .quiz-abandon:hover { color:var(--wrong); }
+
+    .prog-bar { height:5px; background:var(--surface3); border-radius:3px; overflow:hidden; margin-bottom:22px; }
+    .prog-fill { height:100%; background:linear-gradient(90deg,var(--prop),var(--dex)); transition:width 0.35s; border-radius:3px; }
+
+    .q-card { background:var(--surface2); border:1px solid var(--border); border-radius:18px; overflow:hidden; }
+    .q-head { padding:22px 24px 18px; border-bottom:1px solid var(--border); }
+    .q-text { font-size:1.08rem; font-weight:700; line-height:1.5; }
+    .q-options { padding:16px 18px 6px; }
+    .opt-btn { display:flex; align-items:flex-start; gap:13px; width:100%; text-align:left; padding:14px 16px; background:var(--surface3); border:2px solid var(--border); border-radius:12px; color:var(--text-dim); font-family:inherit; font-size:0.9rem; line-height:1.4; cursor:pointer; transition:all 0.18s; margin-bottom:10px; }
+    .opt-btn:hover:not(:disabled) { border-color:var(--accent); color:var(--text); }
+    .opt-btn.selected { background:var(--accent-glow); border-color:var(--accent); color:var(--text); }
+    .opt-btn.selected .opt-letter { border-color:var(--accent); color:var(--accent); }
+    .opt-btn.correct { background:var(--correct-bg); border-color:var(--correct-border); color:var(--correct); }
+    .opt-btn.wrong { background:var(--wrong-bg); border-color:var(--wrong-border); color:var(--wrong); }
+    .opt-btn.dimmed { opacity:0.4; pointer-events:none; }
+    .opt-letter { width:28px; height:28px; border-radius:50%; border:2px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:0.74rem; font-weight:700; font-family:'JetBrains Mono',monospace; flex-shrink:0; margin-top:1px; }
+    .opt-btn.correct .opt-letter { border-color:var(--correct); color:var(--correct); }
+    .opt-btn.wrong .opt-letter { border-color:var(--wrong); color:var(--wrong); }
+
+    .explain { margin:4px 18px 16px; padding:15px 17px; background:var(--accent-glow); border:1px solid rgba(56,189,248,0.22); border-radius:12px; }
+    .explain-title { font-size:0.76rem; font-weight:700; color:var(--accent); margin-bottom:7px; display:flex; align-items:center; gap:7px; }
+    .explain-text { font-size:0.86rem; color:var(--text); line-height:1.65; }
+    .explain-src { margin-top:10px; font-size:0.72rem; color:var(--text-dim); border-top:1px dashed var(--border); padding-top:9px; }
+    .explain-src i { color:var(--gold); }
+
+    .q-actions { padding:0 18px 20px; }
+    .next-btn { display:block; width:100%; padding:14px; background:var(--accent); border:none; border-radius:11px; color:var(--bg); font-family:inherit; font-size:0.9rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+    .next-btn:hover { filter:brightness(1.1); }
+    .next-btn.ghost { background:var(--surface3); color:var(--text); border:1px solid var(--border); }
+
+    /* ── Results ── */
+    #resultView { display:none; animation:fadeIn 0.4s ease; text-align:center; }
+    .result-card { background:var(--surface2); border:1px solid var(--border); border-radius:20px; padding:40px 28px; }
+    .donut-wrap { display:flex; align-items:center; justify-content:center; gap:30px; flex-wrap:wrap; margin-bottom:28px; }
+    .donut { position:relative; width:150px; height:150px; }
+    .donut svg { transform:rotate(-90deg); }
+    .donut-center { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+    .donut-pct { font-size:2.1rem; font-weight:900; font-family:'JetBrains Mono',monospace; }
+    .donut-lbl { font-size:0.66rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-dim); }
+    .result-verdict { font-size:1.3rem; font-weight:800; margin-bottom:6px; }
+    .result-sub { color:var(--text-dim); font-size:0.86rem; }
+    .cat-breakdown { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:26px 0; }
+    .cat-box { background:var(--surface3); border:1px solid var(--border); border-radius:12px; padding:15px; text-align:left; }
+    .cat-box .cat-name { display:flex; align-items:center; gap:8px; font-size:0.78rem; font-weight:700; margin-bottom:8px; }
+    .cat-box .cat-score { font-size:1.5rem; font-weight:800; font-family:'JetBrains Mono',monospace; }
+    .cat-box .cat-mini { height:5px; background:var(--surface); border-radius:3px; overflow:hidden; margin-top:8px; }
+    .cat-box .cat-mini > div { height:100%; border-radius:3px; }
+    .result-btns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+    .result-btns button { padding:13px 26px; border-radius:11px; font-family:inherit; font-size:0.86rem; font-weight:700; cursor:pointer; border:none; transition:all 0.2s; }
+    .btn-review { background:var(--surface3); border:1px solid var(--border); color:var(--text); }
+    .btn-review:hover { border-color:var(--accent); color:var(--accent); }
+    .btn-retry { background:linear-gradient(135deg,var(--prop),var(--dex)); color:var(--bg); }
+    .btn-retry:hover { filter:brightness(1.08); }
+
+    /* review list */
+    .review-list { text-align:left; margin-top:26px; display:none; }
+    .review-item { background:var(--surface3); border:1px solid var(--border); border-radius:12px; padding:15px 17px; margin-bottom:11px; }
+    .review-q { font-size:0.88rem; font-weight:700; margin-bottom:10px; display:flex; gap:9px; }
+    .review-q i { margin-top:3px; }
+    .review-q i.ok { color:var(--correct); } .review-q i.no { color:var(--wrong); }
+    .review-a { font-size:0.82rem; line-height:1.5; margin-left:24px; }
+    .review-a .yours { color:var(--wrong); } .review-a .right { color:var(--correct); }
+    .review-exp { font-size:0.8rem; color:var(--text-dim); line-height:1.55; margin:8px 0 0 24px; padding-top:8px; border-top:1px dashed var(--border); }
+
+    /* ── Bibliography modal ── */
+    .modal-overlay { position:fixed; inset:0; background:rgba(5,8,16,0.8); backdrop-filter:blur(4px); z-index:200; display:none; align-items:flex-start; justify-content:center; padding:40px 18px; overflow-y:auto; }
+    .modal-overlay.open { display:flex; }
+    .modal { background:var(--surface); border:1px solid var(--border); border-radius:18px; max-width:720px; width:100%; animation:fadeIn 0.3s ease; }
+    .modal-head { display:flex; align-items:center; justify-content:space-between; padding:20px 24px; border-bottom:1px solid var(--border); position:sticky; top:0; background:var(--surface); border-radius:18px 18px 0 0; }
+    .modal-head h3 { font-size:1.05rem; font-weight:800; display:flex; align-items:center; gap:10px; }
+    .modal-close { background:var(--surface2); border:1px solid var(--border); color:var(--text-dim); width:34px; height:34px; border-radius:9px; cursor:pointer; font-size:0.95rem; }
+    .modal-close:hover { color:var(--wrong); border-color:var(--wrong); }
+    .modal-body { padding:12px 24px 24px; }
+    .biblio-note { font-size:0.8rem; color:var(--text-dim); line-height:1.6; margin:10px 0 18px; padding:12px 14px; background:var(--surface2); border-radius:10px; border-left:3px solid var(--gold); }
+    .ref { display:flex; gap:13px; padding:13px 0; border-bottom:1px solid var(--border); }
+    .ref:last-child { border-bottom:none; }
+    .ref-tag { flex-shrink:0; font-family:'JetBrains Mono',monospace; font-size:0.68rem; font-weight:700; color:var(--bg); background:var(--accent); padding:3px 8px; border-radius:6px; height:fit-content; }
+    .ref-tag.p { background:var(--prop); } .ref-tag.d { background:var(--dex); } .ref-tag.g { background:var(--gold); }
+    .ref-body { font-size:0.83rem; line-height:1.55; }
+    .ref-body .ref-authors { color:var(--text); font-weight:600; }
+    .ref-body .ref-meta { color:var(--text-dim); font-size:0.78rem; margin-top:2px; }
+    .ref-body a { color:var(--accent); text-decoration:none; font-size:0.76rem; }
+    .ref-body a:hover { text-decoration:underline; }
+
+    footer { text-align:center; padding:28px 18px 40px; color:var(--text-dim); font-size:0.74rem; }
+
+    @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+    @media (max-width:640px) {
+      .app-nav { padding:0 16px; height:58px; }
+      .app-nav-sub { display:none; }
+      .app-content { padding:18px 14px; }
+      .intro h1 { font-size:1.5rem; }
+      .setup-grid { grid-template-columns:1fr; }
+      .cat-breakdown { grid-template-columns:1fr; }
+      .donut-wrap { gap:16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="app-nav">
+    <div class="app-nav-logo">
+      <div class="app-nav-icon"><i class="fa-solid fa-syringe"></i></div>
+      <div>
+        <div class="app-nav-title">Propofol &amp; Dexmedetomidina</div>
+        <div class="app-nav-sub">Farmacología anestésica · ENARM</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:9px;">
+      <a href="index.html" class="biblio-btn" style="text-decoration:none;"><i class="fa-solid fa-arrow-left"></i> <span>AnesthTR</span></a>
+      <button class="biblio-btn" onclick="openBiblio()"><i class="fa-solid fa-book-medical"></i> <span>Bibliografía</span></button>
+    </div>
+  </header>
+
+  <main class="app-content">
+
+    <!-- INTRO -->
+    <section id="introView" class="intro">
+      <div class="intro-badge"><i class="fa-solid fa-flask-vial"></i> 25 reactivos · evidencia 2021–2025</div>
+      <h1>Propofol <span class="amp">&amp;</span> Dexmedetomidina</h1>
+      <p class="lead">Examen interactivo sobre mecanismos de acción, receptores, farmacocinética, farmacodinamia y toxicidad de los dos sedantes clave en anestesia y UCI. Cada reactivo con explicación razonada y fuente reciente.</p>
+
+      <div class="setup-grid">
+        <div class="setup-card">
+          <h3><i class="fa-solid fa-sliders"></i> Modo</h3>
+          <div class="opt-row">
+            <button class="pill active" data-mode="repaso" onclick="setMode('repaso',this)">Repaso<small>feedback inmediato</small></button>
+            <button class="pill" data-mode="examen" onclick="setMode('examen',this)">Examen<small>resultado al final</small></button>
+          </div>
+        </div>
+        <div class="setup-card">
+          <h3><i class="fa-solid fa-layer-group"></i> Temario</h3>
+          <div class="opt-row">
+            <button class="pill active" data-scope="all" onclick="setScope('all',this)">Ambos<small>25 reactivos</small></button>
+            <button class="pill" data-scope="prop" onclick="setScope('prop',this)">Propofol<small>13</small></button>
+            <button class="pill" data-scope="dex" onclick="setScope('dex',this)">Dexmed.<small>12</small></button>
+          </div>
+        </div>
+      </div>
+
+      <button class="start-btn" onclick="startQuiz()"><i class="fa-solid fa-play"></i>&nbsp; Comenzar</button>
+
+      <div class="topic-counts">
+        <span><span class="dot p"></span> Propofol · 13</span>
+        <span><span class="dot d"></span> Dexmedetomidina · 12</span>
+      </div>
+    </section>
+
+    <!-- QUIZ -->
+    <section id="quizView">
+      <div class="quiz-top">
+        <div class="quiz-meta-left">
+          <span id="qChip" class="chip prop">Propofol</span>
+          <span id="qTema" class="chip tema">Mecanismo</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;">
+          <span id="qCount" class="quiz-count">1 / 25</span>
+          <button class="quiz-abandon" onclick="abandon()">Salir</button>
+        </div>
+      </div>
+      <div class="prog-bar"><div id="progFill" class="prog-fill" style="width:0%"></div></div>
+      <div id="qContainer"></div>
+    </section>
+
+    <!-- RESULTS -->
+    <section id="resultView">
+      <div class="result-card">
+        <div class="donut-wrap">
+          <div class="donut">
+            <svg width="150" height="150" viewBox="0 0 150 150">
+              <circle cx="75" cy="75" r="62" fill="none" stroke="var(--surface3)" stroke-width="13"/>
+              <circle id="donutArc" cx="75" cy="75" r="62" fill="none" stroke="var(--accent)" stroke-width="13" stroke-linecap="round" stroke-dasharray="389.6" stroke-dashoffset="389.6"/>
+            </svg>
+            <div class="donut-center">
+              <div id="donutPct" class="donut-pct">0%</div>
+              <div class="donut-lbl">Aciertos</div>
+            </div>
+          </div>
+          <div style="text-align:left;">
+            <div id="verdict" class="result-verdict">—</div>
+            <div id="verdictSub" class="result-sub">—</div>
+          </div>
+        </div>
+
+        <div id="catBreakdown" class="cat-breakdown"></div>
+
+        <div class="result-btns">
+          <button class="btn-review" onclick="toggleReview()"><i class="fa-solid fa-list-check"></i> Ver repaso detallado</button>
+          <button class="btn-retry" onclick="location.reload()"><i class="fa-solid fa-rotate-right"></i> Reintentar</button>
+        </div>
+
+        <div id="reviewList" class="review-list"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- BIBLIOGRAPHY MODAL -->
+  <div id="biblioModal" class="modal-overlay" onclick="if(event.target===this)closeBiblio()">
+    <div class="modal">
+      <div class="modal-head">
+        <h3><i class="fa-solid fa-book-medical" style="color:var(--gold)"></i> Bibliografía (2021–2025)</h3>
+        <button class="modal-close" onclick="closeBiblio()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="biblio-note"><i class="fa-solid fa-circle-info"></i> Fuentes recientes revisadas por pares y referencias de alto uso clínico. Las etiquetas <strong>[P#]</strong>, <strong>[D#]</strong> y <strong>[G#]</strong> aparecen en la explicación de cada reactivo.</div>
+        <div id="biblioList"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    MediCode Solutions · Dr. David Flores Carrasco · ENARM 2025–2026
+  </footer>
+
+  <script>
+  // ───────────────────────── BIBLIOGRAPHY ─────────────────────────
+  const BIBLIO = [
+    { tag:'P1', cls:'p', authors:'Chen Q, et al.', meta:'Three classes of propofol binding sites on GABAA receptors. J Biol Chem. 2024;300(11):107778.', url:'https://pmc.ncbi.nlm.nih.gov/articles/PMC11490885/' },
+    { tag:'P2', cls:'p', authors:'Folino TB, Mahboobi SK, et al.', meta:'Propofol. StatPearls [Internet]. Treasure Island: StatPearls Publishing; actualizado 2024.', url:'https://www.ncbi.nlm.nih.gov/books/NBK430884/' },
+    { tag:'P3', cls:'p', authors:'Hsu CW, et al.', meta:'Propofol-Related Infusion Syndrome: A Clinical Review. Cureus. 2022;14(11):e31405.', url:'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9671386/' },
+    { tag:'P4', cls:'p', authors:'Parrish A, et al. (UVA GI Nutrition).', meta:'Propofol-Related Infusion Syndrome: Implications for Nutrition. Practical Gastroenterology. 2021;45(9).', url:'https://practicalgastro.com/2021/09/22/propofol-related-infusion-syndromeimplications-for-nutrition-in-the-intensive-care-unit/' },
+    { tag:'D1', cls:'d', authors:'Bao N, Tang B.', meta:'Recent Advances in the Clinical Value and Potential of Dexmedetomidine. J Inflamm Res. 2021;14:3357-3368.', url:'https://www.dovepress.com/recent-advances-in-the-clinical-value-and-potential-of-dexmedetomidine-peer-reviewed-fulltext-article-JIR' },
+    { tag:'D2', cls:'d', authors:'Nguyen V, et al.', meta:'Dexmedetomidine Dosing Strategies in Sedation and Anesthesia: Pharmacokinetics/Pharmacodynamics. Drug Des Devel Ther. 2025;19.', url:'https://www.dovepress.com/dexmedetomidine-dosing-strategies-in-sedation-and-anesthesia-pharmacok-peer-reviewed-fulltext-article-DDDT' },
+    { tag:'D3', cls:'d', authors:'OpenAnesthesia.', meta:'Dexmedetomidine: Cardiovascular Effects. OpenAnesthesia keyword review; actualizado 2023.', url:'https://www.openanesthesia.org/dexmedetomidine-cv-effects/' },
+    { tag:'G1', cls:'g', authors:'Weerink MAS, Struys MMRF, et al.', meta:'Clinical Pharmacokinetics and Pharmacodynamics of Dexmedetomidine. Clin Pharmacokinet. 2017;56:893-913 (referencia base de consulta frecuente).', url:'https://pmc.ncbi.nlm.nih.gov/articles/PMC5511603/' }
+  ];
+
+  // ───────────────────────── QUESTIONS ─────────────────────────
+  // cat: 'prop' | 'dex' ; tema ; opts ; ans (0-3) ; exp ; src
+  const QUESTIONS = [
+    // ===== PROPOFOL (13) =====
+    { cat:'prop', tema:'Mecanismo', // ans B
+      q:'¿Cuál es el principal mecanismo molecular por el que el propofol produce hipnosis?',
+      opts:[
+        'Antagonismo de los receptores NMDA del glutamato en la corteza cerebral',
+        'Modulación alostérica positiva del receptor GABA-A, con más corriente de cloro',
+        'Agonismo de receptores α2-adrenérgicos presinápticos del locus coeruleus',
+        'Bloqueo de canales de sodio dependientes de voltaje en la terminal presináptica'
+      ], ans:1,
+      exp:'El propofol se une al receptor GABA-A como modulador alostérico positivo: prolonga la apertura del canal e incrementa la conductancia de Cl⁻, hiperpolarizando la neurona. A dosis altas puede activar el canal de forma directa. El antagonismo NMDA corresponde a la ketamina y el agonismo α2 a la dexmedetomidina.',
+      src:'P1' },
+
+    { cat:'prop', tema:'Receptores', // ans C
+      q:'Una mutación puntual N265M en la subunidad β3 del receptor GABA-A vuelve a los ratones resistentes a ciertos efectos del propofol. ¿Qué indica este dato?',
+      opts:[
+        'Que el propofol actúa principalmente sobre la subunidad γ2',
+        'Que su sitio de unión relevante está en la subunidad α1',
+        'Que la subunidad β es determinante de su acción anestésica',
+        'Que el efecto depende exclusivamente de receptores extrasinápticos δ'
+      ], ans:2,
+      exp:'Los sitios de unión funcionalmente relevantes del propofol se localizan en dominios transmembrana que involucran la subunidad β. La resistencia conferida por la mutación β3-N265M en modelos murinos demuestra que la subunidad β media su efecto hipnótico y de inmovilidad ante estímulos nocivos.',
+      src:'P1' },
+
+    { cat:'prop', tema:'Farmacocinética', // ans A
+      q:'La presentación del propofol es una emulsión lipídica. ¿Cuál es una consecuencia clínica directa de esta formulación?',
+      opts:[
+        'Riesgo de contaminación bacteriana e hipertrigliceridemia al infundirlo',
+        'Metabolismo exclusivamente pulmonar, sin participación del hígado ni del riñón',
+        'Inicio de acción retardado por su muy baja liposolubilidad en plasma',
+        'Imposibilidad de administrarlo por una vía intravenosa periférica'
+      ], ans:0,
+      exp:'El propofol viene en emulsión de aceite de soya, lecitina de huevo y glicerol. Ese medio favorece el crecimiento bacteriano (técnica aséptica estricta, desechar a las 6–12 h) y aporta una carga lipídica que puede causar hipertrigliceridemia. Es muy liposoluble, de inicio rápido, y se administra por vía IV.',
+      src:'P2' },
+
+    { cat:'prop', tema:'Farmacocinética', // ans D
+      q:'¿Qué explica el despertar rápido tras un bolo único de propofol pese a su larga vida media terminal?',
+      opts:[
+        'La eliminación renal inmediata del fármaco en su forma activa',
+        'La unión irreversible y permanente a las proteínas plasmáticas',
+        'Un metabolismo nulo que obliga a exhalarlo intacto por el pulmón',
+        'La redistribución desde el cerebro hacia los tejidos periféricos'
+      ], ans:3,
+      exp:'El efecto termina por redistribución del fármaco desde el SNC hacia músculo y grasa, no por su metabolismo. El propofol se depura por glucuronidación hepática y también extrahepática (aclaramiento mayor al flujo hepático). Su vida media terminal es larga, pero clínicamente domina la redistribución en dosis únicas.',
+      src:'P2' },
+
+    { cat:'prop', tema:'Farmacodinamia', // ans C
+      q:'Respecto a los efectos cardiovasculares del propofol en la inducción, lo característico es:',
+      opts:[
+        'Hipertensión sostenida por vasoconstricción periférica intensa',
+        'Taquicardia refleja compensadora marcada, con aumento del gasto cardiaco',
+        'Hipotensión por vasodilatación y depresión miocárdica, sin taquicardia',
+        'Ausencia total de efecto hemodinámico a las dosis clínicas usuales'
+      ], ans:2,
+      exp:'El propofol disminuye la resistencia vascular sistémica y deprime la contractilidad, produciendo hipotensión dosis-dependiente. Además atenúa el barorreflejo, por lo que la taquicardia compensadora esperada suele ser escasa. El efecto es más intenso en ancianos e hipovolémicos.',
+      src:'P2' },
+
+    { cat:'prop', tema:'Farmacodinamia', // ans A
+      q:'En cuanto al efecto respiratorio del propofol durante la inducción anestésica, se espera:',
+      opts:[
+        'Depresión respiratoria dosis-dependiente, con apnea tras el bolo',
+        'Estimulación del centro respiratorio con hiperventilación sostenida',
+        'Broncoconstricción intensa por liberación masiva de histamina',
+        'Preservación completa del volumen corriente y de la frecuencia'
+      ], ans:0,
+      exp:'El propofol produce depresión respiratoria dosis-dependiente y apnea transitoria es habitual tras el bolo de inducción, por lo que exige capacidad de ventilar. A diferencia de otros agentes, tiende a broncodilatar y rara vez libera histamina de forma clínicamente relevante.',
+      src:'P2' },
+
+    { cat:'prop', tema:'Farmacodinamia', // ans D
+      q:'¿Cuál de las siguientes propiedades adicionales del propofol es correcta?',
+      opts:[
+        'Posee un potente efecto analgésico comparable al de los opioides',
+        'Es antagonista específico de receptores de dopamina',
+        'Aumenta de forma marcada la presión intracraneal y el flujo cerebral',
+        'Tiene efecto antiemético incluso a dosis subhipnóticas'
+      ], ans:3,
+      exp:'El propofol tiene efecto antiemético útil a dosis subhipnóticas y propiedades antioxidantes. No es analgésico (por eso se combina con opioides) y, al reducir el metabolismo cerebral y el flujo sanguíneo, tiende a disminuir —no aumentar— la presión intracraneal.',
+      src:'P2' },
+
+    { cat:'prop', tema:'Toxicidad', // ans B
+      q:'Sobre el síndrome por infusión de propofol (PRIS), ¿qué factor de riesgo es correcto?',
+      opts:[
+        'Dosis bajas menores a 1 mg/kg/h durante menos de seis horas seguidas',
+        'Infusiones mayores a 4 mg/kg/h por más de 48 h, con catecolaminas',
+        'Uso exclusivo en bolos únicos para procedimientos muy cortos',
+        'Administración concomitante y obligada de dexmedetomidina en UCI'
+      ], ans:1,
+      exp:'El PRIS se asocia a infusiones altas y prolongadas, clásicamente >4 mg/kg/h por más de 48 h. El riesgo aumenta en pacientes críticos, pediátricos, con aporte concomitante de catecolaminas o corticoides, y con baja reserva de carbohidratos. Es raro pero potencialmente mortal.',
+      src:'P3' },
+
+    { cat:'prop', tema:'Toxicidad', // ans C
+      q:'La fisiopatología central del PRIS se explica mejor por:',
+      opts:[
+        'Hemólisis inmunomediada por anticuerpos antiplaquetarios circulantes',
+        'Activación excesiva de la vía del complemento y del endotelio pulmonar',
+        'Disfunción mitocondrial con bloqueo de la β-oxidación de ácidos grasos',
+        'Vasoconstricción coronaria por agonismo α1 directo y sostenido'
+      ], ans:2,
+      exp:'El PRIS deriva de disfunción mitocondrial: el propofol interfiere con la carnitina-palmitoil-transferasa I (entrada de ácidos grasos) y con la cadena respiratoria (déficit de ATP). Esto explica la tríada de acidosis metabólica láctica, rabdomiólisis/hiperpotasemia y falla cardiaca.',
+      src:'P4' },
+
+    { cat:'prop', tema:'Toxicidad', // ans D
+      q:'Ante un paciente en UCI con acidosis láctica inexplicada, elevación de CK, hiperkalemia y bradiarritmia bajo infusión prolongada de propofol, la conducta inicial es:',
+      opts:[
+        'Aumentar la dosis de propofol para profundizar la sedación',
+        'Administrar un bolo de calcio y continuar la infusión',
+        'Iniciar bloqueador β para la bradiarritmia y mantener propofol',
+        'Suspender el propofol de inmediato e iniciar soporte orgánico'
+      ], ans:3,
+      exp:'Ante sospecha de PRIS, la prioridad es suspender el propofol y dar soporte: corregir acidosis e hiperkalemia, soporte hemodinámico y, en casos graves, hemodiálisis o ECMO. Cambiar a otro sedante (p. ej. dexmedetomidina o benzodiacepina) es parte del manejo.',
+      src:'P3' },
+
+    { cat:'prop', tema:'Efectos adversos', // ans A
+      q:'El dolor a la inyección es una queja frecuente con propofol. ¿Qué medida lo reduce?',
+      opts:[
+        'Administrar lidocaína previa y elegir una vena de mayor calibre',
+        'Inyectar el propofol lo más rápido posible y sin diluir la emulsión',
+        'Calentar la emulsión a 40 °C justo antes de administrarla al paciente',
+        'Usar siempre una vena del dorso de la mano por su menor calibre'
+      ], ans:0,
+      exp:'El dolor a la inyección se mitiga con lidocaína (previa o mezclada en la jeringa), eligiendo venas de mayor calibre (antecubital) y evitando venas pequeñas de la mano. Es una de las molestias más reportadas con propofol y rara vez se asocia a tromboflebitis.',
+      src:'P2' },
+
+    { cat:'prop', tema:'Efectos adversos', // ans B
+      q:'Un paciente con infusión prolongada de propofol presenta orina de coloración verdosa. La interpretación correcta es:',
+      opts:[
+        'Signo precoz de insuficiencia renal aguda que obliga a diálisis',
+        'Fenómeno benigno por metabolitos fenólicos, sin daño renal',
+        'Marcador específico y temprano de PRIS',
+        'Contaminación bacteriana de la emulsión que exige antibióticos'
+      ], ans:1,
+      exp:'La orina verde por propofol se debe a metabolitos fenólicos (conjugados) excretados por el riñón; es un hallazgo benigno y reversible que no implica daño renal. No es un marcador de PRIS. También puede verse orina rosada/blanquecina por cristales de ácido úrico, igualmente benigna.',
+      src:'P2' },
+
+    { cat:'prop', tema:'Farmacocinética', // ans D
+      q:'La dosis habitual de inducción anestésica de propofol en el adulto sano es:',
+      opts:[
+        '0.1 a 0.3 mg/kg en bolo lento, titulado por respuesta clínica',
+        '5 a 8 mg/kg en bolo rápido, sin ajuste por edad del paciente',
+        '10 a 12 mg/kg en infusión continua desde el inicio del caso',
+        '1.5 a 2.5 mg/kg, con dosis menor en ancianos e hipovolémicos'
+      ], ans:3,
+      exp:'La inducción típica es 1.5–2.5 mg/kg IV. En ancianos, hipovolémicos o inestables se reduce la dosis y se titula lentamente por el riesgo de hipotensión. El mantenimiento por infusión suele ser 100–200 µg/kg/min según el contexto.',
+      src:'P2' },
+
+    // ===== DEXMEDETOMIDINA (12) =====
+    { cat:'dex', tema:'Mecanismo', // ans C
+      q:'¿Cuál es el mecanismo de acción de la dexmedetomidina?',
+      opts:[
+        'Modulador alostérico positivo del receptor GABA-A neuronal',
+        'Antagonista de los receptores muscarínicos centrales y periféricos',
+        'Agonista α2-adrenérgico selectivo que actúa en el locus coeruleus',
+        'Inhibidor de la recaptación de serotonina y de noradrenalina'
+      ], ans:2,
+      exp:'La dexmedetomidina es un agonista α2-adrenérgico altamente selectivo (relación α2:α1 ≈ 1600:1, ~8 veces mayor que la clonidina). Actúa sobre receptores α2 pre y postsinápticos del locus coeruleus, el principal núcleo noradrenérgico del tronco encefálico. No actúa sobre receptores GABA.',
+      src:'D1' },
+
+    { cat:'dex', tema:'Mecanismo', // ans A
+      q:'A nivel celular, la activación del receptor α2 por dexmedetomidina produce:',
+      opts:[
+        'Inhibición de adenilato ciclasa, con menor cAMP y menos noradrenalina',
+        'Incremento del cAMP intracelular con despolarización neuronal sostenida',
+        'Apertura de canales de calcio tipo L con mayor exocitosis vesicular',
+        'Activación de la fosfolipasa C con liberación de IP3 y de calcio'
+      ], ans:0,
+      exp:'El receptor α2 está acoplado a proteína Gi: inhibe la adenilato ciclasa, reduce el cAMP, abre canales de K⁺ e inhibe canales de Ca²⁺. El resultado es hiperpolarización neuronal y disminución de la liberación de noradrenalina, lo que explica la sedación y la simpaticólisis.',
+      src:'D1' },
+
+    { cat:'dex', tema:'Receptores', // ans B
+      q:'Una característica distintiva de la sedación con dexmedetomidina frente a propofol o benzodiacepinas es que:',
+      opts:[
+        'Produce amnesia anterógrada profunda e invariable en todo paciente',
+        'Genera sedación tipo sueño no-REM, con el paciente despertable',
+        'Suprime por completo el estímulo respiratorio central del paciente',
+        'Actúa activando de forma directa el receptor GABA-A neuronal'
+      ], ans:1,
+      exp:'Al actuar sobre vías endógenas del sueño en el locus coeruleus, la dexmedetomidina induce una sedación que semeja el sueño no-REM: el paciente está tranquilo pero se despierta con estímulos y coopera. No actúa por GABA y su amnesia es mucho menor que la de las benzodiacepinas.',
+      src:'D1' },
+
+    { cat:'dex', tema:'Farmacodinamia', // ans D
+      q:'El efecto analgésico y ahorrador de opioides de la dexmedetomidina se explica principalmente por su acción en:',
+      opts:[
+        'Receptores µ-opioides del sistema límbico y del tálamo',
+        'Canales de sodio de la fibra nerviosa periférica aferente',
+        'Receptores NMDA de la corteza prefrontal',
+        'Receptores α2 del asta dorsal de la médula espinal'
+      ], ans:3,
+      exp:'Además de la sedación central, la dexmedetomidina produce analgesia por activación de receptores α2 en el asta dorsal medular, inhibiendo la transmisión nociceptiva. Esto reduce los requerimientos de opioides en el perioperatorio y en la UCI.',
+      src:'D1' },
+
+    { cat:'dex', tema:'Farmacodinamia', // ans C
+      q:'Respecto al efecto respiratorio de la dexmedetomidina a dosis clínicas:',
+      opts:[
+        'Produce apnea con la misma frecuencia que el propofol',
+        'Causa broncoespasmo intenso por bloqueo de receptores β2',
+        'Mantiene la ventilación con mínima depresión respiratoria',
+        'Deprime el centro respiratorio más que los opioides potentes'
+      ], ans:2,
+      exp:'La ventaja más valorada de la dexmedetomidina es que preserva el impulso respiratorio con depresión mínima, incluso en sedación profunda. Por eso es útil en extubación, sedación en ventilación no invasiva y procedimientos con vía aérea no asegurada.',
+      src:'D1' },
+
+    { cat:'dex', tema:'Hemodinamia', // ans A
+      q:'Durante un bolo rápido de carga de dexmedetomidina puede observarse una respuesta bifásica. ¿Cuál la describe?',
+      opts:[
+        'Hipertensión transitoria por α2B seguida de hipotensión y bradicardia',
+        'Hipotensión inmediata seguida de una crisis hipertensiva sostenida',
+        'Taquicardia sostenida, sin cambios en la presión arterial media',
+        'Fiebre y vasodilatación cutánea autolimitadas en los primeros minutos'
+      ], ans:0,
+      exp:'Con la carga rápida, la estimulación de receptores α2B en el músculo liso vascular causa vasoconstricción e hipertensión transitoria (5–10 min). Luego predomina la simpaticólisis central, con hipotensión y bradicardia. Infundir la carga en 10 min atenúa el pico hipertensivo.',
+      src:'D3' },
+
+    { cat:'dex', tema:'Toxicidad', // ans B
+      q:'¿Cuáles son los efectos adversos más frecuentes y limitantes de la dexmedetomidina?',
+      opts:[
+        'Hipertermia maligna con rigidez muscular generalizada',
+        'Bradicardia e hipotensión, hasta bloqueo o paro sinusal',
+        'Hiperglucemia grave con cetoacidosis y deshidratación',
+        'Depresión respiratoria con apnea prolongada e hipercapnia grave'
+      ], ans:1,
+      exp:'La bradicardia y la hipotensión son los efectos adversos cardinales por simpaticólisis; en casos extremos hay bloqueo AV o paro sinusal. El riesgo aumenta con β-bloqueadores, hipovolemia, bloqueo cardiaco preexistente y en ancianos. Rara vez causa depresión respiratoria.',
+      src:'D3' },
+
+    { cat:'dex', tema:'Farmacocinética', // ans D
+      q:'Sobre la farmacocinética de la dexmedetomidina, es correcto que:',
+      opts:[
+        'Se elimina sin cambios por el riñón, sin metabolismo hepático alguno',
+        'Tiene una vida media de eliminación de 24 a 36 horas en el adulto',
+        'No se une a proteínas plasmáticas ni atraviesa la barrera placentaria humana',
+        'Se metaboliza casi todo en el hígado por glucuronidación y CYP2A6'
+      ], ans:3,
+      exp:'La dexmedetomidina sufre metabolismo hepático casi completo por glucuronidación directa y por CYP2A6, con metabolitos inactivos excretados por orina. Su vida media de eliminación es de ~2 h. En insuficiencia hepática debe reducirse la dosis; la falla renal afecta menos el fármaco activo.',
+      src:'G1' },
+
+    { cat:'dex', tema:'Usos', // ans C
+      q:'¿Cuál es una indicación o ventaja bien establecida de la dexmedetomidina en el paciente crítico?',
+      opts:[
+        'Relajación neuromuscular para la intubación de secuencia rápida',
+        'Anestésico único suficiente para cirugía mayor sin otros fármacos',
+        'Sedación en UCI que preserva la respiración y reduce el delirium',
+        'Reversión del bloqueo neuromuscular residual al terminar la cirugía'
+      ], ans:2,
+      exp:'La dexmedetomidina es útil para sedación en UCI (preserva la respiración y se asocia a menos delirium que las benzodiacepinas), sedación procedimental, sedación consciente en fibrobroncoscopia/vía aérea difícil despierto, y como adyuvante perioperatorio. No relaja músculo ni basta como único anestésico en cirugía mayor.',
+      src:'D2' },
+
+    { cat:'dex', tema:'Toxicidad', // ans A
+      q:'Tras varios días de infusión continua de dexmedetomidina, la suspensión brusca puede provocar:',
+      opts:[
+        'Síndrome de abstinencia con hipertensión de rebote y taquicardia',
+        'Hipotermia profunda y coma por falla del centro termorregulador',
+        'Acidosis láctica y rabdomiólisis idénticas al síndrome tipo PRIS',
+        'Hipoglucemia refractaria por hiperinsulinismo de rebote sostenido'
+      ], ans:0,
+      exp:'Como la clonidina, el retiro abrupto tras infusión prolongada puede desencadenar un síndrome de abstinencia por rebote simpático: hipertensión, taquicardia, agitación y ansiedad. Por ello se recomienda el retiro gradual cuando la infusión fue prolongada o a dosis altas.',
+      src:'G1' },
+
+    { cat:'dex', tema:'Toxicidad', // ans B
+      q:'En una sobredosis de dexmedetomidina con bradicardia e hipotensión marcadas, ¿qué opción es correcta?',
+      opts:[
+        'Está contraindicado cualquier tratamiento; solo cabe observar al paciente',
+        'Atropina para la bradicardia; el atipamezol antagoniza el efecto α2',
+        'Administrar flumazenil como antídoto específico e inmediato',
+        'La naloxona en dosis altas revierte por completo la sedación'
+      ], ans:1,
+      exp:'El manejo es de soporte: suspender la infusión, atropina y/o vasopresores para la bradicardia-hipotensión y líquidos. El antagonista α2 específico es el atipamezol (de uso más establecido en veterinaria). El flumazenil revierte benzodiacepinas y la naloxona opioides, no la dexmedetomidina.',
+      src:'G1' },
+
+    { cat:'dex', tema:'Farmacocinética', // ans C
+      q:'El esquema de dosificación habitual de dexmedetomidina para sedación en UCI es:',
+      opts:[
+        'Bolo inicial de 10 µg/kg seguido de infusión de 5 µg/kg/h',
+        'Dosis fija única de 1 mg, sin infusión de mantenimiento',
+        'Carga de 1 µg/kg en 10 min y mantenimiento de 0.2 a 0.7 µg/kg/h',
+        'Infusión fija de 2 µg/kg/min, sin titular según el nivel de sedación'
+      ], ans:2,
+      exp:'El esquema típico es una dosis de carga opcional de 1 µg/kg en 10 minutos (a menudo se omite o se reduce para evitar el pico hipertensivo y la bradicardia) seguida de mantenimiento de 0.2–0.7 µg/kg/h, titulada al nivel de sedación. Las dosis en µg/kg del enunciado erróneo serían tóxicas.',
+      src:'D2' }
+  ];
+
+  // ───────────────────────── STATE ─────────────────────────
+  let mode='repaso', scope='all';
+  let deck=[], idx=0, answered=false, picks=[];
+
+  function setMode(m,el){ mode=m; el.parentElement.querySelectorAll('.pill').forEach(p=>p.classList.remove('active')); el.classList.add('active'); }
+  function setScope(s,el){ scope=s; el.parentElement.querySelectorAll('.pill').forEach(p=>p.classList.remove('active')); el.classList.add('active'); }
+
+  function startQuiz(){
+    deck = QUESTIONS.filter(q => scope==='all' || q.cat===scope);
+    idx=0; answered=false; picks=[];
+    document.getElementById('introView').style.display='none';
+    document.getElementById('resultView').style.display='none';
+    document.getElementById('quizView').style.display='block';
+    renderQuestion();
+  }
+
+  function renderQuestion(){
+    const q = deck[idx];
+    document.getElementById('qCount').textContent = `${idx+1} / ${deck.length}`;
+    document.getElementById('progFill').style.width = `${(idx/deck.length)*100}%`;
+    const chip = document.getElementById('qChip');
+    chip.textContent = q.cat==='prop' ? 'Propofol' : 'Dexmedetomidina';
+    chip.className = 'chip ' + (q.cat==='prop'?'prop':'dex');
+    document.getElementById('qTema').textContent = q.tema;
+
+    const picked = picks[idx];
+    const showFb = (mode==='repaso' && picked!=null);
+
+    const optsHtml = q.opts.map((o,i)=>{
+      let cls='';
+      if(showFb){
+        if(i===q.ans) cls=' correct';
+        else if(i===picked) cls=' wrong';
+        else cls=' dimmed';
+      } else if(mode==='examen' && picked===i){
+        cls=' selected'; // en examen solo marca la elección, sin revelar si es correcta
+      }
+      const L=String.fromCharCode(65+i);
+      const dis = showFb ? 'disabled' : '';
+      return `<button class="opt-btn${cls}" ${dis} onclick="pick(${i})"><span class="opt-letter">${L}</span><span>${o}</span></button>`;
+    }).join('');
+
+    let expHtml='';
+    if(showFb){
+      const ref = BIBLIO.find(b=>b.tag===q.src);
+      expHtml = `<div class="explain">
+        <div class="explain-title"><i class="fa-solid fa-lightbulb"></i> Explicación</div>
+        <div class="explain-text">${q.exp}</div>
+        <div class="explain-src"><i class="fa-solid fa-book"></i> Fuente [${q.src}] — ${ref?ref.meta:''}</div>
+      </div>`;
+    }
+
+    let actHtml='';
+    if(mode==='repaso'){
+      if(picked!=null) actHtml = `<div class="q-actions"><button class="next-btn" onclick="next()">${idx+1<deck.length?'Siguiente →':'Ver resultados'}</button></div>`;
+    } else { // examen
+      actHtml = `<div class="q-actions"><button class="next-btn ${picked==null?'ghost':''}" onclick="next()">${idx+1<deck.length?'Siguiente →':'Finalizar examen'}</button></div>`;
+    }
+
+    document.getElementById('qContainer').innerHTML = `
+      <div class="q-card">
+        <div class="q-head"><div class="q-text">${q.q}</div></div>
+        <div class="q-options">${optsHtml}</div>
+        ${expHtml}
+        ${actHtml}
+      </div>`;
+  }
+
+  function pick(i){
+    if(mode==='repaso' && picks[idx]!=null) return;
+    picks[idx]=i;
+    renderQuestion();
+  }
+
+  function next(){
+    if(idx+1<deck.length){ idx++; renderQuestion(); }
+    else finish();
+  }
+
+  function abandon(){
+    if(confirm('¿Salir del examen? Se perderá el progreso.')) location.reload();
+  }
+
+  function finish(){
+    document.getElementById('progFill').style.width='100%';
+    let correct=0; const catAgg={prop:{c:0,t:0}, dex:{c:0,t:0}};
+    deck.forEach((q,i)=>{ catAgg[q.cat].t++; if(picks[i]===q.ans){correct++; catAgg[q.cat].c++;} });
+    const pct = Math.round((correct/deck.length)*100);
+
+    document.getElementById('quizView').style.display='none';
+    document.getElementById('resultView').style.display='block';
+
+    // donut
+    const circ=389.6;
+    const arc=document.getElementById('donutArc');
+    arc.style.stroke = pct>=80?'var(--correct)': pct>=60?'var(--gold)':'var(--wrong)';
+    setTimeout(()=>{ arc.style.transition='stroke-dashoffset 1s ease'; arc.style.strokeDashoffset = circ*(1-pct/100); },60);
+    document.getElementById('donutPct').textContent = pct+'%';
+
+    const v=document.getElementById('verdict'), vs=document.getElementById('verdictSub');
+    if(pct>=80){ v.textContent='Dominio sólido'; v.style.color='var(--correct)'; vs.textContent=`${correct} de ${deck.length} correctas. Listo para el ENARM.`; }
+    else if(pct>=60){ v.textContent='Buen nivel'; v.style.color='var(--gold)'; vs.textContent=`${correct} de ${deck.length} correctas. Repasa los fallos.`; }
+    else { v.textContent='A reforzar'; v.style.color='var(--wrong)'; vs.textContent=`${correct} de ${deck.length} correctas. Revisa mecanismos y toxicidad.`; }
+
+    // category breakdown
+    const mkBar=(a,color)=> a.t? Math.round((a.c/a.t)*100):0;
+    let cb='';
+    if(catAgg.prop.t){ const p=mkBar(catAgg.prop); cb+=`<div class="cat-box"><div class="cat-name"><span class="dot p"></span> Propofol</div><div class="cat-score" style="color:var(--prop)">${catAgg.prop.c}/${catAgg.prop.t}</div><div class="cat-mini"><div style="width:${p}%;background:var(--prop)"></div></div></div>`; }
+    if(catAgg.dex.t){ const p=mkBar(catAgg.dex); cb+=`<div class="cat-box"><div class="cat-name"><span class="dot d"></span> Dexmedetomidina</div><div class="cat-score" style="color:var(--dex)">${catAgg.dex.c}/${catAgg.dex.t}</div><div class="cat-mini"><div style="width:${p}%;background:var(--dex)"></div></div></div>`; }
+    document.getElementById('catBreakdown').innerHTML = cb;
+
+    // review list
+    const rl = deck.map((q,i)=>{
+      const ok = picks[i]===q.ans;
+      const ref=BIBLIO.find(b=>b.tag===q.src);
+      const yours = picks[i]!=null ? `${String.fromCharCode(65+picks[i])}. ${q.opts[picks[i]]}` : 'Sin responder';
+      return `<div class="review-item">
+        <div class="review-q"><i class="fa-solid ${ok?'fa-circle-check ok':'fa-circle-xmark no'}"></i><span>${i+1}. ${q.q}</span></div>
+        <div class="review-a">${ok?'':`<span class="yours">Tu respuesta: ${yours}</span><br>`}<span class="right">Correcta: ${String.fromCharCode(65+q.ans)}. ${q.opts[q.ans]}</span></div>
+        <div class="review-exp">${q.exp} <em style="color:var(--gold)">[${q.src}]</em></div>
+      </div>`;
+    }).join('');
+    document.getElementById('reviewList').innerHTML = rl;
+  }
+
+  function toggleReview(){
+    const rl=document.getElementById('reviewList');
+    rl.style.display = rl.style.display==='block'?'none':'block';
+    if(rl.style.display==='block') rl.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+
+  // ── biblio modal ──
+  function openBiblio(){
+    document.getElementById('biblioList').innerHTML = BIBLIO.map(b=>`
+      <div class="ref">
+        <span class="ref-tag ${b.cls}">${b.tag}</span>
+        <div class="ref-body">
+          <span class="ref-authors">${b.authors}</span>
+          <div class="ref-meta">${b.meta}</div>
+          <a href="${b.url}" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Ver fuente</a>
+        </div>
+      </div>`).join('');
+    const ov=document.getElementById('biblioModal');
+    ov.classList.add('open');
+    ov.scrollTop=0;                       // evita heredar el scroll previo
+    document.body.style.overflow='hidden'; // bloquea el scroll de fondo
+  }
+  function closeBiblio(){
+    document.getElementById('biblioModal').classList.remove('open');
+    document.body.style.overflow='';
+  }
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeBiblio(); });
+  </script>
+</body>
+</html>
